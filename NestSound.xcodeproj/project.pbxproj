@@ -70,8 +70,8 @@
 		2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67731CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m */; };
 		2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */; };
 		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
-		935FED02530C39AB9F6FD66F /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61DBEE22907506EF6FD38360 /* libPods-NestSound.a */; };
-		FB52CA464718C2850286FA62 /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7AD0E7827211F3137C9EFAB /* libPods-NestSoundTests.a */; };
+		487B7F95FBF7B58AD5B6558B /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B70F9FA4397E0052D34C39 /* libPods-NestSound.a */; };
+		9D50E5FF1024993C677E4E98 /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 458BF387EFF9F81BEAD05574 /* libPods-NestSoundTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06B70F9FA4397E0052D34C39 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		182F33531CDC41AF006AB047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		183E039D1CDDC80F0071FEE5 /* NSDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverViewController.h; sourceTree = "<group>"; };
 		183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverViewController.m; sourceTree = "<group>"; };
@@ -106,7 +107,6 @@
 		18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicViewController.m; sourceTree = "<group>"; };
 		18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNewMusicTableViewCell.h; sourceTree = "<group>"; };
 		18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicTableViewCell.m; sourceTree = "<group>"; };
-		247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
 		2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListHeaderView.m; sourceTree = "<group>"; };
@@ -213,11 +213,11 @@
 		2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NSAdditions.m"; sourceTree = "<group>"; };
 		2DFB67831CC1F3D900DA24DA /* AppDelegate+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+NSAdditions.h"; sourceTree = "<group>"; };
 		2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+NSAdditions.m"; sourceTree = "<group>"; };
-		459E7583E86B223A2171BA21 /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
-		61DBEE22907506EF6FD38360 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C822486D1BCBD74103F01228 /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D7AD0E7827211F3137C9EFAB /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7F1A30586F184E412A3F6D8 /* Pods-NestSound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.release.xcconfig"; sourceTree = "<group>"; };
+		325B1F21D0513C96003F27AE /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
+		33EBF77A5C4C164696B34219 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
+		3FA894323613FE22556BE035 /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
+		458BF387EFF9F81BEAD05574 /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		74CF5B2535670B3767DAF768 /* Pods-NestSound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,7 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				935FED02530C39AB9F6FD66F /* libPods-NestSound.a in Frameworks */,
+				487B7F95FBF7B58AD5B6558B /* libPods-NestSound.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB52CA464718C2850286FA62 /* libPods-NestSoundTests.a in Frameworks */,
+				9D50E5FF1024993C677E4E98 /* libPods-NestSoundTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,17 +257,14 @@
 				183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */,
 				183E03A01CDDDACC0071FEE5 /* NSMusicViewController.h */,
 				183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */,
-
 				18CFB3F21CDEDBA50033998A /* NSNewMusicViewController.h */,
 				18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */,
-
 				2AE3C2291CDED80F00790BFA /* NSActivityViewController.h */,
 				2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */,
 				2AE3C22C1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.h */,
 				2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */,
 				2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */,
 				2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */,
-
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -282,13 +279,10 @@
 		183E039C1CDDC5E90071FEE5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-
 				18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */,
 				18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */,
-
 				2AE3C2321CDEDCAD00790BFA /* NSActivityCollectionCell.h */,
 				2AE3C2331CDEDCAD00790BFA /* NSActivityCollectionCell.m */,
-
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -503,8 +497,8 @@
 				2DFB66F31CC1E65600DA24DA /* NestSound */,
 				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
 				2DFB66F21CC1E65600DA24DA /* Products */,
-				4E6E9144768F2548FE4D5731 /* Pods */,
-				C3F70ECDC65EFD9F0900AE1E /* Frameworks */,
+				E51534785C5A11A8D4D2F1ED /* Pods */,
+				B33B1AEAE8A4B55E8D30B556 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -684,24 +678,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		4E6E9144768F2548FE4D5731 /* Pods */ = {
+		B33B1AEAE8A4B55E8D30B556 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				459E7583E86B223A2171BA21 /* Pods-NestSound.debug.xcconfig */,
-				F7F1A30586F184E412A3F6D8 /* Pods-NestSound.release.xcconfig */,
-				C822486D1BCBD74103F01228 /* Pods-NestSoundTests.debug.xcconfig */,
-				247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		C3F70ECDC65EFD9F0900AE1E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				61DBEE22907506EF6FD38360 /* libPods-NestSound.a */,
-				D7AD0E7827211F3137C9EFAB /* libPods-NestSoundTests.a */,
+				06B70F9FA4397E0052D34C39 /* libPods-NestSound.a */,
+				458BF387EFF9F81BEAD05574 /* libPods-NestSoundTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E51534785C5A11A8D4D2F1ED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				325B1F21D0513C96003F27AE /* Pods-NestSound.debug.xcconfig */,
+				74CF5B2535670B3767DAF768 /* Pods-NestSound.release.xcconfig */,
+				3FA894323613FE22556BE035 /* Pods-NestSoundTests.debug.xcconfig */,
+				33EBF77A5C4C164696B34219 /* Pods-NestSoundTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -711,12 +705,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				BC3A8B02679BD36AC61921D4 /* Check Pods Manifest.lock */,
+				628A611C07127701834BCBF8 /* 📦 Check Pods Manifest.lock */,
 				2DFB66ED1CC1E65600DA24DA /* Sources */,
 				2DFB66EE1CC1E65600DA24DA /* Frameworks */,
 				2DFB66EF1CC1E65600DA24DA /* Resources */,
-				EB0DD5511623AFA86F76C517 /* Embed Pods Frameworks */,
-				A3D0027CD8F48D4E306D53FE /* Copy Pods Resources */,
+				95F5F61DA98298C3696F5DDB /* 📦 Embed Pods Frameworks */,
+				077864D142F000C656EBB661 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -731,12 +725,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				6F4107CD6C9F5E8979543294 /* Check Pods Manifest.lock */,
+				BE8F1BB9D042A21868315B37 /* 📦 Check Pods Manifest.lock */,
 				2DFB67061CC1E65600DA24DA /* Sources */,
 				2DFB67071CC1E65600DA24DA /* Frameworks */,
 				2DFB67081CC1E65600DA24DA /* Resources */,
-				81B2BFB7AF1B8502978D3F0C /* Embed Pods Frameworks */,
-				5C7FD5D4250FBC8773E5180C /* Copy Pods Resources */,
+				99910D52491B70EA723CD2B5 /* 📦 Embed Pods Frameworks */,
+				486F64A545421F29C6DD993E /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -817,59 +811,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5C7FD5D4250FBC8773E5180C /* Copy Pods Resources */ = {
+		077864D142F000C656EBB661 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F4107CD6C9F5E8979543294 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		81B2BFB7AF1B8502978D3F0C /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A3D0027CD8F48D4E306D53FE /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -877,14 +826,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BC3A8B02679BD36AC61921D4 /* Check Pods Manifest.lock */ = {
+		486F64A545421F29C6DD993E /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		628A611C07127701834BCBF8 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -892,19 +856,49 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EB0DD5511623AFA86F76C517 /* Embed Pods Frameworks */ = {
+		95F5F61DA98298C3696F5DDB /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		99910D52491B70EA723CD2B5 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE8F1BB9D042A21868315B37 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -926,12 +920,9 @@
 				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
-
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
-
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
-
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
@@ -1098,17 +1089,12 @@
 		};
 		2DFB67141CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 459E7583E86B223A2171BA21 /* Pods-NestSound.debug.xcconfig */;
+			baseConfigurationReference = 325B1F21D0513C96003F27AE /* Pods-NestSound.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
-
 				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
-
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
@@ -1122,17 +1108,12 @@
 		};
 		2DFB67151CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7F1A30586F184E412A3F6D8 /* Pods-NestSound.release.xcconfig */;
+			baseConfigurationReference = 74CF5B2535670B3767DAF768 /* Pods-NestSound.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
@@ -1146,7 +1127,7 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C822486D1BCBD74103F01228 /* Pods-NestSoundTests.debug.xcconfig */;
+			baseConfigurationReference = 3FA894323613FE22556BE035 /* Pods-NestSoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1159,7 +1140,7 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */;
+			baseConfigurationReference = 33EBF77A5C4C164696B34219 /* Pods-NestSoundTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
