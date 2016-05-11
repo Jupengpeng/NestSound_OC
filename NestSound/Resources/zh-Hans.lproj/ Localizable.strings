@@ -1,0 +1,77 @@
+/* 
+   Localizable.strings
+  NestSound
+
+  Created by 谢豪杰 on 16/4/24.
+  Copyright © 2016年 yinchao. All rights reserved.
+*/
+
+
+prompt_appName = "音巢音乐";
+
+
+prompt_or = "or";
+prompt_reSend = "重发";
+prompt_pass = "请输入密码";
+prompt_port = "请输入手机号";
+prompt_code = "请输入验证码";
+prompt_sendCode = "发送验证码";
+prompt_register = "注册";
+prompt_login = "登录";
+prompt_resetPassword = "修改密码";
+prompt_resetPass = "忘记密码?";
+prompt_validPort = "手机号码有误,请重新输入";
+prompt_validCode = "验证码为4位数字，请重新输入";
+prompt_validPass = "密码长度为6到16位，请重新输入";
+prompt_noMatchPassAndPassAgain = "两次密码输入不一致，请重新输入";
+prompt_proxyTailer = "《音巢音乐用户协议》";
+prompt_userProxy = "用户协议";
+
+
+promot_recommendWorks = "推荐作品";
+promot_recommendSongList ="推荐歌单";
+promot_newWorks ="最新作品";
+promot_musicSay = "乐说";
+
+promot_hotActivity = "热门活动";
+promot_activityIng = "正在进行中";
+promot_activityed = "已结束";
+promot_songList = "歌曲榜";
+promot_lyricList = "歌词榜";
+promot_song = "歌单";
+promot_allLyric = "全部歌词目录";
+promot_allSong = "全部歌曲目录";
+promot_hot = "最热";
+promot_new = "最新";
+
+title_lyricList = "歌词排行榜";
+title_songList = "歌曲排行榜";
+
+promot_createLyric = "歌词";
+promot_createSong = "歌曲";
+promot_createInspiration = "灵感";
+
+promot_save = "保存";
+promot_title = "请输入标题";
+promot_content = "请输入内容";
+promot_play_all = "播放全部" ;
+
+title_accompany = "原唱伴奏";
+promot_noAccom = "清唱";
+promot_recommend = "推荐";
+promot_all = "全部";
+promot_next = "下一步";
+promot_voiceBeautify = "一键美化";
+promot_public = "发布";
+promot_addTitlePage = "添加封面";
+promot_addDesc = "添加描述...";
+promot_saveDraft = "保存草稿";
+
+promot_fans = "粉丝：";
+promot_focus = "关注：";
+promot_draft = "草稿箱";
+promot_collection = "收藏";
+promot_createInspirationRecord = "灵感记录";
+
+
+

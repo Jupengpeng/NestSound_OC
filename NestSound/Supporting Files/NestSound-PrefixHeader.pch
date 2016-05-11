@@ -1,0 +1,81 @@
+//
+//  NestSound-PrefixHeader.pch
+//  NestSound
+//
+//  Created by yandi on 4/16/16.
+//  Copyright © 2016 yinchao. All rights reserved.
+//
+
+#ifndef NestSound_PrefixHeader_pch
+#define NestSound_PrefixHeader_pch
+
+// Header
+#import "NSTool.h"
+#import "Masonry.h"
+#import <objc/runtime.h>
+#import "UIView+Extension.h"
+#import "UIView+NSAdditions.h"
+#import "UIImage+NSAdditions.h"
+#import "UIColor+NSAdditions.h"
+#import "UIButton+NSAdditions.h"
+#import "UINavigationItem+NSAdditions.h"
+#import "NSURLSessionTask+NSAdditionals.h"
+#import "UIButton+NSAdditions.h"
+#import "UIImage+ImageEffects.h"
+#import "UIImageView+NSAdditions.h"
+
+// Host
+extern BOOL debugMode;
+extern NSString *host;
+extern NSString *port;
+#define debugHost     @"http://test.user.api.yuedong.me"
+#define debugPort     @""
+#define releaseHost   @"http://user.api.yuedong.me"
+#define releasePort   @""
+#define customHostKey @"customHostKey"
+#define customPortKey @"customPortKey"
+
+// Print
+#ifndef  DEBUG
+#define DLog(fmt,...) {NSLog((@"%s [Line:%d]" fmt),__PRETTY_FUNCTION__,__LINE__,##__VA_ARGS__);}
+#else
+#define DLog(...)
+#endif
+
+// Macros
+#define WS(wSelf)            __weak typeof(self) wSelf = self
+#define SS(sSelf)            __strong typeof(wSelf) sSelf = wSelf
+#define NOTICENTER           [NSNotificationCenter defaultCenter]
+#define ScreenWidth          CGRectGetWidth([UIScreen mainScreen].bounds)
+#define ScreenHeight          CGRectGetHeight([UIScreen mainScreen].bounds)
+#define USERDEFAULT          [NSUserDefaults standardUserDefaults]
+#define LocalizedStr(key)    NSLocalizedString(key, @"")
+
+// Keys
+#define kNoLoading       @"noLoading"
+#define kIsLoadingMore   @"isLoadingMore"
+
+
+// weixin - appInfo
+#define wxAppId        @"wx10b95b65884a92c0"
+#define wxAppSecret    @"e82e6e746efa3e92a6afa3e4be4ae7e4"
+
+// qq - appInfo
+#define qqAppId        @"1105011804"
+#define qqAppKey       @"S1BfcSRxD8Dx5l3s"
+
+// weibo - appInfo
+#define wbAppId        @"4209676241"
+#define wbAppKey       @"8856a07ab99f27d94005a3fb536ad4c8"
+#define wbSecretURL    @"http://sns.whalecloud.com/sina2/callback"
+
+// UMeng - appInfo
+#define umAppKey       @"56a8661967e58ea24f002e3f"
+
+
+
+
+
+#define requestData @"data"
+
+#endif /* NestSound_PrefixHeader_pch */

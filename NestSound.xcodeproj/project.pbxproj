@@ -1,0 +1,1206 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182F33531CDC41AF006AB047 /* Assets.xcassets */; };
+		183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */; };
+		183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */; };
+		1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892F0341CD74AF000B47503 /* NSIndexCollectionReusableView.m */; };
+		18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C914881CDAE66700C255C4 /* NSLyricViewController.m */; };
+		18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9148B1CDB169000C255C4 /* NSLyricView.m */; };
+		18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9148E1CDB309700C255C4 /* UIView+Extension.m */; };
+		18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C914911CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m */; };
+		18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C914941CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m */; };
+		18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */; };
+		18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */; };
+		2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */; };
+		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
+		2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */; };
+		2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */; };
+		2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1171CDDC797004470ED /* NSMessageViewController.m */; };
+		2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11A1CDDCDD9004470ED /* NSMessageListViewController.m */; };
+		2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11D1CDDD89F004470ED /* NSCommentMessageCell.m */; };
+		2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */; };
+		2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */; };
+		2ACDBFC01CCCA5D70001FC31 /*  Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACDBFC21CCCA5D70001FC31 /*  Localizable.strings */; };
+		2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A861CD9C96E0044D821 /* NSRecommendSongList.m */; };
+		2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A891CD9DE520044D821 /* NSSongListViewController.m */; };
+		2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A8C1CD9E04E0044D821 /* NSSongViewController.m */; };
+		2AD10A901CD9F2D60044D821 /* NSSongListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A8F1CD9F2D60044D821 /* NSSongListHeaderView.m */; };
+		2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */; };
+		2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */; };
+		2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */; };
+		2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */; };
+		2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */; };
+		2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2331CDEDCAD00790BFA /* NSActivityCollectionCell.m */; };
+		2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */; };
+		2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2391CDF04FE00790BFA /* NSAccompanyTableCell.m */; };
+		2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608C41CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m */; };
+		2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608DB1CCC87A10027F147 /* NSUserViewController.m */; };
+		2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */; };
+		2D8608E21CCC87C00027F147 /* NSRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608E11CCC87C00027F147 /* NSRecordViewController.m */; };
+		2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608E41CCC87D00027F147 /* NSUserPageViewController.m */; };
+		2DFB670F1CC1E65600DA24DA /* NestSoundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB670E1CC1E65600DA24DA /* NestSoundTests.m */; };
+		2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB671D1CC1E6DE00DA24DA /* AppDelegate.m */; };
+		2DFB67251CC1E6DE00DA24DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67201CC1E6DE00DA24DA /* main.m */; };
+		2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67421CC1E92E00DA24DA /* NSBaseModel.m */; };
+		2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67441CC1E92E00DA24DA /* NSBaseModelProperty.m */; };
+		2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67481CC1E92E00DA24DA /* NSModelFactory.m */; };
+		2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB674E1CC1E94B00DA24DA /* NSHttpClient.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67511CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m */; };
+		2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67541CC1EC4000DA24DA /* NSTool.m */; };
+		2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67571CC1ED8E00DA24DA /* NSToastManager.m */; };
+		2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB675A1CC1F00600DA24DA /* NSBaseViewController.m */; };
+		2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB675D1CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2DFB67771CC1F0ED00DA24DA /* NSString+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB675F1CC1F0ED00DA24DA /* NSString+NSAdditions.m */; };
+		2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67611CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67631CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67651CC1F0ED00DA24DA /* UIButton+NSAdditions.m */; };
+		2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67671CC1F0ED00DA24DA /* UIColor+NSAdditions.m */; };
+		2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67691CC1F0ED00DA24DA /* UIImage+ImageEffects.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB676B1CC1F0ED00DA24DA /* UIImage+NSAdditions.m */; };
+		2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB676D1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m */; };
+		2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB676F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m */; };
+		2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67711CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m */; };
+		2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67731CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m */; };
+		2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */; };
+		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
+		935FED02530C39AB9F6FD66F /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61DBEE22907506EF6FD38360 /* libPods-NestSound.a */; };
+		FB52CA464718C2850286FA62 /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7AD0E7827211F3137C9EFAB /* libPods-NestSoundTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2DFB670B1CC1E65600DA24DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2DFB66E91CC1E65600DA24DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2DFB66F01CC1E65600DA24DA;
+			remoteInfo = NestSound;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		182F33531CDC41AF006AB047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		183E039D1CDDC80F0071FEE5 /* NSDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverViewController.h; sourceTree = "<group>"; };
+		183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverViewController.m; sourceTree = "<group>"; };
+		183E03A01CDDDACC0071FEE5 /* NSMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicViewController.h; sourceTree = "<group>"; };
+		183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicViewController.m; sourceTree = "<group>"; };
+		1892F0331CD74AF000B47503 /* NSIndexCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSIndexCollectionReusableView.h; sourceTree = "<group>"; };
+		1892F0341CD74AF000B47503 /* NSIndexCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSIndexCollectionReusableView.m; sourceTree = "<group>"; };
+		18C914871CDAE66700C255C4 /* NSLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricViewController.h; sourceTree = "<group>"; };
+		18C914881CDAE66700C255C4 /* NSLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricViewController.m; sourceTree = "<group>"; };
+		18C9148A1CDB169000C255C4 /* NSLyricView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricView.h; sourceTree = "<group>"; };
+		18C9148B1CDB169000C255C4 /* NSLyricView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricView.m; sourceTree = "<group>"; };
+		18C9148D1CDB309700C255C4 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		18C9148E1CDB309700C255C4 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		18C914901CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongMenuCollectionViewCell.h; sourceTree = "<group>"; };
+		18C914911CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongMenuCollectionViewCell.m; sourceTree = "<group>"; };
+		18C914931CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayCollectionViewCell.h; sourceTree = "<group>"; };
+		18C914941CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayCollectionViewCell.m; sourceTree = "<group>"; };
+		18CFB3F21CDEDBA50033998A /* NSNewMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNewMusicViewController.h; sourceTree = "<group>"; };
+		18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicViewController.m; sourceTree = "<group>"; };
+		18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNewMusicTableViewCell.h; sourceTree = "<group>"; };
+		18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicTableViewCell.m; sourceTree = "<group>"; };
+		247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
+		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
+		2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListHeaderView.m; sourceTree = "<group>"; };
+		2A3E7C631CDAE2A7006C8519 /* NSSongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongCell.h; sourceTree = "<group>"; };
+		2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongCell.m; sourceTree = "<group>"; };
+		2A3E7C661CDB37C4006C8519 /* NSPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayViewController.h; sourceTree = "<group>"; };
+		2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayViewController.m; sourceTree = "<group>"; };
+		2A9DC1161CDDC797004470ED /* NSMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageViewController.h; sourceTree = "<group>"; };
+		2A9DC1171CDDC797004470ED /* NSMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMessageViewController.m; sourceTree = "<group>"; };
+		2A9DC1191CDDCDD9004470ED /* NSMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageListViewController.h; sourceTree = "<group>"; };
+		2A9DC11A1CDDCDD9004470ED /* NSMessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMessageListViewController.m; sourceTree = "<group>"; };
+		2A9DC11C1CDDD89F004470ED /* NSCommentMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCommentMessageCell.h; sourceTree = "<group>"; };
+		2A9DC11D1CDDD89F004470ED /* NSCommentMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCommentMessageCell.m; sourceTree = "<group>"; };
+		2A9DC11F1CDDDA36004470ED /* NSUpvoteMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUpvoteMessageCell.h; sourceTree = "<group>"; };
+		2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUpvoteMessageCell.m; sourceTree = "<group>"; };
+		2A9DC1221CDDDDE8004470ED /* NSSystemMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSystemMessageCell.h; sourceTree = "<group>"; };
+		2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSystemMessageCell.m; sourceTree = "<group>"; };
+		2ACDBFC11CCCA5D70001FC31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/ Localizable.strings"; sourceTree = "<group>"; };
+		2ACDBFC31CCCA5E80001FC31 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ Localizable.strings"; sourceTree = "<group>"; };
+		2AD10A851CD9C96E0044D821 /* NSRecommendSongList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecommendSongList.h; sourceTree = "<group>"; };
+		2AD10A861CD9C96E0044D821 /* NSRecommendSongList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecommendSongList.m; sourceTree = "<group>"; };
+		2AD10A881CD9DE520044D821 /* NSSongListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongListViewController.h; sourceTree = "<group>"; };
+		2AD10A891CD9DE520044D821 /* NSSongListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongListViewController.m; sourceTree = "<group>"; };
+		2AD10A8B1CD9E04E0044D821 /* NSSongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongViewController.h; sourceTree = "<group>"; };
+		2AD10A8C1CD9E04E0044D821 /* NSSongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongViewController.m; sourceTree = "<group>"; };
+		2AD10A8E1CD9F2D60044D821 /* NSSongListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongListHeaderView.h; sourceTree = "<group>"; };
+		2AD10A8F1CD9F2D60044D821 /* NSSongListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongListHeaderView.m; sourceTree = "<group>"; };
+		2AD69B381CD30DFA00BCA19C /* NSRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecommendCell.h; sourceTree = "<group>"; };
+		2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecommendCell.m; sourceTree = "<group>"; };
+		2AD6DF3F1CD7287F00B95CFD /* NSHttpClient+EncrypteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSHttpClient+EncrypteData.h"; sourceTree = "<group>"; };
+		2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHttpClient+EncrypteData.m"; sourceTree = "<group>"; };
+		2AE3C2291CDED80F00790BFA /* NSActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityViewController.h; sourceTree = "<group>"; };
+		2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityViewController.m; sourceTree = "<group>"; };
+		2AE3C22C1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverLyricViewCOntroller.h; sourceTree = "<group>"; };
+		2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverLyricViewCOntroller.m; sourceTree = "<group>"; };
+		2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSH5ViewController.h; sourceTree = "<group>"; };
+		2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSH5ViewController.m; sourceTree = "<group>"; };
+		2AE3C2321CDEDCAD00790BFA /* NSActivityCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityCollectionCell.h; sourceTree = "<group>"; };
+		2AE3C2331CDEDCAD00790BFA /* NSActivityCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityCollectionCell.m; sourceTree = "<group>"; };
+		2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListViewController.h; sourceTree = "<group>"; };
+		2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListViewController.m; sourceTree = "<group>"; };
+		2AE3C2381CDF04FE00790BFA /* NSAccompanyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyTableCell.h; sourceTree = "<group>"; };
+		2AE3C2391CDF04FE00790BFA /* NSAccompanyTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyTableCell.m; sourceTree = "<group>"; };
+		2D8608C31CCC86BA0027F147 /* AppDelegate+configureUIAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+configureUIAppearance.h"; sourceTree = "<group>"; };
+		2D8608C41CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+configureUIAppearance.m"; sourceTree = "<group>"; };
+		2D8608DA1CCC87A10027F147 /* NSUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserViewController.h; sourceTree = "<group>"; };
+		2D8608DB1CCC87A10027F147 /* NSUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserViewController.m; sourceTree = "<group>"; };
+		2D8608DD1CCC87B10027F147 /* NSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHomeViewController.h; sourceTree = "<group>"; };
+		2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSHomeViewController.m; sourceTree = "<group>"; };
+		2D8608E01CCC87C00027F147 /* NSRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecordViewController.h; sourceTree = "<group>"; };
+		2D8608E11CCC87C00027F147 /* NSRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecordViewController.m; sourceTree = "<group>"; };
+		2D8608E31CCC87D00027F147 /* NSUserPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserPageViewController.h; sourceTree = "<group>"; };
+		2D8608E41CCC87D00027F147 /* NSUserPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserPageViewController.m; sourceTree = "<group>"; };
+		2DFB66F11CC1E65600DA24DA /* NestSound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestSound.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DFB670A1CC1E65600DA24DA /* NestSoundTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestSoundTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DFB670E1CC1E65600DA24DA /* NestSoundTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NestSoundTests.m; sourceTree = "<group>"; };
+		2DFB67101CC1E65600DA24DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DFB671C1CC1E6DE00DA24DA /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2DFB671D1CC1E6DE00DA24DA /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2DFB671F1CC1E6DE00DA24DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DFB67201CC1E6DE00DA24DA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2DFB67401CC1E8A600DA24DA /* NestSound-PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NestSound-PrefixHeader.pch"; sourceTree = "<group>"; };
+		2DFB67411CC1E92E00DA24DA /* NSBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseModel.h; sourceTree = "<group>"; };
+		2DFB67421CC1E92E00DA24DA /* NSBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseModel.m; sourceTree = "<group>"; };
+		2DFB67431CC1E92E00DA24DA /* NSBaseModelProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseModelProperty.h; sourceTree = "<group>"; };
+		2DFB67441CC1E92E00DA24DA /* NSBaseModelProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseModelProperty.m; sourceTree = "<group>"; };
+		2DFB67471CC1E92E00DA24DA /* NSModelFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSModelFactory.h; sourceTree = "<group>"; };
+		2DFB67481CC1E92E00DA24DA /* NSModelFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSModelFactory.m; sourceTree = "<group>"; };
+		2DFB674D1CC1E94B00DA24DA /* NSHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHttpClient.h; sourceTree = "<group>"; };
+		2DFB674E1CC1E94B00DA24DA /* NSHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSHttpClient.m; sourceTree = "<group>"; };
+		2DFB67501CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionTask+NSAdditionals.h"; sourceTree = "<group>"; };
+		2DFB67511CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSessionTask+NSAdditionals.m"; sourceTree = "<group>"; };
+		2DFB67531CC1EC4000DA24DA /* NSTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTool.h; sourceTree = "<group>"; };
+		2DFB67541CC1EC4000DA24DA /* NSTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTool.m; sourceTree = "<group>"; };
+		2DFB67561CC1ED8E00DA24DA /* NSToastManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToastManager.h; sourceTree = "<group>"; };
+		2DFB67571CC1ED8E00DA24DA /* NSToastManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToastManager.m; sourceTree = "<group>"; };
+		2DFB67591CC1F00600DA24DA /* NSBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseViewController.h; sourceTree = "<group>"; };
+		2DFB675A1CC1F00600DA24DA /* NSBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseViewController.m; sourceTree = "<group>"; };
+		2DFB675C1CC1F0ED00DA24DA /* CLLocationManager+NSLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocationManager+NSLocation.h"; sourceTree = "<group>"; };
+		2DFB675D1CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocationManager+NSLocation.m"; sourceTree = "<group>"; };
+		2DFB675E1CC1F0ED00DA24DA /* NSString+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB675F1CC1F0ED00DA24DA /* NSString+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB67601CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB67611CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB67621CC1F0ED00DA24DA /* UIAlertView+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB67631CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB67641CC1F0ED00DA24DA /* UIButton+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB67651CC1F0ED00DA24DA /* UIButton+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB67661CC1F0ED00DA24DA /* UIColor+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB67671CC1F0ED00DA24DA /* UIColor+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB67681CC1F0ED00DA24DA /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		2DFB67691CC1F0ED00DA24DA /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		2DFB676A1CC1F0ED00DA24DA /* UIImage+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB676B1CC1F0ED00DA24DA /* UIImage+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB676C1CC1F0ED00DA24DA /* UIImageView+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB676D1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB676E1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB676F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB67701CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+NSKeyboardAutoAdapt.h"; sourceTree = "<group>"; };
+		2DFB67711CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+NSKeyboardAutoAdapt.m"; sourceTree = "<group>"; };
+		2DFB67721CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+NSPullToRefresh.h"; sourceTree = "<group>"; };
+		2DFB67731CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+NSPullToRefresh.m"; sourceTree = "<group>"; };
+		2DFB67741CC1F0ED00DA24DA /* UIView+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NSAdditions.m"; sourceTree = "<group>"; };
+		2DFB67831CC1F3D900DA24DA /* AppDelegate+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+NSAdditions.h"; sourceTree = "<group>"; };
+		2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+NSAdditions.m"; sourceTree = "<group>"; };
+		459E7583E86B223A2171BA21 /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
+		61DBEE22907506EF6FD38360 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C822486D1BCBD74103F01228 /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D7AD0E7827211F3137C9EFAB /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7F1A30586F184E412A3F6D8 /* Pods-NestSound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2DFB66EE1CC1E65600DA24DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				935FED02530C39AB9F6FD66F /* libPods-NestSound.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DFB67071CC1E65600DA24DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB52CA464718C2850286FA62 /* libPods-NestSoundTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		183E03991CDDC5E90071FEE5 /* NSDiscover */ = {
+			isa = PBXGroup;
+			children = (
+				183E039C1CDDC5E90071FEE5 /* View */,
+				183E039B1CDDC5E90071FEE5 /* Model */,
+				183E039A1CDDC5E90071FEE5 /* Controller */,
+			);
+			path = NSDiscover;
+			sourceTree = "<group>";
+		};
+		183E039A1CDDC5E90071FEE5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				183E039D1CDDC80F0071FEE5 /* NSDiscoverViewController.h */,
+				183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */,
+				183E03A01CDDDACC0071FEE5 /* NSMusicViewController.h */,
+				183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */,
+
+				18CFB3F21CDEDBA50033998A /* NSNewMusicViewController.h */,
+				18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */,
+
+				2AE3C2291CDED80F00790BFA /* NSActivityViewController.h */,
+				2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */,
+				2AE3C22C1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.h */,
+				2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */,
+				2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */,
+				2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */,
+
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		183E039B1CDDC5E90071FEE5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		183E039C1CDDC5E90071FEE5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+
+				18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */,
+				18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */,
+
+				2AE3C2321CDEDCAD00790BFA /* NSActivityCollectionCell.h */,
+				2AE3C2331CDEDCAD00790BFA /* NSActivityCollectionCell.m */,
+
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2A9DC10C1CDDC6B9004470ED /* NSMessage */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DC10F1CDDC6B9004470ED /* View */,
+				2A9DC10E1CDDC6B9004470ED /* Model */,
+				2A9DC10D1CDDC6B9004470ED /* Controller */,
+			);
+			path = NSMessage;
+			sourceTree = "<group>";
+		};
+		2A9DC10D1CDDC6B9004470ED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DC1161CDDC797004470ED /* NSMessageViewController.h */,
+				2A9DC1171CDDC797004470ED /* NSMessageViewController.m */,
+				2A9DC1191CDDCDD9004470ED /* NSMessageListViewController.h */,
+				2A9DC11A1CDDCDD9004470ED /* NSMessageListViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2A9DC10E1CDDC6B9004470ED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2A9DC10F1CDDC6B9004470ED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2A9DC11C1CDDD89F004470ED /* NSCommentMessageCell.h */,
+				2A9DC11D1CDDD89F004470ED /* NSCommentMessageCell.m */,
+				2A9DC11F1CDDDA36004470ED /* NSUpvoteMessageCell.h */,
+				2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */,
+				2A9DC1221CDDDDE8004470ED /* NSSystemMessageCell.h */,
+				2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D8608C61CCC87720027F147 /* NSHome */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608C91CCC87720027F147 /* View */,
+				2D8608C81CCC87720027F147 /* Model */,
+				2D8608C71CCC87720027F147 /* Controller */,
+			);
+			path = NSHome;
+			sourceTree = "<group>";
+		};
+		2D8608C71CCC87720027F147 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608DD1CCC87B10027F147 /* NSHomeViewController.h */,
+				2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */,
+				18C914871CDAE66700C255C4 /* NSLyricViewController.h */,
+				18C914881CDAE66700C255C4 /* NSLyricViewController.m */,
+				2AD10A851CD9C96E0044D821 /* NSRecommendSongList.h */,
+				2AD10A861CD9C96E0044D821 /* NSRecommendSongList.m */,
+				2AD10A881CD9DE520044D821 /* NSSongListViewController.h */,
+				2AD10A891CD9DE520044D821 /* NSSongListViewController.m */,
+				2AD10A8B1CD9E04E0044D821 /* NSSongViewController.h */,
+				2AD10A8C1CD9E04E0044D821 /* NSSongViewController.m */,
+				2A3E7C661CDB37C4006C8519 /* NSPlayViewController.h */,
+				2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2D8608C81CCC87720027F147 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2D8608C91CCC87720027F147 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2AD69B381CD30DFA00BCA19C /* NSRecommendCell.h */,
+				2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */,
+				18C914901CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.h */,
+				18C914911CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m */,
+				18C914931CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.h */,
+				18C914941CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m */,
+				1892F0331CD74AF000B47503 /* NSIndexCollectionReusableView.h */,
+				1892F0341CD74AF000B47503 /* NSIndexCollectionReusableView.m */,
+				18C9148A1CDB169000C255C4 /* NSLyricView.h */,
+				18C9148B1CDB169000C255C4 /* NSLyricView.m */,
+				2AD10A8E1CD9F2D60044D821 /* NSSongListHeaderView.h */,
+				2AD10A8F1CD9F2D60044D821 /* NSSongListHeaderView.m */,
+				2A3E7C631CDAE2A7006C8519 /* NSSongCell.h */,
+				2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D8608CE1CCC87720027F147 /* NSRecord */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608D11CCC87720027F147 /* View */,
+				2D8608D01CCC87720027F147 /* Model */,
+				2D8608CF1CCC87720027F147 /* Controller */,
+			);
+			path = NSRecord;
+			sourceTree = "<group>";
+		};
+		2D8608CF1CCC87720027F147 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608E01CCC87C00027F147 /* NSRecordViewController.h */,
+				2D8608E11CCC87C00027F147 /* NSRecordViewController.m */,
+				2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */,
+				2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2D8608D01CCC87720027F147 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2D8608D11CCC87720027F147 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2AE3C2381CDF04FE00790BFA /* NSAccompanyTableCell.h */,
+				2AE3C2391CDF04FE00790BFA /* NSAccompanyTableCell.m */,
+				2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */,
+				2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D8608D21CCC87720027F147 /* NSUser */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608D51CCC87720027F147 /* View */,
+				2D8608D41CCC87720027F147 /* Model */,
+				2D8608D31CCC87720027F147 /* Controller */,
+			);
+			path = NSUser;
+			sourceTree = "<group>";
+		};
+		2D8608D31CCC87720027F147 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608DA1CCC87A10027F147 /* NSUserViewController.h */,
+				2D8608DB1CCC87A10027F147 /* NSUserViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2D8608D41CCC87720027F147 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2D8608D51CCC87720027F147 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2D8608D61CCC87720027F147 /* NSUserPage */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608D91CCC87720027F147 /* View */,
+				2D8608D81CCC87720027F147 /* Model */,
+				2D8608D71CCC87720027F147 /* Controller */,
+			);
+			path = NSUserPage;
+			sourceTree = "<group>";
+		};
+		2D8608D71CCC87720027F147 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2D8608E31CCC87D00027F147 /* NSUserPageViewController.h */,
+				2D8608E41CCC87D00027F147 /* NSUserPageViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2D8608D81CCC87720027F147 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2D8608D91CCC87720027F147 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2DFB66E81CC1E65600DA24DA = {
+			isa = PBXGroup;
+			children = (
+				2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */,
+				2DFB66F31CC1E65600DA24DA /* NestSound */,
+				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
+				2DFB66F21CC1E65600DA24DA /* Products */,
+				4E6E9144768F2548FE4D5731 /* Pods */,
+				C3F70ECDC65EFD9F0900AE1E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2DFB66F21CC1E65600DA24DA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB66F11CC1E65600DA24DA /* NestSound.app */,
+				2DFB670A1CC1E65600DA24DA /* NestSoundTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2DFB66F31CC1E65600DA24DA /* NestSound */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB671B1CC1E6DE00DA24DA /* Src */,
+				2DFB67261CC1E75900DA24DA /* Lib */,
+				2DFB67211CC1E6DE00DA24DA /* Utils */,
+				2DFB67191CC1E6DE00DA24DA /* Resources */,
+				2DFB671E1CC1E6DE00DA24DA /* Supporting Files */,
+			);
+			path = NestSound;
+			sourceTree = "<group>";
+		};
+		2DFB670D1CC1E65600DA24DA /* NestSoundTests */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB670E1CC1E65600DA24DA /* NestSoundTests.m */,
+				2DFB67101CC1E65600DA24DA /* Info.plist */,
+			);
+			path = NestSoundTests;
+			sourceTree = "<group>";
+		};
+		2DFB67191CC1E6DE00DA24DA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				182F33531CDC41AF006AB047 /* Assets.xcassets */,
+				2ACDBFC21CCCA5D70001FC31 /*  Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2DFB671B1CC1E6DE00DA24DA /* Src */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB671C1CC1E6DE00DA24DA /* AppDelegate.h */,
+				2DFB671D1CC1E6DE00DA24DA /* AppDelegate.m */,
+				2D8608C31CCC86BA0027F147 /* AppDelegate+configureUIAppearance.h */,
+				2D8608C41CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m */,
+				2A9DC10C1CDDC6B9004470ED /* NSMessage */,
+				2DFB67271CC1E82700DA24DA /* NSBase */,
+				2D8608D21CCC87720027F147 /* NSUser */,
+				2D8608C61CCC87720027F147 /* NSHome */,
+				183E03991CDDC5E90071FEE5 /* NSDiscover */,
+				2D8608CE1CCC87720027F147 /* NSRecord */,
+				2D8608D61CCC87720027F147 /* NSUserPage */,
+			);
+			path = Src;
+			sourceTree = "<group>";
+		};
+		2DFB671E1CC1E6DE00DA24DA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB67201CC1E6DE00DA24DA /* main.m */,
+				2DFB671F1CC1E6DE00DA24DA /* Info.plist */,
+				2DFB67401CC1E8A600DA24DA /* NestSound-PrefixHeader.pch */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB67531CC1EC4000DA24DA /* NSTool.h */,
+				2DFB67541CC1EC4000DA24DA /* NSTool.m */,
+				2DFB67561CC1ED8E00DA24DA /* NSToastManager.h */,
+				2DFB67571CC1ED8E00DA24DA /* NSToastManager.m */,
+				18C9148D1CDB309700C255C4 /* UIView+Extension.h */,
+				18C9148E1CDB309700C255C4 /* UIView+Extension.m */,
+				2DFB67741CC1F0ED00DA24DA /* UIView+NSAdditions.h */,
+				2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */,
+				2DFB67661CC1F0ED00DA24DA /* UIColor+NSAdditions.h */,
+				2DFB67671CC1F0ED00DA24DA /* UIColor+NSAdditions.m */,
+				2DFB676A1CC1F0ED00DA24DA /* UIImage+NSAdditions.h */,
+				2DFB676B1CC1F0ED00DA24DA /* UIImage+NSAdditions.m */,
+				2DFB67641CC1F0ED00DA24DA /* UIButton+NSAdditions.h */,
+				2DFB67651CC1F0ED00DA24DA /* UIButton+NSAdditions.m */,
+				2DFB675E1CC1F0ED00DA24DA /* NSString+NSAdditions.h */,
+				2DFB675F1CC1F0ED00DA24DA /* NSString+NSAdditions.m */,
+				2DFB67681CC1F0ED00DA24DA /* UIImage+ImageEffects.h */,
+				2DFB67691CC1F0ED00DA24DA /* UIImage+ImageEffects.m */,
+				2DFB67621CC1F0ED00DA24DA /* UIAlertView+NSAdditions.h */,
+				2DFB67631CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m */,
+				2DFB67831CC1F3D900DA24DA /* AppDelegate+NSAdditions.h */,
+				2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */,
+				2DFB676C1CC1F0ED00DA24DA /* UIImageView+NSAdditions.h */,
+				2DFB676D1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m */,
+				2DFB67601CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.h */,
+				2DFB67611CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m */,
+				2DFB67721CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.h */,
+				2DFB67731CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m */,
+				2DFB676E1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.h */,
+				2DFB676F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m */,
+				2DFB675C1CC1F0ED00DA24DA /* CLLocationManager+NSLocation.h */,
+				2DFB675D1CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m */,
+				2DFB67501CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.h */,
+				2DFB67511CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m */,
+				2DFB67701CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.h */,
+				2DFB67711CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2DFB67261CC1E75900DA24DA /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB672F1CC1E88F00DA24DA /* Http */,
+				2DFB67321CC1E88F00DA24DA /* Model */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		2DFB67271CC1E82700DA24DA /* NSBase */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB672A1CC1E82700DA24DA /* View */,
+				2DFB67291CC1E82700DA24DA /* Model */,
+				2DFB67281CC1E82700DA24DA /* Controller */,
+			);
+			path = NSBase;
+			sourceTree = "<group>";
+		};
+		2DFB67281CC1E82700DA24DA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB67591CC1F00600DA24DA /* NSBaseViewController.h */,
+				2DFB675A1CC1F00600DA24DA /* NSBaseViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2DFB67291CC1E82700DA24DA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2DFB672A1CC1E82700DA24DA /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2DFB672F1CC1E88F00DA24DA /* Http */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB674D1CC1E94B00DA24DA /* NSHttpClient.h */,
+				2DFB674E1CC1E94B00DA24DA /* NSHttpClient.m */,
+				2AD6DF3F1CD7287F00B95CFD /* NSHttpClient+EncrypteData.h */,
+				2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */,
+			);
+			path = Http;
+			sourceTree = "<group>";
+		};
+		2DFB67321CC1E88F00DA24DA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2DFB67411CC1E92E00DA24DA /* NSBaseModel.h */,
+				2DFB67421CC1E92E00DA24DA /* NSBaseModel.m */,
+				2DFB67471CC1E92E00DA24DA /* NSModelFactory.h */,
+				2DFB67481CC1E92E00DA24DA /* NSModelFactory.m */,
+				2DFB67431CC1E92E00DA24DA /* NSBaseModelProperty.h */,
+				2DFB67441CC1E92E00DA24DA /* NSBaseModelProperty.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E6E9144768F2548FE4D5731 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				459E7583E86B223A2171BA21 /* Pods-NestSound.debug.xcconfig */,
+				F7F1A30586F184E412A3F6D8 /* Pods-NestSound.release.xcconfig */,
+				C822486D1BCBD74103F01228 /* Pods-NestSoundTests.debug.xcconfig */,
+				247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C3F70ECDC65EFD9F0900AE1E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				61DBEE22907506EF6FD38360 /* libPods-NestSound.a */,
+				D7AD0E7827211F3137C9EFAB /* libPods-NestSoundTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2DFB66F01CC1E65600DA24DA /* NestSound */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
+			buildPhases = (
+				BC3A8B02679BD36AC61921D4 /* Check Pods Manifest.lock */,
+				2DFB66ED1CC1E65600DA24DA /* Sources */,
+				2DFB66EE1CC1E65600DA24DA /* Frameworks */,
+				2DFB66EF1CC1E65600DA24DA /* Resources */,
+				EB0DD5511623AFA86F76C517 /* Embed Pods Frameworks */,
+				A3D0027CD8F48D4E306D53FE /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NestSound;
+			productName = NestSound;
+			productReference = 2DFB66F11CC1E65600DA24DA /* NestSound.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2DFB67091CC1E65600DA24DA /* NestSoundTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
+			buildPhases = (
+				6F4107CD6C9F5E8979543294 /* Check Pods Manifest.lock */,
+				2DFB67061CC1E65600DA24DA /* Sources */,
+				2DFB67071CC1E65600DA24DA /* Frameworks */,
+				2DFB67081CC1E65600DA24DA /* Resources */,
+				81B2BFB7AF1B8502978D3F0C /* Embed Pods Frameworks */,
+				5C7FD5D4250FBC8773E5180C /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2DFB670C1CC1E65600DA24DA /* PBXTargetDependency */,
+			);
+			name = NestSoundTests;
+			productName = NestSoundTests;
+			productReference = 2DFB670A1CC1E65600DA24DA /* NestSoundTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2DFB66E91CC1E65600DA24DA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = NS;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = yinchao;
+				TargetAttributes = {
+					2DFB66F01CC1E65600DA24DA = {
+						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 62UDHM98C2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					2DFB67091CC1E65600DA24DA = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 2DFB66F01CC1E65600DA24DA;
+					};
+				};
+			};
+			buildConfigurationList = 2DFB66EC1CC1E65600DA24DA /* Build configuration list for PBXProject "NestSound" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = 2DFB66E81CC1E65600DA24DA;
+			productRefGroup = 2DFB66F21CC1E65600DA24DA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2DFB66F01CC1E65600DA24DA /* NestSound */,
+				2DFB67091CC1E65600DA24DA /* NestSoundTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2DFB66EF1CC1E65600DA24DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */,
+				2ACDBFC01CCCA5D70001FC31 /*  Localizable.strings in Resources */,
+				2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DFB67081CC1E65600DA24DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5C7FD5D4250FBC8773E5180C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F4107CD6C9F5E8979543294 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		81B2BFB7AF1B8502978D3F0C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3D0027CD8F48D4E306D53FE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC3A8B02679BD36AC61921D4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EB0DD5511623AFA86F76C517 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2DFB66ED1CC1E65600DA24DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD10A901CD9F2D60044D821 /* NSSongListHeaderView.m in Sources */,
+				2DFB67771CC1F0ED00DA24DA /* NSString+NSAdditions.m in Sources */,
+				2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */,
+				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
+				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
+				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
+				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
+				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
+				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
+				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
+				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
+				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
+
+				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
+
+				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
+				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
+
+				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
+				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
+				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
+				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
+				1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */,
+				2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */,
+				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
+				183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */,
+				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
+				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,
+				2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */,
+				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
+				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
+				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
+				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
+				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
+				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
+				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
+				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
+				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
+				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
+				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
+				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
+				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
+				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
+				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
+				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
+				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
+				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
+				2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */,
+				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
+				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
+				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
+				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
+				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,
+				18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */,
+				18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */,
+				18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */,
+				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
+				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
+				2D8608E21CCC87C00027F147 /* NSRecordViewController.m in Sources */,
+				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
+				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
+				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2DFB67061CC1E65600DA24DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DFB670F1CC1E65600DA24DA /* NestSoundTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2DFB670C1CC1E65600DA24DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2DFB66F01CC1E65600DA24DA /* NestSound */;
+			targetProxy = 2DFB670B1CC1E65600DA24DA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2ACDBFC21CCCA5D70001FC31 /*  Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2ACDBFC11CCCA5D70001FC31 /* en */,
+				2ACDBFC31CCCA5E80001FC31 /* zh-Hans */,
+			);
+			name = " Localizable.strings";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2DFB67111CC1E65600DA24DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2DFB67121CC1E65600DA24DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2DFB67141CC1E65600DA24DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 459E7583E86B223A2171BA21 /* Pods-NestSound.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+
+				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		2DFB67151CC1E65600DA24DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7F1A30586F184E412A3F6D8 /* Pods-NestSound.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		2DFB67171CC1E65600DA24DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C822486D1BCBD74103F01228 /* Pods-NestSoundTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NestSoundTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yinchao.NestSoundTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestSound.app/NestSound";
+			};
+			name = Debug;
+		};
+		2DFB67181CC1E65600DA24DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NestSoundTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yinchao.NestSoundTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NestSound.app/NestSound";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2DFB66EC1CC1E65600DA24DA /* Build configuration list for PBXProject "NestSound" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DFB67111CC1E65600DA24DA /* Debug */,
+				2DFB67121CC1E65600DA24DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DFB67141CC1E65600DA24DA /* Debug */,
+				2DFB67151CC1E65600DA24DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DFB67171CC1E65600DA24DA /* Debug */,
+				2DFB67181CC1E65600DA24DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2DFB66E91CC1E65600DA24DA /* Project object */;
+}

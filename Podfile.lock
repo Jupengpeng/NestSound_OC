@@ -1,0 +1,66 @@
+PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - HappyDNS (0.2.3)
+  - JPush (2.1.6)
+  - Masonry (1.0.0)
+  - MBProgressHUD (0.9.2)
+  - Qiniu (7.0.17):
+    - AFNetworking (~> 2.0)
+    - HappyDNS (~> 0.2)
+  - RSAEncryptor (0.0.1)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
+  - SVPullToRefresh (0.4.1)
+  - TheAmazingAudioEngine (1.5.6)
+  - UMengAnalytics-NO-IDFA (3.6.7)
+  - UMengSocial (5.0)
+
+DEPENDENCIES:
+  - AFNetworking
+  - JPush
+  - Masonry
+  - MBProgressHUD
+  - Qiniu
+  - RSAEncryptor
+  - SDWebImage
+  - SVPullToRefresh
+  - TheAmazingAudioEngine
+  - UMengAnalytics-NO-IDFA
+  - UMengSocial (~> 5.0)
+
+SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  HappyDNS: 6d85942e64c28b4fa61f8c76580398f52d6d1d11
+  JPush: 9732a2a9e6a34729f660d6275704a5803d661e83
+  Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  Qiniu: 2c05af1f9d580c036b18faf832cc98e98bfb21bc
+  RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
+  UMengAnalytics-NO-IDFA: 6d02561a00579b2e37718f204eb81347df5d7b8b
+  UMengSocial: 48b67179c492a8cf7803fbb0438b8f55432e2fc1
+
+COCOAPODS: 0.39.0
