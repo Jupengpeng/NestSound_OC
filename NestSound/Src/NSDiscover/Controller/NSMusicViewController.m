@@ -110,17 +110,20 @@ static NSString * const headerView = @"HeaderView";
     
 }
 
-
+//push hotMusicVC
 - (void)hotMusic:(UIButton *)topBtn {
     
     NSLog(@"点击了热门歌曲的更多");
+    NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot"];
+    [self.navigationController pushViewController:hotMusicVC animated:YES];
+    
 }
-
+//push newMusicVC
 - (void)newMusic:(UIButton *)newBtn {
     
     NSLog(@"点击了最新歌曲的更多");
     
-    NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] init];
+    NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:nil];
     
     [self.navigationController pushViewController:newMusic animated:YES];
 }

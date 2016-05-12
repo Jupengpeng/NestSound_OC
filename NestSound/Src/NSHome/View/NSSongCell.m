@@ -22,9 +22,9 @@
 @implementation NSSongCell
 
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    if (self = [super initWithFrame:frame]) {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         //configure UI
         self.backgroundColor = [UIColor whiteColor];

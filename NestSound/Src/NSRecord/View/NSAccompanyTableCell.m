@@ -20,12 +20,14 @@
 
 @implementation NSAccompanyTableCell
 
--(instancetype)init
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self =  [super init];
-    if (self) {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+       
         [self configureUIAppearance];
+
     }
+    
     return self;
 }
 
