@@ -47,7 +47,7 @@
         
         _titleLable = [[UILabel alloc] init];
         
-        _titleLable.font = [UIFont systemFontOfSize:14];
+        _titleLable.font = [UIFont systemFontOfSize:15];
         
         [self addSubview:_titleLable];
         
@@ -59,7 +59,7 @@
             
         }];
         
-
+        
 
 
         [self addTimer];

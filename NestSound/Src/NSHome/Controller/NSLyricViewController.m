@@ -57,7 +57,7 @@ static NSString *num = @"7473";
         
         make.left.right.bottom.equalTo(self.view);
         
-        make.height.mas_equalTo(44);
+        make.height.mas_equalTo(50);
     }];
     
     
@@ -70,7 +70,7 @@ static NSString *num = @"7473";
         
         [btn setImage:[UIImage imageNamed:@"img_01"] forState:UIControlStateNormal];
         
-        btn.layer.cornerRadius = 14;
+        btn.layer.cornerRadius = 17;
         
         btn.clipsToBounds = YES;
 
@@ -242,7 +242,11 @@ static NSString *num = @"7473";
 
 - (void)setupLyricView {
     
-    NSLyricView *lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 108)];
+    NSLyricView *lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 114)];
+    
+    lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
+    
+    lyricView.lyricText.userInteractionEnabled = NO;
     
     lyricView.lyricText.text = @"可可豆（词音：kekedou）亦称“可可子”。\n梧桐科常绿乔木可可树的果实，\n长卵圆形坚果的扁平种子，\n含油53%～58% 。\n榨出的可可脂有独特香味及融化性能。\n是可可树的产物。\n中国于1922年开始引种此种树木。\n可可喜生于温暖和湿润的气侯和富于有机质的冲积土所形成的缓坡上，\n在排水不良和重粘土上或常受台风侵袭的地方则不适宜生长。";
     
