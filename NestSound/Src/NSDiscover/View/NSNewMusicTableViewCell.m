@@ -10,8 +10,6 @@
 
 @interface NSNewMusicTableViewCell ()
 
-
-
 //播放按钮
 @property (nonatomic, strong) UIButton *playBtn;
 
@@ -139,7 +137,7 @@
     //歌名
     self.musicName = [[UILabel alloc] init];
     
-    self.musicName.font = [UIFont systemFontOfSize:12];
+    self.musicName.font = [UIFont systemFontOfSize:14];
     
     self.musicName.text = @"悟空悟空悟空悟空悟";
     
@@ -170,7 +168,7 @@
         
         make.left.equalTo(self.playBtn.mas_right).offset(10);
         
-        make.top.equalTo(self.musicName.mas_bottom).offset(8);
+        make.top.equalTo(self.musicName.mas_bottom).offset(5);
         
     }];
     
@@ -216,7 +214,7 @@
     
     [self.collectionIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.heardIcon.mas_right).offset(40);
+        make.left.equalTo(self.heardIcon.mas_right).offset(50);
         
         make.centerY.equalTo(self.heardIcon.mas_centerY);
         
@@ -249,7 +247,7 @@
     
     [self.upVoteIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.collectionIcon.mas_right).offset(40);
+        make.left.equalTo(self.collectionIcon.mas_right).offset(50);
         
         make.centerY.equalTo(self.collectionIcon.mas_centerY);
         
