@@ -11,6 +11,9 @@
 		183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */; };
 		183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */; };
 		1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892F0341CD74AF000B47503 /* NSIndexCollectionReusableView.m */; };
+		18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BCA2601CE2F8A300891C95 /* NSMusicListViewController.m */; };
+		18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */; };
+		18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BCA2661CE335AE00891C95 /* NSPictureCollectionView.m */; };
 		18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C914881CDAE66700C255C4 /* NSLyricViewController.m */; };
 		18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9148B1CDB169000C255C4 /* NSLyricView.m */; };
 		18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C9148E1CDB309700C255C4 /* UIView+Extension.m */; };
@@ -92,6 +95,12 @@
 		183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicViewController.m; sourceTree = "<group>"; };
 		1892F0331CD74AF000B47503 /* NSIndexCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSIndexCollectionReusableView.h; sourceTree = "<group>"; };
 		1892F0341CD74AF000B47503 /* NSIndexCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSIndexCollectionReusableView.m; sourceTree = "<group>"; };
+		18BCA25F1CE2F8A300891C95 /* NSMusicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicListViewController.h; sourceTree = "<group>"; };
+		18BCA2601CE2F8A300891C95 /* NSMusicListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicListViewController.m; sourceTree = "<group>"; };
+		18BCA2621CE3113D00891C95 /* NSInspirationRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInspirationRecordViewController.h; sourceTree = "<group>"; };
+		18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInspirationRecordViewController.m; sourceTree = "<group>"; };
+		18BCA2651CE335AE00891C95 /* NSPictureCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPictureCollectionView.h; sourceTree = "<group>"; };
+		18BCA2661CE335AE00891C95 /* NSPictureCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPictureCollectionView.m; sourceTree = "<group>"; };
 		18C914871CDAE66700C255C4 /* NSLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricViewController.h; sourceTree = "<group>"; };
 		18C914881CDAE66700C255C4 /* NSLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricViewController.m; sourceTree = "<group>"; };
 		18C9148A1CDB169000C255C4 /* NSLyricView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricView.h; sourceTree = "<group>"; };
@@ -257,17 +266,16 @@
 				183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */,
 				183E03A01CDDDACC0071FEE5 /* NSMusicViewController.h */,
 				183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */,
-
 				18CFB3F21CDEDBA50033998A /* NSNewMusicViewController.h */,
 				18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */,
-
 				2AE3C2291CDED80F00790BFA /* NSActivityViewController.h */,
 				2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */,
 				2AE3C22C1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.h */,
 				2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */,
 				2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */,
 				2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */,
-
+				18BCA25F1CE2F8A300891C95 /* NSMusicListViewController.h */,
+				18BCA2601CE2F8A300891C95 /* NSMusicListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -282,13 +290,10 @@
 		183E039C1CDDC5E90071FEE5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-
 				18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */,
 				18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */,
-
 				2AE3C2321CDEDCAD00790BFA /* NSActivityCollectionCell.h */,
 				2AE3C2331CDEDCAD00790BFA /* NSActivityCollectionCell.m */,
-
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -408,6 +413,8 @@
 				2D8608E11CCC87C00027F147 /* NSRecordViewController.m */,
 				2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */,
 				2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */,
+				18BCA2621CE3113D00891C95 /* NSInspirationRecordViewController.h */,
+				18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -426,6 +433,8 @@
 				2AE3C2391CDF04FE00790BFA /* NSAccompanyTableCell.m */,
 				2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */,
 				2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */,
+				18BCA2651CE335AE00891C95 /* NSPictureCollectionView.h */,
+				18BCA2661CE335AE00891C95 /* NSPictureCollectionView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -554,12 +563,12 @@
 				2DFB671D1CC1E6DE00DA24DA /* AppDelegate.m */,
 				2D8608C31CCC86BA0027F147 /* AppDelegate+configureUIAppearance.h */,
 				2D8608C41CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m */,
-				2A9DC10C1CDDC6B9004470ED /* NSMessage */,
 				2DFB67271CC1E82700DA24DA /* NSBase */,
 				2D8608D21CCC87720027F147 /* NSUser */,
 				2D8608C61CCC87720027F147 /* NSHome */,
 				183E03991CDDC5E90071FEE5 /* NSDiscover */,
 				2D8608CE1CCC87720027F147 /* NSRecord */,
+				2A9DC10C1CDDC6B9004470ED /* NSMessage */,
 				2D8608D61CCC87720027F147 /* NSUserPage */,
 			);
 			path = Src;
@@ -920,18 +929,17 @@
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
+				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
 				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
 				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
-
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
-
+				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
-
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
@@ -952,6 +960,7 @@
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
+				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
@@ -1102,13 +1111,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
-
 				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
-
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
@@ -1126,13 +1130,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";

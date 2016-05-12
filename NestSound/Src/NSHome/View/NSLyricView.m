@@ -33,11 +33,11 @@
     
     self.lyricText = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, lyricView.width - 30, lyricView.height - 15)];
     
-    self.lyricText.textAlignment = NSTextAlignmentCenter;
+//    self.lyricText.textAlignment = NSTextAlignmentCenter;
     
-    self.lyricText.font = [UIFont systemFontOfSize:14];
+    self.lyricText.font = [UIFont systemFontOfSize:15];
     
-    self.lyricText.userInteractionEnabled = NO;
+//    self.lyricText.userInteractionEnabled = NO;
     
     [lyricView addSubview:self.lyricText];
     

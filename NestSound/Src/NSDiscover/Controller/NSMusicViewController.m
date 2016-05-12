@@ -72,7 +72,12 @@ static NSString * const headerView = @"HeaderView";
     
     NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RecommendCell forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
+    cell.authorName = @"hjay";
+    cell.workName = @"zheshisha";
+    cell.imgeUrl = nil;
+    cell.type = @"1";
+    cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
+    cell.contentView.layer.borderWidth = 1;
     
     return cell;
     

@@ -8,6 +8,9 @@
 
 #import "NSDiscoverViewController.h"
 #import "NSMusicViewController.h"
+#import "NSActivityViewController.h"
+#import "NSDiscoverLyricViewCOntroller.h"
+#import "NSMusicListViewController.h"
 
 @interface NSDiscoverViewController () <UIScrollViewDelegate> {
     
@@ -57,7 +60,7 @@
         
         [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-        titleBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        titleBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         
         titleBtn.tag = i;
         
@@ -84,8 +87,6 @@
     
     _scrollView.pagingEnabled = YES;
     
-    _scrollView.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
-    
     _scrollView.delegate = self;
     
     [self.view addSubview:_scrollView];
@@ -96,6 +97,16 @@
 
 - (void)setupContent {
     
+    //活动
+    NSActivityViewController *activity = [[NSActivityViewController alloc] init];
+    
+    activity.view.frame = CGRectMake(0, 0, ScreenWidth, _scrollView.height);
+    
+    [self addChildViewController:activity];
+    
+    [_scrollView addSubview:activity.view];
+    
+    //歌曲
     NSMusicViewController *music = [[NSMusicViewController alloc] init];
     
     music.view.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, _scrollView.height);
@@ -103,6 +114,26 @@
     [self addChildViewController:music];
     
     [_scrollView addSubview:music.view];
+    
+    //歌词
+    NSDiscoverLyricViewCOntroller *lyric = [[NSDiscoverLyricViewCOntroller alloc] init];
+    
+    lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
+    
+    [self addChildViewController:lyric];
+    
+    [_scrollView addSubview:lyric.view];
+    
+    //榜单
+    NSMusicListViewController *list = [[NSMusicListViewController alloc] init];
+    
+    list.view.frame = CGRectMake(ScreenWidth * 3, 0, ScreenWidth, _scrollView.height);
+    
+    [self addChildViewController:list];
+    
+    [_scrollView addSubview:list.view];
+    
+    
 }
 
 
