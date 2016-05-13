@@ -23,7 +23,8 @@
 #import "UIButton+NSAdditions.h"
 #import "UIImage+ImageEffects.h"
 #import "UIImageView+NSAdditions.h"
-
+#import "NSHttpClient+EncrypteData.h"
+#import "QiniuSDK.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;
@@ -50,6 +51,7 @@ extern NSString *port;
 #define ScreenHeight          CGRectGetHeight([UIScreen mainScreen].bounds)
 #define USERDEFAULT          [NSUserDefaults standardUserDefaults]
 #define LocalizedStr(key)    NSLocalizedString(key, @"")
+#define LocalPath            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
 // Keys
 #define kNoLoading       @"noLoading"

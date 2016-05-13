@@ -10,4 +10,7 @@
 
 @interface NSUserViewController : NSBaseViewController
 
+
+
+
 @end
