@@ -18,10 +18,25 @@
 
 @implementation NSNewMusicViewController
 
+-(instancetype)initWithType:(NSString *)type
+{
+    self = [super init];
+    if (self) {
+        self.MusicType = type;
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"最新歌曲";
+    if ([self.MusicType isEqualToString:@"hot"]) {
+        self.title = LocalizedStr(@"promot_hotMusic");
+    }else{
+        self.title = LocalizedStr(@"promot_newMusic");
+    }
+    
     
     _tableView = [[UITableView alloc] init];
     

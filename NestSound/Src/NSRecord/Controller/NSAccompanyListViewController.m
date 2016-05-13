@@ -33,7 +33,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [self configureUIAppearance];
 }
 
-
+#
 -(void)configureUIAppearance
 {
     //accompanyListTableView

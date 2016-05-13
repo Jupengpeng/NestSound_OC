@@ -14,4 +14,5 @@
 + (NSString *)obtainHostURL;
 + (AppDelegate *)appDelegate;
 + (BOOL)isStringEmpty:(NSString *)targetString;
+
 @end

@@ -25,6 +25,10 @@
 		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
 		2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */; };
 		2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */; };
+		2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B1F1CE2D7E600086C2C /* NSWriteLyricViewController.m */; };
+		2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B251CE317B300086C2C /* NSLyricCoachViewController.m */; };
+		2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */; };
+		2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */; };
 		2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1171CDDC797004470ED /* NSMessageViewController.m */; };
 		2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11A1CDDCDD9004470ED /* NSMessageListViewController.m */; };
 		2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11D1CDDD89F004470ED /* NSCommentMessageCell.m */; };
@@ -37,6 +41,7 @@
 		2AD10A901CD9F2D60044D821 /* NSSongListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A8F1CD9F2D60044D821 /* NSSongListHeaderView.m */; };
 		2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */; };
 		2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */; };
+		2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10031CE3508900D0D535 /* NSLyricCell.m */; };
 		2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */; };
 		2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */; };
 		2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */; };
@@ -123,6 +128,14 @@
 		2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongCell.m; sourceTree = "<group>"; };
 		2A3E7C661CDB37C4006C8519 /* NSPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayViewController.h; sourceTree = "<group>"; };
 		2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayViewController.m; sourceTree = "<group>"; };
+		2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWriteLyricViewController.h; sourceTree = "<group>"; };
+		2A500B1F1CE2D7E600086C2C /* NSWriteLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWriteLyricViewController.m; sourceTree = "<group>"; };
+		2A500B241CE317B300086C2C /* NSLyricCoachViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricCoachViewController.h; sourceTree = "<group>"; };
+		2A500B251CE317B300086C2C /* NSLyricCoachViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricCoachViewController.m; sourceTree = "<group>"; };
+		2A500B271CE31CC400086C2C /* NSPublicLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPublicLyricViewController.h; sourceTree = "<group>"; };
+		2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPublicLyricViewController.m; sourceTree = "<group>"; };
+		2A500B2A1CE33CEB00086C2C /* NSImportLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImportLyricViewController.h; sourceTree = "<group>"; };
+		2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImportLyricViewController.m; sourceTree = "<group>"; };
 		2A9DC1161CDDC797004470ED /* NSMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageViewController.h; sourceTree = "<group>"; };
 		2A9DC1171CDDC797004470ED /* NSMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMessageViewController.m; sourceTree = "<group>"; };
 		2A9DC1191CDDCDD9004470ED /* NSMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageListViewController.h; sourceTree = "<group>"; };
@@ -147,6 +160,8 @@
 		2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecommendCell.m; sourceTree = "<group>"; };
 		2AD6DF3F1CD7287F00B95CFD /* NSHttpClient+EncrypteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSHttpClient+EncrypteData.h"; sourceTree = "<group>"; };
 		2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHttpClient+EncrypteData.m"; sourceTree = "<group>"; };
+		2ADA10021CE3508900D0D535 /* NSLyricCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricCell.h; sourceTree = "<group>"; };
+		2ADA10031CE3508900D0D535 /* NSLyricCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricCell.m; sourceTree = "<group>"; };
 		2AE3C2291CDED80F00790BFA /* NSActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityViewController.h; sourceTree = "<group>"; };
 		2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityViewController.m; sourceTree = "<group>"; };
 		2AE3C22C1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverLyricViewCOntroller.h; sourceTree = "<group>"; };
@@ -415,8 +430,19 @@
 				2D8608E11CCC87C00027F147 /* NSRecordViewController.m */,
 				2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */,
 				2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */,
+<<<<<<< HEAD
+				2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */,
+				2A500B1F1CE2D7E600086C2C /* NSWriteLyricViewController.m */,
+				2A500B241CE317B300086C2C /* NSLyricCoachViewController.h */,
+				2A500B251CE317B300086C2C /* NSLyricCoachViewController.m */,
+				2A500B271CE31CC400086C2C /* NSPublicLyricViewController.h */,
+				2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */,
+				2A500B2A1CE33CEB00086C2C /* NSImportLyricViewController.h */,
+				2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */,
+=======
 				18BCA2621CE3113D00891C95 /* NSInspirationRecordViewController.h */,
 				18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */,
+>>>>>>> 6be33aa712f1e5536a3ed43977d2279580bf10df
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -435,8 +461,13 @@
 				2AE3C2391CDF04FE00790BFA /* NSAccompanyTableCell.m */,
 				2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */,
 				2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */,
+<<<<<<< HEAD
+				2ADA10021CE3508900D0D535 /* NSLyricCell.h */,
+				2ADA10031CE3508900D0D535 /* NSLyricCell.m */,
+=======
 				18BCA2651CE335AE00891C95 /* NSPictureCollectionView.h */,
 				18BCA2661CE335AE00891C95 /* NSPictureCollectionView.m */,
+>>>>>>> 6be33aa712f1e5536a3ed43977d2279580bf10df
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -938,6 +969,7 @@
 				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
+				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
 
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
@@ -959,14 +991,17 @@
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
+				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
+				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
+				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
@@ -977,6 +1012,7 @@
 				2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
+				2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */,
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,

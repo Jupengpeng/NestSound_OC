@@ -28,7 +28,7 @@
 @implementation NSRecommendCell
 
 
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)init:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
     

@@ -10,4 +10,7 @@
 
 @interface NSNewMusicViewController : NSBaseViewController
 
+@property (nonatomic,copy) NSString * MusicType;
+
+-(instancetype)initWithType:(NSString *)type;
 @end

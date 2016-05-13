@@ -33,7 +33,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     [self configureUIAppearance];
 }
 
-
+#pragma makr -configureUIAppearance
 -(void)configureUIAppearance
 {
     
@@ -101,4 +101,5 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 {
     return UIEdgeInsetsMake(0, 15, 0, 15);
 }
+
 @end
