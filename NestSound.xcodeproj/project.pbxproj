@@ -296,9 +296,14 @@
 				2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */,
 				2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */,
 
+
+<<<<<<< HEAD
+=======
 				18BCA25F1CE2F8A300891C95 /* NSMusicListViewController.h */,
 				18BCA2601CE2F8A300891C95 /* NSMusicListViewController.m */,
 
+
+>>>>>>> 31c5908b05c508546037ef27e8855d90ee643c4f
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -446,9 +451,12 @@
 				2A500B2A1CE33CEB00086C2C /* NSImportLyricViewController.h */,
 				2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */,
 
+
+<<<<<<< HEAD
+=======
 				18BCA2621CE3113D00891C95 /* NSInspirationRecordViewController.h */,
 				18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */,
-
+>>>>>>> 31c5908b05c508546037ef27e8855d90ee643c4f
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -472,8 +480,15 @@
 				18BCA2651CE335AE00891C95 /* NSPictureCollectionView.h */,
 				18BCA2661CE335AE00891C95 /* NSPictureCollectionView.m */,
 
+<<<<<<< HEAD
 				2ADA10021CE3508900D0D535 /* NSLyricCell.h */,
 				2ADA10031CE3508900D0D535 /* NSLyricCell.m */,
+=======
+
+				2ADA10021CE3508900D0D535 /* NSLyricCell.h */,
+				2ADA10031CE3508900D0D535 /* NSLyricCell.m */,
+
+>>>>>>> 31c5908b05c508546037ef27e8855d90ee643c4f
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -982,8 +997,13 @@
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
 
+
+<<<<<<< HEAD
+=======
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
 
+
+>>>>>>> 31c5908b05c508546037ef27e8855d90ee643c4f
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
