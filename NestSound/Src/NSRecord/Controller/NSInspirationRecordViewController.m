@@ -9,10 +9,12 @@
 #import "NSInspirationRecordViewController.h"
 #import "NSLyricView.h"
 #import "NSPictureCollectionView.h"
-
+#import <AssetsLibrary/AssetsLibrary.h>
 @interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource> {
     
     UICollectionView *_collection;
+    
+    UIView *_bottomView;
 }
 
 @property (nonatomic, strong) UILabel *label;
@@ -36,6 +38,72 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     [self setupUI];
     
+    
+    //注册键盘通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWasShown:)
+     
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWillBeHidden:)
+     
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+    
+    
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    
+    NSDictionary *userInfo = [aNotification userInfo];
+
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGFloat keyBoardEndY = value.CGRectValue.origin.y;
+
+    NSNumber *duration = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    
+    NSNumber *curve = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    [UIView animateWithDuration:duration.doubleValue animations:^{
+        
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:[curve intValue]];
+        
+        _bottomView.y = keyBoardEndY - _bottomView.height - 64;
+        
+    }];
+    
+    
+}
+
+
+
+-(void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    
+    NSDictionary *userInfo = [aNotification userInfo];
+    
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGFloat keyBoardEndY = value.CGRectValue.origin.y;
+    
+    NSNumber *duration = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    
+    NSNumber *curve = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    [UIView animateWithDuration:duration.doubleValue animations:^{
+        
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:[curve intValue]];
+        
+        _bottomView.y = keyBoardEndY - _bottomView.height - 64;
+        
+    }];
+    
 }
 
 - (void)setupUI {
@@ -55,17 +123,20 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     [inspiration.lyricText addSubview:self.label];
     
     
-    UIView *line = [[UIView alloc] init];//]WithFrame:CGRectMake(0, ScreenHeight - (ScreenHeight - 329), ScreenWidth, 1)];
+    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 124, ScreenWidth, 60)];
     
-    line.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:_bottomView];
     
-    [self.view addSubview:line];
     
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *line1 = [[UIView alloc] init];//]WithFrame:CGRectMake(0, ScreenHeight - (ScreenHeight - 329), ScreenWidth, 1)];
+    
+    line1.backgroundColor = [UIColor lightGrayColor];
+    
+    [_bottomView addSubview:line1];
+    
+    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.right.equalTo(self.view);
-        
-        make.top.equalTo(inspiration.mas_bottom);
+        make.left.right.top.equalTo(_bottomView);
         
         make.height.mas_equalTo(1);
         
@@ -104,16 +175,16 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         [inspiration.lyricText addSubview:_collection];
         
-     
+        
     }];
     
-    [self.view addSubview:pictureBtn];
+    [_bottomView addSubview:pictureBtn];
     
     [pictureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(line.mas_bottom).offset(15);
+        make.top.equalTo(line1.mas_bottom).offset(15);
         
-        make.left.equalTo(self.view.mas_left).offset(15);
+        make.left.equalTo(_bottomView.mas_left).offset(15);
         
         make.width.height.mas_equalTo(30);
         
@@ -130,11 +201,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
     }];
     
-    [self.view addSubview:soundBtn];
+    [_bottomView addSubview:soundBtn];
     
     [soundBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(line.mas_bottom).offset(15);
+        make.top.equalTo(line1.mas_bottom).offset(15);
         
         make.left.equalTo(pictureBtn.mas_right).offset(15);
         
@@ -151,9 +222,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     [line2 mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.right.equalTo(self.view);
-        
-        make.top.equalTo(pictureBtn.mas_bottom).offset(15);
+        make.left.right.bottom.equalTo(_bottomView);
         
         make.height.mas_equalTo(1);
         
