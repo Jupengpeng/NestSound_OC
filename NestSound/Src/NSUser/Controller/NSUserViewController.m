@@ -98,7 +98,7 @@ static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
 //            
 //            break;
         }
-            
+        
         case 2:
         {
             

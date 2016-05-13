@@ -295,12 +295,8 @@
 				2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */,
 				2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */,
 				2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */,
-
 				18BCA25F1CE2F8A300891C95 /* NSMusicListViewController.h */,
 				18BCA2601CE2F8A300891C95 /* NSMusicListViewController.m */,
-
-
-
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -438,7 +434,6 @@
 				2D8608E11CCC87C00027F147 /* NSRecordViewController.m */,
 				2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */,
 				2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */,
-
 				2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */,
 				2A500B1F1CE2D7E600086C2C /* NSWriteLyricViewController.m */,
 				2A500B241CE317B300086C2C /* NSLyricCoachViewController.h */,
@@ -447,12 +442,8 @@
 				2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */,
 				2A500B2A1CE33CEB00086C2C /* NSImportLyricViewController.h */,
 				2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */,
-
-
-
 				18BCA2621CE3113D00891C95 /* NSInspirationRecordViewController.h */,
 				18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */,
-
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -471,16 +462,10 @@
 				2AE3C2391CDF04FE00790BFA /* NSAccompanyTableCell.m */,
 				2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */,
 				2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */,
-
-
 				18BCA2651CE335AE00891C95 /* NSPictureCollectionView.h */,
 				18BCA2661CE335AE00891C95 /* NSPictureCollectionView.m */,
-
-
 				2ADA10021CE3508900D0D535 /* NSLyricCell.h */,
 				2ADA10031CE3508900D0D535 /* NSLyricCell.m */,
-
-
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -776,6 +761,7 @@
 				2DFB66EF1CC1E65600DA24DA /* Resources */,
 				95F5F61DA98298C3696F5DDB /* 📦 Embed Pods Frameworks */,
 				077864D142F000C656EBB661 /* 📦 Copy Pods Resources */,
+				05A3766004977DCB4C87233D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -876,6 +862,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		05A3766004977DCB4C87233D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		077864D142F000C656EBB661 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -988,13 +989,7 @@
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
-
-
-
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
-
-
-
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
@@ -1208,7 +1203,6 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FA894323613FE22556BE035 /* Pods-NestSoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1221,7 +1215,6 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33EBF77A5C4C164696B34219 /* Pods-NestSoundTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
