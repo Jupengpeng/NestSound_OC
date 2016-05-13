@@ -274,11 +274,10 @@
 				2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */,
 				2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */,
 				2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */,
-<<<<<<< HEAD
-=======
+
 				18BCA25F1CE2F8A300891C95 /* NSMusicListViewController.h */,
 				18BCA2601CE2F8A300891C95 /* NSMusicListViewController.m */,
->>>>>>> zhangxuanhe
+
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -940,10 +939,9 @@
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
-<<<<<<< HEAD
-=======
+
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
->>>>>>> zhangxuanhe
+
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
