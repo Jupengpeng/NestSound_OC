@@ -28,8 +28,9 @@
     
     _tableView.dataSource = self;
     
-    _tableView.rowHeight = 70;
+    _tableView.rowHeight = 80;
     
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.view = _tableView;
 
@@ -38,13 +39,13 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 100;
+    return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return 100;
 }
 
 
@@ -60,31 +61,17 @@
         
     }
     
-    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.numLabel.text = [NSString stringWithFormat:@"%02zd",indexPath.section + 1];
+    cell.numLabel.text = [NSString stringWithFormat:@"%02zd",indexPath.row + 1];
     
     return cell;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
-    return 10;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UIView *headerView = [[UIView alloc] init];
-    
-    headerView.backgroundColor = [UIColor whiteColor];
-    
-    return headerView;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"点击了第%zd个cell",indexPath.section);
+    NSLog(@"点击了第%zd个cell",indexPath.row);
 }
 
 

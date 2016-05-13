@@ -13,4 +13,7 @@
 //排行数字
 @property (nonatomic, strong) UILabel *numLabel;
 
+//日期
+- (void)addDateLabel;
+
 @end

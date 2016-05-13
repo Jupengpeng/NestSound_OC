@@ -10,8 +10,14 @@
 
 @interface NSNewMusicTableViewCell ()
 
-//播放按钮
-@property (nonatomic, strong) UIButton *playBtn;
+//模拟组头
+@property (nonatomic, strong) UIView *header;
+
+//背景View
+@property (nonatomic, strong) UIView *background;
+
+//封面
+@property (nonatomic, strong) UIImageView *coverIcon;
 
 //歌曲名
 @property (nonatomic, strong) UILabel *musicName;
@@ -47,10 +53,38 @@
     
     if (self) {
         
+        self.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+        
         [self setupUI];
     }
     
     return self;
+}
+
+- (void)addDateLabel {
+    
+    //日期
+    self.dateLabel = [[UILabel alloc] init];
+    
+    self.dateLabel.textColor = [UIColor hexColorFloat:@"a0a0a0"];
+    
+    self.dateLabel.font = [UIFont systemFontOfSize:10];
+    
+    self.dateLabel.textAlignment = NSTextAlignmentRight;
+    
+    self.dateLabel.text = @"2016-05-8";
+    
+    [self.background addSubview:self.dateLabel];
+    
+    [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+//        make.top.equalTo(self.background.mas_top).offset(10);
+        
+        make.centerY.equalTo(self.musicName.mas_centerY);
+        
+        make.right.equalTo(self.background.mas_right).offset(-10);
+        
+    }];
 }
 
 
@@ -74,82 +108,82 @@
         
         make.left.equalTo(self.mas_left).offset(15);
         
-        make.width.mas_equalTo(25);
-        
     }];
     
-    UIView *backgroundView = [[UIView alloc] init];
     
-    backgroundView.backgroundColor = [UIColor hexColorFloat:@"f0f0f0"];
+    //模拟组头
+    self.header = [[UIView alloc] init];
     
-    [self.contentView addSubview:backgroundView];
+    self.header.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
-    [backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self addSubview:self.header];
+    
+    [self.header mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.numLabel.mas_right).offset(5);
+        make.left.right.equalTo(self);
+        
+        make.top.equalTo(self.mas_top);
+        
+        make.height.mas_equalTo(10);
+    }];
+    
+    //背景View
+    self.background = [[UIView alloc] init];
+    
+    self.background.backgroundColor = [UIColor hexColorFloat:@"f0f0f0"];
+    
+    [self.contentView addSubview:self.background];
+    
+    [self.background mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.numLabel.mas_right).offset(15);
         
         make.right.equalTo(self.mas_right).offset(-15);
         
-        make.top.bottom.equalTo(self);
+        make.top.equalTo(self.header.mas_bottom);
         
+        make.bottom.equalTo(self.mas_bottom);
     }];
     
-    //头像和播放
-#warning mark 可能不需要播放 button会换成image
+    //封面
+    self.coverIcon = [[UIImageView alloc] init];
     
-    self.playBtn = [[UIButton alloc] init];
+    self.coverIcon.image = [UIImage imageNamed:@"img_01"];
     
-    [self.playBtn setBackgroundImage:[UIImage imageNamed:@"img_01"] forState:UIControlStateNormal];
+    [self.background addSubview:self.coverIcon];
     
-    [backgroundView addSubview:self.playBtn];
-    
-    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.coverIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(backgroundView.mas_left);
+        make.left.equalTo(self.background.mas_left);
         
-        make.top.bottom.equalTo(backgroundView);
+        make.top.bottom.equalTo(self.background);
         
         make.width.mas_equalTo(70);
         
     }];
     
-    //日期
-    self.dateLabel = [[UILabel alloc] init];
-    
-    self.dateLabel.textColor = [UIColor hexColorFloat:@"a0a0a0"];
-    
-    self.dateLabel.font = [UIFont systemFontOfSize:10];
-    
-    self.dateLabel.textAlignment = NSTextAlignmentRight;
-    
-    self.dateLabel.text = @"2016-05-8";
-    
-    [backgroundView addSubview:self.dateLabel];
-    
-    [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(backgroundView.mas_top).offset(10);
-        
-        make.right.equalTo(backgroundView.mas_right).offset(-10);
-        
-    }];
     
     //歌名
     self.musicName = [[UILabel alloc] init];
     
-    self.musicName.font = [UIFont systemFontOfSize:14];
+    if ([UIScreen mainScreen].bounds.size.height < 667) {
+        
+        self.musicName.font = [UIFont systemFontOfSize:12];
+        
+    } else {
+        
+        self.musicName.font = [UIFont systemFontOfSize:14];
+    }
     
     self.musicName.text = @"悟空悟空悟空悟空悟";
     
-    [backgroundView addSubview:self.musicName];
+    [self.background addSubview:self.musicName];
     
     [self.musicName mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.playBtn.mas_right).offset(10);
+        make.left.equalTo(self.coverIcon.mas_right).offset(10);
         
-        make.right.equalTo(self.dateLabel.mas_left);
-        
-        make.centerY.equalTo(self.dateLabel.mas_centerY);
+        make.top.equalTo(self.background.mas_top).offset(8);
         
     }];
     
@@ -162,11 +196,11 @@
     
     self.authorName.textColor = [UIColor hexColorFloat:@"727272"];
     
-    [backgroundView addSubview:self.authorName];
+    [self.background addSubview:self.authorName];
     
     [self.authorName mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.playBtn.mas_right).offset(10);
+        make.left.equalTo(self.coverIcon.mas_right).offset(10);
         
         make.top.equalTo(self.musicName.mas_bottom).offset(5);
         
@@ -177,13 +211,13 @@
     
     self.heardIcon.image = [UIImage imageNamed:@"2.0_hear"];
     
-    [backgroundView addSubview:self.heardIcon];
+    [self.background addSubview:self.heardIcon];
     
     [self.heardIcon mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(self.playBtn.mas_right).offset(10);
+        make.left.equalTo(self.coverIcon.mas_right).offset(10);
         
-        make.bottom.equalTo(backgroundView.mas_bottom).offset(-5);
+        make.bottom.equalTo(self.background.mas_bottom).offset(-8);
         
     }];
     
@@ -195,7 +229,7 @@
     
     self.heardLabel.textColor = [UIColor hexColorFloat:@"999999"];
     
-    [backgroundView addSubview:self.heardLabel];
+    [self.background addSubview:self.heardLabel];
     
     [self.heardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -210,7 +244,7 @@
     
     self.collectionIcon.image = [UIImage imageNamed:@"2.0_collection"];
     
-    [backgroundView addSubview:self.collectionIcon];
+    [self.background addSubview:self.collectionIcon];
     
     [self.collectionIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -228,7 +262,7 @@
     
     self.collectionLabel.textColor = [UIColor hexColorFloat:@"999999"];
     
-    [backgroundView addSubview:self.collectionLabel];
+    [self.background addSubview:self.collectionLabel];
     
     [self.collectionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -237,13 +271,13 @@
         make.centerY.equalTo(self.collectionIcon.mas_centerY);
         
     }];
-
+    
     //点赞
     self.upVoteIcon = [[UIImageView alloc] init];
     
     self.upVoteIcon.image = [UIImage imageNamed:@"2.0_upVote"];
     
-    [backgroundView addSubview:self.upVoteIcon];
+    [self.background addSubview:self.upVoteIcon];
     
     [self.upVoteIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -261,7 +295,7 @@
     
     self.upVoteLabel.textColor = [UIColor hexColorFloat:@"999999"];
     
-    [backgroundView addSubview:self.upVoteLabel];
+    [self.background addSubview:self.upVoteLabel];
     
     [self.upVoteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         

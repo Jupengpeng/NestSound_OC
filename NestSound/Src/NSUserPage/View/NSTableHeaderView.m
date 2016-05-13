@@ -89,6 +89,8 @@
     
     [self.followBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
+    self.followBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    
     [self addSubview:self.followBtn];
     
     
@@ -102,6 +104,8 @@
     self.fansBtn = [[UIButton alloc] init];
     
     [self.fansBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    self.fansBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     
     [self addSubview:self.fansBtn];
     
