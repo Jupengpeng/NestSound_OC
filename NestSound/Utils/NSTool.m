@@ -123,4 +123,72 @@ static NSDateFormatter *dateFormatter;
     }
     return NO;
 }
+
+#pragma mark cutImage With size
++ (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2
+{
+    //压缩图片
+    CGSize newSize;
+    CGImageRef imageRef = nil;
+    
+    if ((image.size.width / image.size.height) < (newSize2.width / newSize2.height)) {
+        newSize.width = image.size.width;
+        newSize.height = image.size.width * newSize2.height / newSize2.width;
+        
+        imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(0, fabs(image.size.height - newSize.height) / 2, newSize.width, newSize.height));
+        
+    } else {
+        newSize.height = image.size.height;
+        newSize.width = image.size.height * newSize2.width / newSize2.height;
+        
+        imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(fabs(image.size.width - newSize.width) / 2, 0, newSize.width, newSize.height));
+        
+    }
+    
+    return [UIImage imageWithCGImage:imageRef];
+}
+
+
+#pragma mark saveImage to Document
++(void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+{
+    NSData * imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:imageName];
+    [imageData writeToFile:fullPath atomically:NO];
+}
+
+#pragma mark uploade image to Qiniu
++(NSString *)uploadPhotoWith:(NSString *)photoPath
+{
+    NSString *  imageURL;
+    
+    
+    __block  NSString * image = imageURL;
+    NSString * token;
+    [NSHttpClient client];
+     [[NSHttpClient client] requestWithURL:@"qiniuUrl" paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
+         
+         
+         
+         
+         NSFileManager *fileManager = [NSFileManager defaultManager];
+         if ([fileManager fileExistsAtPath:photoPath]) {
+             QNUploadManager * upManager = [[QNUploadManager alloc] init];
+             NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
+             [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                 
+                   image = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                 
+                 
+             } option:nil];
+         }
+         
+         
+    } failure:^(NSURLSessionDataTask *operation, NSError *requestErr) {
+        NSLog(@"%@",requestErr);
+    }];
+    return imageURL;
+}
+
 @end

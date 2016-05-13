@@ -8,7 +8,7 @@
 
 #import "NSPublicLyricViewController.h"
 
-@interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
+@interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
 
     UITextView * descriptionText;
@@ -19,6 +19,7 @@
     NSMutableDictionary * lyricDic;
     NSString * description;
     UIActionSheet * chosePhotoLibrary;
+    UIImagePickerController * picker;
 }
 @end
 
@@ -52,7 +53,7 @@
     [self.view addSubview:descriptionText];
     
     addTitlePageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
+    [addTitlePageBtn addTarget:self action:@selector(addtitlePage) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:addTitlePageBtn];
     
     addTitlePageLabel = [[UILabel alloc] init];
@@ -69,6 +70,10 @@
     publicSwitch.on = YES;
     publicSwitch.tintColor = [UIColor hexColorFloat:@"ffd111"];
     [self.view addSubview:publicSwitch];
+    
+    picker = [[UIImagePickerController alloc] init];
+    picker.allowsEditing = YES;
+    picker.delegate = self;
     
     chosePhotoLibrary = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LocalizedStr(@"prompt_cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(@"prompt_takePhoto"),LocalizedStr(@"prompt_photoLibary"),nil];
     
@@ -103,16 +108,46 @@
     }];
 }
 
+-(void)addtitlePage
+{
+
+    [chosePhotoLibrary showInView:self.view];
+}
+
 #pragma mark -actionSheetDelegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
+    switch (buttonIndex) {
+        case 0:
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            
+            break;
+        case 1:
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            break;
+        default:
+            break;
+    }
+    [self presentViewController:picker animated:YES completion:^{
+
+    }];
 
 }
 
 #pragma mark -imagePicker
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
+    UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [NSTool saveImage:image withName:@"lyricTitlePage.png"];
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+    UIImage * titlepageImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
+    //set addtitlePageBtn backgroundImage
+    [addTitlePageBtn setBackgroundImage:titlepageImage forState:UIControlStateNormal];
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
+    
+    
     
 }
 

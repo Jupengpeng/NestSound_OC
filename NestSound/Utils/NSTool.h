@@ -14,5 +14,8 @@
 + (NSString *)obtainHostURL;
 + (AppDelegate *)appDelegate;
 + (BOOL)isStringEmpty:(NSString *)targetString;
-
++ (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName;
++ (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2;
++ (NSString *)uploadPhotoWith:(NSString *)photoPath;
 @end
+
