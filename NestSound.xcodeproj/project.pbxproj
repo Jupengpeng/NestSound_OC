@@ -22,6 +22,7 @@
 		18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C914941CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m */; };
 		18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */; };
 		18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */; };
+		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */; };
 		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
 		2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */; };
@@ -118,6 +119,8 @@
 		18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicViewController.m; sourceTree = "<group>"; };
 		18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNewMusicTableViewCell.h; sourceTree = "<group>"; };
 		18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicTableViewCell.m; sourceTree = "<group>"; };
+		18FF92801CE5B10C007F61AC /* NSToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarButton.h; sourceTree = "<group>"; };
+		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
 		247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
@@ -506,6 +509,8 @@
 			children = (
 				18BCA2681CE4669200891C95 /* NSTableHeaderView.h */,
 				18BCA2691CE4669200891C95 /* NSTableHeaderView.m */,
+				18FF92801CE5B10C007F61AC /* NSToolbarButton.h */,
+				18FF92811CE5B10C007F61AC /* NSToolbarButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -956,6 +961,7 @@
 				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
 				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,
 				2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */,
+				18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */,
 				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
@@ -1151,7 +1157,6 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C822486D1BCBD74103F01228 /* Pods-NestSoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1164,7 +1169,6 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;

@@ -25,15 +25,13 @@
     
     _tableView = [[UITableView alloc] init];
     
-    _tableView.backgroundColor = [UIColor whiteColor];
-    
     _tableView.delegate = self;
     
     _tableView.dataSource = self;
     
     _tableView.rowHeight = 70;
     
-    
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.view = _tableView;
     
@@ -43,13 +41,13 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 100;
+    return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return 100;
 }
 
 
@@ -65,31 +63,25 @@
         
     }
     
+    
+    [cell addDateLabel];
+    
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
-    cell.numLabel.text = [NSString stringWithFormat:@"%02zd",indexPath.section + 1];
+    [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(cell.mas_left);
+    }];
+    
+    cell.numLabel.hidden = YES;
     
     return cell;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
-    return 10;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UIView *headerView = [[UIView alloc] init];
-    
-    headerView.backgroundColor = [UIColor whiteColor];
-    
-    return headerView;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"点击了第%zd个cell",indexPath.section);
+    NSLog(@"点击了第%zd个cell",indexPath.row);
 }
 
 

@@ -150,7 +150,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     } action:^(UIButton *btn) {
         
         NSLog(@"点击了添加照片");
-        #warning mark hahahhaha
+        
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         
         layout.minimumLineSpacing = 10;

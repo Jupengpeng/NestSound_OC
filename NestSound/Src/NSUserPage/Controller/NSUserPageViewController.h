@@ -8,6 +8,16 @@
 
 #import "NSBaseViewController.h"
 
+typedef NS_ENUM(NSUInteger, Who) {
+    
+    Myself,
+    
+    Other,
+    
+};
+
 @interface NSUserPageViewController : NSBaseViewController
+
+@property (nonatomic, assign) Who who;
 
 @end
