@@ -15,7 +15,7 @@
 #import "NSHomeViewController.h"
 #import "NSDiscoverViewController.h"
 #import "NSInspirationRecordViewController.h"
-
+#import "NSUserPageViewController.h"
 
 @interface AppDelegate ()
 
@@ -34,7 +34,8 @@
 //    NSHomeViewController *vc = [[NSHomeViewController alloc] init];
 //    NSLyricViewController *vc = [[NSLyricViewController alloc] init];
 //    NSDiscoverViewController *vc = [[NSDiscoverViewController alloc] init];
-    NSInspirationRecordViewController *vc = [[NSInspirationRecordViewController alloc] init];
+//    NSInspirationRecordViewController *vc = [[NSInspirationRecordViewController alloc] init];
+    NSUserPageViewController *vc = [[NSUserPageViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     
     self.window.rootViewController = nav;
