@@ -126,12 +126,11 @@
 		18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicViewController.m; sourceTree = "<group>"; };
 		18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNewMusicTableViewCell.h; sourceTree = "<group>"; };
 		18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicTableViewCell.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
+
 		18FF92801CE5B10C007F61AC /* NSToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarButton.h; sourceTree = "<group>"; };
 		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
 		247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
->>>>>>> zhangxuanhe
+
 		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
 		2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListHeaderView.m; sourceTree = "<group>"; };
