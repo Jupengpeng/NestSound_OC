@@ -22,6 +22,9 @@
 		18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C914941CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m */; };
 		18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */; };
 		18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */; };
+		18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402851CE6F55A00B36002 /* NSDraftBoxViewController.m */; };
+		18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */; };
+		18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */; };
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */; };
 		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
@@ -119,6 +122,12 @@
 		18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicViewController.m; sourceTree = "<group>"; };
 		18CFB3F51CDEDE320033998A /* NSNewMusicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNewMusicTableViewCell.h; sourceTree = "<group>"; };
 		18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNewMusicTableViewCell.m; sourceTree = "<group>"; };
+		18E402841CE6F55A00B36002 /* NSDraftBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftBoxViewController.h; sourceTree = "<group>"; };
+		18E402851CE6F55A00B36002 /* NSDraftBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftBoxViewController.m; sourceTree = "<group>"; };
+		18E402871CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBaseViewController+CustomNavBar.h"; sourceTree = "<group>"; };
+		18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBaseViewController+CustomNavBar.m"; sourceTree = "<group>"; };
+		18E4028A1CE7115400B36002 /* NSDraftBoxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftBoxTableViewCell.h; sourceTree = "<group>"; };
+		18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftBoxTableViewCell.m; sourceTree = "<group>"; };
 		18FF92801CE5B10C007F61AC /* NSToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarButton.h; sourceTree = "<group>"; };
 		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
 		247CA4781074B67F916123C4 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -493,6 +502,8 @@
 			children = (
 				2D8608E31CCC87D00027F147 /* NSUserPageViewController.h */,
 				2D8608E41CCC87D00027F147 /* NSUserPageViewController.m */,
+				18E402841CE6F55A00B36002 /* NSDraftBoxViewController.h */,
+				18E402851CE6F55A00B36002 /* NSDraftBoxViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -511,6 +522,8 @@
 				18BCA2691CE4669200891C95 /* NSTableHeaderView.m */,
 				18FF92801CE5B10C007F61AC /* NSToolbarButton.h */,
 				18FF92811CE5B10C007F61AC /* NSToolbarButton.m */,
+				18E4028A1CE7115400B36002 /* NSDraftBoxTableViewCell.h */,
+				18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -633,6 +646,8 @@
 				2DFB67511CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m */,
 				2DFB67701CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.h */,
 				2DFB67711CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m */,
+				18E402871CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.h */,
+				18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -963,6 +978,7 @@
 				2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */,
 				18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */,
 				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
+				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
@@ -977,6 +993,7 @@
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
+				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
 				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
@@ -987,6 +1004,7 @@
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
+				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,
 				18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */,
 				18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */,

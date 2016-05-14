@@ -11,23 +11,35 @@
 #import "UINavigationItem+NSAdditions.h"
 #import "NSToolbarButton.h"
 #import "NSNewMusicTableViewCell.h"
+#import "NSDraftBoxViewController.h"
 
 
 
-@interface NSUserPageViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface NSUserPageViewController ()
+<
+UITableViewDelegate,
+UIScrollViewDelegate,
+UITableViewDataSource> {
     
     UITableView *_tableView;
 }
 
+@property (nonatomic, assign) NSInteger btnTag;
 
 @end
 
 @implementation NSUserPageViewController
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupUI];
+    
+}
+
+
+- (void)setupUI {
     
     NSTableHeaderView *headerView = [[NSTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 290)];
     
@@ -39,9 +51,9 @@
         
         [array addObject:setting];
         
-        UIBarButtonItem *draft = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_draft"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(draftClick:)];
+        UIBarButtonItem *draftBox = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_draftBox"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(draftBoxClick:)];
         
-        [array addObject:draft];
+        [array addObject:draftBox];
         
         self.navigationItem.rightBarButtonItems = array;
         
@@ -80,7 +92,7 @@
     [headerView.fansBtn addTarget:self action:@selector(fansBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -90,8 +102,11 @@
     
     _tableView.tableHeaderView = headerView;
     
-    [self.view addSubview:_tableView];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    _tableView.showsVerticalScrollIndicator = NO;
+    
+    [self.view addSubview:_tableView];
     
 }
 
@@ -129,7 +144,11 @@
 }
 
 
-- (void)draftClick:(UIBarButtonItem *)record {
+- (void)draftBoxClick:(UIBarButtonItem *)record {
+    
+    NSDraftBoxViewController *draftBox = [[NSDraftBoxViewController alloc] init];
+    
+    [self.navigationController pushViewController:draftBox animated:YES];
     
     NSLog(@"点击了草稿");
 }
@@ -149,26 +168,88 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *ID = @"cell";
     
-    NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
-    if (cell == nil) {
+    if (self.btnTag == 0) {
         
-        cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        static NSString *ID = @"cell0";
         
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            
+            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
+        
+        cell.numLabel.hidden = YES;
+        
+        return cell;
+        
+    } else if (self.btnTag == 1) {
+        
+        static NSString *ID = @"cell1";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            
+        }
+        
+        cell.textLabel.text = @"哈哈";
+
+        return cell;
+        
+    } else if (self.btnTag == 2) {
+        
+        static NSString *ID = @"cell2";
+        
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            
+            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
+        
+        cell.numLabel.hidden = YES;
+
+        return cell;
+        
+    } else {
+        
+        static NSString *ID = @"cell3";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            
+        }
+        
+        cell.textLabel.text = @"呵呵";
+        
+        return cell;
     }
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(cell.mas_left);
-    }];
     
-    cell.numLabel.hidden = YES;
-    
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -238,39 +319,66 @@
     
     switch (toolbarBtn.tag) {
         
-        case 0:
+        case 0: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             
             NSLog(@"点击了灵感记录");
             
             break;
-        
-        case 1:
-        
+        }
+        case 1: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             NSLog(@"点击了歌曲");
             
             break;
-        
-        case 2:
-        
+        }
+        case 2: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             NSLog(@"点击了歌词");
             
             break;
-        
-        case 3:
-        
+        }
+        case 3: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             NSLog(@"点击了收藏");
             
             break;
-        
+        }
         default:
         
             break;
     }
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    
+    scrollView.contentInset = UIEdgeInsetsMake((scrollView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:1. green:1. blue:1. alpha:scrollView.contentOffset.y/64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
 }
 
 @end
+
 
 
 
