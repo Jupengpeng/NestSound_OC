@@ -26,6 +26,7 @@ prompt_validPass = "密码长度为6到16位，请重新输入";
 prompt_noMatchPassAndPassAgain = "两次密码输入不一致，请重新输入";
 prompt_proxyTailer = "《音巢音乐用户协议》";
 prompt_userProxy = "用户协议";
+prompt_ensure = "确定";
 prompt_cancel = "取消";
 
 
@@ -78,6 +79,17 @@ prompt_focus = "关注：";
 prompt_draft = "草稿箱";
 prompt_collection = "收藏";
 prompt_createInspirationRecord = "灵感记录";
+
+
+prompt_completeMessage = "完善个人信息";
+prompt_userIcon = "头像";
+prompt_nickName = "昵称";
+prompt_sex = "性别";
+prompt_birthday = "生日";
+prompt_desc = "个性签名";
+prompt_choseMale = "请选择您的性别";
+prompt_male = "男";
+prompt_female = "女";
 
 
 

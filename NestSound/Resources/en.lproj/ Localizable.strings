@@ -75,4 +75,10 @@ promot_draft = "draft";
 promot_collection = "collection";
 promot_createInspirationRecord = "Inspirtion record";
 
+prompt_completeMessage = "完善个人信息";
+prompt_userIcon = "头像";
+prompt_nickName = "昵称";
+prompt_sex = "性别";
+prompt_birthday = "生日";
+prompt_desc = "个性签名";
 
