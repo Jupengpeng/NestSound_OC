@@ -168,10 +168,6 @@ static NSDateFormatter *dateFormatter;
     NSString * token;
     [NSHttpClient client];
      [[NSHttpClient client] requestWithURL:@"qiniuUrl" paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
-         
-         
-         
-         
          NSFileManager *fileManager = [NSFileManager defaultManager];
          if ([fileManager fileExistsAtPath:photoPath]) {
              QNUploadManager * upManager = [[QNUploadManager alloc] init];

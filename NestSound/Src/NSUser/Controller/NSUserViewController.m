@@ -8,6 +8,7 @@
 
 #import "NSUserViewController.h"
 #import "NSUserProfileCell.h"
+#import "NSUserProfileViewController.h"
 
 @interface NSUserViewController ()
 <
@@ -17,14 +18,14 @@ UITableViewDelegate
 {
     UITableView * settingPageTable;
     
-    
+    UISwitch * messageNotifictionSwitch;
 
 }
 @end
 
 static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
-
-
+static NSString * const SettingCellIdefity = @"SettingCell";
+static NSString * const LoginOutIdefity = @"LoginOutCell";
 @implementation NSUserViewController
 
 -(void)viewDidLoad
@@ -42,6 +43,10 @@ static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
     settingPageTable.delegate = self;
     
     [self.view addSubview:settingPageTable];
+    
+    messageNotifictionSwitch = [[UISwitch alloc] init];
+    messageNotifictionSwitch.tintColor = [UIColor hexColorFloat:@"ffd00b"];
+    
     
 }
 
@@ -87,22 +92,42 @@ static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
             
         case 1:
         {
-//            switch (<#expression#>) {
-//                case <#constant#>:
-//                    <#statements#>
-//                    break;
-//                    
-//                default:
-//                    break;
-//            }
-//            
-//            break;
+            UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
+            
+            switch (indexPath.row) {
+                case 0:
+                    settingCell.textLabel.text = LocalizedStr(@"");
+                    break;
+                case 1:
+                {
+                    settingCell.textLabel.text = LocalizedStr(@"");
+                    [settingCell.contentView addSubview:messageNotifictionSwitch];
+                    messageNotifictionSwitch.on = YES;
+                    break;
+                }
+                case 2:
+                    settingCell.textLabel.text = LocalizedStr(@"");
+                    break;
+                case 3:
+                    settingCell.textLabel.text = LocalizedStr(@"");
+                    break;
+                    
+                default:
+                    break;
+            }
+            return settingCell;
+            break;
         }
         
         case 2:
         {
             
-            break;
+            UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:LoginOutIdefity];
+            
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.text = LocalizedStr(@"");
+            
+            return cell;
         }
             
             
@@ -117,7 +142,26 @@ static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
 #pragma mark tableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger section = indexPath.section;
+    NSUInteger row = indexPath.row;
+    if (section == 0) {
+        NSUserProfileViewController * userProfileInfoVC = [[NSUserProfileViewController alloc] init];
+        [self.navigationController pushViewController:userProfileInfoVC animated:YES];
+        
+    }else if (section == 1){
+        if (row == 0) {
+            
+        }else if (row == 1){
+        
+        }else if (row == 2){
+        
+        }else if (row == 3){
+        
+        }
     
+    }else{
+        
+    }
     
 }
 
