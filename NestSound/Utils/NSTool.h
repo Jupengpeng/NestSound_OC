@@ -17,5 +17,13 @@
 + (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName;
 + (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2;
 + (NSString *)uploadPhotoWith:(NSString *)photoPath;
+
 @end
 
+@interface Memory : NSObject
+
++(NSString *)getCacheSize;
+
++(void)clearCache;
+
+@end

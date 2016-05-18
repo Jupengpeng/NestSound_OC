@@ -37,9 +37,10 @@
 {
     //userIcon
     userIcon = [[UIImageView alloc] init];
-    userIcon.layer.cornerRadius = 51;
+    userIcon.layer.cornerRadius = 25;
     userIcon.layer.borderWidth = 1;
     userIcon.layer.borderColor = [UIColor hexColorFloat:@"999999"].CGColor;
+    userIcon.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:userIcon];
     
     //nickNameLabel
@@ -73,8 +74,8 @@
     [userIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self.mas_left).with.offset(15);
-        make.width.mas_equalTo(51);
-        make.height.mas_equalTo(51);
+        make.width.mas_equalTo(50);
+        make.height.mas_equalTo(50);
     }];
     
     [nickLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,7 +101,9 @@
 -(void)setIconURL:(NSString *)iconURL
 {
     _iconURL = iconURL;
-    [userIcon setDDImageWithURLString:iconURL placeHolderImage:[UIImage imageNamed:@"d"]];
+    [userIcon setDDImageWithURLString:iconURL placeHolderImage:[UIImage imageNamed:@"UMS_twitter_off"]];
+
+    userIcon.layer.cornerRadius = 25;
 }
 
 -(void)setNickName:(NSString *)nickName

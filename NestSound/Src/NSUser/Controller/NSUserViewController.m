@@ -8,22 +8,26 @@
 
 #import "NSUserViewController.h"
 #import "NSUserProfileCell.h"
-
+#import "NSUserProfileViewController.h"
+#import "NSUserFeedbackViewController.h"
 @interface NSUserViewController ()
 <
 UITableViewDataSource,
 UITableViewDelegate
 >
 {
+    NSIndexPath * index;
+    
     UITableView * settingPageTable;
     
-    
+    UISwitch * messageNotifictionSwitch;
 
 }
 @end
 
 static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
-static NSString * const userSettingCellIdefity = @"settingCell";
+static NSString * const SettingCellIdefity = @"SettingCell";
+static NSString * const LoginOutIdefity = @"LoginOutCell";
 
 @implementation NSUserViewController
 
@@ -43,6 +47,13 @@ static NSString * const userSettingCellIdefity = @"settingCell";
     
     [self.view addSubview:settingPageTable];
     
+    messageNotifictionSwitch = [[UISwitch alloc] init];
+    messageNotifictionSwitch.tintColor = [UIColor hexColorFloat:@"ffd00b"];
+    //constraints
+    [settingPageTable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+    
 }
 
 #pragma mark TableViewDataSource
@@ -52,7 +63,21 @@ static NSString * const userSettingCellIdefity = @"settingCell";
     return 3;
 
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        return 70;
+    }
+    return 45;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0.1;
+    }
+    return 10;
+    
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     switch (section) {
@@ -77,28 +102,88 @@ static NSString * const userSettingCellIdefity = @"settingCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
+    UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
+    UITableViewCell * loginOutCell = [tableView dequeueReusableCellWithIdentifier:LoginOutIdefity];
+    
     NSUInteger section = indexPath.section;
     NSUInteger row = indexPath.row;
    
     if (section == 0) {
-         NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
+        if (!userProfileCell ) {
+            userProfileCell = [[NSUserProfileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserProfileCellIdefity];
+            
+        }
+        userProfileCell.iconURL = @"http://img5.duitang.com/uploads/item/201406/26/20140626154222_Niydx.thumb.700_0.jpeg";
         
+
         return userProfileCell;
     }else if (section == 1){
         
+        if (!settingCell) {
+            settingCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SettingCellIdefity];
+            settingCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            UILabel * valueLabel = [[UILabel alloc] init];
+            valueLabel.textAlignment = NSTextAlignmentRight;
+            valueLabel.textColor = [UIColor hexColorFloat:@"181818"];
+            [settingCell.contentView addSubview:valueLabel];
+            
+            valueLabel.tag = 100;
+            valueLabel.hidden = YES;
+            UISwitch * not = [[UISwitch alloc] init];
+            not.onTintColor = [UIColor hexColorFloat:@"ffd00b"];
+            not.on = YES;
+            not.hidden = YES;
+            not.tag = 101;
+            [settingCell addSubview:not];
+            settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            //constraints
+            [valueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(settingCell.contentView.mas_right).with.offset(-15);
+                make.centerY.equalTo(settingCell.mas_centerY);
+            }];
+        
+            [not mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(settingCell.contentView.mas_right).with.offset(-15);
+                make.centerY.equalTo(settingCell.mas_centerY);
+            }];
+            
+        }
+        UILabel * valueLabel = (UILabel *)[settingCell viewWithTag:100];
+        UISwitch * not = (UISwitch *)[settingCell viewWithTag:101];
         if (row == 0) {
+            settingCell.accessoryType = UITableViewCellAccessoryNone;
+            index = indexPath;
+            settingCell.textLabel.text = LocalizedStr(@"prompt_clearCache");
+            valueLabel.hidden = NO;
+            valueLabel.text = [Memory getCacheSize];
             
         }else if (row == 1){
-        
+            settingCell.textLabel.text = LocalizedStr(@"prompt_newMessageNotifation");
+            settingCell.accessoryType = UITableViewCellAccessoryNone;
+            
+            not.hidden = NO;
+            
         }else if (row == 2){
+            settingCell.textLabel.text = LocalizedStr(@"prompt_rating");
         
         }else if (row == 3){
-        
+            settingCell.textLabel.text = LocalizedStr(@"prompt_userFeedback");
+
         }
         
-        
+        return settingCell;
         
     }else if (section == 2){
+        if (!loginOutCell) {
+            loginOutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoginOutIdefity];
+            
+        }
+        loginOutCell.textLabel.text = LocalizedStr(@"prompt_loginOut");
+        loginOutCell.textLabel.textAlignment = NSTextAlignmentCenter;
+        
+        return loginOutCell;
+        
         
     }
     return nil;
@@ -107,7 +192,33 @@ static NSString * const userSettingCellIdefity = @"settingCell";
 #pragma mark tableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger section = indexPath.section;
+    NSUInteger row = indexPath.row;
+    if (section == 0) {
+        NSUserProfileViewController * userProfileInfoVC = [[NSUserProfileViewController alloc] init];
+        [self.navigationController pushViewController:userProfileInfoVC animated:YES];
+        
+    }else if (section == 1){
+        if (row == 0) {
+            [Memory clearCache];
+            UITableViewCell * settingCell = [settingPageTable cellForRowAtIndexPath:indexPath];
+            UILabel * cacheSize = (UILabel *)[settingCell viewWithTag:101];
+            cacheSize.text = [Memory getCacheSize];
+        }else if (row == 1){
+            
+            
+        }else if (row == 2){
+            
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1056101413"]];
+            
+        }else if (row == 3){
+        NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"feedBack"];
+        [self.navigationController pushViewController:feedBackVC animated:YES];
+        }
     
+    }else{
+        
+    }
     
 }
 

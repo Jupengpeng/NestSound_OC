@@ -168,10 +168,6 @@ static NSDateFormatter *dateFormatter;
     NSString * token;
     [NSHttpClient client];
      [[NSHttpClient client] requestWithURL:@"qiniuUrl" paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
-         
-         
-         
-         
          NSFileManager *fileManager = [NSFileManager defaultManager];
          if ([fileManager fileExistsAtPath:photoPath]) {
              QNUploadManager * upManager = [[QNUploadManager alloc] init];
@@ -190,5 +186,71 @@ static NSDateFormatter *dateFormatter;
     }];
     return imageURL;
 }
+
+@end
+
+@implementation Memory
+
++(NSString *)getCacheSize
+{
+    
+    NSFileManager * fm = [NSFileManager defaultManager];
+    NSString *webPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Temp"];
+    
+    NSString *cachePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/musicCache"];
+    NSString * fileName;
+    //获取cache
+    //    if (![fm fileExistsAtPath:webPath]&&![fm fileExistsAtPath:cachePath]) {
+    //        return @"0";
+    //    }
+    
+    NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:webPath] objectEnumerator];
+    float folderSize = 0;
+    while ((fileName = [childFilesEnumerator nextObject])!=nil) {
+        NSLog(@"file%@",fileName);
+        NSString * fileAbsolutePath = [webPath stringByAppendingPathComponent:fileName];
+        folderSize+=[[fm attributesOfItemAtPath:fileAbsolutePath error:nil] fileSize];
+    }
+    
+    NSEnumerator * childFilesEnumerator1 = [[fm subpathsAtPath:cachePath] objectEnumerator];
+    
+    while ((fileName = [childFilesEnumerator1 nextObject])!=nil) {
+        NSString * fileAbsolutePath1 = [cachePath stringByAppendingPathComponent:fileName];
+        folderSize+=[[fm attributesOfItemAtPath:fileAbsolutePath1 error:nil] fileSize];
+    }
+    folderSize = folderSize/(1024.0*1024.0);
+    
+    NSString * size = [NSString stringWithFormat:@"%0.2fM",folderSize];
+    return size;
+}
+
++(void)clearCache
+{
+    NSString *webPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Temp"];
+    NSString *cachePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/musicCache"];
+    NSFileManager * fm = [NSFileManager defaultManager];
+    NSString * fileName;
+    NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:webPath] objectEnumerator];
+    //    long long folderSize = 0;
+    while ((fileName = [childFilesEnumerator nextObject])!=nil) {
+        NSLog(@"file%@",fileName);
+        NSString * fileAbsolutePath = [webPath stringByAppendingPathComponent:fileName];
+        [fm removeItemAtPath:fileAbsolutePath error:nil];
+    }
+    
+    NSEnumerator * childFilesEnumerator1 = [[fm subpathsAtPath:cachePath] objectEnumerator];
+    
+    while ((fileName = [childFilesEnumerator1 nextObject])!=nil) {
+        NSString * fileAbsolutePath1 = [cachePath stringByAppendingPathComponent:fileName];
+        [fm removeItemAtPath:fileAbsolutePath1 error:nil];
+    }
+    
+    
+    //    [fm removeItemAtPath:webPath error:nil];
+    //    [fm removeItemAtPath:cachePath error:nil];
+    
+    
+}
+
 
 @end
