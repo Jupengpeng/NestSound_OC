@@ -105,14 +105,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
+
 		06B70F9FA4397E0052D34C39 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-=======
+
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
 		18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseTabBarViewController.m; sourceTree = "<group>"; };
 		18074E411CEC43290011B0A4 /* NSPlusTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlusTabBar.h; sourceTree = "<group>"; };
 		18074E421CEC43290011B0A4 /* NSPlusTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlusTabBar.m; sourceTree = "<group>"; };
->>>>>>> zhangxuanhe
+
 		182F33531CDC41AF006AB047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		183E039D1CDDC80F0071FEE5 /* NSDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverViewController.h; sourceTree = "<group>"; };
 		183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverViewController.m; sourceTree = "<group>"; };
