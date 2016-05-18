@@ -11,11 +11,6 @@
 #import "MobClick.h"
 #import "AppDelegate.h"
 #import "AppDelegate+configureUIAppearance.h"
-#import "NSLyricViewController.h"
-#import "NSHomeViewController.h"
-#import "NSDiscoverViewController.h"
-#import "NSInspirationRecordViewController.h"
-#import "NSUserPageViewController.h"
 
 @interface AppDelegate ()
 
@@ -25,24 +20,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-//    [self setupUIAppearance];
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    self.window.backgroundColor = [UIColor whiteColor];
-    
-//    NSHomeViewController *vc = [[NSHomeViewController alloc] init];
-//    NSLyricViewController *vc = [[NSLyricViewController alloc] init];
-//    NSDiscoverViewController *vc = [[NSDiscoverViewController alloc] init];
-//    NSInspirationRecordViewController *vc = [[NSInspirationRecordViewController alloc] init];
-    NSUserPageViewController *vc = [[NSUserPageViewController alloc] init];
-    vc.who = Myself;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-    self.window.rootViewController = nav;
-    
-    [self.window makeKeyAndVisible];
-    
+    [self setupUIAppearance];
     
     return YES;
 }

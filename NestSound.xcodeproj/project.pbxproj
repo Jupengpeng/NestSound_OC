@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
+		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
 		182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182F33531CDC41AF006AB047 /* Assets.xcassets */; };
 		183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */; };
 		183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */; };
@@ -103,7 +105,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
 		06B70F9FA4397E0052D34C39 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+=======
+		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
+		18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseTabBarViewController.m; sourceTree = "<group>"; };
+		18074E411CEC43290011B0A4 /* NSPlusTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlusTabBar.h; sourceTree = "<group>"; };
+		18074E421CEC43290011B0A4 /* NSPlusTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlusTabBar.m; sourceTree = "<group>"; };
+>>>>>>> zhangxuanhe
 		182F33531CDC41AF006AB047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		183E039D1CDDC80F0071FEE5 /* NSDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverViewController.h; sourceTree = "<group>"; };
 		183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverViewController.m; sourceTree = "<group>"; };
@@ -729,6 +738,8 @@
 			children = (
 				2DFB67591CC1F00600DA24DA /* NSBaseViewController.h */,
 				2DFB675A1CC1F00600DA24DA /* NSBaseViewController.m */,
+				18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */,
+				18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -743,6 +754,8 @@
 		2DFB672A1CC1E82700DA24DA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				18074E411CEC43290011B0A4 /* NSPlusTabBar.h */,
+				18074E421CEC43290011B0A4 /* NSPlusTabBar.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -848,7 +861,6 @@
 				TargetAttributes = {
 					2DFB66F01CC1E65600DA24DA = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 62UDHM98C2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1025,6 +1037,7 @@
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
+				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
 				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
@@ -1075,6 +1088,7 @@
 				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
+				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
 				2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
@@ -1220,8 +1234,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
@@ -1229,7 +1244,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6d6881f8-3891-4d1d-b32b-16a90b5825bb";
 			};
 			name = Debug;
 		};
@@ -1239,8 +1254,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";

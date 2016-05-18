@@ -37,6 +37,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     self.view.backgroundColor = [UIColor whiteColor];
     
+    
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -46,7 +48,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     _collection.dataSource = self;
     
     _collection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    
     
     [_collection registerClass:[NSRecommendCell class] forCellWithReuseIdentifier:RecommendCell];
     
@@ -64,7 +65,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 - (void)viewDidLayoutSubviews {
     
-    _collection.frame = [UIScreen mainScreen].bounds;
+    _collection.frame = CGRectMake(0, 0, ScreenWidth, self.view.height);
     
     [super viewDidLayoutSubviews];
 }
@@ -136,7 +137,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         NSMusicSayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MusicSayCell forIndexPath:indexPath];
     
-        
         return cell;
     }
     
