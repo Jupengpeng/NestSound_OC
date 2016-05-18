@@ -14,7 +14,7 @@
 
 
 
-@interface NSUserPageViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface NSUserPageViewController () <UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate> {
     
     UITableView *_tableView;
 }
@@ -269,6 +269,7 @@
     
     
 }
+
 
 @end
 

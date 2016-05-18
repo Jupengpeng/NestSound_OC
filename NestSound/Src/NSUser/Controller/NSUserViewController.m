@@ -23,7 +23,7 @@ UITableViewDelegate
 @end
 
 static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
-
+static NSString * const userSettingCellIdefity = @"settingCell";
 
 @implementation NSUserViewController
 
@@ -58,14 +58,16 @@ static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
     switch (section) {
         case 0:
             return 1;
-            break;
+           
         case 1:
+            
             return 4;
-            break;
+           
         case 2:
+            
             return 1;
             
-            break;
+            
         default:
             break;
     }
@@ -75,42 +77,30 @@ static NSString * const UserProfileCellIdefity = @"NSUserProfileCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-    switch (indexPath.section) {
-        case 0:
-        {
-            NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
+    NSUInteger section = indexPath.section;
+    NSUInteger row = indexPath.row;
+   
+    if (section == 0) {
+         NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
+        
+        return userProfileCell;
+    }else if (section == 1){
+        
+        if (row == 0) {
             
-            return userProfileCell;
+        }else if (row == 1){
+        
+        }else if (row == 2){
+        
+        }else if (row == 3){
         
         }
-            
-        case 1:
-        {
-//            switch (<#expression#>) {
-//                case <#constant#>:
-//                    <#statements#>
-//                    break;
-//                    
-//                default:
-//                    break;
-//            }
-//            
-//            break;
-        }
         
-        case 2:
-        {
-            
-            break;
-        }
-            
-            
-        default:
-            break;
+        
+        
+    }else if (section == 2){
+        
     }
-    
-//    return cell;
     return nil;
 }
 
