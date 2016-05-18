@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
     [self setupUI];
     
 }
@@ -77,7 +76,7 @@
     [_topScrollView addSubview:_lineView];
     
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _topScrollView.height, ScreenWidth, ScreenHeight - _topScrollView.height - 108)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _topScrollView.height, ScreenWidth, self.view.height - _topScrollView.height - 113)];
     
     _scrollView.contentSize = CGSizeMake(ScreenWidth * titleArray.count, 0);
     

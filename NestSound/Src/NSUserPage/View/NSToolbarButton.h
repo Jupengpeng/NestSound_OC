@@ -10,6 +10,4 @@
 
 @interface NSToolbarButton : UIButton
 
-- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image addTitle:(NSString *)title;
-
 @end

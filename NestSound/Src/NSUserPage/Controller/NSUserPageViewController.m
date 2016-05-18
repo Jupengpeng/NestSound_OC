@@ -92,7 +92,7 @@ UITableViewDataSource> {
     [headerView.fansBtn addTarget:self action:@selector(fansBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height)];
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -285,7 +285,7 @@ UITableViewDataSource> {
     
     [backgoundView addSubview:line2];
     
-    CGFloat W = ScreenWidth / 4;
+    CGFloat W = ScreenWidth / array.count;
     
     for (int i = 0; i < array.count; i++) {
         
@@ -298,7 +298,11 @@ UITableViewDataSource> {
             [backgoundView addSubview:line];
         }
         
-        NSToolbarButton *toolbarBtn = [[NSToolbarButton alloc] initWithFrame:CGRectMake(W * i, 0, W, 60) image:[UIImage imageNamed:[NSString stringWithFormat:@"2.0_toolbarBtn%02d",i]] addTitle:array[i]];
+        NSToolbarButton *toolbarBtn = [[NSToolbarButton alloc] initWithFrame:CGRectMake(W * i, 0, W, 60)];
+        
+        [toolbarBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"2.0_toolbarBtn%02d",i]] forState:UIControlStateNormal];
+        
+        [toolbarBtn setTitle:array[i] forState:UIControlStateNormal];
         
         toolbarBtn.tag = i;
         
@@ -375,6 +379,7 @@ UITableViewDataSource> {
     
     scrollView.contentInset = UIEdgeInsetsMake((scrollView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:1. green:1. blue:1. alpha:scrollView.contentOffset.y/64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+    
 }
 
 @end

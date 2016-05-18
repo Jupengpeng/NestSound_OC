@@ -20,7 +20,7 @@
     return image;
 }
 
-+ (UIImage *)imageWithRenderColor:(UIColor *)color renderSize:(CGSize)size {
++ (UIImage *)imageWithRenderColor:(UIColor *)color renderSize:(CGSize)size{
     
     UIImage *image = nil;
     UIGraphicsBeginImageContextWithOptions(size, NO, 0.);
