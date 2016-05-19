@@ -65,6 +65,8 @@ UITextFieldDelegate
     
 }
 
+
+#pragma mark textFieldDelegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
 
@@ -75,6 +77,7 @@ UITextFieldDelegate
 
 }
 
+#pragma mark textViewDelegate
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
 

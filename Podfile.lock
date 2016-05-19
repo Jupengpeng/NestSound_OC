@@ -20,21 +20,20 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - HappyDNS (0.2.3)
+  - HappyDNS (0.2.4)
   - JPush (2.1.6)
   - Masonry (1.0.0)
   - MBProgressHUD (0.9.2)
-  - pop (1.0.9)
   - Qiniu (7.0.18):
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.2)
   - RSAEncryptor (0.0.1)
-  - SDWebImage (3.7.5):
-    - SDWebImage/Core (= 3.7.5)
-  - SDWebImage/Core (3.7.5)
+  - SDWebImage (3.7.6):
+    - SDWebImage/Core (= 3.7.6)
+  - SDWebImage/Core (3.7.6)
   - SVPullToRefresh (0.4.1)
   - TheAmazingAudioEngine (1.5.6)
-  - UMengAnalytics-NO-IDFA (4.0.1)
+  - UMengAnalytics-NO-IDFA (4.0.3)
   - UMengSocial (5.0)
 
 DEPENDENCIES:
@@ -42,7 +41,6 @@ DEPENDENCIES:
   - JPush
   - Masonry
   - MBProgressHUD
-  - pop
   - Qiniu
   - RSAEncryptor
   - SDWebImage
@@ -53,20 +51,18 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  HappyDNS: 6d85942e64c28b4fa61f8c76580398f52d6d1d11
+  HappyDNS: 86ab4be498cc5cc884002b248979cd130cfbe10e
   JPush: 9732a2a9e6a34729f660d6275704a5803d661e83
   Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-
-  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 7a9c2a2bbdec02ae84b92051637e1e9ea3d182fb
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
-  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
-  UMengAnalytics-NO-IDFA: 0dc13e0a7b34eaff346e7f57fc7a698f8f26cd59
+  UMengAnalytics-NO-IDFA: 173a5a2541536225f4c947935560975136f18a34
   UMengSocial: 48b67179c492a8cf7803fbb0438b8f55432e2fc1
 
-PODFILE CHECKSUM: cc6d1e8541b376ca0e1c2e5b6f7c0b48b07d94e2
+PODFILE CHECKSUM: 1a8e8938de099c4db68d0b6d2991ffd6801072ab
 
 COCOAPODS: 1.0.0.rc.2
