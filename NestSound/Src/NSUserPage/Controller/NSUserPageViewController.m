@@ -204,8 +204,8 @@ UITableViewDataSource> {
             
         }
         
-        cell.textLabel.text = @"哈哈";
-
+        cell.textLabel.text = @"歌曲";
+        
         return cell;
         
     } else if (self.btnTag == 2) {
@@ -243,7 +243,7 @@ UITableViewDataSource> {
             
         }
         
-        cell.textLabel.text = @"呵呵";
+        cell.textLabel.text = @"收藏";
         
         return cell;
     }
@@ -378,8 +378,20 @@ UITableViewDataSource> {
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     scrollView.contentInset = UIEdgeInsetsMake((scrollView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:1. green:1. blue:1. alpha:scrollView.contentOffset.y/64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+    
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:_tableView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+    
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:_tableView.contentOffset.y / 64];
 }
 
 @end

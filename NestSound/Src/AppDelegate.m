@@ -8,7 +8,6 @@
 
 
 #import <WXApi.h>
-#import "MobClick.h"
 #import "AppDelegate.h"
 #import "AppDelegate+configureUIAppearance.h"
 

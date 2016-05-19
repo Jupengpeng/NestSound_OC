@@ -15,6 +15,7 @@ pod 'UMengSocial' , '~> 5.0'
 pod 'UMengAnalytics-NO-IDFA'
 pod 'JPush'
 pod 'RSAEncryptor'
+pod 'pop'
 end
 
 target 'NestSoundTests' do

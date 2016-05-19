@@ -44,7 +44,7 @@
     
     _tableView.dataSource = self;
     
-    _tableView.rowHeight = 70;
+    _tableView.rowHeight = 80;
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -62,7 +62,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 100;
+    return 16;
 }
 
 
