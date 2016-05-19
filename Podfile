@@ -13,8 +13,14 @@ pod 'Qiniu'
 pod 'TheAmazingAudioEngine'
 pod 'UMengSocial' , '~> 5.0'
 pod 'UMengAnalytics-NO-IDFA'
+<<<<<<< HEAD
 pod 'JPush' 
 pod 'RSAEncryptor' 
+=======
+pod 'JPush'
+pod 'RSAEncryptor'
+pod 'pop'
+>>>>>>> 236b54f428262d61dc728a357f3abd7d79684fa0
 end
 target 'NestSoundTests' do
 

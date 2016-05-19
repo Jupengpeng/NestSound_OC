@@ -24,7 +24,8 @@ PODS:
   - JPush (2.1.6)
   - Masonry (1.0.0)
   - MBProgressHUD (0.9.2)
-  - Qiniu (7.0.17):
+  - pop (1.0.9)
+  - Qiniu (7.0.18):
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.2)
   - RSAEncryptor (0.0.1)
@@ -33,7 +34,7 @@ PODS:
   - SDWebImage/Core (3.7.5)
   - SVPullToRefresh (0.4.1)
   - TheAmazingAudioEngine (1.5.6)
-  - UMengAnalytics-NO-IDFA (3.6.7)
+  - UMengAnalytics-NO-IDFA (4.0.1)
   - UMengSocial (5.0)
 
 DEPENDENCIES:
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - JPush
   - Masonry
   - MBProgressHUD
+  - pop
   - Qiniu
   - RSAEncryptor
   - SDWebImage
@@ -55,12 +57,14 @@ SPEC CHECKSUMS:
   JPush: 9732a2a9e6a34729f660d6275704a5803d661e83
   Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  Qiniu: 2c05af1f9d580c036b18faf832cc98e98bfb21bc
+
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  Qiniu: 7a9c2a2bbdec02ae84b92051637e1e9ea3d182fb
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
-  UMengAnalytics-NO-IDFA: 6d02561a00579b2e37718f204eb81347df5d7b8b
+  UMengAnalytics-NO-IDFA: 0dc13e0a7b34eaff346e7f57fc7a698f8f26cd59
   UMengSocial: 48b67179c492a8cf7803fbb0438b8f55432e2fc1
 
 PODFILE CHECKSUM: cc6d1e8541b376ca0e1c2e5b6f7c0b48b07d94e2

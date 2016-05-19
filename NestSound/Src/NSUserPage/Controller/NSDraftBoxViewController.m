@@ -7,6 +7,7 @@
 //
 
 #import "NSDraftBoxViewController.h"
+#import "NSDraftBoxTableViewCell.h"
 
 @interface NSDraftBoxViewController () <UITableViewDelegate, UITableViewDataSource> {
     
@@ -20,7 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-
+    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    
+    self.title = @"草稿箱";
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     
     _tableView.delegate = self;
@@ -45,15 +49,15 @@
     
     static NSString *ID = @"cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    NSDraftBoxTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[NSDraftBoxTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
     }
     
-    cell.textLabel.text = @"哈哈";
+    cell.textLabel.text = @"草稿箱";
     
     return cell;
 }

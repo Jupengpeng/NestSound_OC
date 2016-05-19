@@ -48,13 +48,13 @@
     
     // navigationBar Appearance
     [[UINavigationBar appearance] setOpaque:YES];
-//    [[UINavigationBar appearance] setTranslucent:NO];
+//    [[UINavigationBar appearance] setTranslucent:YES];
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:18.],NSFontAttributeName,
                                                           [UIColor blackColor],NSForegroundColorAttributeName,nil]];
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffffff"]
-                                                                        renderSize:CGSizeMake(1,1)]
-                                       forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"]
+//                                                                        renderSize:CGSizeMake(1,1)]
+//                                       forBarMetrics:UIBarMetricsDefault];
     
     /*
      [[UINavigationBar appearance] setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"429ce8"]

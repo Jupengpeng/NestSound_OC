@@ -12,13 +12,17 @@
 #import "NSDiscoverLyricViewCOntroller.h"
 #import "NSMusicListViewController.h"
 
-@interface NSDiscoverViewController () <UIScrollViewDelegate> {
+@interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
     
     UIScrollView *_topScrollView;
     
     UIScrollView *_scrollView;
     
     UIView *_lineView;
+    
+    UISearchBar *_search;
+    
+    UIView *_maskView;
 }
 
 @end
@@ -27,10 +31,73 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    _search = [[UISearchBar alloc] init];
+    
+    _search.delegate = self;
+    
+    _search.placeholder = @"搜索";
+    
+    self.navigationItem.titleView = _search;
+    
+    
     
     [self setupUI];
     
+    
+    _maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+    
+    _maskView.backgroundColor = [UIColor darkGrayColor];
+    
+    _maskView.alpha = 0;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
+    
+    [_maskView addGestureRecognizer:tap];
+    
+    [self.view addSubview:_maskView];
+    
+
+    
 }
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    
+    [_search setShowsCancelButton:YES animated:YES];
+    
+    _maskView.alpha = 0.5;
+    
+    NSLog(@"进入编辑");
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    
+    [_search setShowsCancelButton:NO animated:YES];
+    
+    _maskView.alpha = 0;
+    
+    [_search resignFirstResponder];
+}
+
+- (void)tapClick:(UIGestureRecognizer *)tap {
+    
+    _maskView.alpha = 0;
+    
+    [_search setShowsCancelButton:NO animated:YES];
+    
+    [_search resignFirstResponder];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    _maskView.alpha = 0;
+    
+    [_search setShowsCancelButton:NO animated:YES];
+    
+    [_search resignFirstResponder];
+    
+    NSLog(@"点击搜索");
+}
+
 
 
 - (void)setupUI {
@@ -38,10 +105,6 @@
     _topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 33)];
     
     _topScrollView.contentSize = CGSizeZero;
-    
-    _scrollView.showsHorizontalScrollIndicator = NO;
-    
-    _scrollView.showsVerticalScrollIndicator = NO;
     
     [self.view addSubview:_topScrollView];
     
@@ -86,13 +149,18 @@
     
     _scrollView.pagingEnabled = YES;
     
+//    _scrollView.bounces = NO;
+    
     _scrollView.delegate = self;
     
     [self.view addSubview:_scrollView];
     
     [self setupContent];
     
+    
 }
+
+
 
 - (void)setupContent {
     
