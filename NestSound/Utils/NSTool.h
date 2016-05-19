@@ -11,6 +11,8 @@
 
 @interface NSTool : NSObject
 
+extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelector);
+
 + (NSString *)obtainHostURL;
 + (AppDelegate *)appDelegate;
 + (BOOL)isStringEmpty:(NSString *)targetString;
@@ -19,11 +21,16 @@
 + (NSString *)uploadPhotoWith:(NSString *)photoPath;
 
 @end
-
+//cache include ：accompany，record file ，music file
 @interface Memory : NSObject
 
 +(NSString *)getCacheSize;
 
 +(void)clearCache;
 
+@end
+//date to string formate like "1992-12-05"；
+@interface date : NSObject
++(NSString *)datetoStringWithDate:(NSDate *)date;
++(NSString *)datetoLongStringWithDate:(NSDate *)date;
 @end

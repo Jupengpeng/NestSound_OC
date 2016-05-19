@@ -252,5 +252,25 @@ static NSDateFormatter *dateFormatter;
     
 }
 
+@end
+
+@implementation date
+
++(NSString *)datetoStringWithDate:(NSDate *)date
+{
+    NSDateFormatter * fomatter = [[NSDateFormatter alloc] init];
+    [fomatter setDateFormat:@"YYYY-MM-dd"];
+    NSString * dateString = [fomatter stringFromDate:date];
+    return dateString;
+}
+
+//date to string format like "1992-12-05 12:33"
++(NSString *)datetoLongStringWithDate:(NSDate *)date
+{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    NSString * currentTimeString = [formatter stringFromDate:date];
+    return currentTimeString;
+}
 
 @end

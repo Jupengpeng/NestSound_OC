@@ -97,5 +97,7 @@ prompt_rating = "去评分";
 prompt_userFeedback = "用户反馈";
 prompt_loginOut = "退出登录";
 
+prompt_post = "举报";
+prompt_number = "请输入你的邮箱或电话号码，我们会及时与您取得联系";
 
 

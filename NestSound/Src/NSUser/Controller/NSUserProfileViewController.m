@@ -132,6 +132,7 @@ static NSString * const settingCellIditify = @"settingCell";
         [settingCell.contentView addSubview:valueLabel];
        UIImageView * userIcon = [[UIImageView alloc] init];
         userIcon.layer.cornerRadius = 21;
+        userIcon.layer.masksToBounds = YES;
         userIcon.tag = 101;
         [settingCell.contentView addSubview:userIcon];
         valueLabel.hidden = NO;

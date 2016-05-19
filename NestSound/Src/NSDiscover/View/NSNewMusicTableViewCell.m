@@ -248,7 +248,7 @@
     
     [self.collectionIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.heardIcon.mas_right).offset(50);
+        make.left.equalTo(self.heardIcon.mas_right).offset(60);
         
         make.centerY.equalTo(self.heardIcon.mas_centerY);
         
@@ -281,7 +281,7 @@
     
     [self.upVoteIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.collectionIcon.mas_right).offset(50);
+        make.left.equalTo(self.collectionIcon.mas_right).offset(60);
         
         make.centerY.equalTo(self.collectionIcon.mas_centerY);
         
@@ -304,7 +304,7 @@
         make.centerY.equalTo(self.upVoteIcon.mas_centerY);
         
     }];
-
+    
 }
 
 

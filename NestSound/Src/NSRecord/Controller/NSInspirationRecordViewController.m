@@ -26,15 +26,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSDate *date = [NSDate date];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     
-    formatter.dateFormat = @"yyyy-MM-dd HH:mm";
-    
-    NSString *dateStr = [formatter stringFromDate:date];
-    
-    self.title = dateStr;
+    self.title = [date datetoLongStringWithDate:[NSDate date]];
     
     [self setupUI];
     

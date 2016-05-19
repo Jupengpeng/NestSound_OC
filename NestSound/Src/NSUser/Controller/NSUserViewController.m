@@ -41,14 +41,22 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 
 -(void)configureAppearance
 {
+    self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    //nav
+    self.title = LocalizedStr(@"me");
+    self.showBackBtn = YES;
+    
+    //settingPaegTable
     settingPageTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     settingPageTable.dataSource = self;
     settingPageTable.delegate = self;
     
     [self.view addSubview:settingPageTable];
-    
+    //messageNotificationSwitch
     messageNotifictionSwitch = [[UISwitch alloc] init];
     messageNotifictionSwitch.tintColor = [UIColor hexColorFloat:@"ffd00b"];
+    
     //constraints
     [settingPageTable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self.view);
@@ -73,7 +81,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 0.1;
+        return 1;
     }
     return 10;
     
@@ -116,7 +124,8 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         }
         userProfileCell.iconURL = @"http://img5.duitang.com/uploads/item/201406/26/20140626154222_Niydx.thumb.700_0.jpeg";
         
-
+        userProfileCell.nickName = @"hjay";
+        userProfileCell.number = @"please call me hjay";
         return userProfileCell;
     }else if (section == 1){
         

@@ -10,51 +10,35 @@
 
 @implementation NSToolbarButton
 
-- (instancetype)initWithFrame:(CGRect)frame image:(UIImage *)image addTitle:(NSString *)title {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
     if (self) {
         
-        [self setupWithImage:image addTitle:title];
+        [self setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
+        
+        self.titleLabel.font = [UIFont systemFontOfSize:12];
+
     }
     
     return self;
 }
 
-
-- (void)setupWithImage:(UIImage *)image addTitle:(NSString *)title {
+- (void)layoutSubviews {
     
-    UIImageView *imageView = [[UIImageView alloc] init];
+    [super layoutSubviews];
     
-    imageView.image = image;
+    self.imageView.centerX = self.width * 0.5;
     
-    [self addSubview:imageView];
+    self.imageView.centerY = self.centerY * 0.75;
     
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.centerX.equalTo(self.mas_centerX);
-        
-        make.top.equalTo(self.mas_top).offset(8);
-        
-    }];
+    CGFloat maxY = CGRectGetMaxY(self.imageView.frame);
     
-    UILabel *label = [[UILabel alloc] init];
+    self.titleLabel.centerX = self.width * 0.5;
     
-    label.textColor = [UIColor hexColorFloat:@"666666"];
+    self.titleLabel.y = maxY + 5;
     
-    label.font = [UIFont systemFontOfSize:12];
     
-    label.text = title;
-    
-    [self addSubview:label];
-    
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerX.equalTo(self.mas_centerX);
-        
-        make.top.equalTo(imageView.mas_bottom).offset(5);
-        
-    }];
 }
 
 

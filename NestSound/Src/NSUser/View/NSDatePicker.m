@@ -54,6 +54,7 @@
     
     
     _choseBirthday = [[UIDatePicker alloc] init];
+    [_choseBirthday setDatePickerMode:UIDatePickerModeDate];
     [bar addSubview:_choseBirthday];
     
 }

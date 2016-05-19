@@ -9,6 +9,10 @@
 #import "NSUserFeedbackViewController.h"
 
 @interface NSUserFeedbackViewController ()
+<
+UITextViewDelegate,
+UITextFieldDelegate
+>
 {
     NSString * Type;
     UITextView * comment;
@@ -27,7 +31,56 @@
     return self;
 }
 
+#pragma mark configureUIAppearance
 -(void)configureUIAppearance
+{
+    self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    //nav
+    if ([Type isEqualToString:@"feedBack"]) {
+        self.title = LocalizedStr(@"prompt_userFeedback");
+    }else{
+        self.title = LocalizedStr(@"post");
+    }
+    //comment textView
+    comment = [[UITextView alloc] init];
+    comment.delegate = self;
+
+    [self.view addSubview:comment];
+    
+    //number textFiled
+    cellNumber = [[UITextField alloc] init];
+    cellNumber.delegate = self;
+    cellNumber.placeholder = LocalizedStr(@"number");
+    [self.view addSubview:cellNumber];
+    
+    //constraints
+    [comment mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+    }];
+    
+    [cellNumber mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+    }];
+    
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
 {
     
 }

@@ -39,6 +39,7 @@
     userIcon = [[UIImageView alloc] init];
     userIcon.layer.cornerRadius = 25;
     userIcon.layer.borderWidth = 1;
+    userIcon.layer.masksToBounds = YES;
     userIcon.layer.borderColor = [UIColor hexColorFloat:@"999999"].CGColor;
     userIcon.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:userIcon];
@@ -102,8 +103,7 @@
 {
     _iconURL = iconURL;
     [userIcon setDDImageWithURLString:iconURL placeHolderImage:[UIImage imageNamed:@"UMS_twitter_off"]];
-
-    userIcon.layer.cornerRadius = 25;
+    
 }
 
 -(void)setNickName:(NSString *)nickName
