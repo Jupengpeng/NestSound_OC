@@ -23,6 +23,7 @@
 #import "UIButton+NSAdditions.h"
 #import "UIImage+ImageEffects.h"
 #import "UIImageView+NSAdditions.h"
+#import "POP.h"
 
 // Host
 extern BOOL debugMode;

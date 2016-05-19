@@ -27,7 +27,7 @@
         
         [btn setImage:[UIImage imageNamed:@"2.0_plus_normal"] forState:UIControlStateNormal];
         
-        [btn setImage:[UIImage imageNamed:@"2.0_plus_selected"] forState:UIControlStateSelected];
+//        [btn setImage:[UIImage imageNamed:@"2.0_plus_selected"] forState:UIControlStateSelected];
         
         [btn addTarget:self action:@selector(plusClick:) forControlEvents:UIControlEventTouchUpInside];
         

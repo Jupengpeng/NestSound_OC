@@ -38,7 +38,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     self.view.backgroundColor = [UIColor whiteColor];
     
     
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
