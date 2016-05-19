@@ -23,13 +23,10 @@
 #import "UIButton+NSAdditions.h"
 #import "UIImage+ImageEffects.h"
 #import "UIImageView+NSAdditions.h"
-<<<<<<< HEAD
 #import "NSHttpClient+EncrypteData.h"
 #import "QiniuSDK.h"
-=======
 #import "POP.h"
 
->>>>>>> zhangxuanhe
 // Host
 extern BOOL debugMode;
 extern NSString *host;
