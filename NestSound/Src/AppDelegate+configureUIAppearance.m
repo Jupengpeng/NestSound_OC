@@ -7,7 +7,6 @@
 //
 
 #import "NSHomeViewController.h"
-#import "NSRecordViewController.h"
 #import "NSMessageViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSDiscoverViewController.h"

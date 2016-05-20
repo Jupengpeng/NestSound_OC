@@ -69,7 +69,6 @@
 		2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608C41CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m */; };
 		2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608DB1CCC87A10027F147 /* NSUserViewController.m */; };
 		2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */; };
-		2D8608E21CCC87C00027F147 /* NSRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608E11CCC87C00027F147 /* NSRecordViewController.m */; };
 		2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8608E41CCC87D00027F147 /* NSUserPageViewController.m */; };
 		2DFB670F1CC1E65600DA24DA /* NestSoundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB670E1CC1E65600DA24DA /* NestSoundTests.m */; };
 		2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB671D1CC1E6DE00DA24DA /* AppDelegate.m */; };
@@ -234,8 +233,6 @@
 		2D8608DB1CCC87A10027F147 /* NSUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserViewController.m; sourceTree = "<group>"; };
 		2D8608DD1CCC87B10027F147 /* NSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHomeViewController.h; sourceTree = "<group>"; };
 		2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSHomeViewController.m; sourceTree = "<group>"; };
-		2D8608E01CCC87C00027F147 /* NSRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecordViewController.h; sourceTree = "<group>"; };
-		2D8608E11CCC87C00027F147 /* NSRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecordViewController.m; sourceTree = "<group>"; };
 		2D8608E31CCC87D00027F147 /* NSUserPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserPageViewController.h; sourceTree = "<group>"; };
 		2D8608E41CCC87D00027F147 /* NSUserPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserPageViewController.m; sourceTree = "<group>"; };
 		2DFB66F11CC1E65600DA24DA /* NestSound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NestSound.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -478,8 +475,6 @@
 		2D8608CF1CCC87720027F147 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2D8608E01CCC87C00027F147 /* NSRecordViewController.h */,
-				2D8608E11CCC87C00027F147 /* NSRecordViewController.m */,
 				2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */,
 				2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */,
 				2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */,
@@ -1135,7 +1130,6 @@
 				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
-				2D8608E21CCC87C00027F147 /* NSRecordViewController.m in Sources */,
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,

@@ -10,7 +10,6 @@
 #import "NSHomeViewController.h"
 #import "NSMessageViewController.h"
 #import "NSDiscoverViewController.h"
-#import "NSRecordViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSPlusTabBar.h"
 #import "NSBaseNavigationController.h"

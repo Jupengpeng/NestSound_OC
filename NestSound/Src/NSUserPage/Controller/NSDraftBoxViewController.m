@@ -9,7 +9,7 @@
 #import "NSDraftBoxViewController.h"
 #import "NSDraftBoxTableViewCell.h"
 
-@interface NSDraftBoxViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface NSDraftBoxViewController () <UITableViewDelegate, UITableViewDataSource, NSDraftBoxTableViewCellDelegate> {
     
     UITableView *_tableView;
 }
@@ -31,6 +31,8 @@
     
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    _tableView.rowHeight = 65;
+    
     [self.view addSubview:_tableView];
 
 }
@@ -45,7 +47,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *ID = @"cell";
+    static NSString *ID = @"draftboxCell";
     
     NSDraftBoxTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
@@ -53,16 +55,46 @@
         
         cell = [[NSDraftBoxTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.delegate = self;
     }
-    
-    cell.textLabel.text = @"草稿箱";
     
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"进入编辑");
+}
 
 
+- (void)draftBoxTableViewCell:(NSDraftBoxTableViewCell *)draftBoxCell withSendBtn:(UIButton *)sendBtn {
+    
+    NSIndexPath *index = [_tableView indexPathForCell:draftBoxCell];
+    
+    NSLog(@"点击了第%zd个cell的发送",index.row);
+}
 
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        
+        [tableView setEditing:NO animated:YES];
+    }
+}
 
 
 

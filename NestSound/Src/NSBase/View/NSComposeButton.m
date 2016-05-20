@@ -22,8 +22,6 @@
         
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         
-//        self.imageView.contentMode = UIViewContentModeCenter;
-        
     }
     
     return self;
@@ -49,7 +47,7 @@
     
     self.titleLabel.height = 120 - BtnW - 10;
     
-    if ([UIScreen mainScreen].bounds.size.height > 667) {
+    if ([UIScreen mainScreen].bounds.size.height < 667) {
         
         self.titleLabel.font = [UIFont systemFontOfSize:16];
     }
