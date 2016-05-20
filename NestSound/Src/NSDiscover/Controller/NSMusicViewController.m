@@ -99,7 +99,7 @@ static NSString * const headerView = @"HeaderView";
        
         [hotMusic addTarget:self action:@selector(hotMusic:) forControlEvents:UIControlEventTouchUpInside];
         
-        reusable.titleLable.text = LocalizedStr(@"热门歌曲");
+        reusable.titleLable.text = self.topTitle;
         
     } else if (indexPath.section == 1) {
        
@@ -107,7 +107,7 @@ static NSString * const headerView = @"HeaderView";
         
         [newMusic addTarget:self action:@selector(newMusic:) forControlEvents:UIControlEventTouchUpInside];
         
-        reusable.titleLable.text = LocalizedStr(@"最新歌曲");
+        reusable.titleLable.text = self.bottomTitle;
     }
     
     

@@ -21,8 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    
     self.title = @"草稿箱";
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];

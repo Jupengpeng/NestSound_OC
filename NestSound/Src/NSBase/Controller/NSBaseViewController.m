@@ -76,8 +76,8 @@
     if (_showBackBtn) {
         WS(wSelf);
         [self.navigationItem actionCustomLeftBarButton:nil
-                                              nrlImage:@"btn_back"
-                                              hltImage:@"btn_back"
+                                              nrlImage:@"2.0_back"
+                                              hltImage:@"2.0_back"
                                                 action:^{
                                                     
                                                     if (!wSelf) {

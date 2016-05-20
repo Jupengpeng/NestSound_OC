@@ -15,6 +15,7 @@
 		188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D11FF1CECBF5F0009FD5B /* NSBaseNavigationController.m */; };
 		188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D12021CECC7ED0009FD5B /* NSComposeView.m */; };
 		188D12061CECDE1F0009FD5B /* NSComposeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D12051CECDE1F0009FD5B /* NSComposeButton.m */; };
+		188D12091CED9F170009FD5B /* NSInspirationRecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D12081CED9F170009FD5B /* NSInspirationRecordTableViewCell.m */; };
 		1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1892F0341CD74AF000B47503 /* NSIndexCollectionReusableView.m */; };
 		18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BCA2601CE2F8A300891C95 /* NSMusicListViewController.m */; };
 		18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */; };
@@ -125,6 +126,8 @@
 		188D12021CECC7ED0009FD5B /* NSComposeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSComposeView.m; sourceTree = "<group>"; };
 		188D12041CECDE1F0009FD5B /* NSComposeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSComposeButton.h; sourceTree = "<group>"; };
 		188D12051CECDE1F0009FD5B /* NSComposeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSComposeButton.m; sourceTree = "<group>"; };
+		188D12071CED9F170009FD5B /* NSInspirationRecordTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInspirationRecordTableViewCell.h; sourceTree = "<group>"; };
+		188D12081CED9F170009FD5B /* NSInspirationRecordTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInspirationRecordTableViewCell.m; sourceTree = "<group>"; };
 		1892F0331CD74AF000B47503 /* NSIndexCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSIndexCollectionReusableView.h; sourceTree = "<group>"; };
 		1892F0341CD74AF000B47503 /* NSIndexCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSIndexCollectionReusableView.m; sourceTree = "<group>"; };
 		18BCA25F1CE2F8A300891C95 /* NSMusicListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicListViewController.h; sourceTree = "<group>"; };
@@ -599,6 +602,8 @@
 				18FF92811CE5B10C007F61AC /* NSToolbarButton.m */,
 				18E4028A1CE7115400B36002 /* NSDraftBoxTableViewCell.h */,
 				18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */,
+				188D12071CED9F170009FD5B /* NSInspirationRecordTableViewCell.h */,
+				188D12081CED9F170009FD5B /* NSInspirationRecordTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1051,6 +1056,7 @@
 			files = (
 				2AD10A901CD9F2D60044D821 /* NSSongListHeaderView.m in Sources */,
 				2AE2E5101CE5B22200FD2DC3 /* NSFansViewController.m in Sources */,
+				188D12091CED9F170009FD5B /* NSInspirationRecordTableViewCell.m in Sources */,
 				2DFB67771CC1F0ED00DA24DA /* NSString+NSAdditions.m in Sources */,
 				2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */,
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,

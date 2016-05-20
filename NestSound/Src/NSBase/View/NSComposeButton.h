@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define BtnW (ScreenWidth - 160) / 3
+#define BtnW (ScreenWidth - 120) / 3
 #define BtnH 120
 
 @interface NSComposeButton : UIButton

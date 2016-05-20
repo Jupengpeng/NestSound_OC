@@ -24,25 +24,25 @@
 - (void)setNavBar:(BOOL)animated {
     [self setNavBar:animated];
     
-    if ([self isKindOfClass:[NSUserPageViewController class]]) {
-        
-        self.edgesForExtendedLayout = UIRectEdgeTop;
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
-        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5) ]];
-    }
+//    if ([self isKindOfClass:[NSUserPageViewController class]]) {
+//        
+//        self.edgesForExtendedLayout = UIRectEdgeTop;
+//        self.automaticallyAdjustsScrollViewInsets = NO;
+//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+//        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5) ]];
+//    }
 }
 
 #pragma mark - resetNavBar
 - (void)reSetNavBar:(BOOL)animated {
     [self reSetNavBar:animated];
     
-    if ([self isKindOfClass:[NSUserPageViewController class]]) {
-        
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
-        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
-        
-    }
+//    if ([self isKindOfClass:[NSUserPageViewController class]]) {
+//        
+//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+//        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
+//        
+//    }
 }
 
 
