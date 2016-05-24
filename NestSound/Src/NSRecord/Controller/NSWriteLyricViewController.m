@@ -86,15 +86,16 @@
     
     [lyricView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(titleTextFiled.mas_bottom).with.offset(12);
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(importLyricBtn);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(importLyricBtn.mas_top);
     }];
     
     [importLyricBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view);
+        make.left.equalTo(self.view.mas_left);
         make.height.mas_equalTo(52);
         make.width.mas_equalTo(ScreenWidth/3);
-        
+        make.bottom.equalTo(self.view.mas_bottom);
     }];
     
     [LyricesBtn mas_makeConstraints:^(MASConstraintMaker *make) {

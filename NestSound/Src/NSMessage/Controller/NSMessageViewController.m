@@ -7,7 +7,7 @@
 //
 
 #import "NSMessageViewController.h"
-
+#import "NSMessageListViewController.h"
 
 @interface NSMessageViewController ()<
 UITableViewDelegate,
@@ -33,7 +33,7 @@ UITableViewDataSource
 
 }
 
-
+#pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
     //messageType table
@@ -76,7 +76,27 @@ UITableViewDataSource
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger row = indexPath.row;
+    NSMessageListViewController * messageListVC = [[NSMessageListViewController alloc] init];
+    switch (row) {
+        case 0:
+            messageListVC.messageListType = LocalizedStr(@"prompt_commentMessage");
+            break;
+        case 1:
+            messageListVC.messageListType = LocalizedStr(@"prompt_upvote");
+            break;
+        case 2:
+            messageListVC.messageListType = LocalizedStr(@"prompt_collection");
+            break;
+        case 3:
+            messageListVC.messageListType = LocalizedStr(@"prompt_systemMessage");
+            break;
+            
+        default:
+            break;
+    }
     
+    [self.navigationController pushViewController:messageListVC animated:YES];
 }
 
 

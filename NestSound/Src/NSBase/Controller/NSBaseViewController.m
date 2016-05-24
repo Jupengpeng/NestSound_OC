@@ -47,12 +47,23 @@
 }
 
 #pragma mark - settter & getter
+-(void)setRequestType:(BOOL)requestType
+{
+    _requestType = requestType;
+    
+}
+
 - (void)setRequestURL:(NSString *)url {
     requestURL = url;
     __weak typeof(self) wSelf = self;
-    NSURLSessionDataTask *operation = [[NSHttpClient client] requestWithURL:url
-                                                                      paras:self.requestParams
+    
+    
+    NSURLSessionDataTask *operation =[[NSHttpClient client] requestWithURL:requestURL
+                                
+                                                                        paras:self.requestParams
                                                                     success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
+                                                                        
+                                                                        
                                                                         
                                                                         NSBaseModel *responseModel = (NSBaseModel *)parserObject;
                                                                         

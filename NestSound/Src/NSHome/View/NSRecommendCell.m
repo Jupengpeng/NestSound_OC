@@ -7,7 +7,7 @@
 //
 
 #import "NSRecommendCell.h"
-
+#import "NSIndexModel.h"
 @interface NSRecommendCell ()
 {
     UILabel * workNameLab;
@@ -28,7 +28,7 @@
 @implementation NSRecommendCell
 
 
--(instancetype)init:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
     
@@ -119,40 +119,46 @@
         make.top.equalTo(workNameLab.mas_bottom).with.offset(4);
         make.left.right.equalTo(workNameLab);
     }];
+    
 }
 
 
 #pragma mark setter & getter
 
--(void)setWorkName:(NSString *)workName
+-(void)setRecommend:(NSRecommend *)recommend
 {
-    _workName = workName;
-    workNameLab.text = _workName;
+
+    _recommend = recommend;
+    workNameLab.text = _recommend.workName;
+
+    authorNameLab.text = _recommend.authorName;
+
+    playCountLab.text = _recommend.playCount;
+
+#warning placeholdPicture
+    [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+
+    if (recommend.type == 1) {
+        [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_lyricsWarehouse"]];
+    }else{
+        [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_rhyming"]];
+    }
 }
 
--(void)setAuthorName:(NSString *)authorName
-{
-    _authorName = authorName;
-    authorNameLab.text = _authorName;
-}
 
--(void)setPlayCount:(NSString *)playCount
+-(void)setSongNew:(NSNew *)songNew
 {
-    _playCount = playCount;
-    playCountLab.text = _playCount;
-}
-
--(void)setImgeUrl:(NSString *)imgeUrl
-{
-    _imgeUrl = imgeUrl;
-//    [titlePage setDDImageWithURLString:_imgeUrl];
-    [titlePage setImage:[UIImage imageNamed:@"img_03"]];
-}
-
--(void)setType:(NSString *)type
-{
-    _type = type;
-    if ([_type isEqualToString:@"1"]) {
+    _songNew = songNew;
+    workNameLab.text = _songNew.workName;
+    
+    authorNameLab.text = _songNew.authorName;
+    
+    playCountLab.text = _songNew.playCount;
+    
+#warning placeholdPicture
+    [titlePage setDDImageWithURLString:_songNew.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    
+    if (_songNew.type == 1) {
         [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_lyricsWarehouse"]];
     }else{
         [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_rhyming"]];

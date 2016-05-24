@@ -11,13 +11,18 @@
 #import "NSIndexCollectionReusableView.h"
 #import "NSMusicSayCollectionViewCell.h"
 #import "NSRecommendCell.h"
-
-
+#import "NSIndexModel.h"
+#import "NSH5ViewController.h"
 
 
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
     UICollectionView *_collection;
+    NSMutableArray * bannerAry;
+    NSMutableArray * recommendAry;
+    NSMutableArray * recommendSongAry;
+    NSMutableArray * newListAry;
+    NSMutableArray * musicSayAry;
 }
 
 
@@ -31,10 +36,27 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 @implementation NSHomeViewController
 
+-(instancetype)init
+{
+    if (self = [super init]) {
+        
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
+    [self fetchIndexData];
+    
+    
+    
+}
+
+-(void)configureUIAppearance
+{
+
     self.view.backgroundColor = [UIColor whiteColor];
     
     
@@ -59,7 +81,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [_collection registerClass:[NSIndexCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView];
     
     [self.view addSubview:_collection];
-    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -67,6 +88,41 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     _collection.frame = CGRectMake(0, 0, ScreenWidth, self.view.height);
     
     [super viewDidLayoutSubviews];
+}
+
+#pragma  mark -fetchIndexData
+-(void)fetchIndexData
+{
+    self.requestParams = nil;
+    self.requestType = YES;
+    NSDictionary * dic = @{@"1":@"2"};
+    
+    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:1];
+    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+    self.requestURL = [indexURL stringByAppendingString:str];
+    
+}
+
+#pragma mark -override FetchData;
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+
+#ifdef debug
+        
+        NSLog(@"this is%@",parserObject.description);
+        
+#endif
+        
+            NSIndexModel * indexModel = (NSIndexModel *)parserObject;
+            bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
+            recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
+            recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
+            newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
+        musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
+        [self configureUIAppearance];
+        
+    }
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -104,10 +160,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RecommendCell forIndexPath:indexPath];
         
-        cell.authorName = @"hjay";
-        cell.workName = @"zheshisha";
-        cell.imgeUrl = nil;
-        cell.type = @"1";
+        NSRecommend * recommendModel =  (NSRecommend *)[recommendAry objectAtIndex:indexPath.row];
+        cell.recommend = recommendModel;
         cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
         cell.contentView.layer.borderWidth = 1;
 
@@ -118,15 +172,17 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         NSSongMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SongMenuCell forIndexPath:indexPath];
         
+        NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
+        cell.recommendSong = recommendSongModel;
+        
         return cell;
         
     } else if (indexPath.section == 2) {
         
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NewWorkCell forIndexPath:indexPath];
-        cell.authorName = @"hjay";
-        cell.workName = @"zheshisha";
-        cell.imgeUrl = nil;
-        cell.type = @"1";
+        NSNew * newModel = (NSNew *)[newListAry objectAtIndex:indexPath.row];
+        cell.songNew = newModel;
+
         cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
         cell.contentView.layer.borderWidth = 1;
         
@@ -135,7 +191,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     } else {
         
         NSMusicSayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MusicSayCell forIndexPath:indexPath];
-    
+        NSMusicSay * musicSayModel = (NSMusicSay *)[musicSayAry objectAtIndex:indexPath.row];
+        cell.musicSay = musicSayModel;
         return cell;
     }
     
@@ -200,11 +257,11 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     reusable.delegate = self;
     
-    NSArray *array = @[@"img_01",@"img_02",@"img_03",@"img_04",@"img_05"];
     
     if (indexPath.section == 0) {
         
-        [reusable addHeaderViewWithImageArray:array];
+        reusable.bannerAry = bannerAry;
+
         
         reusable.titleLable.text = LocalizedStr(@"promot_recommendWorks");
         
@@ -239,7 +296,15 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 //轮播器点击事件
 - (void)indexCollectionReusableView:(NSIndexCollectionReusableView *)reusableView withImageBtn:(UIButton *)imageBtn {
     
+    NSBanner * banner = (NSBanner *)bannerAry[imageBtn.tag];
+    if (banner.state == 1) {
+        NSH5ViewController * event = [[NSH5ViewController alloc] init];
+        event.h5Url = banner.activityURL;
+        [self.navigationController pushViewController:event animated:YES];
+    }else{
     
+    
+    }
     
     NSLog(@"点击了第%zd张图片",imageBtn.tag);
 }

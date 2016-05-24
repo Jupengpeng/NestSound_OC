@@ -16,7 +16,7 @@
 #import "NSBaseNavigationController.h"
 #import "NSComposeView.h"
 #import "NSInspirationRecordViewController.h"
-
+#import "NSWriteLyricViewController.h"
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
 
 @end
@@ -109,14 +109,16 @@
 
 - (void)composeView:(NSComposeView *)composeView withComposeButton:(UIButton *)composeBtn {
     
+     [composeView removeFromSuperview];
     if (composeBtn.tag == 0) {
-        
+        NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
+       [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
         NSLog(@"点击了创作歌词");
     } else if (composeBtn.tag == 1) {
         
         NSLog(@"点击了创作歌曲");
     } else {
-        [composeView removeFromSuperview];
+       
         
         NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] init];
         

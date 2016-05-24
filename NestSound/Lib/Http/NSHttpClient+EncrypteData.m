@@ -39,27 +39,33 @@ static NSData* base64_decode(NSString *str){
 {
     if (isEncrypt_) {
         
-        NSMutableDictionary * dic =[[NSMutableDictionary alloc] initWithDictionary: paramaters];
-        NSDictionary * par =  [dic objectForKey:requestData];
-        NSString * parmaters = [self dictionaryToJson:par];
+        if (paramaters) {
+            NSMutableDictionary * dic =[[NSMutableDictionary alloc] initWithDictionary: paramaters];
+            NSDictionary * par =  [dic objectForKey:requestData];
+            NSString * parmaters = [self dictionaryToJson:par];
+            
+            NSString * EncryptedStr =  [RSAEncryptor encryptString:parmaters publicKey:RSAPublicKey];
+            NSString * base64EncodeStr = base64_encode_data([EncryptedStr dataUsingEncoding:NSUTF8StringEncoding]);
+            [dic removeObjectForKey:requestData];
+            [dic setObject:base64EncodeStr forKey:requestData];
+            return dic;
+        }
         
-        NSString * EncryptedStr =  [RSAEncryptor encryptString:parmaters publicKey:RSAPublicKey];
-        NSString * base64EncodeStr = base64_encode_data([EncryptedStr dataUsingEncoding:NSUTF8StringEncoding]);
-        [dic removeObjectForKey:requestData];
-        [dic setObject:base64EncodeStr forKey:requestData];
-        return dic;
+        return nil;
         
     }else{
         
         NSMutableDictionary * dic =[[NSMutableDictionary alloc] initWithDictionary: paramaters];
-        NSDictionary * par =  [dic objectForKey:requestData];
-        NSString * parmaters = [self dictionaryToJson:par];
-        NSData * base64DecodeData = base64_decode(parmaters);
+        NSString  * par =  [dic objectForKey:requestData];
+      //  NSString * parmaters = [self dictionaryWithJsonString:par];
+        NSData * base64DecodeData = base64_decode(par);
         NSString * base64DecodeStr = [[NSString alloc] initWithData:base64DecodeData encoding:NSUTF8StringEncoding];
         NSString * decryptStr =  [RSAEncryptor decryptString:base64DecodeStr publicKey:RSAPublicKey];
         
         NSDictionary * resultDataDic = [self dictionaryWithJsonString:decryptStr];
         [dic removeObjectForKey:requestData];
+//        [dic removeAllObjects];
+        NSLog(@"ddddd%@",dic);
         [dic setObject:resultDataDic forKey:requestData];
         
         return dic;

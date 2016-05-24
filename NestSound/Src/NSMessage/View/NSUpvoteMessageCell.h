@@ -10,4 +10,11 @@
 
 @interface NSUpvoteMessageCell : UITableViewCell
 
+@property (nonatomic,copy) NSString * headUrl;
+@property (nonatomic,copy) NSString * nickName;
+@property (nonatomic,copy) NSString * createDate;
+@property (nonatomic,copy) NSString * workName;
+@property (nonatomic,copy) NSString * authorName;
+@property (nonatomic,copy) NSString * titlePageUrl;
+@property (nonatomic,assign) BOOL isUpvote;
 @end

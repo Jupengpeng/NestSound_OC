@@ -1,3 +1,4 @@
+
 //
 //  IMHttpClient.m
 //  iMei
@@ -61,11 +62,13 @@ static NSHttpClient *client;
 
 #pragma mark - responseObject
 - (void)responseObject:(NSObject *)obj  withOperation:(NSURLSessionDataTask *)operation {
-    
+
 }
 
 #pragma mark - requestWithURL ...
 - (NSURLSessionDataTask *)requestWithURL:(NSString *)url
+                                   
+                                   
                                      paras:(NSDictionary *)parasDict
                                    success:(void(^)(NSURLSessionDataTask *operation,NSObject *parserObject))success
                                    failure:(void(^)(NSURLSessionDataTask *operation,NSError *requestErr))failure {
@@ -87,8 +90,69 @@ static NSHttpClient *client;
     
     WS(wSelf);
     NSString *requestURL = [NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],url];
-    NSURLSessionDataTask *operation = [self POST:requestURL
-                                      parameters:parasDict
+    NSURLSessionDataTask *operation;
+    
+    if (1) {
+        operation = [self GET: url
+                   parameters:[self encryptWithDictionary:parasDict isEncrypt:YES]
+                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+                          
+                          //hide toast
+                          if (showLoading) {
+                              
+                              [[NSToastManager manager] hideprogress];
+                          }
+#ifdef DEBUG
+                          NSLog(@"RESPONSE JSON:%@", responseObject);
+#endif
+                          
+                          if (!success) {
+                              return ;
+                          }
+                          
+                          if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                             
+                           NSDictionary * dic =  [self encryptWithDictionary:responseObject isEncrypt:NO];
+                             
+                              NSLog(@"dic;%@",dic);
+                              NSInteger i = [requestURL rangeOfString:@"data="].location;
+                              
+                              NSString * str = [requestURL substringWithRange:NSMakeRange(32, i-32)];
+                              NSLog(@"str%@",str);
+                              NSLog(@"index%@",indexURL);
+        
+                              NSBaseModel *model = [NSModelFactory modelWithURL:str
+                                                                   responseJson:dic];
+                              success(task,model);
+                              
+                              if (!model.success) {
+                                  [[NSToastManager manager] showtoast:[responseObject objectForKey:@"message"]];
+                              }
+                          } else {
+                              success(task,responseObject);
+                          }
+                          if (!wSelf) {
+                              return ;
+                          }
+                          
+                          [wSelf responseObject:responseObject withOperation:task];
+                          
+                      } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+                          
+                          if (showLoading) {
+                              [[NSToastManager manager] hideprogress];
+                          }
+                          if (!failure) {
+                              return ;
+                          }
+                          failure(task,error);
+                      }];
+        
+    }else{
+    
+    
+    operation = [self POST:url
+                                      parameters:[self encryptWithDictionary:parasDict isEncrypt:YES]
                                          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                            
                                              //hide toast
@@ -105,8 +169,8 @@ static NSHttpClient *client;
                                              }
                                              
                                              if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                                                 NSBaseModel *model = [NSModelFactory modelWithURL:url
-                                                                    responseJson:responseObject];
+                                                 NSBaseModel *model = [NSModelFactory modelWithURL:indexURL
+                                                                    responseJson:[self encryptWithDictionary:responseObject isEncrypt:NO]];
                                                  success(task,model);
                                                  
                                                  if (!model.success) {
@@ -131,9 +195,12 @@ static NSHttpClient *client;
                                              }
                                              failure(task,error);
                                          }];
+    }
     operation.urlTag = url;
     operation.isLoadingMore = isLoadingMore;
     
     return operation;
 }
+
+
 @end

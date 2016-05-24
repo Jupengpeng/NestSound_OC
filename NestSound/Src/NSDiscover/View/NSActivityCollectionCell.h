@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
+@class NSActivity;
 @interface NSActivityCollectionCell : UICollectionViewCell
 
 @property (nonatomic,copy) NSString * imageUrl;
@@ -15,5 +17,7 @@
 @property (nonatomic,copy) NSString * date;
 
 @property (nonatomic,copy) NSString * state;
+
+@property (nonatomic,copy) NSActivity * activityModel;
 
 @end
