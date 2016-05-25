@@ -55,6 +55,11 @@
     
     self.plusBtn.centerY = self.height * 0.5;
     
+    self.plusBtn.width = self.width / 5;
+    
+    self.plusBtn.height = 44;
+    
+    
     NSInteger count = self.subviews.count;
     
     CGFloat buttonWidth = self.width / 5;
@@ -62,7 +67,7 @@
     NSInteger index = 0;
     
     
-    for (int i=0; i<count; i++) {
+    for (int i = 0; i < count; i++) {
         
         UIView *childView = self.subviews[i];
         

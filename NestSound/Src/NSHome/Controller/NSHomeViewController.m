@@ -35,6 +35,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [super viewDidLoad];
     
+    
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     

@@ -17,10 +17,25 @@
     
     UIView *_moreChoiceView;
     
+    
+    //头像
+    UIButton *_iconBtn;
+    
+    //作者名
+    UILabel *_nameLabel;
+    
+    //日期
+    UILabel *_dateLabel;
+    
+    //评论数
+    long commentNum;
+    
+    //歌词
+    NSLyricView *_lyricView;
 }
 
 @end
-static NSString *num = @"7473";
+
 @implementation NSLyricViewController
 
 - (void)viewDidLoad {
@@ -66,19 +81,22 @@ static NSString *num = @"7473";
     [_bottomView addSubview:line];
     
     
+    //头像
     UIButton *iconBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-        [btn setImage:[UIImage imageNamed:@"img_01"] forState:UIControlStateNormal];
+//        [btn setImage:[UIImage imageNamed:@"img_01"] forState:UIControlStateNormal];
         
         btn.layer.cornerRadius = 17;
         
         btn.clipsToBounds = YES;
-
+        
         
     } action:^(UIButton *btn) {
         
         NSLog(@"点击了头像");
     }];
+    
+    _iconBtn = iconBtn;
     
     [_bottomView addSubview:iconBtn];
     
@@ -95,11 +113,14 @@ static NSString *num = @"7473";
     }];
     
     
+    //歌手名
     UILabel *nameLabel = [[UILabel alloc] init];
     
-    nameLabel.text = @"戴荃";
+//    nameLabel.text = @"戴荃";
     
     nameLabel.font = [UIFont systemFontOfSize:14];
+    
+    _nameLabel = nameLabel;
     
     [_bottomView addSubview:nameLabel];
     
@@ -112,11 +133,14 @@ static NSString *num = @"7473";
     }];
     
     
+    //日期
     UILabel *dateLabel = [[UILabel alloc] init];
     
-    dateLabel.text = @"2016-05-05";
+//    dateLabel.text = @"2016-05-05";
     
     dateLabel.font = [UIFont systemFontOfSize:10];
+    
+    _dateLabel = dateLabel;
     
     [_bottomView addSubview:dateLabel];
     
@@ -129,6 +153,7 @@ static NSString *num = @"7473";
     }];
     
     
+    //评论
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_comment_yes"] forState:UIControlStateNormal];
@@ -151,19 +176,20 @@ static NSString *num = @"7473";
     }];
     
     
+    //评论数
     UILabel *numLabel = [[UILabel alloc] init];
     
-    if ([num intValue] > 999) {
+    if (commentNum > 999) {
         
         numLabel.text = @"999+";
         
-    } else if ([num intValue] < 1) {
+    } else if (commentNum < 1) {
         
         [commentBtn setImage:[UIImage imageNamed:@"2.0_comment_no"] forState:UIControlStateNormal];
         
     } else {
         
-        numLabel.text = num;
+        numLabel.text = [NSString stringWithFormat:@"%zd",commentNum];
         
     }
     
@@ -184,6 +210,7 @@ static NSString *num = @"7473";
     }];
     
     
+    //点赞
     UIButton *upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_upVote_normal"] forState:UIControlStateNormal];
@@ -211,6 +238,7 @@ static NSString *num = @"7473";
     }];
     
     
+    //收藏
     UIButton *collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_collection_normal"] forState:UIControlStateNormal];
@@ -248,7 +276,9 @@ static NSString *num = @"7473";
     
     lyricView.lyricText.userInteractionEnabled = NO;
     
-    lyricView.lyricText.text = @"可可豆（词音：kekedou）亦称“可可子”。\n梧桐科常绿乔木可可树的果实，\n长卵圆形坚果的扁平种子，\n含油53%～58% 。\n榨出的可可脂有独特香味及融化性能。\n是可可树的产物。\n中国于1922年开始引种此种树木。\n可可喜生于温暖和湿润的气侯和富于有机质的冲积土所形成的缓坡上，\n在排水不良和重粘土上或常受台风侵袭的地方则不适宜生长。";
+//    lyricView.lyricText.text = @"可可豆（词音：kekedou）亦称“可可子”。\n梧桐科常绿乔木可可树的果实，\n长卵圆形坚果的扁平种子，\n含油53%～58% 。\n榨出的可可脂有独特香味及融化性能。\n是可可树的产物。\n中国于1922年开始引种此种树木。\n可可喜生于温暖和湿润的气侯和富于有机质的冲积土所形成的缓坡上，\n在排水不良和重粘土上或常受台风侵袭的地方则不适宜生长。";
+    
+    _lyricView = lyricView;
     
     [self.view addSubview:lyricView];
 }

@@ -17,11 +17,25 @@
 #import "NSInspirationRecordViewController.h"
 #import "NSWriteLyricViewController.h"
 #import "NSBaseViewController.h"
+#import "NSPlayMusicViewController.h"
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
+
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
 @end
 
 @implementation NSBaseTabBarViewController
+
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [[NSPlayMusicViewController alloc] init];
+        
+    }
+    
+    return _playSongsVC;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,6 +82,7 @@
     [self addChildViewController:userPageVc imageName:@"2.0_my_normal" selectedImageName:@"2.0_my_selected" title:@"我的"];
     
     
+    
 }
 
 
@@ -94,8 +109,6 @@
 
 
 - (void)plusTabBar:(NSPlusTabBar *)tabBar didSelectedPlusBtn:(UIButton *)plusBtn {
-    
-    //    plusBtn.selected = !plusBtn.selected;
     
     NSComposeView *composeView = [[NSComposeView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -132,8 +145,10 @@
 
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
     
-    NSLog(@"进入播放页");
+    
+    [self.playSongsVC showPlayMusic];
 }
+
 
 @end
 

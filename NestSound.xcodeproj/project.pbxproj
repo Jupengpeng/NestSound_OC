@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1801F4A81CF1EB3A00F55FC0 /* 悟空.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1801F4A71CF1EB3A00F55FC0 /* 悟空.mp3 */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
 		182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182F33531CDC41AF006AB047 /* Assets.xcassets */; };
 		183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */; };
 		183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */; };
+		188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */; };
+		188BEEA81CF4BD6E00494D64 /* 我的天空.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 188BEEA71CF4BD6E00494D64 /* 我的天空.mp3 */; };
 		188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D11FF1CECBF5F0009FD5B /* NSBaseNavigationController.m */; };
 		188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D12021CECC7ED0009FD5B /* NSComposeView.m */; };
 		188D12061CECDE1F0009FD5B /* NSComposeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D12051CECDE1F0009FD5B /* NSComposeButton.m */; };
@@ -32,6 +35,9 @@
 		18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */; };
 		18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */; };
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
+		18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */; };
+		18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE8301CF0B1040012880E /* NSSoundRecord.m */; };
+		18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8331CF15ED50012880E /* libmp3lame.a */; };
 		2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */; };
 		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
 		2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3750281CEC422C007C2967 /* NSChangeNameViewController.m */; };
@@ -110,6 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1801F4A71CF1EB3A00F55FC0 /* 悟空.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "悟空.mp3"; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
 		18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseTabBarViewController.m; sourceTree = "<group>"; };
 		18074E411CEC43290011B0A4 /* NSPlusTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlusTabBar.h; sourceTree = "<group>"; };
@@ -119,6 +126,9 @@
 		183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverViewController.m; sourceTree = "<group>"; };
 		183E03A01CDDDACC0071FEE5 /* NSMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicViewController.h; sourceTree = "<group>"; };
 		183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicViewController.m; sourceTree = "<group>"; };
+		188BEEA41CF4BBE900494D64 /* NSPlayMusicTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicTool.h; sourceTree = "<group>"; };
+		188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayMusicTool.m; sourceTree = "<group>"; };
+		188BEEA71CF4BD6E00494D64 /* 我的天空.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "我的天空.mp3"; sourceTree = "<group>"; };
 		188D11FE1CECBF5F0009FD5B /* NSBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseNavigationController.h; sourceTree = "<group>"; };
 		188D11FF1CECBF5F0009FD5B /* NSBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseNavigationController.m; sourceTree = "<group>"; };
 		188D12011CECC7ED0009FD5B /* NSComposeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSComposeView.h; sourceTree = "<group>"; };
@@ -159,6 +169,13 @@
 		18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftBoxTableViewCell.m; sourceTree = "<group>"; };
 		18FF92801CE5B10C007F61AC /* NSToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarButton.h; sourceTree = "<group>"; };
 		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
+		18FFE82C1CF025250012880E /* NSPlayMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicViewController.h; sourceTree = "<group>"; };
+		18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayMusicViewController.m; sourceTree = "<group>"; };
+		18FFE82F1CF0B1040012880E /* NSSoundRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSoundRecord.h; sourceTree = "<group>"; };
+		18FFE8301CF0B1040012880E /* NSSoundRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSoundRecord.m; sourceTree = "<group>"; };
+		18FFE8321CF15ED50012880E /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		18FFE8331CF15ED50012880E /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		18FFE8351CF1809F0012880E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		266DC77AE30D3AB35D51D7CB /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
 		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
@@ -301,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				652770F3A333953199812D82 /* libPods-NestSound.a in Frameworks */,
+				18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +645,8 @@
 		2DFB66F31CC1E65600DA24DA /* NestSound */ = {
 			isa = PBXGroup;
 			children = (
+				1801F4A71CF1EB3A00F55FC0 /* 悟空.mp3 */,
+				188BEEA71CF4BD6E00494D64 /* 我的天空.mp3 */,
 				2DFB671B1CC1E6DE00DA24DA /* Src */,
 				2DFB67261CC1E75900DA24DA /* Lib */,
 				2DFB67211CC1E6DE00DA24DA /* Utils */,
@@ -685,6 +705,8 @@
 		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				18FFE8321CF15ED50012880E /* lame.h */,
+				18FFE8331CF15ED50012880E /* libmp3lame.a */,
 				2DFB67531CC1EC4000DA24DA /* NSTool.h */,
 				2DFB67541CC1EC4000DA24DA /* NSTool.m */,
 				2DFB67561CC1ED8E00DA24DA /* NSToastManager.h */,
@@ -723,6 +745,10 @@
 				2DFB67711CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m */,
 				18E402871CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.h */,
 				18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */,
+				18FFE82F1CF0B1040012880E /* NSSoundRecord.h */,
+				18FFE8301CF0B1040012880E /* NSSoundRecord.m */,
+				188BEEA41CF4BBE900494D64 /* NSPlayMusicTool.h */,
+				188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -755,6 +781,8 @@
 				188D11FF1CECBF5F0009FD5B /* NSBaseNavigationController.m */,
 				18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */,
 				18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */,
+				18FFE82C1CF025250012880E /* NSPlayMusicViewController.h */,
+				18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -817,6 +845,7 @@
 		B6FF3AC9C475214C526BE9EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18FFE8351CF1809F0012880E /* AVFoundation.framework */,
 				90621F5AC4B64129EA51BA48 /* libPods-NestSound.a */,
 				581EB54F21BB10442D33E47D /* libPods-NestSoundTests.a */,
 			);
@@ -921,7 +950,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188BEEA81CF4BD6E00494D64 /* 我的天空.mp3 in Resources */,
 				182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */,
+				1801F4A81CF1EB3A00F55FC0 /* 悟空.mp3 in Resources */,
 				2ACDBFC01CCCA5D70001FC31 /*  Localizable.strings in Resources */,
 				2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */,
 			);
@@ -1100,10 +1131,12 @@
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
+				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
+				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
@@ -1131,6 +1164,7 @@
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
+				18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,
 			);
@@ -1267,6 +1301,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NestSound/Utils",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1287,6 +1325,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NestSound/Utils",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
