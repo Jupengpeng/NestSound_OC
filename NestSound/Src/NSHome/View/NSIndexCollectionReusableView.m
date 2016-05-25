@@ -169,12 +169,6 @@
         
     }];
     
-    
-<<<<<<< HEAD
-=======
-    
-
->>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 }
 
 - (void)imageBtnClick:(UIButton *)btn {
