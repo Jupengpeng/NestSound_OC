@@ -44,10 +44,16 @@
 		2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37502B1CEC5701007C2967 /* NSUserFeedbackViewController.m */; };
 		2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */; };
 		2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */; };
+		2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4325621CF324E7008889BE /* NSActivityListModel.m */; };
+		2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4325651CF32912008889BE /* NSDiscoverMusicListModel.m */; };
+		2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A43256B1CF32C30008889BE /* NSIndexModel.m */; };
+		2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A43256E1CF32C89008889BE /* NSMusicModel.m */; };
+		2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4325711CF32CA2008889BE /* NSMusiclListModel.m */; };
 		2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B1F1CE2D7E600086C2C /* NSWriteLyricViewController.m */; };
 		2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B251CE317B300086C2C /* NSLyricCoachViewController.m */; };
 		2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */; };
 		2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */; };
+		2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */; };
 		2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1171CDDC797004470ED /* NSMessageViewController.m */; };
 		2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11A1CDDCDD9004470ED /* NSMessageListViewController.m */; };
 		2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11D1CDDD89F004470ED /* NSCommentMessageCell.m */; };
@@ -58,6 +64,7 @@
 		2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A891CD9DE520044D821 /* NSSongListViewController.m */; };
 		2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A8C1CD9E04E0044D821 /* NSSongViewController.m */; };
 		2AD10A901CD9F2D60044D821 /* NSSongListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A8F1CD9F2D60044D821 /* NSSongListHeaderView.m */; };
+		2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD53E901CF023AC002ED314 /* NSRecordToolView.m */; };
 		2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */; };
 		2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */; };
 		2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10031CE3508900D0D535 /* NSLyricCell.m */; };
@@ -116,7 +123,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+<<<<<<< HEAD
 		1801F4A71CF1EB3A00F55FC0 /* 悟空.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "悟空.mp3"; sourceTree = "<group>"; };
+=======
+>>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
 		18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseTabBarViewController.m; sourceTree = "<group>"; };
 		18074E411CEC43290011B0A4 /* NSPlusTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlusTabBar.h; sourceTree = "<group>"; };
@@ -188,6 +198,17 @@
 		2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongCell.m; sourceTree = "<group>"; };
 		2A3E7C661CDB37C4006C8519 /* NSPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayViewController.h; sourceTree = "<group>"; };
 		2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayViewController.m; sourceTree = "<group>"; };
+		2A43255F1CF31E08008889BE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		2A4325611CF324E7008889BE /* NSActivityListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityListModel.h; sourceTree = "<group>"; };
+		2A4325621CF324E7008889BE /* NSActivityListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityListModel.m; sourceTree = "<group>"; };
+		2A4325641CF32912008889BE /* NSDiscoverMusicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverMusicListModel.h; sourceTree = "<group>"; };
+		2A4325651CF32912008889BE /* NSDiscoverMusicListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverMusicListModel.m; sourceTree = "<group>"; };
+		2A43256A1CF32C30008889BE /* NSIndexModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSIndexModel.h; sourceTree = "<group>"; };
+		2A43256B1CF32C30008889BE /* NSIndexModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSIndexModel.m; sourceTree = "<group>"; };
+		2A43256D1CF32C89008889BE /* NSMusicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicModel.h; sourceTree = "<group>"; };
+		2A43256E1CF32C89008889BE /* NSMusicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicModel.m; sourceTree = "<group>"; };
+		2A4325701CF32CA2008889BE /* NSMusiclListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusiclListModel.h; sourceTree = "<group>"; };
+		2A4325711CF32CA2008889BE /* NSMusiclListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusiclListModel.m; sourceTree = "<group>"; };
 		2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWriteLyricViewController.h; sourceTree = "<group>"; };
 		2A500B1F1CE2D7E600086C2C /* NSWriteLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWriteLyricViewController.m; sourceTree = "<group>"; };
 		2A500B241CE317B300086C2C /* NSLyricCoachViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricCoachViewController.h; sourceTree = "<group>"; };
@@ -196,6 +217,8 @@
 		2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPublicLyricViewController.m; sourceTree = "<group>"; };
 		2A500B2A1CE33CEB00086C2C /* NSImportLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImportLyricViewController.h; sourceTree = "<group>"; };
 		2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImportLyricViewController.m; sourceTree = "<group>"; };
+		2A9429B11CF402960099A6DB /* NSDicoverLyricListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDicoverLyricListModel.h; sourceTree = "<group>"; };
+		2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDicoverLyricListModel.m; sourceTree = "<group>"; };
 		2A9DC1161CDDC797004470ED /* NSMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageViewController.h; sourceTree = "<group>"; };
 		2A9DC1171CDDC797004470ED /* NSMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMessageViewController.m; sourceTree = "<group>"; };
 		2A9DC1191CDDCDD9004470ED /* NSMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageListViewController.h; sourceTree = "<group>"; };
@@ -216,6 +239,8 @@
 		2AD10A8C1CD9E04E0044D821 /* NSSongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongViewController.m; sourceTree = "<group>"; };
 		2AD10A8E1CD9F2D60044D821 /* NSSongListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongListHeaderView.h; sourceTree = "<group>"; };
 		2AD10A8F1CD9F2D60044D821 /* NSSongListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongListHeaderView.m; sourceTree = "<group>"; };
+		2AD53E8F1CF023AC002ED314 /* NSRecordToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecordToolView.h; sourceTree = "<group>"; };
+		2AD53E901CF023AC002ED314 /* NSRecordToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecordToolView.m; sourceTree = "<group>"; };
 		2AD69B381CD30DFA00BCA19C /* NSRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecommendCell.h; sourceTree = "<group>"; };
 		2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecommendCell.m; sourceTree = "<group>"; };
 		2AD6DF3F1CD7287F00B95CFD /* NSHttpClient+EncrypteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSHttpClient+EncrypteData.h"; sourceTree = "<group>"; };
@@ -367,6 +392,12 @@
 		183E039B1CDDC5E90071FEE5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2A4325611CF324E7008889BE /* NSActivityListModel.h */,
+				2A4325621CF324E7008889BE /* NSActivityListModel.m */,
+				2A4325641CF32912008889BE /* NSDiscoverMusicListModel.h */,
+				2A4325651CF32912008889BE /* NSDiscoverMusicListModel.m */,
+				2A9429B11CF402960099A6DB /* NSDicoverLyricListModel.h */,
+				2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -455,6 +486,12 @@
 		2D8608C81CCC87720027F147 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2A43256A1CF32C30008889BE /* NSIndexModel.h */,
+				2A43256B1CF32C30008889BE /* NSIndexModel.m */,
+				2A43256D1CF32C89008889BE /* NSMusicModel.h */,
+				2A43256E1CF32C89008889BE /* NSMusicModel.m */,
+				2A4325701CF32CA2008889BE /* NSMusiclListModel.h */,
+				2A4325711CF32CA2008889BE /* NSMusiclListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -527,6 +564,8 @@
 				18BCA2661CE335AE00891C95 /* NSPictureCollectionView.m */,
 				2ADA10021CE3508900D0D535 /* NSLyricCell.h */,
 				2ADA10031CE3508900D0D535 /* NSLyricCell.m */,
+				2AD53E8F1CF023AC002ED314 /* NSRecordToolView.h */,
+				2AD53E901CF023AC002ED314 /* NSRecordToolView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -845,7 +884,11 @@
 		B6FF3AC9C475214C526BE9EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				18FFE8351CF1809F0012880E /* AVFoundation.framework */,
+=======
+				2A43255F1CF31E08008889BE /* JavaScriptCore.framework */,
+>>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 				90621F5AC4B64129EA51BA48 /* libPods-NestSound.a */,
 				581EB54F21BB10442D33E47D /* libPods-NestSoundTests.a */,
 			);
@@ -1086,6 +1129,7 @@
 				2DFB67771CC1F0ED00DA24DA /* NSString+NSAdditions.m in Sources */,
 				2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */,
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
+				2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */,
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
@@ -1114,6 +1158,8 @@
 				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
 				183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */,
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
+				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
+				2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */,
 				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
 				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,
 				2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */,
@@ -1124,6 +1170,7 @@
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
+				2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */,
 				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
@@ -1134,6 +1181,7 @@
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
+				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
@@ -1146,6 +1194,7 @@
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
+				2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */,
 				2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
@@ -1163,6 +1212,11 @@
 				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
+<<<<<<< HEAD
+=======
+				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
+				2D8608E21CCC87C00027F147 /* NSRecordViewController.m in Sources */,
+>>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,

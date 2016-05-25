@@ -7,11 +7,13 @@
 //
 
 #import "NSSongMenuCollectionViewCell.h"
-
+#import "NSIndexModel.h"
 @interface NSSongMenuCollectionViewCell ()
 
-@property (nonatomic, strong) UIImageView *imageView;
+{
+    UIImageView *imageView;
 
+}
 @end
 
 @implementation NSSongMenuCollectionViewCell
@@ -30,14 +32,20 @@
 
 - (void)setupUI {
     
-    self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    
-    self.imageView.image = [UIImage imageNamed:@"img_02"];
-    
-    [self addSubview:self.imageView];
+    imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    imageView.image = [UIImage imageNamed:@"img_02"];
+    [self.contentView addSubview:imageView];
     
 }
 
+#pragma mark -setter & getter
+-(void)setRecommendSong:(NSRecommendSong *)recommendSong
+{
+    
+#warning placeholdImage
+    [imageView setDDImageWithURLString:recommendSong.titleImageURl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    
+}
 
 
 @end

@@ -10,6 +10,6 @@
 
 @interface NSFansViewController : NSBaseViewController
 
--(instancetype)initWithUserID:(NSString * )UserID;
+-(instancetype)initWithUserID:(NSString * )UserID _isFans:(BOOL)isFans_;
 
 @end

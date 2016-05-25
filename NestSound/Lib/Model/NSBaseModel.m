@@ -10,10 +10,12 @@
 #import "NSBaseModelProperty.h"
 
 @interface NSBaseModel()
+
 - (void)setupCachedKeyMapper;
 - (void)setupCachedProperties;
-@end
 
+@end
+ int i = 0;
 #pragma mark - NSArray+NSBaseModel
 @interface NSArray (NSBaseModel)
 - (NSArray *)modelArrayWithClass:(Class)modelClass;
@@ -146,12 +148,15 @@ static const char *NSBaseModelPropertiesKey;
             NSString *jsonKey = property.name;
             NSString *mapperKey = [keyMapper objectForKey:jsonKey];
             jsonKey = mapperKey ?: jsonKey;
-            
+            NSLog(@" %d",i++);
             id jsonValue = [dataObject objectForKey:jsonKey];
+            
             id propertyValue = [self valueForProperty:property withJSONValue:jsonValue];
             
             if (propertyValue) {
+                NSLog(@"name%@",property.name);
                 [self setValue:propertyValue forKey:property.name];
+                
             } else {
                 id resetValue = (property.valueType == NSClassPropertyTypeObject) ? nil : @(0);
                 [self setValue:resetValue forKey:property.name];

@@ -26,7 +26,12 @@
 #import "NSHttpClient+EncrypteData.h"
 #import "QiniuSDK.h"
 #import "POP.h"
+<<<<<<< HEAD
 #import "MBProgressHUD.h"
+=======
+#import "NSBaseModel.h"
+
+>>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 
 // Host
 extern BOOL debugMode;
@@ -38,7 +43,10 @@ extern NSString *port;
 #define releasePort   @""
 #define customHostKey @"customHostKey"
 #define customPortKey @"customPortKey"
-
+#define indexURL @"http://112.124.125.2/java/common/index/app?"
+#define dicoverMusicURL @"http://112.124.125.2/java/common/find/music?"
+#define dicoverActivityURL @"http://112.124.125.2/java/common/find/activelist?"
+//#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG
 #define DLog(fmt,...) {NSLog((@"%s [Line:%d]" fmt),__PRETTY_FUNCTION__,__LINE__,##__VA_ARGS__);}

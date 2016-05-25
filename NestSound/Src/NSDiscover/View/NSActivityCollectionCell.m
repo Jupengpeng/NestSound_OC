@@ -7,7 +7,7 @@
 //
 
 #import "NSActivityCollectionCell.h"
-
+#import "NSActivityListModel.h"
 @interface NSActivityCollectionCell ()
 {
     UIImageView * titlePage;
@@ -79,27 +79,22 @@
 
 
 #pragma mark setter & getter
--(void)setImageUrl:(NSString *)imageUrl
+-(void)setActivityModel:(NSActivity *)activityModel
 {
-    _imageUrl = imageUrl;
-    [titlePage setDDImageWithURLString:_imageUrl placeHolderImage:[UIImage imageNamed:@"2.0_back"]];
-}
+    _activityModel = activityModel;
+    
+    [titlePage setDDImageWithURLString:_activityModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_back"]];
+    NSString * dateStr = [NSString stringWithFormat:@"%@ ~ %@",[date datetoMonthStringWithDate:_activityModel.beginDate],[date datetoMonthStringWithDate:_activityModel.endDate]];
+    dateLabel.text = dateStr;
 
--(void)setDate:(NSString *)date
-{
-    _date = date;
-    dateLabel.text = _date;
-}
-
--(void)setState:(NSString *)state
-{
-    _state = state;
-    if ([_state  isEqual: @"1"]) {
+    if (_activityModel.status == 1) {
         stateLabel.text = LocalizedStr(@"promot_activityIng");
         
-    }else{
+    }else  if(_activityModel.status == 2){
         stateLabel.text = LocalizedStr(@"promot_activityed");
         dateLabel.hidden = YES;
+    
+    }else{
     
     }
 }

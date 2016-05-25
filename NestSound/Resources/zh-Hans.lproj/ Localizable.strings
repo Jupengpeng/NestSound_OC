@@ -74,8 +74,10 @@ prompt_addTitlePage = "添加封面";
 prompt_addDesc = "添加描述...";
 prompt_saveDraft = "保存草稿";
 
-prompt_fans = "粉丝：";
-prompt_focus = "关注：";
+prompt_fans = "粉丝";
+prompt_focus = "关注";
+prompt_fansCount = "粉丝：";
+prompt_focusCount = "关注：";
 prompt_draft = "草稿箱";
 prompt_collection = "收藏";
 prompt_createInspirationRecord = "灵感记录";
@@ -98,6 +100,13 @@ prompt_userFeedback = "用户反馈";
 prompt_loginOut = "退出登录";
 
 prompt_post = "举报";
+prompt_comment = "请输入您的意见或建议，我们将不断改进";
+prompt_report = "我们会尽快对您举报内容做处理";
 prompt_number = "请输入你的邮箱或电话号码，我们会及时与您取得联系";
 
-
+prompt_commentMessage = "评论";
+prompt_upvote = "点赞";
+prompt_collection = "收藏";
+prompt_systemMessage = "系统消息";
+prompt_userUpvote = "点赞了你的作品";
+prompt_userCollection = "收藏了你的作品";

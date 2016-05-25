@@ -10,4 +10,8 @@
 
 @interface NSFanscell : UITableViewCell
 
+@property (nonatomic,copy) NSString * headUrl;
+@property (nonatomic,copy) NSString * authorName;
+@property (nonatomic,copy) NSString * desc;
+@property (nonatomic,assign) BOOL isFocus;
 @end

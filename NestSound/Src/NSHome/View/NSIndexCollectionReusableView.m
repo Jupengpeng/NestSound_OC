@@ -7,7 +7,7 @@
 //
 
 #import "NSIndexCollectionReusableView.h"
-
+#import "NSIndexModel.h"
 
 @interface NSIndexCollectionReusableView () <UIScrollViewDelegate> {
 
@@ -18,6 +18,7 @@
     NSTimer *_timer;
     
     UIPageControl *_page;
+    NSMutableArray * bannerImageArr;
     
 }
 
@@ -107,19 +108,30 @@
     for (int i = 0; i < arrConut * 3; i++) {
      
         UIButton *imageBtn = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width * i, 0, [UIScreen mainScreen].bounds.size.width, 180)];
+        UIImageView * im = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width * i, 0, [UIScreen mainScreen].bounds.size.width, 180)];
         
         [imageBtn setAdjustsImageWhenHighlighted:NO];
         
         imageBtn.tag = i % arrConut;
         
-        [imageBtn setImage:[UIImage imageNamed:imageArray[i % arrConut]] forState:UIControlStateNormal];
+        
+        [im setDDImageWithURLString:imageArray[i % arrConut] placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+        
+        NSLog(@"d%@",imageArray[i % arrConut]);
+        im.userInteractionEnabled = YES;
+        
+        
+//        [imageBtn setImage:imageBtn.imageView.image forState:UIControlStateNormal];
         
         [imageBtn addTarget:self action:@selector(imageBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [_scrollView setContentOffset:CGPointMake([UIScreen mainScreen].bounds.size.width * arrConut, 0) animated:NO];
-        
+//        [im mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.leading.top.right.bottom.equalTo(imageBtn);
+//        }];
+         [_scrollView addSubview:im];
         [_scrollView addSubview:imageBtn];
-        
+       
     }
     
 
@@ -158,6 +170,11 @@
     }];
     
     
+<<<<<<< HEAD
+=======
+    
+
+>>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 }
 
 - (void)imageBtnClick:(UIButton *)btn {
@@ -233,6 +250,7 @@
     
 }
 
+
 - (void)removeTimer {
     
     [_timer invalidate];
@@ -243,6 +261,19 @@
 - (void)dealloc {
     
     [self removeTimer];
+}
+
+
+#pragma mark - setter && getter
+-(void)setBannerAry:(NSMutableArray *)bannerAry
+{
+     NSMutableArray * bannerAry1 = [NSMutableArray array];
+    for (id obj in bannerAry) {
+        NSBanner * banner = (NSBanner *)obj;
+       
+        [bannerAry1 addObject:banner.titleImageUrl];
+    }
+    [self addHeaderViewWithImageArray:bannerAry1];
 }
 
 @end

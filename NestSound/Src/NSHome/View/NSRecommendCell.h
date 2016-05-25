@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+
+@class NSRecommend;
+@class NSNew;
 @interface NSRecommendCell : UICollectionViewCell
 
-@property (nonatomic,copy)NSString * authorName;
-@property (nonatomic,copy)NSString * workName;
-@property (nonatomic,copy)NSString * playCount;
-@property (nonatomic,copy)NSString * imgeUrl;
-@property (nonatomic,copy)NSString * type;
+
+@property (nonatomic,strong) NSRecommend * recommend;
+
+@property (nonatomic,strong) NSNew * songNew;
 
 
 @end
