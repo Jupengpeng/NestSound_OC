@@ -29,6 +29,10 @@
 #import "MBProgressHUD.h"
 #import "NSBaseModel.h"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> zhangxuanhe
 // Host
 extern BOOL debugMode;
 extern NSString *host;
