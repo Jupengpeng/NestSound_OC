@@ -169,9 +169,6 @@
         
     }];
     
-    
-    
-
 }
 
 - (void)imageBtnClick:(UIButton *)btn {

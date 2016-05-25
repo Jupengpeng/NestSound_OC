@@ -64,11 +64,11 @@
 
 - (void)addChildBtn {
     
-    NSArray *iconArray = @[];
+    NSArray *iconArray = @[@"2.0_plus_lyric", @"2.0_plus_song", @"2.0_plus_record"];
     
     NSArray *titleArray = @[@"歌词", @"歌曲", @"灵感记录"];
     
-    CGFloat margin = 40;
+    CGFloat margin = 30;
     
     for (int i = 0; i < titleArray.count; i++) {
         
@@ -76,7 +76,7 @@
         
         [composebtn setTitle:titleArray[i] forState:UIControlStateNormal];
         
-        [composebtn setImage:[UIImage imageNamed:@"2.0_addPicture"] forState:UIControlStateNormal];
+        [composebtn setImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
         
         [composebtn addTarget:self action:@selector(composeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -130,7 +130,7 @@
         
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self removeFromSuperview];
     });

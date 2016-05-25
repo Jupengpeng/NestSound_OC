@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class NSDraftBoxTableViewCell;
+
+@protocol NSDraftBoxTableViewCellDelegate <NSObject>
+
+- (void)draftBoxTableViewCell:(NSDraftBoxTableViewCell *)draftBoxCell withSendBtn:(UIButton *)sendBtn;
+
+@end
 
 @interface NSDraftBoxTableViewCell : UITableViewCell
+
+@property (nonatomic, weak) id<NSDraftBoxTableViewCellDelegate> delegate;
 
 @end

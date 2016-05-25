@@ -27,8 +27,6 @@
         
         [btn setImage:[UIImage imageNamed:@"2.0_plus_normal"] forState:UIControlStateNormal];
         
-//        [btn setImage:[UIImage imageNamed:@"2.0_plus_selected"] forState:UIControlStateSelected];
-        
         [btn addTarget:self action:@selector(plusClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [btn sizeToFit];
@@ -57,6 +55,11 @@
     
     self.plusBtn.centerY = self.height * 0.5;
     
+    self.plusBtn.width = self.width / 5;
+    
+    self.plusBtn.height = 44;
+    
+    
     NSInteger count = self.subviews.count;
     
     CGFloat buttonWidth = self.width / 5;
@@ -64,7 +67,7 @@
     NSInteger index = 0;
     
     
-    for (int i=0; i<count; i++) {
+    for (int i = 0; i < count; i++) {
         
         UIView *childView = self.subviews[i];
         

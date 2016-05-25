@@ -10,4 +10,8 @@
 
 @interface NSMusicViewController : NSBaseViewController
 
+@property (nonatomic, copy) NSString *topTitle;
+
+@property (nonatomic, copy) NSString *bottomTitle;
+
 @end

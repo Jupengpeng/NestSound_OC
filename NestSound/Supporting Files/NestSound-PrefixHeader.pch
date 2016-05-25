@@ -26,8 +26,8 @@
 #import "NSHttpClient+EncrypteData.h"
 #import "QiniuSDK.h"
 #import "POP.h"
+#import "MBProgressHUD.h"
 #import "NSBaseModel.h"
-
 
 // Host
 extern BOOL debugMode;

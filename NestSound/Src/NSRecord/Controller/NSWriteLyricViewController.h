@@ -8,6 +8,6 @@
 
 #import "NSBaseViewController.h"
 
-@interface NSWriteLyricViewController : NSBaseViewController
+@interface NSWriteLyricViewController: NSBaseViewController
 
 @end

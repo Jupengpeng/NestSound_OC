@@ -182,18 +182,38 @@
     
     music.view.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, _scrollView.height);
     
+    music.topTitle = LocalizedStr(@"热门歌曲");
+    
+    music.bottomTitle = LocalizedStr(@"最新歌曲");
+    
     [self addChildViewController:music];
     
 //    [_scrollView addSubview:music.view];
     
     //歌词
+<<<<<<< HEAD
     lyric = [[NSDiscoverLyricViewCOntroller alloc] init];
+=======
+    NSMusicViewController *lyric = [[NSMusicViewController alloc] init];
+>>>>>>> e4f6364e35365c1500a62637898bd4d55307ad53
     
     lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
+    
+    lyric.topTitle = LocalizedStr(@"热门歌词");
+    
+    lyric.bottomTitle = LocalizedStr(@"最新歌词");
     
     [self addChildViewController:lyric];
     
    // [_scrollView addSubview:lyric.view];
+    
+//    NSDiscoverLyricViewCOntroller *lyric = [[NSDiscoverLyricViewCOntroller alloc] init];
+//    
+//    lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
+//    
+//    [self addChildViewController:lyric];
+//    
+//    [_scrollView addSubview:lyric.view];
     
     //榜单
     list = [[NSMusicListViewController alloc] init];

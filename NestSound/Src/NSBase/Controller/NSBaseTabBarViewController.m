@@ -10,18 +10,33 @@
 #import "NSHomeViewController.h"
 #import "NSMessageViewController.h"
 #import "NSDiscoverViewController.h"
-#import "NSRecordViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSPlusTabBar.h"
 #import "NSBaseNavigationController.h"
 #import "NSComposeView.h"
 #import "NSInspirationRecordViewController.h"
 #import "NSWriteLyricViewController.h"
+#import "NSBaseViewController.h"
+#import "NSPlayMusicViewController.h"
+
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
+
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
 @end
 
 @implementation NSBaseTabBarViewController
+
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [[NSPlayMusicViewController alloc] init];
+        
+    }
+    
+    return _playSongsVC;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,6 +82,8 @@
     
     [self addChildViewController:userPageVc imageName:@"2.0_my_normal" selectedImageName:@"2.0_my_selected" title:@"我的"];
     
+    
+    
 }
 
 
@@ -94,8 +111,6 @@
 
 - (void)plusTabBar:(NSPlusTabBar *)tabBar didSelectedPlusBtn:(UIButton *)plusBtn {
     
-    //    plusBtn.selected = !plusBtn.selected;
-    
     NSComposeView *composeView = [[NSComposeView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     composeView.delegate = self;
@@ -114,11 +129,11 @@
         NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
        [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
         NSLog(@"点击了创作歌词");
+
     } else if (composeBtn.tag == 1) {
         
         NSLog(@"点击了创作歌曲");
     } else {
-       
         
         NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] init];
         
@@ -131,8 +146,10 @@
 
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
     
-    NSLog(@"进入播放页");
+    
+    [self.playSongsVC showPlayMusic];
 }
+
 
 @end
 

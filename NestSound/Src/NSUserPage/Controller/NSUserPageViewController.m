@@ -13,6 +13,7 @@
 #import "NSNewMusicTableViewCell.h"
 #import "NSDraftBoxViewController.h"
 #import "NSUserViewController.h"
+#import "NSInspirationRecordTableViewCell.h"
 
 
 
@@ -22,7 +23,6 @@ UITableViewDelegate,
 UIScrollViewDelegate,
 UITableViewDataSource>
 {
-
     
     UITableView *_tableView;
 }
@@ -96,7 +96,7 @@ UITableViewDataSource>
     
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height)];
-    
+
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _tableView.delegate = self;
@@ -108,6 +108,10 @@ UITableViewDataSource>
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     _tableView.showsVerticalScrollIndicator = NO;
+    
+    
+    
+    
     
     [self.view addSubview:_tableView];
     
@@ -178,6 +182,22 @@ UITableViewDataSource>
         
         static NSString *ID = @"cell0";
         
+        NSInspirationRecordTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            
+            cell = [[NSInspirationRecordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+        
+    } else if (self.btnTag == 1) {
+        
+        static NSString *ID = @"cell1";
+        
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
@@ -194,23 +214,7 @@ UITableViewDataSource>
         }];
         
         cell.numLabel.hidden = YES;
-        
-        return cell;
-        
-    } else if (self.btnTag == 1) {
-        
-        static NSString *ID = @"cell1";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
-        }
-        
-        cell.textLabel.text = @"歌曲";
-        
+
         return cell;
         
     } else if (self.btnTag == 2) {
@@ -259,7 +263,17 @@ UITableViewDataSource>
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 80;
+    if (self.btnTag == 0) {
+        
+        return 140;
+    } else if (self.btnTag == 1 || self.btnTag == 2) {
+        
+        return 80;
+    } else {
+        
+        return 44;
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -380,24 +394,29 @@ UITableViewDataSource>
 }
 
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    scrollView.contentInset = UIEdgeInsetsMake((scrollView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
-    
-    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64];
-    
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    
+//    scrollView.contentInset = UIEdgeInsetsMake((scrollView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
+//    
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+//    
+//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64];
+//    
+//}
+//
+//- (void)viewWillAppear:(BOOL)animated {
+//    
+////    _tableView.contentInset = UIEdgeInsetsMake((_tableView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
+//    
+//    [super viewWillAppear:animated];
+//
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:_tableView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+//    
+//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:_tableView.contentOffset.y / 64];
+//    
+//    
+//}
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:_tableView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
-    
-    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:_tableView.contentOffset.y / 64];
-}
 
 
 @end

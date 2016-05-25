@@ -22,9 +22,6 @@
         
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         
-//        self.imageView.contentMode = UIViewContentModeCenter;
-        
-        self.backgroundColor = [UIColor redColor];
     }
     
     return self;
@@ -47,6 +44,14 @@
     self.titleLabel.y = CGRectGetMaxY(self.imageView.frame) + 10;
     
     self.titleLabel.width = BtnW;
+    
+    self.titleLabel.height = 120 - BtnW - 10;
+    
+    if ([UIScreen mainScreen].bounds.size.height < 667) {
+        
+        self.titleLabel.font = [UIFont systemFontOfSize:16];
+    }
+    
     
 }
 

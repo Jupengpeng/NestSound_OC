@@ -50,8 +50,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [self fetchIndexData];
     
-    
-    
 }
 
 -(void)configureUIAppearance
