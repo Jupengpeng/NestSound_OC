@@ -16,11 +16,9 @@
 #import "NSComposeView.h"
 #import "NSInspirationRecordViewController.h"
 #import "NSWriteLyricViewController.h"
-<<<<<<< HEAD
 #import "NSBaseViewController.h"
 #import "NSPlayMusicViewController.h"
-=======
->>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
+
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
@@ -126,28 +124,18 @@
 
 - (void)composeView:(NSComposeView *)composeView withComposeButton:(UIButton *)composeBtn {
     
-<<<<<<< HEAD
-    [composeView removeFromSuperview];
-    if (composeBtn.tag == 0) {
-        
-        NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc ] init];
-        [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
-        
-=======
+
      [composeView removeFromSuperview];
     if (composeBtn.tag == 0) {
         NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
        [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
         NSLog(@"点击了创作歌词");
->>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
+
     } else if (composeBtn.tag == 1) {
         
         NSLog(@"点击了创作歌曲");
     } else {
-<<<<<<< HEAD
-=======
-       
->>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
+
         
         NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] init];
         
