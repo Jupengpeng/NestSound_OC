@@ -124,10 +124,6 @@
 
 - (void)composeView:(NSComposeView *)composeView withComposeButton:(UIButton *)composeBtn {
     
-<<<<<<< HEAD
-
-=======
->>>>>>> zhangxuanhe
      [composeView removeFromSuperview];
     if (composeBtn.tag == 0) {
         NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
@@ -138,10 +134,6 @@
         
         NSLog(@"点击了创作歌曲");
     } else {
-<<<<<<< HEAD
-
-=======
->>>>>>> zhangxuanhe
         
         NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] init];
         
