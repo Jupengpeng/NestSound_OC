@@ -7,7 +7,7 @@
 //
 
 #import "NSUpvoteMessageCell.h"
-
+#import "NSUpvoteMessageListModel.h"
 @interface NSUpvoteMessageCell()
 {
     UIImageView * headerImage;
@@ -140,43 +140,31 @@
 
 
 #pragma mark setter & getter
--(void)setHeadUrl:(NSString *)headUrl
-{
-    _headUrl = headUrl;
-    [headerImage setDDImageWithURLString:_headUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
-}
 
 -(void)setIsUpvote:(BOOL)isUpvote
 {
-    if (isUpvote) {
+    _isUpvote = isUpvote;
+    if (_isUpvote) {
         upvoteLabel.text = LocalizedStr(@"prompt_userUpvote");
     }else{
         upvoteLabel.text = LocalizedStr(@"prompt_userCollection");
     }
+
 }
 
--(void)setCreateDate:(NSString *)createDate
+-(void)setUpvoteMessage:(UpvoteMessage *)upvoteMessage
 {
-    _createDate = createDate;
-    createDateLabel.text = _createDate;
-}
-
--(void)setTitlePageUrl:(NSString *)titlePageUrl
-{
-    _titlePageUrl = titlePageUrl;
-    [titlePage setDDImageWithURLString:_titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
-}
-
--(void)setWorkName:(NSString *)workName
-{
-    _workName = workName;
-    workNameLabel.text = _workName;
+ 
     
-}
+    _upvoteMessage = upvoteMessage;
+    [headerImage setDDImageWithURLString:_upvoteMessage.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
 
--(void)setAuthorName:(NSString *)authorName
-{
-    _authorName = authorName;
-    authorNameLabel.text = _authorName;
+    createDateLabel.text = [date datetoStringWithDate:_upvoteMessage.upvoteTime];
+
+    [titlePage setDDImageWithURLString:_upvoteMessage.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+
+    workNameLabel.text = _upvoteMessage.workName;
+
+    authorNameLabel.text = _upvoteMessage.author;
 }
 @end

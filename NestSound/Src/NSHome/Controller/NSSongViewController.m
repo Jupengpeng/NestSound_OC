@@ -10,7 +10,7 @@
 #import "NSSongListHeaderView.h"
 #import "NSSongCell.h"
 #import "NSPlayViewController.h"
-
+#import "NSSongListModel.h"
 @interface NSSongViewController ()
 <
 UITableViewDataSource,
@@ -18,7 +18,7 @@ UITableViewDelegate
 >{
     NSMutableArray * songAry;
     
-    NSString * songListId;
+    long songListId;
     UITableView * songsTable;
     NSSongListHeaderView * header;
 
@@ -33,7 +33,7 @@ UITableViewDelegate
 static NSString * cellId = @"SongCell";
 
 
--(instancetype)initWithSongListId:(NSString *)listId
+-(instancetype)initWithSongListId:(long )listId
 {
     self = [super init];
     if (!self) {
@@ -70,11 +70,17 @@ static NSString * cellId = @"SongCell";
     songsTable.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     songsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
+    
     //headerView
     header = [[NSSongListHeaderView alloc] init];
     songsTable.tableHeaderView = header;
     [self.view addSubview:songsTable];
 
+    
+    //constraints
+    [songsTable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
 }
 
 #pragma mark tablView datasource
@@ -104,8 +110,8 @@ static NSString * cellId = @"SongCell";
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSSongViewController * song = [[NSSongViewController alloc] initWithSongListId:@"itemid"];
-    [self.navigationController pushViewController:song animated:YES];
+//    NSSongViewController * song = [[NSSongViewController alloc] initWithSongListId:@"itemid"];
+//    [self.navigationController pushViewController:song animated:YES];
     
     
 }

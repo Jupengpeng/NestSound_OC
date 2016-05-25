@@ -13,7 +13,7 @@
 #import "NSRecommendCell.h"
 #import "NSIndexModel.h"
 #import "NSH5ViewController.h"
-
+#import "NSSongViewController.h"
 
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
@@ -225,6 +225,53 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    if (section == 0) {
+        NSRecommend * recomm = (NSRecommend *)recommendAry[row];
+        
+        //type == 1 is music  type ==2 is lyric
+        if (recomm.type == 1) {
+            
+        }else{
+            
+        }
+        
+    }else if (section == 1){
+        
+        NSRecommendSong * songList = (NSRecommendSong *)recommendSongAry[row];
+        NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:songList.itemID];
+        [self.navigationController pushViewController:songVC animated:YES];
+    }else if (section == 2){
+        NSNew * newModel = (NSNew *)newListAry[row];
+        
+        //newModel type == 1 is music type == 2 is lyric
+        if (newModel.type == 1) {
+            
+        }else{
+            
+        
+        }
+        
+    }else if (section == 3){
+        NSMusicSay * musicSay = (NSMusicSay *)musicSayAry[row];
+        //type == 1 is music ,type == 2 is web
+        if (musicSay.type == 1) {
+            
+        }else{
+            NSH5ViewController * h5VC = [[NSH5ViewController alloc] init];
+            h5VC.h5Url = musicSay.playUrl;
+            [self.navigationController pushViewController:h5VC animated:YES];
+        }
+    }
+
+}
+
+
+
+#pragma mark -collectionView LayOut
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     
     return UIEdgeInsetsMake(0, 15, 0, 15);

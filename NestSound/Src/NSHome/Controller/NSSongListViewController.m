@@ -8,7 +8,7 @@
 
 #import "NSSongListViewController.h"
 #import "NSSongViewController.h"
-
+#import "NSSongListModel.h"
 @interface NSSongListViewController ()
 <
 UICollectionViewDelegate,
@@ -21,7 +21,8 @@ UICollectionViewDelegateFlowLayout
     UICollectionView * SongListColl;
 
     NSSongViewController * songVC;
-
+    
+    NSString * itemId;
 }
 
 
@@ -30,6 +31,17 @@ UICollectionViewDelegateFlowLayout
 
 @implementation NSSongListViewController
  static NSString * cellId = @"SongListCell";
+
+-(instancetype)initWithItemID:(NSString *)itemId_
+{
+    if (self = [super init]) {
+        itemId = itemId_;
+    }
+    return self;
+
+
+}
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,6 +71,22 @@ UICollectionViewDelegateFlowLayout
 
 }
 
+#pragma mark -fetchData
+-(void)fetchData
+{
+
+
+}
+
+#pragma mark -actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        NSSongListModel * songListModel = (NSSongListModel *)parserObject;
+        SongLists = [NSMutableArray  arrayWithArray:songListModel.SongList.songList];
+    }
+
+}
 
 #pragma mark collectionView dataSource
 
@@ -84,7 +112,7 @@ UICollectionViewDelegateFlowLayout
 #pragma mark collectionView delegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    songVC = [[NSSongViewController alloc] initWithSongListId:@"lal"];
+//    songVC = [[NSSongViewController alloc] initWithSongListId:];
     [self.navigationController pushViewController: songVC animated:YES];
     
 }

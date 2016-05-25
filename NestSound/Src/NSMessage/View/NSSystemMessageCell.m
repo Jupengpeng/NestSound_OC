@@ -7,7 +7,7 @@
 //
 
 #import "NSSystemMessageCell.h"
-
+#import "NSSystemMessageListModel.h"
 @interface NSSystemMessageCell ()
 {
     UIImageView * headView;
@@ -39,6 +39,8 @@
     headView.layer.cornerRadius = 18;
     headView.layer.masksToBounds = YES;
     [self.contentView addSubview:headView];
+#warning headView placeHold
+    [headView setDDImageWithURLString:nil placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
     
     //titleLabel
     titleLabel = [[UILabel alloc] init];
@@ -153,32 +155,18 @@
 
 
 #pragma mark -setter & getter
--(void)setHeadViewUrl:(NSString *)headViewUrl
+-(void)setSystemMessageModel:(SystemMessageModel *)systemMessageModel
 {
-    _headViewUrl = headViewUrl;
-    [headView setDDImageWithURLString:_headViewUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
-    
-}
 
--(void)setDateString:(NSString *)DateString
-{
-    _DateString = DateString;
-    dateLabel.text = _DateString;
-}
+    _systemMessageModel = systemMessageModel;
+    dateLabel.text = [date datetoStringWithDate:_systemMessageModel.createDate];
 
--(void)setTitleImageUrl:(NSString *)titleImageUrl
-{
-    _titleImageUrl = titleImageUrl;
-    [titleImage setDDImageWithURLString:_titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
-}
+    [titleImage setDDImageWithURLString:_systemMessageModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
 
--(void)setContent:(NSString *)content
-{
-    _content = content;
-    if (self.isTu) {
-        bkViewTitleLable.text = _content;
+    if (_isTu) {
+        bkViewTitleLable.text = _systemMessageModel.content;
     }else{
-        contentLabel.text = _content;
+        contentLabel.text = _systemMessageModel.content;
     }
 }
 -(void)setIsTu:(BOOL)isTu

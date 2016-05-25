@@ -52,6 +52,12 @@
     
 }
 
+-(void)fetchData
+{
+
+
+}
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

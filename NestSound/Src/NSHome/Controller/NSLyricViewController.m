@@ -8,7 +8,7 @@
 
 #import "NSLyricViewController.h"
 #import "NSLyricView.h"
-
+#import "NSUserFeedbackViewController.h"
 @interface NSLyricViewController () {
     
     UIView *_bottomView;
@@ -16,7 +16,9 @@
     UIView *_maskView;
     
     UIView *_moreChoiceView;
-    
+    UILabel * numLabel;
+    UILabel * nameLabel;
+    UILabel * dateLabel;
 }
 
 @end
@@ -95,7 +97,7 @@ static NSString *num = @"7473";
     }];
     
     
-    UILabel *nameLabel = [[UILabel alloc] init];
+   nameLabel = [[UILabel alloc] init];
     
     nameLabel.text = @"戴荃";
     
@@ -111,8 +113,8 @@ static NSString *num = @"7473";
         
     }];
     
-    
-    UILabel *dateLabel = [[UILabel alloc] init];
+    //dateLabel
+    dateLabel = [[UILabel alloc] init];
     
     dateLabel.text = @"2016-05-05";
     
@@ -136,8 +138,9 @@ static NSString *num = @"7473";
         [btn sizeToFit];
         
     } action:^(UIButton *btn) {
-        
+#ifdef debug
         NSLog(@"点击了评论");
+#endif
     }];
     
     [_bottomView addSubview:commentBtn];
@@ -151,7 +154,7 @@ static NSString *num = @"7473";
     }];
     
     
-    UILabel *numLabel = [[UILabel alloc] init];
+    numLabel = [[UILabel alloc] init];
     
     if ([num intValue] > 999) {
         
@@ -287,7 +290,14 @@ static NSString *num = @"7473";
         
     } action:^(UIButton *btn) {
         
+#ifdef debug
         NSLog(@"点击了举报");
+       
+#endif
+        NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"feedBack"];
+        [self.navigationController pushViewController:feedBackVC animated:YES];
+        
+        
     }];
     
     [_moreChoiceView addSubview:reportBtn];

@@ -9,7 +9,8 @@
 #import "NSMusicListViewController.h"
 #import "NSNewMusicTableViewCell.h"
 
-@interface NSMusicListViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface NSMusicListViewController () <UITableViewDelegate, UITableViewDataSource>
+{
     
     UITableView *_tableView;
 }

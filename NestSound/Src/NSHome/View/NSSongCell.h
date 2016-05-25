@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class songModel;
 @interface NSSongCell : UITableViewCell
 
 @property (nonatomic,copy) NSString * number;
-@property (nonatomic,copy) NSString * workName;
-@property (nonatomic,copy) NSString * authorName;
+@property (nonatomic,strong) songModel * songModel;
 
 @end

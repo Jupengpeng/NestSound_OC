@@ -7,13 +7,13 @@
 //
 
 #import "NSSongCell.h"
-
+#import "NSSongListModel.h"
 @interface NSSongCell (){
 
     UILabel * numberLab;
     UILabel * workNameLab;
     UILabel * aurthorLab;
-
+    
 }
 
 @end
@@ -79,24 +79,18 @@
 
 #pragma mark setter & getter
 
--(void)setWorkName:(NSString *)workName
+-(void)setSongModel:(songModel *)songModel
 {
-    _workName = workName;
-    workNameLab.text = _workName;
+ 
+    _songModel = songModel;
+    
+    workNameLab.text = _songModel.workName;
 
-}
 
--(void)setAuthorName:(NSString *)authorName
-{
-    _authorName = authorName;
-    aurthorLab.text = _authorName;
+    aurthorLab.text = _songModel.author;
 
-}
 
--(void)setNumber:(NSString *)number
-{
-    _number = number;
-    numberLab.text = _number;
+    
 
 }
 

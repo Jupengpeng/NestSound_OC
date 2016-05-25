@@ -86,8 +86,8 @@
     //playbtn
     playBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.adjustsImageWhenHighlighted = NO;
-        [btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        [btn setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:[UIImage imageNamed:@"1"] forState:UIControlStateNormal];
+        [btn setBackgroundImage:[UIImage imageNamed:@"2"] forState:UIControlStateHighlighted];
         
     } action:^(UIButton *btn) {
         
@@ -108,8 +108,8 @@
     [super layoutSubviews];
     //constains
     [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).width.offset(10);
-        make.left.equalTo(self.mas_left).width.offset(15);
+        make.top.equalTo(self.mas_top).with.offset(10);
+        make.left.equalTo(self.mas_left).with.offset(15);
         make.height.mas_equalTo(150);
         make.width.mas_equalTo(150);
         
@@ -137,15 +137,14 @@
     }];
     
     [playAll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(playBtn.mas_centerX);
-        make.left.equalTo(playBtn.mas_right).width.offset(10);
-        make.height.mas_equalTo(15);
+        make.centerY.equalTo(playBtn.mas_centerY);
+        make.left.equalTo(playBtn.mas_right).with.offset(10);
         make.width.mas_equalTo(65);
-    }];
+            }];
     
     [songCount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(playAll.mas_centerX);
-        make.left.equalTo(playAll.mas_right).width.offset(10);
+        make.centerY.equalTo(playAll.mas_centerY);
+        make.left.equalTo(playAll.mas_right).with.offset(10);
         make.height.mas_equalTo(12);
     }];
     
