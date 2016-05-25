@@ -123,10 +123,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
 		1801F4A71CF1EB3A00F55FC0 /* 悟空.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "悟空.mp3"; sourceTree = "<group>"; };
-=======
->>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
 		18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseTabBarViewController.m; sourceTree = "<group>"; };
 		18074E411CEC43290011B0A4 /* NSPlusTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlusTabBar.h; sourceTree = "<group>"; };
@@ -198,7 +195,6 @@
 		2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongCell.m; sourceTree = "<group>"; };
 		2A3E7C661CDB37C4006C8519 /* NSPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayViewController.h; sourceTree = "<group>"; };
 		2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayViewController.m; sourceTree = "<group>"; };
-		2A43255F1CF31E08008889BE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		2A4325611CF324E7008889BE /* NSActivityListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityListModel.h; sourceTree = "<group>"; };
 		2A4325621CF324E7008889BE /* NSActivityListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityListModel.m; sourceTree = "<group>"; };
 		2A4325641CF32912008889BE /* NSDiscoverMusicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverMusicListModel.h; sourceTree = "<group>"; };
@@ -884,11 +880,7 @@
 		B6FF3AC9C475214C526BE9EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				18FFE8351CF1809F0012880E /* AVFoundation.framework */,
-=======
-				2A43255F1CF31E08008889BE /* JavaScriptCore.framework */,
->>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 				90621F5AC4B64129EA51BA48 /* libPods-NestSound.a */,
 				581EB54F21BB10442D33E47D /* libPods-NestSoundTests.a */,
 			);
@@ -1212,11 +1204,7 @@
 				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
-<<<<<<< HEAD
-=======
 				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
-				2D8608E21CCC87C00027F147 /* NSRecordViewController.m in Sources */,
->>>>>>> 16b36b5c6a962506da484576cfd561c3d8e0605a
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
@@ -1391,6 +1379,7 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DD24D3E51C8BC9672804194 /* Pods-NestSoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1403,6 +1392,7 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 266DC77AE30D3AB35D51D7CB /* Pods-NestSoundTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
