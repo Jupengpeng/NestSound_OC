@@ -14,7 +14,7 @@
 @property (nonatomic, assign) BOOL showBackBtn;
 @property (nonatomic,copy) NSString *requestURL;
 @property (nonatomic,strong) NSDictionary *requestParams;
-
+@property (nonatomic,assign) BOOL  requestType;
 
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject
                      error:(NSError *)requestErr; // subclass can override

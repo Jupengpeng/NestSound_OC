@@ -8,6 +8,7 @@
 
 #import "NSFansViewController.h"
 #import "NSFanscell.h"
+#import "NSUserPageViewController.h"
 @interface NSFansViewController ()
 <
 UITableViewDataSource,
@@ -16,6 +17,8 @@ UITableViewDelegate
 {
     UITableView * fansTableView;
     NSMutableArray * fansAry;
+    NSString * userId;
+    BOOL isFans;
 }
 @end
 
@@ -23,10 +26,12 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 
 @implementation NSFansViewController
 
--(instancetype)initWithUserID:(NSString *)UserID
+-(instancetype)initWithUserID:(NSString *)UserID _isFans:(BOOL)isFans_
 {
     if (self = [super init]) {
-        
+        isFans = isFans_;
+        userId = UserID;
+        [self configureUIAppearance];
     }
     return  self;
 }
@@ -41,6 +46,15 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 #pragma mark
 -(void)configureUIAppearance
 {
+    
+    //nav
+    if (isFans) {
+        self.title = LocalizedStr(@"prompt_fans");
+    }else{
+        self.title = LocalizedStr(@"prompt_focus");
+    }
+    
+    
     //fansTableView
     fansTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     fansTableView.dataSource = self;
@@ -58,15 +72,32 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     return fansAry.count;
     
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSFanscell * fansCell = [tableView dequeueReusableCellWithIdentifier:NSFansCellIdeify];
-
+    if (!fansCell) {
+        fansCell = [[NSFanscell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSFansCellIdeify];
+        
+    }
+    fansCell.headUrl = @"";
+    fansCell.authorName = @"hjay";
+    fansCell.desc = @"i am a shy boy";
+    fansCell.isFocus = NO;
     
     return fansCell;
     
 }
+#pragma mark TableViewDelegate
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUserPageViewController * userVC = [[NSUserPageViewController alloc] init];
+    [self.navigationController pushViewController:userVC animated:YES];
+
+}
 
 @end

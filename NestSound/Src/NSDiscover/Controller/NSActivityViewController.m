@@ -9,6 +9,7 @@
 #import "NSActivityViewController.h"
 #import "NSActivityCollectionCell.h"
 #import "NSH5ViewController.h"
+#import "NSActivityListModel.h"
 @interface NSActivityViewController ()<
 UICollectionViewDataSource,
 UICollectionViewDelegate,
@@ -30,8 +31,10 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self configureUIAppearance];
+    [self fetchData];
 }
+
+
 
 #pragma makr -configureUIAppearance
 -(void)configureUIAppearance
@@ -55,7 +58,27 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     
 }
 
+#pragma  mark -fetchData
+-(void)fetchData
+{
+    self.requestType = YES;
+    self.requestParams = nil;
+    NSDictionary * dic = @{@"name":@"what"};
+    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+    self.requestURL = [dicoverActivityURL stringByAppendingString:str];
+}
 
+#pragma mark -actiontFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        NSActivityListModel * activityListModel = (NSActivityListModel *)parserObject;
+        activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
+    }
+    [self configureUIAppearance];
+
+}
 
 #pragma mark collectionViewDataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -67,9 +90,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSActivityCollectionCell * activityCell = [collectionView dequeueReusableCellWithReuseIdentifier:activityCellIdentity forIndexPath:indexPath];
-    activityCell.state = @"1";
-    activityCell.date = @"5月1日~5月6日";
-    activityCell.imageUrl = @"http://7xru8x.com2.z0.glb.qiniucdn.com/%E5%A6%88%E5%A6%88-%E6%B4%BB%E5%8A%A8-0002.png";
+    activityCell.activityModel = activityAry[indexPath.row];
     return activityCell;
 
 }
@@ -78,6 +99,8 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
+    NSActivity * activity = activityAry[indexPath.row];
+    eventVC.h5Url = activity.activityUrl;
     [self.navigationController pushViewController:eventVC animated:YES];
 
 }

@@ -10,10 +10,12 @@
 #import "NSIndexCollectionReusableView.h"
 #import "NSRecommendCell.h"
 #import "NSNewMusicViewController.h"
-
+#import "NSDiscoverMusicListModel.h"
 @interface NSMusicViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     
     UICollectionView *_collection;
+    NSMutableArray * newSongList;
+    NSMutableArray * hotSongList;
 }
 
 
@@ -26,7 +28,17 @@ static NSString * const headerView = @"HeaderView";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self configureUIAppearance];
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self fetchData];
+}
+#pragma mark -configureUIAppearance
+-(void)configureUIAppearance
+{
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     layout.minimumLineSpacing = 10;
@@ -55,6 +67,38 @@ static NSString * const headerView = @"HeaderView";
 }
 
 
+#pragma mark -fetchData
+-(void)fetchData
+{
+    self.requestParams = nil;
+    self.requestType = YES;
+    NSDictionary * dic = @{@"name":@"hjay"};
+    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+    NSString * url = [dicoverMusicURL stringByAppendingString:str];
+    self.requestURL = url;
+    
+}
+
+#pragma  mark override -actionFectionData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
+        if (musicListModel.HotList.hotList.count == 0) {
+            
+        }else{
+        hotSongList = [NSMutableArray arrayWithArray:musicListModel.HotList.hotList];
+        }
+        if (musicListModel.SongList.songList.count == 0) {
+            
+        }else{
+        newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
+        }
+    }
+    [self configureUIAppearance];
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -71,11 +115,11 @@ static NSString * const headerView = @"HeaderView";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RecommendCell forIndexPath:indexPath];
-    
-    cell.authorName = @"hjay";
-    cell.workName = @"zheshisha";
-    cell.imgeUrl = nil;
-    cell.type = @"1";
+    if (indexPath.section == 0) {
+        cell.recommend = hotSongList[indexPath.row];
+    }else{
+        cell.recommend = newSongList[indexPath.row];
+    }
     cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
     cell.contentView.layer.borderWidth = 1;
     

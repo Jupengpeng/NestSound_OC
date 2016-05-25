@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class NSMusicSay;
 
 @interface NSMusicSayCollectionViewCell : UICollectionViewCell
-
+@property (nonatomic,strong) NSMusicSay * musicSay;
 @end

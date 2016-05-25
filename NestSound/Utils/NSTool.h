@@ -33,4 +33,5 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 @interface date : NSObject
 +(NSString *)datetoStringWithDate:(NSDate *)date;
 +(NSString *)datetoLongStringWithDate:(NSDate *)date;
++(NSString *)datetoMonthStringWithDate:(NSDate *)date;
 @end

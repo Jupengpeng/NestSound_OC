@@ -10,4 +10,9 @@
 
 @interface NSSystemMessageCell : UITableViewCell
 
+@property (nonatomic,copy) NSString * headViewUrl;
+@property (nonatomic,copy) NSString * DateString;
+@property (nonatomic,copy) NSString * content;
+@property (nonatomic,copy) NSString * titleImageUrl;
+@property (nonatomic,assign) BOOL isTu;
 @end

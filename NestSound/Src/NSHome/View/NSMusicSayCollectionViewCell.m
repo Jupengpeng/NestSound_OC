@@ -7,20 +7,21 @@
 //
 
 #import "NSMusicSayCollectionViewCell.h"
-
+#import "NSIndexModel.h"
 @interface NSMusicSayCollectionViewCell ()
-
-@property (nonatomic, strong) UIImageView *imageView;
+{
+    
+    UIImageView *imageView;
 
 //类型Label
-@property (nonatomic, strong) UILabel *typeLabel;
+    UILabel *typeLabel;
 
 //歌名Label
-@property (nonatomic, strong) UILabel *songNameLabel;
+    UILabel *songNameLabel;
 
 //描述Label
-@property (nonatomic, strong) UILabel *describeLabel;
-
+    UILabel *describeLabel;
+}
 @end
 
 @implementation NSMusicSayCollectionViewCell
@@ -39,23 +40,24 @@
 
 - (void)setupUI {
     
-    self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    imageView = [[UIImageView alloc] initWithFrame:self.bounds];
     
-    [self addSubview:self.imageView];
+    [self addSubview:imageView];
     
-    self.imageView.image = [UIImage imageNamed:@"img_03"];
+#warning placeholdeImage
+    imageView.image = [UIImage imageNamed:@"img_03"];
     
     //描述Label
-    self.describeLabel = [[UILabel alloc] init];
+    describeLabel = [[UILabel alloc] init];
     
-    self.describeLabel.font = [UIFont boldSystemFontOfSize:12];
+    describeLabel.font = [UIFont boldSystemFontOfSize:12];
     
-    self.describeLabel.textColor = [UIColor whiteColor];
-    self.describeLabel.shadowColor = [UIColor blackColor];
-    self.describeLabel.text = @"哈哈哈哈! 啥也不告诉你!!!";
-    [self.imageView addSubview:self.describeLabel];
+    describeLabel.textColor = [UIColor whiteColor];
+    describeLabel.shadowColor = [UIColor blackColor];
+   
+    [imageView addSubview:describeLabel];
     
-    [self.describeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [describeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.mas_left).offset(10);
         
@@ -65,45 +67,53 @@
     
     
     //类型Label
-    self.typeLabel = [[UILabel alloc] init];
+    typeLabel = [[UILabel alloc] init];
     
-    self.typeLabel.font = [UIFont boldSystemFontOfSize:16];
-    self.typeLabel.textColor = [UIColor whiteColor];
-     self.typeLabel.text = @"我写我的歌·";
-    self.typeLabel.shadowColor = [UIColor blackColor];
-    self.typeLabel.shadowOffset =CGSizeMake(0.1 , 0.1);
-    [self.imageView addSubview:self.typeLabel];
+    typeLabel.font = [UIFont boldSystemFontOfSize:16];
+    typeLabel.textColor = [UIColor whiteColor];
+    typeLabel.shadowColor = [UIColor blackColor];
+    typeLabel.shadowOffset =CGSizeMake(0.1 , 0.1);
+    [imageView addSubview:typeLabel];
     
-    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.mas_left).offset(10);
         
-        make.bottom.equalTo(self.describeLabel.mas_top).offset(-10);
+        make.bottom.equalTo(describeLabel.mas_top).offset(-10);
         
     }];
     
     
     //歌名Label
-    self.songNameLabel = [[UILabel alloc] init];
+    songNameLabel = [[UILabel alloc] init];
     
-    self.songNameLabel.font = [UIFont boldSystemFontOfSize:14];
+    songNameLabel.font = [UIFont boldSystemFontOfSize:14];
     
-    self.songNameLabel.textColor = [UIColor whiteColor];
-     self.songNameLabel.text = @"<<老张的歌>>";
-    self.songNameLabel.shadowColor = [UIColor blackColor];
-    self.songNameLabel.shadowOffset = CGSizeMake(0.1, 0.1);
-    [self.imageView addSubview:self.songNameLabel];
+    songNameLabel.textColor = [UIColor whiteColor];
+        songNameLabel.shadowColor = [UIColor blackColor];
+    songNameLabel.shadowOffset = CGSizeMake(0.1, 0.1);
+    [imageView addSubview:songNameLabel];
     
-    [self.songNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [songNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.typeLabel.mas_right).offset(15);
+        make.left.equalTo(typeLabel.mas_right).offset(15);
         
-        make.bottom.equalTo(self.describeLabel.mas_top).offset(-10);
+        make.bottom.equalTo(describeLabel.mas_top).offset(-10);
         
     }];
     
 }
 
+
+#pragma mark -setter &&getter
+-(void)setMusicSay:(NSMusicSay *)musicSay
+{
+#warning placeholder Image
+    [imageView setDDImageWithURLString:musicSay.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+//    describeLabel.text = musicSay.detail;
+//    songNameLabel.text = musicSay.workName;
+    
+}
 
 @end
 

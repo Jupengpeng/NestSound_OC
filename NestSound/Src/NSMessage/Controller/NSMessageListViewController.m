@@ -32,17 +32,28 @@ UITableViewDelegate
 }
 
 
+#pragma mark configureUIAppearance
 -(void)configureUIAppearance
 {
+    //nav
+    self.title = self.messageListType;
+    self.showBackBtn = YES;
+    
     //messageList tableview
     messageList = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     messageList.delegate = self;
     messageList.dataSource = self;
     messageList.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    //messageArr
     
+    //messageArr
+    messageArr = [[NSMutableArray alloc] init];
     [self.view addSubview:messageList];
 
+    
+    //constraints
+    [messageList mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
 }
 
 

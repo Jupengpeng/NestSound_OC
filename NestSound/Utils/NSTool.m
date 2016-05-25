@@ -167,7 +167,14 @@ static NSDateFormatter *dateFormatter;
     __block  NSString * image = imageURL;
     NSString * token;
     [NSHttpClient client];
-     [[NSHttpClient client] requestWithURL:@"qiniuUrl" paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
+    
+    
+
+    [[NSHttpClient client]
+
+      requestWithURL:@"qiniuUrl"
+     
+      paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
          NSFileManager *fileManager = [NSFileManager defaultManager];
          if ([fileManager fileExistsAtPath:photoPath]) {
              QNUploadManager * upManager = [[QNUploadManager alloc] init];
@@ -276,4 +283,13 @@ static NSDateFormatter *dateFormatter;
     return currentTimeString;
 }
 
+//date to string formatLike "4月5日"
+
++(NSString *)datetoMonthStringWithDate:(NSDate *)date
+{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM月dd日"];
+    NSString * dateString = [formatter stringFromDate:date];
+    return dateString;
+}
 @end
