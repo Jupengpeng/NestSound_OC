@@ -26,7 +26,7 @@
     UIView *_maskView;
     NSActivityViewController *activity;
     NSMusicViewController *music;
-    NSDiscoverLyricViewCOntroller *lyric;
+    NSMusicViewController *lyric;
     NSMusicListViewController *list;
 }
 
@@ -200,11 +200,9 @@
 //    [_scrollView addSubview:music.view];
     
     //歌词
-<<<<<<< HEAD
-    lyric = [[NSDiscoverLyricViewCOntroller alloc] init];
-=======
-    NSMusicViewController *lyric = [[NSMusicViewController alloc] init];
->>>>>>> e4f6364e35365c1500a62637898bd4d55307ad53
+
+    lyric = [[NSMusicViewController alloc] init];
+
     
     lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
     

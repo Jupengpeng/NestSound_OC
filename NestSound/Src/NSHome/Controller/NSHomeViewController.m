@@ -13,12 +13,8 @@
 #import "NSRecommendCell.h"
 #import "NSIndexModel.h"
 #import "NSH5ViewController.h"
-<<<<<<< HEAD
 #import "NSSongViewController.h"
-=======
 #import "NSPlayMusicViewController.h"
-
->>>>>>> zhangxuanhe
 
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
