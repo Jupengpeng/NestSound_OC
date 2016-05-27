@@ -10,6 +10,6 @@
 
 @interface NSPlayMusicViewController : NSBaseViewController
 
-- (void)showPlayMusic;
++ (instancetype)sharedPlayMusic;
 
 @end

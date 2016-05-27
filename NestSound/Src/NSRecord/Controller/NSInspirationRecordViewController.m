@@ -655,7 +655,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         self.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
     }
     
-//    NSLog(@"%f",self.timeNum);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

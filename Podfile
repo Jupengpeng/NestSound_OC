@@ -16,6 +16,7 @@ pod 'UMengAnalytics-NO-IDFA'
 pod 'JPush'
 pod 'RSAEncryptor'
 pod 'pop'
+pod'TTTAttributedLabel'
 
 end
 target 'NestSoundTests' do

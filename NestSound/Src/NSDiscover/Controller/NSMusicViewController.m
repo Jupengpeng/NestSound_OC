@@ -70,6 +70,7 @@ static NSString * const headerView = @"HeaderView";
 #pragma mark -fetchData
 -(void)fetchData
 {
+
     self.requestParams = nil;
     self.requestType = YES;
     NSDictionary * dic = @{@"name":@"hjay"};

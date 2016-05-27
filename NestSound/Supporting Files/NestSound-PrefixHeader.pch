@@ -28,8 +28,8 @@
 #import "POP.h"
 #import "MBProgressHUD.h"
 #import "NSBaseModel.h"
-
-
+#import "TTTAttributedLabel.h"
+#import "NSString+SizeFont.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;

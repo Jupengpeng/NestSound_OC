@@ -21,28 +21,15 @@
 
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
 
-@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
-
 @end
 
 @implementation NSBaseTabBarViewController
 
-- (NSPlayMusicViewController *)playSongsVC {
-    
-    if (!_playSongsVC) {
-        
-        _playSongsVC = [[NSPlayMusicViewController alloc] init];
-        
-    }
-    
-    return _playSongsVC;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     [self setupUI];
+    
     
 }
 
@@ -60,7 +47,7 @@
     
     [self addChildViewController:homeVc imageName:@"2.0_home_normal" selectedImageName:@"2.0_home_selected" title:@"音巢音乐"];
     
-    homeVc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+//    homeVc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
     
     
     //发现
@@ -68,7 +55,7 @@
     
     [self addChildViewController:recommendVc imageName:@"2.0_discovery_normal" selectedImageName:@"2.0_discovery_selected" title:nil];
     
-     recommendVc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+//     recommendVc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
     
     
     //消息
@@ -81,7 +68,6 @@
     NSUserPageViewController *userPageVc = [[NSUserPageViewController alloc] init];
     
     [self addChildViewController:userPageVc imageName:@"2.0_my_normal" selectedImageName:@"2.0_my_selected" title:@"我的"];
-    
     
     
 }
@@ -142,12 +128,6 @@
         NSLog(@"点击了创作灵感记录");
     }
     
-}
-
-- (void)musicPaly:(UIBarButtonItem *)palyItem {
-    
-    
-    [self.playSongsVC showPlayMusic];
 }
 
 
