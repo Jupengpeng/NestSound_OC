@@ -7,6 +7,7 @@
 //
 
 #import "NSBaseNavigationController.h"
+#import "NSPlayMusicViewController.h"
 
 @interface NSBaseNavigationController ()
 
@@ -16,8 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+
+
 }
+
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
@@ -32,12 +36,16 @@
         
     }
     
+    
     [super pushViewController:viewController animated:animated];
 }
-
+    
 - (void)backClick:(UITabBarItem *)back {
     
-    self.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
+    if (self.childViewControllers.count <= 2) {
+        
+        self.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
+    }
     
     [self popViewControllerAnimated:YES];
 }

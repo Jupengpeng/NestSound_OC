@@ -11,6 +11,7 @@
 #import "NSActivityViewController.h"
 #import "NSDiscoverLyricViewCOntroller.h"
 #import "NSMusicListViewController.h"
+#import "NSPlayMusicViewController.h"
 
 @interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
     
@@ -29,13 +30,30 @@
     NSMusicListViewController *list;
 }
 
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
+
 @end
 
 @implementation NSDiscoverViewController
 
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+        
+    }
+    
+    return _playSongsVC;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+    
+    
     _search = [[UISearchBar alloc] init];
     
     _search.delegate = self;
@@ -45,32 +63,31 @@
     self.navigationItem.titleView = _search;
     
     
-    
     [self setupUI];
     
     
-    _maskView = [[UIView alloc] initWithFrame:self.view.bounds];
+    _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
     
-    _maskView.backgroundColor = [UIColor darkGrayColor];
+    _maskView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     _maskView.alpha = 0;
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
-    
-    [_maskView addGestureRecognizer:tap];
-    
-    [self.view addSubview:_maskView];
+    [self.tabBarController.view addSubview:_maskView];
     
 
     
 }
+
+
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     
     [_search setShowsCancelButton:YES animated:YES];
     
-    _maskView.alpha = 0.5;
+    _maskView.alpha = 1;
     
-    NSLog(@"进入编辑");
+    self.navigationItem.rightBarButtonItem = nil;
+    
+    NSLog(@"进入搜索编辑");
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -80,28 +97,20 @@
     _maskView.alpha = 0;
     
     [_search resignFirstResponder];
+    
+    _search.text = nil;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
 }
 
-- (void)tapClick:(UIGestureRecognizer *)tap {
-    
-    _maskView.alpha = 0;
-    
-    [_search setShowsCancelButton:NO animated:YES];
-    
-    [_search resignFirstResponder];
-}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
-    _maskView.alpha = 0;
-    
-    [_search setShowsCancelButton:NO animated:YES];
     
     [_search resignFirstResponder];
     
     NSLog(@"点击搜索");
+    
 }
-
 
 
 - (void)setupUI {
@@ -207,13 +216,6 @@
     
    // [_scrollView addSubview:lyric.view];
     
-//    NSDiscoverLyricViewCOntroller *lyric = [[NSDiscoverLyricViewCOntroller alloc] init];
-//    
-//    lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
-//    
-//    [self addChildViewController:lyric];
-//    
-//    [_scrollView addSubview:lyric.view];
     
     //榜单
     list = [[NSMusicListViewController alloc] init];
@@ -269,6 +271,16 @@
         [_scrollView addSubview:list.view];
     }
 }
+
+
+
+
+- (void)musicPaly:(UIBarButtonItem *)palyItem {
+    
+    [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    
+}
+
 
 
 @end

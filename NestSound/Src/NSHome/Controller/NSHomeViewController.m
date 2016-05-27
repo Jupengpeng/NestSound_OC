@@ -13,7 +13,12 @@
 #import "NSRecommendCell.h"
 #import "NSIndexModel.h"
 #import "NSH5ViewController.h"
+<<<<<<< HEAD
 #import "NSSongViewController.h"
+=======
+#import "NSPlayMusicViewController.h"
+
+>>>>>>> zhangxuanhe
 
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
@@ -25,6 +30,7 @@
     NSMutableArray * musicSayAry;
 }
 
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
 @end
 
@@ -35,6 +41,17 @@ static NSString * const headerView = @"HeaderView";
 static NSString * const NewWorkCell = @"NewWorkCell";
 
 @implementation NSHomeViewController
+
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+        
+    }
+    
+    return _playSongsVC;
+}
 
 -(instancetype)init
 {
@@ -48,9 +65,13 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [super viewDidLoad];
     
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+    
     [self fetchIndexData];
     
 }
+
 
 -(void)configureUIAppearance
 {
@@ -155,7 +176,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-
+        
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RecommendCell forIndexPath:indexPath];
         
         NSRecommend * recommendModel =  (NSRecommend *)[recommendAry objectAtIndex:indexPath.row];
@@ -353,6 +374,24 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     NSLog(@"点击了第%zd张图片",imageBtn.tag);
 }
+
+
+- (void)musicPaly:(UIBarButtonItem *)palyItem {
+
+    
+    
+    [self.navigationController pushViewController:self.playSongsVC animated:YES];
+//    [self presentViewController:self.playSongsVC animated:YES completion:^{
+//        
+//    }];
+    
+    
+    
+//    [self.playSongsVC showPlayMusic];
+    
+}
+
+
 
 
 @end
