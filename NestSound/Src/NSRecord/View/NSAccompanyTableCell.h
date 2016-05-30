@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class NSAccommpanyModel;
+
 @interface NSAccompanyTableCell : UITableViewCell
 
-@property (nonatomic,copy) NSString * titlePageUrl;
-@property (nonatomic,copy) NSString * authorName;
-@property (nonatomic,copy) NSString * workName;
-
+@property (nonatomic,strong) NSAccommpanyModel * accompanyModel;
 
 @end

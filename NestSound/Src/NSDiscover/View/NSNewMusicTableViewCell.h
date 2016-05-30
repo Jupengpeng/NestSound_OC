@@ -8,13 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class NSBandMusic;
+
 @interface NSNewMusicTableViewCell : UITableViewCell
 
 //排行数字
 @property (nonatomic, strong) UILabel *numLabel;
 
+@property (nonatomic,assign) long itemId;
+
 //日期
 - (void)addDateLabel;
+
+@property (nonatomic,strong) NSBandMusic * musicModel;
 
 
 @end

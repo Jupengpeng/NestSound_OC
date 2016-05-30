@@ -9,6 +9,9 @@
 #import "NSLyricViewController.h"
 #import "NSLyricView.h"
 #import "NSUserFeedbackViewController.h"
+#import "NSLyricDetailModel.h"
+
+
 @interface NSLyricViewController () {
     
     UIView *_bottomView;
@@ -16,16 +19,22 @@
     UIView *_maskView;
     
     UIView *_moreChoiceView;
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
     //头像
-    UIButton *_iconBtn;
+    UIImageView * userIcon;
     
+    UIButton * upVoteBtn;
+    
+    UIButton *collectionBtn;
     //作者名
     UILabel *_nameLabel;
     
     //日期
-    UILabel *_dateLabel;
+    UILabel * _dateLabel;
     
     //评论数
     long commentNum;
@@ -33,16 +42,32 @@
     //歌词
     NSLyricView * _lyricView;
 
+<<<<<<< HEAD
+=======
+    long itemId;
+    long workAuthorId;
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
 }
+
+@property (nonatomic,strong) LyricDetailModel * lyricDetail;
 
 @end
 
 @implementation NSLyricViewController
 
+
+-(instancetype)initWithItemId:(long)itemId_
+{
+    if (self = [super init]) {
+        itemId = itemId_;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"悟空";
+   
     
     [self.navigationItem actionCustomRightBarButton:@"" nrlImage:@"2.0_moreChoice" hltImage:@"2.0_moreChoice" action:^{
         
@@ -56,11 +81,41 @@
         
     }];
     
+    [self fetchData];
+    
     [self setupBottomView];
     
     [self setupLyricView];
     
     [self moreChoice];
+    
+    
+}
+
+
+
+
+#pragma mark -fetchData
+-(void)fetchData
+{
+    self.requestType = NO;
+    self.requestParams = @{@"id":@"",@"uid":@""};
+    self.requestURL;
+
+}
+
+
+
+#pragma mark -actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+//    if ([operation.urlTag isEqualToString:]) {
+//        if (!parserObject.success) {
+//            NSLyricDetailModel * lyric = (NSLyricDetailModel *)parserObject;
+//            self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
+//        }
+//    }
+    
 }
 
 - (void)setupBottomView {
@@ -82,27 +137,30 @@
     [_bottomView addSubview:line];
     
     
+    
+    
+    userIcon = [[UIImageView alloc] init];
+    userIcon.userInteractionEnabled = YES;
+    userIcon.layer.cornerRadius = 17;
+    userIcon.layer.masksToBounds = YES;
+    [_bottomView addSubview:userIcon];
+    
+    
     //头像
     UIButton *iconBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-//        [btn setImage:[UIImage imageNamed:@"img_01"] forState:UIControlStateNormal];
+      
         
-        btn.layer.cornerRadius = 17;
-        
-        btn.clipsToBounds = YES;
-        
+       
         
     } action:^(UIButton *btn) {
         
         NSLog(@"点击了头像");
     }];
     
-    _iconBtn = iconBtn;
     
-    [_bottomView addSubview:iconBtn];
-    
-    [iconBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+    [userIcon addSubview:iconBtn];
+    [userIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_bottomView.mas_left).offset(15);
         
         make.top.equalTo(_bottomView.mas_top).offset(8);
@@ -110,10 +168,22 @@
         make.bottom.equalTo(_bottomView.mas_bottom).offset(-8);
         
         make.width.equalTo(iconBtn.mas_height);
+
+    }];
+    
+    
+    [iconBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(userIcon);
         
     }];
     
     
+<<<<<<< HEAD
+=======
+
+    UILabel *nameLabel = [[UILabel alloc] init];
+
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
     
     _nameLabel = [[UILabel alloc] init];
     
@@ -132,8 +202,14 @@
     }];
     
 
+<<<<<<< HEAD
     //dateLabel
     _dateLabel = [[UILabel alloc] init];
+=======
+    
+    //日期
+    UILabel *dateLabel = [[UILabel alloc] init];
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
 
     
 //    dateLabel.text = @"2016-05-05";
@@ -175,8 +251,15 @@
     }];
     
     
+<<<<<<< HEAD
     //评论数
     UILabel *numLabel = [[UILabel alloc] init];
+=======
+
+    //评论数
+    UILabel *numLabel = [[UILabel alloc] init];
+
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
     
     if (commentNum > 999) {
         
@@ -210,7 +293,7 @@
     
     
     //点赞
-    UIButton *upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_upVote_normal"] forState:UIControlStateNormal];
         
@@ -222,6 +305,8 @@
         
         btn.selected = !btn.selected;
         
+        
+//        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
         NSLog(@"点击了点赞");
         
     }];
@@ -238,7 +323,7 @@
     
     
     //收藏
-    UIButton *collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_collection_normal"] forState:UIControlStateNormal];
         
@@ -249,6 +334,8 @@
     } action:^(UIButton *btn) {
         
         btn.selected = !btn.selected;
+        
+        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
         
         NSLog(@"点击了收藏");
         
@@ -419,17 +506,35 @@
 }
 
 
+-(void)setLyricDetail:(LyricDetailModel *)lyricDetail
+{
+    _lyricDetail = lyricDetail;
+#warning placeHolder
+    [userIcon setDDImageWithURLString:_lyricDetail.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    self.title = _lyricDetail.title;
+    _nameLabel.text = _lyricDetail.author;
+    _dateLabel.text = [date datetoStringWithDate:_lyricDetail.createDate];
+    commentNum = _lyricDetail.commentNum;
+    _lyricView.lyricText = _lyricView.lyricText;
+ 
+    if (_lyricDetail.isZan == 1) {
+        upVoteBtn.selected = YES;
+    }else{
+        upVoteBtn.selected = NO;
+    }
+    
+    if (_lyricDetail.isCollect == 1) {
+        
+        collectionBtn.selected = YES;
+    
+    }else{
+        
+        collectionBtn.selected = NO;
+    
+    }
+    workAuthorId = _lyricDetail.userId;
+    
+}
+
 @end
-
-
-
-
-
-
-
-
-
-
-
-
 

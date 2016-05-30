@@ -8,11 +8,14 @@
 
 #import "NSMusicListViewController.h"
 #import "NSNewMusicTableViewCell.h"
-
+#import "NSDiscoverBandListModel.h"
+#import "NSPlayMusicViewController.h"
 @interface NSMusicListViewController () <UITableViewDelegate, UITableViewDataSource>
 {
     
     UITableView *_tableView;
+    NSMutableArray * lyricList;
+    NSMutableArray * musicList;
 }
 
 
@@ -40,6 +43,30 @@
 
 }
 
+
+#pragma  mark -fetchData
+-(void)fetchData
+{
+    self.requestType =YES;
+    self.requestParams = nil;
+//    self.requestURL =;
+
+
+}
+
+#pragma mark -actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+//    if ([operation.urlTag isEqualToString:]) {
+//        if (!parserObject.success) {
+//            NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
+//            lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
+//            musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
+//        }
+//    }
+
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -55,6 +82,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
     static NSString *ID = @"musicListCell";
     
     NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -63,6 +93,12 @@
         
         cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
+    }
+    
+    if (section == 0) {
+        cell.musicModel = (NSBandMusic *)musicList[row];
+    }else{
+        cell.musicModel = (NSBandMusic *)lyricList[row];
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -75,7 +111,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"点击了第%zd个cell",indexPath.row);
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    NSPlayMusicViewController * playMusicVC;
+    if (section == 0) {
+        NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+//        playMusicVC = [playMusicVC]l;
+        
+    }else{
+        NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        
+//        playMusicVC = [playMusicVC]l;
+    }
+    
+//    [self.navigationController pushViewController: animated:YES];
 }
 
 

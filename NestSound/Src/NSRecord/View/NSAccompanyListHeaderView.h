@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface NSAccompanyListHeaderView : UIView
+
+
 
 @end

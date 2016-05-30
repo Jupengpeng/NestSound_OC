@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class NSMyLyricModel;
 @interface NSLyricCell : UICollectionViewCell
 
 @property (nonatomic,copy) NSString * lyricName;
 @property (nonatomic,copy) NSString * authorName;
 @property (nonatomic,copy) NSString * titlePageUrl;
+
+@property (nonatomic,strong) NSMyLyricModel * myLyricModel;
 
 @end

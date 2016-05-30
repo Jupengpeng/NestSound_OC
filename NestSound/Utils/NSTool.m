@@ -159,7 +159,7 @@ static NSDateFormatter *dateFormatter;
 }
 
 #pragma mark uploade image to Qiniu
-+(NSString *)uploadPhotoWith:(NSString *)photoPath
++(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_
 {
     NSString *  imageURL;
     
@@ -172,6 +172,8 @@ static NSDateFormatter *dateFormatter;
 
     [[NSHttpClient client]
 
+     
+#warning add qiniuURl
       requestWithURL:@"qiniuUrl"
      
       paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {

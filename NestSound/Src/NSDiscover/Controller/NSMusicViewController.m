@@ -11,11 +11,13 @@
 #import "NSRecommendCell.h"
 #import "NSNewMusicViewController.h"
 #import "NSDiscoverMusicListModel.h"
+#import "NSDicoverLyricListModel.h"
 @interface NSMusicViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     
     UICollectionView *_collection;
     NSMutableArray * newSongList;
     NSMutableArray * hotSongList;
+    BOOL isMusic;
 }
 
 
@@ -25,6 +27,16 @@ static NSString * const RecommendCell = @"RecommendCell";
 static NSString * const headerView = @"HeaderView";
 
 @implementation NSMusicViewController
+
+-(instancetype)initWithIsMusic:(BOOL)isMusic_
+{
+    if (self = [super init]) {
+        isMusic = isMusic_;
+    }
+    return self;
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -76,7 +88,16 @@ static NSString * const headerView = @"HeaderView";
     NSDictionary * dic = @{@"name":@"hjay"};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-    NSString * url = [dicoverMusicURL stringByAppendingString:str];
+    NSString * url;
+    if (isMusic) {
+       url = [dicoverMusicURL stringByAppendingString:str];
+    }else{
+        
+#warning  set url
+        
+//        url = [];
+    }
+   
     self.requestURL = url;
     
 }
@@ -84,20 +105,42 @@ static NSString * const headerView = @"HeaderView";
 #pragma  mark override -actionFectionData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
-        if (musicListModel.HotList.hotList.count == 0) {
-            
-        }else{
-        hotSongList = [NSMutableArray arrayWithArray:musicListModel.HotList.hotList];
+    
+    
+    
+    if ([operation.urlTag isEqualToString:dicoverMusicURL]) {
+        if (!parserObject.success) {
+            NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
+            if (musicListModel.HotList.hotList.count == 0) {
+                
+            }else{
+                hotSongList = [NSMutableArray arrayWithArray:musicListModel.HotList.hotList];
+            }
+            if (musicListModel.SongList.songList.count == 0) {
+                
+            }else{
+                newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
+            }
         }
-        if (musicListModel.SongList.songList.count == 0) {
-            
-        }else{
-        newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
+    }else{
+        if (!parserObject.success) {
+            NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
+            if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
+                
+            }else{
+                hotSongList = [NSMutableArray arrayWithArray:lyricListModel.HotLyricList.hotLyricList];
+            }
+            if (lyricListModel.LyricList.lyricList.count == 0) {
+                
+            }else{
+                newSongList = [NSMutableArray arrayWithArray:lyricListModel.LyricList.lyricList];
+            }
         }
+    
     }
+    
     [self configureUIAppearance];
+    
 }
 
 #pragma mark <UICollectionViewDataSource>

@@ -8,6 +8,121 @@
 
 #import "NSWriteLyricViewController.h"
 #import "NSLyricView.h"
+#import "NSImportLyricViewController.h"
+
+@interface WriteLyricBottomView : UIView
+@property (nonatomic,strong) UIButton * importLyricBtn;
+@property (nonatomic,strong) UIButton * LyricesBtn;
+@property (nonatomic,strong) UIButton * cocachBtn;
+@end
+
+@implementation WriteLyricBottomView
+
+-(instancetype)init
+{
+    if (self = [super init]) {
+        [self configureUIAppearance];
+    }
+    return self;
+}
+
+
+-(void)configureUIAppearance
+{
+    
+    self.backgroundColor = [UIColor whiteColor];
+    
+    _importLyricBtn = [UIButton buttonWithType:UIButtonTypeCustom
+                                    configure:^(UIButton *btn) {
+                                        
+                                        [btn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
+                                        [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
+                                        [btn setTitle:@"导入歌词" forState:UIControlStateNormal];
+                                        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                                        
+                                    }      action:^(UIButton *btn) {
+                                        
+                                    }];
+    
+    [self addSubview:_importLyricBtn];
+    
+    _LyricesBtn = [UIButton buttonWithType:UIButtonTypeCustom
+                                configure:^(UIButton *btn) {
+                                    [btn setImage:[UIImage imageNamed:@"2.0_lyricLibrary_btn"] forState:UIControlStateNormal];
+                                    [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 10)];
+                                    [btn setTitle:@"词库" forState:UIControlStateNormal];
+                                    [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
+                                    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                                    
+                                }
+                                   action:^(UIButton *btn) {
+                                       
+                                   }];
+    [self addSubview:_LyricesBtn];
+    
+    _cocachBtn = [UIButton buttonWithType:UIButtonTypeCustom
+                               configure:^(UIButton *btn) {
+                                   [btn setImage:[UIImage imageNamed:@"2.0_coach_btn"] forState:UIControlStateNormal];
+                                   [btn setTitle:@"教程" forState:UIControlStateNormal];
+                                   [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
+                                   [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                               }
+                                  action:^(UIButton *btn) {
+                                      
+                                      
+                                  }];
+    [self addSubview:_cocachBtn];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    //constraints
+    [_importLyricBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left);
+        make.bottom.equalTo(self.mas_bottom);
+        make.top.equalTo(self.mas_top);
+        make.width.mas_equalTo(ScreenWidth/3);
+    }];
+    
+    [_LyricesBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_bottom);
+        make.top.equalTo(self.mas_top);
+        make.left.equalTo(_importLyricBtn.mas_right);
+       make.width.mas_equalTo(ScreenWidth/3);
+    }];
+    
+    [_cocachBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_bottom);
+        make.top.equalTo(self.mas_top);
+        make.left.equalTo(_LyricesBtn.mas_right);
+        make.width.mas_equalTo(ScreenWidth/3);
+    }];
+}
+
+-(void)drawRect:(CGRect)rect
+{
+    CGContextRef ref = UIGraphicsGetCurrentContext();
+    UIBezierPath * path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(self.bounds.size.width, 0)];
+    
+    for (int i =1; i<=2; i++) {
+        [path moveToPoint:CGPointMake(ScreenWidth/3*i, 0)];
+        [path addLineToPoint:CGPointMake(ScreenWidth/3*i, self.bounds.size.height)];
+    }
+    
+    [[UIColor hexColorFloat:@"eeeeee"] setStroke];
+    [path setLineWidth:1];
+    
+    CGContextAddPath(ref, path.CGPath);
+    CGContextStrokePath(ref);
+    
+}
+
+@end
+
+
 @interface NSWriteLyricViewController ()<
     UITextFieldDelegate
 >
@@ -15,9 +130,8 @@
 
     NSLyricView * lyricView;
     UITextField * titleTextFiled;
-    UIButton * importLyricBtn;
-    UIButton * LyricesBtn;
-    UIButton * cocachBtn;
+    WriteLyricBottomView * bottomView;
+   
 }
 
 @end
@@ -48,34 +162,18 @@
     titleTextFiled.delegate = self;
     [self.view addSubview:titleTextFiled];
     
+    //bottomView
+    bottomView = [[WriteLyricBottomView alloc] init];
+    [self.view addSubview:bottomView];
+    
     //lyricView
     lyricView = [[NSLyricView alloc] init];
     [self.view addSubview:lyricView];
     
-    importLyricBtn = [UIButton buttonWithType:UIButtonTypeCustom
-                                    configure:^(UIButton *btn) {
-                                    
-                                }      action:^(UIButton *btn) {
-                                    
-                                }];
     
-    LyricesBtn = [UIButton buttonWithType:UIButtonTypeCustom
-                                configure:^(UIButton *btn) {
-        
-                                        }
-                                   action:^(UIButton *btn) {
-        
-    }];
     
-    cocachBtn = [UIButton buttonWithType:UIButtonTypeCustom
-                               configure:^(UIButton *btn) {
-        
-                                   }
-                                  action:^(UIButton *btn) {
-        
-                                      
-    }];
-    
+
+   
     
     //constraints
     [titleTextFiled mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,34 +182,20 @@
         make.left.equalTo(self.view.mas_left).with.offset(58);
     }];
     
+    [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.height.mas_equalTo(52);
+    }];
+    
     [lyricView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(titleTextFiled.mas_bottom).with.offset(12);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(importLyricBtn.mas_top);
+        make.bottom.equalTo(bottomView.mas_top);
     }];
     
-    [importLyricBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left);
-        make.height.mas_equalTo(52);
-        make.width.mas_equalTo(ScreenWidth/3);
-        make.bottom.equalTo(self.view.mas_bottom);
-    }];
-    
-    [LyricesBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(importLyricBtn.mas_right);
-        make.height.mas_equalTo(52);
-        make.width.mas_equalTo(ScreenWidth/3);
-    }];
-    
-    [cocachBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(LyricesBtn.mas_right);
-        make.height.mas_equalTo(52);
-        make.width.mas_equalTo(ScreenWidth/3);
-        
-    }];
-    
-   
 }
 
 

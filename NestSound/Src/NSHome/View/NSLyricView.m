@@ -29,7 +29,7 @@
 
 - (void)setupUI {
     
-    UIScrollView *lyricView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    UIScrollView *lyricView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,5, self.width, self.height)];
     
     lyricView.contentSize = CGSizeMake(self.width, self.height + 1);
     
@@ -42,13 +42,32 @@
     self.lyricText.font = [UIFont systemFontOfSize:15];
     
     [lyricView addSubview:self.lyricText];
-    
+    self.backgroundColor = [UIColor whiteColor];
 }
+
+
 
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     
     [self.lyricText resignFirstResponder];
+}
+
+
+-(void)drawRect:(CGRect)rect
+{
+    CGContextRef ref = UIGraphicsGetCurrentContext();
+    UIBezierPath * path = [UIBezierPath bezierPath];
+    int i;
+    for ( i = 1; i<(ScreenWidth -80)/4; i++) {
+        [path moveToPoint:CGPointMake(40+4*i , 0)];
+        [path addLineToPoint:CGPointMake (42+4*i, 0)];
+    }
+    
+    [[UIColor grayColor] setStroke];
+    CGContextAddPath(ref, path.CGPath);
+    CGContextStrokePath(ref);
+    
 }
 
 @end

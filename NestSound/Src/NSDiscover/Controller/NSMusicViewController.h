@@ -14,4 +14,6 @@
 
 @property (nonatomic, copy) NSString *bottomTitle;
 
+-(instancetype)initWithIsMusic:(BOOL)isMusic_;
+
 @end

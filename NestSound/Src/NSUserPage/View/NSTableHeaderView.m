@@ -7,7 +7,7 @@
 //
 
 #import "NSTableHeaderView.h"
-
+#import "NSUserDataModel.h"
 @interface NSTableHeaderView () {
     
     UIImageView *_backgroundImage;
@@ -236,6 +236,19 @@
     }];
 
     
+}
+
+#pragma mark -setter & getter
+-(void)setUserModel:(UserModel *)userModel
+{
+    _userModel = userModel;
+#warning placeholderImage
+    [self.iconView setDDImageWithURLString:_userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    self.userName.text = _userModel.nickName;
+    self.introduction.text = _userModel.signature;
+    [self.followBtn setTitle:[NSString stringWithFormat:@"关注: %zd", _userModel.focusNum] forState:UIControlStateNormal];
+   
+    [self.fansBtn setTitle:[NSString stringWithFormat:@"粉丝: %zd",_userModel.fansNum] forState:UIControlStateNormal];
 }
 
 @end
