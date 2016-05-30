@@ -20,7 +20,10 @@
     UIView *_maskView;
     
     UIView *_moreChoiceView;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
     //头像
     UIImageView * userIcon;
     
@@ -38,8 +41,12 @@
     
     //歌词
     NSLyricView * _lyricView;
+<<<<<<< HEAD
 
 
+=======
+    
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
     long itemId;
     long workAuthorId;
 
@@ -173,9 +180,12 @@
         
     }];
     
+<<<<<<< HEAD
     
 
    
+=======
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
 
 
     _nameLabel = [[UILabel alloc] init];
@@ -194,10 +204,15 @@
         
     }];
     
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
     
+
     //日期
+<<<<<<< HEAD
     UILabel *dateLabel = [[UILabel alloc] init];
 
     //dateLabel
@@ -206,6 +221,10 @@
    
     
 
+=======
+    //dateLabel
+    _dateLabel = [[UILabel alloc] init];
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
     
 //    dateLabel.text = @"2016-05-05";
     
@@ -246,10 +265,17 @@
     }];
     
     
+<<<<<<< HEAD
 
     //评论数
     UILabel *numLabel = [[UILabel alloc] init];
 
+=======
+
+    //评论数
+    UILabel *numLabel = [[UILabel alloc] init];
+    
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
     if (commentNum > 999) {
         
         numLabel.text = @"999+";

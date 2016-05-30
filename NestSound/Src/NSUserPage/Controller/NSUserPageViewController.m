@@ -369,6 +369,7 @@ UITableViewDataSource>
 
 - (void)toolbarBtnClick:(UIButton *)toolbarBtn {
     
+<<<<<<< HEAD
     if ([toolbarBtn.titleLabel.text isEqualToString:@"灵感记录"]) {
         
 
@@ -404,69 +405,63 @@ UITableViewDataSource>
     } else if ([toolbarBtn.titleLabel.text isEqualToString:@"收藏"]) {
         
         self.btnTag = toolbarBtn.tag;
+=======
+    
+    switch (toolbarBtn.tag) {
         
-        [_tableView reloadData];
+        case 0: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了灵感记录");
+            
+            break;
+        }
+        case 1: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了歌曲");
+            
+            break;
+        }
+        case 2: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了歌词");
+            
+            break;
+        }
+        case 3: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了收藏");
+            
+            break;
+        }
+        default:
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
         
-        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-        
-        NSLog(@"点击了收藏");
+            break;
     }
-    
-    
-//    switch (toolbarBtn.tag) {
-//        
-//        case 0: {
-//            
-//            self.btnTag = toolbarBtn.tag;
-//            
-//            [_tableView reloadData];
-//            
-//            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-//            
-//            NSLog(@"点击了灵感记录");
-//            
-//            break;
-//        }
-//        case 1: {
-//            
-//            self.btnTag = toolbarBtn.tag;
-//            
-//            [_tableView reloadData];
-//            
-//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-//            
-//            NSLog(@"点击了歌曲");
-//            
-//            break;
-//        }
-//        case 2: {
-//            
-//            self.btnTag = toolbarBtn.tag;
-//            
-//            [_tableView reloadData];
-//            
-//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-//            
-//            NSLog(@"点击了歌词");
-//            
-//            break;
-//        }
-//        case 3: {
-//            
-//            self.btnTag = toolbarBtn.tag;
-//            
-//            [_tableView reloadData];
-//            
-//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-//            
-//            NSLog(@"点击了收藏");
-//            
-//            break;
-//        }
-//        default:
-//        
-//            break;
-//    }
 }
 
 #pragma mark - UIScrollViewDelegate

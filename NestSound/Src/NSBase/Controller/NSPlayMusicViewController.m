@@ -12,6 +12,7 @@
 #import "NSLyricView.h"
 #import <AVFoundation/AVFoundation.h>
 #import "NSCommentViewController.h"
+<<<<<<< HEAD
 
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
@@ -21,6 +22,19 @@
 }
 
 
+=======
+#import "NSLyricView.h"
+#import <AVFoundation/AVFoundation.h>
+#import "NSCommentViewController.h"
+#import "NSMusicListViewController.h"
+
+@interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
+    
+    UIView *_maskView;
+    
+    UIView *_moreChoiceView;
+}
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
 
@@ -328,14 +342,6 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-//        [NSPlayMusicTool stopMusicWithName:@"我的天空.mp3"];
-//        
-//        [NSPlayMusicTool playMusicWithName:@"悟空.mp3"];
-//        
-//        wSelf.playOrPauseBtn.selected = YES;
-//        
-//        wSelf.progressBar.value = 0;
-        
         [wSelf playMusic];
         
         NSLog(@"点击了上一首按钮");
@@ -362,13 +368,6 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-//        wSelf.playOrPauseBtn.selected = YES;
-//        
-//        wSelf.progressBar.value = 0;
-//        
-//        [NSPlayMusicTool stopMusicWithName:@"悟空.mp3"];
-//        
-//        [NSPlayMusicTool playMusicWithName:@"我的天空.mp3"];
         
         [wSelf playMusic];
         
@@ -525,6 +524,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
+<<<<<<< HEAD
 
         _musicVc = [[NSMusicListViewController alloc] init];
         
@@ -538,6 +538,14 @@ static id _instance;
 
         _musicVc = [[NSMusicListViewController alloc] init];
         
+=======
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] init];
+        
+        [self.navigationController pushViewController:commentVC animated:YES];
+        
+        
+    
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
         NSLog(@"点击了播放页的评论");
     }];
     
@@ -634,9 +642,9 @@ static id _instance;
     
     scrollView.showsHorizontalScrollIndicator = NO;
     
-    scrollView.bounces = NO;
+//    scrollView.bounces = NO;
     
-    scrollView.contentSize = CGSizeMake(ScreenWidth * 2, 0);
+    scrollView.contentSize = CGSizeMake((ScreenWidth - 30) * 2, 0);
     
     scrollView.pagingEnabled = YES;
     
@@ -687,11 +695,13 @@ static id _instance;
     [scrollView addSubview:lyricView];
     
     
-    NSLyricView *describeView = [[NSLyricView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, scrollView.height)];
+    NSLyricView *describeView = [[NSLyricView alloc] initWithFrame:CGRectMake(scrollView.width, 0, scrollView.width, scrollView.height)];
     
     describeView.lyricText.backgroundColor = [UIColor clearColor];
     
     describeView.lyricText.textColor = [UIColor whiteColor];
+    
+    describeView.lyricText.textAlignment = NSTextAlignmentCenter;
     
     describeView.lyricText.showsVerticalScrollIndicator = NO;
     
@@ -812,7 +822,7 @@ static id _instance;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
-    NSInteger pageNum = scrollView.contentOffset.x / ScreenWidth;
+    NSInteger pageNum = scrollView.contentOffset.x / scrollView.width;
     
     switch (pageNum) {
         case 0:

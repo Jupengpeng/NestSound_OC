@@ -20,9 +20,15 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+<<<<<<< HEAD
   - HappyDNS (0.3.3.1)
   - JPush (2.1.7)
   - Masonry (1.0.1)
+=======
+  - HappyDNS (0.3.0)
+  - JPush (2.1.7)
+  - Masonry (1.0.0)
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
   - MBProgressHUD (0.9.2)
   - pop (1.0.9)
   - Qiniu (7.0.19.1):
@@ -35,7 +41,11 @@ PODS:
   - SVPullToRefresh (0.4.1)
   - TheAmazingAudioEngine (1.5.6)
   - TTTAttributedLabel (2.0.0)
+<<<<<<< HEAD
   - UMengAnalytics-NO-IDFA (4.0.5)
+=======
+  - UMengAnalytics-NO-IDFA (4.0.3)
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
   - UMengSocial (5.0)
 
 DEPENDENCIES:
@@ -55,9 +65,15 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+<<<<<<< HEAD
   HappyDNS: 816fceb07c964675bba4ffe668a7c5fc4ffdfe7e
   JPush: d37320eba856bf91f2c73989df4abf1e8846db2c
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
+=======
+  HappyDNS: 37f13eea0026a751e492579d289e869ffa348988
+  JPush: d37320eba856bf91f2c73989df4abf1e8846db2c
+  Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: ceb88a496d556bdb8f8e0bddd83a1639dfe5f84b
@@ -66,7 +82,11 @@ SPEC CHECKSUMS:
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+<<<<<<< HEAD
   UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
+=======
+  UMengAnalytics-NO-IDFA: 173a5a2541536225f4c947935560975136f18a34
+>>>>>>> 651e3df440a6977894c314988760132fe242db01
   UMengSocial: 48b67179c492a8cf7803fbb0438b8f55432e2fc1
 
 PODFILE CHECKSUM: 609b57bfbef89483c229c4c19aae1476d3e210b8
