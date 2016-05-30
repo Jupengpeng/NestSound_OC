@@ -1290,11 +1290,8 @@
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
-<<<<<<< HEAD
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
-=======
 				2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */,
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
@@ -1504,10 +1501,7 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = 4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */;
-=======
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1520,10 +1514,7 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = 3A1FBBD3CAB484E50C3E89B7 /* Pods-NestSoundTests.release.xcconfig */;
-=======
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
