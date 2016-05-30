@@ -12,6 +12,7 @@
 #import "NSDiscoverLyricViewCOntroller.h"
 #import "NSMusicListViewController.h"
 #import "NSPlayMusicViewController.h"
+#import "NSSearchViewController.h"
 
 @interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
     
@@ -28,6 +29,8 @@
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
+@property (nonatomic, strong) NSSearchViewController *searchVC;
+
 @end
 
 @implementation NSDiscoverViewController
@@ -41,6 +44,18 @@
     }
     
     return _playSongsVC;
+}
+
+- (NSSearchViewController *)searchVC {
+    
+    if (!_searchVC) {
+        
+        _searchVC = [[NSSearchViewController alloc] init];
+        
+    }
+    
+    return _searchVC;
+    
 }
 
 - (void)viewDidLoad {
@@ -84,6 +99,8 @@
     self.navigationItem.rightBarButtonItem = nil;
     
     NSLog(@"进入搜索编辑");
+    
+//    [_maskView addSubview:self.searchVC.view];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -96,6 +113,8 @@
     
     _search.text = nil;
     
+    [_maskView removeAllSubviews];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
 }
 
@@ -103,6 +122,8 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     [_search resignFirstResponder];
+    
+    [_maskView addSubview:self.searchVC.view];
     
     NSLog(@"点击搜索");
     

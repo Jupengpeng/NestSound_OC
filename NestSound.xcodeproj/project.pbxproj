@@ -37,6 +37,10 @@
 		18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402851CE6F55A00B36002 /* NSDraftBoxViewController.m */; };
 		18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */; };
 		18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */; };
+		18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */; };
+		18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E341CFC19300027D534 /* NSSearchMusicTableView.m */; };
+		18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */; };
+		18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */; };
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */; };
 		18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE8301CF0B1040012880E /* NSSoundRecord.m */; };
@@ -183,6 +187,14 @@
 		18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBaseViewController+CustomNavBar.m"; sourceTree = "<group>"; };
 		18E4028A1CE7115400B36002 /* NSDraftBoxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftBoxTableViewCell.h; sourceTree = "<group>"; };
 		18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftBoxTableViewCell.m; sourceTree = "<group>"; };
+		18FA5E2D1CFBDA110027D534 /* NSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchViewController.h; sourceTree = "<group>"; };
+		18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchViewController.m; sourceTree = "<group>"; };
+		18FA5E331CFC19300027D534 /* NSSearchMusicTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchMusicTableView.h; sourceTree = "<group>"; };
+		18FA5E341CFC19300027D534 /* NSSearchMusicTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchMusicTableView.m; sourceTree = "<group>"; };
+		18FA5E361CFC23180027D534 /* NSSearchUserCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchUserCollectionView.h; sourceTree = "<group>"; };
+		18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchUserCollectionView.m; sourceTree = "<group>"; };
+		18FA5E391CFC395D0027D534 /* NSWriteMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWriteMusicViewController.h; sourceTree = "<group>"; };
+		18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWriteMusicViewController.m; sourceTree = "<group>"; };
 		18FF92801CE5B10C007F61AC /* NSToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarButton.h; sourceTree = "<group>"; };
 		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
 		18FFE82C1CF025250012880E /* NSPlayMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicViewController.h; sourceTree = "<group>"; };
@@ -378,6 +390,8 @@
 			children = (
 				183E039D1CDDC80F0071FEE5 /* NSDiscoverViewController.h */,
 				183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */,
+				18FA5E2D1CFBDA110027D534 /* NSSearchViewController.h */,
+				18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */,
 				183E03A01CDDDACC0071FEE5 /* NSMusicViewController.h */,
 				183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */,
 				18CFB3F21CDEDBA50033998A /* NSNewMusicViewController.h */,
@@ -414,6 +428,10 @@
 				18CFB3F61CDEDE320033998A /* NSNewMusicTableViewCell.m */,
 				2AE3C2321CDEDCAD00790BFA /* NSActivityCollectionCell.h */,
 				2AE3C2331CDEDCAD00790BFA /* NSActivityCollectionCell.m */,
+				18FA5E331CFC19300027D534 /* NSSearchMusicTableView.h */,
+				18FA5E341CFC19300027D534 /* NSSearchMusicTableView.m */,
+				18FA5E361CFC23180027D534 /* NSSearchUserCollectionView.h */,
+				18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -537,6 +555,8 @@
 			children = (
 				2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */,
 				2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */,
+				18FA5E391CFC395D0027D534 /* NSWriteMusicViewController.h */,
+				18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */,
 				2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */,
 				2A500B1F1CE2D7E600086C2C /* NSWriteLyricViewController.m */,
 				2A500B241CE317B300086C2C /* NSLyricCoachViewController.h */,
@@ -1122,6 +1142,7 @@
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
 				2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */,
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
+				18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
@@ -1145,6 +1166,7 @@
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
 				188D12061CECDE1F0009FD5B /* NSComposeButton.m in Sources */,
+				18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */,
 				1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */,
 				2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */,
 				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
@@ -1180,6 +1202,7 @@
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
+				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
@@ -1187,6 +1210,7 @@
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
+				18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */,
 				2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */,
 				2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
