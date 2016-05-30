@@ -19,7 +19,22 @@
     UIView *_maskView;
     
     UIView *_moreChoiceView;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
+=======
+    
+    
+=======
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
+>>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+>>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
     //头像
     UIImageView * userIcon;
     
@@ -37,10 +52,26 @@
     
     //歌词
     NSLyricView * _lyricView;
+<<<<<<< HEAD
     
     long itemId;
     long workAuthorId;
 
+=======
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+    long itemId;
+    long workAuthorId;
+=======
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
+=======
+=======
+    long itemId;
+    long workAuthorId;
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
+>>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+>>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
 }
 
 @property (nonatomic,strong) LyricDetailModel * lyricDetail;
@@ -171,7 +202,25 @@
         
     }];
     
+<<<<<<< HEAD
     UILabel *nameLabel = [[UILabel alloc] init];
+=======
+    
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+    UILabel *nameLabel = [[UILabel alloc] init];
+
+=======
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
+=======
+=======
+
+    UILabel *nameLabel = [[UILabel alloc] init];
+
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
+>>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+>>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
     
     _nameLabel = [[UILabel alloc] init];
     
@@ -190,10 +239,32 @@
     }];
     
 
+<<<<<<< HEAD
 
     //日期
     //dateLabel
     _dateLabel = [[UILabel alloc] init];
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    
+    //日期
+    UILabel *dateLabel = [[UILabel alloc] init];
+=======
+    //dateLabel
+    _dateLabel = [[UILabel alloc] init];
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
+=======
+    //dateLabel
+    _dateLabel = [[UILabel alloc] init];
+=======
+    
+    //日期
+    UILabel *dateLabel = [[UILabel alloc] init];
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
+>>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+
+>>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
     
 //    dateLabel.text = @"2016-05-05";
     
@@ -234,8 +305,30 @@
     }];
     
     
+<<<<<<< HEAD
     //评论数
     UILabel *numLabel = [[UILabel alloc] init];
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    //评论数
+    UILabel *numLabel = [[UILabel alloc] init];
+=======
+>>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+
+    //评论数
+    UILabel *numLabel = [[UILabel alloc] init];
+
+<<<<<<< HEAD
+=======
+    //评论数
+    UILabel *numLabel = [[UILabel alloc] init];
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
+=======
+>>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
+>>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+>>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
     
     if (commentNum > 999) {
         
