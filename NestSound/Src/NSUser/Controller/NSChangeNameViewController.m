@@ -9,6 +9,9 @@
 #import "NSChangeNameViewController.h"
 
 @interface NSChangeNameViewController ()
+<
+UITextFieldDelegate
+>
 {
     UITextField * nameText;
     NSString * Type;
@@ -27,6 +30,12 @@
     return self;
 }
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+}
+
 -(void)configureUIAppearance
 {
     if ([Type isEqualToString:@"name"]) {
@@ -41,6 +50,7 @@
     nameText.textColor = [UIColor hexColorFloat:@"181818"];
     nameText.backgroundColor = [UIColor whiteColor];
     nameText.textAlignment = NSTextAlignmentLeft;
+    nameText.delegate = self;
     [self.view addSubview:nameText];
     
     //constraints
@@ -51,4 +61,31 @@
     }];
     
 }
+
+
+-(void)changeNameWithContent:(NSString *)content
+{
+    self.requestType = NO;
+    self.requestParams =@{@"":@"",@"":@"",@"":@""};
+    if ([Type isEqualToString:@"name"]) {
+#warning changeName url
+//        self.requestURL = ;
+    }else{
+#warning changeDetaile url
+//        self.requestURL = ;
+    }
+}
+#pragma mark -actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+//    if ([operation.urlTag isEqualToString:]) {
+//    
+//        
+//    }else if ([operation.urlTag isEqualToString:]){
+//    
+//    
+//    }
+}
+
+
 @end

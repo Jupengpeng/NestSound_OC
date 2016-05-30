@@ -8,8 +8,10 @@
 
 #import "NSPlayMusicViewController.h"
 #import "NSPlayMusicTool.h"
-
+#import "NSMusicListViewController.h"
 @interface NSPlayMusicViewController ()
+
+@property (nonatomic,strong) NSMusicListViewController * musicVc;
 
 @property (nonatomic, weak) UIButton *playOrPauseBtn;
 
@@ -466,6 +468,9 @@ static NSString *num = @"7473";
         
     } action:^(UIButton *btn) {
         
+        _musicVc = [[NSMusicListViewController alloc] init];
+        
+    
         NSLog(@"点击了播放页的评论");
     }];
     

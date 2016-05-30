@@ -32,6 +32,38 @@ UITextFieldDelegate
     return self;
 }
 
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    
+
+}
+
+-(void)feedBackWithContent:(NSString *)content_ andNumber:(NSString *)number
+{
+    self.requestType = NO;
+//    self.requestParams= @{@"":@"",@"":@"",@"":@""};
+//    if ([Type isEqualToString:@"feedBack"]) {
+//        self.requestURL = ;
+//
+//        
+//    }else{
+//    
+//        self.requestURL = ;
+//
+//    }
+//    
+    
+}
+
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    
+
+}
+
 #pragma mark configureUIAppearance
 -(void)configureUIAppearance
 {

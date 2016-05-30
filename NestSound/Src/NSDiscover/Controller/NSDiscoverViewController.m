@@ -8,10 +8,8 @@
 
 #import "NSDiscoverViewController.h"
 #import "NSMusicViewController.h"
-#import "NSActivityViewController.h"
-#import "NSDiscoverLyricViewCOntroller.h"
 #import "NSMusicListViewController.h"
-
+#import "NSActivityViewController.h"
 @interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
     
     UIScrollView *_topScrollView;
@@ -25,7 +23,7 @@
     UIView *_maskView;
     NSActivityViewController *activity;
     NSMusicViewController *music;
-    NSDiscoverLyricViewCOntroller *lyric;
+    NSMusicViewController *lyric;
     NSMusicListViewController *list;
 }
 
@@ -178,7 +176,7 @@
     [_scrollView  addSubview:activity.view];
     
     //歌曲
-    music = [[NSMusicViewController alloc] init];
+    music = [[NSMusicViewController alloc] initWithIsMusic:YES];
     
     music.view.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, _scrollView.height);
     
@@ -191,11 +189,10 @@
 //    [_scrollView addSubview:music.view];
     
     //歌词
-<<<<<<< HEAD
-    lyric = [[NSDiscoverLyricViewCOntroller alloc] init];
-=======
-    NSMusicViewController *lyric = [[NSMusicViewController alloc] init];
->>>>>>> e4f6364e35365c1500a62637898bd4d55307ad53
+
+   
+
+    lyric = [[NSMusicViewController alloc] initWithIsMusic:NO];
     
     lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
     

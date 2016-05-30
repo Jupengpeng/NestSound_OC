@@ -10,4 +10,9 @@
 
 @interface NSLyricViewController : NSBaseViewController
 
+
+
+-(instancetype)initWithItemId:(long) itemId_;
+
+
 @end

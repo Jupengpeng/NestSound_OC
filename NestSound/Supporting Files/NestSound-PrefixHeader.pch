@@ -24,6 +24,8 @@
 #import "UIImage+ImageEffects.h"
 #import "UIImageView+NSAdditions.h"
 #import "NSHttpClient+EncrypteData.h"
+#import "UIScrollView+NSPullToRefresh.h"
+#import "UIScrollView+NSKeyboardAutoAdapt.h"
 #import "QiniuSDK.h"
 #import "POP.h"
 #import "MBProgressHUD.h"
@@ -59,6 +61,7 @@ extern NSString *port;
 #define USERDEFAULT          [NSUserDefaults standardUserDefaults]
 #define LocalizedStr(key)    NSLocalizedString(key, @"")
 #define LocalPath            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define UUID [UIDevice currentDevice].identifierForVendor
 
 // Keys
 #define kNoLoading       @"noLoading"

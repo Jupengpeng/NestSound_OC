@@ -110,3 +110,7 @@ prompt_collection = "收藏";
 prompt_systemMessage = "系统消息";
 prompt_userUpvote = "点赞了你的作品";
 prompt_userCollection = "收藏了你的作品";
+
+prompt_importLyric = "导入歌词";
+prompt_lyricLibrary = "歌词库";
+prompt_lyricCocach = "使用教程";

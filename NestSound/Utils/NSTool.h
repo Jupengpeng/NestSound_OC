@@ -18,7 +18,7 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 + (BOOL)isStringEmpty:(NSString *)targetString;
 + (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName;
 + (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2;
-+ (NSString *)uploadPhotoWith:(NSString *)photoPath;
++ (NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_;
 
 @end
 //cache include ：accompany，record file ，music file

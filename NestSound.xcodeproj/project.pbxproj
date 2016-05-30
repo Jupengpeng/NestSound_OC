@@ -62,6 +62,15 @@
 		2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11D1CDDD89F004470ED /* NSCommentMessageCell.m */; };
 		2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */; };
 		2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */; };
+		2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE01B71CFBEEC8008D3145 /* NSPlayMusicDetailModel.m */; };
+		2AAE01BE1CFC0F7F008D3145 /* NSMyLricListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE01BD1CFC0F7F008D3145 /* NSMyLricListModel.m */; };
+		2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE01C31CFC205F008D3145 /* NSRegisterViewController.m */; };
+		2AAE01C71CFC2077008D3145 /* NSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE01C61CFC2077008D3145 /* NSLoginViewController.m */; };
+		2AAE01CA1CFC209E008D3145 /* NSForgetPassWordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE01C91CFC209E008D3145 /* NSForgetPassWordViewController.m */; };
+		2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D1091CF7E8B300D9FE53 /* NSAccommpanyListModel.m */; };
+		2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D10C1CF8262A00D9FE53 /* NSUserDataModel.m */; };
+		2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D10F1CF8312E00D9FE53 /* NSMyMusicModel.m */; };
+		2AC3D1131CF84BB700D9FE53 /* NSMyInspirationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D1121CF84BB700D9FE53 /* NSMyInspirationListModel.m */; };
 		2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACC24E71CF539A6000BDEDC /* NSMessageListModel.m */; };
 		2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACC24ED1CF53C7E000BDEDC /* NSSystemMessageListModel.m */; };
 		2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACC24F01CF53CE9000BDEDC /* NSCommentMessageListModel.m */; };
@@ -73,6 +82,7 @@
 		2AD10A901CD9F2D60044D821 /* NSSongListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A8F1CD9F2D60044D821 /* NSSongListHeaderView.m */; };
 		2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD53E901CF023AC002ED314 /* NSRecordToolView.m */; };
 		2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */; };
+		2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6A3521CF6DE7D00523062 /* NSLyricDetailModel.m */; };
 		2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */; };
 		2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10031CE3508900D0D535 /* NSLyricCell.m */; };
 		2AE2E5071CE56BF800FD2DC3 /* NSUserProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E5061CE56BF800FD2DC3 /* NSUserProfileCell.m */; };
@@ -81,7 +91,6 @@
 		2AE2E5101CE5B22200FD2DC3 /* NSFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E50F1CE5B22200FD2DC3 /* NSFansViewController.m */; };
 		2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E5121CE5D25A00FD2DC3 /* NSDatePicker.m */; };
 		2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */; };
-		2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */; };
 		2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */; };
 		2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2331CDEDCAD00790BFA /* NSActivityCollectionCell.m */; };
 		2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */; };
@@ -237,6 +246,24 @@
 		2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUpvoteMessageCell.m; sourceTree = "<group>"; };
 		2A9DC1221CDDDDE8004470ED /* NSSystemMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSystemMessageCell.h; sourceTree = "<group>"; };
 		2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSystemMessageCell.m; sourceTree = "<group>"; };
+		2AAE01B61CFBEEC8008D3145 /* NSPlayMusicDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicDetailModel.h; sourceTree = "<group>"; };
+		2AAE01B71CFBEEC8008D3145 /* NSPlayMusicDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayMusicDetailModel.m; sourceTree = "<group>"; };
+		2AAE01BC1CFC0F7F008D3145 /* NSMyLricListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMyLricListModel.h; sourceTree = "<group>"; };
+		2AAE01BD1CFC0F7F008D3145 /* NSMyLricListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMyLricListModel.m; sourceTree = "<group>"; };
+		2AAE01C21CFC205F008D3145 /* NSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRegisterViewController.h; sourceTree = "<group>"; };
+		2AAE01C31CFC205F008D3145 /* NSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRegisterViewController.m; sourceTree = "<group>"; };
+		2AAE01C51CFC2077008D3145 /* NSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLoginViewController.h; sourceTree = "<group>"; };
+		2AAE01C61CFC2077008D3145 /* NSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLoginViewController.m; sourceTree = "<group>"; };
+		2AAE01C81CFC209E008D3145 /* NSForgetPassWordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSForgetPassWordViewController.h; sourceTree = "<group>"; };
+		2AAE01C91CFC209E008D3145 /* NSForgetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSForgetPassWordViewController.m; sourceTree = "<group>"; };
+		2AC3D1081CF7E8B300D9FE53 /* NSAccommpanyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccommpanyListModel.h; sourceTree = "<group>"; };
+		2AC3D1091CF7E8B300D9FE53 /* NSAccommpanyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccommpanyListModel.m; sourceTree = "<group>"; };
+		2AC3D10B1CF8262A00D9FE53 /* NSUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserDataModel.h; sourceTree = "<group>"; };
+		2AC3D10C1CF8262A00D9FE53 /* NSUserDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserDataModel.m; sourceTree = "<group>"; };
+		2AC3D10E1CF8312E00D9FE53 /* NSMyMusicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMyMusicModel.h; sourceTree = "<group>"; };
+		2AC3D10F1CF8312E00D9FE53 /* NSMyMusicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMyMusicModel.m; sourceTree = "<group>"; };
+		2AC3D1111CF84BB700D9FE53 /* NSMyInspirationListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMyInspirationListModel.h; sourceTree = "<group>"; };
+		2AC3D1121CF84BB700D9FE53 /* NSMyInspirationListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMyInspirationListModel.m; sourceTree = "<group>"; };
 		2ACC24E61CF539A6000BDEDC /* NSMessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageListModel.h; sourceTree = "<group>"; };
 		2ACC24E71CF539A6000BDEDC /* NSMessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMessageListModel.m; sourceTree = "<group>"; };
 		2ACC24EC1CF53C7E000BDEDC /* NSSystemMessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSystemMessageListModel.h; sourceTree = "<group>"; };
@@ -259,6 +286,8 @@
 		2AD53E901CF023AC002ED314 /* NSRecordToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecordToolView.m; sourceTree = "<group>"; };
 		2AD69B381CD30DFA00BCA19C /* NSRecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecommendCell.h; sourceTree = "<group>"; };
 		2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRecommendCell.m; sourceTree = "<group>"; };
+		2AD6A3511CF6DE7D00523062 /* NSLyricDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricDetailModel.h; sourceTree = "<group>"; };
+		2AD6A3521CF6DE7D00523062 /* NSLyricDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricDetailModel.m; sourceTree = "<group>"; };
 		2AD6DF3F1CD7287F00B95CFD /* NSHttpClient+EncrypteData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSHttpClient+EncrypteData.h"; sourceTree = "<group>"; };
 		2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHttpClient+EncrypteData.m"; sourceTree = "<group>"; };
 		2ADA10021CE3508900D0D535 /* NSLyricCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricCell.h; sourceTree = "<group>"; };
@@ -275,8 +304,6 @@
 		2AE2E5121CE5D25A00FD2DC3 /* NSDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDatePicker.m; sourceTree = "<group>"; };
 		2AE3C2291CDED80F00790BFA /* NSActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityViewController.h; sourceTree = "<group>"; };
 		2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityViewController.m; sourceTree = "<group>"; };
-		2AE3C22C1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverLyricViewCOntroller.h; sourceTree = "<group>"; };
-		2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverLyricViewCOntroller.m; sourceTree = "<group>"; };
 		2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSH5ViewController.h; sourceTree = "<group>"; };
 		2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSH5ViewController.m; sourceTree = "<group>"; };
 		2AE3C2321CDEDCAD00790BFA /* NSActivityCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityCollectionCell.h; sourceTree = "<group>"; };
@@ -396,8 +423,6 @@
 				18CFB3F31CDEDBA50033998A /* NSNewMusicViewController.m */,
 				2AE3C2291CDED80F00790BFA /* NSActivityViewController.h */,
 				2AE3C22A1CDED80F00790BFA /* NSActivityViewController.m */,
-				2AE3C22C1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.h */,
-				2AE3C22D1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m */,
 				2AE3C22F1CDEDA6100790BFA /* NSH5ViewController.h */,
 				2AE3C2301CDEDA6100790BFA /* NSH5ViewController.m */,
 				18BCA25F1CE2F8A300891C95 /* NSMusicListViewController.h */,
@@ -523,6 +548,8 @@
 				2A9429B81CF42E880099A6DB /* NSSongListModel.m */,
 				2A9429BD1CF438F10099A6DB /* NSSingListModel.h */,
 				2A9429BE1CF438F10099A6DB /* NSSingListModel.m */,
+				2AD6A3511CF6DE7D00523062 /* NSLyricDetailModel.h */,
+				2AD6A3521CF6DE7D00523062 /* NSLyricDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -580,6 +607,10 @@
 		2D8608D01CCC87720027F147 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2AC3D1081CF7E8B300D9FE53 /* NSAccommpanyListModel.h */,
+				2AC3D1091CF7E8B300D9FE53 /* NSAccommpanyListModel.m */,
+				2AAE01BC1CFC0F7F008D3145 /* NSMyLricListModel.h */,
+				2AAE01BD1CFC0F7F008D3145 /* NSMyLricListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -624,6 +655,12 @@
 				2A3750281CEC422C007C2967 /* NSChangeNameViewController.m */,
 				2A37502A1CEC5701007C2967 /* NSUserFeedbackViewController.h */,
 				2A37502B1CEC5701007C2967 /* NSUserFeedbackViewController.m */,
+				2AAE01C21CFC205F008D3145 /* NSRegisterViewController.h */,
+				2AAE01C31CFC205F008D3145 /* NSRegisterViewController.m */,
+				2AAE01C51CFC2077008D3145 /* NSLoginViewController.h */,
+				2AAE01C61CFC2077008D3145 /* NSLoginViewController.m */,
+				2AAE01C81CFC209E008D3145 /* NSForgetPassWordViewController.h */,
+				2AAE01C91CFC209E008D3145 /* NSForgetPassWordViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -631,6 +668,12 @@
 		2D8608D41CCC87720027F147 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2AC3D10B1CF8262A00D9FE53 /* NSUserDataModel.h */,
+				2AC3D10C1CF8262A00D9FE53 /* NSUserDataModel.m */,
+				2AC3D10E1CF8312E00D9FE53 /* NSMyMusicModel.h */,
+				2AC3D10F1CF8312E00D9FE53 /* NSMyMusicModel.m */,
+				2AC3D1111CF84BB700D9FE53 /* NSMyInspirationListModel.h */,
+				2AC3D1121CF84BB700D9FE53 /* NSMyInspirationListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -860,6 +903,8 @@
 		2DFB67291CC1E82700DA24DA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2AAE01B61CFBEEC8008D3145 /* NSPlayMusicDetailModel.h */,
+				2AAE01B71CFBEEC8008D3145 /* NSPlayMusicDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1148,6 +1193,7 @@
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */,
+				2AC3D1131CF84BB700D9FE53 /* NSMyInspirationListModel.m in Sources */,
 				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
 				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
 				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
@@ -1159,15 +1205,16 @@
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2A9429B61CF419990099A6DB /* NSDiscoverBandListModel.m in Sources */,
-				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
+				2AAE01C71CFC2077008D3145 /* NSLoginViewController.m in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
 				188D12061CECDE1F0009FD5B /* NSComposeButton.m in Sources */,
 				1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */,
 				2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */,
+				2AAE01BE1CFC0F7F008D3145 /* NSMyLricListModel.m in Sources */,
 				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
 				183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */,
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
@@ -1181,6 +1228,7 @@
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
+				2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
@@ -1199,13 +1247,17 @@
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
+				2AAE01CA1CFC209E008D3145 /* NSForgetPassWordViewController.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
+				2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
+				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
 				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
+				2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */,
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
 				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
 				2ACC24F41CF53D08000BDEDC /* NSUpvoteMessageListModel.m in Sources */,
@@ -1214,6 +1266,7 @@
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
 				2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */,
 				2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */,
+				2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
@@ -1221,6 +1274,7 @@
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
+				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,
 				18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */,
@@ -1405,7 +1459,6 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6DD24D3E51C8BC9672804194 /* Pods-NestSoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1418,7 +1471,6 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 266DC77AE30D3AB35D51D7CB /* Pods-NestSoundTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;

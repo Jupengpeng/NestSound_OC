@@ -7,7 +7,7 @@
 //
 
 #import "NSNewMusicTableViewCell.h"
-
+#import "NSDiscoverBandListModel.h"
 @interface NSNewMusicTableViewCell ()
 
 //模拟组头
@@ -72,7 +72,7 @@
     
     self.dateLabel.textAlignment = NSTextAlignmentRight;
     
-    self.dateLabel.text = @"2016-05-8";
+    
     
     [self.background addSubview:self.dateLabel];
     
@@ -148,7 +148,7 @@
     //封面
     self.coverIcon = [[UIImageView alloc] init];
     
-    self.coverIcon.image = [UIImage imageNamed:@"img_01"];
+    
     
     [self.background addSubview:self.coverIcon];
     
@@ -175,7 +175,7 @@
         self.musicName.font = [UIFont systemFontOfSize:14];
     }
     
-    self.musicName.text = @"悟空悟空悟空悟空悟";
+    
     
     [self.background addSubview:self.musicName];
     
@@ -190,7 +190,7 @@
     //作者名
     self.authorName = [[UILabel alloc] init];
     
-    self.authorName.text = @"戴荃";
+    
     
     self.authorName.font = [UIFont systemFontOfSize:10];
     
@@ -223,7 +223,7 @@
     
     self.heardLabel = [[UILabel alloc] init];
     
-    self.heardLabel.text = @"1200";
+    
     
     self.heardLabel.font = [UIFont systemFontOfSize:10];
     
@@ -256,7 +256,7 @@
     
     self.collectionLabel = [[UILabel alloc] init];
     
-    self.collectionLabel.text = @"2300";
+    
     
     self.collectionLabel.font = [UIFont systemFontOfSize:10];
     
@@ -289,7 +289,7 @@
     
     self.upVoteLabel = [[UILabel alloc] init];
     
-    self.upVoteLabel.text = @"2300";
+    
     
     self.upVoteLabel.font = [UIFont systemFontOfSize:10];
     
@@ -307,6 +307,21 @@
     
 }
 
+
+#pragma mark -setter & getter
+-(void)setMusicModel:(NSBandMusic *)musicModel
+{
+    _musicModel = musicModel;
+    self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
+    [self.coverIcon setDDImageWithURLString:_musicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"UMS_alipay_icon"]];
+    self.musicName.text = _musicModel.workName;
+    self.authorName.text = _musicModel.author;
+    self.heardLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.lookNum];
+    self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.fovNum];
+    
+    self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.zanNum];
+    self.itemId = _musicModel.itemId;
+}
 
 @end
 

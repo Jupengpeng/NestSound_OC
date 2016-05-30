@@ -14,7 +14,7 @@
 #import "NSDraftBoxViewController.h"
 #import "NSUserViewController.h"
 #import "NSInspirationRecordTableViewCell.h"
-
+#import "NSFansViewController.h"
 
 
 @interface NSUserPageViewController ()
@@ -25,6 +25,12 @@ UITableViewDataSource>
 {
     
     UITableView *_tableView;
+    NSString * userId;
+    NSMutableArray * inspirationAry;
+    NSMutableArray * myMusicAry;
+    NSMutableArray * myLyricAry;
+    NSMutableArray * myCollectionAry;
+    NSMutableArray * dataAry;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -39,6 +45,19 @@ UITableViewDataSource>
     
     [self setupUI];
     
+}
+
+
+#pragma mark -fetchMemberData
+-(void)fetchMemberData
+{
+
+}
+
+#pragma mark -overrider action fetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+   
 }
 
 
@@ -119,25 +138,26 @@ UITableViewDataSource>
 
 - (void)followBtnClick:(UIButton *)follow {
     if (self.who == Myself) {
-        
-        NSLog(@"点击了自己的关注");
+        NSFansViewController * myFocusVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:NO];
+        [self.navigationController pushViewController:myFocusVC animated:YES];
     }
     
     if (self.who == Other) {
-        
-        NSLog(@"点击了他人的关注");
+        NSFansViewController * otherFocusVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:NO];
+        [self.navigationController pushViewController:otherFocusVC animated:YES];
     }
     
 }
 
 - (void)fansBtnClick:(UIButton *)fansBtn {
     if (self.who == Myself) {
-        
-        NSLog(@"点击了自己的粉丝");
+        NSFansViewController * myFansVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:YES];
+        [self.navigationController pushViewController:myFansVC animated:YES];
     }
     
     if (self.who == Other) {
-        
+        NSFansViewController * otherFansVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:YES];
+        [self.navigationController pushViewController:otherFansVC animated:YES];
         NSLog(@"点击了他人的粉丝");
     }
     
@@ -164,9 +184,18 @@ UITableViewDataSource>
 
 - (void)followClick:(UIBarButtonItem *)follow {
     
+    [self focusUserWithUserId:userId];
     NSLog(@"点击了Nav的关注");
 }
 
+
+-(void)focusUserWithUserId:(NSString *)userId_
+{
+    self.requestType = NO;
+//    self.requestParams =;
+//    self.requestURL = ;
+
+}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

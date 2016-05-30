@@ -7,7 +7,7 @@
 //
 
 #import "NSAccompanyTableCell.h"
-
+#import "NSAccommpanyListModel.h"
 @interface NSAccompanyTableCell ()
 {
     UIImageView * titlePage;
@@ -42,12 +42,12 @@
     titlePage = [[UIImageView alloc] init];
     [self.contentView addSubview:titlePage];
     
-    //playbtn
-    playBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-                
-    } action:^(UIButton *btn) {
-        
-    }];
+//    //playbtn
+//    playBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+//                
+//    } action:^(UIButton *btn) {
+//        
+//    }];
     [self.contentView addSubview:playBtn];
     
     //workNameLabel
@@ -96,6 +96,14 @@
 
 }
 
-
+-(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
+{
+    _accompanyModel = accompanyModel;
+    
+    workNameLabel.text = _accompanyModel.title;
+    authorNameLabel.text = _accompanyModel.author;
+#warning titlePage placeHolderImage
+    [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+}
 
 @end

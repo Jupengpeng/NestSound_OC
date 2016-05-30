@@ -9,6 +9,7 @@
 #import "NSImportLyricViewController.h"
 #import "NSLyricCell.h"
 #import "NSLyricViewController.h"
+#import "NSMyLricListModel.h"
 @interface NSImportLyricViewController()
 <
 UICollectionViewDataSource,
@@ -33,6 +34,20 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     [super viewDidLoad];
     
     [self configureUIAppearance];
+}
+
+#pragma mark -fectData
+-(void)fetchMyLyricDataIsLoadingMore:(BOOL)isLoadingMore
+{
+
+
+}
+
+#pragma mark --override action fetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    
+
 }
 
 #pragma mark -configureAppearance
@@ -65,7 +80,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     lyricCell.titlePageUrl = @"111";
     lyricCell.lyricName = @"nishuoddshigesha";
     lyricCell.authorName = @"hjay";
-
+    
     return lyricCell;
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import "NSLyricCell.h"
-
+#import "NSMyLricListModel.h"
 @interface NSLyricCell ()
 {
     UIImageView * titlePage;
@@ -81,22 +81,15 @@
 
 
 #pragma mark -setter & getter
--(void)setTitlePageUrl:(NSString *)titlePageUrl
+-(void)setMyLyricModel:(NSMyLyricModel *)myLyricModel
 {
-    _titlePageUrl = titlePageUrl;
-    [titlePage setDDImageWithURLString:_titlePageUrl placeHolderImage:[UIImage imageNamed:@""]];
-}
+    _myLyricModel = myLyricModel;
+    [titlePage setDDImageWithURLString:_myLyricModel.titleImageUrl          placeHolderImage:[UIImage imageNamed:@""]];
 
--(void)setLyricName:(NSString *)lyricName
-{
-    _lyricName = lyricName;
-    lyricNameLabel.text = _lyricName;
-}
+    lyricNameLabel.text = _myLyricModel.title;
 
--(void)setAuthorName:(NSString *)authorName
-{
-    _authorName = authorName;
-    authorLabel.text = _authorName;
+    authorLabel.text = _myLyricModel.author;
+    
 }
 
 @end
