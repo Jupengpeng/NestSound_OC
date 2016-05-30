@@ -9,26 +9,11 @@
 #import "NSDiscoverViewController.h"
 #import "NSMusicViewController.h"
 #import "NSMusicListViewController.h"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
 #import "NSActivityViewController.h"
-=======
-#import "NSPlayMusicViewController.h"
-
->>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
-=======
->>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
 #import "NSPlayMusicViewController.h"
 #import "NSSearchViewController.h"
 #import "NSActivityViewController.h"
-<<<<<<< HEAD
 
-=======
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
->>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
 @interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
     
     UIScrollView *_topScrollView;
@@ -48,11 +33,8 @@
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
-<<<<<<< HEAD
-=======
 @property (nonatomic, strong) NSSearchViewController *searchVC;
 
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
 @end
 
 @implementation NSDiscoverViewController
@@ -68,8 +50,6 @@
     return _playSongsVC;
 }
 
-<<<<<<< HEAD
-=======
 - (NSSearchViewController *)searchVC {
     
     if (!_searchVC) {
@@ -82,7 +62,6 @@
     
 }
 
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -124,11 +103,8 @@
     self.navigationItem.rightBarButtonItem = nil;
     
     NSLog(@"进入搜索编辑");
-<<<<<<< HEAD
-=======
+
     
-//    [_maskView addSubview:self.searchVC.view];
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -140,11 +116,8 @@
     [_search resignFirstResponder];
     
     _search.text = nil;
-<<<<<<< HEAD
-=======
     
     [_maskView removeAllSubviews];
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
 }
@@ -248,29 +221,8 @@
 //    [_scrollView addSubview:music.view];
     
     //歌词
-<<<<<<< HEAD
     lyric = [[NSMusicViewController alloc] initWithIsMusic:NO];
-=======
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-   
-
-    lyric = [[NSMusicViewController alloc] initWithIsMusic:NO];
-=======
-    lyric = [[NSMusicViewController alloc] init];
-
->>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
-=======
-    lyric = [[NSMusicViewController alloc] init];
-
-=======
-   
-
-    lyric = [[NSMusicViewController alloc] initWithIsMusic:NO];
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
->>>>>>> e5fba667eb4496e0233c76b5b88a451b3eee7f62
     
     lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
     

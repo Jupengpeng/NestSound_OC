@@ -1501,13 +1501,8 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-
 			baseConfigurationReference = 4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */;
 
-=======
-			baseConfigurationReference = 4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */;
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1520,13 +1515,9 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 
 			baseConfigurationReference = 3A1FBBD3CAB484E50C3E89B7 /* Pods-NestSoundTests.release.xcconfig */;
 
-=======
-			baseConfigurationReference = 3A1FBBD3CAB484E50C3E89B7 /* Pods-NestSoundTests.release.xcconfig */;
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
