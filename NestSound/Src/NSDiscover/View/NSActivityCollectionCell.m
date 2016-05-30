@@ -77,7 +77,6 @@
     
 }
 
-
 #pragma mark setter & getter
 -(void)setActivityModel:(NSActivity *)activityModel
 {

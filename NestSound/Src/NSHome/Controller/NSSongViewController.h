@@ -11,6 +11,6 @@
 @interface NSSongViewController : NSBaseViewController
 
 
--(instancetype)initWithSongListId :(NSString *)listId;
+-(instancetype)initWithSongListId :(long)listId;
 
 @end

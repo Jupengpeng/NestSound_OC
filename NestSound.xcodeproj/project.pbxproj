@@ -61,11 +61,18 @@
 		2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */; };
 		2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */; };
 		2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */; };
+		2A9429B61CF419990099A6DB /* NSDiscoverBandListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429B51CF419990099A6DB /* NSDiscoverBandListModel.m */; };
+		2A9429B91CF42E880099A6DB /* NSSongListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429B81CF42E880099A6DB /* NSSongListModel.m */; };
+		2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429BE1CF438F10099A6DB /* NSSingListModel.m */; };
 		2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1171CDDC797004470ED /* NSMessageViewController.m */; };
 		2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11A1CDDCDD9004470ED /* NSMessageListViewController.m */; };
 		2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC11D1CDDD89F004470ED /* NSCommentMessageCell.m */; };
 		2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */; };
 		2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */; };
+		2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACC24E71CF539A6000BDEDC /* NSMessageListModel.m */; };
+		2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACC24ED1CF53C7E000BDEDC /* NSSystemMessageListModel.m */; };
+		2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACC24F01CF53CE9000BDEDC /* NSCommentMessageListModel.m */; };
+		2ACC24F41CF53D08000BDEDC /* NSUpvoteMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACC24F31CF53D08000BDEDC /* NSUpvoteMessageListModel.m */; };
 		2ACDBFC01CCCA5D70001FC31 /*  Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACDBFC21CCCA5D70001FC31 /*  Localizable.strings */; };
 		2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A861CD9C96E0044D821 /* NSRecommendSongList.m */; };
 		2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD10A891CD9DE520044D821 /* NSSongListViewController.m */; };
@@ -235,6 +242,12 @@
 		2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImportLyricViewController.m; sourceTree = "<group>"; };
 		2A9429B11CF402960099A6DB /* NSDicoverLyricListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDicoverLyricListModel.h; sourceTree = "<group>"; };
 		2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDicoverLyricListModel.m; sourceTree = "<group>"; };
+		2A9429B41CF419990099A6DB /* NSDiscoverBandListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverBandListModel.h; sourceTree = "<group>"; };
+		2A9429B51CF419990099A6DB /* NSDiscoverBandListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverBandListModel.m; sourceTree = "<group>"; };
+		2A9429B71CF42E880099A6DB /* NSSongListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongListModel.h; sourceTree = "<group>"; };
+		2A9429B81CF42E880099A6DB /* NSSongListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongListModel.m; sourceTree = "<group>"; };
+		2A9429BD1CF438F10099A6DB /* NSSingListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSingListModel.h; sourceTree = "<group>"; };
+		2A9429BE1CF438F10099A6DB /* NSSingListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSingListModel.m; sourceTree = "<group>"; };
 		2A9DC1161CDDC797004470ED /* NSMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageViewController.h; sourceTree = "<group>"; };
 		2A9DC1171CDDC797004470ED /* NSMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMessageViewController.m; sourceTree = "<group>"; };
 		2A9DC1191CDDCDD9004470ED /* NSMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageListViewController.h; sourceTree = "<group>"; };
@@ -245,6 +258,14 @@
 		2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUpvoteMessageCell.m; sourceTree = "<group>"; };
 		2A9DC1221CDDDDE8004470ED /* NSSystemMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSystemMessageCell.h; sourceTree = "<group>"; };
 		2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSystemMessageCell.m; sourceTree = "<group>"; };
+		2ACC24E61CF539A6000BDEDC /* NSMessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMessageListModel.h; sourceTree = "<group>"; };
+		2ACC24E71CF539A6000BDEDC /* NSMessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMessageListModel.m; sourceTree = "<group>"; };
+		2ACC24EC1CF53C7E000BDEDC /* NSSystemMessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSystemMessageListModel.h; sourceTree = "<group>"; };
+		2ACC24ED1CF53C7E000BDEDC /* NSSystemMessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSystemMessageListModel.m; sourceTree = "<group>"; };
+		2ACC24EF1CF53CE9000BDEDC /* NSCommentMessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCommentMessageListModel.h; sourceTree = "<group>"; };
+		2ACC24F01CF53CE9000BDEDC /* NSCommentMessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCommentMessageListModel.m; sourceTree = "<group>"; };
+		2ACC24F21CF53D08000BDEDC /* NSUpvoteMessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUpvoteMessageListModel.h; sourceTree = "<group>"; };
+		2ACC24F31CF53D08000BDEDC /* NSUpvoteMessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUpvoteMessageListModel.m; sourceTree = "<group>"; };
 		2ACDBFC11CCCA5D70001FC31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/ Localizable.strings"; sourceTree = "<group>"; };
 		2ACDBFC31CCCA5E80001FC31 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ Localizable.strings"; sourceTree = "<group>"; };
 		2AD10A851CD9C96E0044D821 /* NSRecommendSongList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecommendSongList.h; sourceTree = "<group>"; };
@@ -417,6 +438,8 @@
 				2A4325651CF32912008889BE /* NSDiscoverMusicListModel.m */,
 				2A9429B11CF402960099A6DB /* NSDicoverLyricListModel.h */,
 				2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */,
+				2A9429B41CF419990099A6DB /* NSDiscoverBandListModel.h */,
+				2A9429B51CF419990099A6DB /* NSDiscoverBandListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -460,6 +483,14 @@
 		2A9DC10E1CDDC6B9004470ED /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2ACC24E61CF539A6000BDEDC /* NSMessageListModel.h */,
+				2ACC24E71CF539A6000BDEDC /* NSMessageListModel.m */,
+				2ACC24EC1CF53C7E000BDEDC /* NSSystemMessageListModel.h */,
+				2ACC24ED1CF53C7E000BDEDC /* NSSystemMessageListModel.m */,
+				2ACC24EF1CF53CE9000BDEDC /* NSCommentMessageListModel.h */,
+				2ACC24F01CF53CE9000BDEDC /* NSCommentMessageListModel.m */,
+				2ACC24F21CF53D08000BDEDC /* NSUpvoteMessageListModel.h */,
+				2ACC24F31CF53D08000BDEDC /* NSUpvoteMessageListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -515,6 +546,10 @@
 				2A43256E1CF32C89008889BE /* NSMusicModel.m */,
 				2A4325701CF32CA2008889BE /* NSMusiclListModel.h */,
 				2A4325711CF32CA2008889BE /* NSMusiclListModel.m */,
+				2A9429B71CF42E880099A6DB /* NSSongListModel.h */,
+				2A9429B81CF42E880099A6DB /* NSSongListModel.m */,
+				2A9429BD1CF438F10099A6DB /* NSSingListModel.h */,
+				2A9429BE1CF438F10099A6DB /* NSSingListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1145,6 +1180,7 @@
 				18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
+				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */,
@@ -1159,6 +1195,7 @@
 				188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */,
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
+				2A9429B61CF419990099A6DB /* NSDiscoverBandListModel.m in Sources */,
 				2AE3C22E1CDED86200790BFA /* NSDiscoverLyricViewCOntroller.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
@@ -1181,6 +1218,7 @@
 				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
 				18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */,
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
+				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
@@ -1188,6 +1226,7 @@
 				2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */,
 				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
+				2A9429B91CF42E880099A6DB /* NSSongListModel.m in Sources */,
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
 				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
@@ -1205,8 +1244,11 @@
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
+				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
+				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
 				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
+				2ACC24F41CF53D08000BDEDC /* NSUpvoteMessageListModel.m in Sources */,
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,

@@ -7,6 +7,10 @@
 //
 
 #import "NSMessageListViewController.h"
+#import "NSUpvoteMessageCell.h"
+#import "NSCommentMessageCell.h"
+#import "NSSystemMessageCell.h"
+
 
 @interface NSMessageListViewController ()<
 UITableViewDataSource,
@@ -31,6 +35,22 @@ UITableViewDelegate
     
 }
 
+
+#pragma mark -fetchData
+-(void)fetchData
+{
+//    self.requestType = NO;
+//    self.requestParams = ;
+//    self.requestURL = ;
+
+}
+
+#pragma mark -override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    
+    
+}
 
 #pragma mark configureUIAppearance
 -(void)configureUIAppearance

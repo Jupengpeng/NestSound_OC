@@ -25,6 +25,10 @@
     UISearchBar *_search;
     
     UIView *_maskView;
+    NSActivityViewController *activity;
+    NSMusicViewController *music;
+    NSMusicViewController *lyric;
+    NSMusicListViewController *list;
 }
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
@@ -195,16 +199,16 @@
 - (void)setupContent {
     
     //活动
-    NSActivityViewController *activity = [[NSActivityViewController alloc] init];
+   activity = [[NSActivityViewController alloc] init];
     
-    activity.view.frame = CGRectMake(0, 0, ScreenWidth, _scrollView.height);
+    activity.view.frame = CGRectMake(0, _scrollView.y, ScreenWidth, _scrollView.height);
     
     [self addChildViewController:activity];
     
-    [_scrollView addSubview:activity.view];
+    [_scrollView  addSubview:activity.view];
     
     //歌曲
-    NSMusicViewController *music = [[NSMusicViewController alloc] init];
+    music = [[NSMusicViewController alloc] init];
     
     music.view.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, _scrollView.height);
     
@@ -214,10 +218,12 @@
     
     [self addChildViewController:music];
     
-    [_scrollView addSubview:music.view];
+//    [_scrollView addSubview:music.view];
     
     //歌词
-    NSMusicViewController *lyric = [[NSMusicViewController alloc] init];
+
+    lyric = [[NSMusicViewController alloc] init];
+
     
     lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
     
@@ -227,17 +233,17 @@
     
     [self addChildViewController:lyric];
     
-    [_scrollView addSubview:lyric.view];
+   // [_scrollView addSubview:lyric.view];
     
     
     //榜单
-    NSMusicListViewController *list = [[NSMusicListViewController alloc] init];
+    list = [[NSMusicListViewController alloc] init];
     
     list.view.frame = CGRectMake(ScreenWidth * 3, 0, ScreenWidth, _scrollView.height);
     
     [self addChildViewController:list];
     
-    [_scrollView addSubview:list.view];
+//    [_scrollView addSubview:list.view];
     
     
 }
@@ -249,6 +255,8 @@
     if (titleBtn.tag == 0) {
         
         NSLog(@"点击了活动");
+       
+       
     } else if(titleBtn.tag == 1) {
         
         NSLog(@"点击了歌曲");
@@ -273,6 +281,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     _lineView.x = scrollView.contentOffset.x / ScreenWidth * _lineView.width;
+    if (scrollView.contentOffset.x/ScreenWidth == 1) {
+        [_scrollView addSubview:music.view];
+    }
+    else if(scrollView.contentOffset.x/ScreenWidth == 2){
+        [_scrollView addSubview:lyric.view];
+    }else if(scrollView.contentOffset.x /ScreenWidth == 3){
+        [_scrollView addSubview:list.view];
+    }
 }
 
 

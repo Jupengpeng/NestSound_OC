@@ -10,4 +10,6 @@
 
 @interface NSSongListViewController : NSBaseViewController
 
+-(instancetype)initWithItemID:(NSString *)itemId_;
+
 @end

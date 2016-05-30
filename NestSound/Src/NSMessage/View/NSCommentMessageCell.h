@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class NSCommentMessageListModel;
 @interface NSCommentMessageCell : UITableViewCell
+
+@property (nonatomic,strong) NSCommentMessageListModel * commentMessageListModel;
 
 @end

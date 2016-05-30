@@ -12,4 +12,5 @@
 
 @property (nonatomic,copy) NSString * messageListType;
 
+
 @end
