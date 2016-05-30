@@ -330,14 +330,6 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-//        [NSPlayMusicTool stopMusicWithName:@"我的天空.mp3"];
-//        
-//        [NSPlayMusicTool playMusicWithName:@"悟空.mp3"];
-//        
-//        wSelf.playOrPauseBtn.selected = YES;
-//        
-//        wSelf.progressBar.value = 0;
-        
         [wSelf playMusic];
         
         NSLog(@"点击了上一首按钮");
@@ -364,13 +356,6 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-//        wSelf.playOrPauseBtn.selected = YES;
-//        
-//        wSelf.progressBar.value = 0;
-//        
-//        [NSPlayMusicTool stopMusicWithName:@"悟空.mp3"];
-//        
-//        [NSPlayMusicTool playMusicWithName:@"我的天空.mp3"];
         
         [wSelf playMusic];
         
@@ -629,9 +614,9 @@ static id _instance;
     
     scrollView.showsHorizontalScrollIndicator = NO;
     
-    scrollView.bounces = NO;
+//    scrollView.bounces = NO;
     
-    scrollView.contentSize = CGSizeMake(ScreenWidth * 2, 0);
+    scrollView.contentSize = CGSizeMake((ScreenWidth - 30) * 2, 0);
     
     scrollView.pagingEnabled = YES;
     
@@ -681,11 +666,13 @@ static id _instance;
     [scrollView addSubview:lyricView];
     
     
-    NSLyricView *describeView = [[NSLyricView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, scrollView.height)];
+    NSLyricView *describeView = [[NSLyricView alloc] initWithFrame:CGRectMake(scrollView.width, 0, scrollView.width, scrollView.height)];
     
     describeView.lyricText.backgroundColor = [UIColor clearColor];
     
     describeView.lyricText.textColor = [UIColor whiteColor];
+    
+    describeView.lyricText.textAlignment = NSTextAlignmentCenter;
     
     describeView.lyricText.showsVerticalScrollIndicator = NO;
     

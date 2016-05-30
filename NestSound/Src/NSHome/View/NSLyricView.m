@@ -29,7 +29,8 @@
 
 - (void)setupUI {
     
-    UIScrollView *lyricView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,5, self.width, self.height)];
+    
+    UIScrollView *lyricView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
     
     lyricView.contentSize = CGSizeMake(self.width, self.height + 1);
     
@@ -42,6 +43,7 @@
     self.lyricText.font = [UIFont systemFontOfSize:15];
     
     [lyricView addSubview:self.lyricText];
+    
     
 }
 
