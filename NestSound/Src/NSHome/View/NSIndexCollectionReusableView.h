@@ -21,9 +21,6 @@
 @property (nonatomic, strong) UILabel *titleLable;
 
 @property (nonatomic, strong) NSMutableArray * bannerAry;
-- (void)addHeaderViewWithImageArray:(NSArray *)imageArray;
-
-
 
 - (UIButton *)loadMore;
 

@@ -243,7 +243,7 @@ UITableViewDataSource>
         }];
         
         cell.numLabel.hidden = YES;
-
+        
         return cell;
         
     } else if (self.btnTag == 2) {
@@ -369,57 +369,102 @@ UITableViewDataSource>
 
 - (void)toolbarBtnClick:(UIButton *)toolbarBtn {
     
-    switch (toolbarBtn.tag) {
+    if ([toolbarBtn.titleLabel.text isEqualToString:@"灵感记录"]) {
         
-        case 0: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了灵感记录");
-            
-            break;
-        }
-        case 1: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            NSLog(@"点击了歌曲");
-            
-            break;
-        }
-        case 2: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            NSLog(@"点击了歌词");
-            
-            break;
-        }
-        case 3: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            NSLog(@"点击了收藏");
-            
-            break;
-        }
-        default:
+        self.btnTag = toolbarBtn.tag;
         
-            break;
+        [_tableView reloadData];
+        
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        
+        NSLog(@"点击了灵感记录");
+        
+    } else if ([toolbarBtn.titleLabel.text isEqualToString:@"歌曲"]) {
+        
+        self.btnTag = toolbarBtn.tag;
+        
+        [_tableView reloadData];
+        
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        
+        NSLog(@"点击了歌曲");
+        
+    } else if ([toolbarBtn.titleLabel.text isEqualToString:@"歌词"]) {
+        
+        self.btnTag = toolbarBtn.tag;
+        
+        [_tableView reloadData];
+        
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        
+        NSLog(@"点击了歌词");
+        
+    } else if ([toolbarBtn.titleLabel.text isEqualToString:@"收藏"]) {
+        
+        self.btnTag = toolbarBtn.tag;
+        
+        [_tableView reloadData];
+        
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        
+        NSLog(@"点击了收藏");
     }
+    
+    
+//    switch (toolbarBtn.tag) {
+//        
+//        case 0: {
+//            
+//            self.btnTag = toolbarBtn.tag;
+//            
+//            [_tableView reloadData];
+//            
+//            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//            
+//            NSLog(@"点击了灵感记录");
+//            
+//            break;
+//        }
+//        case 1: {
+//            
+//            self.btnTag = toolbarBtn.tag;
+//            
+//            [_tableView reloadData];
+//            
+//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//            
+//            NSLog(@"点击了歌曲");
+//            
+//            break;
+//        }
+//        case 2: {
+//            
+//            self.btnTag = toolbarBtn.tag;
+//            
+//            [_tableView reloadData];
+//            
+//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//            
+//            NSLog(@"点击了歌词");
+//            
+//            break;
+//        }
+//        case 3: {
+//            
+//            self.btnTag = toolbarBtn.tag;
+//            
+//            [_tableView reloadData];
+//            
+//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//            
+//            NSLog(@"点击了收藏");
+//            
+//            break;
+//        }
+//        default:
+//        
+//            break;
+//    }
 }
 
 #pragma mark - UIScrollViewDelegate

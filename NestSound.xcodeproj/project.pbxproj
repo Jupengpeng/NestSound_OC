@@ -13,6 +13,9 @@
 		182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182F33531CDC41AF006AB047 /* Assets.xcassets */; };
 		183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */; };
 		183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */; };
+		18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18453A8A1CF5A53D004EE0E6 /* NSCommentViewController.m */; };
+		18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18453A8D1CF6D20E004EE0E6 /* NSCommentTableViewCell.m */; };
+		18453A951CF73596004EE0E6 /* NSString+SizeFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 18453A941CF73596004EE0E6 /* NSString+SizeFont.m */; };
 		188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */; };
 		188BEEA81CF4BD6E00494D64 /* 我的天空.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 188BEEA71CF4BD6E00494D64 /* 我的天空.mp3 */; };
 		188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D11FF1CECBF5F0009FD5B /* NSBaseNavigationController.m */; };
@@ -149,6 +152,12 @@
 		183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverViewController.m; sourceTree = "<group>"; };
 		183E03A01CDDDACC0071FEE5 /* NSMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicViewController.h; sourceTree = "<group>"; };
 		183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicViewController.m; sourceTree = "<group>"; };
+		18453A891CF5A53D004EE0E6 /* NSCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCommentViewController.h; sourceTree = "<group>"; };
+		18453A8A1CF5A53D004EE0E6 /* NSCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCommentViewController.m; sourceTree = "<group>"; };
+		18453A8C1CF6D20E004EE0E6 /* NSCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCommentTableViewCell.h; sourceTree = "<group>"; };
+		18453A8D1CF6D20E004EE0E6 /* NSCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCommentTableViewCell.m; sourceTree = "<group>"; };
+		18453A931CF73596004EE0E6 /* NSString+SizeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SizeFont.h"; sourceTree = "<group>"; };
+		18453A941CF73596004EE0E6 /* NSString+SizeFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SizeFont.m"; sourceTree = "<group>"; };
 		188BEEA41CF4BBE900494D64 /* NSPlayMusicTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicTool.h; sourceTree = "<group>"; };
 		188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayMusicTool.m; sourceTree = "<group>"; };
 		188BEEA71CF4BD6E00494D64 /* 我的天空.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "我的天空.mp3"; sourceTree = "<group>"; };
@@ -862,6 +871,8 @@
 				18FFE8301CF0B1040012880E /* NSSoundRecord.m */,
 				188BEEA41CF4BBE900494D64 /* NSPlayMusicTool.h */,
 				188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */,
+				18453A931CF73596004EE0E6 /* NSString+SizeFont.h */,
+				18453A941CF73596004EE0E6 /* NSString+SizeFont.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -896,6 +907,8 @@
 				18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */,
 				18FFE82C1CF025250012880E /* NSPlayMusicViewController.h */,
 				18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */,
+				18453A891CF5A53D004EE0E6 /* NSCommentViewController.h */,
+				18453A8A1CF5A53D004EE0E6 /* NSCommentViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -918,6 +931,8 @@
 				188D12021CECC7ED0009FD5B /* NSComposeView.m */,
 				188D12041CECDE1F0009FD5B /* NSComposeButton.h */,
 				188D12051CECDE1F0009FD5B /* NSComposeButton.m */,
+				18453A8C1CF6D20E004EE0E6 /* NSCommentTableViewCell.h */,
+				18453A8D1CF6D20E004EE0E6 /* NSCommentTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1197,6 +1212,7 @@
 				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
 				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
 				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
+				18453A951CF73596004EE0E6 /* NSString+SizeFont.m in Sources */,
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
@@ -1225,6 +1241,7 @@
 				2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */,
 				18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */,
 				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
+				18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */,
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
@@ -1273,6 +1290,7 @@
 				2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */,
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
+				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,
@@ -1459,6 +1477,9 @@
 		};
 		2DFB67171CC1E65600DA24DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+
+			baseConfigurationReference = 4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */;
+
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;
@@ -1471,6 +1492,9 @@
 		};
 		2DFB67181CC1E65600DA24DA /* Release */ = {
 			isa = XCBuildConfiguration;
+
+			baseConfigurationReference = 3A1FBBD3CAB484E50C3E89B7 /* Pods-NestSoundTests.release.xcconfig */;
+
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = NestSoundTests/Info.plist;

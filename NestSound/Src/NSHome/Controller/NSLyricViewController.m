@@ -19,6 +19,11 @@
     UIView *_maskView;
     
     UIView *_moreChoiceView;
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
     //头像
     UIImageView * userIcon;
     
@@ -37,8 +42,11 @@
     //歌词
     NSLyricView * _lyricView;
 
+<<<<<<< HEAD
     long itemId;
     long workAuthorId;
+=======
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
 }
 
 @property (nonatomic,strong) LyricDetailModel * lyricDetail;
@@ -170,19 +178,22 @@
     }];
     
     
+<<<<<<< HEAD
 
     UILabel *nameLabel = [[UILabel alloc] init];
 
+=======
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
+    
+    _nameLabel = [[UILabel alloc] init];
     
 //    nameLabel.text = @"戴荃";
     
-    nameLabel.font = [UIFont systemFontOfSize:14];
+    _nameLabel.font = [UIFont systemFontOfSize:14];
     
-    _nameLabel = nameLabel;
+    [_bottomView addSubview:_nameLabel];
     
-    [_bottomView addSubview:nameLabel];
-    
-    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(iconBtn.mas_right).offset(5);
         
@@ -191,20 +202,23 @@
     }];
     
 
+<<<<<<< HEAD
     
     //日期
     UILabel *dateLabel = [[UILabel alloc] init];
+=======
+    //dateLabel
+    _dateLabel = [[UILabel alloc] init];
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
 
     
 //    dateLabel.text = @"2016-05-05";
     
-    dateLabel.font = [UIFont systemFontOfSize:10];
+    _dateLabel.font = [UIFont systemFontOfSize:10];
     
-    _dateLabel = dateLabel;
+    [_bottomView addSubview:_dateLabel];
     
-    [_bottomView addSubview:dateLabel];
-    
-    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(iconBtn.mas_right).offset(5);
         
@@ -237,10 +251,15 @@
     }];
     
     
+<<<<<<< HEAD
 
     //评论数
     UILabel *numLabel = [[UILabel alloc] init];
 
+=======
+    //评论数
+    UILabel *numLabel = [[UILabel alloc] init];
+>>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
     
     if (commentNum > 999) {
         
@@ -252,7 +271,7 @@
         
     } else {
         
-        numLabel.text = [NSString stringWithFormat:@"%zd",commentNum];
+        numLabel.text = [NSString stringWithFormat:@"%ld",commentNum];
         
     }
     
@@ -337,17 +356,17 @@
 
 - (void)setupLyricView {
     
-    NSLyricView *lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 114)];
+    _lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 114)];
     
-    lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
+    _lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
     
-    lyricView.lyricText.userInteractionEnabled = NO;
+    _lyricView.lyricText.showsVerticalScrollIndicator = NO;
+    
+    _lyricView.lyricText.editable = NO;
     
 //    lyricView.lyricText.text = @"可可豆（词音：kekedou）亦称“可可子”。\n梧桐科常绿乔木可可树的果实，\n长卵圆形坚果的扁平种子，\n含油53%～58% 。\n榨出的可可脂有独特香味及融化性能。\n是可可树的产物。\n中国于1922年开始引种此种树木。\n可可喜生于温暖和湿润的气侯和富于有机质的冲积土所形成的缓坡上，\n在排水不良和重粘土上或常受台风侵袭的地方则不适宜生长。";
     
-    _lyricView = lyricView;
-    
-    [self.view addSubview:lyricView];
+    [self.view addSubview:_lyricView];
 }
 
 - (void)moreChoice {
