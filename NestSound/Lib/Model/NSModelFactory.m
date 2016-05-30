@@ -9,6 +9,7 @@
 #import "NSModelFactory.h"
 #import "NSIndexModel.h"
 #import "NSDiscoverMusicListModel.h"
+#import "NSDicoverLyricListModel.h"
 #import "NSActivityListModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
@@ -23,6 +24,9 @@
         return [[NSActivityListModel alloc] initWithJSONDict:jsonDict];
     }else if([url isEqualToString:dicoverMusicURL]){
         return [[NSDiscoverMusicListModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:@"123"]){
+    
+        return [[NSDicoverLyricListModel alloc] initWithJSONDict:jsonDict];
     }
     
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];

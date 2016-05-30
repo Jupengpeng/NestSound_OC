@@ -12,25 +12,15 @@
 #import "NSLyricDetailModel.h"
 
 
-@interface NSLyricViewController () {
-    
+@interface NSLyricViewController ()
+{
+
     UIView *_bottomView;
     
     UIView *_maskView;
     
     UIView *_moreChoiceView;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    
-    
->>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
-=======
-    
-    
-=======
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+
     //头像
     UIImageView * userIcon;
     
@@ -49,18 +39,10 @@
     //歌词
     NSLyricView * _lyricView;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     long itemId;
     long workAuthorId;
-=======
->>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
-=======
-=======
-    long itemId;
-    long workAuthorId;
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+
 }
 
 @property (nonatomic,strong) LyricDetailModel * lyricDetail;
@@ -114,7 +96,7 @@
 {
     self.requestType = NO;
     self.requestParams = @{@"id":@"",@"uid":@""};
-    self.requestURL;
+//    self.requestURL;
 
 }
 
@@ -192,21 +174,10 @@
     }];
     
     
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-    UILabel *nameLabel = [[UILabel alloc] init];
+   
 
-=======
->>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
-=======
-=======
 
-    UILabel *nameLabel = [[UILabel alloc] init];
-
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
-    
     _nameLabel = [[UILabel alloc] init];
     
 //    nameLabel.text = @"戴荃";
@@ -224,24 +195,16 @@
     }];
     
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     
     //日期
     UILabel *dateLabel = [[UILabel alloc] init];
-=======
+
     //dateLabel
     _dateLabel = [[UILabel alloc] init];
->>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
-=======
-    //dateLabel
-    _dateLabel = [[UILabel alloc] init];
-=======
+
+   
     
-    //日期
-    UILabel *dateLabel = [[UILabel alloc] init];
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
 
     
 //    dateLabel.text = @"2016-05-05";
@@ -283,26 +246,10 @@
     }];
     
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    //评论数
-    UILabel *numLabel = [[UILabel alloc] init];
-=======
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
 
     //评论数
     UILabel *numLabel = [[UILabel alloc] init];
 
-<<<<<<< HEAD
-=======
-    //评论数
-    UILabel *numLabel = [[UILabel alloc] init];
->>>>>>> 65daa6d7c70dd6dcf790395efca096f72cb5d288
-=======
->>>>>>> 32ae0bc99d737051cb576cddf8a89caade008726
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
-    
     if (commentNum > 999) {
         
         numLabel.text = @"999+";

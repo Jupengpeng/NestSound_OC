@@ -12,4 +12,5 @@
 
 + (instancetype)sharedPlayMusic;
 
+
 @end

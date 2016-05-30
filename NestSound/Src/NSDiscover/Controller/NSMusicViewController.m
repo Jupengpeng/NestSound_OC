@@ -96,6 +96,7 @@ static NSString * const headerView = @"HeaderView";
 #warning  set url
         
 //        url = [];
+        url = @"123";
     }
    
     self.requestURL = url;
@@ -123,8 +124,10 @@ static NSString * const headerView = @"HeaderView";
             }
         }
     }else{
-        if (!parserObject.success) {
+        if (parserObject.success) {
             NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
+            NSLog(@"dic%lu",(unsigned long)lyricListModel );
+           
             if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
                 
             }else{

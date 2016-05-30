@@ -102,6 +102,7 @@
 
 -(void)drawRect:(CGRect)rect
 {
+    [super drawRect:rect];
     CGContextRef ref = UIGraphicsGetCurrentContext();
     UIBezierPath * path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(0, 0)];
@@ -168,6 +169,7 @@
     
     //lyricView
     lyricView = [[NSLyricView alloc] init];
+    lyricView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:lyricView];
     
     

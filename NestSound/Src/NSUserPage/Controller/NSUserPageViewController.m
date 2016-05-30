@@ -371,7 +371,7 @@ UITableViewDataSource>
     
     if ([toolbarBtn.titleLabel.text isEqualToString:@"灵感记录"]) {
         
-<<<<<<< HEAD
+
         self.btnTag = toolbarBtn.tag;
         
         [_tableView reloadData];
@@ -391,57 +391,7 @@ UITableViewDataSource>
         NSLog(@"点击了歌曲");
         
     } else if ([toolbarBtn.titleLabel.text isEqualToString:@"歌词"]) {
-=======
-        case 0: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了歌曲");
-            
-            break;
-        }
-        case 1: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了歌词");
-            
-            break;
-        }
-        case 2: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了收藏");
-            
-            break;
-        }
-        case 3: {
-            
-            self.btnTag = toolbarBtn.tag;
-            
-            [_tableView reloadData];
-            
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了灵感记录");
-            
-            break;
-        }
-        default:
->>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
+        
         
         self.btnTag = toolbarBtn.tag;
         
