@@ -18,6 +18,8 @@
 #import "NSWriteLyricViewController.h"
 #import "NSBaseViewController.h"
 #import "NSPlayMusicViewController.h"
+#import "NSAccompanyListViewController.h"
+#import "NSWriteMusicViewController.h"
 
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
 
@@ -117,7 +119,8 @@
         NSLog(@"点击了创作歌词");
 
     } else if (composeBtn.tag == 1) {
-        
+        NSWriteMusicViewController *accompanyList = [[NSWriteMusicViewController alloc] init];
+        [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:accompanyList animated:YES];
         NSLog(@"点击了创作歌曲");
     } else {
         

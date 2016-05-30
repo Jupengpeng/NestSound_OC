@@ -45,7 +45,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     
     //nav
     self.title = LocalizedStr(@"me");
-    self.showBackBtn = YES;
+//    self.showBackBtn = YES;
     
     //settingPaegTable
     settingPageTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];

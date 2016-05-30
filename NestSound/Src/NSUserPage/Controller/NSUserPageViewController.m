@@ -73,9 +73,9 @@ UITableViewDataSource>
         
         [array addObject:setting];
         
-        UIBarButtonItem *draftBox = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_draftBox"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(draftBoxClick:)];
-        
-        [array addObject:draftBox];
+//        UIBarButtonItem *draftBox = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_draftBox"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(draftBoxClick:)];
+//        
+//        [array addObject:draftBox];
         
         self.navigationItem.rightBarButtonItems = array;
         
@@ -211,17 +211,25 @@ UITableViewDataSource>
         
         static NSString *ID = @"cell0";
         
-        NSInspirationRecordTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             
-            cell = [[NSInspirationRecordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
+        
+        cell.numLabel.hidden = YES;
+        
         return cell;
+
         
     } else if (self.btnTag == 1) {
         
@@ -245,33 +253,11 @@ UITableViewDataSource>
         cell.numLabel.hidden = YES;
         
         return cell;
+
         
     } else if (self.btnTag == 2) {
         
         static NSString *ID = @"cell2";
-        
-        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            
-            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
-        }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(cell.mas_left);
-        }];
-        
-        cell.numLabel.hidden = YES;
-
-        return cell;
-        
-    } else {
-        
-        static NSString *ID = @"cell3";
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
@@ -284,6 +270,23 @@ UITableViewDataSource>
         cell.textLabel.text = @"收藏";
         
         return cell;
+        
+    } else {
+        
+        static NSString *ID = @"cell3";
+        
+        NSInspirationRecordTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            
+            cell = [[NSInspirationRecordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+
     }
     
     
@@ -292,15 +295,15 @@ UITableViewDataSource>
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.btnTag == 0) {
-        
-        return 140;
-    } else if (self.btnTag == 1 || self.btnTag == 2) {
+    if (self.btnTag == 0 || self.btnTag == 1) {
         
         return 80;
-    } else {
+    } else if (self.btnTag == 2) {
         
         return 44;
+    } else {
+        
+        return 140;
     }
     
 }
@@ -312,10 +315,7 @@ UITableViewDataSource>
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    
-    
-    
-    NSArray *array = @[@"灵感记录",@"歌曲",@"歌词",@"收藏"];
+    NSArray *array = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
     
     UIView *backgoundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 60)];
     
@@ -371,6 +371,7 @@ UITableViewDataSource>
     
     if ([toolbarBtn.titleLabel.text isEqualToString:@"灵感记录"]) {
         
+<<<<<<< HEAD
         self.btnTag = toolbarBtn.tag;
         
         [_tableView reloadData];
@@ -390,6 +391,57 @@ UITableViewDataSource>
         NSLog(@"点击了歌曲");
         
     } else if ([toolbarBtn.titleLabel.text isEqualToString:@"歌词"]) {
+=======
+        case 0: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了歌曲");
+            
+            break;
+        }
+        case 1: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了歌词");
+            
+            break;
+        }
+        case 2: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了收藏");
+            
+            break;
+        }
+        case 3: {
+            
+            self.btnTag = toolbarBtn.tag;
+            
+            [_tableView reloadData];
+            
+             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            
+            NSLog(@"点击了灵感记录");
+            
+            break;
+        }
+        default:
+>>>>>>> 4342894ef9c3759185c63afb26b1df71477b51b4
         
         self.btnTag = toolbarBtn.tag;
         
