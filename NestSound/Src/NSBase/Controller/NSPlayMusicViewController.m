@@ -793,7 +793,7 @@ static id _instance;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
-    NSInteger pageNum = scrollView.contentOffset.x / ScreenWidth;
+    NSInteger pageNum = scrollView.contentOffset.x / scrollView.width;
     
     switch (pageNum) {
         case 0:
