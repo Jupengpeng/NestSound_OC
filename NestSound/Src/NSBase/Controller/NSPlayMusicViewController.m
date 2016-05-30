@@ -12,7 +12,8 @@
 #import "NSLyricView.h"
 #import <AVFoundation/AVFoundation.h>
 #import "NSCommentViewController.h"
-<<<<<<< HEAD
+
+
 
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
@@ -20,21 +21,6 @@
     
     UIView *_moreChoiceView;
 }
-
-
-=======
-#import "NSLyricView.h"
-#import <AVFoundation/AVFoundation.h>
-#import "NSCommentViewController.h"
-#import "NSMusicListViewController.h"
-
-@interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
-    
-    UIView *_maskView;
-    
-    UIView *_moreChoiceView;
-}
->>>>>>> 651e3df440a6977894c314988760132fe242db01
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
 
@@ -524,28 +510,16 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-<<<<<<< HEAD
+
 
         _musicVc = [[NSMusicListViewController alloc] init];
-        
-    
-
-        NSCommentViewController *commentVC = [[NSCommentViewController alloc] init];
-        
-        [self.navigationController pushViewController:commentVC animated:YES];
-        
-        
-
-        _musicVc = [[NSMusicListViewController alloc] init];
-        
-=======
         NSCommentViewController *commentVC = [[NSCommentViewController alloc] init];
         
         [self.navigationController pushViewController:commentVC animated:YES];
         
         
     
->>>>>>> 651e3df440a6977894c314988760132fe242db01
+
         NSLog(@"点击了播放页的评论");
     }];
     

@@ -43,12 +43,7 @@
     self.lyricText.font = [UIFont systemFontOfSize:15];
     
     [lyricView addSubview:self.lyricText];
-<<<<<<< HEAD
-//    self.backgroundColor = [UIColor whiteColor];
-=======
-    
-    
->>>>>>> 651e3df440a6977894c314988760132fe242db01
+
 }
 
 
@@ -59,9 +54,4 @@
     [self.lyricText resignFirstResponder];
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 651e3df440a6977894c314988760132fe242db01
 @end

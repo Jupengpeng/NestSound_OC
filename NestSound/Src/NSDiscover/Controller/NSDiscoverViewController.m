@@ -12,10 +12,6 @@
 #import "NSActivityViewController.h"
 #import "NSPlayMusicViewController.h"
 #import "NSSearchViewController.h"
-<<<<<<< HEAD
-=======
-#import "NSActivityViewController.h"
->>>>>>> 651e3df440a6977894c314988760132fe242db01
 
 @interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
     
@@ -36,15 +32,9 @@
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
-<<<<<<< HEAD
 
 @property (nonatomic, strong) NSSearchViewController *searchVC;
 
-
-=======
-@property (nonatomic, strong) NSSearchViewController *searchVC;
-
->>>>>>> 651e3df440a6977894c314988760132fe242db01
 @end
 
 @implementation NSDiscoverViewController
@@ -60,10 +50,6 @@
     return _playSongsVC;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 651e3df440a6977894c314988760132fe242db01
 - (NSSearchViewController *)searchVC {
     
     if (!_searchVC) {
@@ -76,10 +62,6 @@
     
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 651e3df440a6977894c314988760132fe242db01
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -123,11 +105,6 @@
     NSLog(@"进入搜索编辑");
 
     
-<<<<<<< HEAD
-//    [_maskView addSubview:self.searchVC.view];
-
-=======
->>>>>>> 651e3df440a6977894c314988760132fe242db01
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -139,10 +116,6 @@
     [_search resignFirstResponder];
     
     _search.text = nil;
-<<<<<<< HEAD
-
-=======
->>>>>>> 651e3df440a6977894c314988760132fe242db01
     
     [_maskView removeAllSubviews];
     
@@ -248,18 +221,9 @@
 //    [_scrollView addSubview:music.view];
     
     //歌词
-<<<<<<< HEAD
-
-
-   
 
     lyric = [[NSMusicViewController alloc] initWithIsMusic:NO];
 
-=======
-    lyric = [[NSMusicViewController alloc] initWithIsMusic:NO];
-
-    
->>>>>>> 651e3df440a6977894c314988760132fe242db01
     lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
     
     lyric.topTitle = LocalizedStr(@"热门歌词");
