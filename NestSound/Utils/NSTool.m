@@ -196,6 +196,15 @@ static NSDateFormatter *dateFormatter;
     return imageURL;
 }
 
+
++(BOOL) isValidateMobile:(NSString *)mobile
+{
+    //cell number is 13， 15，18 begain，nine \d number
+    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0,6,7,8]))\\d{8}$";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:mobile];
+}
+
 @end
 
 @implementation Memory

@@ -19,7 +19,7 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 + (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName;
 + (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2;
 + (NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_;
-
++(BOOL) isValidateMobile:(NSString *)mobile;
 @end
 //cache include ：accompany，record file ，music file
 @interface Memory : NSObject
