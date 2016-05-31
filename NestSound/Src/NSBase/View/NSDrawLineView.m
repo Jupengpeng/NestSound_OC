@@ -22,12 +22,12 @@
         [path addLineToPoint:CGPointMake(2+4*i, 0)];
         
     }
-
+    [path setLineWidth:self.width];
     [[UIColor hexColorFloat:@"eeeeee"] setStroke];
     
     CGContextAddPath(ref, path.CGPath);
     CGContextStrokePath(ref);
-    
+  
 }
 
 @end
