@@ -30,6 +30,8 @@ UIScrollViewDelegate
 #pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     //coachScro
     coachScro = [[UIScrollView alloc] init];
     coachScro.delegate = self;
