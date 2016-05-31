@@ -19,16 +19,11 @@ UITableViewDelegate
 >
 {
     NSMutableArray * lyricTypeAry;
-<<<<<<< HEAD
     NSMutableArray * lyricsAry;
     UIView * bottomView;
     UICollectionView * lyricTypeColl;
     UITableView * lyricTableView;
     NSMutableArray * dataAry;
-=======
-    
-
->>>>>>> zhangxuanhe
 }
 @end
 
