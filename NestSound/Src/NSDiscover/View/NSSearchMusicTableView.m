@@ -48,6 +48,11 @@
         cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
      
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
     }
     
     return cell;
