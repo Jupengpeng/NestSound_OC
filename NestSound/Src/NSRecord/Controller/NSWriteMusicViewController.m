@@ -7,7 +7,9 @@
 //
 
 #import "NSWriteMusicViewController.h"
-
+#import "NSDrawLineView.h"
+#import "NSLyricView.h"
+#import "NSOptimizeMusicViewController.h"
 
 @interface Line : UIView
 
@@ -28,7 +30,7 @@
     
     [[UIColor hexColorFloat:@"ffd507"] setStroke];
     
-    [[UIColor hexColorFloat:@"ffd507"] setFill];
+//    [[UIColor hexColorFloat:@"ffd507"] setFill];
     
     [path stroke];
 }
@@ -42,6 +44,8 @@
     UILabel *timeLabel;
     
     UITextField *titleText;
+    
+    NSLyricView *lyricView;
 }
 
 @end
@@ -85,6 +89,11 @@
         NSString *imageStr = [NSString stringWithFormat:@"2.0_writeMusic_btn%02d",i];
         
         [btn setImage:[UIImage imageNamed:imageStr] forState:UIControlStateNormal];
+        
+        if (i == 1) {
+            
+            [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_play"] forState:UIControlStateSelected];
+        }
         
         if (i == 2) {
             
@@ -158,7 +167,9 @@
     
     titleText.textAlignment = NSTextAlignmentCenter;
     
-    titleText.placeholder = @"标题";
+    titleText.text = @"我的天空";
+    
+    titleText.enabled = NO;
     
     [self.view addSubview:titleText];
     
@@ -168,9 +179,36 @@
         
         make.centerX.equalTo(self.view.mas_centerX);
         
-        make.width.mas_equalTo(self.view.width - 30);
+        make.width.mas_equalTo(self.view.width - 100);
     }];
     
+    NSDrawLineView *dashed = [[NSDrawLineView alloc] init];
+    
+    [self.view addSubview:dashed];
+    
+    [dashed mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(titleText.mas_bottom).offset(10);
+        
+        make.centerX.equalTo(self.view.mas_centerX);
+        
+        make.width.mas_equalTo(self.view.width - 100);
+        
+        make.height.mas_equalTo(1);
+    }];
+    
+    
+    lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 50, self.view.width, self.view.height - 260)];
+    
+    lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
+    
+    lyricView.lyricText.showsVerticalScrollIndicator = NO;
+    
+    lyricView.lyricText.editable = NO;
+    
+    lyricView.lyricText.text = @"再见我的爱";
+    
+    [self.view addSubview:lyricView];
     
 }
 
@@ -193,11 +231,36 @@
          NSLog(@"点击了导入重唱");
     } else {
         
-         NSLog(@"点击了导入编辑");
+        btn.selected = !btn.selected;
+        
+        if (btn.selected) {
+            
+            titleText.enabled = YES;
+            
+            lyricView.lyricText.editable = YES;
+            
+            NSLog(@"点击了编辑");
+        } else {
+            
+            titleText.enabled = NO;
+            
+            lyricView.lyricText.editable = NO;
+            
+            NSLog(@"点击了保存");
+        }
+        
     }
 }
 
 - (void)rightClick:(UIBarButtonItem *)right {
+    
+    NSOptimizeMusicViewController *optimize = [[NSOptimizeMusicViewController alloc] init];
+    
+    optimize.titleStr = titleText.text;
+    
+    optimize.lyricStr = lyricView.lyricText.text;
+    
+    [self.navigationController pushViewController:optimize animated:YES];
     
     NSLog(@"点击了下一步");
 }

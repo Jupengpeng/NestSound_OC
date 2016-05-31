@@ -18,7 +18,7 @@ UITableViewDelegate
 >
 {
     NSMutableArray * lyricTypeAry;
-    NSMutableArray * 
+    
 
 }
 @end
