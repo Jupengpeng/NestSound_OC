@@ -9,6 +9,8 @@
 #import "NSWriteLyricViewController.h"
 #import "NSLyricView.h"
 #import "NSImportLyricViewController.h"
+#import "NSLyricCoachViewController.h"
+#import "NSDrawLineView.h"
 
 @interface WriteLyricBottomView : UIView
 @property (nonatomic,strong) UIButton * importLyricBtn;
@@ -31,7 +33,6 @@
 {
     
     self.backgroundColor = [UIColor whiteColor];
-    
     _importLyricBtn = [UIButton buttonWithType:UIButtonTypeCustom
                                     configure:^(UIButton *btn) {
                                         
@@ -132,7 +133,8 @@
     NSLyricView * lyricView;
     UITextField * titleTextFiled;
     WriteLyricBottomView * bottomView;
-   
+    UIView * maskView;
+    UICollectionView * typeCollectionView;
 }
 
 @end
@@ -154,6 +156,8 @@
     //nav
     self.showBackBtn = YES;
     
+    
+    
     //titleTextFiled
     titleTextFiled = [[UITextField alloc] init];
     titleTextFiled.textAlignment = NSTextAlignmentCenter;
@@ -163,10 +167,18 @@
     titleTextFiled.delegate = self;
     [self.view addSubview:titleTextFiled];
     
+    NSDrawLineView * line = [[NSDrawLineView alloc] init];
+    [self.view addSubview:line];
+    
     //bottomView
     bottomView = [[WriteLyricBottomView alloc] init];
     [self.view addSubview:bottomView];
     
+    [bottomView.importLyricBtn addTarget:self action:@selector(imporLyric) forControlEvents:UIControlEventTouchUpInside];
+    
+    [bottomView.LyricesBtn addTarget:self action:@selector(lyricLibary) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView.cocachBtn addTarget:self action:@selector(coachVC) forControlEvents:UIControlEventTouchUpInside];
+
     //lyricView
     lyricView = [[NSLyricView alloc] init];
     lyricView.backgroundColor = [UIColor whiteColor];
@@ -174,7 +186,12 @@
     
     
     
-
+    maskView = [[UIView alloc] initWithFrame:self.view.frame];
+    
+    [self.view addSubview:maskView];
+    maskView.hidden = YES;
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideenMaskView)];
+    [maskView addGestureRecognizer:tap];
    
     
     //constraints
@@ -182,6 +199,13 @@
         make.top.equalTo(self.view.mas_top).with.offset(19);
         make.right.equalTo(self.view.mas_right).with.offset(-58);
         make.left.equalTo(self.view.mas_left).with.offset(58);
+    }];
+    
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).with.offset(50);
+        make.right.equalTo(self.view.mas_right).with.offset(-50);
+        make.top.equalTo(titleTextFiled.mas_bottom).with.offset(5);
+        make.height.mas_equalTo(1);
     }];
     
     [bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -202,7 +226,35 @@
 
 
 
+-(void)craeteLyricLib
+{
+    
+    
+}
+
+#pragma mark -push to my lyric list page
+-(void)imporLyric
+{
+    NSImportLyricViewController * importLyricVC = [[NSImportLyricViewController alloc] init];
+    [self.navigationController pushViewController:importLyricVC animated:YES];
+    
+}
 
 
+#pragma mrak -view the lyricLibary view
+-(void)lyricLibary
+{
+    maskView.hidden = NO;
+}
+
+
+
+
+#pragma mark - push to lyric coach page
+-(void)coachVC
+{
+    NSLyricCoachViewController * lyricCoachVC = [[NSLyricCoachViewController alloc] init];
+    [self.navigationController pushViewController:lyricCoachVC animated:YES];
+}
 
 @end

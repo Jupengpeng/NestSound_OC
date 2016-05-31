@@ -32,15 +32,15 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     [self configureUIAppearance];
 }
 
 #pragma mark -fectData
 -(void)fetchMyLyricDataIsLoadingMore:(BOOL)isLoadingMore
 {
-
-
+    
+    
 }
 
 #pragma mark --override action fetchData
