@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-@class NSTypeLyricListModel;
+@class NSLyricLibraryListModel;
 
+
+@protocol lyricsDelegate;
 
 @interface NSWriteLyricMaskView : UIView
 
-@property (nonatomic,strong) NSTypeLyricListModel * lyricTypeListModel;
+@property (nonatomic,strong) NSLyricLibraryListModel * lyricLibraryListModel;
 
+@property (nonatomic,unsafe_unretained) id<lyricsDelegate> delegate;
+@end
+
+@protocol lyricsDelegate<NSObject>
+- (void)selectedlrcString:(NSString *)lrcString_;//chose Lyric
 @end

@@ -11,6 +11,7 @@
 #import "NSImportLyricViewController.h"
 #import "NSLyricCoachViewController.h"
 #import "NSDrawLineView.h"
+#import "NSWriteLyricMaskView.h"
 
 @interface WriteLyricBottomView : UIView
 @property (nonatomic,strong) UIButton * importLyricBtn;
@@ -126,14 +127,14 @@
 
 
 @interface NSWriteLyricViewController ()<
-    UITextFieldDelegate
+    UITextFieldDelegate,UITextViewDelegate,lyricsDelegate
 >
 {
 
     NSLyricView * lyricView;
     UITextField * titleTextFiled;
     WriteLyricBottomView * bottomView;
-    UIView * maskView;
+    NSWriteLyricMaskView * maskView;
     UICollectionView * typeCollectionView;
 }
 
@@ -156,7 +157,11 @@
     //nav
     self.showBackBtn = YES;
     
+    //maskView
+    maskView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight)];
+    [self.view addSubview:maskView];
     
+    maskView.delegate = self;
     
     //titleTextFiled
     titleTextFiled = [[UITextField alloc] init];
@@ -182,16 +187,18 @@
     //lyricView
     lyricView = [[NSLyricView alloc] init];
     lyricView.backgroundColor = [UIColor whiteColor];
+    lyricView.lyricText.delegate = self;
+    lyricView.lyricText.editable = YES;
     [self.view addSubview:lyricView];
     
     
     
-    maskView = [[UIView alloc] initWithFrame:self.view.frame];
+//    maskView = [[UIView alloc] initWithFrame:self.view.frame];
     
-    [self.view addSubview:maskView];
-    maskView.hidden = YES;
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideenMaskView)];
-    [maskView addGestureRecognizer:tap];
+//    [self.view addSubview:maskView];
+//    maskView.hidden = YES;
+//    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideenMaskView)];
+//    [maskView addGestureRecognizer:tap];
    
     
     //constraints
@@ -216,7 +223,7 @@
     }];
     
     [lyricView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(titleTextFiled.mas_bottom).with.offset(12);
+        make.top.equalTo(titleTextFiled.mas_bottom).with.offset(15);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.bottom.equalTo(bottomView.mas_top);
@@ -225,10 +232,19 @@
 }
 
 
-
--(void)craeteLyricLib
+#pragma mark -createLyricLib
+-(void)hiddenMaskView:(BOOL)hidden
 {
-    
+    if (hidden) {
+        [UIView animateWithDuration:0.2 animations:^{
+            maskView.frame = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight);
+        }];
+
+    }else{
+        [UIView animateWithDuration:0.2 animations:^{
+            maskView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+        }];
+    }
     
 }
 
@@ -240,15 +256,11 @@
     
 }
 
-
 #pragma mrak -view the lyricLibary view
 -(void)lyricLibary
 {
-    maskView.hidden = NO;
+    [self hiddenMaskView:NO];
 }
-
-
-
 
 #pragma mark - push to lyric coach page
 -(void)coachVC

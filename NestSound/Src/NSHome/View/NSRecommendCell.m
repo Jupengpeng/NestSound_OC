@@ -48,17 +48,21 @@
     [self.contentView addSubview:titlePage];
     
     playCountBk = [[UIImageView alloc] init];
+    playCountBk.backgroundColor = [UIColor blackColor];
+    playCountBk.alpha = 0.6;
+    playCountBk.layer.cornerRadius = 7;
     [titlePage addSubview:playCountBk];
     
     //listen
     listenImage = [[UIImageView alloc] init];
     [playCountBk addSubview:listenImage];
-    listenImage.backgroundColor = [UIColor blackColor];
+  
     
     
     //playCountLab
     playCountLab = [[UILabel alloc] init];
     playCountLab.font = [UIFont systemFontOfSize:9];
+    playCountLab.textAlignment = NSTextAlignmentLeft;
     playCountLab.textColor = [UIColor hexColorFloat:@"ffffff"];
     [playCountBk addSubview:playCountLab];
     

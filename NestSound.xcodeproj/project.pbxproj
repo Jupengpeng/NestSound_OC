@@ -77,6 +77,7 @@
 		2AAE01D31CFC5A40008D3145 /* NSDrawLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE01D21CFC5A40008D3145 /* NSDrawLineView.m */; };
 		2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2D5281CFCAF78007422BD /* NSWriteLyricMaskView.m */; };
 		2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2D52B1CFCB086007422BD /* NSLyricLibraryListModel.m */; };
+		2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2D52E1CFD593A007422BD /* NSDrawGrayLine.m */; };
 		2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D1091CF7E8B300D9FE53 /* NSAccommpanyListModel.m */; };
 		2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D10C1CF8262A00D9FE53 /* NSUserDataModel.m */; };
 		2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D10F1CF8312E00D9FE53 /* NSMyMusicModel.m */; };
@@ -286,6 +287,8 @@
 		2AB2D5281CFCAF78007422BD /* NSWriteLyricMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWriteLyricMaskView.m; sourceTree = "<group>"; };
 		2AB2D52A1CFCB086007422BD /* NSLyricLibraryListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricLibraryListModel.h; sourceTree = "<group>"; };
 		2AB2D52B1CFCB086007422BD /* NSLyricLibraryListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricLibraryListModel.m; sourceTree = "<group>"; };
+		2AB2D52D1CFD593A007422BD /* NSDrawGrayLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDrawGrayLine.h; sourceTree = "<group>"; };
+		2AB2D52E1CFD593A007422BD /* NSDrawGrayLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDrawGrayLine.m; sourceTree = "<group>"; };
 		2AC3D1081CF7E8B300D9FE53 /* NSAccommpanyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccommpanyListModel.h; sourceTree = "<group>"; };
 		2AC3D1091CF7E8B300D9FE53 /* NSAccommpanyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccommpanyListModel.m; sourceTree = "<group>"; };
 		2AC3D10B1CF8262A00D9FE53 /* NSUserDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserDataModel.h; sourceTree = "<group>"; };
@@ -729,6 +732,8 @@
 				2AE2E50C1CE5AD9400FD2DC3 /* NSFanscell.m */,
 				2AE2E5111CE5D25A00FD2DC3 /* NSDatePicker.h */,
 				2AE2E5121CE5D25A00FD2DC3 /* NSDatePicker.m */,
+				2AB2D52D1CFD593A007422BD /* NSDrawGrayLine.h */,
+				2AB2D52E1CFD593A007422BD /* NSDrawGrayLine.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1240,6 +1245,7 @@
 				18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
+				2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */,
 				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
