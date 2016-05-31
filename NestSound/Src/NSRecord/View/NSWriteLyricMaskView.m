@@ -20,15 +20,21 @@ UITableViewDelegate
 {
     NSMutableArray * lyricTypeAry;
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 
 =======
+=======
+>>>>>>> master
     NSMutableArray * lyricsAry;
     UIView * bottomView;
     UICollectionView * lyricTypeColl;
     UITableView * lyricTableView;
     NSMutableArray * dataAry;
+<<<<<<< HEAD
 >>>>>>> 95fb8ebd1642b379f0cd1359b3f9e6266f72e5c5
+=======
+>>>>>>> master
 }
 @end
 
