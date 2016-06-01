@@ -11,190 +11,467 @@
 #import "NSDrawGrayLine.h"
 #define textPlaceholderColor [UIColor colorWithRed:193 / 255.0 green:193 / 255.0 blue:193 / 255.0 alpha:1]
 
-@interface NSRegisterViewController ()
-<
-    UIScrollViewDelegate,UITextFieldDelegate
->
-{
-
-    UIScrollView * scroll;
-    UIImageView *  iconImageView;
-    UIImageView * userImage;
-    UITextField * nickName;
-    UIImageView * mobileImage;
-    UITextField * mobole;
-    UIImageView * checkCodeImage;
-    UITextField * chekcCode;
-    UIImageView * passWordImage;
-    UITextField * passWord;
-    UIImageView * rePassWord;
-    UITextField * rePassWordText;
-    UIButton * sendCheckCodeBtn;
-    UIButton * protocelBtn;
-    UIButton * registBtn;
-    UIButton * loginBtn;
+@interface NSRegisterViewController () {
     
+    UIScrollView *scrollView;
+    
+    UITextField *userNameText;
+    
+    UITextField *phoneText;
+    
+    UITextField *passwordText;
+    
+    UITextField *repasswordText;
+    
+    UITextField *captchaText;
 }
-
 
 @end
 
 @implementation NSRegisterViewController
 
--(void)viewDidLoad
-{
-    [self configureUIAppearance];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationController.navigationBar.hidden = YES;
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
+    
+    [self setupUI];
 }
 
-#pragma mark -configureUIAppearance
--(void)configureUIAppearance
-{
-    //scroll;
-    scroll = [[UIScrollView alloc] init];
-    scroll.delegate = self;
-    scroll.autoAdaptKeyboard = YES;
-    [self.view addSubview:scroll];
+- (void)setupUI {
     
-//  iconImageView;
-    iconImageView = [[UIImageView alloc] init];
-    [scroll addSubview:iconImageView];
+    WS(wSelf);
     
-    //userImage;
-    userImage = [[UIImageView alloc] init];
-    [scroll addSubview:userImage];
+    scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    scrollView.autoAdaptKeyboard = YES;
+    scrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight);
+    [self.view addSubview:scrollView];
     
-    //nickName;
-    nickName = [[UITextField alloc] init];
-    nickName.font = [UIFont systemFontOfSize:15];
-    [nickName setValue:textPlaceholderColor forKey:@"_placeholderLabel.textColor"];
-    nickName.delegate = self;
-    [scroll addSubview:nickName];
+    CGFloat logoY = 90;
+    CGFloat phoneY = 40;
+    CGFloat allY = 20;
+    if (ScreenHeight < 667) {
+        
+        logoY = 50;
+        phoneY = 25;
+        allY = 10;
+    }
     
-    NSDrawGrayLine * line1 = [[NSDrawGrayLine alloc] init];
-    [scroll addSubview:line1];
+    UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_pop"] forState:UIControlStateNormal];
+        
+        btn.x = 15;
+        
+        btn.y = 32;
+        
+        [btn sizeToFit];
+        
+    } action:^(UIButton *btn) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }];
     
-//   mobileImage;
-    mobileImage = [[UIImageView alloc] init];
-    [scroll addSubview:mobileImage];
+    [self.view addSubview:dismissBtn];
     
-//    mobole;
-    mobole = [[UITextField alloc] init];
-    mobole.font = [UIFont systemFontOfSize:15];
-    [mobole setValue:textPlaceholderColor forKey:@"_placeholderLabel.textColor"];
-    mobole.delegate = self;
-    [scroll addSubview:mobole];
-    NSDrawGrayLine * line2 = [[NSDrawGrayLine alloc] init];
-    [scroll addSubview:line2];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    [self.view addGestureRecognizer:tap];
     
-//   checkCodeImage;
-    checkCodeImage = [[UIImageView alloc] init];
-    [scroll addSubview:checkCodeImage];
+    UIImageView *logoImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LOGO"]];
     
-//   chekcCode;
-    chekcCode = [[UITextField alloc] init];
-    chekcCode.font = [UIFont systemFontOfSize:15];
-    [chekcCode setValue:textPlaceholderColor forKey:@"_placeholderLabel.textColor"];
-    chekcCode.delegate = self;
-    [scroll addSubview:chekcCode];
-    NSDrawGrayLine * line3 = [[NSDrawGrayLine alloc] init];
-    [scroll addSubview:line3];
+    logoImage.y = logoY;
     
-//  passWordImage;
-    passWordImage = [[UIImageView alloc] init];
-    [scroll addSubview:passWordImage];
+    logoImage.centerX = scrollView.centerX;
     
-//   passWord;
-    passWord = [[UITextField alloc] init];
-    passWord.font = [UIFont systemFontOfSize:15];
-    [passWord setValue:textPlaceholderColor forKey:@"_placeholderLabel.textColor"];
-    passWord.delegate = self;
-    [scroll addSubview:passWord];
-    NSDrawGrayLine * line4 = [[NSDrawGrayLine alloc] init];
-    [scroll addSubview:line4];
+    [scrollView addSubview:logoImage];
     
-//   rePassWord;
-    rePassWord = [[UIImageView alloc] init];
-    [scroll addSubview:rePassWord];
     
-//   rePassWordText;
-    rePassWordText = [[UITextField alloc] init];
-    rePassWordText.font = [UIFont systemFontOfSize:15];
-    [rePassWordText setValue:textPlaceholderColor forKey:@"_placeholderLabel.textColor"];
-    rePassWordText.delegate = self;
-    [scroll addSubview:rePassWordText];
-    NSDrawGrayLine * line5 = [[NSDrawGrayLine alloc] init];
-    [scroll addSubview:line5];
+    //用户名
+    UIView *userNameView = [[UIView alloc] initWithFrame:CGRectMake(75, CGRectGetMaxY(logoImage.frame) + phoneY, ScreenWidth - 150, 44)];
     
-    //sendCheckCodeBtn
-    sendCheckCodeBtn = [[UIButton alloc] init];
-    [sendCheckCodeBtn addTarget:sendCheckCodeBtn action:@selector(sendCheckCode) forControlEvents:UIControlEventTouchUpInside];
-    [scroll addSubview:sendCheckCodeBtn];
+    [scrollView addSubview:userNameView];
     
-//  protocelBtn;
-    protocelBtn = [[UIButton alloc] init];
-    [scroll addSubview:protocelBtn];
+    UIImageView *userNameImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_userName"]];
     
-//   registBtn;
-    registBtn = [[UIButton alloc] init];
-    [registBtn setBackgroundColor:[UIColor hexColorFloat:@"a6a6a5"]];
-    registBtn.layer.cornerRadius = 10;
-    [registBtn addTarget:self action:@selector(registe) forControlEvents:UIControlEventTouchUpInside];
-    [scroll addSubview:registBtn];
+    [userNameView addSubview:userNameImage];
     
-//   loginBtn;
-    loginBtn = [[UIButton alloc] init];
-    [scroll addSubview:loginBtn];
+    [userNameImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(userNameView.mas_left).offset(10);
+        
+        make.centerY.equalTo(userNameView.mas_centerY);
+
+    }];
     
-    //constraints
-    [iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.view.mas_top).with.offset(63);
-        make.height.mas_equalTo(80);
+    userNameText = [[UITextField alloc] init];
+    
+    userNameText.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    userNameText.leftViewMode = UITextFieldViewModeAlways;
+    
+    userNameText.placeholder = @"用户名";
+    
+    [userNameView addSubview:userNameText];
+    
+    [userNameText mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(userNameView.mas_left).offset(30);
+        
+        make.right.equalTo(userNameView.mas_right);
+        
+        make.centerY.equalTo(userNameView.mas_centerY);
+    }];
+    
+    UIView *lineView4 = [[UIView alloc] init];
+    lineView4.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
+    [userNameView addSubview:lineView4];
+    [lineView4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.bottom.equalTo(userNameView);
+        make.height.mas_equalTo(1);
+    }];
+
+    
+    //手机号
+    UIView *phoneView = [[UIView alloc] initWithFrame:CGRectMake(75, CGRectGetMaxY(userNameView.frame) + allY, ScreenWidth - 150, 44)];
+    
+    [scrollView addSubview:phoneView];
+    
+    UIImageView *phoneImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_phone_icon"]];
+    
+    [phoneView addSubview:phoneImage];
+    
+    [phoneImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(phoneView.mas_left).offset(10);
+        
+        make.centerY.equalTo(phoneView.mas_centerY);
+    }];
+    
+    phoneText = [[UITextField alloc] init];
+    
+    phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    phoneText.leftViewMode = UITextFieldViewModeAlways;
+    
+    phoneText.placeholder = @"手机号";
+    
+    phoneText.keyboardType = UIKeyboardTypeNumberPad;
+    
+    [phoneView addSubview:phoneText];
+    
+    [phoneText mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(phoneView.mas_left).offset(30);
+        
+        make.right.equalTo(phoneView.mas_right);
+        
+        make.centerY.equalTo(phoneView.mas_centerY);
+    }];
+    
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
+    [phoneView addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.bottom.equalTo(phoneView);
+        make.height.mas_equalTo(1);
+    }];
+    
+    //验证码
+    UIView *captchaView = [[UIView alloc] initWithFrame:CGRectMake(75, CGRectGetMaxY(phoneView.frame) + allY, ScreenWidth - 150, 44)];
+    
+    [scrollView addSubview:captchaView];
+    
+    UIImageView *captchaImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_phone_icon"]];
+    
+    [captchaView addSubview:captchaImage];
+    
+    [captchaImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(captchaView.mas_left).offset(10);
+        
+        make.centerY.equalTo(captchaView.mas_centerY);
+    }];
+    
+    UIButton *captchaBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+    } action:^(UIButton *btn) {
+        
+        NSLog(@"点击了获取验证码");
+    }];
+    
+    [captchaView addSubview:captchaBtn];
+    
+    [captchaBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(captchaView.mas_right);
+        
+        make.centerY.equalTo(captchaView.mas_centerY);
+        
         make.width.mas_equalTo(80);
     }];
     
-    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    captchaText = [[UITextField alloc] init];
+    
+    captchaText.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    captchaText.leftViewMode = UITextFieldViewModeAlways;
+    
+    captchaText.placeholder = @"验证码";
+    
+    captchaText.keyboardType = UIKeyboardTypeNumberPad;
+    
+    [captchaView addSubview:captchaText];
+    
+    [captchaText mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(captchaView.mas_left).offset(30);
+        
+        make.right.equalTo(captchaBtn.mas_left);
+        
+        make.centerY.equalTo(captchaView.mas_centerY);
+    }];
+    
+    UIView *lineView3 = [[UIView alloc] init];
+    lineView3.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
+    [captchaView addSubview:lineView3];
+    [lineView3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.bottom.equalTo(captchaView);
+        make.height.mas_equalTo(1);
+    }];
+    
+    
+    //密码
+    UIView *passwordView = [[UIView alloc] initWithFrame:CGRectMake(75, CGRectGetMaxY(captchaView.frame) + allY, ScreenWidth - 150, 44)];
+    
+    [scrollView addSubview:passwordView];
+    
+    UIImageView *passwordImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_password"]];
+    
+    [passwordView addSubview:passwordImage];
+    
+    [passwordImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(passwordView.mas_left).offset(10);
+        
+        make.centerY.equalTo(passwordView.mas_centerY);
+    }];
+    
+    passwordText = [[UITextField alloc] init];
+    
+    passwordText.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    passwordText.leftViewMode = UITextFieldViewModeAlways;
+    
+    passwordText.placeholder = @"输入密码";
+    
+    [passwordView addSubview:passwordText];
+    
+    [passwordText mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(passwordView.mas_left).offset(30);
+        
+        make.right.equalTo(passwordView.mas_right);
+        
+        make.centerY.equalTo(passwordView.mas_centerY);
+    }];
+    
+    
+    UIView *lineView1 = [[UIView alloc] init];
+    lineView1.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
+    [passwordView addSubview:lineView1];
+    [lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.bottom.equalTo(passwordView);
+        make.height.mas_equalTo(1);
+    }];
+    
+    //重写输入密码
+    UIView *repasswordView = [[UIView alloc] initWithFrame:CGRectMake(75, CGRectGetMaxY(passwordView.frame) + allY, ScreenWidth - 150, 44)];
+    
+    [scrollView addSubview:repasswordView];
+    
+    UIImageView *repasswordImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_repassword"]];
+    
+    [repasswordView addSubview:repasswordImage];
+    
+    [repasswordImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(repasswordView.mas_left).offset(10);
+        
+        make.centerY.equalTo(repasswordView.mas_centerY);
+    }];
+    
+    repasswordText = [[UITextField alloc] init];
+    
+    repasswordText.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    repasswordText.leftViewMode = UITextFieldViewModeAlways;
+    
+    repasswordText.placeholder = @"重新输入密码";
+    
+    [repasswordView addSubview:repasswordText];
+    
+    [repasswordText mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(repasswordView.mas_left).offset(30);
+        
+        make.right.equalTo(repasswordView.mas_right);
+        
+        make.centerY.equalTo(repasswordView.mas_centerY);
+    }];
+    
+    
+    UIView *lineView2 = [[UIView alloc] init];
+    lineView2.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
+    [repasswordView addSubview:lineView2];
+    [lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.right.bottom.equalTo(repasswordView);
+        make.height.mas_equalTo(1);
+    }];
+    
+    
+    //协议
+    UIView *protocolView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(repasswordView.frame) + 10, ScreenWidth, 20)];
+
+    CGFloat offset = 85;
+    
+    if (ScreenHeight < 667) {
+        
+        offset = 40;
+    } else if(ScreenHeight >= 667 && ScreenHeight < 736) {
+        
+        offset = 67;
+    }
+    
+    [scrollView addSubview:protocolView];
+    
+    UIImageView *protocolImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_cuntermark"]];
+    
+    [protocolView addSubview:protocolImage];
+    
+    [protocolImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(protocolView.mas_left).offset(offset);
+        
+        make.centerY.equalTo(protocolView.mas_centerY);
+    }];
+    
+    UILabel *protocolLabel = [[UILabel alloc] init];
+    
+    protocolLabel.textColor = [UIColor whiteColor];
+    
+    protocolLabel.text = @"我已阅读并同意";
+    
+    protocolLabel.font = [UIFont systemFontOfSize:12];
+    
+    [protocolView addSubview:protocolLabel];
+    
+    [protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(protocolImage.mas_right).offset(10);
+        
+        make.centerY.equalTo(protocolView.mas_centerY);
+    }];
+    
+    UIButton *protocolBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setTitle:@"《音巢APP用户使用协议》" forState:UIControlStateNormal];
+        
+        btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        
+        [btn setTitleColor:[UIColor hexColorFloat:@"ffeb97"] forState:UIControlStateNormal];
+        
+    } action:^(UIButton *btn) {
+        
+        NSLog(@"点击了协议");
         
     }];
     
-}
-
-//send checkCode
--(void)sendCheckCode
-{
-    self.requestType = YES;
-//    self.requestParams = ;
-//    self.requestURL = ;
+    [protocolView addSubview:protocolBtn];
     
-}
-#pragma mark -override actionFetchRequest
--(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
-{
-    
-}
-
--(void)registe
-{
-    self.requestType = NO;
-//    self.requestParams = ;
-//    self.requestURL = ;
-    
-}
-
-
-#pragma mark -textFiled Delegate
--(void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (textField == nickName) {
+    [protocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-    }else if (textField == mobole){
+        make.left.equalTo(protocolLabel.mas_right);
         
-    }else if (textField == chekcCode){
+        make.centerY.equalTo(protocolView.mas_centerY);
+    }];
     
-    }else if (textField == passWord){
     
-    }else if (textField == rePassWordText){
+    //登录
+    UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setTitle:@"确定" forState:UIControlStateNormal];
+        
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        btn.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
+        
+        btn.x = 50;
+        
+        btn.y = CGRectGetMaxY(repasswordView.frame) + 50;
+        
+        btn.width = ScreenWidth - 100;
+        
+        btn.height = 44;
+        
+    } action:^(UIButton *btn) {
+        
+        NSLog(@"点击了确定");
+        
+    }];
     
-    }
+    [scrollView addSubview:loginBtn];
+    
+    
+    //注册
+    UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setTitle:@"已有账号? 点击登录" forState:UIControlStateNormal];
+        
+        btn.y = CGRectGetMaxY(loginBtn.frame) + 20;
+        
+        [btn sizeToFit];
+        
+    } action:^(UIButton *btn) {
+        
+        [wSelf.navigationController popToRootViewControllerAnimated:YES];
+        NSLog(@"点击了有账号 登录");
+        
+    }];
+    
+    registerBtn.centerX = loginBtn.centerX;
+    
+    [scrollView addSubview:registerBtn];
+    
 }
+
+- (void)tap:(UIGestureRecognizer *)tap {
+    
+    [userNameText resignFirstResponder];
+    
+    [phoneText resignFirstResponder];
+    
+    [passwordText resignFirstResponder];
+    
+    [repasswordText resignFirstResponder];
+    
+    [captchaText resignFirstResponder];
+}
+
+
+
 @end
+
+
+
+

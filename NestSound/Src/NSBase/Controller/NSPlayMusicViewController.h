@@ -7,10 +7,14 @@
 //
 
 #import "NSBaseViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface NSPlayMusicViewController : NSBaseViewController
 
 + (instancetype)sharedPlayMusic;
 
 @property (nonatomic,assign) long itemId;
+
+@property (nonatomic, weak) AVAudioPlayer *player;
+
 @end

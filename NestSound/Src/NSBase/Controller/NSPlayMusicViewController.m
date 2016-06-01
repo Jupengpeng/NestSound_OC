@@ -10,7 +10,6 @@
 #import "NSPlayMusicTool.h"
 #import "NSMusicListViewController.h"
 #import "NSLyricView.h"
-#import <AVFoundation/AVFoundation.h>
 #import "NSCommentViewController.h"
 
 
@@ -52,8 +51,6 @@
 @property (nonatomic, weak) UISlider *progressBar;
 
 @property (nonatomic, strong) NSTimer *timer;
-
-@property (nonatomic, weak) AVAudioPlayer *player;
 
 @end
 

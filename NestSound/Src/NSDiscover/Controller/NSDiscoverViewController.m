@@ -295,7 +295,22 @@
 
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
     
-    [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    if (self.playSongsVC.player == nil) {
+        
+        NSLog(@"没有音乐");
+        
+    } else {
+        
+        if (self.playSongsVC.player.playing) {
+            
+            
+        }
+        
+        
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    }
+    
     
 }
 

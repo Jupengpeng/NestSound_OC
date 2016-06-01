@@ -379,13 +379,13 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
 
-    
-    
-    if (!self.playSongsVC) {
+    if (self.playSongsVC.player == nil) {
         [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
-    }else{
-    [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    } else {
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
+    
 }
 
 -(void)animation:(BOOL)animat
