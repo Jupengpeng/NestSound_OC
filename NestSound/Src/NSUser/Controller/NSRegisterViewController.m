@@ -31,6 +31,9 @@
 @implementation NSRegisterViewController
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d872db4b56cf2f2addb592107ed92f74ea0db553
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -104,12 +107,8 @@
         make.left.equalTo(userNameView.mas_left).offset(10);
         
         make.centerY.equalTo(userNameView.mas_centerY);
-=======
--(void)viewDidLoad
-{
-    [self configureUIAppearance];
-}
 
+<<<<<<< HEAD
 #pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
@@ -216,6 +215,8 @@
         make.height.mas_equalTo(80);
         make.width.mas_equalTo(80);
 >>>>>>> 8ff0d3ed362e127638692d1da38fcefd04c4fc5d
+=======
+>>>>>>> d872db4b56cf2f2addb592107ed92f74ea0db553
     }];
     
     userNameText = [[UITextField alloc] init];
@@ -238,6 +239,9 @@
     }];
     
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d872db4b56cf2f2addb592107ed92f74ea0db553
     UIView *lineView4 = [[UIView alloc] init];
     lineView4.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
     [userNameView addSubview:lineView4];
@@ -258,6 +262,7 @@
     [phoneView addSubview:phoneImage];
     
     [phoneImage mas_makeConstraints:^(MASConstraintMaker *make) {
+<<<<<<< HEAD
 =======
 }
 
@@ -289,6 +294,8 @@
 {
     if (textField == nickName) {
 >>>>>>> 8ff0d3ed362e127638692d1da38fcefd04c4fc5d
+=======
+>>>>>>> d872db4b56cf2f2addb592107ed92f74ea0db553
         
         make.left.equalTo(phoneView.mas_left).offset(10);
         
