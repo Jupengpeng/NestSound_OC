@@ -386,18 +386,13 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
     
-<<<<<<< HEAD
-    
-<<<<<<< HEAD
-=======
     if (!self.playSongsVC) {
         [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
-    }else{
-    [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    } else {
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
->>>>>>> 8ff0d3ed362e127638692d1da38fcefd04c4fc5d
-=======
->>>>>>> d872db4b56cf2f2addb592107ed92f74ea0db553
+
 }
 
 -(void)animation:(BOOL)animat
