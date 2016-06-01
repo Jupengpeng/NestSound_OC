@@ -13,8 +13,9 @@
 
 + (instancetype)sharedPlayMusic;
 
+@property (nonatomic, weak) AVAudioPlayer *player;
+
 @property (nonatomic,assign) long itemId;
 
-@property (nonatomic, weak) AVAudioPlayer *player;
 
 @end

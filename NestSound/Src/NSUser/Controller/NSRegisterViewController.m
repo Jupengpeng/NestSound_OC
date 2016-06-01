@@ -125,6 +125,7 @@
         make.centerY.equalTo(userNameView.mas_centerY);
     }];
     
+    
     UIView *lineView4 = [[UIView alloc] init];
     lineView4.backgroundColor = [UIColor hexColorFloat:@"c1c1c1"];
     [userNameView addSubview:lineView4];
