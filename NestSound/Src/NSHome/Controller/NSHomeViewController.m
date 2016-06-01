@@ -15,7 +15,7 @@
 #import "NSH5ViewController.h"
 #import "NSSongViewController.h"
 #import "NSPlayMusicViewController.h"
-
+#import "NSLyricViewController.h"
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
     UICollectionView *_collection;
@@ -63,6 +63,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+    
     
     [self fetchIndexData];
     
@@ -249,9 +250,12 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         //type == 1 is music  type ==2 is lyric
         if (recomm.type == 1) {
-            
+            NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
+            playVC.itemId = recomm.itemId;
+            [self.navigationController pushViewController:playVC animated:YES];
         }else{
-            
+            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
+            [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
     }else if (section == 1){
@@ -369,6 +373,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     }
     
     NSLog(@"点击了第%zd张图片",imageBtn.tag);
+    
 }
 
 
@@ -382,9 +387,20 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     }
     
     
+<<<<<<< HEAD
+=======
+    if (!self.playSongsVC) {
+        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
+    }else{
+    [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    }
+>>>>>>> 8ff0d3ed362e127638692d1da38fcefd04c4fc5d
 }
 
-
+-(void)animation:(BOOL)animat
+{
+//    [self.navigationItem.rightBarButtonItem]
+}
 
 
 @end

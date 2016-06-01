@@ -39,16 +39,16 @@
 
 @implementation NSDiscoverViewController
 
-- (NSPlayMusicViewController *)playSongsVC {
-    
-    if (!_playSongsVC) {
-        
-        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
-        
-    }
-    
-    return _playSongsVC;
-}
+//- (NSPlayMusicViewController *)playSongsVC {
+//    
+//    if (!_playSongsVC) {
+//        
+//        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+//        
+//    }
+//    
+//    return _playSongsVC;
+//}
 
 - (NSSearchViewController *)searchVC {
     

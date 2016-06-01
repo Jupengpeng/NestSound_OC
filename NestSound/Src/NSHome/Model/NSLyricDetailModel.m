@@ -40,7 +40,7 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
 
-    return  @{@"lyricDetailModel":@"data"};
+    return  @{@"lryicDetailModel":@"data"};
 }
 
 

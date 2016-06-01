@@ -35,3 +35,8 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(NSString *)datetoLongStringWithDate:(NSDate *)date;
 +(NSString *)datetoMonthStringWithDate:(NSDate *)date;
 @end
+
+@interface Share : NSObject
++(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(UIImage *)shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_;;
+
+@end

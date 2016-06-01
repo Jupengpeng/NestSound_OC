@@ -13,6 +13,10 @@
 
 + (instancetype)sharedPlayMusic;
 
+<<<<<<< HEAD
 @property (nonatomic, weak) AVAudioPlayer *player;
 
+=======
+@property (nonatomic,assign) long itemId;
+>>>>>>> 8ff0d3ed362e127638692d1da38fcefd04c4fc5d
 @end

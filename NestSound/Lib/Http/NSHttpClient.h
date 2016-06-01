@@ -16,4 +16,5 @@
                                    paras:(NSDictionary *)parasDict
                                  success:(void(^)(NSURLSessionDataTask *operation,NSObject *parserObject))success
                                  failure:(void(^)(NSURLSessionDataTask *operation,NSError *requestErr))failure;
+
 @end

@@ -48,9 +48,7 @@
     [self.contentView addSubview:titlePage];
     
     playCountBk = [[UIImageView alloc] init];
-    playCountBk.backgroundColor = [UIColor blackColor];
-    playCountBk.alpha = 0.6;
-    playCountBk.layer.cornerRadius = 7;
+    playCountBk.image = [UIImage imageNamed:@"2.0_listenCountBKIcon"];
     [titlePage addSubview:playCountBk];
     
     //listen
@@ -143,9 +141,9 @@
     [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
 
     if (recommend.type == 1) {
-        [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_lyricsWarehouse"]];
+        [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
     }else{
-        [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_rhyming"]];
+        [listenImage setImage:[UIImage imageNamed:@"2.0_lyricIcon"]];
     }
 }
 
@@ -159,14 +157,17 @@
     
     playCountLab.text = _songNew.playCount;
     
+    NSLog(@"thie type:%d",_songNew.type);
+    if (_songNew.type == 1) {
+        [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
+    }else{
+        [listenImage setImage:[UIImage imageNamed:@"2.0_lyricIcon"]];
+    }
+    
 #warning placeholdPicture
     [titlePage setDDImageWithURLString:_songNew.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
     
-    if (_songNew.type == 1) {
-        [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_lyricsWarehouse"]];
-    }else{
-        [listenImage setImage:[UIImage imageNamed:@"1.3_writeWords_rhyming"]];
-    }
+    
 }
 
 @end
