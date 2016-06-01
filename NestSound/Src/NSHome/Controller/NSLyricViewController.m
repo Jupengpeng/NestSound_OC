@@ -12,7 +12,7 @@
 #import "NSLyricDetailModel.h"
 
 
-@interface NSLyricViewController ()<UMSocialDataDelegate,UMSocialUIDelegate>
+@interface NSLyricViewController ()<UMSocialUIDelegate>
 {
 
     UIView *_bottomView;

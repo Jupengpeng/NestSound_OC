@@ -46,12 +46,13 @@
 		18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */; };
 		18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE8301CF0B1040012880E /* NSSoundRecord.m */; };
 		18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8331CF15ED50012880E /* libmp3lame.a */; };
+		2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */; };
+		2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */; };
 		2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */; };
 		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
 		2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3750281CEC422C007C2967 /* NSChangeNameViewController.m */; };
 		2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37502B1CEC5701007C2967 /* NSUserFeedbackViewController.m */; };
 		2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */; };
-		2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */; };
 		2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4325621CF324E7008889BE /* NSActivityListModel.m */; };
 		2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4325651CF32912008889BE /* NSDiscoverMusicListModel.m */; };
 		2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A43256B1CF32C30008889BE /* NSIndexModel.m */; };
@@ -251,6 +252,10 @@
 		18FFE8321CF15ED50012880E /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		18FFE8331CF15ED50012880E /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		18FFE8351CF1809F0012880E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2A0B722E1CFF51B7003957E3 /* NSMusicSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayViewController.h; sourceTree = "<group>"; };
+		2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayViewController.m; sourceTree = "<group>"; };
+		2A0B72311CFF54F9003957E3 /* NSMusicSayListMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayListMode.h; sourceTree = "<group>"; };
+		2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayListMode.m; sourceTree = "<group>"; };
 		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
 		2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListHeaderView.m; sourceTree = "<group>"; };
@@ -260,8 +265,6 @@
 		2A37502B1CEC5701007C2967 /* NSUserFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserFeedbackViewController.m; sourceTree = "<group>"; };
 		2A3E7C631CDAE2A7006C8519 /* NSSongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongCell.h; sourceTree = "<group>"; };
 		2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongCell.m; sourceTree = "<group>"; };
-		2A3E7C661CDB37C4006C8519 /* NSPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayViewController.h; sourceTree = "<group>"; };
-		2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayViewController.m; sourceTree = "<group>"; };
 		2A4325611CF324E7008889BE /* NSActivityListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityListModel.h; sourceTree = "<group>"; };
 		2A4325621CF324E7008889BE /* NSActivityListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityListModel.m; sourceTree = "<group>"; };
 		2A4325641CF32912008889BE /* NSDiscoverMusicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverMusicListModel.h; sourceTree = "<group>"; };
@@ -762,8 +765,8 @@
 				2AD10A891CD9DE520044D821 /* NSSongListViewController.m */,
 				2AD10A8B1CD9E04E0044D821 /* NSSongViewController.h */,
 				2AD10A8C1CD9E04E0044D821 /* NSSongViewController.m */,
-				2A3E7C661CDB37C4006C8519 /* NSPlayViewController.h */,
-				2A3E7C671CDB37C4006C8519 /* NSPlayViewController.m */,
+				2A0B722E1CFF51B7003957E3 /* NSMusicSayViewController.h */,
+				2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -783,6 +786,8 @@
 				2A9429BE1CF438F10099A6DB /* NSSingListModel.m */,
 				2AD6A3511CF6DE7D00523062 /* NSLyricDetailModel.h */,
 				2AD6A3521CF6DE7D00523062 /* NSLyricDetailModel.m */,
+				2A0B72311CFF54F9003957E3 /* NSMusicSayListMode.h */,
+				2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1547,7 +1552,6 @@
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
 				18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */,
 				2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */,
-				2A3E7C681CDB37C4006C8519 /* NSPlayViewController.m in Sources */,
 				2AAE01D31CFC5A40008D3145 /* NSDrawLineView.m in Sources */,
 				2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
@@ -1558,6 +1562,7 @@
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
+				2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,
@@ -1566,6 +1571,7 @@
 				18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */,
 				18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */,
 				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
+				2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
 				2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */,
@@ -1748,13 +1754,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

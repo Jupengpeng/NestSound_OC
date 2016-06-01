@@ -267,11 +267,16 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         NSNew * newModel = (NSNew *)newListAry[row];
         
         //newModel type == 1 is music type == 2 is lyric
+        long item = newModel.itemId;
         if (newModel.type == 1) {
+            NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
+            playVC.itemId = item;
+            [self.navigationController pushViewController:playVC animated:YES];
             
         }else{
             
-        
+            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:item];
+            [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
     }else if (section == 3){
@@ -363,13 +368,18 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 - (void)indexCollectionReusableView:(NSIndexCollectionReusableView *)reusableView withImageBtn:(UIButton *)imageBtn {
     
     NSBanner * banner = (NSBanner *)bannerAry[imageBtn.tag];
+    long item = banner.itemID;
     if (banner.state == 1) {
         NSH5ViewController * event = [[NSH5ViewController alloc] init];
         event.h5Url = banner.activityURL;
         [self.navigationController pushViewController:event animated:YES];
+    }else if (banner.state == 2){
+     
+        NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:item];
+        [self.navigationController pushViewController:lyricVC animated:YES];
     }else{
-    
-    
+        NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+        playVC.itemId = item;
     }
     
     NSLog(@"点击了第%zd张图片",imageBtn.tag);

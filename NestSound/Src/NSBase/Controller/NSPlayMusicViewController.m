@@ -19,6 +19,7 @@
     UIView *_maskView;
     
     UIView *_moreChoiceView;
+    NSString * url;
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -80,6 +81,8 @@ static id _instance;
     return _instance;
 }
 
+
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -96,6 +99,31 @@ static id _instance;
     [super viewDidDisappear:animated];
     
     [self removeTimer];
+}
+
+
+#pragma mark -fetchMusicDetailData
+-(void)fetchPlayDataWithItemId:(long)musicItemId
+{
+//    self.requestType = YES;
+//    self.requestParams = ;
+//    self.requestURL = ;
+    
+}
+
+
+#pragma mark -overriderActionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (parserObject.success) {
+        if ([operation.urlTag isEqualToString:url]) {
+            
+        }
+    }else{
+    
+        [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
+    }
+
 }
 
 - (void)viewDidLoad {
@@ -219,7 +247,7 @@ static id _instance;
         
     }];
     
-    
+    __block AVPlayer * play = self.player;
     //播放暂停按钮
     UIButton *playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
        
@@ -237,13 +265,14 @@ static id _instance;
         if (btn.selected) {
             
             [wSelf addTimer];
+            [wSelf.player play];
+//            [NSPlayMusicTool playMusicWithName:@"我的天空.mp3"];
             
-            [NSPlayMusicTool playMusicWithName:@"我的天空.mp3"];
         } else {
             
             [wSelf removeTimer];
-            
-            [NSPlayMusicTool pauseMusicWithName:@"我的天空.mp3"];
+            [wSelf.player pause];
+//            [NSPlayMusicTool pauseMusicWithName:@"我的天空.mp3"];
         }
         NSLog(@"点击了播放和暂停按钮");
         
