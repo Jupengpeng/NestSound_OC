@@ -12,7 +12,7 @@
 #import "NSLyricDetailModel.h"
 
 
-@interface NSLyricViewController ()
+@interface NSLyricViewController ()<UMSocialDataDelegate,UMSocialUIDelegate>
 {
 
     UIView *_bottomView;
@@ -20,7 +20,8 @@
     UIView *_maskView;
     
     UIView *_moreChoiceView;
-
+    
+    UIImage * tum ;
     //头像
     UIImageView * userIcon;
     
@@ -40,7 +41,8 @@
     NSLyricView * _lyricView;
     long itemId;
     long workAuthorId;
-
+    NSString * shareURl;
+    NSString * URl;
 }
 
 @property (nonatomic,strong) LyricDetailModel * lyricDetail;
@@ -77,11 +79,7 @@
     
     [self fetchData];
     
-    [self setupBottomView];
-    
-    [self setupLyricView];
-    
-    [self moreChoice];
+   
     
     
 }
@@ -93,9 +91,12 @@
 -(void)fetchData
 {
     self.requestType = NO;
-    self.requestParams = @{@"id":@"",@"uid":@""};
-//    self.requestURL;
-
+    NSDictionary * dic = @{@"id": [NSString stringWithFormat:@"%ld",itemId],@"uid":@""};
+    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:1];
+    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+    
+    self.requestURL = [lyricDetailURL stringByAppendingString:str];
+    URl = self.requestURL;
 }
 
 
@@ -103,12 +104,23 @@
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-//    if ([operation.urlTag isEqualToString:]) {
-//        if (!parserObject.success) {
-//            NSLyricDetailModel * lyric = (NSLyricDetailModel *)parserObject;
-//            self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
-//        }
-//    }
+    
+    NSLog(@"operer%@",operation.urlTag);
+    NSLog(@"uuu%@",URl);
+    NSLog(@"lyric%@",lyricDetailURL);
+    if ([operation.urlTag isEqualToString:URl]) {
+        if (!parserObject.success) {
+            NSLyricDetailModel * lyric = (NSLyricDetailModel *)parserObject;
+            [self setupBottomView];
+            
+            [self setupLyricView];
+            
+            [self moreChoice];
+
+            
+            self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
+                   }
+    }
     
 }
 
@@ -411,6 +423,17 @@
         
     } action:^(UIButton *btn) {
         
+        
+        [Share ShareWithTitle:_lyricDetail.title andShareUrl:_lyricDetail.shareUrl andShareImage:_lyricDetail.titleImageUrl andShareText:_lyricDetail.title andVC:self];
+//        [UMSocialData defaultData].extConfig.title = @"分享的title";
+//        [UMSocialData defaultData].extConfig.qqData.url = @"http://baidu.com";
+//        [UMSocialSnsService presentSnsIconSheetView:self
+//                                             appKey:umAppKey
+//                                          shareText:@"友盟社会化分享让您快速实现分享等社会化功能，http://umeng.com/social"
+//                                         shareImage:[UIImage imageNamed:@"icon"]
+//                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ,UMShareToQzone]
+//                                           delegate:self];
+        
         NSLog(@"点击了分享");
     }];
     
@@ -463,6 +486,20 @@
     
 }
 
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    if (response.responseCode == UMSResponseCodeSuccess) {
+        [[NSToastManager manager] showtoast:@"分享成功哦"];
+        _maskView.hidden = YES;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _moreChoiceView.y = ScreenHeight;
+        }];
+
+    }
+}
+
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
     _maskView.hidden = YES;
@@ -491,9 +528,10 @@
     self.title = _lyricDetail.title;
     _nameLabel.text = _lyricDetail.author;
     _dateLabel.text = [date datetoStringWithDate:_lyricDetail.createDate];
+    
     commentNum = _lyricDetail.commentNum;
-    _lyricView.lyricText = _lyricView.lyricText;
- 
+    _lyricView.lyricText.text = _lyricDetail.lyrics;
+    NSLog(@"_lyricView%@",_lyricView.lyricText);
     if (_lyricDetail.isZan == 1) {
         upVoteBtn.selected = YES;
     }else{

@@ -304,3 +304,22 @@ static NSDateFormatter *dateFormatter;
     return dateString;
 }
 @end
+
+@implementation Share
+
++(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(id)shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_
+{
+
+    [UMSocialData defaultData].extConfig.title = title_;
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeApp;
+
+    
+    [UMSocialData defaultData].extConfig.wechatTimelineData.url =  shareUrl_;
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl_;
+   
+    [UMSocialData defaultData].extConfig.qqData.url = shareUrl_;
+    [UMSocialSnsService presentSnsIconSheetView:VC_ appKey:umAppKey shareText:shareText_ shareImage:shareImage shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ,UMShareToQzone] delegate:nil];
+    
+}
+
+@end

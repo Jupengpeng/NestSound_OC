@@ -12,5 +12,5 @@
 
 + (instancetype)sharedPlayMusic;
 
-
+@property (nonatomic,assign) long itemId;
 @end

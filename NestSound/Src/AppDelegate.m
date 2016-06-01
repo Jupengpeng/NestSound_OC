@@ -7,7 +7,6 @@
 //
 
 
-#import <WXApi.h>
 #import "AppDelegate.h"
 #import "AppDelegate+configureUIAppearance.h"
 #import "NSLyricViewController.h"
@@ -17,7 +16,7 @@
 #import "NSUserPageViewController.h"
 #import "NSUserProfileViewController.h"
 #import "NSUserViewController.h"
-
+#import "UMSocial.h"
 @interface AppDelegate ()
 
 @end
@@ -46,8 +45,11 @@
     self.window.rootViewController = nav;
     
     [self.window makeKeyAndVisible];
-
-    
+    [UMSocialData setAppKey:umAppKey];
+    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
+    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
+    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
     [self setupUIAppearance];
     
     return YES;
@@ -73,6 +75,15 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        
+    }
+    return  result;
 }
 
 @end

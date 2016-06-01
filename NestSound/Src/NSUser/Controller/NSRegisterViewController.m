@@ -43,7 +43,7 @@
 
 -(void)viewDidLoad
 {
-    
+    [self configureUIAppearance];
 }
 
 #pragma mark -configureUIAppearance
@@ -138,6 +138,7 @@
     registBtn = [[UIButton alloc] init];
     [registBtn setBackgroundColor:[UIColor hexColorFloat:@"a6a6a5"]];
     registBtn.layer.cornerRadius = 10;
+    [registBtn addTarget:self action:@selector(registe) forControlEvents:UIControlEventTouchUpInside];
     [scroll addSubview:registBtn];
     
 //   loginBtn;
@@ -158,15 +159,31 @@
     
 }
 
-
+//send checkCode
 -(void)sendCheckCode
 {
+    self.requestType = YES;
+//    self.requestParams = ;
+//    self.requestURL = ;
+    
+}
+#pragma mark -override actionFetchRequest
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    
+}
+
+-(void)registe
+{
+    self.requestType = NO;
+//    self.requestParams = ;
+//    self.requestURL = ;
     
 }
 
 
 #pragma mark -textFiled Delegate
--(void)textFieldDidBeginEditing:(UITextField *)textField
+-(void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField == nickName) {
         

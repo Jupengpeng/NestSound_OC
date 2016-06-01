@@ -32,7 +32,11 @@
 #import "NSBaseModel.h"
 #import "TTTAttributedLabel.h"
 #import "NSString+SizeFont.h"
-
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "NSToastManager.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;
@@ -46,6 +50,7 @@ extern NSString *port;
 #define indexURL @"http://112.124.125.2/java/common/index/app?"
 #define dicoverMusicURL @"http://112.124.125.2/java/common/find/music?"
 #define dicoverActivityURL @"http://112.124.125.2/java/common/find/activelist?"
+#define lyricDetailURL @"http://112.124.125.2/java/common/lyrics/detail?"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG

@@ -92,6 +92,8 @@ static NSHttpClient *client;
     NSString *requestURL = [NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],url];
     NSURLSessionDataTask *operation;
     
+    NSString * uuu;
+    __block NSString * u = uuu;
     if (1) {
         operation = [self GET: url
                    parameters:[self encryptWithDictionary:parasDict isEncrypt:YES]
@@ -118,9 +120,9 @@ static NSHttpClient *client;
                               NSInteger i = [requestURL rangeOfString:@"data="].location;
                               
                               NSString * str = [requestURL substringWithRange:NSMakeRange(32, i-32)];
+
                               NSLog(@"str%@",str);
-                              NSLog(@"index%@",indexURL);
-        
+                             
                               NSBaseModel *model = [NSModelFactory modelWithURL:str
                                                                    responseJson:dic];
                               success(task,model);

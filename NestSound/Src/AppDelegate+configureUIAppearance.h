@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "UMSocial.h"
 @interface AppDelegate (configureUIAppearance)
 
 - (void)setupUIAppearance;
