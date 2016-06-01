@@ -374,16 +374,13 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
 
+    if (self.playSongsVC.player == nil) {
+        NSLog(@"没有音乐");
+    } else {
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    }
     
-    
-    [self.navigationController pushViewController:self.playSongsVC animated:YES];
-//    [self presentViewController:self.playSongsVC animated:YES completion:^{
-//        
-//    }];
-    
-    
-    
-//    [self.playSongsVC showPlayMusic];
     
 }
 

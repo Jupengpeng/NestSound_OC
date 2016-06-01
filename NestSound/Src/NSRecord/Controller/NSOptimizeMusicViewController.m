@@ -108,12 +108,7 @@
         make.bottom.equalTo(bottomView.mas_bottom).offset(-(72 - 24) / 3);
     }];
     
-    //一键美化
-//    UISwitch *optimize = [[UISwitch alloc] init];
-//    optimize.onImage = [UIImage imageNamed:@"2.0_writeMusic_play_beautify"];
-//    optimize.onTintColor = [UIColor hexColorFloat:@"ffd705"];
-//    
-//    [bottomView addSubview:optimize];
+    
     UIButton *optimizeBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
        
         [btn setImage:[UIImage imageNamed:@"Switch_off"] forState:UIControlStateNormal];
@@ -336,7 +331,7 @@
 
 - (void)rightClick:(UIBarButtonItem *)right {
     
-    NSLog(@"点击了保存");
+    NSLog(@"点击了发布");
 }
 
 

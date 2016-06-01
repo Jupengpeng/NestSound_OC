@@ -677,6 +677,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     NSLog(@"点击了发布");
 }
 
+
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];

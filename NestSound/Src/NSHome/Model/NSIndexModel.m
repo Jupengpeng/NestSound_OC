@@ -85,7 +85,7 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"titleImageURl":@"pic",
-             @"title":@"name",
+             @"title":@"title",
              @"itemID":@"id",
              @"desc":@"detail"
              };

@@ -10,4 +10,6 @@
 
 @interface NSLoginViewController : NSBaseViewController
 
+@property (nonatomic,assign) BOOL isHidden;
+
 @end

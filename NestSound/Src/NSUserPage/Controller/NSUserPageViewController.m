@@ -15,6 +15,7 @@
 #import "NSUserViewController.h"
 #import "NSInspirationRecordTableViewCell.h"
 #import "NSFansViewController.h"
+#import "NSLoginViewController.h"
 
 
 @interface NSUserPageViewController ()
@@ -31,6 +32,7 @@ UITableViewDataSource>
     NSMutableArray * myLyricAry;
     NSMutableArray * myCollectionAry;
     NSMutableArray * dataAry;
+    NSLoginViewController *login;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -45,7 +47,25 @@ UITableViewDataSource>
     
     [self setupUI];
     
+   login = [[NSLoginViewController alloc] init];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+    nav.navigationBar.hidden = YES;
+    [self presentViewController:nav animated:YES completion:nil];
+   
+   
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    
+    if (!login.isHidden) {
+        [self.tabBarController setSelectedIndex:0];
+    }
+    
+}
+
 
 
 #pragma mark -fetchMemberData
