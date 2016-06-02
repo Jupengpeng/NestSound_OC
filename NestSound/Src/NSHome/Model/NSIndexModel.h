@@ -16,7 +16,7 @@
 @interface NSBanner : NSBaseModel
 
 @property (nonatomic,copy) NSString * titleImageUrl;
-@property (nonatomic,copy) NSString * itemID;
+@property (nonatomic,assign) long itemID;
 @property (nonatomic,assign) int state;
 @property (nonatomic,copy) NSString * activityURL;
 

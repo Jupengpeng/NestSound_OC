@@ -9,7 +9,7 @@
 #import "NSSongViewController.h"
 #import "NSSongListHeaderView.h"
 #import "NSSongCell.h"
-#import "NSPlayViewController.h"
+#import "NSPlayMusicViewController.h"
 #import "NSSongListModel.h"
 @interface NSSongViewController ()
 <
