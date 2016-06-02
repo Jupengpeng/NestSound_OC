@@ -386,12 +386,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
     
-    if (!self.playSongsVC) {
-        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
-    } else {
-        
-        [self.navigationController pushViewController:self.playSongsVC animated:YES];
-    }
 
 }
 
