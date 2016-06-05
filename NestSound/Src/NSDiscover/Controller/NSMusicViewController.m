@@ -47,11 +47,8 @@ static NSString * const headerView = @"HeaderView";
 
 -(void)viewDidAppear:(BOOL)animated
 {
-<<<<<<< HEAD
+
     [super viewDidAppear:animated];
-=======
-    [super viewWillAppear: animated];
->>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
     [self fetchData];
 }
 

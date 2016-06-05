@@ -60,14 +60,13 @@ UITableViewDataSource>
 
 -(void)viewWillAppear:(BOOL)animated
 {
-<<<<<<< HEAD
-=======
+
     [super viewWillAppear: animated];
     
     if (!login.isHidden) {
         [self.tabBarController setSelectedIndex:0];
     }
->>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
+
     
 }
 

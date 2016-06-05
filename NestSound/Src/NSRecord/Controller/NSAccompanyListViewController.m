@@ -22,12 +22,9 @@
     NSMutableArray * newAccompanyAry;
     NSMutableArray * dataAry;
     int currentPage;
-<<<<<<< HEAD
     NSString * newUrl;
     NSString * hotUrl;
     
-=======
->>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
 }
 @end
 
@@ -60,12 +57,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 
 #pragma mark -fetchAccommpanyListDataIsLoadMore
 -(void)fetchAccompanyListDataWithIsLoadingMore:(BOOL)isLoadingMore{
-    
-<<<<<<< HEAD
-       if (!isLoadingMore) {
-=======
+
+
     if (!isLoadingMore) {
->>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
         currentPage = 1;
            self.requestParams = @{kIsLoadingMore :@(NO)};
     }else{

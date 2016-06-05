@@ -24,15 +24,8 @@ UICollectionViewDelegateFlowLayout
     int i;
     
     NSString * url ;
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
     int currentPage;
-=======
->>>>>>> fd1704484d6437ed3eebc82ceb41745bcc9d9980
->>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
->>>>>>> e10405fd9e3607be9b7b116c960b9ed05d27725c
 }
 @end
 static NSString * const musicSayCellId = @"musicSayCellId";
