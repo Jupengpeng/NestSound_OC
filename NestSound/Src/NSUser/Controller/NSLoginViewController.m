@@ -10,7 +10,7 @@
 #import "UIScrollView+NSKeyboardAutoAdapt.h"
 #import "NSForgetPassWordViewController.h"
 #import "NSRegisterViewController.h"
-
+#import "NSUserModel.h"
 @interface NSLoginViewController () {
     
     UIScrollView *scrollView;
@@ -39,6 +39,30 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
+
+#pragma  mark - override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        if ([operation.urlTag isEqualToString:loginURl]) {
+            NSUserModel * userModels = (NSUserModel *)parserObject;
+            userModel * user = userModels.userDetail;
+        
+            NSDictionary * userDic = @{@"userName":user.userName,
+                                    @"userID":[NSString stringWithFormat:@"%ld",user.userID],
+                                    @"userIcon":user.headerURL,
+                                    @"userLoginToken":user.loginToken
+                                    };
+            [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
+        }
+        
+    }else{
+        [[NSToastManager manager] showtoast:requestErr.description];
+    }
+}
+
+
+#pragma mark - setupUI
 - (void)setupUI {
     
     WS(wSelf);
@@ -148,7 +172,7 @@
     passwordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     passwordText.leftViewMode = UITextFieldViewModeAlways;
-    
+    passwordText.secureTextEntry = YES;
     passwordText.placeholder = @"密码";
     
     [passwordView addSubview:passwordText];
@@ -196,6 +220,7 @@
     }];
 
     
+   
     //登录
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
@@ -215,6 +240,7 @@
         
     } action:^(UIButton *btn) {
         
+        [wSelf loagin];
         NSLog(@"点击了登录");
         
     }];
@@ -247,6 +273,15 @@
 
     
     
+}
+
+-(void)loagin
+{
+    self.requestType = NO;
+    self.requestParams = @{@"mobile":phoneText.text,
+                           @"password":[passwordText.text stringToMD5]};
+    NSLog(@"%@",self.requestParams);
+    self.requestURL = loginURl;
 }
 
 - (void)tap:(UIGestureRecognizer *)tap {

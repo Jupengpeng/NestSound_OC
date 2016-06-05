@@ -67,14 +67,13 @@ static NSHttpClient *client;
 
 #pragma mark - requestWithURL ...
 - (NSURLSessionDataTask *)requestWithURL:(NSString *)url
-                                   
-                                   
+                                    type:(BOOL)requestType
                                      paras:(NSDictionary *)parasDict
                                    success:(void(^)(NSURLSessionDataTask *operation,NSObject *parserObject))success
                                    failure:(void(^)(NSURLSessionDataTask *operation,NSError *requestErr))failure {
     
     NSMutableDictionary *transferParas = [parasDict mutableCopy];
-    
+   
     // Loading
     BOOL showLoading = ![[transferParas objectForKey:kNoLoading] boolValue];
     [transferParas removeObjectForKey:kNoLoading];
@@ -84,6 +83,9 @@ static NSHttpClient *client;
         [[NSToastManager manager] showprogress];
     }
 
+    //requestType
+//    BOOL requestType = [[transferParas objectForKey:@"type"] boolValue];
+//    [transferParas removeObjectForKey:@"type"];
     // refresh or LoadingMore
     BOOL isLoadingMore = [[transferParas objectForKey:kIsLoadingMore] boolValue];
     [transferParas removeObjectForKey:kIsLoadingMore];
@@ -94,9 +96,9 @@ static NSHttpClient *client;
     
     NSString * uuu;
     __block NSString * u = uuu;
-    if (1) {
+    if (requestType) {
         operation = [self GET: url
-                   parameters:[self encryptWithDictionary:parasDict isEncrypt:YES]
+                   parameters:nil
                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                           
                           //hide toast
@@ -154,7 +156,7 @@ static NSHttpClient *client;
     
     
     operation = [self POST:url
-                                      parameters:[self encryptWithDictionary:parasDict isEncrypt:YES]
+                parameters:[self encryptWithDictionary:@{@"data":parasDict} isEncrypt:YES]
                                          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                            
                                              //hide toast
@@ -171,7 +173,7 @@ static NSHttpClient *client;
                                              }
                                              
                                              if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                                                 NSBaseModel *model = [NSModelFactory modelWithURL:indexURL
+                                                 NSBaseModel *model = [NSModelFactory modelWithURL:url
                                                                     responseJson:[self encryptWithDictionary:responseObject isEncrypt:NO]];
                                                  success(task,model);
                                                  

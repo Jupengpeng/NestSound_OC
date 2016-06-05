@@ -175,8 +175,7 @@ static NSDateFormatter *dateFormatter;
 
      
 #warning add qiniuURl
-      requestWithURL:@"qiniuUrl"
-     
+     requestWithURL:@"qiniuUrl" type:YES
       paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
          NSFileManager *fileManager = [NSFileManager defaultManager];
          if ([fileManager fileExistsAtPath:photoPath]) {
@@ -201,9 +200,31 @@ static NSDateFormatter *dateFormatter;
 +(BOOL) isValidateMobile:(NSString *)mobile
 {
     //cell number is 13， 15，18 begain，nine \d number
-    NSString *phoneRegex = @"^((13[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0,6,7,8]))\\d{8}$";
+    NSString *phoneRegex = @"^((13[0-9])|(14[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0,6,7,8]))\\d{8}$";
     NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
     return [phoneTest evaluateWithObject:mobile];
+}
+
+
++(BOOL)compareWithUser:(long)userID
+{
+    NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    if (   userID == [[userDic objectForKey:@"userID"] longValue]) {
+        return YES;
+    }else{
+        
+        return NO;
+    
+    }
+        
+    
+}
+
++(NSString *)encrytWithDic:(NSDictionary *)dic
+{
+    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+    NSString * str =  [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+    return str;
 }
 
 @end
@@ -304,6 +325,15 @@ static NSDateFormatter *dateFormatter;
     NSString * dateString = [formatter stringFromDate:date];
     return dateString;
 }
+
+//get the time stamp
++(NSString *)getTimeStamp
+{
+    NSDate * date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval  timeStamp = [date timeIntervalSince1970];
+    NSString * timeString = [NSString stringWithFormat:@"%f",timeStamp];
+    return timeString;
+}
 @end
 
 @implementation Share
@@ -323,4 +353,30 @@ static NSDateFormatter *dateFormatter;
     
 }
 
+//+(BOOL)shareAvailableWeiXin
+//{
+//    if ([]) {
+//        <#statements#>
+//    }
+//}
+//
+//+(BOOL)shareAvailableFriendZone
+//{
+//    
+//}
++(BOOL)shareAvailableQQ
+{
+    if ([QQApiInterface isQQInstalled]&&[QQApiInterface isQQSupportApi]) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+//+(BOOL)shareAvailableQzone
+//{
+//}
+//+(BOOL)shareAvailableSina
+//{
+//    
+//}
 @end

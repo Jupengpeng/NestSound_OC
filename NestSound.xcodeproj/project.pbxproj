@@ -50,6 +50,8 @@
 		18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8331CF15ED50012880E /* libmp3lame.a */; };
 		2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */; };
 		2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */; };
+		2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */; };
+		2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A141DC91D00B057003ACA74 /* NSUserModel.m */; };
 		2A1C7DEA1CDDE0C4000EDE3F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */; };
 		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
 		2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3750281CEC422C007C2967 /* NSChangeNameViewController.m */; };
@@ -124,6 +126,7 @@
 		2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10031CE3508900D0D535 /* NSLyricCell.m */; };
 		2ADE8F5F1CFE7679006CD840 /* NSShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADE8F5E1CFE7679006CD840 /* NSShareViewController.m */; };
 		2ADE8F621CFE7715006CD840 /* NSShareModulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADE8F611CFE7715006CD840 /* NSShareModulView.m */; };
+		2ADE94601D040878000AC281 /* NSFansListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADE945F1D040878000AC281 /* NSFansListModel.m */; };
 		2AE2E5071CE56BF800FD2DC3 /* NSUserProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E5061CE56BF800FD2DC3 /* NSUserProfileCell.m */; };
 		2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E5091CE5A70C00FD2DC3 /* NSUserProfileViewController.m */; };
 		2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2E50C1CE5AD9400FD2DC3 /* NSFanscell.m */; };
@@ -262,6 +265,10 @@
 		2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayViewController.m; sourceTree = "<group>"; };
 		2A0B72311CFF54F9003957E3 /* NSMusicSayListMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayListMode.h; sourceTree = "<group>"; };
 		2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayListMode.m; sourceTree = "<group>"; };
+		2A0B72341D003870003957E3 /* NSString+NSMD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSMD5Addition.h"; sourceTree = "<group>"; };
+		2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSMD5Addition.m"; sourceTree = "<group>"; };
+		2A141DC81D00B057003ACA74 /* NSUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserModel.h; sourceTree = "<group>"; };
+		2A141DC91D00B057003ACA74 /* NSUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserModel.m; sourceTree = "<group>"; };
 		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
 		2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListHeaderView.m; sourceTree = "<group>"; };
@@ -416,6 +423,8 @@
 		2ADE8F5E1CFE7679006CD840 /* NSShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSShareViewController.m; sourceTree = "<group>"; };
 		2ADE8F601CFE7715006CD840 /* NSShareModulView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSShareModulView.h; sourceTree = "<group>"; };
 		2ADE8F611CFE7715006CD840 /* NSShareModulView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSShareModulView.m; sourceTree = "<group>"; };
+		2ADE945E1D040878000AC281 /* NSFansListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSFansListModel.h; sourceTree = "<group>"; };
+		2ADE945F1D040878000AC281 /* NSFansListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSFansListModel.m; sourceTree = "<group>"; };
 		2AE2E5051CE56BF800FD2DC3 /* NSUserProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserProfileCell.h; sourceTree = "<group>"; };
 		2AE2E5061CE56BF800FD2DC3 /* NSUserProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserProfileCell.m; sourceTree = "<group>"; };
 		2AE2E5081CE5A70C00FD2DC3 /* NSUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserProfileViewController.h; sourceTree = "<group>"; };
@@ -934,6 +943,10 @@
 				2AC3D10F1CF8312E00D9FE53 /* NSMyMusicModel.m */,
 				2AC3D1111CF84BB700D9FE53 /* NSMyInspirationListModel.h */,
 				2AC3D1121CF84BB700D9FE53 /* NSMyInspirationListModel.m */,
+				2A141DC81D00B057003ACA74 /* NSUserModel.h */,
+				2A141DC91D00B057003ACA74 /* NSUserModel.m */,
+				2ADE945E1D040878000AC281 /* NSFansListModel.h */,
+				2ADE945F1D040878000AC281 /* NSFansListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1126,6 +1139,8 @@
 				188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */,
 				18453A931CF73596004EE0E6 /* NSString+SizeFont.h */,
 				18453A941CF73596004EE0E6 /* NSString+SizeFont.m */,
+				2A0B72341D003870003957E3 /* NSString+NSMD5Addition.h */,
+				2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1247,12 +1262,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				CAB4B776898A4A9129402425 /* 📦 Check Pods Manifest.lock */,
+				CAB4B776898A4A9129402425 /* [CP] Check Pods Manifest.lock */,
 				2DFB66ED1CC1E65600DA24DA /* Sources */,
 				2DFB66EE1CC1E65600DA24DA /* Frameworks */,
 				2DFB66EF1CC1E65600DA24DA /* Resources */,
-				07EE548D33C5B539D89A6F4F /* 📦 Embed Pods Frameworks */,
-				EDAABA4E9A49B3B688F48E54 /* 📦 Copy Pods Resources */,
+				07EE548D33C5B539D89A6F4F /* [CP] Embed Pods Frameworks */,
+				EDAABA4E9A49B3B688F48E54 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1267,12 +1282,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				7493F63A3CC2B8B54FBBDC83 /* 📦 Check Pods Manifest.lock */,
+				7493F63A3CC2B8B54FBBDC83 /* [CP] Check Pods Manifest.lock */,
 				2DFB67061CC1E65600DA24DA /* Sources */,
 				2DFB67071CC1E65600DA24DA /* Frameworks */,
 				2DFB67081CC1E65600DA24DA /* Resources */,
-				48401835FEFEECDFCB87EBD6 /* 📦 Embed Pods Frameworks */,
-				92D73C8E8C848A3BAFD7293D /* 📦 Copy Pods Resources */,
+				48401835FEFEECDFCB87EBD6 /* [CP] Embed Pods Frameworks */,
+				92D73C8E8C848A3BAFD7293D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1368,14 +1383,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		07EE548D33C5B539D89A6F4F /* 📦 Embed Pods Frameworks */ = {
+		07EE548D33C5B539D89A6F4F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1383,14 +1398,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		48401835FEFEECDFCB87EBD6 /* 📦 Embed Pods Frameworks */ = {
+		48401835FEFEECDFCB87EBD6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1398,14 +1413,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7493F63A3CC2B8B54FBBDC83 /* 📦 Check Pods Manifest.lock */ = {
+		7493F63A3CC2B8B54FBBDC83 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1413,14 +1428,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		92D73C8E8C848A3BAFD7293D /* 📦 Copy Pods Resources */ = {
+		92D73C8E8C848A3BAFD7293D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1428,14 +1443,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CAB4B776898A4A9129402425 /* 📦 Check Pods Manifest.lock */ = {
+		CAB4B776898A4A9129402425 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1443,14 +1458,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		EDAABA4E9A49B3B688F48E54 /* 📦 Copy Pods Resources */ = {
+		EDAABA4E9A49B3B688F48E54 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1551,6 +1566,8 @@
 				1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
+				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
+				2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
 				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
@@ -1562,6 +1579,7 @@
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
 				18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */,
+				2ADE94601D040878000AC281 /* NSFansListModel.m in Sources */,
 				2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */,
 				2AAE01D31CFC5A40008D3145 /* NSDrawLineView.m in Sources */,
 				2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */,

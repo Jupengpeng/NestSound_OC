@@ -8,6 +8,11 @@
 
 #import "NSBaseViewController.h"
 
+@protocol ImportLyric <NSObject>
+-(void)selectLyric:(NSString *)lyrics;
+@end
+
 @interface NSImportLyricViewController : NSBaseViewController
 
+@property (nonatomic,weak) id <ImportLyric> delegate;
 @end

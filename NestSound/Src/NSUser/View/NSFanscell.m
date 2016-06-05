@@ -7,7 +7,7 @@
 //
 
 #import "NSFanscell.h"
-
+#import "NSFansListModel.h"
 @interface NSFanscell ()
 {
     UIImageView * headerImage;
@@ -92,31 +92,19 @@
 
 
 #pragma mark setter & getter
--(void)setHeadUrl:(NSString *)headUrl
+-(void)setFansModel:(NSFansModel *)fansModel
 {
-    _headUrl = headUrl;
-    [headerImage setDDImageWithURLString:_headUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
-
-}
-
--(void)setAuthorName:(NSString *)authorName
-{
-    _authorName = authorName;
-    authorLabel.text = _authorName;
+  
+    _fansModel = fansModel;
     
-}
+    [headerImage setDDImageWithURLString:_fansModel.fansHeadURL placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
 
--(void)setDesc:(NSString *)desc
-{
-    _desc = desc;
-    descLabel.text = _desc;
-    
-}
 
--(void)setIsFocus:(BOOL)isFocus
-{
-    _isFocus = isFocus;
-    if (isFocus) {
+    authorLabel.text = _fansModel.fansName;
+
+    descLabel.text = _fansModel.fansSign;
+
+    if (_fansModel.status) {
         [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_addPicture"] forState:UIControlStateNormal];
     }else{
         [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_addPicture"] forState:UIControlStateNormal];

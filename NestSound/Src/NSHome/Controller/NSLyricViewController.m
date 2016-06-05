@@ -80,9 +80,6 @@
     
     [self fetchData];
     
-   
-    
-    
 }
 
 - (void)rightBarButtonClick:(UIBarButtonItem *)rightBarButton {
@@ -102,9 +99,9 @@
 #pragma mark -fetchData
 -(void)fetchData
 {
-    self.requestType = NO;
+    self.requestType = YES;
     NSDictionary * dic = @{@"id": [NSString stringWithFormat:@"%ld",itemId],@"uid":@""};
-    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:1];
+    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
     
     self.requestURL = [lyricDetailURL stringByAppendingString:str];

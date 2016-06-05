@@ -43,7 +43,7 @@ UITextFieldDelegate
 
 -(void)feedBackWithContent:(NSString *)content_ andNumber:(NSString *)number
 {
-    self.requestType = NO;
+    
 //    self.requestParams= @{@"":@"",@"":@"",@"":@""};
 //    if ([Type isEqualToString:@"feedBack"]) {
 //        self.requestURL = ;

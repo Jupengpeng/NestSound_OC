@@ -19,6 +19,9 @@ UITableViewDelegate
     NSMutableArray * fansAry;
     NSString * userId;
     BOOL isFans;
+    int currentPage;
+    NSString * fansURL;
+    NSString * fansType;
 }
 @end
 
@@ -31,7 +34,6 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     if (self = [super init]) {
         isFans = isFans_;
         userId = UserID;
-        [self configureUIAppearance];
     }
     return  self;
 }
@@ -42,6 +44,49 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     [super viewDidLoad];
     [self configureUIAppearance];
 }
+
+#pragma mark -fetchFansListData
+-(void)fetchFansListData
+{
+    [fansTableView setContentOffset:CGPointMake(0, 60) animated:YES];
+    [fansTableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+}
+
+
+-(void)fetchFansListDataWithIsLoadingMore:(BOOL)isLoadingMore
+{
+    if (!isLoadingMore) {
+        currentPage = 1;
+    }else{
+        ++currentPage;
+    }
+    if (isFans) {
+        fansType = [NSString stringWithFormat:@"%d",1];
+    }else{
+        fansType = [NSString stringWithFormat:@"%d",2];
+    }
+    NSDictionary * dic = @{@"userid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":fansType};
+    NSString * str = [NSTool encrytWithDic:dic];
+    fansURL = [myFansListURL stringByAppendingString:str];
+    self.requestURL = fansURL;
+    
+}
+
+#pragma mark -overrider actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (parserObject.success) {
+     
+        if ([operation.urlTag isEqualToString:fansURL]) {
+            
+            
+            
+        }
+        
+    }
+    
+}
+
 
 #pragma mark
 -(void)configureUIAppearance
@@ -76,6 +121,10 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 {
     return 0.1;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSFanscell * fansCell = [tableView dequeueReusableCellWithIdentifier:NSFansCellIdeify];
@@ -83,10 +132,8 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         fansCell = [[NSFanscell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSFansCellIdeify];
         
     }
-    fansCell.headUrl = @"";
-    fansCell.authorName = @"hjay";
-    fansCell.desc = @"i am a shy boy";
-    fansCell.isFocus = NO;
+    fansCell.fansModel = fansAry[indexPath.row];
+//    fansCell.isFocus = NO;
     
     return fansCell;
     

@@ -12,6 +12,7 @@
 @interface NSNewMusicViewController () <UITableViewDelegate, UITableViewDataSource> {
     
     UITableView *_tableView;
+    NSMutableArray * DataAry;
 }
 
 @end
@@ -52,7 +53,17 @@
     
 }
 
+
+#pragma mark -fetchData
 -(void)fetchData
+{
+    self.requestType = YES;
+    
+
+}
+
+#pragma mark -override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
 
 

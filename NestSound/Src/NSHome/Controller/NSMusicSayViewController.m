@@ -24,7 +24,15 @@ UICollectionViewDelegateFlowLayout
     int i;
     
     NSString * url ;
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+    int currentPage;
+=======
+>>>>>>> fd1704484d6437ed3eebc82ceb41745bcc9d9980
+>>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
+>>>>>>> e10405fd9e3607be9b7b116c960b9ed05d27725c
 }
 @end
 static NSString * const musicSayCellId = @"musicSayCellId";
@@ -59,30 +67,48 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:musicSayList];
     
-   
+    WS(wSelf);
+    //refresh
+    [musicSayList addPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchMusicSayListDataIsLoadingMore:NO];
+        }
+        
+    }];
+    
+    //loadingMore
+    [musicSayList addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchMusicSayListDataIsLoadingMore:YES];
+        }
+    }];
+    
+    //hide infitView
+    musicSayList.showsInfiniteScrolling = NO;
     
 }
-
 
 #pragma mark -fetchData
 -(void)fetchMusicSayListDataIsLoadingMore:(BOOL)isLoadingMore
 {
-    int page = [[self.requestParams objectForKey:@"page"] intValue];
+    
     if (!isLoadingMore) {
-        page = 1 ;
-        
-        NSDictionary * dic = @{@"page":@"1"};
-        NSDictionary * dic1 =  [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
-        NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-        url = [yueShuoURL stringByAppendingString:str];
-        self.requestType = YES;
-        self.requestParams = @{@"page":@"1"};
-        self.requestURL = url;
+        currentPage = 1 ;
     }else{
     
-        ++page;
+        ++currentPage;
     }
 
+    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [yueShuoURL stringByAppendingString:str];
+    self.requestType = YES;
+    self.requestURL = url;
+    
 }
 
 #pragma mark -actionFetchData

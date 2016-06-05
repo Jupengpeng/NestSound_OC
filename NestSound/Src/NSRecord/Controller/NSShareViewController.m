@@ -128,6 +128,12 @@ static NSString *identifier = @"identifier";
 
 }
 
+<<<<<<< HEAD
+#pragma mark
+-(void)doShare:(UIButton *)sender
+{
+=======
+>>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
 
 -(void)viewWillAppear:(BOOL)animated
 {

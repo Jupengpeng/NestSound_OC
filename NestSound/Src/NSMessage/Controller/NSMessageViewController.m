@@ -19,7 +19,8 @@ UITableViewDataSource
     NSArray * imageAry;
     NSArray * titleAry;
     NSMutableArray * bageAry;
-    
+    NSString * userID;
+    NSString * url;
 }
 @end
 
@@ -33,19 +34,27 @@ UITableViewDataSource
 {
     [super viewDidLoad];
     
-    [self configureUIAppearance];
+   
 
+}
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self fetchData];
 }
 
 #pragma mark -fetchData
 -(void)fetchData
 {
-    NSString * userID;
-    
-    
-//    self.requestType = NO;
-//    self.requestURL =;
-//    self.requestParams = ;
+    self.requestType = YES;
+    NSDictionary * dic1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSLog(@"dic1 %@",dic1);
+    NSDictionary * dic =@{@"uid":JUserID,@"token":LoginToken,@"timeStamp": [date getTimeStamp]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [messageURL stringByAppendingString:str];
+     self.requestURL = url;
     
 
 }
@@ -54,6 +63,10 @@ UITableViewDataSource
 #pragma mark override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
+    
+    if ([operation.urlTag isEqualToString:url]) {
+        
+    
     if (!parserObject.success) {
         
         NSMessageListModel * messageList = (NSMessageListModel *)parserObject;
@@ -65,8 +78,9 @@ UITableViewDataSource
         [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
         [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
         [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
+        }
     }
-    
+      [self configureUIAppearance];
 }
 
 
@@ -76,7 +90,7 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     //imageAry;
-    imageAry = @[@"",@"",@"",@""];
+    imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.0_message_system.png"];
     
     //titleAry
     titleAry = @[LocalizedStr(@"prompt_commentMessage"),
@@ -88,6 +102,7 @@ UITableViewDataSource
     
     //messageType table
     _messageTypeTab = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _messageTypeTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     _messageTypeTab.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _messageTypeTab.dataSource = self;
     _messageTypeTab.delegate = self;
@@ -101,6 +116,7 @@ UITableViewDataSource
         make.left.top.right.bottom.equalTo(self.view);
     }];
 //
+    
 }
 
 
@@ -128,7 +144,6 @@ UITableViewDataSource
 {
     return 60;
 }
-
 
 -(UITableViewCell * )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -167,7 +182,7 @@ UITableViewDataSource
         bage.text = bageAry[section];
     }
     messageCell.textLabel.text = titleAry[section];
-//    messageCell.imageView.image = [UIImage imageNamed:imageAry[row]];
+    messageCell.imageView.image = [UIImage imageNamed:imageAry[section]];
     return messageCell;
 }
 

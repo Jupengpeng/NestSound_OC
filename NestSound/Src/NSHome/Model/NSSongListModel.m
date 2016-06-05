@@ -16,9 +16,20 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
 
-    return @{@"SongList":@"data"};
+    return @{@"SongList":@"data",
+             @"songListDetail":@"data"};
+
 }
 
+
+@end
+
+@implementation NSSongListDetail
+-(NSDictionary *)modelKeyJSONKeyMapper
+{
+
+    return @{@"listDetail":@"recommedSong"};
+}
 
 @end
 
@@ -37,7 +48,7 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"author":@"author",
-             @"workName":@"name",
+             @"workName":@"title",
              @"playUrl":@"playurl",
              @"itemId":@"itemid"
              };

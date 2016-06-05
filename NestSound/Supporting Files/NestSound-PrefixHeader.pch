@@ -37,6 +37,9 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaSSOHandler.h"
 #import "NSToastManager.h"
+#import "NSString+NSMD5Addition.h"
+#import "WXApi.h"
+
 // Host
 extern BOOL debugMode;
 extern NSString *host;
@@ -50,8 +53,26 @@ extern NSString *port;
 #define indexURL @"http://112.124.125.2/java/common/index/app?"
 #define dicoverMusicURL @"http://112.124.125.2/java/common/find/music?"
 #define dicoverActivityURL @"http://112.124.125.2/java/common/find/activelist?"
+#define dicoverLyricURL @"http://112.124.125.2/java/common/find/lyrics?"
+#define discoverBandURL @"http://112.124.125.2/java/common/find/rankList?"
 #define lyricDetailURL @"http://112.124.125.2/java/common/lyrics/detail?"
 #define yueShuoURL @"http://112.124.125.2/java/common/yueshuo/list?"
+#define SongListURL @"http://112.124.125.2/java/common/glee/detail?"
+#define songListURL @" http://112.124.125.2/java/common/glee/list?"
+#define sendCodeURL @"http://112.124.125.2/java/common/send/code?"
+#define registerURL @"http://112.124.125.2/java/common/regist/mobile?"
+#define loginURl @"http://112.124.125.2/java/common/login/mobile?"
+#define userCenterURL @"http://112.124.125.2/java/userCenter/index?"
+#define otherCenterURL @"http://112.124.125.2/java/common/otherCenter/index?"
+#define messageURL @"http://112.124.125.2/java/message/center?"
+#define upvoteMessageURL @"http://112.124.125.2/java/message/zanCenterList?"
+#define accompanyListURL @"http://112.124.125.2/java/common/accompaniment/list?"
+#define collectMessageURL @"http://112.124.125.2/java/message/fovMyCenterList?"
+#define commentMessageURL @"http://112.124.125.2/java/message/commentCenterList?"
+#define systemMessageURL @"http://112.124.125.2/java/message/sysNoteList?"
+#define myLyricListURL @"http://112.124.125.2/java/common/lyrics/myLyrics?"
+#define myFansListURL @"http://112.124.125.2/java/fanfocus/fanslist?"
+#define focusUserURL @"http://112.124.125.2/java/fanfocus/optFans?"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG
@@ -74,7 +95,8 @@ extern NSString *port;
 // Keys
 #define kNoLoading       @"noLoading"
 #define kIsLoadingMore   @"isLoadingMore"
-
+#define JUserID [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userID"]
+#define LoginToken [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userLoginToken"]
 
 // weixin - appInfo
 #define wxAppId        @"wx10b95b65884a92c0"

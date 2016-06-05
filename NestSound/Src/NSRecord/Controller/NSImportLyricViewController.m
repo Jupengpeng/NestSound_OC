@@ -22,7 +22,8 @@ UICollectionViewDelegateFlowLayout
     UILabel * lyricesNameLabel;
     UILabel * authorLabel;
     UIImageView * titlePage;
-    
+    int currentPage;
+    NSString * url;
 }
 
 @end
@@ -36,17 +37,51 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     [self configureUIAppearance];
 }
 
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [lyricCollecView setContentOffset:CGPointMake(0, 60) animated:YES];
+    [lyricCollecView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+
+}
+
 #pragma mark -fectData
 -(void)fetchMyLyricDataIsLoadingMore:(BOOL)isLoadingMore
 {
-    
+    if (!isLoadingMore) {
+        currentPage = 1;
+        self.requestParams = @{kIsLoadingMore:@(NO)};
+    }else{
+        ++currentPage;
+        self.requestParams = @{kIsLoadingMore:@(YES)};
+    }
+    self.requestType = YES;
+    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage],@"uid":JUserID};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [myLyricListURL stringByAppendingString:str];
+    self.requestURL = url;
     
 }
 
 #pragma mark --override action fetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
+    if (!parserObject.success) {
+        if ([url isEqualToString:myLyricListURL]) {
+            NSMyLricListModel * myLyricList = (NSMyLricListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                lyricesAry = [NSMutableArray arrayWithArray:myLyricList.myLyricList];
+            }else{
+                [lyricesAry addObject:myLyricList.myLyricList];
+            }
+        }
+        if (!operation.isLoadingMore) {
+            lyricCollecView.showsInfiniteScrolling = YES;
+        }
+        [lyricCollecView reloadData];
+    }
 
 }
 
@@ -58,6 +93,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     //lyricCollecView
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
     lyricCollecView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    lyricCollecView.autoresizesSubviews = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [lyricCollecView registerClass:[NSLyricCell class] forCellWithReuseIdentifier:lyricCellIdifity];
     [self.view addSubview:lyricCollecView];
     
@@ -65,7 +101,26 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     [lyricCollecView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self.view);
     }];
+    WS(wSelf);
     
+    //refresh
+    [lyricCollecView addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchMyLyricDataIsLoadingMore:NO];
+        }
+    }];
+    
+    //loadingMore
+    [lyricCollecView addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchMyLyricDataIsLoadingMore:YES];
+        }
+    }];
+    lyricCollecView.showsInfiniteScrolling = NO;
 }
 
 #pragma mark collectionViewDataSource
@@ -77,19 +132,18 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLyricCell * lyricCell = [collectionView dequeueReusableCellWithReuseIdentifier:lyricCellIdifity forIndexPath:indexPath];
-    lyricCell.titlePageUrl = @"111";
-    lyricCell.lyricName = @"nishuoddshigesha";
-    lyricCell.authorName = @"hjay";
-    
+    NSInteger row = indexPath.row;
+    lyricCell.myLyricModel = lyricesAry[row];
     return lyricCell;
 }
 
 #pragma mark collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLyricViewController * lyricVC = [[NSLyricViewController alloc] init];
-    
-    [self.navigationController pushViewController:lyricVC animated:YES];
+    NSInteger row = indexPath.row;
+    NSMyLyricModel * mode = lyricesAry[row];
+    NSString * lyric = mode.lyrics;
+    [_delegate selectLyric:lyric];
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout

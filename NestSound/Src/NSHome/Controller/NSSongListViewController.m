@@ -23,6 +23,8 @@ UICollectionViewDelegateFlowLayout
     NSSongViewController * songVC;
     
     NSString * itemId;
+    int currentPage;
+    NSString * url;
 }
 
 
@@ -46,12 +48,18 @@ UICollectionViewDelegateFlowLayout
 {
     [super viewDidLoad];
     
-    
     [self configureUIAperance];
     
 
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self fetchSongList];
+}
+
+#pragma mark -configureUIAppearance
 -(void)configureUIAperance
 {
     //title
@@ -67,25 +75,90 @@ UICollectionViewDelegateFlowLayout
     
     SongListColl.bounces = NO;
     
+    [self.view addSubview:SongListColl];
     
+    WS(wSelf);
+    //refresh
+    [SongListColl addPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchSongListWithIsLoadingMore:NO];
+        }
+        
+    }];
+    //loadingMore
+    [SongListColl addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchSongListWithIsLoadingMore:YES];
+        }
+    }];
+    
+    //hide infiniteView
+    SongListColl.showsInfiniteScrolling = NO;
 
 }
 
 #pragma mark -fetchData
--(void)fetchData
+-(void)fetchSongList
 {
-
+    if (SongLists.count == 0) {
+        [SongListColl setContentOffset:CGPointMake(0 , -60) animated:YES];
+        [SongListColl performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
+    }
+    
 
 }
+
+#pragma mark -fetchSongListIsLoadingMore
+-(void)fetchSongListWithIsLoadingMore:(BOOL)isLoadingMore
+{
+    if (!isLoadingMore) {
+        currentPage = 1;
+        
+    }else{
+        ++currentPage;
+    }
+    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [songListURL  stringByAppendingString:str];
+    self.requestType = NO;
+    self.requestURL = url;
+    
+
+}
+
 
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        NSSongListModel * songListModel = (NSSongListModel *)parserObject;
-        SongLists = [NSMutableArray  arrayWithArray:songListModel.SongList.songList];
+    
+    if ([operation.urlTag isEqualToString:url]) {
+    
+        if (!parserObject.success) {
+            NSSongListModel * songListModel = (NSSongListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                SongLists = [NSMutableArray  arrayWithArray:songListModel.SongList.songList];
+            }else{
+            
+                if (songListModel.SongList.songList.count == 0) {
+                    
+                }else{
+                    [SongLists addObjectsFromArray:songListModel.SongList.songList];
+                }
+            }
+            [SongListColl reloadData];
+            
+            if (!operation.isLoadingMore) {
+                [SongListColl.pullToRefreshView stopAnimating];
+            }else{
+                [SongListColl.infiniteScrollingView stopAnimating];
+            }
+            
+        }
     }
-
 }
 
 #pragma mark collectionView dataSource

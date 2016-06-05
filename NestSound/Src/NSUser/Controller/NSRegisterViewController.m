@@ -9,6 +9,8 @@
 #import "NSRegisterViewController.h"
 #import "UIScrollView+NSKeyboardAutoAdapt.h"
 #import "NSDrawGrayLine.h"
+#import "NSLoginViewController.h"
+#import "NSH5ViewController.h"
 #define textPlaceholderColor [UIColor colorWithRed:193 / 255.0 green:193 / 255.0 blue:193 / 255.0 alpha:1]
 
 @interface NSRegisterViewController () {
@@ -24,6 +26,7 @@
     UITextField *repasswordText;
     
     UITextField *captchaText;
+    NSString * url;
 }
 
 @end
@@ -40,6 +43,32 @@
     [self setupUI];
 }
 
+
+#pragma mark -override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        if ([operation.urlTag isEqualToString:url]) {
+        
+            [[NSToastManager manager] showtoast:@"验证码已发送，请注意查收"];
+        }else if ([operation.urlTag isEqualToString:registerURL]){
+            [[NSToastManager manager] showtoast:@"注册成功，请您登陆"];
+           [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    
+            
+        
+    }else{
+        [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
+
+    }
+
+
+}
+
+
+
+#pragma mark -setupUI
 - (void)setupUI {
     
     WS(wSelf);
@@ -203,6 +232,26 @@
         [btn setTitle:@"获取验证码" forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
     } action:^(UIButton *btn) {
+        
+        if ([NSTool isStringEmpty:captchaText.text]) {
+            
+            
+           
+            wSelf.requestParams = @{
+                    kIsLoadingMore:@(NO),
+                                  kNoLoading:@(YES),@"type":@(YES)}; 
+            NSDictionary * dic = @{@"mobile":captchaText.text};
+            NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+            NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+            
+            wSelf.requestURL = [sendCodeURL stringByAppendingString:str];
+            url = wSelf.requestURL;
+            
+            
+        }else{
+            [[NSToastManager manager] showtoast:@"请输入正确的电话号码"];
+        }
+        
         
         NSLog(@"点击了获取验证码");
     }];
@@ -394,6 +443,11 @@
         
     } action:^(UIButton *btn) {
         
+        NSH5ViewController * protocolVC =[[NSH5ViewController alloc] init];
+#warning protocol url
+        protocolVC.h5Url = @"123";
+        [self.navigationController pushViewController:protocolVC animated:YES];
+        
         NSLog(@"点击了协议");
         
     }];
@@ -428,7 +482,7 @@
     } action:^(UIButton *btn) {
         
         NSLog(@"点击了确定");
-        
+    
     }];
     
     [scrollView addSubview:loginBtn];
@@ -450,6 +504,8 @@
         
     }];
     
+    
+    [loginBtn addTarget:self action:@selector(registerNumber) forControlEvents:UIControlEventTouchUpInside];
     registerBtn.centerX = loginBtn.centerX;
     
     [scrollView addSubview:registerBtn];
@@ -469,6 +525,31 @@
     [captchaText resignFirstResponder];
 }
 
+-(void)registerNumber
+{
+    
+        
+   
+    if (![passwordText.text isEqualToString:repasswordText.text]) {
+        [[NSToastManager manager] showtoast:@"亲，两次输入密码不一致哦"];
+    }else{
+        
+        NSString * password = [passwordText.text stringToMD5];
+        NSString * rePassword = [repasswordText.text stringToMD5];
+        self.requestParams = @{@"name":userNameText.text,
+                               @"phone":phoneText.text,
+                               @"password":password,
+                               @"repassword":rePassword,
+                               @"code":captchaText.text,
+                               kIsLoadingMore:@(NO),@"type":@(NO)};
+        self.requestURL = registerURL;
+    
+    }
+        
+    
+    
+
+}
 
 
 @end
