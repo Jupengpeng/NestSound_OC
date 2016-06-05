@@ -21,6 +21,7 @@
     NSMutableArray * hotAccompanyAry;
     NSMutableArray * newAccompanyAry;
     NSMutableArray * dataAry;
+    int currentPage;
 }
 @end
 
@@ -52,7 +53,6 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 #pragma mark -fetchAccommpanyListDataIsLoadMore
 -(void)fetchAccompanyListDataWithIsLoadingMore:(BOOL)isLoadingMore{
     
-    int currentPage = [[self.requestParams objectForKey:@"page"] intValue];
     if (!isLoadingMore) {
         currentPage = 1;
     }else{

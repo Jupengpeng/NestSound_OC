@@ -20,6 +20,7 @@ UICollectionViewDelegateFlowLayout
     UICollectionView * musicSayList;
     NSMutableArray * musicSayAry;
     long itemId;
+    int i;
     
 }
 @end
@@ -101,8 +102,8 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    int i;
-    if (  i ==1) {
+    
+    if (i == 1) {
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         playVC.itemId = itemId;
         [self.navigationController pushViewController: playVC animated:YES];

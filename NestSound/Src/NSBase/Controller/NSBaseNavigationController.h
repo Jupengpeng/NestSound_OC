@@ -10,4 +10,6 @@
 
 @interface NSBaseNavigationController : UINavigationController
 
+- (void)backClick:(UIBarButtonItem *)back;
+
 @end

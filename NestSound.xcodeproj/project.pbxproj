@@ -11,6 +11,8 @@
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
+		181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 181897221D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m */; };
+		181897261D02DFF90009B145 /* NSShareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 181897251D02DFF90009B145 /* NSShareCollectionViewCell.m */; };
 		182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182F33531CDC41AF006AB047 /* Assets.xcassets */; };
 		183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */; };
 		183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183E03A11CDDDACC0071FEE5 /* NSMusicViewController.m */; };
@@ -183,6 +185,10 @@
 		18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseTabBarViewController.m; sourceTree = "<group>"; };
 		18074E411CEC43290011B0A4 /* NSPlusTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlusTabBar.h; sourceTree = "<group>"; };
 		18074E421CEC43290011B0A4 /* NSPlusTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlusTabBar.m; sourceTree = "<group>"; };
+		181897211D02ADAE0009B145 /* NSSearchUserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchUserCollectionViewCell.h; sourceTree = "<group>"; };
+		181897221D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchUserCollectionViewCell.m; sourceTree = "<group>"; };
+		181897241D02DFF90009B145 /* NSShareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSShareCollectionViewCell.h; sourceTree = "<group>"; };
+		181897251D02DFF90009B145 /* NSShareCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSShareCollectionViewCell.m; sourceTree = "<group>"; };
 		182F33531CDC41AF006AB047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		183E039D1CDDC80F0071FEE5 /* NSDiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverViewController.h; sourceTree = "<group>"; };
 		183E039E1CDDC80F0071FEE5 /* NSDiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDiscoverViewController.m; sourceTree = "<group>"; };
@@ -586,6 +592,8 @@
 				18FA5E341CFC19300027D534 /* NSSearchMusicTableView.m */,
 				18FA5E361CFC23180027D534 /* NSSearchUserCollectionView.h */,
 				18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */,
+				181897211D02ADAE0009B145 /* NSSearchUserCollectionViewCell.h */,
+				181897221D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -878,6 +886,8 @@
 				2AB2D5281CFCAF78007422BD /* NSWriteLyricMaskView.m */,
 				2ADE8F601CFE7715006CD840 /* NSShareModulView.h */,
 				2ADE8F611CFE7715006CD840 /* NSShareModulView.m */,
+				181897241D02DFF90009B145 /* NSShareCollectionViewCell.h */,
+				181897251D02DFF90009B145 /* NSShareCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1532,6 +1542,7 @@
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
 				2AAE01CA1CFC209E008D3145 /* NSForgetPassWordViewController.m in Sources */,
+				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
@@ -1566,6 +1577,7 @@
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,
+				181897261D02DFF90009B145 /* NSShareCollectionViewCell.m in Sources */,
 				18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */,
 				2AE2E5071CE56BF800FD2DC3 /* NSUserProfileCell.m in Sources */,
 				18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */,
@@ -1754,15 +1766,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-
-
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-                
-
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

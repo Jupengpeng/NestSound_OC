@@ -10,12 +10,14 @@
 #import "NSDrawLineView.h"
 #import "NSLyricView.h"
 #import "NSOptimizeMusicViewController.h"
+#import "NSImportLyricViewController.h"
+#import "NSSoundRecord.h"
 
-@interface Line : UIView
+@interface CenterLine : UIView
 
 @end
 
-@implementation Line
+@implementation CenterLine
 
 #pragma mark -override drawRect
 -(void)drawRect:(CGRect)rect {
@@ -24,39 +26,64 @@
     
     [path moveToPoint:CGPointMake(0, 0)];
     
-    [path addLineToPoint:CGPointMake(self.width, 0)];
+    [path addLineToPoint:CGPointMake(self.width, self.height)];
     
     [path setLineWidth:self.width];
     
-    [[UIColor hexColorFloat:@"ffd507"] setStroke];
+    [[UIColor hexColorFloat:@"ff833f"] setStroke];
     
-//    [[UIColor hexColorFloat:@"ffd507"] setFill];
+    [[UIColor hexColorFloat:@"ff833f"] setFill];
     
     [path stroke];
 }
 
 @end
 
-@interface NSWriteMusicViewController () {
+
+@interface NSWriteMusicViewController () <NSSoundRecordDelegate, UIScrollViewDelegate> {
     
-    UIImageView *slideBarImage;
-    
-    UILabel *timeLabel;
+    UILabel *totalTimeLabel;
     
     UITextField *titleText;
     
     NSLyricView *lyricView;
 }
 
+@property (nonatomic, strong) UIImageView *slideBarImage;
+
+@property (nonatomic, strong) UILabel *timeLabel;
+
+@property (nonatomic, strong)  CADisplayLink *link;
+
+@property (nonatomic, assign) CGFloat timerNum;
+
+@property (nonatomic, strong) NSSoundRecord *soundRecord;
+
+@property (nonatomic, strong) NSMutableArray *btns;
+
 @end
 
 @implementation NSWriteMusicViewController
+
+- (NSMutableArray *)btns {
+    
+    if (!_btns) {
+        
+        _btns = [NSMutableArray array];
+    }
+    
+    return _btns;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    
+    self.soundRecord = [[NSSoundRecord alloc] init];
+    
+    self.soundRecord.delegate = self;
     
     [self setupUI];
     
@@ -104,64 +131,71 @@
         
         [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         
+        [self.btns addObject:btn];
+        
         [bottomView addSubview:btn];
     }
     
+    //150为伴奏的时长
+//    CGFloat scrollW = 150 * 60 + 40;
+//    
+//    self.waveform = [[NSWaveformScrollView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
+//    
+//    self.waveform.backgroundColor = [UIColor whiteColor];
+//    
+//    self.waveform.contentSize = CGSizeMake(scrollW, 64);
+//    
+//    self.waveform.showsHorizontalScrollIndicator = NO;
+//    self.waveform.delegate = self;
+//    self.waveform.bounces = NO;
+//    
+////    self.waveform.userInteractionEnabled = NO;
+//    
+//    [self.view addSubview:self.waveform];
     
     
-    Line * bottomLine = [[Line alloc] init];
+//    self.slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
     
-    [self.view addSubview:bottomLine];
+//    self.slideBarImage.frame = CGRectMake(self.view.width * 0.5 - 3, self.waveform.y, 6, 64);
     
-    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(bottomView.mas_top);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.height.mas_equalTo(1);
-    }];
-    
-    Line * upLine = [[Line alloc] init];
-    
-    [self.view addSubview:upLine];
-    
-    [upLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(bottomLine.mas_top).offset(-61);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.height.mas_equalTo(1);
-        
-    }];
+//    [self.view addSubview:self.slideBarImage];
     
     
-    slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
+    totalTimeLabel = [[UILabel alloc] init];
     
-    [self.view addSubview:slideBarImage];
+    totalTimeLabel.font = [UIFont systemFontOfSize:10];
     
-    [slideBarImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(self.view.mas_left).offset(20);
-        
-        make.bottom.equalTo(bottomLine.mas_top).offset(3);
-        
-    }];
+    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",@"02:30"];
     
+    [self.view addSubview:totalTimeLabel];
     
-    timeLabel = [[UILabel alloc] init];
-    
-    timeLabel.font = [UIFont systemFontOfSize:10];
-    
-    timeLabel.text = [NSString stringWithFormat:@"00:00/02:32"];
-    
-    [self.view addSubview:timeLabel];
-    
-    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self.view.mas_right).offset(-15);
         
-        make.bottom.equalTo(bottomLine.mas_top).offset(-10);
+        make.bottom.equalTo(bottomView.mas_top).offset(-10);
         
     }];
- 
+    
+    
+    self.timeLabel = [[UILabel alloc] init];
+    
+    self.timeLabel.font = [UIFont systemFontOfSize:10];
+    
+    self.timeLabel.text = [NSString stringWithFormat:@"00:00"];
+    
+    [self.view addSubview:self.timeLabel];
+    
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(totalTimeLabel.mas_left);
+        
+        make.bottom.equalTo(bottomView.mas_top).offset(-10);
+        
+    }];
+    
+    
+    
     
     titleText = [[UITextField alloc] init];
     
@@ -216,19 +250,65 @@
     
     if (btn.tag == 0) {
         
+        NSImportLyricViewController *importLyric = [[NSImportLyricViewController alloc] init];
+        
+        [self.navigationController pushViewController:importLyric animated:YES];
+        
         NSLog(@"点击了导入歌词");
         
     } else if (btn.tag == 1) {
         
-        NSLog(@"点击了导入暂停");
+        btn.selected = !btn.selected;
+        
+        if (btn.selected) {
+            
+            [self removeLink];
+            
+            [self.soundRecord pausePlaysound];
+            
+        } else {
+            
+            [self addLink];
+            
+            [self.soundRecord playsound];
+            
+        }
+        
+        NSLog(@"点击了暂停和播放");
+        
     } else if (btn.tag == 2) {
         
         btn.selected = !btn.selected;
         
-         NSLog(@"点击了导入录制");
+        if (btn.selected) {
+            
+            UIButton *btn1 = self.btns[1];
+            
+            btn1.selected = YES;
+            
+            [self addLink];
+            
+            [self.soundRecord startRecorder];
+            
+        } else {
+            
+            [self removeLink];
+            
+            [self.soundRecord stopRecorder];
+            
+        }
+        
+         NSLog(@"点击了录制");
+        
     } else if (btn.tag == 3) {
         
-         NSLog(@"点击了导入重唱");
+        UIButton *btn2 = self.btns[2];
+        
+        btn2.selected = NO;
+        
+        self.timeLabel.text = @"00:00";
+        
+        NSLog(@"点击了重唱");
     } else {
         
         btn.selected = !btn.selected;
@@ -252,6 +332,13 @@
     }
 }
 
+//播放完毕回调
+- (void)soundRecord:(NSSoundRecord *)record {
+    
+
+}
+
+
 - (void)rightClick:(UIBarButtonItem *)right {
     
     NSOptimizeMusicViewController *optimize = [[NSOptimizeMusicViewController alloc] init];
@@ -264,5 +351,52 @@
     
     NSLog(@"点击了下一步");
 }
+
+
+
+/**
+ *  添加定时器
+ */
+- (void)addLink {
+    
+    self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
+    
+    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+
+/**
+ *  移除定时器
+ */
+- (void)removeLink {
+    
+    [self.link invalidate];
+    
+    self.link = nil;
+    
+}
+
+/**
+ *  定时器执行
+ */
+- (void)actionTiming {
+    
+    //计时数
+    self.timerNum += 1/60.0;
+    
+    //分贝数
+    CGFloat count = [self.soundRecord decibels];
+    
+
+    //计时显示
+    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    
+}
+
 
 @end

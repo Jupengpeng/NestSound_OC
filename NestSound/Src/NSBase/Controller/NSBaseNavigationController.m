@@ -40,7 +40,7 @@
     [super pushViewController:viewController animated:animated];
 }
     
-- (void)backClick:(UITabBarItem *)back {
+- (void)backClick:(UIBarButtonItem *)back {
     
     if (self.childViewControllers.count <= 2) {
         
@@ -49,5 +49,7 @@
     
     [self popViewControllerAnimated:YES];
 }
+
+
 
 @end

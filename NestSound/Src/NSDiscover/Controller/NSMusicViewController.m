@@ -46,6 +46,7 @@ static NSString * const headerView = @"HeaderView";
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear: animated];
     [self fetchData];
 }
 #pragma mark -configureUIAppearance

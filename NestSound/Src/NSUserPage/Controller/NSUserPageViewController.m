@@ -58,7 +58,7 @@ UITableViewDataSource>
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    
+    [super viewWillAppear: animated];
     
     if (!login.isHidden) {
         [self.tabBarController setSelectedIndex:0];
@@ -277,17 +277,24 @@ UITableViewDataSource>
         
     } else if (self.btnTag == 2) {
         
-        static NSString *ID = @"cell2";
+        static NSString *ID = @"cell0";
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             
         }
         
-        cell.textLabel.text = @"收藏";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
+        
+        cell.numLabel.hidden = YES;
         
         return cell;
         
@@ -315,12 +322,9 @@ UITableViewDataSource>
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.btnTag == 0 || self.btnTag == 1) {
+    if (self.btnTag == 0 || self.btnTag == 1 || self.btnTag == 2) {
         
         return 80;
-    } else if (self.btnTag == 2) {
-        
-        return 44;
     } else {
         
         return 140;

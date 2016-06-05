@@ -8,67 +8,108 @@
 
 #import "NSLyricCoachViewController.h"
 
-@interface NSLyricCoachViewController ()
-<
-UIScrollViewDelegate
->
-{
-    UIScrollView * coachScro;
-    UIPageControl * page;
-    NSMutableArray * ImageAry;
-}
+@interface NSLyricCoachViewController () <UIScrollViewDelegate>
+
+@property (nonatomic, strong) UIScrollView *coachScrollView;
+
+@property (nonatomic, strong) UIPageControl *page;
 @end
 
 @implementation NSLyricCoachViewController
 
--(void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self configureUIAppearance];
-}
 
-#pragma mark -configureUIAppearance
--(void)configureUIAppearance
-{
-    self.view.backgroundColor = [UIColor whiteColor];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-    //coachScro
-    coachScro = [[UIScrollView alloc] init];
-    coachScro.delegate = self;
-    coachScro.contentSize =CGSizeMake(ScreenWidth*ImageAry.count, ScreenHeight);
-    coachScro.contentOffset = CGPointMake(0, 0);
-    [self.view addSubview:coachScro];
+    self.coachScrollView = [[UIScrollView alloc] init];
     
-    //page
-    page = [[UIPageControl alloc] init];
-    page.numberOfPages = ImageAry.count;
+    self.coachScrollView.frame=CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    
+    [self.coachScrollView setContentSize:CGSizeMake(self.coachScrollView.frame.size.width * 3, [UIScreen mainScreen].bounds.size.height-20)];
+    
+    self.coachScrollView.pagingEnabled = YES;
+    
+    self.coachScrollView.delegate = self;
+    
+    self.coachScrollView.showsHorizontalScrollIndicator = NO;
+    
+    self.coachScrollView.bounces = NO;
+    
+    [self.view addSubview:self.coachScrollView];
+    
+    UIImageView *_page1=[[UIImageView alloc]init];
+    _page1.clipsToBounds=YES;
+    _page1.contentMode=UIViewContentModeScaleAspectFill;
+    _page1.image=[UIImage imageNamed:@"2.0_coach00"];
+    _page1.frame=CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [self.coachScrollView addSubview:_page1];
+    
+    
+    UIImageView *_page2=[[UIImageView alloc]init];
+    _page2.clipsToBounds=YES;
+    _page2.contentMode=UIViewContentModeScaleAspectFill;
+    _page2.image=[UIImage imageNamed:@"2.0_coach01"];
+    _page2.frame=CGRectMake([UIScreen mainScreen].bounds.size.width, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [self.coachScrollView addSubview:_page2];
+    
+    UIImageView *_page3=[[UIImageView alloc]init];
+    _page3.image=[UIImage imageNamed:@"2.0_coach02"];
+    _page3.contentMode=UIViewContentModeScaleAspectFill;
+    _page3.frame=CGRectMake([UIScreen mainScreen].bounds.size.width*2, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    [self.coachScrollView addSubview:_page3];
+    
+    
+    UIPageControl *page = [[UIPageControl alloc] init];
+    
+    page.numberOfPages = 3;
+    
+    page.pageIndicatorTintColor = [UIColor lightGrayColor];
+    
+    page.currentPageIndicatorTintColor = [UIColor hexColorFloat:@"ffd705"];
+    
+    self.page = page;
+    
     [self.view addSubview:page];
     
-    //constarints
-    [coachScro mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.bottom.equalTo(self.view);
-    }];
-    
     [page mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.bottom.equalTo(self.view.mas_bottom).offset(-15);
+        
         make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.equalTo(self.view.mas_bottom).with.offset(-20);
+        
     }];
     
+    
+    UIButton *page3Btn=[[UIButton alloc]init];
+    [page3Btn setImage:[UIImage imageNamed:@"2.0_record_retract"] forState:UIControlStateNormal];
+    [page3Btn addTarget:self action:@selector(doBack:) forControlEvents:UIControlEventTouchUpInside];
+    page3Btn.frame=CGRectMake(15, 32, 30, 30);
+        [page3Btn.layer setMasksToBounds:YES];
+    [self.view addSubview:page3Btn];
+
     
     
 }
+
 
 #pragma mark UIScrollView Delegate
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    page.currentPage = scrollView.contentOffset.x/ScreenWidth;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    self.page.currentPage = self.coachScrollView.contentOffset.x / ScreenWidth;
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.x > (ImageAry.count-1)*ScreenWidth) {
-        [self.navigationController popViewControllerAnimated:YES];
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (scrollView.contentOffset.x > ScreenWidth * 3 + 50) {
+        
+        
     }
+    
+}
+
+- (void)doBack:(UIButton *)btn {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

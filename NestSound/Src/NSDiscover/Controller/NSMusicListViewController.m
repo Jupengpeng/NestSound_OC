@@ -112,7 +112,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSInteger section = indexPath.section;
-    NSInteger row = indexPath.row;
     NSPlayMusicViewController * playMusicVC;
     if (section == 0) {
         NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];

@@ -7,6 +7,7 @@
 //
 
 #import "NSSearchUserCollectionView.h"
+#import "NSSearchUserCollectionViewCell.h"
 
 @interface NSSearchUserCollectionView () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -22,11 +23,13 @@ static NSString * const identifier = @"identifierCell";
     
     if (self) {
         
+        self.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+        
         self.delegate = self;
         
         self.dataSource = self;
         
-        [self registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:identifier];
+        [self registerClass:[NSSearchUserCollectionViewCell class] forCellWithReuseIdentifier:identifier];
         
     }
     
@@ -40,10 +43,8 @@ static NSString * const identifier = @"identifierCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    
-    cell.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
-    
+    NSSearchUserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+        
     return cell;
 }
 

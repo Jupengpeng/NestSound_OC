@@ -60,23 +60,31 @@
         NSLog(@"录音错误说明%@", [error description]);
     }
     
-    NSDictionary *setting = [NSDictionary dictionary];
+    if (!self.recorder) {
     
-    AVAudioRecorder *recorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
+        NSDictionary *setting = [NSDictionary dictionary];
+        
+        self.recorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
+        
+        self.recorder.meteringEnabled = YES;
+        
+    }
+        
+    [self.recorder prepareToRecord];
     
-    [recorder prepareToRecord];
+    [self.recorder record];
+}
+
+- (void)pauseRecorder {
     
-    [recorder record];
-    
-    recorder.meteringEnabled = YES;
-    
-    self.recorder = recorder;
-    
+    [self.recorder pause];
 }
 
 - (void)stopRecorder {
     
     [self.recorder stop];
+    
+    self.recorder = nil;
 }
 
 - (void)playsound {
@@ -91,25 +99,35 @@
         
         NSLog(@"播放错误说明%@", [error description]);
     }
-
+    
     NSURL *url =[NSURL fileURLWithPath:self.wavPath];
     
-    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    if (!self.player) {
+        
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        
+        self.player.delegate = self;
+        
+    }
+        
+    [self.player prepareToPlay];
     
-    player.delegate = self;
+    [self.player play];
+
     
-    [player prepareToPlay];
+}
+
+- (void)pausePlaysound {
     
-    [player play];
-    
-    self.player = player;
-    
+    [self.player pause];
 }
 
 
 - (void)stopPlaysound {
     
     [self.player stop];
+    
+    self.player = nil;
 }
 
 - (void)removeSoundRecorder {

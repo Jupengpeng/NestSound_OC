@@ -10,6 +10,7 @@
 #import "NSLyricView.h"
 #import "NSUserFeedbackViewController.h"
 #import "NSLyricDetailModel.h"
+#import "NSCommentViewController.h"
 
 
 @interface NSLyricViewController ()<UMSocialUIDelegate>
@@ -63,19 +64,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_moreChoice"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
     
-    [self.navigationItem actionCustomRightBarButton:@"" nrlImage:@"2.0_moreChoice" hltImage:@"2.0_moreChoice" action:^{
-        
-        _maskView.hidden = NO;
-        
-        [UIView animateWithDuration:0.25 animations:^{
-            
-            _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
-            
-        }];
-        
-    }];
+//    [self.navigationItem actionCustomRightBarButton:@"" nrlImage:@"2.0_moreChoice" hltImage:@"2.0_moreChoice" action:^{
+//        
+//        _maskView.hidden = NO;
+//        
+//        [UIView animateWithDuration:0.25 animations:^{
+//            
+//            _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
+//            
+//        }];
+//        
+//    }];
     
     [self fetchData];
     
@@ -84,7 +85,18 @@
     
 }
 
-
+- (void)rightBarButtonClick:(UIBarButtonItem *)rightBarButton {
+    
+    
+    _maskView.hidden = NO;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
+        
+    }];
+    
+}
 
 
 #pragma mark -fetchData
@@ -141,7 +153,6 @@
     UIView *line = [self cuttingLine];
     
     [_bottomView addSubview:line];
-    
     
     
     
@@ -230,9 +241,13 @@
         [btn sizeToFit];
         
     } action:^(UIButton *btn) {
-#ifdef debug
+        
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] init];
+        
+        [self.navigationController pushViewController:commentVC animated:YES];
+
         NSLog(@"点击了评论");
-#endif
+        
     }];
     
     [_bottomView addSubview:commentBtn];
@@ -375,115 +390,110 @@
     [_maskView addGestureRecognizer:tap];
     
     
-    _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 134)];
+    NSArray *array = [[NSArray alloc] init];
+    
+    CGFloat moreChoiceViewH;
+    
+    #warning mark 需要判断是自己的歌词还是别人的歌词
+    if (/* DISABLES CODE */ (1) == 1) {
+        
+        array = @[@"举报",@"分享",@"编辑"];
+        
+        moreChoiceViewH = 132;
+    } else {
+        
+        array = @[@"举报",@"分享"];
+        
+        moreChoiceViewH = 88;
+    }
+    
+    
+    _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, moreChoiceViewH)];
     
     _moreChoiceView.backgroundColor = [UIColor whiteColor];
     
     [self.navigationController.view addSubview:_moreChoiceView];
     
     
-    UIButton *reportBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    for (int i = 0; i < array.count; i++) {
         
-        [btn setTitle:@"举报" forState:UIControlStateNormal];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, _moreChoiceView.height / array.count * i, ScreenWidth, _moreChoiceView.height / array.count)];
+        
+        btn.tag = i;
+        
+        [btn setTitle:array[i] forState:UIControlStateNormal];
         
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-    } action:^(UIButton *btn) {
+        [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_moreChoiceView addSubview:btn];
+        
+        if (i != 0) {
+            
+            UIView *line = [self cuttingLine];
+            
+            [btn addSubview:line];
+        }
+        
+    }
+    
+}
+
+- (void)btnClick:(UIButton *)btn {
+    
+    if (btn.tag == 0) {
+        
+        _maskView.hidden = YES;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _moreChoiceView.y = ScreenHeight;
+        }];
         
 #ifdef debug
         NSLog(@"点击了举报");
-       
 #endif
+        
         NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"feedBack"];
+        
         [self.navigationController pushViewController:feedBackVC animated:YES];
         
+        NSLog(@"点击了举报");
+    } else if (btn.tag == 1) {
         
-    }];
-    
-    [_moreChoiceView addSubview:reportBtn];
-    
-    [reportBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _maskView.hidden = YES;
         
-        make.top.left.right.equalTo(_moreChoiceView);
-        
-        make.height.mas_equalTo(_moreChoiceView.height / 3);
-        
-    }];
-    
-
-    UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        [btn setTitle:@"分享" forState:UIControlStateNormal];
-        
-        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
-    } action:^(UIButton *btn) {
-        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _moreChoiceView.y = ScreenHeight;
+        }];
         
         [Share ShareWithTitle:_lyricDetail.title andShareUrl:_lyricDetail.shareUrl andShareImage:_lyricDetail.titleImageUrl andShareText:_lyricDetail.title andVC:self];
-//        [UMSocialData defaultData].extConfig.title = @"分享的title";
-//        [UMSocialData defaultData].extConfig.qqData.url = @"http://baidu.com";
-//        [UMSocialSnsService presentSnsIconSheetView:self
-//                                             appKey:umAppKey
-//                                          shareText:@"友盟社会化分享让您快速实现分享等社会化功能，http://umeng.com/social"
-//                                         shareImage:[UIImage imageNamed:@"icon"]
-//                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ,UMShareToQzone]
-//                                           delegate:self];
+        
+        //        [UMSocialData defaultData].extConfig.title = @"分享的title";
+        //        [UMSocialData defaultData].extConfig.qqData.url = @"http://baidu.com";
+        //        [UMSocialSnsService presentSnsIconSheetView:self
+        //                                             appKey:umAppKey
+        //                                          shareText:@"友盟社会化分享让您快速实现分享等社会化功能，http://umeng.com/social"
+        //                                         shareImage:[UIImage imageNamed:@"icon"]
+        //                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ,UMShareToQzone]
+        //                                           delegate:self];
         
         NSLog(@"点击了分享");
-    }];
-    
-    [_moreChoiceView addSubview:shareBtn];
-    
-    [shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    } else {
         
-        make.left.right.equalTo(_moreChoiceView);
+        _maskView.hidden = YES;
         
-        make.top.equalTo(reportBtn.mas_bottom);
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _moreChoiceView.y = ScreenHeight;
+        }];
         
-        make.height.equalTo(reportBtn.mas_height);
-        
-    }];
-    
-    
-    UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        [btn setTitle:@"编辑" forState:UIControlStateNormal];
-        
-        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
-    } action:^(UIButton *btn) {
-        
-        NSLog(@"点击了编辑");
-    }];
-    
-    [_moreChoiceView addSubview:editBtn];
-    
-    [editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.equalTo(_moreChoiceView);
-        
-        make.top.equalTo(shareBtn.mas_bottom);
-        
-        make.height.equalTo(shareBtn.mas_height);
-        
-    }];
-    
-    
-    UIView *line1 = [self cuttingLine];
-    
-    UIView *line2 = [self cuttingLine];
-    
-    [shareBtn addSubview:line1];
-    
-    [editBtn addSubview:line2];
-    
+         NSLog(@"点击了编辑");
+    }
 }
 
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response

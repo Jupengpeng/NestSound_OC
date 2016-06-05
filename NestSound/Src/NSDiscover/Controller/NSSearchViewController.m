@@ -119,7 +119,7 @@
     
     CGFloat itemW = (ScreenWidth - 60) / 4;
     
-    layout.itemSize = CGSizeMake(itemW, itemW);
+    layout.itemSize = CGSizeMake(itemW, itemW + itemW / 3);
     
     layout.sectionInset = UIEdgeInsetsMake(10, 15, 0, 15);
     

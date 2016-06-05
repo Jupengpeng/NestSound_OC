@@ -9,6 +9,7 @@
 #import "NSUserPageViewController.h"
 #import "NSBaseViewController+CustomNavBar.h"
 #import "NSPlayMusicViewController.h"
+#import "NSH5ViewController.h"
 
 @implementation NSBaseViewController (CustomNavBar)
 
@@ -31,7 +32,9 @@
 //        self.automaticallyAdjustsScrollViewInsets = NO;
 //        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
 //        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5) ]];
+        
     }
+
 }
 
 #pragma mark - resetNavBar
@@ -39,14 +42,14 @@
     [self reSetNavBar:animated];
     self.navigationController.navigationBar.hidden = NO;
     if ([self isKindOfClass:[NSPlayMusicViewController class]]) {
-        if (self.navigationController.childViewControllers.count <= 2) {
-            
-            [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
-            [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
+        if (self.navigationController.childViewControllers.count <= 1) {
+            self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
+//            [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+//            [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
         } else {
-            
-            [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
-            [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
+             self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+//            [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+//            [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
         }
         
     }
