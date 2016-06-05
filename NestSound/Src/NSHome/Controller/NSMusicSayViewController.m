@@ -22,6 +22,7 @@ UICollectionViewDelegateFlowLayout
     NSMutableArray * musicSayAry;
     long itemId;
     NSString * url ;
+    int currentPage;
 }
 @end
 static NSString * const musicSayCellId = @"musicSayCellId";
@@ -56,30 +57,48 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:musicSayList];
     
-   
+    WS(wSelf);
+    //refresh
+    [musicSayList addPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchMusicSayListDataIsLoadingMore:NO];
+        }
+        
+    }];
+    
+    //loadingMore
+    [musicSayList addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchMusicSayListDataIsLoadingMore:YES];
+        }
+    }];
+    
+    //hide infitView
+    musicSayList.showsInfiniteScrolling = NO;
     
 }
-
 
 #pragma mark -fetchData
 -(void)fetchMusicSayListDataIsLoadingMore:(BOOL)isLoadingMore
 {
-    int page = [[self.requestParams objectForKey:@"page"] intValue];
+    
     if (!isLoadingMore) {
-        page = 1 ;
-        
-        NSDictionary * dic = @{@"page":@"1"};
-        NSDictionary * dic1 =  [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
-        NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-        url = [yueShuoURL stringByAppendingString:str];
-        self.requestType = YES;
-        self.requestParams = @{@"page":@"1"};
-        self.requestURL = url;
+        currentPage = 1 ;
     }else{
     
-        ++page;
+        ++currentPage;
     }
 
+    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [yueShuoURL stringByAppendingString:str];
+    self.requestType = YES;
+    self.requestURL = url;
+    
 }
 
 #pragma mark -actionFetchData

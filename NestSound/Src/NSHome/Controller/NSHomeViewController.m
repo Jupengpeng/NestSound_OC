@@ -109,7 +109,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 #pragma  mark -fetchIndexData
 -(void)fetchIndexData
 {
-    self.requestParams = nil;
+//    self.requestParams = @{@"type":@(YES)};
     self.requestType = YES;
     NSDictionary * dic = @{@"1":@"2"};
     
@@ -260,8 +260,9 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
     }else if (section == 1){
         
-        NSRecommendSong * songList = (NSRecommendSong *)recommendSongAry[row];
-        NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:songList.itemID];
+        NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
+        NSLog(@"lalalla %ld",recommendSongModel.itemID);
+        NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:recommendSongModel.itemID];
         [self.navigationController pushViewController:songVC animated:YES];
     }else if (section == 2){
         NSNew * newModel = (NSNew *)newListAry[row];

@@ -7,8 +7,7 @@
 //
 
 #import "NSBaseModel.h"
-
-
+@class singListModel;
 
 @protocol songModel <NSObject>
 @end
@@ -28,8 +27,14 @@
 
 @end
 
+@interface NSSongListDetail : NSBaseModel
+@property (nonatomic,strong) singListModel * listDetail;
+@end
+
 @interface NSSongListModel : NSBaseModel
 
 @property (nonatomic,strong) SongListModel * SongList;
+
+@property (nonatomic,strong) NSSongListDetail * songListDetail;
 
 @end

@@ -31,16 +31,25 @@ NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNot
 #pragma mark - configureAnimatingSettings
 - (void)configureAnimatingSettings {
     
-    self.animationDuration = 0.5;
+    self.animationDuration = 0.8;
     self.animationRepeatCount = MAXFLOAT;
-    self.animationImages = @[[UIImage imageNamed:@"icon_header01"],
-                             [UIImage imageNamed:@"icon_header02"],
-                             [UIImage imageNamed:@"icon_header03"],
-                             [UIImage imageNamed:@"icon_header04"],
-                             [UIImage imageNamed:@"icon_header05"],
-                             [UIImage imageNamed:@"icon_header06"],
-                             [UIImage imageNamed:@"icon_header07"],
-                             [UIImage imageNamed:@"icon_header08"]];
+#warning animationImages
+    self.animationImages = @[[UIImage imageNamed:@"2.0_loading_1"],
+                             [UIImage imageNamed:@"2.0_loading_2"],
+                             [UIImage imageNamed:@"2.0_loading_3"],
+                             [UIImage imageNamed:@"2.0_loading_4"],
+                             [UIImage imageNamed:@"2.0_loading_5"],
+                             [UIImage imageNamed:@"2.0_loading_6"],
+                             [UIImage imageNamed:@"2.0_loading_7"],
+                             [UIImage imageNamed:@"2.0_loading_8"],
+                             [UIImage imageNamed:@"2.0_loading_9"],
+                             [UIImage imageNamed:@"2.0_loading_10"],
+                             [UIImage imageNamed:@"2.0_loading_11"],
+                             [UIImage imageNamed:@"2.0_loading_12"],
+                             [UIImage imageNamed:@"2.0_loading_13"],
+                             [UIImage imageNamed:@"2.0_loading_14"],
+                             [UIImage imageNamed:@"2.0_loading_15"],
+                             [UIImage imageNamed:@"2.0_loading_16"]];
 }
 
 #pragma mark - restartAnimation
@@ -74,14 +83,14 @@ NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNot
         
         loadingImageView = [[YDAnimatingView alloc] init];
         loadingImageView.stringTag = @"loadingImageView";
-        loadingImageView.frame = CGRectMake(ScreenWidth/2-30, 0, 60, 60);
+        loadingImageView.frame = CGRectMake(ScreenWidth/2-15, 20, 30, 30);
         [baseView addSubview:loadingImageView];
     }
     [loadingImageView startAnimating];
     
     [refreshView setTitle:@"" forState:SVPullToRefreshStateStopped];
-    [refreshView setTitle:@"" forState:SVPullToRefreshStateTriggered];
-    [refreshView setTitle:@"" forState:SVPullToRefreshStateLoading];
+    [refreshView setTitle:@"shuaxin" forState:SVPullToRefreshStateTriggered];
+    [refreshView setTitle:@"shuaxin" forState:SVPullToRefreshStateLoading];
 }
 
 - (void)addDDInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler {

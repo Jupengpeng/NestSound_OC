@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class singListModel;
 @interface NSSongListHeaderView : UIView
 
-
+@property (nonatomic,strong) singListModel * singListType;
 
 @end

@@ -10,8 +10,10 @@
 #import "NSIndexCollectionReusableView.h"
 #import "NSRecommendCell.h"
 #import "NSNewMusicViewController.h"
-#import "NSDiscoverMusicListModel.h"
 #import "NSDicoverLyricListModel.h"
+#import "NSDiscoverMusicListModel.h"
+#import "NSPlayMusicViewController.h"
+#import "NSLyricViewController.h"
 @interface NSMusicViewController () <UICollectionViewDelegate, UICollectionViewDataSource> {
     
     UICollectionView *_collection;
@@ -40,14 +42,15 @@ static NSString * const headerView = @"HeaderView";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self configureUIAppearance];
+    
 }
 
-
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     [self fetchData];
 }
+
 #pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
@@ -83,8 +86,8 @@ static NSString * const headerView = @"HeaderView";
 -(void)fetchData
 {
 
-    self.requestParams = nil;
     self.requestType = YES;
+    self.requestParams = @{@"type":@(YES)};
     NSDictionary * dic = @{@"name":@"hjay"};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
@@ -94,9 +97,7 @@ static NSString * const headerView = @"HeaderView";
     }else{
         
 #warning  set url
-        
-//        url = [];
-        url = @"123";
+        url = [dicoverLyricURL stringByAppendingString:str];
     }
    
     self.requestURL = url;
@@ -107,10 +108,9 @@ static NSString * const headerView = @"HeaderView";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     
-    
-    
-    if ([operation.urlTag isEqualToString:dicoverMusicURL]) {
-        if (!parserObject.success) {
+    if (!parserObject.success) {
+        if ([operation.urlTag isEqualToString:dicoverMusicURL]) {
+            
             NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
             if (musicListModel.HotList.hotList.count == 0) {
                 
@@ -122,30 +122,34 @@ static NSString * const headerView = @"HeaderView";
             }else{
                 newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
             }
-        }
-    }else{
-        if (parserObject.success) {
-            NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
-            NSLog(@"dic%lu",(unsigned long)lyricListModel );
-           
-            if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
-                
-            }else{
-                hotSongList = [NSMutableArray arrayWithArray:lyricListModel.HotLyricList.hotLyricList];
-            }
-            if (lyricListModel.LyricList.lyricList.count == 0) {
-                
-            }else{
-                newSongList = [NSMutableArray arrayWithArray:lyricListModel.LyricList.lyricList];
-            }
-        }
+
+            
+        }else if ([operation.urlTag isEqualToString:dicoverLyricURL]){
     
-    }
+        NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
+        NSLog(@"dic%lu",(unsigned long)lyricListModel );
+        
+        if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
+            
+        }else{
+            hotSongList = [NSMutableArray arrayWithArray:lyricListModel.HotLyricList.hotLyricList];
+        }
+        if (lyricListModel.LyricList.lyricList.count == 0) {
+            
+        }else{
+            newSongList = [NSMutableArray arrayWithArray:lyricListModel.LyricList.lyricList];
+        }
+
+        
+    }else{
+        
+    
+        }
     
     [self configureUIAppearance];
     
+    }
 }
-
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -169,7 +173,6 @@ static NSString * const headerView = @"HeaderView";
     }
     cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
     cell.contentView.layer.borderWidth = 1;
-    
     return cell;
     
 }
@@ -203,6 +206,32 @@ static NSString * const headerView = @"HeaderView";
     
     
     return reusable;
+    
+}
+
+#pragma mark - collectionViewDelegate
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    NSRecommend * music;
+    if (section == 0) {
+       
+        music = hotSongList[row];
+        
+    }else{
+       
+        music = newSongList[row];
+    }
+   long itemId = music.itemId;
+    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+    playVC.itemId = itemId;
+    if (isMusic) {
+        [self.navigationController pushViewController:playVC animated:YES];
+    }else{
+        NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:itemId];
+        [self.navigationController pushViewController:lyricVC animated:YES];
+    }
     
 }
 

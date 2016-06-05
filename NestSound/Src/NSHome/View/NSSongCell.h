@@ -10,7 +10,7 @@
 @class songModel;
 @interface NSSongCell : UITableViewCell
 
-@property (nonatomic,copy) NSString * number;
+@property (nonatomic,assign) NSInteger  number;
 @property (nonatomic,strong) songModel * songModel;
 
 @end

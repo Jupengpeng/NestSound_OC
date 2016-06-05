@@ -21,6 +21,10 @@
     NSMutableArray * hotAccompanyAry;
     NSMutableArray * newAccompanyAry;
     NSMutableArray * dataAry;
+    int currentPage;
+    NSString * newUrl;
+    NSString * hotUrl;
+    
 }
 @end
 
@@ -34,6 +38,12 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [self configureUIAppearance];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self fetchAccompanyData];
+}
+
 
 #pragma mark -fetchData
 -(void)fetchAccompanyData
@@ -43,64 +53,92 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         [accompanyListTabelView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
     }
     
-    
-//    self.requestType = YES;
-//    self.requestParams = ;
-//    self.requestURL = ;
 }
 
 #pragma mark -fetchAccommpanyListDataIsLoadMore
 -(void)fetchAccompanyListDataWithIsLoadingMore:(BOOL)isLoadingMore{
     
-    int currentPage = [[self.requestParams objectForKey:@"page"] intValue];
-    if (!isLoadingMore) {
+       if (!isLoadingMore) {
         currentPage = 1;
+           self.requestParams = @{kIsLoadingMore :@(NO)};
     }else{
         ++currentPage;
+        self.requestParams = @{kIsLoadingMore:@(YES)};
     }
     self.requestType = YES;
-//    self.requestParams = ;
-//    self.requestURL = ;
+    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    if (headerView.xinBtn.selected) {
+        newUrl = [accompanyListURL stringByAppendingString:str];
+        self.requestURL = newUrl;
+   
+    }else{
+        hotUrl = [accompanyListURL stringByAppendingString:str];
+        self.requestURL = hotUrl;
+    }
+    
+
     
 }
 
+
+
+
 #pragma mark - overrride FetchData
-//-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
-//{
-//    if (!parserObject.success) {
-//        NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
-//        if (!operation.isLoadingMore) {
-//            
-//        
-//        
-//        if ([operation.urlTag isEqualToString:]) {
-//            
-//            hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
-//        }else{
-//            
-//            newAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
-//            
-//        }
-//        
-//        }else{
-//            if ([operation.urlTag isEqualToString:]) {
-//                
-//                [hotAccompanyAry addObject:listModel.accommpanyList];
-//            }else{
-//                
-//                 [newAccompanyAry addObject:listModel.accommpanyList];
-//                
-//            }
-//        }
-//        [accompanyListTabelView reloadData];
-//        if (!operation.isLoadingMore) {
-//            [accompanyListTabelView.pullToRefreshView stopAnimating];
-//        }else{
-//            accompanyListTabelView.showsInfiniteScrolling = NO;
-//        }
-//    }
-//    
-//}
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
+        if (!operation.isLoadingMore) {
+            
+        
+        
+        if ([operation.urlTag isEqualToString:hotUrl]) {
+            
+            hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+        }else{
+            
+            newAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+            
+        }
+        
+        }else{
+            if ([operation.urlTag isEqualToString:hotUrl]) {
+                if (listModel.accommpanyList.count == 0) {
+                    
+                }else{
+                    
+                    [hotAccompanyAry addObject:listModel.accommpanyList];
+                }
+                
+               
+            }else{
+                
+                if (listModel.accommpanyList.count == 0) {
+                    
+                }else{
+                    
+                     [newAccompanyAry addObject:listModel.accommpanyList];
+                }
+                
+                
+                
+            }
+        }
+        if (headerView.xinBtn.selected) {
+            dataAry = newAccompanyAry;
+        }else{
+            dataAry = hotAccompanyAry;
+        }
+        [accompanyListTabelView reloadData];
+        if (!operation.isLoadingMore) {
+            [accompanyListTabelView.pullToRefreshView stopAnimating];
+        }else{
+            accompanyListTabelView.showsInfiniteScrolling = YES;
+        }
+    }
+    
+}
 
 #pragma mark configureUIAppearance
 -(void)configureUIAppearance
@@ -109,8 +147,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     accompanyListTabelView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     accompanyListTabelView.dataSource = self;
     accompanyListTabelView.delegate = self;
-    headerView = [[NSAccompanyListHeaderView alloc] init];
+    headerView = [[NSAccompanyListHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
     //set tableView headerView
+    headerView.xinBtn.selected = YES;
+    [headerView.xinBtn addTarget:self action:@selector(doNew) forControlEvents:UIControlEventTouchUpInside];
+    [headerView.hotBtn addTarget:self action:@selector(doHot) forControlEvents:UIControlEventTouchUpInside];
     accompanyListTabelView.tableHeaderView = headerView;
     [accompanyListTabelView registerClass:[NSAccompanyTableCell class] forCellReuseIdentifier:accompanyCellIditify];
     
@@ -119,7 +160,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [accompanyListTabelView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).with.offset(15);
         make.right.equalTo(self.view.mas_right).with.offset(-15);
-        make.top.bottom.equalTo(self.view);
+        make.top.equalTo(self.view.mas_top);
+        make.bottom.equalTo(self.view.mas_bottom);
     }];
     
     WS(Wself);
@@ -138,7 +180,23 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         }
         [Wself fetchAccompanyListDataWithIsLoadingMore:YES];
     }];
-    accompanyListTabelView.showsInfiniteScrolling = NO;
+    accompanyListTabelView.showsInfiniteScrolling = YES;
+}
+
+-(void)doNew
+{
+    headerView.xinBtn.selected = YES;
+    headerView.hotBtn.selected = NO;
+    [self fetchAccompanyListDataWithIsLoadingMore:NO];
+
+}
+
+-(void)doHot
+{
+    headerView.hotBtn.selected = YES;
+    headerView.xinBtn.selected = NO;
+    [self fetchAccompanyListDataWithIsLoadingMore:NO];
+
 }
 
 #pragma mark -TableDataSource
@@ -151,19 +209,33 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 {
     return dataAry.count;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return  0.1;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row = indexPath.row;
+    NSInteger section = indexPath.section;
     NSAccompanyTableCell * accompanyCell = [tableView dequeueReusableCellWithIdentifier:accompanyCellIditify];
     
-    accompanyCell.accompanyModel = dataAry[row];
+    accompanyCell.accompanyModel = dataAry[section];
     return accompanyCell;
     
 }
-
 #pragma mark -UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //downLoading accompany and push to recordVC
     
     
 }

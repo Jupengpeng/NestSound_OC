@@ -10,12 +10,16 @@
 #import "NSNewMusicTableViewCell.h"
 #import "NSDiscoverBandListModel.h"
 #import "NSPlayMusicViewController.h"
+#import "NSLyricViewController.h"
+
 @interface NSMusicListViewController () <UITableViewDelegate, UITableViewDataSource>
 {
     
     UITableView *_tableView;
     NSMutableArray * lyricList;
     NSMutableArray * musicList;
+    NSString * musicUrl;
+    NSString * lyricUrl;
 }
 
 
@@ -25,7 +29,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self configureUIAppearance];
+}
+
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self fetchData];
+}
+
+#pragma mark - configureUIAppearance
+-(void)configureUIAppearance
+{
     _tableView = [[UITableView alloc] init];//]WithFrame:CGRectZero style:UITableViewStyleGrouped];
     
     _tableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
@@ -40,31 +56,47 @@
     
     
     self.view = _tableView;
-
+    
 }
-
 
 #pragma  mark -fetchData
 -(void)fetchData
 {
-    self.requestType =YES;
-    self.requestParams = nil;
-//    self.requestURL =;
+    self.requestType = YES;
+    self.requestParams = @{@"type":@(YES)};
+    NSDictionary * dic = @{@"modelType":@"1"};
+    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
 
+    musicUrl = [discoverBandURL stringByAppendingString:str];
+    self.requestURL = musicUrl;
 
+    NSDictionary * di = @{@"modelType":@"2"};
+    NSDictionary * di1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":di} isEncrypt:YES];
+    NSString * str1 = [NSString stringWithFormat:@"data=%@",[di1 objectForKey:requestData]];
+    lyricUrl = [discoverBandURL stringByAppendingString:str1];
+    self.requestURL = lyricUrl;
+   
 }
 
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-//    if ([operation.urlTag isEqualToString:]) {
-//        if (!parserObject.success) {
-//            NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
-//            lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
-//            musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
-//        }
-//    }
-
+    
+    if (!parserObject.success) {
+        NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
+        if ([operation.urlTag isEqualToString:musicUrl]) {
+            musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
+        }else if ([operation.urlTag isEqualToString:lyricUrl]){
+            lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
+        }
+        
+    }else{
+    
+    }
+    
+    
+    [_tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -112,19 +144,20 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSInteger section = indexPath.section;
-    NSInteger row = indexPath.row;
     NSPlayMusicViewController * playMusicVC;
     if (section == 0) {
         NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-//        playMusicVC = [playMusicVC]l;
+        playMusicVC.itemId = cell.musicModel.itemId;
+        [self.navigationController pushViewController:playMusicVC animated:YES];
+
         
     }else{
         NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-        
-//        playMusicVC = [playMusicVC]l;
+        NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:cell.musicModel.itemId];
+        [self.navigationController pushViewController:lyricVC animated:YES];
+
     }
     
-//    [self.navigationController pushViewController: animated:YES];
 }
 
 
@@ -180,6 +213,8 @@
     
     return headerView;
 }
+
+
 
 
 

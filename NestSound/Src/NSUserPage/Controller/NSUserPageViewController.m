@@ -33,6 +33,8 @@ UITableViewDataSource>
     NSMutableArray * myCollectionAry;
     NSMutableArray * dataAry;
     NSLoginViewController *login;
+    NSString * myUrl;
+    NSString * otherUrl;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -59,25 +61,65 @@ UITableViewDataSource>
 -(void)viewWillAppear:(BOOL)animated
 {
     
+}
+
+
+
+#pragma mark -fetchMemberData
+-(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
+{
+    self.requestType = NO;
+    NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    if (!isLoadingMore) {
+        self.requestParams = @{kIsLoadingMore:@(NO)};
+    }else{
+        self.requestParams = @{kIsLoadingMore:@(YES)};
+    }
     
-    if (!login.isHidden) {
-        [self.tabBarController setSelectedIndex:0];
+    if (userDic) {
+        
+        if (who == Myself) {
+            NSDictionary * dic = @{@"uid":userDic[@"userID"],@"token":userDic[@"loginToken"]};
+            NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+            NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+            
+           
+            myUrl = [userCenterURL stringByAppendingString:str];
+            self.requestURL = myUrl;
+        
+        }else{
+        
+            NSDictionary * dic = @{@"otherid":userId,@"uid":userDic[@"userID"]};
+            NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+            NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+            otherUrl = [otherCenterURL stringByAppendingString:str];
+            self.requestURL = otherUrl;
+            }
     }
     
 }
 
 
 
-#pragma mark -fetchMemberData
--(void)fetchMemberData
-{
-
-}
 
 #pragma mark -overrider action fetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-   
+    if (!parserObject.success) {
+        if ([operation.urlTag isEqualToString:myUrl]) {
+        
+            
+        }else{
+            
+            
+        }
+        
+        
+    }else{
+        [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
+    }
+    
+    
 }
 
 
@@ -171,7 +213,7 @@ UITableViewDataSource>
 
 - (void)fansBtnClick:(UIButton *)fansBtn {
     if (self.who == Myself) {
-        NSFansViewController * myFansVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:YES];
+        NSFansViewController * myFansVC = [[NSFansViewController alloc] initWithUserID:JUserID _isFans:YES];
         [self.navigationController pushViewController:myFansVC animated:YES];
     }
     
@@ -212,8 +254,8 @@ UITableViewDataSource>
 -(void)focusUserWithUserId:(NSString *)userId_
 {
     self.requestType = NO;
-//    self.requestParams =;
-//    self.requestURL = ;
+    self.requestParams =@{@"uid":userId_,@"fansid":JUserID,@"token":LoginToken};
+    self.requestURL = focusUserURL;
 
 }
 

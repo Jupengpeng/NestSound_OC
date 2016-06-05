@@ -66,6 +66,10 @@ static NSData* base64_decode(NSString *str){
         [dic removeObjectForKey:requestData];
 //        [dic removeAllObjects];
         NSLog(@"ddddd%@",dic);
+        if (!resultDataDic) {
+            [[NSToastManager manager] showtoast:@"歌单不存在"];
+            return nil;
+        }
         [dic setObject:resultDataDic forKey:requestData];
         
         return dic;
@@ -81,6 +85,10 @@ static NSData* base64_decode(NSString *str){
 #pragma mark dictionaryToJson
 -(NSString *)dictionaryToJson:(NSDictionary *)dic
 {
+    
+    if (dic.count == 0) {
+        return  nil;
+    }
     NSError * paraError = nil;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&paraError];
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];

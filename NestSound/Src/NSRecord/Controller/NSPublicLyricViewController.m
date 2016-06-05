@@ -20,15 +20,18 @@
     NSString * description;
     UIActionSheet * chosePhotoLibrary;
     UIImagePickerController * picker;
+    BOOL isLyric;
 }
 @end
 
 @implementation NSPublicLyricViewController
 
--(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_
+-(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_
 {
     if (self = [super init]) {
+        
         lyricDic = LyricDic_;
+        isLyric = isLyric_;
     }
     return self;
 }

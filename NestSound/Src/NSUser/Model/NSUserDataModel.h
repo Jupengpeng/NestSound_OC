@@ -23,19 +23,12 @@
 
 @property (nonatomic,strong) UserModel * userModel;
 @end
-
-
-
 @interface MyMusicList : NSBaseModel
 
 
 @property (nonatomic,assign) int totalCount;
 @property (nonatomic,strong) NSArray <NSMyMusicModel> * musicList;
-
 @end
-
-
-
 
 @interface NSUserDataModel : NSBaseModel
 

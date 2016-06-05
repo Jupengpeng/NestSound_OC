@@ -32,6 +32,7 @@
         //listNumber
         numberLab = [[UILabel alloc] init];
         numberLab.font = [UIFont systemFontOfSize:12];
+        numberLab.textAlignment = NSTextAlignmentCenter;
         numberLab.textColor = [UIColor hexColorFloat:@"666666"];
         [self.contentView addSubview:numberLab];
         
@@ -59,13 +60,15 @@
 
     //constrains
     [numberLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.contentView.mas_centerX);
-        make.left.equalTo(self.contentView.mas_left).with.offset(15);
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.left.equalTo(self.contentView.mas_left).with.offset(5);
+        make.width.mas_equalTo(15);
     }];
     
     [workNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(numberLab.mas_right).with.offset(10);
-        make.top.equalTo(self.contentView.mas_bottom).with.offset(10);
+        make.top.equalTo(self.contentView.mas_top).with.offset(10);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-15);
         make.height.mas_equalTo(14);
     }];
     
@@ -79,13 +82,18 @@
 
 #pragma mark setter & getter
 
+-(void)setNumber:(NSInteger) number
+{
+    _number = number;
+    numberLab.text = [NSString stringWithFormat:@"%ld",(long)_number];
+}
+
 -(void)setSongModel:(songModel *)songModel
 {
  
     _songModel = songModel;
     
     workNameLab.text = _songModel.workName;
-
 
     aurthorLab.text = _songModel.author;
 

@@ -7,7 +7,7 @@
 //
 
 #import "NSSongListHeaderView.h"
-
+#import "NSSingListModel.h"
 @interface NSSongListHeaderView ()
 {
 
@@ -40,15 +40,16 @@
 #pragma mark configureUIAperance
 -(void)configureUIAperance
 {
+    self.backgroundColor = [UIColor whiteColor];
     //backimage
     backImage = [[UIImageView alloc] init];
-    
-    UIBlurEffect * efffct = [[UIBlurEffect alloc] init];
-    
-    UIVisualEffectView * effct = [[UIVisualEffectView alloc] initWithEffect:efffct];
+//    
+//    UIBlurEffect * efffct = [[UIBlurEffect alloc] init];
+//    
+//    UIVisualEffectView * effct = [[UIVisualEffectView alloc] initWithEffect:efffct];
     
     [self addSubview:backImage];
-    [self addSubview:effct];
+//    [self addSubview:effct];
     
     //titlepage
     titlePage = [[UIImageView alloc] init];
@@ -58,19 +59,19 @@
     //songlistype
     songListType = [[UILabel alloc] init];
     songListType.font = [UIFont systemFontOfSize:15];
-    songListType.textColor = [UIColor hexColorFloat:@"ffffff"];
+    songListType.textColor = [UIColor blackColor];
     [self addSubview:songListType];
     
     //songListName
     songListName = [[UILabel alloc] init];
     songListName.font = [UIFont systemFontOfSize:15];
-    songListName.textColor = [UIColor hexColorFloat:@"ffffff"];
+    songListName.textColor = [UIColor blackColor];
     [self addSubview:songListName];
     
     //playAllLab
     playAll = [[UILabel alloc] init];
     playAll.font = [UIFont systemFontOfSize:15];
-    playAll.textColor = [UIColor hexColorFloat:@"ffffff"];
+    playAll.textColor = [UIColor blackColor];
     playAll.text = LocalizedStr(@"promot_play_all");
     
     [self addSubview:playAll];
@@ -78,7 +79,7 @@
     //songCount
     songCount = [[UILabel alloc] init];
     songCount.font = [UIFont systemFontOfSize:12];
-    songCount.textColor = [UIColor hexColorFloat:@"ffffff"];
+    songCount.textColor = [UIColor blackColor];
     [self addSubview:songCount];
     
     WS(wSelf);
@@ -131,7 +132,7 @@
     
     [playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(songListName.mas_left);
-        make.bottom.equalTo(self.mas_bottom).offset(30);
+        make.bottom.equalTo(titlePage.mas_bottom).offset(15);
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(30);
     }];
@@ -150,5 +151,17 @@
     
 }
 
+#pragma mark - setter && getter
+-(void)setSingListType:(singListModel *)singListType
+{
+    _singListType = singListType;
+#warning placeHolderImage
+    
+    [titlePage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    [backImage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    songListName.text = _singListType.detail;
+    songListType.text = _singListType.title;
+    
+}
 
 @end

@@ -223,7 +223,7 @@
     //歌词
 
     lyric = [[NSMusicViewController alloc] initWithIsMusic:NO];
-
+    
     lyric.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height);
     
     lyric.topTitle = LocalizedStr(@"热门歌词");

@@ -65,8 +65,8 @@ UITextFieldDelegate
 
 -(void)changeNameWithContent:(NSString *)content
 {
-    self.requestType = NO;
-    self.requestParams =@{@"":@"",@"":@"",@"":@""};
+   
+    self.requestParams =@{@"type":@(NO),@"":@"",@"":@""};
     if ([Type isEqualToString:@"name"]) {
 #warning changeName url
 //        self.requestURL = ;

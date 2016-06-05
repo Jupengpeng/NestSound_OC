@@ -8,9 +8,19 @@
 
 #import "NSBaseViewController.h"
 
+typedef  NS_ENUM(NSInteger,MessageType){
+    
+    UpvoteMessageType,
+    CollectionMessageType,
+    CommentMessageType,
+    SystemMessageType
+
+};
+
 @interface NSMessageListViewController : NSBaseViewController
 
 @property (nonatomic,copy) NSString * messageListType;
 
+-(instancetype)initWithMessageType:(MessageType)messageType_;
 
 @end

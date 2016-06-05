@@ -12,8 +12,7 @@
 {
     UIImageView * titilePage;
     UIImageView * line;
-    UIButton * hotBtn;
-    UIButton * newBtn;
+
 }
 @end
 
@@ -24,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        
+        [self configureUIAppearance];
     }
     return self;
 }
@@ -38,31 +37,40 @@
     
     //line
     line = [[UIImageView alloc] init];
+    line.backgroundColor = [UIColor blackColor];
     [self addSubview:line];
     
     //hotbBtn
-    hotBtn = [[UIButton alloc] init];
-    [hotBtn setTitle:LocalizedStr(@"promot_hot") forState:UIControlStateNormal];
-    [self addSubview:hotBtn];
+    _hotBtn= [[UIButton alloc] init];
+    [self.hotBtn setTitle:LocalizedStr(@"promot_hot") forState:UIControlStateNormal];
+    [self.hotBtn setTitleColor:[UIColor hexColorFloat:@"333333"] forState:UIControlStateNormal];
+    [self.hotBtn setTitleColor:[UIColor hexColorFloat:@"ffce00"] forState:UIControlStateSelected];
+    [self addSubview:self.hotBtn];
     
     
     //newBtn
-    newBtn = [[UIButton alloc] init];
-    [newBtn setTitle:LocalizedStr(@"promot_new") forState:UIControlStateNormal];
-    [self addSubview:newBtn];
+    _xinBtn = [[UIButton alloc] init];
+    [self.xinBtn setTitle:LocalizedStr(@"promot_new") forState:UIControlStateNormal];
+    [self.xinBtn setTitleColor:[UIColor hexColorFloat:@"333333"] forState:UIControlStateNormal];
+    [self.xinBtn setTitleColor:[UIColor hexColorFloat:@"ffce00"] forState:UIControlStateSelected];
+    [self addSubview:self.xinBtn];
     
 
 }
 
 -(void)layoutSubviews
 {
+    [super layoutSubviews];
+    
     //constraints
     [titilePage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).with.offset(10);
-        make.left.right.equalTo(self);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.height.mas_equalTo(140);
     }];
     
-    [hotBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.hotBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.top.equalTo(titilePage.mas_top).with.offset(10);
         make.height.mas_equalTo(16);
@@ -70,17 +78,19 @@
     }];
 
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(hotBtn.mas_centerX);
-        make.left.equalTo(hotBtn.mas_right).with.offset(10);
+        make.centerX.equalTo(self.hotBtn.mas_centerX);
+        make.left.equalTo(self.hotBtn.mas_right).with.offset(10);
         make.width.mas_equalTo(3);
     }];
     
     
-    [newBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.xinBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(line.mas_centerX);
         make.left.equalTo(line.mas_right).with.offset(10);
         make.height.mas_equalTo(16);
         make.width.mas_equalTo(32);
     }];
 }
+
+
 @end

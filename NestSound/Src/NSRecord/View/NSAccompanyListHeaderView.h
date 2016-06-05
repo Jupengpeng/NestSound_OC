@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @interface NSAccompanyListHeaderView : UIView
 
-
+@property (nonatomic,strong) UIButton * hotBtn;
+@property (nonatomic,strong) UIButton * xinBtn;
 
 @end

@@ -20,6 +20,8 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 + (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2;
 + (NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_;
 +(BOOL) isValidateMobile:(NSString *)mobile;
++(BOOL)compareWithUser:(long)userID;
++(NSString *)encrytWithDic:(NSDictionary *)dic;
 @end
 //cache include ：accompany，record file ，music file
 @interface Memory : NSObject
@@ -34,9 +36,15 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(NSString *)datetoStringWithDate:(NSDate *)date;
 +(NSString *)datetoLongStringWithDate:(NSDate *)date;
 +(NSString *)datetoMonthStringWithDate:(NSDate *)date;
++(NSString *)getTimeStamp;
 @end
 
 @interface Share : NSObject
 +(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(UIImage *)shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_;;
++(BOOL)shareAvailableWeiXin;
++(BOOL)shareAvailableFriendZone;
++(BOOL)shareAvailableQQ;
++(BOOL)shareAvailableSina;
++(BOOL)shareAvailableQzone;
 
 @end
