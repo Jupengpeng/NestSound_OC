@@ -294,6 +294,10 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         NSMusicSay * musicSay = (NSMusicSay *)musicSayAry[row];
         //type == 1 is music ,type == 2 is web
         if (musicSay.type == 1) {
+            NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+            playVC.itemId = musicSay.itemID;
+            [self.navigationController pushViewController:playVC animated:YES];
+            
             
         }else{
             NSH5ViewController * h5VC = [[NSH5ViewController alloc] init];

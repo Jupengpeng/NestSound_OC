@@ -11,6 +11,7 @@
 #import "NSMusiclListModel.h"
 #import "NSPlayMusicViewController.h"
 #import "NSH5ViewController.h"
+#import "NSMusicSayListMode.h"
 @interface NSMusicSayViewController()
 <UICollectionViewDataSource,
 UICollectionViewDelegate,
@@ -20,8 +21,12 @@ UICollectionViewDelegateFlowLayout
     UICollectionView * musicSayList;
     NSMutableArray * musicSayAry;
     long itemId;
+<<<<<<< HEAD
     int i;
     
+=======
+    NSString * url ;
+>>>>>>> fd1704484d6437ed3eebc82ceb41745bcc9d9980
 }
 @end
 static NSString * const musicSayCellId = @"musicSayCellId";
@@ -30,14 +35,33 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    [self configureUIAppearance];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self fetchMusicSayData];
+}
+
+-(void)fetchMusicSayData{
+    if (musicSayAry.count == 0) {
+        [musicSayList setContentOffset:CGPointMake(0, -60) animated:YES];
+        [musicSayList performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    }
 }
 
 -(void)configureUIAppearance
 {
     UICollectionViewFlowLayout * layOut = [[UICollectionViewFlowLayout alloc] init];
-    musicSayList = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layOut];
+    musicSayList = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layOut];
+    musicSayList.dataSource = self;
+    musicSayList.delegate = self;
+    musicSayList.backgroundColor = [UIColor whiteColor];
     musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:musicSayList];
+    
+   
     
 }
 
@@ -45,7 +69,21 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 #pragma mark -fetchData
 -(void)fetchMusicSayListDataIsLoadingMore:(BOOL)isLoadingMore
 {
+    int page = [[self.requestParams objectForKey:@"page"] intValue];
+    if (!isLoadingMore) {
+        page = 1 ;
+        
+        NSDictionary * dic = @{@"page":@"1"};
+        NSDictionary * dic1 =  [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
+        NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+        url = [yueShuoURL stringByAppendingString:str];
+        self.requestType = YES;
+        self.requestParams = @{@"page":@"1"};
+        self.requestURL = url;
+    }else{
     
+        ++page;
+    }
 
 }
 
@@ -54,16 +92,17 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 {
     
     if (parserObject.success) {
-        if (!operation.isLoadingMore) {
-            if ([operation.urlTag isEqualToString:@"1"]) {
-                
+        if ([operation.urlTag isEqualToString:url]) {
+            NSMusiclListModel * musicSaylist = (NSMusiclListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                musicSayAry = [NSMutableArray arrayWithArray:musicSaylist.musicList];
+            }else
+            {
+                [musicSayAry addObjectsFromArray:musicSaylist.musicList];
             }
-        }else{
-        
+            
             
         }
-        
-        
     }else{
     
         [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
@@ -116,4 +155,20 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 
 }
 
+#pragma mark - UICollectionViewDelegateFlowLayout
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(ScreenWidth -30, 200);
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    
+    return UIEdgeInsetsMake(15, 0, 0, 15);
+}
+
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 10;
+}
 @end

@@ -25,6 +25,8 @@
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
+    
+  
     if (self.childViewControllers.count >= 1) {
         
         self.navigationBar.barTintColor = [UIColor whiteColor];
@@ -36,8 +38,8 @@
         
     }
     
+      [super pushViewController:viewController animated:animated];
     
-    [super pushViewController:viewController animated:animated];
 }
     
 - (void)backClick:(UIBarButtonItem *)back {

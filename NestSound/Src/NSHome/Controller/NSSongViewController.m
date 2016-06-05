@@ -55,6 +55,12 @@ static NSString * cellId = @"SongCell";
 }
 
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+}
+
 
 -(void)configureUIApperance
 {
