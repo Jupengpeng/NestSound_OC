@@ -21,12 +21,10 @@ UICollectionViewDelegateFlowLayout
     UICollectionView * musicSayList;
     NSMutableArray * musicSayAry;
     long itemId;
-<<<<<<< HEAD
     int i;
     
-=======
     NSString * url ;
->>>>>>> fd1704484d6437ed3eebc82ceb41745bcc9d9980
+
 }
 @end
 static NSString * const musicSayCellId = @"musicSayCellId";
