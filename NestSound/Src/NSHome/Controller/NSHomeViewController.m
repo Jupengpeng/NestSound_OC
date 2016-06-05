@@ -16,6 +16,9 @@
 #import "NSSongViewController.h"
 #import "NSPlayMusicViewController.h"
 #import "NSLyricViewController.h"
+#import "NSSongListViewController.h"
+#import "NSMusicSayViewController.h"
+
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
     UICollectionView *_collection;
@@ -69,10 +72,15 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
+    self.navigationController.navigationBar.hidden = NO;
+}
 
 -(void)configureUIAppearance
 {
-
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     
@@ -83,6 +91,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     _collection.delegate = self;
     
     _collection.dataSource = self;
+    
+    _collection.showsVerticalScrollIndicator = NO;
     
     _collection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
@@ -255,6 +265,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
             NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
+            
             [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
@@ -328,7 +339,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-
+    
     NSIndexCollectionReusableView *reusable = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView forIndexPath:indexPath];
     
     reusable.delegate = self;
@@ -337,26 +348,34 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     if (indexPath.section == 0) {
         
         reusable.bannerAry = bannerAry;
-
         
         reusable.titleLable.text = LocalizedStr(@"promot_recommendWorks");
         
     } else if (indexPath.section == 1) {
         
+        UIButton *songMenuBtn = [reusable loadMore];
+        
+        [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [[reusable viewWithTag:100] removeFromSuperview];
-
+        
         [[reusable viewWithTag:200] removeFromSuperview];
-
+        
         reusable.titleLable.text = LocalizedStr(@"promot_recommendSongList");
 
     } else if (indexPath.section == 2) {
         [[reusable viewWithTag:100] removeFromSuperview];
-
+        
         [[reusable viewWithTag:200] removeFromSuperview];
-
+        
         reusable.titleLable.text = LocalizedStr(@"promot_newWorks");
-
+        
     } else {
+        
+        UIButton *songSayBtn = [reusable loadMore];
+        
+        [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [[reusable viewWithTag:100] removeFromSuperview];
 
         [[reusable viewWithTag:200] removeFromSuperview];
@@ -367,6 +386,24 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     return reusable;
     
+}
+
+- (void)songMenuBtnClick:(UIButton *)btn {
+    
+    NSSongListViewController *songListVC = [[NSSongListViewController alloc] init];
+    
+    [self.navigationController pushViewController:songListVC animated:YES];
+    
+    NSLog(@"点击了歌单更多");
+}
+
+- (void)songSayBtnClick:(UIButton *)btn {
+    
+    NSMusicSayViewController *musicSayVC = [[NSMusicSayViewController alloc] init];
+    
+    [self.navigationController pushViewController:musicSayVC animated:YES];
+    
+    NSLog(@"点击了乐说更多");
 }
 
 //轮播器点击事件

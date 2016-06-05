@@ -21,8 +21,16 @@ UICollectionViewDelegateFlowLayout
     UICollectionView * musicSayList;
     NSMutableArray * musicSayAry;
     long itemId;
+<<<<<<< HEAD
+    int i;
+    
+=======
     NSString * url ;
+<<<<<<< HEAD
     int currentPage;
+=======
+>>>>>>> fd1704484d6437ed3eebc82ceb41745bcc9d9980
+>>>>>>> 9a4ffa7e21e543d211c78fe42f5f4fc18d901660
 }
 @end
 static NSString * const musicSayCellId = @"musicSayCellId";
@@ -155,8 +163,8 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    int i;
-    if (  i ==1) {
+    
+    if (i == 1) {
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         playVC.itemId = itemId;
         [self.navigationController pushViewController: playVC animated:YES];

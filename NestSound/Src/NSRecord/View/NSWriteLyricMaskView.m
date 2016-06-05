@@ -28,9 +28,9 @@ UITableViewDelegate
 @end
 
 @implementation NSWriteLyricMaskView
--(instancetype)init
+-(instancetype)initWithFrame:(CGRect)frame
 {
-    if (self = [super init]) {
+    if (self = [super initWithFrame:frame]) {
         [self configreUIAppearance];
     }
     return self;

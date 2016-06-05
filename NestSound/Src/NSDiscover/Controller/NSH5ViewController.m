@@ -34,7 +34,7 @@ UIWebViewDelegate
 -(void)configureUIAppearance
 {
     //nav
-    self.showBackBtn = YES;
+//    self.showBackBtn = YES;
     
     //webView
     h5WebView = [[UIWebView alloc] init];

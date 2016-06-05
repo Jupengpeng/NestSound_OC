@@ -12,6 +12,7 @@
 #import "NSLyricCoachViewController.h"
 #import "NSDrawLineView.h"
 #import "NSWriteLyricMaskView.h"
+#import "NSShareViewController.h"
 
 @interface WriteLyricBottomView : UIView
 @property (nonatomic,strong) UIButton * importLyricBtn;
@@ -38,6 +39,7 @@
                                     configure:^(UIButton *btn) {
                                         
                                         [btn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
+#import "NSShareViewController.h"
                                         [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
                                         [btn setTitle:@"导入歌词" forState:UIControlStateNormal];
                                         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -155,11 +157,11 @@
 -(void)configureUIAppearance
 {
     //nav
-    self.showBackBtn = YES;
+//    self.showBackBtn = YES;
     
-    //maskView
-    maskView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight)];
-    [self.view addSubview:maskView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    
+    
     
     maskView.delegate = self;
     
@@ -185,21 +187,20 @@
     [bottomView.cocachBtn addTarget:self action:@selector(coachVC) forControlEvents:UIControlEventTouchUpInside];
 
     //lyricView
-    lyricView = [[NSLyricView alloc] init];
+    lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 45, ScreenWidth, ScreenHeight - 162)];
     lyricView.backgroundColor = [UIColor whiteColor];
     lyricView.lyricText.delegate = self;
     lyricView.lyricText.editable = YES;
     [self.view addSubview:lyricView];
     
+    //maskView
+    maskView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight - 64)];
+    [self.view addSubview:maskView];
     
-    
-//    maskView = [[UIView alloc] initWithFrame:self.view.frame];
-    
-//    [self.view addSubview:maskView];
-//    maskView.hidden = YES;
-//    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideenMaskView)];
-//    [maskView addGestureRecognizer:tap];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
+    [maskView addGestureRecognizer:tap];
    
+    [maskView addGestureRecognizer:tap];
     
     //constraints
     [titleTextFiled mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -222,27 +223,32 @@
         make.height.mas_equalTo(52);
     }];
     
-    [lyricView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(titleTextFiled.mas_bottom).with.offset(15);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(bottomView.mas_top);
-    }];
     
 }
 
+- (void)rightClick:(UIBarButtonItem *)right {
+    
+    NSShareViewController *shareView = [[NSShareViewController alloc] init];
+    
+    [self.navigationController pushViewController:shareView animated:YES];
+}
 
+- (void)tapClick {
+    
+    [self hiddenMaskView:YES];
+}
 #pragma mark -createLyricLib
 -(void)hiddenMaskView:(BOOL)hidden
 {
     if (hidden) {
         [UIView animateWithDuration:0.2 animations:^{
-            maskView.frame = CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight);
+            maskView.y = ScreenHeight;
         }];
 
     }else{
         [UIView animateWithDuration:0.2 animations:^{
-            maskView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+            maskView.y = 0;
+            
         }];
     }
     
@@ -266,7 +272,10 @@
 -(void)coachVC
 {
     NSLyricCoachViewController * lyricCoachVC = [[NSLyricCoachViewController alloc] init];
-    [self.navigationController pushViewController:lyricCoachVC animated:YES];
+    
+    [self presentViewController:lyricCoachVC animated:YES completion:nil];
+    
+//    [self.navigationController pushViewController:lyricCoachVC animated:YES];
 }
 
 @end

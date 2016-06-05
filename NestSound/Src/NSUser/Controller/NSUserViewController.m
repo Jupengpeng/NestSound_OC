@@ -195,7 +195,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         
         
     }
-    return nil;
+    return settingCell;
 }
 
 #pragma mark tableViewDelegate

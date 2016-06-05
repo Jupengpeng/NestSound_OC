@@ -12,7 +12,7 @@
 
 @protocol NSSoundRecordDelegate <NSObject>
 
-//录音结束后的代理方法
+//播放结束后的代理方法
 @optional
 - (void)soundRecord:(NSSoundRecord *)record;
 
@@ -23,11 +23,17 @@
 //开始录音
 - (void)startRecorder;
 
+//暂停录音
+- (void)pauseRecorder;
+
 //停止录音
 - (void)stopRecorder;
 
 //播放录音
 - (void)playsound;
+
+//暂停播放录音
+- (void)pausePlaysound;
 
 //停止播放录音
 - (void)stopPlaysound;
