@@ -9,8 +9,7 @@
 #import "NSCommentViewController.h"
 #import "NSCommentTableViewCell.h"
 #import "NSUserPageViewController.h"
-
-@interface NSCommentViewController () <UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate, UIScrollViewDelegate, UITextFieldDelegate> {
+@interface NSCommentViewController () <UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate, UIScrollViewDelegate, UITextFieldDelegate, NSCommentTableViewCellDelegate> {
     
     UITableView *commentTableView;
     
@@ -19,11 +18,25 @@
     UIView *maskView;
     
     UITextField *inputField;
+    long itemID ;
+    int currentPage;
+    int type;
+    NSString * commentUrl;
+    NSString * postCommentUrl;
 }
 
 @end
 
 @implementation NSCommentViewController
+
+-(instancetype)initWithItemId:(long)itemid andType:(int)type_
+{
+    if (self = [super init]) {
+        itemID = itemid;
+        type = type_;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,7 +73,32 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
 
+#pragma mark -fetchCommentData
+-(void)fetchCommentWithIsLoadingMore:(BOOL)isLoadingMore
+{
+    self.requestType = NO;
+    if (!isLoadingMore) {
+        currentPage = 1;
+        self.requestParams = @{kIsLoadingMore:@(NO)};
+    }else{
+        ++currentPage;
+        self.requestParams = @{kIsLoadingMore:@(YES)};
+    }
+    NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSString stringWithFormat:@"%d",type],@"token":LoginToken};
+    NSString * str = [NSTool encrytWithDic:dic];
+    commentUrl = [commentURL stringByAppendingString:str];
+    self.requestURL = commentURL;
 
+}
+
+#pragma mark -actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (parserObject.success) {
+        
+       
+    }
+}
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     
@@ -188,12 +226,36 @@
     
     [inputField resignFirstResponder];
     
+    inputField.text = nil;
+    
+    inputField.placeholder = nil;
+    
+    inputField.tag = 2;
+    
     maskView.hidden = YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    NSLog(@"点击了发送");
+    textField.text = nil;
+    
+    inputField.placeholder = nil;
+    
+    [textField resignFirstResponder];
+    
+    maskView.hidden = YES;
+    
+    
+    if (inputField.tag == 1) {
+        
+        NSLog(@"点击了发送. 回复他人的评论");
+    } else {
+        
+        NSLog(@"点击了发送. 发表评论");
+    }
+    
+    
+    inputField.tag = 2;
     
     return YES;
 }
@@ -216,6 +278,7 @@
         
         cell = [[NSCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
+        cell.delegate = self;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -233,6 +296,19 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSCommentTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    maskView.hidden = NO;
+    
+    [inputField becomeFirstResponder];
+    
+    inputField.tag = 1;
+    
+    inputField.placeholder = [NSString stringWithFormat:@"回复: %@",cell.authorNameLabel.text];
+}
+
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] init];
@@ -243,6 +319,16 @@
 }
 
 
+- (void)commentTableViewCell:(NSCommentTableViewCell *)cell {
+    
+    
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] init];
+    
+    [self.navigationController pushViewController:pageVC animated:YES];
+    
+    NSLog(@"点击了用户的头像");
+    
+}
 
 
 @end

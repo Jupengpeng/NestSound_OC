@@ -31,18 +31,15 @@ static inline NSRegularExpression * NameRegularExpression() {
 @interface NSCommentTableViewCell () {
     
     //头像
-    UIImageView *icon;
-    
-    //作者名
-    UILabel *authorNameLabel;
-    
+    UIButton *iconBtn;
+        
     //日期
     UILabel *dateLabel;
     
-    //回复
-    UILabel *replyLabel;
-    
 }
+
+//回复内容
+@property (nonatomic, copy)  NSString *replyStr;
 
 //回复了谁
 @property (nonatomic, copy) NSString *name;
@@ -69,21 +66,23 @@ static inline NSRegularExpression * NameRegularExpression() {
 - (void)setupUI {
     
     //头像
-    icon = [[UIImageView alloc] init];
+    iconBtn = [[UIButton alloc] init];
     
-    icon.image = [UIImage imageNamed:@"2.0_backgroundImage"];
+    [iconBtn setImage:[UIImage imageNamed:@"2.0_backgroundImage"] forState:UIControlStateNormal];
     
-    [self.contentView addSubview:icon];
+    [iconBtn addTarget:self action:@selector(iconBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    iconBtn.adjustsImageWhenHighlighted = NO;
+    [self.contentView addSubview:iconBtn];
     
     
     //作者名
-    authorNameLabel = [[UILabel alloc] init];
+    self.authorNameLabel = [[UILabel alloc] init];
     
-    authorNameLabel.font = [UIFont systemFontOfSize:14];
+    self.authorNameLabel.font = [UIFont systemFontOfSize:14];
     
-    authorNameLabel.text = @"谢豪杰";
+    self.authorNameLabel.text = @"谢豪杰";
     
-    [self.contentView addSubview:authorNameLabel];
+    [self.contentView addSubview:self.authorNameLabel];
     
     
     //日期
@@ -117,7 +116,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     WS(wSelf);
     self.name = @"张轩赫";
-    NSString *text = [NSString stringWithFormat:@"回复 %@ :  %@",self.name, @"你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅你长的真帅(捂脸"];;
+    NSString *text = [NSString stringWithFormat:@"回复 %@ :  %@",self.name, self.replyStr];;
     
     
     [self.commentLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
@@ -168,7 +167,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     [super layoutSubviews];
     
     //头像
-    [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+    [iconBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView.mas_left).offset(15);
         
@@ -181,43 +180,31 @@ static inline NSRegularExpression * NameRegularExpression() {
     }];
     
     //作者名
-    [authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(icon.mas_right).offset(10);
+        make.left.equalTo(iconBtn.mas_right).offset(10);
         
-        make.top.equalTo(icon.mas_top);
+        make.top.equalTo(iconBtn.mas_top);
         
     }];
     
     //日期
     [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.left.equalTo(icon.mas_right).offset(10);
+        make.left.equalTo(iconBtn.mas_right).offset(10);
         
-        make.bottom.equalTo(icon.mas_bottom);
+        make.bottom.equalTo(iconBtn.mas_bottom);
         
     }];
     
-    //评论内容
-//    [self.commentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//       
-//        make.top.equalTo(icon.mas_bottom).offset(10);
-//        
-//        make.right.equalTo(self.contentView.mas_right).offset(-10);
-//        
-//        make.left.equalTo(icon.mas_right).offset(10);
-//        
-//        make.width.mas_equalTo(self.labelSize.width);
-//        
-//        make.height.mas_equalTo(self.labelSize.height);
-//    }];
-//    
 }
 
-
-- (void)replyBtnClick:(UIButton *)replyBtn {
+- (void)iconBtnClick:(UIButton *)btn {
     
-    NSLog(@"点击了回复");
+    if ([self.delegate respondsToSelector:@selector(commentTableViewCell:)]) {
+        
+        [self.delegate commentTableViewCell:self];
+    }
 }
 
 @end

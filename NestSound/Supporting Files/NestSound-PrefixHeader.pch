@@ -73,6 +73,7 @@ extern NSString *port;
 #define myLyricListURL @"http://112.124.125.2/java/common/lyrics/myLyrics?"
 #define myFansListURL @"http://112.124.125.2/java/fanfocus/fanslist?"
 #define focusUserURL @"http://112.124.125.2/java/fanfocus/optFans?"
+#define commentURL @"http://112.124.125.2/java/common/comment/list?"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG

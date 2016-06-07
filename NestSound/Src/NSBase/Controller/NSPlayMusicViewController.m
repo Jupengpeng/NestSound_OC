@@ -130,12 +130,13 @@ static id _instance;
     [super viewDidLoad];
     
     UIImage *coverImage  = [UIImage imageNamed:@"img_05"];
-    
+        
     coverImage = [coverImage applyBlurWithRadius:8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:1.8 maskImage:nil];
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
     backgroundImage.image = coverImage;
+    
     
     
     UIImageView *transparentImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_background_transparent"]];
@@ -544,8 +545,6 @@ static id _instance;
         [self.navigationController pushViewController:commentVC animated:YES];
         
         
-    
-
         NSLog(@"点击了播放页的评论");
     }];
     

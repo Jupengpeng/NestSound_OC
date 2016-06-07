@@ -23,10 +23,10 @@ UITableViewDelegate
     NSMutableArray * messageArr;
     MessageType messageType;
     int currentPage;
-    NSString * upvoteURL;
-    NSString * collectURL;
-    NSString * commentURL;
-    NSString * systemURL;
+    NSString * upvoteUrl;
+    NSString * collectUrl;
+    NSString * commentUrl;
+    NSString * systemUrl;
     UIImageView * emptyImage;
 }
 
@@ -92,17 +92,17 @@ static NSString * const systemCellID = @"SystemCellID";
     NSDictionary * dic = @{@"uid":JUserID,@"page":[NSString stringWithFormat:@"%d",currentPage],@"token":LoginToken};
     NSString * str = [NSTool encrytWithDic:dic];
     if (messageType == UpvoteMessageType) {
-        upvoteURL = [upvoteMessageURL stringByAppendingString:str];
-        self.requestURL = upvoteURL;
+        upvoteUrl = [upvoteMessageURL stringByAppendingString:str];
+        self.requestURL = upvoteUrl;
         }else if (messageType == CollectionMessageType){
-            collectURL = [collectMessageURL stringByAppendingString:str];
-            self.requestURL = collectURL;
+            collectUrl = [collectMessageURL stringByAppendingString:str];
+            self.requestURL = collectUrl;
         }else if (messageType == SystemMessageType){
-            systemURL = [systemMessageURL stringByAppendingString:str];
-            self.requestURL = systemURL;
+            systemUrl = [systemMessageURL stringByAppendingString:str];
+            self.requestURL = systemUrl;
         }else if (messageType == CommentMessageType){
-            commentURL =[commentMessageURL stringByAppendingString:str];
-            self.requestURL = commentURL;
+            commentUrl =[commentMessageURL stringByAppendingString:str];
+            self.requestURL = commentUrl;
         }
 }
 
@@ -112,7 +112,7 @@ static NSString * const systemCellID = @"SystemCellID";
     if (!parserObject.success) {
         
         
-        if ([operation.urlTag isEqualToString:upvoteURL]) {
+        if ([operation.urlTag isEqualToString:upvoteUrl]) {
             NSUpvoteMessageListModel * upvoteMessage = (NSUpvoteMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 messageArr = [NSMutableArray arrayWithArray:upvoteMessage.upvoteMessageList];
@@ -124,7 +124,7 @@ static NSString * const systemCellID = @"SystemCellID";
             
                 }
             }
-        }else if ([operation.urlTag isEqualToString:collectURL]){
+        }else if ([operation.urlTag isEqualToString:collectUrl]){
             NSUpvoteMessageListModel * collecMessage = (NSUpvoteMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 messageArr = [NSMutableArray arrayWithArray:collecMessage.upvoteMessageList];
@@ -136,7 +136,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 }
                 
             }
-        }else if ([operation.urlTag isEqualToString:commentURL]){
+        }else if ([operation.urlTag isEqualToString:commentUrl]){
             NSCommentMessageListModel * commentMessage = (NSCommentMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 messageArr = [NSMutableArray arrayWithArray:commentMessage.commentMessageList];
@@ -148,7 +148,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 }
                 
             }
-        }else if ([operation.urlTag isEqualToString:systemURL]){
+        }else if ([operation.urlTag isEqualToString:systemUrl]){
             NSSystemMessageListModel * systemMessage = (NSSystemMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 messageArr = [NSMutableArray arrayWithArray:systemMessage.systemMessageList];

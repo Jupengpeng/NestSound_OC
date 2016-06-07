@@ -10,4 +10,9 @@
 
 @interface NSCommentViewController : NSBaseViewController
 
+
+
+-(instancetype)initWithItemId:(long)itemid andType:(int)type_;
+
+
 @end

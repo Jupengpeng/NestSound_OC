@@ -193,7 +193,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
         return cell;
         
-
+        
     } else if (indexPath.section == 1) {
         
         NSSongMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SongMenuCell forIndexPath:indexPath];

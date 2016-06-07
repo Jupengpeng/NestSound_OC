@@ -122,12 +122,15 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
 }
 
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     [_search resignFirstResponder];
     
     [_maskView addSubview:self.searchVC.view];
+    
+    UIButton *cancelBtn = [searchBar valueForKey:@"cancelButton"]; //首先取出cancelBtn
+    
+    cancelBtn.enabled = YES; //把enabled设置为yes
     
     NSLog(@"点击搜索");
     

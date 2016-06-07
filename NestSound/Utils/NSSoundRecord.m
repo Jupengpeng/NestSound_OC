@@ -60,31 +60,33 @@
         NSLog(@"录音错误说明%@", [error description]);
     }
     
-    if (!self.recorder) {
+    //    if (!self.recorder) {
     
-        NSDictionary *setting = [NSDictionary dictionary];
-        
-        self.recorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
-        
-        self.recorder.meteringEnabled = YES;
-        
-    }
-        
+    NSDictionary *setting = [NSDictionary dictionary];
+    
+    self.recorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
+    
+    self.recorder.meteringEnabled = YES;
+    
+    //    }
+    
     [self.recorder prepareToRecord];
     
     [self.recorder record];
+    
 }
 
 - (void)pauseRecorder {
     
     [self.recorder pause];
+    
 }
 
 - (void)stopRecorder {
     
     [self.recorder stop];
     
-    self.recorder = nil;
+//    self.recorder = nil;
 }
 
 - (void)playsound {
