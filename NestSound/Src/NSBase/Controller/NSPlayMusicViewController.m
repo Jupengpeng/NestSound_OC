@@ -140,27 +140,16 @@ static id _instance;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-<<<<<<< HEAD
-    UIImage *coverImage  = [UIImage imageNamed:@"img_05"];
-        
-    coverImage = [coverImage applyBlurWithRadius:8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:1.8 maskImage:nil];
-=======
+
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
     UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
->>>>>>> d8b37dd97ded2efc672d43fd1454c267b1aed5b8
+
     
     UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectView.alpha = 0.9;
     effectView.frame = backgroundImage.frame;
     
     [backgroundImage addSubview:effectView];
-    
-    
-<<<<<<< HEAD
-    
-    UIImageView *transparentImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_background_transparent"]];
-=======
->>>>>>> d8b37dd97ded2efc672d43fd1454c267b1aed5b8
     
     UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
     UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];

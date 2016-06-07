@@ -29,9 +29,9 @@ PODS:
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.3)
   - RSAEncryptor (0.0.1)
-  - SDWebImage (3.8.0):
-    - SDWebImage/Core (= 3.8.0)
-  - SDWebImage/Core (3.8.0)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
   - SVPullToRefresh (0.4.1)
   - TheAmazingAudioEngine (1.5.6)
   - TTTAttributedLabel (2.0.0)
@@ -60,7 +60,7 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
-  SDWebImage: 7d9fe229266696de91eadf840c77ca15efd4bbd2
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
@@ -68,4 +68,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 73df8d1ec068d725a714b9656924a8a21285f466
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.0.0
