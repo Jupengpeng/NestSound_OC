@@ -11,15 +11,20 @@
 #import "NSMusicListViewController.h"
 #import "NSLyricView.h"
 #import "NSCommentViewController.h"
-
+#import "NSPlayMusicDetailModel.h"
 
 
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
-    
+    AVPlayer * av;
     UIView *_moreChoiceView;
     NSString * url;
+    NSString * playURL;
+    UIImageView *backgroundImage;
+    UIButton *collectionBtn;
+    UIButton *upVoteBtn;
+
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -91,6 +96,9 @@ static id _instance;
         
         [self addTimer];
     }
+    [self fetchPlayDataWithItemId:self.itemId];
+    
+    
     
 }
 
@@ -105,9 +113,11 @@ static id _instance;
 #pragma mark -fetchMusicDetailData
 -(void)fetchPlayDataWithItemId:(long)musicItemId
 {
-//    self.requestType = YES;
-//    self.requestParams = ;
-//    self.requestURL = ;
+    self.requestType = YES;
+    NSDictionary * dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":@"tuijian"};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [playMusicURL stringByAppendingString:str];
+    self.requestURL = url;
     
 }
 
@@ -115,9 +125,10 @@ static id _instance;
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
-            
+            NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
+           self.musicDetail = musicModel.musicdDetail;
         }
     }else{
     
@@ -129,31 +140,33 @@ static id _instance;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage *coverImage  = [UIImage imageNamed:@"img_05"];
+    backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     
-    coverImage = [coverImage applyBlurWithRadius:8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:1.8 maskImage:nil];
+    UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
+    effectView.alpha = 0.9;
+    effectView.frame = backgroundImage.frame;
     
-    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    
-    backgroundImage.image = coverImage;
+    [backgroundImage addSubview:effectView];
     
     
-    UIImageView *transparentImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_background_transparent"]];
     
-    transparentImage.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+    UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
+    UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
+//    [image applyBlurWithRadius:0.8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:0.5 maskImage:nil];
+    transparentImage.image = image;
     
-    [backgroundImage addSubview:transparentImage];
     
-    self.coverImage = coverImage;
     
     [self.view addSubview:backgroundImage];
+    [backgroundImage addSubview:transparentImage];
     
     
     [self setupUI];
     
     [self moreChoice];
     
-    [self playMusic];
+//    [self playMusic];
 }
 
 //播放音乐
@@ -247,7 +260,6 @@ static id _instance;
         
     }];
     
-    __block AVPlayer * play = self.player;
     //播放暂停按钮
     UIButton *playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
        
@@ -472,7 +484,7 @@ static id _instance;
     CGFloat margin = (ScreenWidth - 220) / 3;
     
     //收藏
-    UIButton *collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    collectionBtn  = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_collection_normal"] forState:UIControlStateNormal];
         
@@ -500,7 +512,7 @@ static id _instance;
     
     
     //点赞
-    UIButton *upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+   upVoteBtn  = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_upvote_normal"] forState:UIControlStateNormal];
         
@@ -885,6 +897,32 @@ static id _instance;
     [self removeTimer];
 }
 
+
+-(void)setMusicDetail:(NSPlayMusicDetail *)musicDetail
+{
+    _musicDetail = musicDetail;
+    _songName.text = self.musicDetail.title;
+    _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+    _commentNum = self.musicDetail.commentNum;
+    _lyricView.lyricText.text = self.musicDetail.lyrics;
+    playURL = self.musicDetail.playURL;
+#warning placeHolder
+    [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    if (self.musicDetail.isZan == 1) {
+        upVoteBtn.selected = YES;
+    }else{
+        upVoteBtn.selected = NO;
+    }
+    if (self.musicDetail.isCollection == 1) {
+        collectionBtn.selected = YES;
+    }else{
+        collectionBtn.selected = NO;
+    }
+    av = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:self.musicDetail.playURL]];
+    
+    [av play];
+    
+}
 @end
 
 

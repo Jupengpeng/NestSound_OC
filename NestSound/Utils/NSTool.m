@@ -227,6 +227,14 @@ static NSDateFormatter *dateFormatter;
     return str;
 }
 
++(NSString *)stringFormatWithTimeLong:(long)times
+{
+    int seconds = times%60;
+    long minutes = times/60;
+    NSString * str = [NSString stringWithFormat:@"%ld:%d",minutes,seconds];
+    return str;
+}
+
 @end
 
 @implementation Memory

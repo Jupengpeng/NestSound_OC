@@ -62,6 +62,7 @@ extern NSString *port;
 #define sendCodeURL @"http://112.124.125.2/java/common/send/code?"
 #define registerURL @"http://112.124.125.2/java/common/regist/mobile?"
 #define loginURl @"http://112.124.125.2/java/common/login/mobile?"
+#define reSetPasswordURL @"http://112.124.125.2/java/common/login/resetPassword?"
 #define userCenterURL @"http://112.124.125.2/java/userCenter/index?"
 #define otherCenterURL @"http://112.124.125.2/java/common/otherCenter/index?"
 #define messageURL @"http://112.124.125.2/java/message/center?"
@@ -73,6 +74,10 @@ extern NSString *port;
 #define myLyricListURL @"http://112.124.125.2/java/common/lyrics/myLyrics?"
 #define myFansListURL @"http://112.124.125.2/java/fanfocus/fanslist?"
 #define focusUserURL @"http://112.124.125.2/java/fanfocus/optFans?"
+#define playMusicURL @"http://112.124.125.2/java/common/music/work?"
+#define feedBackURL @"http://112.124.125.2/java/feedback/save?"
+#define reportURL @"http://112.124.125.2/java/report/save?"
+#define lyricLibraryURL @"http://112.124.125.2/java/lyricsopt/getLyriCats?"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG

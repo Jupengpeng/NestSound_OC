@@ -9,5 +9,4 @@
 #import "NSBaseViewController.h"
 
 @interface NSCommentViewController : NSBaseViewController
-
 @end

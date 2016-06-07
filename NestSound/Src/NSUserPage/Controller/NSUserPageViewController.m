@@ -16,7 +16,7 @@
 #import "NSInspirationRecordTableViewCell.h"
 #import "NSFansViewController.h"
 #import "NSLoginViewController.h"
-
+#import "NSUserDataModel.h"
 
 @interface NSUserPageViewController ()
 <
@@ -35,6 +35,8 @@ UITableViewDataSource>
     NSLoginViewController *login;
     NSString * myUrl;
     NSString * otherUrl;
+    NSString * url;
+    NSTableHeaderView *headerView ;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -43,6 +45,14 @@ UITableViewDataSource>
 
 @implementation NSUserPageViewController
 
+
+-(instancetype)initWithUserID:(NSString *)userID_
+{
+    if (self = [super init]) {
+        userId = userID_;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,17 +101,18 @@ UITableViewDataSource>
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             
            
-            myUrl = [userCenterURL stringByAppendingString:str];
-            self.requestURL = myUrl;
+            url = [userCenterURL stringByAppendingString:str];
+          
         
         }else{
         
-            NSDictionary * dic = @{@"otherid":userId,@"uid":userDic[@"userID"]};
+            NSDictionary * dic = @{@"otherid":userId,@"uid":userId};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-            otherUrl = [otherCenterURL stringByAppendingString:str];
-            self.requestURL = otherUrl;
+            url = [otherCenterURL stringByAppendingString:str];
+            
             }
+        self.requestURL = url;
     }
     
 }
@@ -113,15 +124,20 @@ UITableViewDataSource>
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:myUrl]) {
+        if ([operation.urlTag isEqualToString:url]) {
+            
+            NSUserDataModel * userData = (NSUserDataModel *)parserObject;
+            headerView.userModel = userData.userDataModel.userModel;
+            headerView.otherModel = userData.userOtherModel;
+            if (!operation.isLoadingMore) {
+            
+                myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+            }else{
+                [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
+            
+            }
         
-            
-        }else{
-            
-            
         }
-        
-        
     }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
     }
@@ -132,7 +148,7 @@ UITableViewDataSource>
 
 - (void)setupUI {
     
-    NSTableHeaderView *headerView = [[NSTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 290)];
+        headerView = [[NSTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 290)];
     
     if (self.who == Myself) {
         

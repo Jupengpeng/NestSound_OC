@@ -162,6 +162,7 @@
     } action:^(UIButton *btn) {
         
         NSLog(@"点击了获取验证码");
+        
     }];
     
     [captchaView addSubview:captchaBtn];
@@ -317,7 +318,7 @@
         
     } action:^(UIButton *btn) {
         
-        NSLog(@"点击了确定");
+        [wSelf resetPassword];
         
     }];
     
@@ -359,6 +360,37 @@
     [repasswordText resignFirstResponder];
     
     [captchaText resignFirstResponder];
+}
+
+
+-(void)resetPassword
+{
+    if (phoneText.text.length!=0) {
+        if (passwordText.text.length!=0) {
+            if (captchaText.text.length!=0) {
+                if (repasswordText.text.length!=0) {
+                    if ([repasswordText.text isEqualToString:passwordText.text]) {
+                        self.requestType = NO;
+                        self.requestParams = @{@"mobile":phoneText.text,@"code":captchaText.text,@"password":passwordText.text};
+                        self.requestURL = reSetPasswordURL;
+                    }else{
+                        [[NSToastManager manager] showtoast:@"两次输入密码不一致"];
+                    }
+                }else{
+                    [[NSToastManager manager] showtoast:@"新密码不能为空"];
+                }
+                
+            }else{
+                [[NSToastManager manager] showtoast:@"请输入验证码"];
+            }
+            
+        }else{
+            [[NSToastManager manager] showtoast:@"密码不能为空"];
+        }
+        
+    }else{
+        [[NSToastManager manager] showtoast:@"手机号码不能为空"];
+    }
 }
 
 @end

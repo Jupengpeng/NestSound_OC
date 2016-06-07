@@ -8,7 +8,7 @@
 
 #import "NSBaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
-
+@class NSPlayMusicDetail;
 @interface NSPlayMusicViewController : NSBaseViewController
 
 + (instancetype)sharedPlayMusic;
@@ -17,5 +17,6 @@
 
 @property (nonatomic,assign) long itemId;
 
+@property (nonatomic,strong) NSPlayMusicDetail * musicDetail;
 
 @end

@@ -20,4 +20,5 @@ typedef NS_ENUM(NSUInteger, Who) {
 
 @property (nonatomic, assign) Who who;
 
+-(instancetype)initWithUserID:(NSString *)userID_;
 @end
