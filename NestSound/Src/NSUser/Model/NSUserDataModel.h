@@ -10,9 +10,12 @@
 #import "NSMyMusicModel.h"
 
 
-@interface UserModel : NSBaseModel
+@interface UserOtherModel : NSBaseModel
 @property (nonatomic,assign) long fansNum;
 @property (nonatomic,assign) long focusNum;
+@end
+
+@interface UserModel : NSBaseModel
 @property (nonatomic,assign) long userId;
 @property (nonatomic,copy) NSString * headerUrl;
 @property (nonatomic,copy) NSString * nickName;
@@ -34,4 +37,5 @@
 
 @property (nonatomic,strong) UserDataModel * userDataModel;
 @property (nonatomic,strong) MyMusicList * myMusicList;
+@property (nonatomic,strong) UserOtherModel * userOtherModel;
 @end

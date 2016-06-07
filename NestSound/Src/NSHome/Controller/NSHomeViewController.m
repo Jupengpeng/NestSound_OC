@@ -132,7 +132,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 #pragma mark -override FetchData;
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
+
+    if (!parserObject.success&&parserObject) {
 
 #ifdef debug
         
@@ -148,6 +149,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
         [self configureUIAppearance];
         
+    }else{
+        [[NSToastManager manager] showtoast:@"网络异常"];
     }
 }
 

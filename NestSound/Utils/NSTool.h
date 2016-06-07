@@ -22,6 +22,7 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(BOOL) isValidateMobile:(NSString *)mobile;
 +(BOOL)compareWithUser:(long)userID;
 +(NSString *)encrytWithDic:(NSDictionary *)dic;
++(NSString *)stringFormatWithTimeLong:(long)times;
 @end
 //cache include ：accompany，record file ，music file
 @interface Memory : NSObject

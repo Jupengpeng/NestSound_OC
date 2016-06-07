@@ -9,6 +9,14 @@
 #import "NSUserDataModel.h"
 
 
+
+@implementation UserOtherModel
+-(NSDictionary *)modelKeyJSONKeyMapper
+{
+    return @{@"fansNum":@"fansnum",@"focusNum":@"gznum"};
+}
+@end
+
 @implementation UserModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
@@ -47,6 +55,7 @@
 
     return @{@"userDataModel":@"data",
              @"myMusicList":@"data",
+             @"userOther":@"data"
              };
 }
 

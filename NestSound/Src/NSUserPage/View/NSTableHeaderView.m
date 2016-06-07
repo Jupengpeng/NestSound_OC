@@ -246,11 +246,18 @@
     [self.iconView setDDImageWithURLString:_userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
     self.userName.text = _userModel.nickName;
     self.introduction.text = _userModel.signature;
-    [self.followBtn setTitle:[NSString stringWithFormat:@"关注: %zd", _userModel.focusNum] forState:UIControlStateNormal];
-   
-    [self.fansBtn setTitle:[NSString stringWithFormat:@"粉丝: %zd",_userModel.fansNum] forState:UIControlStateNormal];
+  
 }
 
+
+-(void)setOtherModel:(UserOtherModel *)otherModel
+{
+
+    
+    [self.followBtn setTitle:[NSString stringWithFormat:@"关注: %zd", _otherModel.focusNum] forState:UIControlStateNormal];
+    
+    [self.fansBtn setTitle:[NSString stringWithFormat:@"粉丝: %zd",_otherModel.fansNum] forState:UIControlStateNormal];
+}
 @end
 
 

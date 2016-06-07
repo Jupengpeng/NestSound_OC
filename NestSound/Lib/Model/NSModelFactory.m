@@ -23,6 +23,7 @@
 #import "NSMyLricListModel.h"
 #import "NSCommentMessageListModel.h"
 #import "NSSystemMessageListModel.h"
+#import "NSPlayMusicDetailModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -71,6 +72,8 @@
         return [[NSCommentMessageListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:systemMessageURL]){
         return [[NSSystemMessageListModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:playMusicURL]){
+        return [[NSPlayMusicDetailModel alloc] initWithJSONDict:jsonDict];
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

@@ -43,24 +43,24 @@ UITextFieldDelegate
 
 -(void)feedBackWithContent:(NSString *)content_ andNumber:(NSString *)number
 {
+    self.requestType = NO;
+    self.requestParams= @{@"userid":JUserID,@"text":content_,@"phone":number,@"token":LoginToken};
+    if ([Type isEqualToString:@"feedBack"]) {
+        self.requestURL = feedBackURL;
+
+    }else{
     
-//    self.requestParams= @{@"":@"",@"":@"",@"":@""};
-//    if ([Type isEqualToString:@"feedBack"]) {
-//        self.requestURL = ;
-//
-//        
-//    }else{
-//    
-//        self.requestURL = ;
-//
-//    }
-//    
+        self.requestURL = reportURL;
+
+    }
     
 }
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
+    if (!parserObject.success) {
+        [[NSToastManager manager] showtoast:@"发布成功，我们运营会尽快解决您反馈的问题"];
+    }
 
 }
 
@@ -132,11 +132,7 @@ UITextFieldDelegate
     [cellNumber resignFirstResponder];
 }
 
-#pragma mark textFieldDelegate
--(void)textFieldDidBeginEditing:(UITextField *)textField
-{
 
-}
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {

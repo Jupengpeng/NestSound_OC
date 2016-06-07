@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class UserModel;
+@class UserOtherModel;
 @interface NSTableHeaderView : UIView
 
 //头像
@@ -26,5 +27,5 @@
 @property (nonatomic, strong) UIButton *fansBtn;
 
 @property (nonatomic,strong) UserModel * userModel;
-
+@property (nonatomic,strong) UserOtherModel * otherModel;
 @end

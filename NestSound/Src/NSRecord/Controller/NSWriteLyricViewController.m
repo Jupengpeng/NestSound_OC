@@ -13,7 +13,7 @@
 #import "NSDrawLineView.h"
 #import "NSWriteLyricMaskView.h"
 #import "NSShareViewController.h"
-
+#import "NSLyricLibraryListModel.h"
 @interface WriteLyricBottomView : UIView
 @property (nonatomic,strong) UIButton * importLyricBtn;
 @property (nonatomic,strong) UIButton * LyricesBtn;
@@ -129,7 +129,7 @@
 
 
 @interface NSWriteLyricViewController ()<
-    UITextFieldDelegate,UITextViewDelegate,lyricsDelegate
+    UITextFieldDelegate,UITextViewDelegate,lyricsDelegate,ImportLyric
 >
 {
 
@@ -138,6 +138,8 @@
     WriteLyricBottomView * bottomView;
     NSWriteLyricMaskView * maskView;
     UICollectionView * typeCollectionView;
+    NSImportLyricViewController * importLyricVC;
+    NSString * url;
 }
 
 @end
@@ -257,16 +259,44 @@
 #pragma mark -push to my lyric list page
 -(void)imporLyric
 {
-    NSImportLyricViewController * importLyricVC = [[NSImportLyricViewController alloc] init];
+    importLyricVC = [[NSImportLyricViewController alloc] init];
     [self.navigationController pushViewController:importLyricVC animated:YES];
-    
+    importLyricVC.delegate = self;
 }
 
 #pragma mrak -view the lyricLibary view
 -(void)lyricLibary
 {
+    
+    
+    
     [self hiddenMaskView:NO];
 }
+
+#pragma mark -fetchLyricLibraryData
+-(void)fetchLyricLibraryData
+{
+    self.requestType = YES;
+    NSDictionary * dic = @{@"keyword":@""};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [lyricLibraryURL stringByAppendingString:str];
+    self.requestURL = url;
+
+}
+
+#pragma mark - overrider actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (parserObject.success) {
+        if ([operation.urlTag isEqualToString:url]) {
+            NSLyricLibraryListModel * lyricLibrary = (NSLyricLibraryListModel *)parserObject;
+            maskView.lyricLibraryListModel = lyricLibrary;
+            
+        }
+    }
+    
+}
+
 
 #pragma mark - push to lyric coach page
 -(void)coachVC
@@ -275,7 +305,6 @@
     
     [self presentViewController:lyricCoachVC animated:YES completion:nil];
     
-//    [self.navigationController pushViewController:lyricCoachVC animated:YES];
 }
 
 @end
