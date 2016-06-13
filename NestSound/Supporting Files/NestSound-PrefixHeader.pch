@@ -79,6 +79,8 @@ extern NSString *port;
 #define feedBackURL @"http://112.124.125.2/java/feedback/save?"
 #define reportURL @"http://112.124.125.2/java/report/save?"
 #define lyricLibraryURL @"http://112.124.125.2/java/lyricsopt/getLyriCats?"
+#define postCommentURL @"http://112.124.125.2/java/commentopt/save?"
+#define deleteCommentURL @"http://112.124.125.2/java/commentopt/delete?"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG
@@ -96,6 +98,7 @@ extern NSString *port;
 #define USERDEFAULT          [NSUserDefaults standardUserDefaults]
 #define LocalizedStr(key)    NSLocalizedString(key, @"")
 #define LocalPath            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define LocalAccompanyPath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/AccompanyCache"]
 #define UUID [UIDevice currentDevice].identifierForVendor
 
 // Keys

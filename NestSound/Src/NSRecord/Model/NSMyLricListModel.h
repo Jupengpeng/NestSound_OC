@@ -22,6 +22,8 @@
 
 
 @end
+
+
 @interface NSMyLricListModel : NSBaseModel
 
 @property (nonatomic,strong) NSArray <NSMyLyricModel> * myLyricList;

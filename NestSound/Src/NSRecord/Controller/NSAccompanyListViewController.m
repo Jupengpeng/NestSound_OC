@@ -10,6 +10,7 @@
 #import "NSAccompanyListHeaderView.h"
 #import "NSAccompanyTableCell.h"
 #import "NSAccommpanyListModel.h"
+#import "NSWriteMusicViewController.h"
 @interface NSAccompanyListViewController ()
 <
     UITableViewDataSource,
@@ -44,7 +45,6 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [self fetchAccompanyData];
 }
 
-
 #pragma mark -fetchData
 -(void)fetchAccompanyData
 {
@@ -78,11 +78,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         self.requestURL = hotUrl;
     }
     
-
-    
 }
-
-
 
 
 #pragma mark - overrride FetchData
@@ -121,8 +117,6 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                     
                      [newAccompanyAry addObject:listModel.accommpanyList];
                 }
-                
-                
                 
             }
         }
@@ -183,7 +177,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     }];
     accompanyListTabelView.showsInfiniteScrolling = YES;
 }
-
+#pragma mark -newAccompany
 -(void)doNew
 {
     headerView.xinBtn.selected = YES;
@@ -191,7 +185,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [self fetchAccompanyListDataWithIsLoadingMore:NO];
 
 }
-
+#pragma mark -hotAccompany
 -(void)doHot
 {
     headerView.hotBtn.selected = YES;
@@ -237,8 +231,21 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //downLoading accompany and push to recordVC
-    
-    
+    NSAccommpanyModel * accompany = dataAry[indexPath.section];
+    NSString * fileURL = accompany.mp3URL;
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:LocalAccompanyPath]) {
+        [fm createDirectoryAtPath:LocalAccompanyPath withIntermediateDirectories:YES attributes:nil error:nil];
+        NSLog(@"%@",LocalAccompanyPath);
+    }else{
+        if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
+            NSLog(@"uu%@",LocalAccompanyPath);
+            [[NSHttpClient client] downLoadWithFileURL:fileURL];
+        }
+    }
+    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] init];
+    writeMusicVC.accompanyModel = accompany;
+    [self.navigationController pushViewController:writeMusicVC animated:YES];
 }
 
 @end

@@ -65,7 +65,7 @@
     }else if ([url isEqualToString:accompanyListURL]){
         return [[NSAccommpanyListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:myLyricListURL]){
-        return [[NSLyricListModel alloc] initWithJSONDict:jsonDict];
+        return [[NSMyLricListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:collectMessageURL]){
         return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:commentMessageURL]){

@@ -65,6 +65,9 @@ static NSHttpClient *client;
 
 }
 
+
+
+
 #pragma mark - requestWithURL ...
 - (NSURLSessionDataTask *)requestWithURL:(NSString *)url
                                     type:(BOOL)requestType
@@ -206,5 +209,22 @@ static NSHttpClient *client;
     return operation;
 }
 
+
+#pragma  mark -downLoadWithFIleURL
+-(void)downLoadWithFileURL:(NSString *)fileURL
+{
+    [[NSToastManager manager] showprogress];
+    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL] cachePolicy:1 timeoutInterval:6];
+    [[self downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        NSString * filePath = [LocalAccompanyPath stringByAppendingPathComponent:response.suggestedFilename];
+        NSURL * url = [NSURL fileURLWithPath:filePath];
+        
+        return url;
+    }completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        NSLog(@"%@",error.localizedDescription);
+        [[NSToastManager manager] hideprogress];
+    }] resume];
+
+}
 
 @end

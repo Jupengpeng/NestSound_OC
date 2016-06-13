@@ -50,6 +50,13 @@ static NSString * const settingCellIditify = @"settingCell";
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)fetchProfileData
+{
+    
+
+}
+
 #pragma mark -configureAppearance
 -(void)configureAppearance
 {

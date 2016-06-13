@@ -229,9 +229,17 @@ static NSDateFormatter *dateFormatter;
 
 +(NSString *)stringFormatWithTimeLong:(long)times
 {
+    NSString * minute;
+    NSString * second;
     int seconds = times%60;
     long minutes = times/60;
-    NSString * str = [NSString stringWithFormat:@"%ld:%d",minutes,seconds];
+    if (minutes/10 == 0) {
+        minute = [NSString stringWithFormat:@"0%ld",minutes];
+    }
+    if (seconds/10 == 0) {
+        second = [NSString stringWithFormat:@"0%d",seconds];
+    }
+    NSString * str = [NSString stringWithFormat:@"%@:%@",minute,second];
     return str;
 }
 

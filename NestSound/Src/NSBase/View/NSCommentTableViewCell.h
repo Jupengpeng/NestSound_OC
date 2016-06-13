@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class NSCommentTableViewCell;
-
+@class NSCommentModel;
 @protocol NSCommentTableViewCellDelegate <NSObject>
 
 - (void)commentTableViewCell:(NSCommentTableViewCell *)cell;
@@ -27,6 +27,7 @@
 //作者名
 @property (nonatomic, strong) UILabel *authorNameLabel;
 
+@property (nonatomic,strong) NSCommentModel * commentModel;
 
 @property (nonatomic, weak) id<NSCommentTableViewCellDelegate> delegate;
 
