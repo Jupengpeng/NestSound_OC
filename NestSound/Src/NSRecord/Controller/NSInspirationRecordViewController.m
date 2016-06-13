@@ -10,9 +10,9 @@
 #import "NSLyricView.h"
 #import "NSPictureCollectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "NSSoundRecord.h"
+#import "XHSoundRecorder.h"
 
-@interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, NSSoundRecordDelegate> {
+@interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource> {
     
     UICollectionView *_collection;
     
@@ -32,8 +32,6 @@
 @property (nonatomic, weak) UIButton *playSongsBtn;
 
 @property (nonatomic, weak) UIButton *deleteBtn;
-
-@property (nonatomic, strong)  NSSoundRecord *record;
 
 @property (nonatomic, strong)  CADisplayLink *link;
 
@@ -58,10 +56,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     self.title = [date datetoLongStringWithDate:[NSDate date]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
-    
-    self.record = [[NSSoundRecord alloc] init];
-    
-    self.record.delegate = self;
     
     [self setupUI];
     
@@ -317,7 +311,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
             
-            [wSelf.record startRecorder];
+            [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
+                
+                NSLog(@"%@",filePath);
+            }];
             
             wSelf.promptLabel.text = @"点击完成";
             
@@ -332,7 +329,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
              NSLog(@"点击了录音");
         } else {
             
-            [wSelf.record stopRecorder];
+            [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
             
             btn.hidden = YES;
             
@@ -355,7 +352,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
              NSLog(@"点击了暂停录音");
         }
         
-       
     }];
     
     self.recordBtn = recordBtn;
@@ -390,14 +386,19 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             [wSelf addLink];
             
-            [self.record playsound];
+            [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
+                
+                btn.selected = NO;
+                
+                [wSelf removeLink];
+            }];
             
             wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
             
             NSLog(@"点击了播放录音");
         } else {
             
-            [wSelf.record stopPlaysound];
+            [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
             
             [wSelf removeLink];
             
@@ -435,9 +436,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         wSelf.playSongsBtn.hidden = YES;
         
-        [wSelf.record stopPlaysound];
+        [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
         
-        [wSelf.record removeSoundRecorder];
+        [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
         
         wSelf.promptLabel.text = @"点击录音";
         
@@ -572,15 +573,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
 }
 
-//播放结束的代理方法
-- (void)soundRecord:(NSSoundRecord *)record {
-    
-    self.playSongsBtn.selected = NO;
-    
-    [self removeLink];
-    
-    NSLog(@"执行代理");
-}
 
 -(void)textViewDidChange:(UITextView *)textView {
     
@@ -623,29 +615,32 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     self.timeNum += 1/60.0;
     
-    CGFloat count = [self.record decibels];
-    
-    if (count <= -35) {
+    if (self.deleteBtn.hidden) {
         
-        self.volume.image = [UIImage imageNamed:@"2.0_volume"];
+        CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
         
-    } else if (count <= -25 && count >= -35) {
+        if (count <= -35) {
+            
+            self.volume.image = [UIImage imageNamed:@"2.0_volume"];
+            
+        } else if (count <= -25 && count >= -35) {
+            
+            self.volume.image = [UIImage imageNamed:@"2.0_volume1"];
+            
+        } else if (count <= -15 && count >= -25) {
+            
+            self.volume.image = [UIImage imageNamed:@"2.0_volume2"];
+            
+        } else if (count <= 5 && count >= 15) {
+            
+            self.volume.image = [UIImage imageNamed:@"2.0_volume3"];
+            
+        } else {
+            
+            self.volume.image = [UIImage imageNamed:@"2.0_volume4"];
+        }
         
-        self.volume.image = [UIImage imageNamed:@"2.0_volume1"];
-        
-    } else if (count <= -15 && count >= -25) {
-        
-        self.volume.image = [UIImage imageNamed:@"2.0_volume2"];
-        
-    } else if (count <= 5 && count >= 15) {
-        
-        self.volume.image = [UIImage imageNamed:@"2.0_volume3"];
-        
-    } else {
-        
-        self.volume.image = [UIImage imageNamed:@"2.0_volume4"];
     }
-    
     
     
     self.recordDuration.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];

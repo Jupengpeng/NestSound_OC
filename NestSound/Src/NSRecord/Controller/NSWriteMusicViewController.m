@@ -11,7 +11,7 @@
 #import "NSLyricView.h"
 #import "NSOptimizeMusicViewController.h"
 #import "NSImportLyricViewController.h"
-#import "NSSoundRecord.h"
+#import "XHSoundRecorder.h"
 
 @interface CenterLine : UIView
 
@@ -40,7 +40,7 @@
 @end
 
 
-@interface NSWriteMusicViewController () <NSSoundRecordDelegate, UIScrollViewDelegate> {
+@interface NSWriteMusicViewController () <UIScrollViewDelegate> {
     
     UILabel *totalTimeLabel;
     
@@ -56,8 +56,6 @@
 @property (nonatomic, strong)  CADisplayLink *link;
 
 @property (nonatomic, assign) CGFloat timerNum;
-
-@property (nonatomic, strong) NSSoundRecord *soundRecord;
 
 @property (nonatomic, strong) NSMutableArray *btns;
 
@@ -80,10 +78,6 @@
     
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
-    
-    self.soundRecord = [[NSSoundRecord alloc] init];
-    
-    self.soundRecord.delegate = self;
     
     [self setupUI];
     
@@ -264,14 +258,17 @@
             
             [self removeLink];
             
-            [self.soundRecord pausePlaysound];
+            [[XHSoundRecorder sharedSoundRecorder] pausePlaysound];
+            
             
         } else {
             
             [self addLink];
             
-            [self.soundRecord playsound];
-            
+            [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
+                
+                
+            }];
         }
         
         NSLog(@"点击了暂停和播放");
@@ -288,13 +285,16 @@
             
             [self addLink];
             
-            [self.soundRecord startRecorder];
+            [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
+                
+                
+            }];
             
         } else {
             
             [self removeLink];
             
-            [self.soundRecord stopRecorder];
+            [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
             
         }
         
@@ -330,12 +330,6 @@
         }
         
     }
-}
-
-//播放完毕回调
-- (void)soundRecord:(NSSoundRecord *)record {
-    
-
 }
 
 
@@ -385,9 +379,9 @@
     self.timerNum += 1/60.0;
     
     //分贝数
-    CGFloat count = [self.soundRecord decibels];
+    CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
     
-
+    
     //计时显示
     self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
     

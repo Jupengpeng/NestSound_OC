@@ -40,13 +40,13 @@
 		18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402851CE6F55A00B36002 /* NSDraftBoxViewController.m */; };
 		18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */; };
 		18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */; };
+		18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4CB221D0E61690059783C /* XHSoundRecorder.m */; };
 		18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */; };
 		18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E341CFC19300027D534 /* NSSearchMusicTableView.m */; };
 		18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */; };
 		18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */; };
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */; };
-		18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE8301CF0B1040012880E /* NSSoundRecord.m */; };
 		18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8331CF15ED50012880E /* libmp3lame.a */; };
 		2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */; };
 		2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */; };
@@ -245,6 +245,8 @@
 		18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBaseViewController+CustomNavBar.m"; sourceTree = "<group>"; };
 		18E4028A1CE7115400B36002 /* NSDraftBoxTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftBoxTableViewCell.h; sourceTree = "<group>"; };
 		18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftBoxTableViewCell.m; sourceTree = "<group>"; };
+		18E4CB211D0E61690059783C /* XHSoundRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHSoundRecorder.h; sourceTree = "<group>"; };
+		18E4CB221D0E61690059783C /* XHSoundRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHSoundRecorder.m; sourceTree = "<group>"; };
 		18FA5E2D1CFBDA110027D534 /* NSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchViewController.h; sourceTree = "<group>"; };
 		18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchViewController.m; sourceTree = "<group>"; };
 		18FA5E331CFC19300027D534 /* NSSearchMusicTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchMusicTableView.h; sourceTree = "<group>"; };
@@ -257,8 +259,6 @@
 		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
 		18FFE82C1CF025250012880E /* NSPlayMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicViewController.h; sourceTree = "<group>"; };
 		18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayMusicViewController.m; sourceTree = "<group>"; };
-		18FFE82F1CF0B1040012880E /* NSSoundRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSoundRecord.h; sourceTree = "<group>"; };
-		18FFE8301CF0B1040012880E /* NSSoundRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSoundRecord.m; sourceTree = "<group>"; };
 		18FFE8321CF15ED50012880E /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		18FFE8331CF15ED50012880E /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		18FFE8351CF1809F0012880E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1136,8 +1136,8 @@
 				2DFB67711CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m */,
 				18E402871CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.h */,
 				18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */,
-				18FFE82F1CF0B1040012880E /* NSSoundRecord.h */,
-				18FFE8301CF0B1040012880E /* NSSoundRecord.m */,
+				18E4CB211D0E61690059783C /* XHSoundRecorder.h */,
+				18E4CB221D0E61690059783C /* XHSoundRecorder.m */,
 				188BEEA41CF4BBE900494D64 /* NSPlayMusicTool.h */,
 				188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */,
 				18453A931CF73596004EE0E6 /* NSString+SizeFont.h */,
@@ -1267,6 +1267,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
+				D4BF160F5E296B9C2BAD5081 /* 📦 Check Pods Manifest.lock */,
 				92B3FC676405EA6062772D9F /* [CP] Check Pods Manifest.lock */,
 				C8AF65361A8DFCD211EF4E82 /* [CP] Check Pods Manifest.lock */,
 				CAB4B776898A4A9129402425 /* [CP] Check Pods Manifest.lock */,
@@ -1291,6 +1292,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
+				260859C001B5B2874C4D55E6 /* 📦 Check Pods Manifest.lock */,
 				CAA8C1AA3F0F5B8EB3E2A275 /* [CP] Check Pods Manifest.lock */,
 				3C9673A411ACCF71C61EE124 /* [CP] Check Pods Manifest.lock */,
 				7493F63A3CC2B8B54FBBDC83 /* [CP] Check Pods Manifest.lock */,
@@ -1409,6 +1411,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		260859C001B5B2874C4D55E6 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3C9673A411ACCF71C61EE124 /* [CP] Check Pods Manifest.lock */ = {
@@ -1576,6 +1593,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		D4BF160F5E296B9C2BAD5081 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		E8301068291CE40135658275 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1694,6 +1726,7 @@
 				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
+				18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
 				2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */,
@@ -1741,7 +1774,6 @@
 				2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */,
 				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
-				18FFE8311CF0B1040012880E /* NSSoundRecord.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,
 			);
