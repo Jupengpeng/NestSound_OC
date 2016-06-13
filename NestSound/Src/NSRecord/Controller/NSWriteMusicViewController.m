@@ -11,13 +11,9 @@
 #import "NSLyricView.h"
 #import "NSOptimizeMusicViewController.h"
 #import "NSImportLyricViewController.h"
-<<<<<<< HEAD
 #import "XHSoundRecorder.h"
-
-=======
-#import "NSSoundRecord.h"
 #import "NSAccommpanyListModel.h"
->>>>>>> 455533c0b3e0e44fdfe4482ab351e87ad4cfde07
+
 @interface CenterLine : UIView
 
 @end
