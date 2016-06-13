@@ -25,4 +25,5 @@ typedef enum {
                                  success:(void(^)(NSURLSessionDataTask *operation,NSObject *parserObject))success
                                  failure:(void(^)(NSURLSessionDataTask *operation,NSError *requestErr))failure;
 
+-(void)downLoadWithFileURL:(NSString *)fileURL;
 @end

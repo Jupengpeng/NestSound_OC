@@ -27,6 +27,6 @@
 @implementation NSMyLricListModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    return @{@"NSMyLyricModel":@"data"};
+    return @{@"myLyricList":@"data"};
 }
 @end

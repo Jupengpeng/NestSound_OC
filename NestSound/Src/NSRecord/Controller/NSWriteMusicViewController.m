@@ -12,7 +12,7 @@
 #import "NSOptimizeMusicViewController.h"
 #import "NSImportLyricViewController.h"
 #import "NSSoundRecord.h"
-
+#import "NSAccommpanyListModel.h"
 @interface CenterLine : UIView
 
 @end
@@ -75,6 +75,8 @@
     return _btns;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -89,6 +91,9 @@
     
     
 }
+
+
+
 
 - (void)setupUI {
     
@@ -165,7 +170,7 @@
     
     totalTimeLabel.font = [UIFont systemFontOfSize:10];
     
-    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",@"02:30"];
+    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:_accompanyModel.mp3Times]];
     
     [self.view addSubview:totalTimeLabel];
     
@@ -398,5 +403,11 @@
     
 }
 
+#pragma mark -setter && getter
+-(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
+{
+    _accompanyModel = accompanyModel;
+
+}
 
 @end

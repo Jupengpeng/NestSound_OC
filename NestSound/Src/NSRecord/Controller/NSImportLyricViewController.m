@@ -33,7 +33,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+   
     [self configureUIAppearance];
 }
 
@@ -42,7 +42,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 {
     [super viewDidAppear:animated];
     
-    [lyricCollecView setContentOffset:CGPointMake(0, 60) animated:YES];
+    [lyricCollecView setContentOffset:CGPointMake(0, -60) animated:YES];
     [lyricCollecView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
 
 }
@@ -69,7 +69,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (!parserObject.success) {
-        if ([url isEqualToString:myLyricListURL]) {
+        if ([operation.urlTag isEqualToString:url]) {
             NSMyLricListModel * myLyricList = (NSMyLricListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 lyricesAry = [NSMutableArray arrayWithArray:myLyricList.myLyricList];
@@ -77,10 +77,18 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
                 [lyricesAry addObject:myLyricList.myLyricList];
             }
         }
-        if (!operation.isLoadingMore) {
-            lyricCollecView.showsInfiniteScrolling = YES;
+        if (operation.isLoadingMore) {
+           [lyricCollecView reloadData];
         }
-        [lyricCollecView reloadData];
+        if (!operation.isLoadingMore) {
+            
+            [lyricCollecView.pullToRefreshView stopAnimating];
+            [lyricCollecView reloadData];
+        } else {
+            
+            [lyricCollecView.infiniteScrollingView stopAnimating];
+        }
+
     }
 
 }
@@ -88,18 +96,22 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 #pragma mark -configureAppearance
 -(void)configureUIAppearance
 {
-    
+     self.view.backgroundColor = [UIColor whiteColor];
     
     //lyricCollecView
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
-    lyricCollecView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    
+    lyricCollecView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
     lyricCollecView.autoresizesSubviews = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [lyricCollecView registerClass:[NSLyricCell class] forCellWithReuseIdentifier:lyricCellIdifity];
+    lyricCollecView.alwaysBounceVertical = YES;
+    lyricCollecView.backgroundColor = [UIColor whiteColor];
+    lyricCollecView.delegate = self;
+    lyricCollecView.dataSource = self;
     [self.view addSubview:lyricCollecView];
     
-    //constraints
     [lyricCollecView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.bottom.equalTo(self.view);
+        make.left.top.bottom.right.equalTo(self.view);
     }];
     WS(wSelf);
     
@@ -112,7 +124,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
         }
     }];
     
-    //loadingMore
+    //loadingMore]
     [lyricCollecView addDDInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
             return ;
@@ -129,10 +141,15 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     return lyricesAry.count;
 }
 
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLyricCell * lyricCell = [collectionView dequeueReusableCellWithReuseIdentifier:lyricCellIdifity forIndexPath:indexPath];
-    NSInteger row = indexPath.row;
+       NSInteger row = indexPath.row;
     lyricCell.myLyricModel = lyricesAry[row];
     return lyricCell;
 }
@@ -152,6 +169,10 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     return UIEdgeInsetsMake(10, 15, 0, 15);
 }
 
+-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(ScreenWidth - 30, 70);
+}
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     return 10;

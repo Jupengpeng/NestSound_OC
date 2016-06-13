@@ -7,7 +7,7 @@
 //
 
 #import "NSCommentTableViewCell.h"
-
+#import "NSCommentListModel.h"
 static inline NSRegularExpression * NameRegularExpression() {
     static NSRegularExpression *_nameRegularExpression = nil;
     static dispatch_once_t onceToken;
@@ -205,6 +205,15 @@ static inline NSRegularExpression * NameRegularExpression() {
         
         [self.delegate commentTableViewCell:self];
     }
+}
+
+
+-(void)setCommentModel:(NSCommentModel *)commentModel
+{
+    _commentModel = commentModel;
+    self.authorNameLabel.text = self.commentModel.nickName;
+//    [iconBtn set]
+
 }
 
 @end

@@ -9,10 +9,11 @@
 #import "NSCommentViewController.h"
 #import "NSCommentTableViewCell.h"
 #import "NSUserPageViewController.h"
+#import "NSCommentListModel.h"
 @interface NSCommentViewController () <UITableViewDelegate, UITableViewDataSource, TTTAttributedLabelDelegate, UIScrollViewDelegate, UITextFieldDelegate, NSCommentTableViewCellDelegate> {
     
     UITableView *commentTableView;
-    
+    NSMutableArray * commentAry;
     UIView *bottomView;
     
     UIView *maskView;
@@ -95,8 +96,21 @@
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (parserObject.success) {
-        
-       
+        if ([operation.urlTag isEqualToString:commentUrl]) {
+            NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                commentAry = [NSMutableArray arrayWithArray:commentList.commentList];
+            }else{
+                [commentAry addObjectsFromArray:commentList.commentList];
+            }
+           
+            
+        }else if ([operation.urlTag isEqualToString:postCommentURL]){
+            [[NSToastManager manager] showtoast:@"发表评论成功"];
+        }else if ([operation.urlTag isEqualToString:deleteCommentURL]){
+            [[NSToastManager manager] showtoast:@"删除评论成功"];
+        }
+        [commentTableView reloadData];
     }
 }
 
@@ -261,10 +275,31 @@
 }
 
 
+#pragma mark postComment
+-(void)postCommentWithComment:(NSString *)comment andUser:(NSString *)user andType:(NSString *)commentType andTargetUID:(NSString *)targetUID
+{
+    self.requestType = NO;
+    self.requestParams = @{@"comment":comment,@"uid":@"",@"comment_type":commentType,@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":targetUID};
+    self.requestURL = postCommentURL;
+
+}
+
+
+#pragma mark deleteComment
+-(void)deleteCommentWithComentID:(long)commentID
+{
+
+    self.requestType = NO;
+    self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type]};
+    self.requestURL = deleteCommentURL;
+
+}
+
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 15;
+    return commentAry.count;
 }
 
 
@@ -311,6 +346,8 @@
 
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     
+    
+    
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] init];
     
     [self.navigationController pushViewController:pageVC animated:YES];
@@ -322,7 +359,7 @@
 - (void)commentTableViewCell:(NSCommentTableViewCell *)cell {
     
     
-    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] init];
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.userID]];
     
     [self.navigationController pushViewController:pageVC animated:YES];
     

@@ -20,9 +20,9 @@
 
 @implementation NSLyricCell
 
--(instancetype)init
+-(instancetype)initWithFrame:(CGRect)frame
 {
-    if (self = [super init]) {
+    if (self = [super initWithFrame:frame]) {
         [self configureUIAppearance];
     }
     return self;
@@ -46,6 +46,7 @@
     authorLabel.textColor = [UIColor hexColorFloat:@"666666"];
     [self.contentView addSubview:authorLabel];
     
+    
     self.contentView.layer.cornerRadius = 10;
     self.contentView.backgroundColor = [UIColor hexColorFloat:@"f0f0f0"];
     
@@ -57,9 +58,12 @@
 #pragma mark layoutSubviews
 -(void)layoutSubviews
 {
+    [super layoutSubviews];
     //constraints
     [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.contentView);
+        make.bottom.equalTo(self.contentView);
+        make.top.equalTo(self.contentView);
         make.width.mas_equalTo(69);
     }];
     
@@ -84,12 +88,10 @@
 -(void)setMyLyricModel:(NSMyLyricModel *)myLyricModel
 {
     _myLyricModel = myLyricModel;
-    [titlePage setDDImageWithURLString:_myLyricModel.titleImageUrl          placeHolderImage:[UIImage imageNamed:@""]];
-
+    [titlePage setDDImageWithURLString:self.myLyricModel.titleImageUrl          placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
     lyricNameLabel.text = _myLyricModel.title;
-
     authorLabel.text = _myLyricModel.author;
-    
+
 }
 
 @end
