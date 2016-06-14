@@ -161,6 +161,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     NSMyLyricModel * mode = lyricesAry[row];
     NSString * lyric = mode.lyrics;
     NSString * musicName = mode.title;
+
     [_delegate selectLyric:lyric withMusicName:musicName];
     
     [self.navigationController popViewControllerAnimated:YES];

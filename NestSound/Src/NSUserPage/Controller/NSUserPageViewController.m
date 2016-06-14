@@ -59,11 +59,9 @@ UITableViewDataSource>
     
     [self setupUI];
     
-   login = [[NSLoginViewController alloc] init];
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
-    nav.navigationBar.hidden = YES;
-    [self presentViewController:nav animated:YES completion:nil];
+    
+   
    
    
 }
@@ -75,19 +73,26 @@ UITableViewDataSource>
 
     [super viewWillAppear: animated];
     
-    if (!login.isHidden) {
-        [self.tabBarController setSelectedIndex:0];
+    if (JUserID == nil) {
+        login = [[NSLoginViewController alloc] init];
+        
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+        nav.navigationBar.hidden = YES;
+        [self presentViewController:nav animated:YES completion:nil];
     }
-
     
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-   
-    [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-    
+    if (!JUserID) {
+        [self.tabBarController setSelectedIndex:0];
+    }else{
+        
+        [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+        
+    }
 }
 
 #pragma mark -fetchMemberData

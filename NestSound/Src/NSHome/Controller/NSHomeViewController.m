@@ -18,7 +18,7 @@
 #import "NSLyricViewController.h"
 #import "NSSongListViewController.h"
 #import "NSMusicSayViewController.h"
-
+#import "NSUserModel.h"
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
     UICollectionView *_collection;
@@ -27,6 +27,7 @@
     NSMutableArray * recommendSongAry;
     NSMutableArray * newListAry;
     NSMutableArray * musicSayAry;
+    NSString * getTokenUrl;
 }
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
@@ -76,7 +77,23 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
     self.navigationController.navigationBar.hidden = NO;
+    
+
 }
+
+-(void)getAuthorToken
+{
+    if (JUserID != nil) {
+        self.requestType = YES;
+        NSDictionary * dic = @{@"token":LoginToken};
+        NSString * str = [NSTool encrytWithDic:dic];
+        getTokenUrl = [getToken stringByAppendingString:str];
+        self.requestURL = getTokenUrl;
+        
+    }
+
+}
+
 
 -(void)configureUIAppearance
 {
@@ -135,6 +152,9 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
     if (!parserObject.success&&parserObject) {
 
+        if ([operation.urlTag isEqualToString:indexURL]) {
+            
+        
 #ifdef debug
         
         NSLog(@"this is%@",parserObject.description);
@@ -148,7 +168,20 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
         musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
         [self configureUIAppearance];
-        
+        }else if([operation.urlTag isEqualToString:getTokenUrl]){
+            NSUserModel * userModels = (NSUserModel *)parserObject;
+            userModel * user = userModels.userDetail;
+            NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
+            [userData removeObjectForKey:@"user"];
+            NSDictionary * userDic = @{@"userName":user.userName,
+                                       @"userID":[NSString stringWithFormat:@"%ld",user.userID],
+                                       @"userIcon":user.headerURL,
+                                       @"userLoginToken":user.loginToken
+                                       };
+            [userData setObject:userDic forKey:@"user"];
+            [userData synchronize];
+            
+        }
     }else{
         [[NSToastManager manager] showtoast:@"网络异常"];
     }

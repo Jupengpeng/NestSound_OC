@@ -12,13 +12,9 @@
 #import "NSLyricView.h"
 #import "NSCommentViewController.h"
 #import "NSPlayMusicDetailModel.h"
-<<<<<<< HEAD
 #import <AVFoundation/AVFoundation.h>
-
-=======
 #import "NSUserFeedbackViewController.h"
 #import "NSUserPageViewController.h"
->>>>>>> 1303e5fef1d1ab5698a611323b644700f5c3a068
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -103,7 +99,12 @@ static id _instance;
         
         [self addTimer];
     }
-    [self fetchPlayDataWithItemId:self.itemId];
+    if (self.player == nil) {
+        
+        [self fetchPlayDataWithItemId:self.itemId];
+
+    }
+    
     
     
     
@@ -199,7 +200,7 @@ static id _instance;
     
 //    self.progressBar.maximumValue = self.player.duration;
     
-    self.totaltime.text = [NSString stringWithFormat:@"%zd:%zd",(NSInteger)self.progressBar.maximumValue / 60, (NSInteger)self.progressBar.maximumValue % 60];
+ 
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
 }
@@ -941,26 +942,19 @@ static id _instance;
 
 -(void)setMusicDetail:(NSPlayMusicDetail *)musicDetail
 {
-<<<<<<< HEAD
+
     
     if (musicDetail.playURL != nil) {
         
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
         _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+        NSLog(@"%@",_totaltime.text);
         _commentNum = self.musicDetail.commentNum;
         _lyricView.lyricText.text = self.musicDetail.lyrics;
         playURL = self.musicDetail.playURL;
         
-=======
-    _musicDetail = musicDetail;
-    _songName.text = self.musicDetail.title;
-    _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
-    NSLog(@"total time%@",_totaltime.text);
-    _commentNum = self.musicDetail.commentNum;
-    _lyricView.lyricText.text = self.musicDetail.lyrics;
-    playURL = self.musicDetail.playURL;
->>>>>>> 1303e5fef1d1ab5698a611323b644700f5c3a068
+   
 #warning placeHolder
         [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
         if (self.musicDetail.isZan == 1) {

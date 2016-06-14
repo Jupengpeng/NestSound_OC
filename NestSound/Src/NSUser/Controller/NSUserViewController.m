@@ -198,6 +198,8 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     return settingCell;
 }
 
+
+
 #pragma mark tableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -225,10 +227,34 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         [self.navigationController pushViewController:feedBackVC animated:YES];
         }
     
-    }else{
-        
+    }else if(section == 2){
+        //logingOut
+        [self logintOut];
     }
     
+}
+
+#pragma mark -loginOut
+-(void)logintOut
+{
+    self.requestType = NO;
+    self.requestParams = @{@"token":LoginToken};
+    self.requestURL = loginOutURL;
+
+}
+
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        if ([operation.urlTag isEqualToString:loginOutURL]) {
+            NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+            [user removeObjectForKey:@"user"];
+            [user synchronize];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+    }
+
 }
 
 @end

@@ -160,40 +160,24 @@ static NSDateFormatter *dateFormatter;
 }
 
 #pragma mark uploade image to Qiniu
-+(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_
++(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
 {
-    NSString *  imageURL;
-    
-    
-    __block  NSString * image = imageURL;
-    NSString * token;
-    [NSHttpClient client];
-    
-    
+    NSString *  fileURL;
 
-    [[NSHttpClient client]
-
-     
-#warning add qiniuURl
-     requestWithURL:@"qiniuUrl" type:YES
-      paras:nil success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
+    __block NSString * file = fileURL;
          NSFileManager *fileManager = [NSFileManager defaultManager];
          if ([fileManager fileExistsAtPath:photoPath]) {
              QNUploadManager * upManager = [[QNUploadManager alloc] init];
              NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
              [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                  
-                   image = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                   file = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                  
                  
              } option:nil];
          }
-         
-         
-    } failure:^(NSURLSessionDataTask *operation, NSError *requestErr) {
-        NSLog(@"%@",requestErr);
-    }];
-    return imageURL;
+    
+    return fileURL;
 }
 
 

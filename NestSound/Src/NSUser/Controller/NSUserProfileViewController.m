@@ -9,6 +9,7 @@
 #import "NSUserProfileViewController.h"
 #import "NSDatePicker.h"
 #import "NSChangeNameViewController.h"
+#import "NSQiniuModel.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 @interface NSUserProfileViewController ()
 
@@ -30,6 +31,11 @@ UINavigationControllerDelegate
     NSString * male;
     NSIndexPath * cellIndex;
     NSChangeNameViewController * changeName;
+    NSString * name;
+    NSString * signature;
+    NSString * url ;
+    NSString * userIconUrl;
+    
     
 }
 @end
@@ -51,12 +57,20 @@ static NSString * const settingCellIditify = @"settingCell";
 }
 
 
--(void)fetchProfileData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
+    if (parserObject.success) {
+        if ([operation.urlTag isEqualToString:url]) {
+            NSQiniuModel *  qiniu = (NSQiniuModel *)parserObject;
+            self.qiniuDetail = qiniu.qiniuDetail;
+        }
+    }else{
+        if ([operation.urlTag isEqualToString:changeProfileURL]) {
+            [[NSToastManager manager] showtoast:@"修改成功"];
+        }
+    }
     
-
 }
-
 #pragma mark -configureAppearance
 -(void)configureAppearance
 {
@@ -100,6 +114,8 @@ static NSString * const settingCellIditify = @"settingCell";
 
 -(void)ensureBirthday
 {
+    NSDate * bir = datePicker.choseBirthday.date;
+    birthday = [date datetoLongStringWithDate:bir];
     
 }
 
@@ -282,14 +298,31 @@ static NSString * const settingCellIditify = @"settingCell";
 //    userIcon.layer.cornerRadius = 21;
     userIcon.image = userIconImage;
     
-   
+   url = [self getQiniuDetailWithType:2 andFixx:@"headport"];
+    
     [self dismissViewControllerAnimated:YES completion:^{
     }];
     
 }
 
+-(void)setQiniuDetail:(QiniuDetail *)qiniuDetail
+{
+    _qiniuDetail = qiniuDetail;
+    
+    
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"userIcon.png"];
+    userIconUrl = [NSTool uploadPhotoWith:fullPath type:NO token:_qiniuDetail.token url:_qiniuDetail.QiniuDomain];
+
+}
 
 
 
+-(void)changeProfile
+{
+    self.requestType = NO;
+    self.requestParams = @{@"uid":JUserID,@"nickname":name,@"sex":male,@"signature":signature,@"birthday":birthday};
+    self.requestURL = changeProfileURL;
+
+}
 
 @end
