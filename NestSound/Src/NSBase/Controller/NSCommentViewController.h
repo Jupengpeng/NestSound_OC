@@ -11,7 +11,7 @@
 @interface NSCommentViewController : NSBaseViewController
 
 
-
+@property (nonatomic, copy) NSString *musicName;
 
 -(instancetype)initWithItemId:(long)itemid andType:(int)type_;
 
