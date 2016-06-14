@@ -68,6 +68,8 @@ UITableViewDataSource>
    
 }
 
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
 
@@ -80,12 +82,18 @@ UITableViewDataSource>
     
 }
 
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+   
+    [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+    
+}
 
 #pragma mark -fetchMemberData
 -(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
-    self.requestType = NO;
+    self.requestType = YES;
     NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     if (!isLoadingMore) {
         self.requestParams = @{kIsLoadingMore:@(NO)};
@@ -96,7 +104,7 @@ UITableViewDataSource>
     if (userDic) {
         
         if (who == Myself) {
-            NSDictionary * dic = @{@"uid":userDic[@"userID"],@"token":userDic[@"loginToken"]};
+            NSDictionary * dic = @{@"uid":JUserID,@"token":userDic[@"userLoginToken"]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             
@@ -123,7 +131,7 @@ UITableViewDataSource>
 #pragma mark -overrider action fetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
+    if (parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
             
             NSUserDataModel * userData = (NSUserDataModel *)parserObject;
@@ -136,7 +144,7 @@ UITableViewDataSource>
                 [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
             
             }
-        
+            [_tableView reloadData];
         }
     }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
@@ -211,8 +219,16 @@ UITableViewDataSource>
     
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    WS(wSelf);
     _tableView.showsVerticalScrollIndicator = NO;
-    
+     [_tableView addDDInfiniteScrollingWithActionHandler:^{
+         if (!wSelf) {
+             return ;
+         }else{
+             [wSelf fetchUserDataWithIsSelf:self.who andIsLoadingMore:YES];
+         }
+         
+     }];
     
     
     

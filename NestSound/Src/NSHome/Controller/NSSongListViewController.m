@@ -8,7 +8,8 @@
 
 #import "NSSongListViewController.h"
 #import "NSSongViewController.h"
-#import "NSSongListModel.h"
+#import "NSSingListModel.h"
+#import "NSSongMenuCollectionViewCell.h"
 @interface NSSongListViewController ()
 <
 UICollectionViewDelegate,
@@ -64,22 +65,24 @@ UICollectionViewDelegateFlowLayout
 {
     //title
     self.title = LocalizedStr(@"promot_song");
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     //collection
     UICollectionViewFlowLayout * SongListCollLayOut = [[UICollectionViewFlowLayout alloc] init];
-    SongListColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:SongListCollLayOut];
+    SongListColl = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:SongListCollLayOut];
+    SongListColl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    SongListColl.backgroundColor = [UIColor whiteColor];
     SongListColl.showsHorizontalScrollIndicator = NO;
     SongListColl.showsVerticalScrollIndicator = NO;
     SongListColl.delegate = self;
     SongListColl.dataSource = self;
-    
-    SongListColl.bounces = NO;
+    [SongListColl registerClass:[NSSongMenuCollectionViewCell class] forCellWithReuseIdentifier:cellId];
+//    SongListColl.bounces = NO;
     
     [self.view addSubview:SongListColl];
     
     WS(wSelf);
     //refresh
-    [SongListColl addPullToRefreshWithActionHandler:^{
+    [SongListColl addDDPullToRefreshWithActionHandler:^{
         if (!wSelf) {
             return ;
         }else{
@@ -104,10 +107,9 @@ UICollectionViewDelegateFlowLayout
 #pragma mark -fetchData
 -(void)fetchSongList
 {
-    if (SongLists.count == 0) {
+    
         [SongListColl setContentOffset:CGPointMake(0 , -60) animated:YES];
         [SongListColl performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
-    }
     
 
 }
@@ -123,8 +125,9 @@ UICollectionViewDelegateFlowLayout
     }
     NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
     NSString * str = [NSTool encrytWithDic:dic];
+    NSLog(@"zhes str%@",str);
     url = [songListURL  stringByAppendingString:str];
-    self.requestType = NO;
+    self.requestType = YES;
     self.requestURL = url;
     
 
@@ -138,16 +141,17 @@ UICollectionViewDelegateFlowLayout
     if ([operation.urlTag isEqualToString:url]) {
     
         if (!parserObject.success) {
-            NSSongListModel * songListModel = (NSSongListModel *)parserObject;
+           NSSingListModel  * songListModel = (NSSingListModel *)parserObject;
             if (!operation.isLoadingMore) {
-                SongLists = [NSMutableArray  arrayWithArray:songListModel.SongList.songList];
+                SongLists = [NSMutableArray  arrayWithArray:songListModel.singList];
             }else{
             
-                if (songListModel.SongList.songList.count == 0) {
+                if (songListModel.singList.count == 0) {
                     
                 }else{
-                    [SongLists addObjectsFromArray:songListModel.SongList.songList];
+                    [SongLists addObjectsFromArray:songListModel.singList];
                 }
+                
             }
             [SongListColl reloadData];
             
@@ -172,20 +176,22 @@ UICollectionViewDelegateFlowLayout
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell * SongListCell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    if (!SongListCell) {
-        SongListCell = [[UICollectionViewCell alloc] init];
-        UIImageView * back = [[UIImageView alloc] init];
-        [SongListCell.contentView addSubview:back];
-        
-    }
+    NSSongMenuCollectionViewCell * SongListCell = (NSSongMenuCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    NSInteger row = indexPath.row;
+    singListModel * sing = SongLists[row];
+    SongListCell.singList = sing;
+   
+    
     return SongListCell;
 }
 
 #pragma mark collectionView delegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    songVC = [[NSSongViewController alloc] initWithSongListId:];
+    
+    NSInteger row = indexPath.row;
+    singListModel * sing = SongLists[row];
+    songVC = [[NSSongViewController alloc] initWithSongListId:sing.itemId];
     [self.navigationController pushViewController: songVC animated:YES];
     
 }
@@ -193,14 +199,16 @@ UICollectionViewDelegateFlowLayout
 #pragma mark collectionViewDelegateLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(100, 100);
+    return CGSizeMake((ScreenWidth -40)/2, (ScreenWidth - 40)/2*0.66);
     
 }
+
+
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     
-    return UIEdgeInsetsMake(15, 0, 0, 15);
+    return UIEdgeInsetsMake(10, 15, 0,15);
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section

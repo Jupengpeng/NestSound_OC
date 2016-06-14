@@ -16,7 +16,9 @@
              @"RecommendList":@"data",
              @"NewList":@"data",
              @"RecommendSongList":@"data",
-             @"MusicSayList":@"data"
+             @"MusicSayList":@"data",
+             @"code":@"code",
+             @"message":@"message"
              };
 }
 

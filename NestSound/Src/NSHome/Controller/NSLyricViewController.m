@@ -115,9 +115,15 @@
 {
     
     NSLog(@"operer%@",operation.urlTag);
-    NSLog(@"uuu%@",URl);
-    NSLog(@"lyric%@",lyricDetailURL);
-    if ([operation.urlTag isEqualToString:URl]) {
+    
+    
+    
+    if ([operation.urlTag isEqualToString:upvoteURL] || [operation.urlTag isEqualToString:collectURL]) {
+        NSLog(@"ni daye");
+        if (!parserObject.success) {
+            [[NSToastManager manager] showtoast:@"操作成功"];
+        }
+    }else if([operation.urlTag isEqualToString:URl]) {
         if (!parserObject.success) {
             NSLyricDetailModel * lyric = (NSLyricDetailModel *)parserObject;
             [self setupBottomView];
@@ -129,6 +135,11 @@
             
             self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
                    }
+    
+//    }else if ([operation.urlTag isEqualToString:upvoteURL]||[operation.urlTag isEqualToString:collectURL]){
+//        if (parserObject.success) {
+//            
+//        }
     }
     
 }
@@ -307,7 +318,7 @@
         btn.selected = !btn.selected;
         
         
-//        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
+        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
         NSLog(@"点击了点赞");
         
     }];
@@ -336,7 +347,7 @@
         
         btn.selected = !btn.selected;
         
-        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
+        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
         
         NSLog(@"点击了收藏");
         
@@ -354,6 +365,19 @@
     
     
 }
+
+#pragma mark -overrideUpvote
+-(void)upvoteItemId:(long)itemId_ _targetUID:(long)targetUID_ _type:(long)type_ _isUpvote:(BOOL)isUpvote
+{
+    self.requestType = NO;
+    self.requestParams = @{@"work_id":[NSNumber numberWithLong:itemId_],@"target_uid":[NSNumber numberWithLong:targetUID_],@"user_id":JUserID  ,@"wtype":[NSNumber numberWithLong:type_],@"token":LoginToken};
+    if (isUpvote) {
+        self.requestURL = upvoteURL;
+    }else{
+        self.requestURL = collectURL;
+    }
+}
+
 
 - (void)setupLyricView {
     
@@ -454,11 +478,10 @@
         NSLog(@"点击了举报");
 #endif
         
-        NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"feedBack"];
+        NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
         
         [self.navigationController pushViewController:feedBackVC animated:YES];
-        
-        NSLog(@"点击了举报");
+    
     } else if (btn.tag == 1) {
         
         _maskView.hidden = YES;
@@ -530,6 +553,8 @@
 -(void)setLyricDetail:(LyricDetailModel *)lyricDetail
 {
     _lyricDetail = lyricDetail;
+    itemId = _lyricDetail.itemId;
+    
 #warning placeHolder
     [userIcon setDDImageWithURLString:_lyricDetail.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
     self.title = _lyricDetail.title;

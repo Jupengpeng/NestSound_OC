@@ -66,11 +66,10 @@ static NSString * cellId = @"SongCell";
 #pragma mark -fetchSongListData
 -(void)fetchSongListData
 {
-    if (songAry.count == 0) {
         
         [songsTable setContentOffset:CGPointMake(0, -60) animated:YES];
         [songsTable performSelector:@selector(triggerPullToRefresh)];
-    }
+
 }
 
 #pragma mark -fetchDataWithIsLoadingMore
@@ -88,8 +87,8 @@ static NSString * cellId = @"SongCell";
     url = [SongListURL stringByAppendingString:str];
    
     self.requestParams = @{kNoLoading:@(YES),
-                           kIsLoadingMore:@(!!isLodadingMore.boolValue),
-                           @"type":@(YES)};
+                           kIsLoadingMore:@(!!isLodadingMore.boolValue)};
+    self.requestType = YES;
     NSLog(@"%@",url);
     self.requestURL = url;
 }
@@ -113,6 +112,12 @@ static NSString * cellId = @"SongCell";
             
             
         }
+        if (!operation.isLoadingMore) {
+            [songsTable.pullToRefreshView stopAnimating];
+        }else{
+            [songsTable.infiniteScrollingView stopAnimating];
+        }
+        
     }else{
         
         [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
@@ -132,7 +137,7 @@ static NSString * cellId = @"SongCell";
     songsTable.backgroundColor = [UIColor whiteColor];
     songsTable.delegate = self;
     songsTable.dataSource = self;
-    songsTable.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    songsTable.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     songsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     WS(wSelf);

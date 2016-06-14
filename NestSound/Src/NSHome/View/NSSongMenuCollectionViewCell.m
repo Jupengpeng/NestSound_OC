@@ -8,6 +8,7 @@
 
 #import "NSSongMenuCollectionViewCell.h"
 #import "NSIndexModel.h"
+#import "NSSingListModel.h"
 @interface NSSongMenuCollectionViewCell ()
 
 {
@@ -47,6 +48,10 @@
     
 }
 
+-(void)setSingList:(singListModel *)singList
+{
+    [imageView setDDImageWithURLString:singList.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+}
 
 @end
 
