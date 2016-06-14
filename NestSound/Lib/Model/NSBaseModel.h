@@ -9,7 +9,7 @@
 @interface NSBaseModel : NSObject
 @property (nonatomic,assign) BOOL success;
 @property (nonatomic,copy) NSString *message;
-@property (nonatomic,copy) NSString *resultCode;
+@property (nonatomic,assign) long code;
 
 - (NSDictionary *)modelKeyJSONKeyMapper;
 - (instancetype)initWithJSONDict:(NSDictionary *)dict;

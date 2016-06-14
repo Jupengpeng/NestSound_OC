@@ -13,8 +13,7 @@
 #import "NSH5ViewController.h"
 #import "NSMusicSayListMode.h"
 @interface NSMusicSayViewController()
-<UICollectionViewDataSource,
-UICollectionViewDelegate,
+<UICollectionViewDataSource,UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout
 >
 {
@@ -44,25 +43,32 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 }
 
 -(void)fetchMusicSayData{
+    
+    
     if (musicSayAry.count == 0) {
         [musicSayList setContentOffset:CGPointMake(0, -60) animated:YES];
         [musicSayList performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
     }
+    
+    
+  
 }
 
 -(void)configureUIAppearance
 {
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UICollectionViewFlowLayout * layOut = [[UICollectionViewFlowLayout alloc] init];
-    musicSayList = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layOut];
+    musicSayList = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layOut];
     musicSayList.dataSource = self;
     musicSayList.delegate = self;
     musicSayList.backgroundColor = [UIColor whiteColor];
-    musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+//    musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:musicSayList];
-    
+    [musicSayList registerClass:[NSMusicSayCollectionViewCell class] forCellWithReuseIdentifier:musicSayCellId];
     WS(wSelf);
     //refresh
-    [musicSayList addPullToRefreshWithActionHandler:^{
+    [musicSayList addDDPullToRefreshWithActionHandler:^{
         if (!wSelf) {
             return ;
         }else{
@@ -91,9 +97,11 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     
     if (!isLoadingMore) {
         currentPage = 1 ;
+        self.requestParams = @{kIsLoadingMore:@(NO)};
     }else{
     
         ++currentPage;
+        self.requestParams = @{kIsLoadingMore:@(YES)};
     }
 
     NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
@@ -108,18 +116,24 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
-            NSMusiclListModel * musicSaylist = (NSMusiclListModel *)parserObject;
+            NSMusicSayListMode * musicSaylist = (NSMusicSayListMode *)parserObject;
             if (!operation.isLoadingMore) {
-                musicSayAry = [NSMutableArray arrayWithArray:musicSaylist.musicList];
+                musicSayAry = [NSMutableArray arrayWithArray:musicSaylist.musicSayList];
             }else
             {
-                [musicSayAry addObjectsFromArray:musicSaylist.musicList];
+                [musicSayAry addObjectsFromArray:musicSaylist.musicSayList];
             }
             
+            if (!operation.isLoadingMore) {
+                [musicSayList.pullToRefreshView stopAnimating];
+            }else{
+                [musicSayList.infiniteScrollingView stopAnimating];
+            }
             
         }
+        [musicSayList reloadData];
     }else{
     
         [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
@@ -142,24 +156,26 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-//    NSMusicSay * mm =
+
+    NSInteger row = indexPath.row;
+    NSMusicSay * mm = musicSayAry[row];
     NSMusicSayCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:musicSayCellId forIndexPath:indexPath];
+    cell.musicSay = mm;
     
-    if (!cell) {
-        cell = [[NSMusicSayCollectionViewCell alloc] init];
-        
-    }
-//    cell.musicSay = ;
     return cell;
+
 }
+
+
 
 
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (i == 1) {
+    NSInteger row = indexPath.row;
+    NSMusicSay * mm = musicSayAry[row];
+    if (mm.type == 1) {
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         playVC.itemId = itemId;
         [self.navigationController pushViewController: playVC animated:YES];
@@ -181,7 +197,7 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     
-    return UIEdgeInsetsMake(15, 0, 0, 15);
+    return UIEdgeInsetsMake(10, 15, 0, 15);
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section

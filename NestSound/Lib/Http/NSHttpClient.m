@@ -178,7 +178,17 @@ static NSHttpClient *client;
                                              if ([responseObject isKindOfClass:[NSDictionary class]]) {
                                                  NSBaseModel *model = [NSModelFactory modelWithURL:url
                                                                     responseJson:[self encryptWithDictionary:responseObject isEncrypt:NO]];
+                                                 
                                                  success(task,model);
+                                                 
+                                                 NSLog(@"quni %@",responseObject);
+                                                 long resultCode = [responseObject[@"code"] longValue];
+                                                 NSLog(@"%ld",resultCode);
+                                                
+                                                 if (resultCode == 200) {
+                                                     
+                                                     model.success = YES;
+                                                 }
                                                  
                                                  if (!model.success) {
                                                      [[NSToastManager manager] showtoast:[responseObject objectForKey:@"message"]];

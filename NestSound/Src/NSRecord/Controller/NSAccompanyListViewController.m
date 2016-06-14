@@ -105,7 +105,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                     
                 }else{
                     
-                    [hotAccompanyAry addObject:listModel.accommpanyList];
+                    [hotAccompanyAry addObjectsFromArray:listModel.accommpanyList];
                 }
                 
                
@@ -115,9 +115,10 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                     
                 }else{
                     
-                     [newAccompanyAry addObject:listModel.accommpanyList];
+                     [newAccompanyAry addObjectsFromArray:listModel.accommpanyList];
+                    
                 }
-                
+               
             }
         }
         if (headerView.xinBtn.selected) {
@@ -125,12 +126,13 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         }else{
             dataAry = hotAccompanyAry;
         }
-        [accompanyListTabelView reloadData];
+        
         if (!operation.isLoadingMore) {
             [accompanyListTabelView.pullToRefreshView stopAnimating];
         }else{
-            accompanyListTabelView.showsInfiniteScrolling = YES;
+            [accompanyListTabelView.infiniteScrollingView stopAnimating];
         }
+        [accompanyListTabelView reloadData];
     }
     
 }
@@ -142,6 +144,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     accompanyListTabelView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     accompanyListTabelView.dataSource = self;
     accompanyListTabelView.delegate = self;
+//    accompanyListTabelView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
     headerView = [[NSAccompanyListHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
     //set tableView headerView
     headerView.xinBtn.selected = YES;

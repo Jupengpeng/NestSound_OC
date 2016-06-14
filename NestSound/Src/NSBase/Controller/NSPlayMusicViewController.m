@@ -12,8 +12,8 @@
 #import "NSLyricView.h"
 #import "NSCommentViewController.h"
 #import "NSPlayMusicDetailModel.h"
-
-
+#import "NSUserFeedbackViewController.h"
+#import "NSUserPageViewController.h"
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -494,6 +494,8 @@ static id _instance;
         
         btn.selected = !btn.selected;
         
+       [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:NO];
+        
         NSLog(@"点击了播放页的收藏");
     }];
     
@@ -521,7 +523,7 @@ static id _instance;
     } action:^(UIButton *btn) {
         
         btn.selected = !btn.selected;
-        
+        [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:YES];
         NSLog(@"点击了播放页的点赞");
     }];
     
@@ -538,6 +540,8 @@ static id _instance;
         make.height.mas_equalTo(30);
     }];
     
+    
+
     
     //评论
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
@@ -749,7 +753,7 @@ static id _instance;
     
     [self.view addSubview:_moreChoiceView];
     
-    
+    WS(wSelf);
     UIButton *reportBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setTitle:@"举报" forState:UIControlStateNormal];
@@ -760,6 +764,8 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
+        NSUserFeedbackViewController * reportVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
+        [wSelf.navigationController pushViewController:reportVC animated:YES];
         NSLog(@"点击了举报");
     }];
     
@@ -783,7 +789,9 @@ static id _instance;
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
     } action:^(UIButton *btn) {
-        
+        NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.musicDetail.userID]];
+        userVC.who = Other;
+        [wSelf.navigationController pushViewController:userVC animated:YES];
         NSLog(@"点击了进入个人主页");
     }];
     
@@ -818,6 +826,19 @@ static id _instance;
     
 }
 
+
+#pragma mark -OverrideUpvote
+-(void)upvoteItemId:(long)itemId_ _targetUID:(long)targetUID_ _type:(long)type_ _isUpvote:(BOOL)isUpvote
+{
+    self.requestType = NO;
+    self.requestParams = @{@"work_id":[NSNumber numberWithLong:itemId_],@"target_uid":[NSNumber numberWithLong:targetUID_],@"user_id":JUserID  ,@"wtype":[NSNumber numberWithLong:type_],@"token":LoginToken};
+    if (isUpvote) {
+        self.requestURL = upvoteURL;
+    }else{
+        self.requestURL = collectURL;
+    }
+    
+}
 
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
@@ -901,6 +922,7 @@ static id _instance;
     _musicDetail = musicDetail;
     _songName.text = self.musicDetail.title;
     _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+    NSLog(@"total time%@",_totaltime.text);
     _commentNum = self.musicDetail.commentNum;
     _lyricView.lyricText.text = self.musicDetail.lyrics;
     playURL = self.musicDetail.playURL;

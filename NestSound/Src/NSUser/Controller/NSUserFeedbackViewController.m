@@ -27,7 +27,7 @@ UITextFieldDelegate
 {
     if (self = [super init]) {
         Type = type;
-        [self configureUIAppearance];
+         [self configureUIAppearance];
     }
     return self;
 }
@@ -37,7 +37,7 @@ UITextFieldDelegate
 {
     [super viewDidLoad];
     
-    
+   
 
 }
 
@@ -58,8 +58,10 @@ UITextFieldDelegate
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
+
+    if (parserObject.success) {
         [[NSToastManager manager] showtoast:@"发布成功，我们运营会尽快解决您反馈的问题"];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 
 }
@@ -68,6 +70,8 @@ UITextFieldDelegate
 -(void)configureUIAppearance
 {
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    
     
     //comment textView
     comment = [[UITextView alloc] init];
@@ -78,11 +82,16 @@ UITextFieldDelegate
     
     //number textFiled
     cellNumber = [[UITextField alloc] init];
+    cellNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 10)];
+    cellNumber.leftViewMode = UITextFieldViewModeAlways;
     cellNumber.delegate = self;
     cellNumber.placeholder = LocalizedStr(@"number");
+    cellNumber.font = [UIFont systemFontOfSize:12];
     cellNumber.backgroundColor = [UIColor hexColorFloat:@"ffffff"];
     
     [self.view addSubview:cellNumber];
+    
+    
     
     //placeHolder
     placeHolderLabel = [[UILabel alloc] init];
@@ -96,10 +105,12 @@ UITextFieldDelegate
         self.title = LocalizedStr(@"prompt_userFeedback");
         placeHolderLabel.text = LocalizedStr(@"prompt_comment");
     }else{
-        self.title = LocalizedStr(@"post");
+        self.title = LocalizedStr(@"prompt_post");
         placeHolderLabel.text = LocalizedStr(@"prompt_report");
     }
     
+    UIBarButtonItem * upload = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(uploadComment)];
+    self.navigationItem.rightBarButtonItem = upload;
     
     //constraints
     [comment mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -163,11 +174,12 @@ UITextFieldDelegate
 -(void)uploadComment
 {
     if (comment.text.length == 0) {
-
+        [[NSToastManager manager] showtoast:@"反馈内容不能为空"];
     }else{
         if (cellNumber.text.length == 0) {
-            
+            [[NSToastManager manager] showtoast:@"手机号码不能为空"];
         }else{
+            [self feedBackWithContent:comment.text andNumber:cellNumber.text];
             
         }
     }

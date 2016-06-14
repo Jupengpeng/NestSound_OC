@@ -236,9 +236,13 @@ static NSDateFormatter *dateFormatter;
     if (minutes/10 == 0) {
         minute = [NSString stringWithFormat:@"0%ld",minutes];
     }
+    
     if (seconds/10 == 0) {
         second = [NSString stringWithFormat:@"0%d",seconds];
+    }else{
+        second = [NSString stringWithFormat:@"%d",seconds];
     }
+    
     NSString * str = [NSString stringWithFormat:@"%@:%@",minute,second];
     return str;
 }

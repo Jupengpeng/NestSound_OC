@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 @class NSRecommendSong;
+@class singListModel;
 @interface NSSongMenuCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic,strong) NSRecommendSong * recommendSong;
+@property (nonatomic,strong) singListModel * singList;
 @end

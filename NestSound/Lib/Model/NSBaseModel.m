@@ -144,6 +144,7 @@ static const char *NSBaseModelPropertiesKey;
             [self setValue:value forKey:arrayProperty.name];
         }
     } else if ([dataObject isKindOfClass:[NSDictionary class]]) {
+        NSLog(@"ddata%@",dataObject);
         for (NSBaseModelProperty *property in [properties allValues]) {
             NSString *jsonKey = property.name;
             NSString *mapperKey = [keyMapper objectForKey:jsonKey];
@@ -156,8 +157,9 @@ static const char *NSBaseModelPropertiesKey;
             if (propertyValue) {
                 NSLog(@"name%@",property.name);
                 [self setValue:propertyValue forKey:property.name];
-                
+               
             } else {
+                
                 id resetValue = (property.valueType == NSClassPropertyTypeObject) ? nil : @(0);
                 [self setValue:resetValue forKey:property.name];
             }
@@ -229,6 +231,7 @@ static const char *NSBaseModelPropertiesKey;
     }
     return resultValue;
 }
+
 
 @end
 
