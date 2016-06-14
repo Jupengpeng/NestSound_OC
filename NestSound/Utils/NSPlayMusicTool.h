@@ -12,7 +12,7 @@
 @interface NSPlayMusicTool : NSObject
 
 //播放音乐
-+ (AVAudioPlayer *)playMusicWithName:(NSString *)name;
++ (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *item))block;
 
 //暂停音乐
 + (void)pauseMusicWithName:(NSString *)name;

@@ -160,7 +160,10 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
     NSInteger row = indexPath.row;
     NSMyLyricModel * mode = lyricesAry[row];
     NSString * lyric = mode.lyrics;
-    [_delegate selectLyric:lyric];
+    NSString * musicName = mode.title;
+    [_delegate selectLyric:lyric withMusicName:musicName];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark UICollectionViewDelegateFlowLayout

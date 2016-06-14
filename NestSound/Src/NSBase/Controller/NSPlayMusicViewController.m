@@ -12,7 +12,7 @@
 #import "NSLyricView.h"
 #import "NSCommentViewController.h"
 #import "NSPlayMusicDetailModel.h"
-
+#import <AVFoundation/AVFoundation.h>
 
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
@@ -57,6 +57,8 @@
 @property (nonatomic, weak) UISlider *progressBar;
 
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (nonatomic, strong) AVPlayerItem *item;
 
 @end
 
@@ -166,15 +168,23 @@ static id _instance;
     
     [self moreChoice];
     
+//    if ([self.player isPlaying]) {
+    
+//        self.playOrPauseBtn.selected = YES;
+//    }
+    
 //    [self playMusic];
 }
 
 //播放音乐
-- (void)playMusic {
-    [NSPlayMusicTool stopMusicWithName:@"我的天空.mp3"];
-    AVAudioPlayer *player = [NSPlayMusicTool playMusicWithName:@"我的天空.mp3"];
+- (void)playMusicUrl:(NSString *)musicUrl {
     
-    player.delegate = self;
+    WS(wSelf);
+    
+    AVPlayer *player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *item) {
+        
+        wSelf.item = item;
+    }];
     
     self.player = player;
     
@@ -182,12 +192,19 @@ static id _instance;
     
     self.progressBar.value = 0;
     
-    self.progressBar.maximumValue = self.player.duration;
+//    self.progressBar.maximumValue = self.player.duration;
     
     self.totaltime.text = [NSString stringWithFormat:@"%zd:%zd",(NSInteger)self.progressBar.maximumValue / 60, (NSInteger)self.progressBar.maximumValue % 60];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
 }
 
+- (void)endPlaying {
+    
+    [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+    
+    NSLog(@"播放结束");
+}
 
 
 - (void)setupUI {
@@ -224,7 +241,7 @@ static id _instance;
     
     songName.textColor = [UIColor whiteColor];
     
-    songName.text = @"我在那一角落患过伤风";
+//    songName.text = @"我在那一角落患过伤风";
     
     self.songName = songName;
     
@@ -366,7 +383,8 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        [wSelf playMusic];
+//        [wSelf playMusic];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
         
         NSLog(@"点击了上一首按钮");
         
@@ -393,7 +411,8 @@ static id _instance;
     } action:^(UIButton *btn) {
         
         
-        [wSelf playMusic];
+//        [wSelf playMusic];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
         
         NSLog(@"点击了下一首按钮");
         
@@ -548,8 +567,6 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-
-
         _musicVc = [[NSMusicListViewController alloc] init];
         NSCommentViewController *commentVC = [[NSCommentViewController alloc] init];
         
@@ -697,7 +714,7 @@ static id _instance;
     
     lyricView.lyricText.editable = NO;
     
-    lyricView.lyricText.text = @"月溅星河 长路漫漫\n风烟残尽 独影阑珊\n谁叫我身手不凡\n谁让我爱恨两难\n到后来 肝肠寸断\n幻世当空 恩怨休怀\n舍悟离迷 六尘不改\n且怒且悲且狂哉\n是人是鬼是妖怪\n不过是心有魔债\n叫一声佛祖 回头无岸\n跪一人为师 生死无关\n善恶浮世真假界\n尘缘散去不分明\n难断\n我要 这铁棒有何用\n我有 这变化又如何\n还是不安 还是氏惆\n金箍当头 欲说还休\n我要 这铁棒醉舞魔\n我有 这变化乱迷浊\n踏碎凌霄 放肆桀骜\n世恶道险 终究难逃\n这一棒\n叫你灰飞烟灭";
+//    lyricView.lyricText.text = @"月溅星河 长路漫漫\n风烟残尽 独影阑珊\n谁叫我身手不凡\n谁让我爱恨两难\n到后来 肝肠寸断\n幻世当空 恩怨休怀\n舍悟离迷 六尘不改\n且怒且悲且狂哉\n是人是鬼是妖怪\n不过是心有魔债\n叫一声佛祖 回头无岸\n跪一人为师 生死无关\n善恶浮世真假界\n尘缘散去不分明\n难断\n我要 这铁棒有何用\n我有 这变化又如何\n还是不安 还是氏惆\n金箍当头 欲说还休\n我要 这铁棒醉舞魔\n我有 这变化乱迷浊\n踏碎凌霄 放肆桀骜\n世恶道险 终究难逃\n这一棒\n叫你灰飞烟灭";
     
     self.lyricView = lyricView;
     
@@ -717,7 +734,7 @@ static id _instance;
     
     describeView.lyricText.editable = NO;
     
-    describeView.lyricText.text = @"《悟空》灵感来源于戴荃心中的悟空精神，叛逆、多变、乐观和坚持。从五岁的时候学习音乐开始到2015年，已经有30年了，遇到过被人欺骗、被人否定、被人不承认。觉得孙悟空就是要身经百战，要去打仗，打一次强一次。这首歌将戏曲和流行音乐相结合，应该让它以时代的声音表现出来。";
+//    describeView.lyricText.text = @"《悟空》灵感来源于戴荃心中的悟空精神，叛逆、多变、乐观和坚持。从五岁的时候学习音乐开始到2015年，已经有30年了，遇到过被人欺骗、被人否定、被人不承认。觉得孙悟空就是要身经百战，要去打仗，打一次强一次。这首歌将戏曲和流行音乐相结合，应该让它以时代的声音表现出来。";
     
     self.describeView = describeView;
     
@@ -854,7 +871,7 @@ static id _instance;
 //进度条数值
 - (void)progressBarSlither:(UISlider *)progressBar {
     
-    self.player.currentTime = progressBar.value;
+//    self.player.currentTime = progressBar.value;
     
     NSLog(@"%f",progressBar.value);
 }
@@ -873,7 +890,7 @@ static id _instance;
     
     self.progressBar.value ++;
     NSLog(@"定时器%ld",(NSInteger)self.progressBar.value);
-    self.progressBar.value = self.player.currentTime;
+//    self.progressBar.value = self.player.currentTime;
     self.playtime.text = [NSString stringWithFormat:@"%02zd:%02zd", (NSInteger)self.progressBar.value / 60, (NSInteger)self.progressBar.value % 60];
 }
 
@@ -898,28 +915,32 @@ static id _instance;
 
 -(void)setMusicDetail:(NSPlayMusicDetail *)musicDetail
 {
-    _musicDetail = musicDetail;
-    _songName.text = self.musicDetail.title;
-    _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
-    _commentNum = self.musicDetail.commentNum;
-    _lyricView.lyricText.text = self.musicDetail.lyrics;
-    playURL = self.musicDetail.playURL;
+    
+    if (musicDetail.playURL != nil) {
+        
+        _musicDetail = musicDetail;
+        _songName.text = self.musicDetail.title;
+        _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+        _commentNum = self.musicDetail.commentNum;
+        _lyricView.lyricText.text = self.musicDetail.lyrics;
+        playURL = self.musicDetail.playURL;
+        
 #warning placeHolder
-    [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
-    if (self.musicDetail.isZan == 1) {
-        upVoteBtn.selected = YES;
-    }else{
-        upVoteBtn.selected = NO;
+        [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+        if (self.musicDetail.isZan == 1) {
+            upVoteBtn.selected = YES;
+        }else{
+            upVoteBtn.selected = NO;
+        }
+        if (self.musicDetail.isCollection == 1) {
+            collectionBtn.selected = YES;
+        }else{
+            collectionBtn.selected = NO;
+        }
+        
+        [self playMusicUrl:self.musicDetail.playURL];
+        
     }
-    if (self.musicDetail.isCollection == 1) {
-        collectionBtn.selected = YES;
-    }else{
-        collectionBtn.selected = NO;
-    }
-    av = [[AVPlayer alloc] initWithURL:[NSURL URLWithString:self.musicDetail.playURL]];
-    
-    [av play];
-    
 }
 @end
 

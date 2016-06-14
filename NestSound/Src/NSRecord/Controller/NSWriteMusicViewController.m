@@ -13,6 +13,8 @@
 #import "NSImportLyricViewController.h"
 #import "XHSoundRecorder.h"
 #import "NSAccommpanyListModel.h"
+#import "NSPlayMusicTool.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface CenterLine : UIView
 
@@ -41,7 +43,7 @@
 @end
 
 
-@interface NSWriteMusicViewController () <UIScrollViewDelegate> {
+@interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric> {
     
     UILabel *totalTimeLabel;
     
@@ -59,7 +61,7 @@
 @property (nonatomic, assign) CGFloat timerNum;
 
 @property (nonatomic, strong) NSMutableArray *btns;
-
+@property (nonatomic, strong) AVAudioPlayer *player;
 @end
 
 @implementation NSWriteMusicViewController
@@ -118,6 +120,8 @@
         [btn setImage:[UIImage imageNamed:imageStr] forState:UIControlStateNormal];
         
         if (i == 1) {
+            
+            btn.userInteractionEnabled = NO;
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_play"] forState:UIControlStateSelected];
         }
@@ -201,8 +205,6 @@
     
     titleText.textAlignment = NSTextAlignmentCenter;
     
-    titleText.text = @"我的天空";
-    
     titleText.enabled = NO;
     
     [self.view addSubview:titleText];
@@ -240,8 +242,6 @@
     
     lyricView.lyricText.editable = NO;
     
-    lyricView.lyricText.text = @"再见我的爱";
-    
     [self.view addSubview:lyricView];
     
 }
@@ -251,7 +251,7 @@
     if (btn.tag == 0) {
         
         NSImportLyricViewController *importLyric = [[NSImportLyricViewController alloc] init];
-        
+        importLyric.delegate = self;
         [self.navigationController pushViewController:importLyric animated:YES];
         
         NSLog(@"点击了导入歌词");
@@ -269,12 +269,24 @@
             
         } else {
             
-            [self addLink];
+             UIButton *btn2 = self.btns[2];
             
-            [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
+            if (!btn2.selected) {
                 
+                [self addLink];
                 
-            }];
+                [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
+                    
+                    self.timerNum = 0;
+                    
+                    [self removeLink];
+                    
+                    btn.selected = YES;
+                }];
+            } else {
+                
+                 btn.selected = YES;
+            }
         }
         
         NSLog(@"点击了暂停和播放");
@@ -283,9 +295,11 @@
         
         btn.selected = !btn.selected;
         
+        UIButton *btn1 = self.btns[1];
+        
         if (btn.selected) {
             
-            UIButton *btn1 = self.btns[1];
+            
             
             btn1.selected = YES;
             
@@ -293,26 +307,68 @@
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
                 
-                
+                self.timerNum = 0;
             }];
+            
+            btn1.userInteractionEnabled = NO;
+            
+            AVAudioSession *session = [AVAudioSession sharedInstance];
+            
+            NSError *error = nil;
+            
+            [session setCategory:AVAudioSessionCategoryPlayback error:&error];
+            
+            if(error){
+                
+                NSLog(@"播放错误说明%@", [error description]);
+            }
+            
+            NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[self.accompanyModel.mp3URL lastPathComponent]]];
+            
+            AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+            
+            
+            [player prepareToPlay];
+            
+            [player play];
+            
+            self.player = player;
+            
+            [[XHSoundRecorder sharedSoundRecorder] playsound:[LocalAccompanyPath stringByAppendingPathComponent:[self.accompanyModel.mp3URL lastPathComponent]] withFinishPlaying:nil];
             
         } else {
             
             [self removeLink];
-            
+            [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
             [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
+            [self.player stop];
             
+            btn1.userInteractionEnabled = YES;
         }
         
          NSLog(@"点击了录制");
         
     } else if (btn.tag == 3) {
         
+        UIButton *btn1 = self.btns[1];
+        
+        btn1.userInteractionEnabled = NO;
+        
         UIButton *btn2 = self.btns[2];
         
         btn2.selected = NO;
         
         self.timeLabel.text = @"00:00";
+        
+        [self removeLink];
+        
+        self.timerNum = 0;
+        
+        [self.player stop];
+        
+        
+        
+        [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
         
         NSLog(@"点击了重唱");
     } else {
@@ -385,7 +441,7 @@
     self.timerNum += 1/60.0;
     
     //分贝数
-    CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
+//    CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
     
     
     //计时显示
@@ -403,6 +459,15 @@
 {
     _accompanyModel = accompanyModel;
 
+}
+
+- (void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName {
+    
+    NSLog(@"%@",lyrics);
+    
+    lyricView.lyricText.text = lyrics;
+    
+    titleText.text = musicName;
 }
 
 @end

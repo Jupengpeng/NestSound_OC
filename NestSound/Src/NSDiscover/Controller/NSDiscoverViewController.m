@@ -304,10 +304,10 @@
         
     } else {
         
-        if (self.playSongsVC.player.playing) {
-            
-            
-        }
+//        if (self.playSongsVC.player.playing) {
+//            
+//            
+//        }
         
         
         

@@ -12,32 +12,33 @@
 @interface NSPlayMusicTool ()
 
 @end
-
-static NSMutableDictionary *_players;
-
+static NSString *oldMusicUrl;
+static AVPlayer *player;
+static AVPlayerItem *item;
 @implementation NSPlayMusicTool
 
-+ (void)initialize {
-
-    _players = [NSMutableDictionary dictionary];
-
-}
-
 //播放音乐
-+ (AVAudioPlayer *)playMusicWithName:(NSString *)name {
++ (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *item))block {
     
-    AVAudioPlayer *player = _players[name];
+    if (![oldMusicUrl isEqualToString:musicUrl]) {
+        
+        [player pause];
+        player = nil;
+    }
     
-    if (player == nil) {
+    
+    if (player == nil ) {
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:nil];
+        item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:musicUrl]];
         
-        NSURL *url = [NSURL fileURLWithPath:path];
+        player = [AVPlayer playerWithPlayerItem:item];
         
-        player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
+        oldMusicUrl = musicUrl;
+    }
+    
+    if (block) {
         
-        [_players setObject:player forKey:name];
-        
+        block(item);
     }
     
     [player play];
@@ -49,23 +50,19 @@ static NSMutableDictionary *_players;
 //暂停音乐
 + (void)pauseMusicWithName:(NSString *)name {
     
-    AVAudioPlayer *player = _players[name];
-    
     if (player) {
         
         [player pause];
     }
-
+    
 }
 
 //停止音乐
 + (void)stopMusicWithName:(NSString *)name {
     
-    AVAudioPlayer *player = _players[name];
-    
     if (player) {
         
-        [player stop];
+        
     }
 }
 

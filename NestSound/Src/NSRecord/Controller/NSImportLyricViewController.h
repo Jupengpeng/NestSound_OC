@@ -9,7 +9,7 @@
 #import "NSBaseViewController.h"
 
 @protocol ImportLyric <NSObject>
--(void)selectLyric:(NSString *)lyrics;
+-(void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName;
 @end
 
 @interface NSImportLyricViewController : NSBaseViewController

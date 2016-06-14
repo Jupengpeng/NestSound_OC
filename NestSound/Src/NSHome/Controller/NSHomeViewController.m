@@ -441,7 +441,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
     
-
 }
 
 -(void)animation:(BOOL)animat
