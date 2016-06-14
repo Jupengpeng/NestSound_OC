@@ -11,7 +11,7 @@
 @interface NSAccompanyListHeaderView ()
 {
     UIImageView * titilePage;
-    UIImageView * line;
+    UIView * line;
 
 }
 @end
@@ -19,9 +19,9 @@
 
 @implementation NSAccompanyListHeaderView
 
--(instancetype)init
+-(instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame] ;
     if (self) {
         [self configureUIAppearance];
     }
@@ -33,16 +33,20 @@
     //titlePage
     titilePage = [[UIImageView alloc] init];
     titilePage.layer.cornerRadius = 10;
+    [titilePage setDDImageWithURLString:@"http://pic.yinchao.cn/%E6%B8%85%E5%94%B1.png" placeHolderImage:nil];
     [self addSubview:titilePage];
     
     //line
-    line = [[UIImageView alloc] init];
+    line = [[UIView alloc] init];
     line.backgroundColor = [UIColor blackColor];
     [self addSubview:line];
     
     //hotbBtn
     _hotBtn= [[UIButton alloc] init];
-    [self.hotBtn setTitle:LocalizedStr(@"promot_hot") forState:UIControlStateNormal];
+    self.hotBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+//    [self.hotBtn setFont:[UIFont systemFontOfSize:16]];
+    [self.hotBtn setTitle:@"最热" forState:UIControlStateNormal];
+//    [self.hotBtn setTitle:LocalizedStr(@"promot_hot") forState:UIControlStateNormal];
     [self.hotBtn setTitleColor:[UIColor hexColorFloat:@"333333"] forState:UIControlStateNormal];
     [self.hotBtn setTitleColor:[UIColor hexColorFloat:@"ffce00"] forState:UIControlStateSelected];
     [self addSubview:self.hotBtn];
@@ -50,7 +54,9 @@
     
     //newBtn
     _xinBtn = [[UIButton alloc] init];
-    [self.xinBtn setTitle:LocalizedStr(@"promot_new") forState:UIControlStateNormal];
+    self.xinBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [self.xinBtn setTitle:@"最新" forState:UIControlStateNormal];
+//    [self.xinBtn setTitle:LocalizedStr(@"promot_new") forState:UIControlStateNormal];
     [self.xinBtn setTitleColor:[UIColor hexColorFloat:@"333333"] forState:UIControlStateNormal];
     [self.xinBtn setTitleColor:[UIColor hexColorFloat:@"ffce00"] forState:UIControlStateSelected];
     [self addSubview:self.xinBtn];
@@ -72,23 +78,24 @@
     
     [self.hotBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
-        make.top.equalTo(titilePage.mas_top).with.offset(10);
+        make.top.equalTo(titilePage.mas_bottom).with.offset(10);
         make.height.mas_equalTo(16);
-        make.width.mas_equalTo(32);
+        make.width.mas_equalTo(35);
     }];
 
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.hotBtn.mas_centerX);
-        make.left.equalTo(self.hotBtn.mas_right).with.offset(10);
-        make.width.mas_equalTo(3);
+        make.centerY.equalTo(self.hotBtn.mas_centerY);
+        make.left.equalTo(self.hotBtn.mas_right).with.offset(5);
+        make.width.mas_equalTo(2);
+        make.height.mas_equalTo(14);
     }];
     
     
     [self.xinBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(line.mas_centerX);
-        make.left.equalTo(line.mas_right).with.offset(10);
+        make.centerY.equalTo(line.mas_centerY);
+        make.left.equalTo(line.mas_right).with.offset(5);
         make.height.mas_equalTo(16);
-        make.width.mas_equalTo(32);
+        make.width.mas_equalTo(35);
     }];
 }
 

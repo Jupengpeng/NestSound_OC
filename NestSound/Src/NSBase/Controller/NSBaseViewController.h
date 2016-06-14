@@ -20,4 +20,6 @@
                      error:(NSError *)requestErr; // subclass can override
 -(void)upvoteItemId :(long)itemId_ _targetUID:(long)targetUID_ _type:(long)type_ _isUpvote:(BOOL)isUpvote;
 
+
+
 @end

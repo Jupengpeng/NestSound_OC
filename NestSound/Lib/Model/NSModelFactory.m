@@ -17,6 +17,7 @@
 #import "NSSongListModel.h"
 #import "NSSingListModel.h"
 #import "NSUserModel.h"
+#import "NSUserDataModel.h"
 #import "NSUpvoteMessageListModel.h"
 #import "NSMessageListModel.h"
 #import "NSAccommpanyListModel.h"
@@ -74,6 +75,10 @@
         return [[NSSystemMessageListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:playMusicURL]){
         return [[NSPlayMusicDetailModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:userCenterURL]){
+    
+        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+    
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

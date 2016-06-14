@@ -109,13 +109,6 @@
 #pragma mark - upvote music/lyric
 -(void)upvoteItemId:(long)itemId_ _targetUID:(long)targetUID_ _type:(long)type_ _isUpvote:(BOOL)isUpvote
 {
-    self.requestType = NO;
-    //    self.requestParams = ;
-    if (isUpvote) {
-//        self.requestURL = ;
-    }else{
-//        self.requestURL = ;
-    }
 
 
 }

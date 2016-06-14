@@ -29,7 +29,8 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
 
-    return @{@"messageCount":@"data"};
+    return @{@"messageCount":@"data",@"code":@"code"};
+    
 }
 
 @end
