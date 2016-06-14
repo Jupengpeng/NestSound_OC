@@ -94,17 +94,20 @@ UITableViewDataSource>
 -(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
     self.requestType = YES;
+    int currentPage;
     NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     if (!isLoadingMore) {
         self.requestParams = @{kIsLoadingMore:@(NO)};
+        currentPage = 1;
     }else{
         self.requestParams = @{kIsLoadingMore:@(YES)};
+        ++currentPage;
     }
     
     if (userDic) {
         
         if (who == Myself) {
-            NSDictionary * dic = @{@"uid":JUserID,@"token":userDic[@"userLoginToken"]};
+            NSDictionary * dic = @{@"uid":JUserID,@"token":userDic[@"userLoginToken"],@"page":[NSNumber numberWithInt:currentPage],@"type":@"1"};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             
@@ -114,7 +117,7 @@ UITableViewDataSource>
         
         }else{
         
-            NSDictionary * dic = @{@"otherid":userId,@"uid":userId};
+            NSDictionary * dic = @{@"otherid":userId,@"uid":userId,@"page":[NSNumber numberWithInt:currentPage],@"type":@"1"};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             url = [otherCenterURL stringByAppendingString:str];
@@ -131,7 +134,7 @@ UITableViewDataSource>
 #pragma mark -overrider action fetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
             
             NSUserDataModel * userData = (NSUserDataModel *)parserObject;
@@ -140,11 +143,18 @@ UITableViewDataSource>
             if (!operation.isLoadingMore) {
             
                 myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                
             }else{
                 [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
             
             }
+            dataAry = myMusicAry;
             [_tableView reloadData];
+        }
+        if (!operation.isLoadingMore) {
+            [_tableView.pullToRefreshView stopAnimating];
+        }else{
+            [_tableView.infiniteScrollingView stopAnimating];
         }
     }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
@@ -225,7 +235,7 @@ UITableViewDataSource>
          if (!wSelf) {
              return ;
          }else{
-             [wSelf fetchUserDataWithIsSelf:self.who andIsLoadingMore:YES];
+             [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
          }
          
      }];
@@ -301,7 +311,7 @@ UITableViewDataSource>
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 16;
+    return dataAry.count;
 }
 
 
@@ -328,7 +338,7 @@ UITableViewDataSource>
         }];
         
         cell.numLabel.hidden = YES;
-        
+        cell.myMusicModel = dataAry[indexPath.row];
         return cell;
 
         
@@ -390,7 +400,7 @@ UITableViewDataSource>
             cell = [[NSInspirationRecordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             
         }
-        
+   
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;

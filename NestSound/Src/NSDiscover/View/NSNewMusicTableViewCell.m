@@ -8,6 +8,7 @@
 
 #import "NSNewMusicTableViewCell.h"
 #import "NSDiscoverBandListModel.h"
+#import "NSMyMusicModel.h"
 @interface NSNewMusicTableViewCell ()
 
 //模拟组头
@@ -321,6 +322,20 @@
     
     self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.zanNum];
     self.itemId = _musicModel.itemId;
+}
+
+-(void)setMyMusicModel:(NSMyMusicModel *)myMusicModel
+{
+    _myMusicModel = myMusicModel;
+    self.dateLabel.text =  [date  datetoStringWithDate:_myMusicModel.createDate];
+    [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"UMS_alipay_icon"]];
+    self.musicName.text = _myMusicModel.title;
+//    self.authorName.text = _myMusicModel.author;
+    self.heardLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.lookNum];
+    self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.fovNum];
+    
+    self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.upvoteNum];
+    self.itemId = _myMusicModel.itemId;
 }
 
 @end
