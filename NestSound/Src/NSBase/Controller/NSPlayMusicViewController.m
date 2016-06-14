@@ -15,10 +15,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "NSUserFeedbackViewController.h"
 #import "NSUserPageViewController.h"
-<<<<<<< HEAD
-=======
-
->>>>>>> 39773864698419a9547203dc9e92f75aeb1053c8
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -949,10 +945,6 @@ static id _instance;
 
 -(void)setMusicDetail:(NSPlayMusicDetail *)musicDetail
 {
-<<<<<<< HEAD
-
-=======
->>>>>>> 39773864698419a9547203dc9e92f75aeb1053c8
     
     if (musicDetail.playURL != nil) {
         
@@ -964,10 +956,6 @@ static id _instance;
         _lyricView.lyricText.text = self.musicDetail.lyrics;
         playURL = self.musicDetail.playURL;
         
-<<<<<<< HEAD
-   
-=======
->>>>>>> 39773864698419a9547203dc9e92f75aeb1053c8
 #warning placeHolder
         [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
         if (self.musicDetail.isZan == 1) {

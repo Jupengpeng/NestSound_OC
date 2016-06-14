@@ -28,6 +28,7 @@
     NSMutableArray * newListAry;
     NSMutableArray * musicSayAry;
     NSString * getTokenUrl;
+    NSString * index;
 }
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
@@ -143,6 +144,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:1];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
     self.requestURL = [indexURL stringByAppendingString:str];
+    index = self.requestURL;
     
 }
 
@@ -152,7 +154,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
     if (!parserObject.success&&parserObject) {
 
-        if ([operation.urlTag isEqualToString:indexURL]) {
+        if ([operation.urlTag isEqualToString:index]) {
             
         
 #ifdef debug
@@ -168,7 +170,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
         musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
         [self configureUIAppearance];
-        }else if([operation.urlTag isEqualToString:getTokenUrl]){
+        }
+        else if([operation.urlTag isEqualToString:getTokenUrl]){
             NSUserModel * userModels = (NSUserModel *)parserObject;
             userModel * user = userModels.userDetail;
             NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
