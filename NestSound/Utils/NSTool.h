@@ -18,7 +18,7 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 + (BOOL)isStringEmpty:(NSString *)targetString;
 + (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName;
 + (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2;
-+ (NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_;
++(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url;
 +(BOOL) isValidateMobile:(NSString *)mobile;
 +(BOOL)compareWithUser:(long)userID;
 +(NSString *)encrytWithDic:(NSDictionary *)dic;

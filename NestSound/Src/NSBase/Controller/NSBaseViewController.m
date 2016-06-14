@@ -114,4 +114,14 @@
 }
 
 
+-(NSString *)getQiniuDetailWithType:(int)type andFixx:(NSString *)fixx
+{
+    self.requestType = YES;
+    NSDictionary * dic = @{@"type":[NSNumber numberWithInt:type],@"fixx":fixx};
+    NSString * str = [NSTool encrytWithDic:dic];
+    NSString * url = [getQiniuDetail stringByAppendingString:str];
+    self.requestURL = url;
+    return  self.requestURL;
+}
+
 @end

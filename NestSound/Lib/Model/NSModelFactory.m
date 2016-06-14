@@ -25,6 +25,7 @@
 #import "NSCommentMessageListModel.h"
 #import "NSSystemMessageListModel.h"
 #import "NSPlayMusicDetailModel.h"
+#import "NSCommentListModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -78,6 +79,9 @@
     }else if ([url isEqualToString:userCenterURL]){
     
         return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+    
+    }else if ([url isEqualToString:commentURL]){
+        return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
     
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];

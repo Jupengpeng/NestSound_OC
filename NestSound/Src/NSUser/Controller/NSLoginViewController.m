@@ -54,11 +54,15 @@
                                     @"userLoginToken":user.loginToken
                                     };
             [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         
     }else{
         [[NSToastManager manager] showtoast:requestErr.description];
+        
     }
+    
 }
 
 

@@ -241,6 +241,7 @@
     }];
     
     
+    WS(wSelf);
     //评论
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
@@ -250,7 +251,7 @@
         
     } action:^(UIButton *btn) {
         
-        NSCommentViewController *commentVC = [[NSCommentViewController alloc] init];
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: wSelf.lyricDetail.itemId andType:2];
         
         commentVC.musicName = self.lyricDetail.title;
         

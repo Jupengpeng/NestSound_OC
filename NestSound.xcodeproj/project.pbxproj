@@ -125,6 +125,7 @@
 		2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6A3521CF6DE7D00523062 /* NSLyricDetailModel.m */; };
 		2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */; };
 		2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA10031CE3508900D0D535 /* NSLyricCell.m */; };
+		2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADDECA21D101B2F00030D5A /* NSQiniuModel.m */; };
 		2ADE8F5F1CFE7679006CD840 /* NSShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADE8F5E1CFE7679006CD840 /* NSShareViewController.m */; };
 		2ADE8F621CFE7715006CD840 /* NSShareModulView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADE8F611CFE7715006CD840 /* NSShareModulView.m */; };
 		2ADE94601D040878000AC281 /* NSFansListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ADE945F1D040878000AC281 /* NSFansListModel.m */; };
@@ -422,6 +423,8 @@
 		2AD6DF401CD7287F00B95CFD /* NSHttpClient+EncrypteData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHttpClient+EncrypteData.m"; sourceTree = "<group>"; };
 		2ADA10021CE3508900D0D535 /* NSLyricCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricCell.h; sourceTree = "<group>"; };
 		2ADA10031CE3508900D0D535 /* NSLyricCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricCell.m; sourceTree = "<group>"; };
+		2ADDECA11D101B2F00030D5A /* NSQiniuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSQiniuModel.h; sourceTree = "<group>"; };
+		2ADDECA21D101B2F00030D5A /* NSQiniuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSQiniuModel.m; sourceTree = "<group>"; };
 		2ADE8F5D1CFE7679006CD840 /* NSShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSShareViewController.h; sourceTree = "<group>"; };
 		2ADE8F5E1CFE7679006CD840 /* NSShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSShareViewController.m; sourceTree = "<group>"; };
 		2ADE8F601CFE7715006CD840 /* NSShareModulView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSShareModulView.h; sourceTree = "<group>"; };
@@ -1192,6 +1195,8 @@
 				2AAE01B71CFBEEC8008D3145 /* NSPlayMusicDetailModel.m */,
 				2A4564171D05533500D4DB5F /* NSCommentListModel.h */,
 				2A4564181D05533500D4DB5F /* NSCommentListModel.m */,
+				2ADDECA11D101B2F00030D5A /* NSQiniuModel.h */,
+				2ADDECA21D101B2F00030D5A /* NSQiniuModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1267,7 +1272,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				1D7834AEE2522797A60D4E10 /* 📦 Check Pods Manifest.lock */,
+				1D7834AEE2522797A60D4E10 /* [CP] Check Pods Manifest.lock */,
 				D4BF160F5E296B9C2BAD5081 /* [CP] Check Pods Manifest.lock */,
 				92B3FC676405EA6062772D9F /* [CP] Check Pods Manifest.lock */,
 				C8AF65361A8DFCD211EF4E82 /* [CP] Check Pods Manifest.lock */,
@@ -1293,7 +1298,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				B0DDE02C57D9082DD7D77EB6 /* 📦 Check Pods Manifest.lock */,
+				B0DDE02C57D9082DD7D77EB6 /* [CP] Check Pods Manifest.lock */,
 				260859C001B5B2874C4D55E6 /* [CP] Check Pods Manifest.lock */,
 				CAA8C1AA3F0F5B8EB3E2A275 /* [CP] Check Pods Manifest.lock */,
 				3C9673A411ACCF71C61EE124 /* [CP] Check Pods Manifest.lock */,
@@ -1415,14 +1420,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1D7834AEE2522797A60D4E10 /* 📦 Check Pods Manifest.lock */ = {
+		1D7834AEE2522797A60D4E10 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1565,14 +1570,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B0DDE02C57D9082DD7D77EB6 /* 📦 Check Pods Manifest.lock */ = {
+		B0DDE02C57D9082DD7D77EB6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1746,6 +1751,7 @@
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
 				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
+				2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,

@@ -83,6 +83,10 @@ extern NSString *port;
 #define lyricLibraryURL @"http://112.124.125.2/java/lyricsopt/getLyriCats?"
 #define postCommentURL @"http://112.124.125.2/java/commentopt/save?"
 #define deleteCommentURL @"http://112.124.125.2/java/commentopt/delete?"
+#define loginOutURL @"http://112.124.125.2/java/common/login/logout?"
+#define getQiniuDetail @"http://112.124.125.2/java/common/uploadcallback/qiniutoken?"
+#define getToken @"http://112.124.125.2/java/common/login/tokenCheck?"
+#define changeProfileURL @"http://112.124.125.2/java/userCenter/updateuserinfo"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG

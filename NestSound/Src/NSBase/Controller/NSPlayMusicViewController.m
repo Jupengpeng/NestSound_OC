@@ -15,7 +15,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "NSUserFeedbackViewController.h"
 #import "NSUserPageViewController.h"
-
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -100,7 +99,12 @@ static id _instance;
         
         [self addTimer];
     }
-    [self fetchPlayDataWithItemId:self.itemId];
+    if (self.player == nil) {
+        
+        [self fetchPlayDataWithItemId:self.itemId];
+
+    }
+    
     
     
     
@@ -196,7 +200,7 @@ static id _instance;
     
 //    self.progressBar.maximumValue = self.player.duration;
     
-    self.totaltime.text = [NSString stringWithFormat:@"%zd:%zd",(NSInteger)self.progressBar.maximumValue / 60, (NSInteger)self.progressBar.maximumValue % 60];
+ 
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
 }
@@ -947,6 +951,7 @@ static id _instance;
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
         _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+        NSLog(@"%@",_totaltime.text);
         _commentNum = self.musicDetail.commentNum;
         _lyricView.lyricText.text = self.musicDetail.lyrics;
         playURL = self.musicDetail.playURL;

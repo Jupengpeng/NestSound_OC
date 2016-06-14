@@ -9,7 +9,7 @@
 #import "NSMessageViewController.h"
 #import "NSMessageListViewController.h"
 #import "NSMessageListModel.h"
-
+#import "NSLoginViewController.h"
 @interface NSMessageViewController ()<
 UITableViewDelegate,
 UITableViewDataSource
@@ -21,6 +21,7 @@ UITableViewDataSource
     NSMutableArray * bageAry;
     NSString * userID;
     NSString * url;
+    NSLoginViewController * login;
 }
 @end
 
@@ -34,17 +35,31 @@ UITableViewDataSource
 {
     [super viewDidLoad];
     
-   
+}
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (JUserID == nil) {
+        login = [[NSLoginViewController alloc] init];
+        UINavigationController * loginNav = [[UINavigationController alloc] initWithRootViewController:login];
+        loginNav.navigationBar.hidden = YES;
+        [self presentViewController:loginNav animated:YES completion:nil];
+    }
 }
 
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!JUserID) {
+        [self.tabBarController setSelectedIndex:0];
+    }else{
+    [super viewDidAppear:animated];
     [self fetchData];
+    }
 }
-
 #pragma mark -fetchData
 -(void)fetchData
 {

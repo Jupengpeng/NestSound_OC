@@ -46,12 +46,32 @@
     
     commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 108)];
     
+    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     commentTableView.delegate = self;
     
     commentTableView.dataSource = self;
     
     commentTableView.estimatedRowHeight = 80;
     
+    WS(wSelf);
+    //refresh
+    [commentTableView addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchCommentWithIsLoadingMore:NO];
+        }
+    }];
+    
+    //loadingMore
+    [commentTableView addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchCommentWithIsLoadingMore:YES];
+        }
+    }];
+    commentTableView.showsInfiniteScrolling = NO;
     [self.view addSubview:commentTableView];
     
     [self bottomView];
@@ -74,10 +94,19 @@
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (commentAry.count == 0) {
+        [commentTableView setContentOffset:CGPointMake(0, -60) animated:YES];
+        [commentTableView performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.2];
+    }
+}
+
 #pragma mark -fetchCommentData
 -(void)fetchCommentWithIsLoadingMore:(BOOL)isLoadingMore
 {
-    self.requestType = NO;
+    self.requestType = YES;
     if (!isLoadingMore) {
         currentPage = 1;
         self.requestParams = @{kIsLoadingMore:@(NO)};
@@ -85,17 +114,17 @@
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSString stringWithFormat:@"%d",type],@"token":LoginToken};
+    NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
     NSString * str = [NSTool encrytWithDic:dic];
     commentUrl = [commentURL stringByAppendingString:str];
-    self.requestURL = commentURL;
+    self.requestURL = commentUrl;
 
 }
 
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:commentUrl]) {
             NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
             if (!operation.isLoadingMore) {
@@ -111,7 +140,14 @@
             [[NSToastManager manager] showtoast:@"删除评论成功"];
         }
         [commentTableView reloadData];
-    }
+        if (!operation.isLoadingMore) {
+            [commentTableView.pullToRefreshView stopAnimating];
+        }else{
+            [commentTableView.infiniteScrollingView stopAnimating];
+        }
+
+            }
+    
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {

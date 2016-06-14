@@ -86,10 +86,6 @@ static NSHttpClient *client;
         [[NSToastManager manager] showprogress];
     }
 
-    //requestType
-//    BOOL requestType = [[transferParas objectForKey:@"type"] boolValue];
-//    [transferParas removeObjectForKey:@"type"];
-    // refresh or LoadingMore
     BOOL isLoadingMore = [[transferParas objectForKey:kIsLoadingMore] boolValue];
     [transferParas removeObjectForKey:kIsLoadingMore];
     
@@ -97,8 +93,6 @@ static NSHttpClient *client;
     NSString *requestURL = [NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],url];
     NSURLSessionDataTask *operation;
     
-    NSString * uuu;
-    __block NSString * u = uuu;
     if (requestType) {
         operation = [self GET: url
                    parameters:nil
