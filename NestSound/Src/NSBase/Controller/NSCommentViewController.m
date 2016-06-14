@@ -42,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = [NSString stringWithFormat:@"%@的评论",@"悟空"];
+    self.title = [NSString stringWithFormat:@"%@的评论",self.musicName];
     
     commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 108)];
     

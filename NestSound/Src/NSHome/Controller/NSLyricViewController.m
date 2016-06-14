@@ -253,6 +253,8 @@
         
         NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: wSelf.lyricDetail.itemId andType:2];
         
+        commentVC.musicName = self.lyricDetail.title;
+        
         [self.navigationController pushViewController:commentVC animated:YES];
 
         NSLog(@"点击了评论");
