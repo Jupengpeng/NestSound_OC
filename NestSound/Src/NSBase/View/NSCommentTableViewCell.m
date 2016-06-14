@@ -213,7 +213,13 @@ static inline NSRegularExpression * NameRegularExpression() {
     _commentModel = commentModel;
     self.authorNameLabel.text = self.commentModel.nickName;
 //    [iconBtn set]
-
+    
+    [iconBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    
+    dateLabel.text = [date datetoStringWithDate:self.commentModel.createDate];
+    
+    self.commentLabel.text = self.commentModel.comment;
+    
 }
 
 @end

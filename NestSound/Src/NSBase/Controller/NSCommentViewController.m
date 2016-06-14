@@ -317,7 +317,7 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.commentModel = commentAry[indexPath.row];
     cell.commentLabel.delegate = self;
     
     return cell;

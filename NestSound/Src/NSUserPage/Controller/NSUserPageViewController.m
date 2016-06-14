@@ -493,7 +493,7 @@ UITableViewDataSource>
             
             [_tableView reloadData];
             
-            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             
             NSLog(@"点击了灵感记录");
             
@@ -505,7 +505,7 @@ UITableViewDataSource>
             
             [_tableView reloadData];
             
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             
             NSLog(@"点击了歌曲");
             
@@ -517,7 +517,7 @@ UITableViewDataSource>
             
             [_tableView reloadData];
             
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             
             NSLog(@"点击了歌词");
             
@@ -529,7 +529,7 @@ UITableViewDataSource>
             
             [_tableView reloadData];
             
-             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             
             NSLog(@"点击了收藏");
             

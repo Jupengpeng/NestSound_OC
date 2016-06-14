@@ -14,6 +14,7 @@
 #import "NSWriteLyricMaskView.h"
 #import "NSShareViewController.h"
 #import "NSLyricLibraryListModel.h"
+#import "NSPublicLyricViewController.h"
 @interface WriteLyricBottomView : UIView
 @property (nonatomic,strong) UIButton * importLyricBtn;
 @property (nonatomic,strong) UIButton * LyricesBtn;
@@ -193,6 +194,7 @@
     lyricView.backgroundColor = [UIColor whiteColor];
     lyricView.lyricText.delegate = self;
     lyricView.lyricText.editable = YES;
+    lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:lyricView];
     
     //maskView
@@ -230,9 +232,17 @@
 
 - (void)rightClick:(UIBarButtonItem *)right {
     
-    NSShareViewController *shareView = [[NSShareViewController alloc] init];
+    NSMutableDictionary *dict;// = @{@"lyricName" : titleTextFiled.text, @"lyric" : lyricView.lyricText.text};
     
-    [self.navigationController pushViewController:shareView animated:YES];
+    [dict setValue:titleTextFiled.text forKey:@"lyricName"];
+    
+    [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+    
+    NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
+    
+//    NSShareViewController *shareView = [[NSShareViewController alloc] init];
+//    
+    [self.navigationController pushViewController:publicVC animated:YES];
 }
 
 - (void)tapClick {

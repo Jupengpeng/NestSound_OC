@@ -897,7 +897,7 @@ static id _instance;
 //进度条数值
 - (void)progressBarSlither:(UISlider *)progressBar {
     
-//    self.player.currentTime = progressBar.value;
+//    self.item.currentTime.value = progressBar.value;
     
     NSLog(@"%f",progressBar.value);
 }
@@ -916,7 +916,7 @@ static id _instance;
     
     self.progressBar.value ++;
     NSLog(@"定时器%ld",(NSInteger)self.progressBar.value);
-//    self.progressBar.value = self.player.currentTime;
+//    self.progressBar.value = self.item.currentTime.value;
     self.playtime.text = [NSString stringWithFormat:@"%02zd:%02zd", (NSInteger)self.progressBar.value / 60, (NSInteger)self.progressBar.value % 60];
 }
 
