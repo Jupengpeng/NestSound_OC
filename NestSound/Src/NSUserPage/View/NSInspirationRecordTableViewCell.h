@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) UIImageView *frequencyImageView;
 
+
 @end
 
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class NSBandMusic;
-
+@class NSMyMusicModel;
 @interface NSNewMusicTableViewCell : UITableViewCell
 
 //排行数字
@@ -22,5 +22,6 @@
 
 @property (nonatomic,strong) NSBandMusic * musicModel;
 
+@property (nonatomic,strong) NSMyMusicModel * myMusicModel;
 
 @end
