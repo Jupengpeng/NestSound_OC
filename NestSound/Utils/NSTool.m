@@ -171,13 +171,13 @@ static NSDateFormatter *dateFormatter;
              NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
              [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                  
-                   file = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                  file = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                  
                  
              } option:nil];
          }
     
-    return fileURL;
+    return file;
 }
 
 

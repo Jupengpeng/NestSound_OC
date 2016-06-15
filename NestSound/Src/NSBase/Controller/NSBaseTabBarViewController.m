@@ -68,7 +68,7 @@
     
     //我的
     NSUserPageViewController *userPageVc = [[NSUserPageViewController alloc] init];
-    
+    userPageVc.who = Myself;
     [self addChildViewController:userPageVc imageName:@"2.0_my_normal" selectedImageName:@"2.0_my_selected" title:@"我的"];
     
     

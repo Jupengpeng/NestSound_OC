@@ -163,7 +163,7 @@
     //nav
 //    self.showBackBtn = YES;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     
     
     
@@ -241,18 +241,31 @@
 
 - (void)rightClick:(UIBarButtonItem *)right {
     
-    NSMutableDictionary *dict;// = @{@"lyricName" : titleTextFiled.text, @"lyric" : lyricView.lyricText.text};
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    // = @{@"lyricName" : titleTextFiled.text, @"lyric" : lyricView.lyricText.text};
     
-    [dict setValue:titleTextFiled.text forKey:@"lyricName"];
     
-    [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+    if (titleTextFiled.text.length == 0) {
+        [[NSToastManager manager] showtoast:@"歌词标题不能为空"];
+    }else{
+        if (lyricView.lyricText.text.length == 0) {
+            [[NSToastManager manager] showtoast:@"歌词不能为空"];
+            
+        }else{
+            [dict setValue:titleTextFiled.text forKey:@"lyricName"];
+            
+            [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+            NSLog(@"dict %@",dict);
+            NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
+            
+            //    NSShareViewController *shareView = [[NSShareViewController alloc] init];
+            //
+            [self.navigationController pushViewController:publicVC animated:YES];
+        
+        }
+    }
     
-    NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
-    
-//    NSShareViewController *shareView = [[NSShareViewController alloc] init];
-//    
-    [self.navigationController pushViewController:publicVC animated:YES];
-}
+    }
 
 - (void)tapClick {
     

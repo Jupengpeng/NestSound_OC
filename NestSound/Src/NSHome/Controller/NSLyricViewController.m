@@ -96,6 +96,12 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+}
+
 #pragma mark -fetchData
 -(void)fetchData
 {
