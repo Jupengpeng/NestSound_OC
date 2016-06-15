@@ -15,6 +15,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import "NSUserFeedbackViewController.h"
 #import "NSUserPageViewController.h"
+#import "NSWriteMusicViewController.h"
+
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -25,7 +27,6 @@
     UIImageView *backgroundImage;
     UIButton *collectionBtn;
     UIButton *upVoteBtn;
-
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -59,7 +60,11 @@
 
 @property (nonatomic, strong) NSTimer *timer;
 
-@property (nonatomic, strong) AVPlayerItem *item;
+@property (nonatomic, strong) AVPlayerItem *musicItem;
+
+@property (nonatomic, copy) NSString *ifUrl;
+
+@property (nonatomic, weak) UIButton *loopBtn;
 
 @end
 
@@ -99,11 +104,11 @@ static id _instance;
         
         [self addTimer];
     }
-    if (self.player == nil) {
-        
+//    if (self.player == nil) {
+    
         [self fetchPlayDataWithItemId:self.itemId];
 
-    }
+//    }
     
     
     
@@ -174,6 +179,8 @@ static id _instance;
     
     [self moreChoice];
     
+    [self addTimer];
+    
 //    if ([self.player isPlaying]) {
     
 //        self.playOrPauseBtn.selected = YES;
@@ -187,9 +194,9 @@ static id _instance;
     
     WS(wSelf);
     
-    AVPlayer *player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *item) {
+    AVPlayer *player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
         
-        wSelf.item = item;
+        wSelf.musicItem = musicItem;
     }];
     
     self.player = player;
@@ -198,11 +205,11 @@ static id _instance;
     
     self.progressBar.value = 0;
     
-//    self.progressBar.maximumValue = self.player.duration;
+    self.progressBar.maximumValue = self.musicDetail.mp3Times;
     
  
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 }
 
 - (void)endPlaying {
@@ -346,6 +353,8 @@ static id _instance;
         
     }];
     
+    self.loopBtn = loopBtn;
+    
     [self.view addSubview:loopBtn];
     
     [loopBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -365,6 +374,14 @@ static id _instance;
         [btn setImage:[UIImage imageNamed:@"2.0_accompany_highlighted"] forState:UIControlStateHighlighted];
         
     } action:^(UIButton *btn) {
+        
+        [wSelf.player pause];
+        
+        playOrPauseBtn.selected = NO;
+        
+        NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] init];
+        
+        [self.navigationController pushViewController:musicView animated:YES];
         
         NSLog(@"点击了伴奏按钮");
         
@@ -902,7 +919,9 @@ static id _instance;
 //进度条数值
 - (void)progressBarSlither:(UISlider *)progressBar {
     
-//    self.item.currentTime.value = progressBar.value;
+    CMTime ctime = CMTimeMake(progressBar.value, 1);
+    
+    [self.musicItem seekToTime:ctime];
     
     NSLog(@"%f",progressBar.value);
 }
@@ -914,14 +933,17 @@ static id _instance;
     
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     
-    
 }
 
 - (void)actionTiming {
     
     self.progressBar.value ++;
     NSLog(@"定时器%ld",(NSInteger)self.progressBar.value);
-//    self.progressBar.value = self.item.currentTime.value;
+    
+    CMTime ctime = self.musicItem.currentTime;
+    UInt64 currentTimeSec = ctime.value/ctime.timescale;
+    self.progressBar.value = currentTimeSec;
+    
     self.playtime.text = [NSString stringWithFormat:@"%02zd:%02zd", (NSInteger)self.progressBar.value / 60, (NSInteger)self.progressBar.value % 60];
 }
 
@@ -932,22 +954,18 @@ static id _instance;
     self.timer = nil;
 }
 
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
-    NSLog(@"播放完毕时调用");
-}
-
 
 - (void)dealloc {
     
     [self removeTimer];
+    
 }
 
 
 -(void)setMusicDetail:(NSPlayMusicDetail *)musicDetail
 {
     
-    if (musicDetail.playURL != nil) {
+    if (musicDetail.playURL != nil && ![musicDetail.playURL isEqualToString:self.ifUrl]) {
         
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
@@ -972,8 +990,11 @@ static id _instance;
         
         [self playMusicUrl:self.musicDetail.playURL];
         
+        self.ifUrl = musicDetail.playURL;
     }
 }
+
+
 @end
 
 

@@ -144,12 +144,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSInteger section = indexPath.section;
-    NSPlayMusicViewController * playMusicVC;
+//    NSPlayMusicViewController * playMusicVC;
     if (section == 0) {
         NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+        NSPlayMusicViewController * playMusicVC = [[NSPlayMusicViewController alloc] init];
         playMusicVC.itemId = cell.musicModel.itemId;
         [self.navigationController pushViewController:playMusicVC animated:YES];
-
+        
         
     }else{
         NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];

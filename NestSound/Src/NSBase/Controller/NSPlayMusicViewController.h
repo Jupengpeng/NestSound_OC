@@ -18,5 +18,6 @@
 @property (nonatomic,assign) long itemId;
 
 @property (nonatomic,strong) NSPlayMusicDetail * musicDetail;
+@property (nonatomic,copy) NSString * from;
 
 @end

@@ -14,11 +14,11 @@
 @end
 static NSString *oldMusicUrl;
 static AVPlayer *player;
-static AVPlayerItem *item;
+static AVPlayerItem *musicItem;
 @implementation NSPlayMusicTool
 
 //播放音乐
-+ (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *item))block {
++ (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
     
     if (![oldMusicUrl isEqualToString:musicUrl]) {
         
@@ -29,16 +29,16 @@ static AVPlayerItem *item;
     
     if (player == nil ) {
         
-        item = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:musicUrl]];
+        musicItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:musicUrl]];
         
-        player = [AVPlayer playerWithPlayerItem:item];
+        player = [AVPlayer playerWithPlayerItem:musicItem];
         
         oldMusicUrl = musicUrl;
     }
     
     if (block) {
         
-        block(item);
+        block(musicItem);
     }
     
     [player play];

@@ -39,16 +39,16 @@
 
 @implementation NSDiscoverViewController
 
-//- (NSPlayMusicViewController *)playSongsVC {
-//    
-//    if (!_playSongsVC) {
-//        
-//        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
-//        
-//    }
-//    
-//    return _playSongsVC;
-//}
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+        
+    }
+    
+    return _playSongsVC;
+}
 
 - (NSSearchViewController *)searchVC {
     
@@ -260,7 +260,6 @@
         
         NSLog(@"点击了活动");
        
-       
     } else if(titleBtn.tag == 1) {
         
         NSLog(@"点击了歌曲");
@@ -301,21 +300,11 @@
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
     
     if (self.playSongsVC.player == nil) {
-        
-        NSLog(@"没有音乐");
-        
+        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
     } else {
-        
-//        if (self.playSongsVC.player.playing) {
-//            
-//            
-//        }
-        
-        
         
         [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
-    
     
 }
 
