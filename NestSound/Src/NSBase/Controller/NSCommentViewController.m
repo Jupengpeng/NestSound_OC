@@ -22,6 +22,7 @@
     long itemID ;
     int currentPage;
     int type;
+    long targetUserId;
     NSString * commentUrl;
     NSString * postCommentUrl;
 }
@@ -298,8 +299,11 @@
     
     if (inputField.tag == 1) {
         
+        [self postCommentWithComment:inputField.text andUser:nil andType:2 andTargetUID:targetUserId];
         NSLog(@"点击了发送. 回复他人的评论");
     } else {
+        
+        [self postCommentWithComment:inputField.text andUser:nil andType:1 andTargetUID:0];
         
         NSLog(@"点击了发送. 发表评论");
     }
@@ -312,10 +316,10 @@
 
 
 #pragma mark postComment
--(void)postCommentWithComment:(NSString *)comment andUser:(NSString *)user andType:(NSString *)commentType andTargetUID:(NSString *)targetUID
+-(void)postCommentWithComment:(NSString *)comment andUser:(NSString *)user andType:(int)commentType andTargetUID:(long)targetUID
 {
     self.requestType = NO;
-    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":commentType,@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":targetUID};
+    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID]};
     self.requestURL = postCommentURL;
 
 }
@@ -370,7 +374,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSCommentTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
+    targetUserId = cell.commentModel.userID;
     maskView.hidden = NO;
     
     [inputField becomeFirstResponder];
@@ -383,8 +387,8 @@
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     
     
-    
-    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] init];
+    NSCommentTableViewCell * cell = (NSCommentTableViewCell *)label.superview.superview;
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.targetUserID]];
     
     [self.navigationController pushViewController:pageVC animated:YES];
     

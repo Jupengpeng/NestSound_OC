@@ -87,10 +87,12 @@
     dateLabel.text = dateStr;
 
     if (_activityModel.status == 1) {
-        stateLabel.text = LocalizedStr(@"promot_activityIng");
+        stateLabel.text =NSLocalizedString(@"promot_activityIng", @"");
+//        LocalizedStr(@"promot_activityIng");
         
     }else  if(_activityModel.status == 2){
-        stateLabel.text = LocalizedStr(@"promot_activityed");
+        stateLabel.text = NSLocalizedString(@"promot_activityed", @"");
+//        LocalizedStr(@"promot_activityed");
         dateLabel.hidden = YES;
     
     }else{

@@ -388,7 +388,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         reusable.bannerAry = bannerAry;
         
-        reusable.titleLable.text = LocalizedStr(@"promot_recommendWorks");
+        reusable.titleLable.text = NSLocalizedString(@"promot_recommendWorks", @"");
+//        LocalizedStr(@"promot_recommendWorks");
         
     } else if (indexPath.section == 1) {
         

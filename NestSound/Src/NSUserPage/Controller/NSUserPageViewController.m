@@ -17,7 +17,9 @@
 #import "NSFansViewController.h"
 #import "NSLoginViewController.h"
 #import "NSUserDataModel.h"
-
+#import "NSPlayMusicViewController.h"
+#import "NSLyricViewController.h"
+#import "NSInspirationRecordViewController.h"
 @interface NSUserPageViewController ()
 <
 UITableViewDelegate,
@@ -485,11 +487,38 @@ UITableViewDataSource>
         
     }
     
-    
     return backgoundView;
+}
+
+#pragma mark -tableViewDelegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMyMusicModel * myMusic = dataAry[indexPath.row];
     
+    if (type == 1) {
+        NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+        playVC.itemId = myMusic.itemId;
+        [self.navigationController pushViewController: playVC animated:YES];
+    }else if (type == 2){
+        NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
+        [self.navigationController pushViewController:lyricVC animated:YES];
+    }else if (type == 3){
     
-    
+        if (myMusic.type == 1) {
+            NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+            playVC.itemId = myMusic.itemId;
+            [self.navigationController pushViewController: playVC animated:YES];
+
+        }else{
+            NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
+            [self.navigationController pushViewController:lyricVC animated:YES];
+
+        }
+        
+    }else if (type == 4){
+        
+    }
+
 }
 
 - (void)toolbarBtnClick:(UIButton *)toolbarBtn {
