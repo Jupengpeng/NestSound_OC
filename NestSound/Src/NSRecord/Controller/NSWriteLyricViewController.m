@@ -137,7 +137,8 @@
     NSLyricView * lyricView;
     UITextField * titleTextFiled;
     WriteLyricBottomView * bottomView;
-    NSWriteLyricMaskView * maskView;
+    UIView * maskView;
+    NSWriteLyricMaskView *lexiconView;
     UICollectionView * typeCollectionView;
     NSImportLyricViewController * importLyricVC;
     NSString * url;
@@ -166,7 +167,7 @@
     
     
     
-    maskView.delegate = self;
+    lexiconView.delegate = self;
     
     //titleTextFiled
     titleTextFiled = [[UITextField alloc] init];
@@ -198,8 +199,16 @@
     [self.view addSubview:lyricView];
     
     //maskView
-    maskView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight - 64)];
+    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight - 64)];
+    maskView.alpha = 0.5;
+    maskView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:maskView];
+    
+    lexiconView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 300)];
+    
+    [self.view addSubview:lexiconView];
+    
+    
     
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
     [maskView addGestureRecognizer:tap];
@@ -255,12 +264,13 @@
     if (hidden) {
         [UIView animateWithDuration:0.2 animations:^{
             maskView.y = ScreenHeight;
+            lexiconView.y = self.view.height;
         }];
 
     }else{
         [UIView animateWithDuration:0.2 animations:^{
             maskView.y = 0;
-            
+            lexiconView.y = self.view.height - 300;
         }];
     }
     
@@ -300,7 +310,7 @@
     if (parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
             NSLyricLibraryListModel * lyricLibrary = (NSLyricLibraryListModel *)parserObject;
-            maskView.lyricLibraryListModel = lyricLibrary;
+            lexiconView.lyricLibraryListModel = lyricLibrary;
             
         }
     }

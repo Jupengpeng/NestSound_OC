@@ -11,6 +11,7 @@
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
+		18147DF21D110126009A0440 /* NSLexiconCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18147DF11D110126009A0440 /* NSLexiconCollectionViewCell.m */; };
 		181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 181897221D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m */; };
 		181897261D02DFF90009B145 /* NSShareCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 181897251D02DFF90009B145 /* NSShareCollectionViewCell.m */; };
 		182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182F33531CDC41AF006AB047 /* Assets.xcassets */; };
@@ -190,6 +191,8 @@
 		18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBaseTabBarViewController.m; sourceTree = "<group>"; };
 		18074E411CEC43290011B0A4 /* NSPlusTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlusTabBar.h; sourceTree = "<group>"; };
 		18074E421CEC43290011B0A4 /* NSPlusTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlusTabBar.m; sourceTree = "<group>"; };
+		18147DF01D110126009A0440 /* NSLexiconCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLexiconCollectionViewCell.h; sourceTree = "<group>"; };
+		18147DF11D110126009A0440 /* NSLexiconCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLexiconCollectionViewCell.m; sourceTree = "<group>"; };
 		181897211D02ADAE0009B145 /* NSSearchUserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchUserCollectionViewCell.h; sourceTree = "<group>"; };
 		181897221D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchUserCollectionViewCell.m; sourceTree = "<group>"; };
 		181897241D02DFF90009B145 /* NSShareCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSShareCollectionViewCell.h; sourceTree = "<group>"; };
@@ -899,6 +902,8 @@
 				2AD53E901CF023AC002ED314 /* NSRecordToolView.m */,
 				2AB2D5271CFCAF78007422BD /* NSWriteLyricMaskView.h */,
 				2AB2D5281CFCAF78007422BD /* NSWriteLyricMaskView.m */,
+				18147DF01D110126009A0440 /* NSLexiconCollectionViewCell.h */,
+				18147DF11D110126009A0440 /* NSLexiconCollectionViewCell.m */,
 				2ADE8F601CFE7715006CD840 /* NSShareModulView.h */,
 				2ADE8F611CFE7715006CD840 /* NSShareModulView.m */,
 				181897241D02DFF90009B145 /* NSShareCollectionViewCell.h */,
@@ -1738,6 +1743,7 @@
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
+				18147DF21D110126009A0440 /* NSLexiconCollectionViewCell.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
 				188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */,
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,

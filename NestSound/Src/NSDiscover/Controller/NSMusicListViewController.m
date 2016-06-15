@@ -67,7 +67,7 @@
     NSDictionary * dic = @{@"modelType":@"1"};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-
+    
     musicUrl = [discoverBandURL stringByAppendingString:str];
     self.requestURL = musicUrl;
 

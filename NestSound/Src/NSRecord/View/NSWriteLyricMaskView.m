@@ -8,6 +8,7 @@
 
 #import "NSWriteLyricMaskView.h"
 #import "NSLyricLibraryListModel.h"
+#import "NSLexiconCollectionViewCell.h"
 
 @interface NSWriteLyricMaskView ()
 <
@@ -26,7 +27,7 @@ UITableViewDelegate
     NSMutableArray * dataAry;
 }
 @end
-
+static  NSString * const lyricTypeID = @"lyricType";
 @implementation NSWriteLyricMaskView
 -(instancetype)initWithFrame:(CGRect)frame
 {
@@ -40,23 +41,35 @@ UITableViewDelegate
 -(void)configreUIAppearance
 {
     
-    self.backgroundColor = [UIColor blackColor];
-    self.alpha = 0.4;
+    self.backgroundColor = [UIColor whiteColor];
+//    self.alpha = 0.4;
     
     //bottom view
-    bottomView = [[UIView alloc] init];
+    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
     bottomView.backgroundColor = [UIColor whiteColor];
     [self addSubview:bottomView];
     
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
+    
+    layout.minimumLineSpacing = 1;
+    layout.minimumInteritemSpacing = 1;
+    layout.sectionInset = UIEdgeInsetsMake(1, 0, 1, 0);
+    layout.itemSize = CGSizeMake(self.width / 5 - 1, 33);
+    
+    
     lyricTypeColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 10, self.size.width, 35) collectionViewLayout:layout];
     lyricTypeColl.delegate = self;
     lyricTypeColl.dataSource = self;
+    lyricTypeColl.backgroundColor = [UIColor lightGrayColor];
     [bottomView addSubview:lyricTypeColl];
     
-    lyricTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [lyricTypeColl registerClass:[NSLexiconCollectionViewCell class] forCellWithReuseIdentifier:lyricTypeID];
+    
+    
+    lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, bottomView.width, bottomView.height - 45) style:UITableViewStylePlain];
     lyricTableView.dataSource = self;
     lyricTableView.delegate = self;
+    lyricTableView.backgroundColor = [UIColor orangeColor];
     [bottomView addSubview:lyricTableView];
     
     
@@ -88,26 +101,19 @@ UITableViewDelegate
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
        return  lyricTypeAry.count;
+//    return 5;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
     NSTypeLyricListModel * lyricTy = lyricTypeAry[row];
-    static  NSString * const lyricTypeID = @"lyricType";
-    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:lyricTypeID forIndexPath:indexPath];
-    if (!cell) {
-        cell = [[UICollectionViewCell alloc] init];
-        UILabel * label = [[UILabel alloc] initWithFrame:cell.contentView.frame];
-        label.font = [UIFont systemFontOfSize:15];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.tag = 100;
-        label.textColor = [UIColor blackColor];
-        [cell.contentView addSubview:label];
-        cell.selectedBackgroundView.backgroundColor = [UIColor hexColorFloat:@"ffd527"];
-    }
-    UILabel * label = [cell.contentView viewWithTag:100];
-    label.text = lyricTy.typeTitle;
+    
+    NSLexiconCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:lyricTypeID forIndexPath:indexPath];
+    
+    cell.lyricLibraryListModel = lyricTy;
+    
+    cell.backgroundColor = [UIColor whiteColor];
     
     return cell;
     
@@ -126,17 +132,6 @@ UITableViewDelegate
     [lyricTableView setContentOffset:CGPointMake(0,0) animated:NO];
     
 }
-#pragma mark -collectViewLayout
--(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(80, 35);
-}
-
 
 #pragma mark -tableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
