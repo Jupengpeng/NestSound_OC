@@ -7,7 +7,9 @@
 //
 
 #import "NSPublicLyricViewController.h"
-
+#import "NSGetQiNiuModel.h"
+#import "NSPublicLyricModel.h"
+#import "NSShareViewController.h"
 @interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
 
@@ -22,7 +24,10 @@
     UIImagePickerController * picker;
     BOOL isLyric;
     UILabel *placeholderLabel;
+    NSString * titleImageURL;
+    NSString * getQiNiuURL;
 }
+@property (nonatomic,copy) NSString * titleImage;
 @end
 
 @implementation NSPublicLyricViewController
@@ -31,7 +36,7 @@
 {
     if (self = [super init]) {
         
-        lyricDic = LyricDic_;
+        lyricDic = [NSMutableDictionary dictionaryWithDictionary:LyricDic_];
         isLyric = isLyric_;
     }
     return self;
@@ -47,6 +52,8 @@
 -(void)configureUIAppearance
 {
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(uploadPhoto)];
     
     //nav
 //    self.showBackBtn = YES;
@@ -142,6 +149,87 @@
     }];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:fullPath]) {
+        [fm removeItemAtPath:fullPath error:nil];
+    }
+}
+-(void)uploadPhoto
+{
+  
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:fullPath]) {
+        if (descriptionText.text.length == 0) {
+            [[NSToastManager manager ] showtoast:@"描述不能为空哦"];
+        }else{
+            if (isLyric) {
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
+//                self.requestType = YES;
+//                NSDictionary * dic = @{@"type":[NSNumber numberWithInt:1],@"fixx":@"lyrcover"};
+//                NSString * str = [NSTool encrytWithDic:dic];
+//                NSString * url = [getQiniuDetail stringByAppendingString:str];
+//                self.requestURL = url;
+//                getQiNiuURL = self.requestURL;
+            }else{
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
+            }
+        }
+        
+    }else{
+        [[NSToastManager manager] showtoast:@"封面不能为空哟"];
+    }
+    
+   
+    
+}
+
+#pragma mark -override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+        
+        if ([operation.urlTag isEqualToString:getQiNiuURL]) {
+            
+            NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
+            qiNiu * data = GetqiNiuModel.qiNIuModel;
+            NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+           
+                titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
+            
+            
+            
+            }
+        else if ([operation.urlTag isEqualToString:publicLyricURL]){
+            NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
+            [lyricDic setObject:publicLyric.publicLyricModel.shareURL forKey:@"shareURL"];
+            [lyricDic setObject:descriptionText.text forKey:@"desc"];
+            NSShareViewController * shareVC =[[NSShareViewController alloc] init];
+            shareVC.shareDataDic = lyricDic;
+            [self.navigationController pushViewController:shareVC animated:YES];
+            
+        }
+    }
+    
+}
+#pragma mark -public
+-(void)publicWithType:(BOOL)type
+{
+    self.requestType = NO;
+    NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSLog(@"ddddd%@",dic);
+    NSLog(@"%@",JUserID);
+    NSLog(@"lalal%@",self.titleImage);
+    NSLog(@"%@",descriptionText.text);
+    self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
+    self.requestURL = publicLyricURL;
+    
+}
+
 -(void)addtitlePage
 {
 
@@ -172,8 +260,13 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [NSTool saveImage:image withName:@"lyricTitlePage.png"];
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:fullPath]) {
+        [fm removeItemAtPath:fullPath error:nil];
+    }
+    [NSTool saveImage:image withName:@"lyricTitlePage.png"];
+    
     UIImage * titlepageImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
     //set addtitlePageBtn backgroundImage
     [addTitlePageBtn setBackgroundImage:titlepageImage forState:UIControlStateNormal];
@@ -195,5 +288,31 @@
         placeholderLabel.hidden = NO;
     }
 }
+
+-(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
+{
+   
+    WS(wSelf);
+    __block NSString * file = titleImageURL;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:photoPath]) {
+        QNUploadManager * upManager = [[QNUploadManager alloc] init];
+        NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
+        [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            
+            
+            wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+            if (isLyric) {
+                [wSelf publicWithType:YES];
+            }else{
+                [wSelf publicWithType:NO];
+            }
+            
+        } option:nil];
+    }
+    
+    return file;
+}
+
 
 @end

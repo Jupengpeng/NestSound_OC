@@ -48,6 +48,8 @@
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */; };
 		18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8331CF15ED50012880E /* libmp3lame.a */; };
+		2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */; };
+		2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */; };
 		2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */; };
 		2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */; };
 		2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */; };
@@ -263,6 +265,10 @@
 		18FFE8321CF15ED50012880E /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		18FFE8331CF15ED50012880E /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		18FFE8351CF1809F0012880E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		2A0057F11D111FB70028D4D2 /* NSGetQiNiuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSGetQiNiuModel.h; sourceTree = "<group>"; };
+		2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSGetQiNiuModel.m; sourceTree = "<group>"; };
+		2A0057F41D11263D0028D4D2 /* NSPublicLyricModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPublicLyricModel.h; sourceTree = "<group>"; };
+		2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPublicLyricModel.m; sourceTree = "<group>"; };
 		2A0B722E1CFF51B7003957E3 /* NSMusicSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayViewController.h; sourceTree = "<group>"; };
 		2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayViewController.m; sourceTree = "<group>"; };
 		2A0B72311CFF54F9003957E3 /* NSMusicSayListMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayListMode.h; sourceTree = "<group>"; };
@@ -880,6 +886,10 @@
 				2AAE01BD1CFC0F7F008D3145 /* NSMyLricListModel.m */,
 				2AB2D52A1CFCB086007422BD /* NSLyricLibraryListModel.h */,
 				2AB2D52B1CFCB086007422BD /* NSLyricLibraryListModel.m */,
+				2A0057F11D111FB70028D4D2 /* NSGetQiNiuModel.h */,
+				2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */,
+				2A0057F41D11263D0028D4D2 /* NSPublicLyricModel.h */,
+				2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1762,6 +1772,7 @@
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
+				2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */,
 				2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */,
 				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
 				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,
@@ -1792,6 +1803,7 @@
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
+				2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */,
 				2AAE01CA1CFC209E008D3145 /* NSForgetPassWordViewController.m in Sources */,
 				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
