@@ -104,10 +104,7 @@ static id _instance;
         [self fetchPlayDataWithItemId:self.itemId];
 
     }
-    
-    
-    
-    
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

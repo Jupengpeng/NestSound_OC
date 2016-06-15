@@ -7,9 +7,10 @@
 //
 
 #import "NSBaseViewController.h"
-
+@class publicLyricModel;
 @interface NSShareViewController : NSBaseViewController
 
 @property (nonatomic,strong) NSMutableDictionary * shareDataDic;
+@property (nonatomic,strong) publicLyricModel * publicModel;
 
 @end

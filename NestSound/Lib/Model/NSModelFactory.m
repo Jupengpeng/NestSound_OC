@@ -26,6 +26,8 @@
 #import "NSSystemMessageListModel.h"
 #import "NSPlayMusicDetailModel.h"
 #import "NSCommentListModel.h"
+#import "NSGetQiNiuModel.h"
+#import "NSPublicLyricModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -85,6 +87,11 @@
     
     }else if ([url isEqualToString:otherCenterURL]){
         return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:publicLyricURL]){
+        return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
+        
+    }else if ([url isEqualToString:getQiniuDetail]){
+        return [[NSGetQiNiuModel alloc] initWithJSONDict:jsonDict];
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

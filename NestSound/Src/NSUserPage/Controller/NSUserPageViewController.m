@@ -58,7 +58,6 @@ UITableViewDataSource>
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupUI];
     type = 1;
 }
 
@@ -76,6 +75,7 @@ UITableViewDataSource>
         nav.navigationBar.hidden = YES;
         [self presentViewController:nav animated:YES completion:nil];
     }
+    self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
     
 }
 
@@ -118,7 +118,7 @@ UITableViewDataSource>
         
         }else{
         
-            NSDictionary * dic = @{@"otherid":userId,@"uid":userId,@"page":[NSNumber numberWithInt:currentPage],@"type":@"1"};
+            NSDictionary * dic = @{@"otherid":userId,@"uid":userId,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             url = [otherCenterURL stringByAppendingString:str];
@@ -433,7 +433,14 @@ UITableViewDataSource>
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    NSArray *array = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
+    NSArray *array;
+
+    if (self.who == Myself) {
+       array = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
+    }else{
+        array = @[@"歌曲",@"歌词",@"收藏"];
+    }
+    
     
     UIView *backgoundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 60)];
     
@@ -581,7 +588,11 @@ UITableViewDataSource>
 //    
 //}
 
-
+-(void)setWho:(Who)who
+{
+    _who = who;
+    [self setupUI];
+}
 
 @end
 
