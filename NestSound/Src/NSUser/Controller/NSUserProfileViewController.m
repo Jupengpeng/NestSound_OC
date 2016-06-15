@@ -31,7 +31,7 @@ UINavigationControllerDelegate
     NSString * male;
     NSIndexPath * cellIndex;
     NSChangeNameViewController * changeName;
-    NSString * name;
+    NSString * nickName;
     NSString * signature;
     NSString * url ;
     NSString * userIconUrl;
@@ -76,7 +76,9 @@ static NSString * const settingCellIditify = @"settingCell";
 {
 
     self.title =LocalizedStr(@"prompt_completeMessage");
-    self.showBackBtn = YES;
+//    self.showBackBtn = YES;
+    UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(getBack)];
+    self.navigationItem.leftBarButtonItem = back;
     
     settingTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     settingTableView.dataSource = self;
@@ -90,6 +92,7 @@ static NSString * const settingCellIditify = @"settingCell";
     datePicker.hidden = YES;
     [datePicker.choseBtn addTarget:self action:@selector(ensureBirthday) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:datePicker];
+    [datePicker.cancelBtn addTarget:self action:@selector(cancelChose) forControlEvents:UIControlEventTouchUpInside];
     
     photoActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LocalizedStr(@"prompt_cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(@"prompt_takePhoto"),LocalizedStr(@"prompt_photoLibary"), nil];
     photoActionSheet.tag = 103;
@@ -112,13 +115,25 @@ static NSString * const settingCellIditify = @"settingCell";
     
 }
 
+-(void)getBack
+{
+    [self changeProfile];
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
+
 -(void)ensureBirthday
 {
     NSDate * bir = datePicker.choseBirthday.date;
-    birthday = [date datetoLongStringWithDate:bir];
-    
+    birthday = [date datetoStringWithDate:bir];
+    datePicker.hidden = YES;
+    [settingTableView reloadData];
 }
 
+-(void)cancelChose
+{
+    datePicker.hidden = YES;
+}
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -191,7 +206,7 @@ static NSString * const settingCellIditify = @"settingCell";
     }else if (row == 1){
         settingCell.textLabel.text = LocalizedStr(@"prompt_nickName");
         valueLabel.hidden = NO;
-        valueLabel.text = @"hjay";
+        valueLabel.text = nickName;
         
     }else if (row == 2){
         settingCell.textLabel.text = LocalizedStr(@"prompt_sex");
@@ -200,10 +215,10 @@ static NSString * const settingCellIditify = @"settingCell";
         
     }else if (row == 3){
         settingCell.textLabel.text = LocalizedStr(@"prompt_birthday");
-        valueLabel.text = @"1992-12-5";
+        valueLabel.text = birthday;
     }else if (row == 4){
         settingCell.textLabel.text = LocalizedStr(@"prompt_desc");
-        valueLabel.text = @"lalallal";
+        valueLabel.text = signature;
     }
 
 
@@ -221,7 +236,12 @@ static NSString * const settingCellIditify = @"settingCell";
         cellIndex = indexPath;
     }else if (row == 1){
         changeName = [[NSChangeNameViewController alloc] initWithType:@"name" ];
+       
         [self.navigationController pushViewController:changeName animated:YES];
+        [changeName returnName:^(NSString *name) {
+            nickName = name;
+            [tableView reloadData];
+        }];
     }else if (row == 2){
     
         [choseMale showInView:self.view];
@@ -230,7 +250,10 @@ static NSString * const settingCellIditify = @"settingCell";
     }else if (row == 4){
         changeName = [[NSChangeNameViewController alloc] initWithType:nil];
         [self.navigationController pushViewController:changeName animated:YES];
-    
+        [changeName returnName:^(NSString *name) {
+            signature = name;
+            [tableView reloadData];
+        }];
     }
     
     
@@ -320,7 +343,7 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)changeProfile
 {
     self.requestType = NO;
-    self.requestParams = @{@"uid":JUserID,@"nickname":name,@"sex":male,@"signature":signature,@"birthday":birthday};
+    self.requestParams = @{@"uid":JUserID,@"nickname":nickName,@"sex":male,@"signature":signature,@"birthday":birthday,@"token":LoginToken};
     self.requestURL = changeProfileURL;
 
 }

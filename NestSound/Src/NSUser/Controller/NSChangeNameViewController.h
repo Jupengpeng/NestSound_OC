@@ -8,8 +8,13 @@
 
 #import "NSBaseViewController.h"
 
+typedef void(^returnName)(NSString * name);
 @interface NSChangeNameViewController : NSBaseViewController
 
+@property (nonatomic,copy) returnName  returnNameBlock;
+
 -(instancetype)initWithType:(NSString *)type;
+
+-(void)returnName:(returnName)block;
 
 @end

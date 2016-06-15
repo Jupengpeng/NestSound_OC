@@ -7,7 +7,7 @@
 //
 
 #import "NSInspirationRecordTableViewCell.h"
-
+#import "NSMyMusicModel.h"
 @interface NSInspirationRecordTableViewCell () {
     
     UILabel *_dayLabel;
@@ -185,7 +185,19 @@
     
 }
 
-
+-(void)setMyInspirationModel:(NSMyMusicModel *)myInspirationModel
+{
+    _myInspirationModel = myInspirationModel;
+    [_backgroundImageView setDDImageWithURLString:_myInspirationModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    self.descriptionLabel.text = self.myInspirationModel.spireContent;
+    NSDateFormatter * dateFormater = [[NSDateFormatter alloc] init];
+    [dateFormater setDateFormat: @"YYYY"];
+    _yearLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
+    [dateFormater setDateFormat:@"MM"];
+    _monthLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
+    [dateFormater setDateFormat:@"dd"];
+    _dayLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
+}
 
 
 @end

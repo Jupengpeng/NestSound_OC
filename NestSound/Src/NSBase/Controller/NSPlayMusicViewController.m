@@ -269,6 +269,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
+        [Share ShareWithTitle:_musicDetail.title andShareUrl:_musicDetail.shareURL andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
         NSLog(@"点击了播放界面的分享");
         
     }];

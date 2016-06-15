@@ -19,5 +19,10 @@
 @property (nonatomic,assign) long upvoteNum;
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * titleImageUrl;
-
+@property (nonatomic,assign) long userID;
+@property (nonatomic,copy) NSString * author;
+@property (nonatomic,copy) NSDate * inTableTime;
+@property (nonatomic,assign) int type;
+@property (nonatomic,copy) NSString * spireContent;
+@property (nonatomic,copy) NSString * audio;
 @end

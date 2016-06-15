@@ -17,7 +17,15 @@
              @"lookNum":@"looknum",
              @"upvoteNum":@"zannum",
              @"title":@"name",
-             @"titleImageUrl":@"pic"
+             @"titleImageUrl":@"pic",
+             @"userID":@"uid",
+             @"author":@"author",
+             @"inTableTime":@"intabletime",
+             @"type":@"type",
+             @"spireContent":@"spirecontent",
+             @"audio":@"audio"
+             
+             
              };
 }
 @end

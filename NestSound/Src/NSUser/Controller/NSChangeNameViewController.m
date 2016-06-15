@@ -44,6 +44,8 @@ UITextFieldDelegate
         self.title = @"修改描述";
     }
     
+    UIBarButtonItem * complete = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(completeChange)];
+    self.navigationItem.rightBarButtonItem = complete;
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     nameText = [[UITextField alloc] init];
     nameText.font = [UIFont systemFontOfSize:15];
@@ -62,30 +64,15 @@ UITextFieldDelegate
     
 }
 
-
--(void)changeNameWithContent:(NSString *)content
+-(void)completeChange
 {
-   
-    self.requestParams =@{@"type":@(NO),@"":@"",@"":@""};
-    if ([Type isEqualToString:@"name"]) {
-#warning changeName url
-//        self.requestURL = ;
-    }else{
-#warning changeDetaile url
-//        self.requestURL = ;
-    }
-}
-#pragma mark -actionFetchData
--(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
-{
-//    if ([operation.urlTag isEqualToString:]) {
-//    
-//        
-//    }else if ([operation.urlTag isEqualToString:]){
-//    
-//    
-//    }
+    self.returnNameBlock(nameText.text);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)returnName:(returnName)block
+{
+    self.returnNameBlock = block;
+}
 
 @end

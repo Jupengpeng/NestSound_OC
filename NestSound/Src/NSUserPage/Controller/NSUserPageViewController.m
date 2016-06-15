@@ -36,6 +36,7 @@ UITableViewDataSource>
     NSString * myUrl;
     NSString * otherUrl;
     NSString * url;
+    int type;
     NSTableHeaderView *headerView ;
 }
 
@@ -58,12 +59,7 @@ UITableViewDataSource>
     [super viewDidLoad];
     
     [self setupUI];
-    
-    
-    
-   
-   
-   
+    type = 1;
 }
 
 
@@ -112,7 +108,7 @@ UITableViewDataSource>
     if (userDic) {
         
         if (who == Myself) {
-            NSDictionary * dic = @{@"uid":JUserID,@"token":userDic[@"userLoginToken"],@"page":[NSNumber numberWithInt:currentPage],@"type":@"1"};
+            NSDictionary * dic = @{@"uid":JUserID,@"token":userDic[@"userLoginToken"],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             
@@ -153,15 +149,16 @@ UITableViewDataSource>
                 [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
             
             }
+            if (!operation.isLoadingMore) {
+                [_tableView.pullToRefreshView stopAnimating];
+            }else{
+                [_tableView.infiniteScrollingView stopAnimating];
+            }
+
             dataAry = myMusicAry;
             [_tableView reloadData];
         }
-        if (!operation.isLoadingMore) {
-            [_tableView.pullToRefreshView stopAnimating];
-        }else{
-            [_tableView.infiniteScrollingView stopAnimating];
-        }
-    }else{
+            }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
     }
     
@@ -222,8 +219,8 @@ UITableViewDataSource>
     [headerView.fansBtn addTarget:self action:@selector(fansBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height)];
-
+    _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
+    
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _tableView.delegate = self;
@@ -236,6 +233,7 @@ UITableViewDataSource>
     
     WS(wSelf);
     _tableView.showsVerticalScrollIndicator = NO;
+    //loadingMore
      [_tableView addDDInfiniteScrollingWithActionHandler:^{
          if (!wSelf) {
              return ;
@@ -246,7 +244,7 @@ UITableViewDataSource>
      }];
     
     
-    
+    _tableView.showsInfiniteScrolling = NO;
     
     [self.view addSubview:_tableView];
     
@@ -365,7 +363,7 @@ UITableViewDataSource>
             
             make.left.equalTo(cell.mas_left);
         }];
-        
+        cell.myMusicModel = dataAry[indexPath.row];
         cell.numLabel.hidden = YES;
         
         return cell;
@@ -389,7 +387,7 @@ UITableViewDataSource>
             
             make.left.equalTo(cell.mas_left);
         }];
-        
+        cell.myMusicModel = dataAry[indexPath.row];
         cell.numLabel.hidden = YES;
         
         return cell;
@@ -405,7 +403,7 @@ UITableViewDataSource>
             cell = [[NSInspirationRecordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             
         }
-   
+        cell.myInspirationModel = dataAry[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
@@ -495,12 +493,15 @@ UITableViewDataSource>
         case 0: {
             
             self.btnTag = toolbarBtn.tag;
+            type = 1 ;
+            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+//            [_tableView reloadData];
+            if (dataAry.count != 0) {
+                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            }
             
-            [_tableView reloadData];
             
-//            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了灵感记录");
+            NSLog(@"点击了歌曲");
             
             break;
         }
@@ -508,35 +509,44 @@ UITableViewDataSource>
             
             self.btnTag = toolbarBtn.tag;
             
-            [_tableView reloadData];
+            type = 2;
+            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+//            [_tableView reloadData];
             
-//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            if (dataAry.count != 0) {
+                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            }
             
-            NSLog(@"点击了歌曲");
+            NSLog(@"点击了歌词");
             
             break;
         }
         case 2: {
             
             self.btnTag = toolbarBtn.tag;
+            type = 3;
+            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+//            [_tableView reloadData];
             
-            [_tableView reloadData];
+            if (dataAry.count != 0) {
+                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            }
             
-//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了歌词");
+            NSLog(@"点击了收藏");
             
             break;
         }
         case 3: {
             
             self.btnTag = toolbarBtn.tag;
+            type = 4;
+            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+//            [_tableView reloadData];
+            if (dataAry.count != 0) {
+                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            }
             
-            [_tableView reloadData];
-            
-//             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            
-            NSLog(@"点击了收藏");
+            NSLog(@"点击了灵感记录");
             
             break;
         }

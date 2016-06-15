@@ -11,7 +11,7 @@
 #import "NSUserFeedbackViewController.h"
 #import "NSLyricDetailModel.h"
 #import "NSCommentViewController.h"
-
+#import "NSUserPageViewController.h"
 
 @interface NSLyricViewController ()<UMSocialUIDelegate>
 {
@@ -179,6 +179,10 @@
        
         
     } action:^(UIButton *btn) {
+        
+        NSUserPageViewController * userPageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.lyricDetail.userId]];
+        userPageVC.who = Other;
+        [self.navigationController pushViewController:userPageVC animated:YES];
         
         NSLog(@"点击了头像");
     }];

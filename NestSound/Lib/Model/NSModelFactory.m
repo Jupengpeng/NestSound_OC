@@ -83,6 +83,8 @@
     }else if ([url isEqualToString:commentURL]){
         return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
     
+    }else if ([url isEqualToString:otherCenterURL]){
+        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     
