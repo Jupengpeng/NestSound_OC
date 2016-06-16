@@ -64,7 +64,8 @@ UICollectionViewDelegateFlowLayout
 -(void)configureUIAperance
 {
     //title
-    self.title = LocalizedStr(@"promot_song");
+    self.title = @"歌单";
+//    LocalizedStr(@"promot_song");
     self.view.backgroundColor = [UIColor whiteColor];
     //collection
     UICollectionViewFlowLayout * SongListCollLayOut = [[UICollectionViewFlowLayout alloc] init];

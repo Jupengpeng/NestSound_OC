@@ -173,7 +173,8 @@
     titleTextFiled = [[UITextField alloc] init];
     titleTextFiled.textAlignment = NSTextAlignmentCenter;
     titleTextFiled.font = [UIFont systemFontOfSize:15];
-    titleTextFiled.placeholder = LocalizedStr(@"promot_title");
+    titleTextFiled.placeholder = @"请输入标题";
+//    LocalizedStr(@"promot_title");
     titleTextFiled.borderStyle = UITextBorderStyleNone;
     titleTextFiled.delegate = self;
     [self.view addSubview:titleTextFiled];

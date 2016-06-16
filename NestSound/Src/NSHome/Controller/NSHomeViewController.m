@@ -388,7 +388,9 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         reusable.bannerAry = bannerAry;
         
-        reusable.titleLable.text = LocalizedStr(@"promot_recommendWorks");
+        reusable.titleLable.text = @"推荐作品";
+//        NSLocalizedString(@"promot_recommendWorks", @"");
+//        LocalizedStr(@"promot_recommendWorks");
         
     } else if (indexPath.section == 1) {
         
@@ -400,14 +402,16 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         [[reusable viewWithTag:200] removeFromSuperview];
         
-        reusable.titleLable.text = LocalizedStr(@"promot_recommendSongList");
+        reusable.titleLable.text = @"推荐歌单";
+//        LocalizedStr(@"promot_recommendSongList");
 
     } else if (indexPath.section == 2) {
         [[reusable viewWithTag:100] removeFromSuperview];
         
         [[reusable viewWithTag:200] removeFromSuperview];
         
-        reusable.titleLable.text = LocalizedStr(@"promot_newWorks");
+        reusable.titleLable.text = @"最新作品";
+//        LocalizedStr(@"promot_newWorks");
         
     } else {
         
@@ -419,7 +423,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
         [[reusable viewWithTag:200] removeFromSuperview];
 
-        reusable.titleLable.text = LocalizedStr(@"promot_musicSay");
+        reusable.titleLable.text = @"乐说";
+//        LocalizedStr(@"promot_musicSay");
 
     }
     

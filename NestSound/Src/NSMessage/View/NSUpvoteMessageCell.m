@@ -145,9 +145,11 @@
 {
     _isUpvote = isUpvote;
     if (_isUpvote) {
-        upvoteLabel.text = LocalizedStr(@"prompt_userUpvote");
+        upvoteLabel.text = @"点赞了你的作品";
+//        LocalizedStr(@"prompt_userUpvote");
     }else{
-        upvoteLabel.text = LocalizedStr(@"prompt_userCollection");
+        upvoteLabel.text = @"收藏了你的作品";
+//        LocalizedStr(@"prompt_userCollection");
     }
 
 }

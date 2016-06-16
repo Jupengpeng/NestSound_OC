@@ -44,11 +44,11 @@
     
     _choseBtn = [[UIButton alloc] init];
     [_choseBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [_choseBtn setTitle:LocalizedStr(@"prompt_cancel") forState:UIControlStateNormal];
+    [_choseBtn setTitle:@"确认" forState:UIControlStateNormal];
     [bar addSubview:_choseBtn];
     
     _cancelBtn = [[UIButton alloc] init];
-    [_cancelBtn setTitle:LocalizedStr(@"prompt_ensure")forState:UIControlStateNormal];
+    [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [_cancelBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [bar addSubview:_cancelBtn];
     

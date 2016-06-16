@@ -163,7 +163,8 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         if (row == 0) {
             settingCell.accessoryType = UITableViewCellAccessoryNone;
             index = indexPath;
-            settingCell.textLabel.text = LocalizedStr(@"prompt_clearCache");
+            settingCell.textLabel.text = @"清理缓存";
+//            LocalizedStr(@"prompt_clearCache");
             valueLabel.hidden = NO;
             valueLabel.text = [Memory getCacheSize];
             
@@ -174,10 +175,12 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             not.hidden = NO;
             
         }else if (row == 2){
-            settingCell.textLabel.text = LocalizedStr(@"prompt_rating");
+            settingCell.textLabel.text = @"去评分";
+//            LocalizedStr(@"prompt_rating");
         
         }else if (row == 3){
-            settingCell.textLabel.text = LocalizedStr(@"prompt_userFeedback");
+            settingCell.textLabel.text = @"用户反馈";
+//            LocalizedStr(@"prompt_userFeedback");
 
         }
         
@@ -188,7 +191,8 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             loginOutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoginOutIdefity];
             
         }
-        loginOutCell.textLabel.text = LocalizedStr(@"prompt_loginOut");
+        loginOutCell.textLabel.text = @"退出登录";
+//        LocalizedStr(@"prompt_loginOut");
         loginOutCell.textLabel.textAlignment = NSTextAlignmentCenter;
         
         return loginOutCell;

@@ -108,11 +108,12 @@ UITableViewDataSource
     imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.0_message_system.png"];
     
     //titleAry
-    titleAry = @[LocalizedStr(@"prompt_commentMessage"),
-                 LocalizedStr(@"prompt_upvote"),
-                 LocalizedStr(@"prompt_collection"),
-                 LocalizedStr(@"prompt_systemMessage")
-                 ];
+    titleAry = @[@"评论",@"赞",@"收藏",@"系统消息"];
+//  @[LocalizedStr(@"prompt_commentMessage"),
+//                 LocalizedStr(@"prompt_upvote"),
+//                 LocalizedStr(@"prompt_collection"),
+//                 LocalizedStr(@"prompt_systemMessage")
+//                 ];
     
     
     //messageType table
@@ -209,16 +210,20 @@ UITableViewDataSource
     NSMessageListViewController * messageListVC = [[NSMessageListViewController alloc] init];
     switch (row) {
         case 0:
-            messageListVC.messageListType = LocalizedStr(@"prompt_commentMessage");
+            messageListVC.messageListType = @"评论";
+//            LocalizedStr(@"prompt_commentMessage");
             break;
         case 1:
-            messageListVC.messageListType = LocalizedStr(@"prompt_upvote");
+            messageListVC.messageListType = @"赞";
+//            LocalizedStr(@"prompt_upvote");
             break;
         case 2:
-            messageListVC.messageListType = LocalizedStr(@"prompt_collection");
+            messageListVC.messageListType = @"收藏";
+//            LocalizedStr(@"prompt_collection");
             break;
         case 3:
-            messageListVC.messageListType = LocalizedStr(@"prompt_systemMessage");
+            messageListVC.messageListType = @"系统消息";
+//            LocalizedStr(@"prompt_systemMessage");
             break;
             
         default:

@@ -17,6 +17,7 @@
     NSString * workName;
     NSString * titleImageURl;
     NSString * shareUrl;
+    NSString * desc;
 }
 
 @property (nonatomic, strong) NSDictionary *weixinDict;
@@ -109,21 +110,17 @@ static NSString *identifier = @"identifier";
 #pragma mark - chose avaiableShareModule
 -(void)availableShareModue
 {
-//    if ([NSTool isValidateWeiXin]) {
-//        [availableShareModuleAry addObject:_weixinDict];
-//    }
-//    if () {
-//        [availableShareModuleAry addObject:_pengyouquanDict];
-//    }
-//    if () {
-//        [availableShareModuleAry addObject:_weiboDict];
-//    }
-//    if () {
-//        [availableShareModuleAry addObject:_QQDict];
-//    }
-//    if () {
-//        [availableShareModuleAry addObject:_QzoneDict];
-//    }
+    if ([Share shareAvailableWeiXin]) {
+        [availableShareModuleAry addObject:_weixinDict];
+        [availableShareModuleAry addObject:_pengyouquanDict];
+    }
+    if ([Share shareAvailableQQ]) {
+     [availableShareModuleAry addObject:_QQDict];
+     [availableShareModuleAry addObject:_QzoneDict];
+
+    }
+
+    [availableShareModuleAry addObject:_weiboDict];
 
 
 }
@@ -143,21 +140,20 @@ static NSString *identifier = @"identifier";
     workName = _shareDataDic[@"workName"];
     shareUrl = _shareDataDic[@"shareUrl"];
     titleImageURl = _shareDataDic[@"titleImageURl"];
+    desc = _shareDataDic[@"desc"];
 }
 
 #pragma mark -collectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 5;
+    return shareModuleAry.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSShareCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    
-    
-    
+    cell.dic = shareModuleAry[indexPath.row];
     return cell;
 }
 
@@ -165,7 +161,58 @@ static NSString *identifier = @"identifier";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+<<<<<<< HEAD
     
     
+=======
+    NSDictionary * dic = shareModuleAry[indexPath.row];
+    WS(wSelf);
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:titleImageURl];
+    [UMSocialData defaultData].extConfig.title = workName;
+    if ([[dic objectForKey:@"name"] isEqualToString:@"微信"]) {
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl;
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                NSLog(@"分享成功！");
+            }
+        }];
+        
+    }
+    
+    if ([[dic objectForKey:@"name"] isEqualToString:@"朋友圈"]) {
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = shareUrl;
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                NSLog(@"分享成功！");
+            }
+        }];
+    }
+    
+    if ([[dic objectForKey:@"name"] isEqualToString:@"微博"]) {
+        [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                NSLog(@"分享成功！");
+            }
+        }];
+    }
+    if ([[dic objectForKey:@"name"] isEqualToString:@"QQ"]) {
+        [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                NSLog(@"分享成功！");
+            }
+        }];
+    }
+    if ([[dic objectForKey:@"name"] isEqualToString:@"QQ空间"]) {
+        [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                NSLog(@"分享成功！");
+            }
+        }];
+    }
+    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+>>>>>>> c12699983fbae235f2fb732786c1db43919c9411
 }
 @end

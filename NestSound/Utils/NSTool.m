@@ -357,17 +357,16 @@ static NSDateFormatter *dateFormatter;
     
 }
 
-//+(BOOL)shareAvailableWeiXin
-//{
-//    if ([]) {
-//        <#statements#>
-//    }
-//}
-//
-//+(BOOL)shareAvailableFriendZone
-//{
-//    
-//}
++(BOOL)shareAvailableWeiXin
+{
+    if ([WXApi isWXAppInstalled]&&[WXApi isWXAppSupportApi]) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+
 +(BOOL)shareAvailableQQ
 {
     if ([QQApiInterface isQQInstalled]&&[QQApiInterface isQQSupportApi]) {
@@ -376,11 +375,5 @@ static NSDateFormatter *dateFormatter;
         return NO;
     }
 }
-//+(BOOL)shareAvailableQzone
-//{
-//}
-//+(BOOL)shareAvailableSina
-//{
-//    
-//}
+
 @end

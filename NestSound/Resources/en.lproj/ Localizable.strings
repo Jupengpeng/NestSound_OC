@@ -6,74 +6,82 @@
   Copyright © 2016年 yinchao. All rights reserved.
 */
 
-prompt_appName = "NestMusic";
+
+prompt_appName = "音巢音乐";
 
 
 prompt_or = "or";
-prompt_reSend = "reSend";
-prompt_pass = "please input your password";
-prompt_port = "please input your cellPhoneNumber";
-prompt_code = "please input your verfication code";
-prompt_sendCode = "send verfication code";
-prompt_register = "Register";
-prompt_login = "Login";
-prompt_resetPassword = "ResetPassword";
-prompt_resetPass = "ForgetPassword?";
-prompt_validPort = "Cell phone number is incorrect, please re-enter";
-prompt_validCode = "Verify that the code is 4 digits, please re-ente";
-prompt_validPass = "Password length of 6 to 16, please re-enter";
-prompt_noMatchPassAndPassAgain = "Two password entered is not consistent, please re-enter";
-prompt_proxyTailer = "《NestMusic user agreement》";
-prompt_userProxy = "user agreement";
+prompt_reSend = "重发";
+prompt_pass = "请输入密码";
+prompt_port = "请输入手机号";
+prompt_code = "请输入验证码";
+prompt_sendCode = "发送验证码";
+prompt_register = "注册";
+prompt_login = "登录";
+prompt_resetPassword = "修改密码";
+prompt_resetPass = "忘记密码?";
+prompt_validPort = "手机号码有误,请重新输入";
+prompt_validCode = "验证码为4位数字，请重新输入";
+prompt_validPass = "密码长度为6到16位，请重新输入";
+prompt_noMatchPassAndPassAgain = "两次密码输入不一致，请重新输入";
+prompt_proxyTailer = "《音巢音乐用户协议》";
+prompt_userProxy = "用户协议";
+prompt_ensure = "确定";
+prompt_cancel = "取消";
 
 
-promot_recommendWorks="Recommended works";
-promot_recommendSongList="Recommended list";
-promot_newWorks="Latest works";
-promot_musicSay = "Music say";
+prompt_recommendWorks = "推荐作品";
+prompt_recommendSongList ="推荐歌单";
+prompt_newWorks ="最新作品";
+prompt_musicSay = "乐说";
 
-promot_hotActivity = "Hot activities";
-promot_activityIng = "ing";
-promot_activityed = "ed";
-promot_songList = "Song list";
-promot_lyricList = "Lyric list";
-promot_song = "song sheet";
-promot_allLyric = "All Lyrics";
-promot_allSong = "All Songs";
-promot_hot = "Hot";
-promot_new = "New";
+prompt_hotActivity = "热门活动";
+prompt_activityIng = "正在进行中";
+prompt_activityed = "已结束";
+prompt_songList = "歌曲榜";
+prompt_lyricList = "歌词榜";
+prompt_song = "歌单";
+prompt_allLyric = "全部歌词目录";
+prompt_allSong = "全部歌曲目录";
+prompt_hot = "最热";
+prompt_hotMusic = "最热歌曲";
+prompt_new = "最新";
+prompt_newMusic = "最新歌曲";
 
-title_lyricList = "Lyrics charts";
-title_songList = "Song charts";
+title_lyricList = "歌词排行榜";
+title_songList = "歌曲排行榜";
 
-promot_createLyric = "Lyric";
-promot_createSong = "Music";
-promot_createInspiration = "Inspiration";
+prompt_createLyric = "歌词";
+prompt_createSong = "歌曲";
+prompt_createInspiration = "灵感";
 
-promot_save = "Save";
-promot_title = "Please input the title";
-promot_content = "Please input the content";
-promot_publicState = "public switch";
-promot_play_all = "Play all" ;
-prompt_takePhoto = "camera";
-prompt_photoLibary = "photoLibary";
+prompt_save = "保存";
+prompt_title = "请输入标题";
+prompt_content = "请输入内容";
+prompt_publicState = "是否发布";
+prompt_play_all = "播放全部" ;
+prompt_takePhoto = "相机";
+prompt_photoLibary = "手机相册";
 
-title_accompany = "Accompany";
-promot_noAccom = "A cappella";
-promot_recommend = "Recommend";
-promot_all = "ALL";
-promot_next = "next";
-promot_voiceBeautify = "voiceBeautify";
-promot_public = "Public";
-promot_addTitlePage = "AddTitlePage";
-promot_addDesc = "AddDesc...";
-promot_saveDraft = "Save Draft";
+title_accompany = "原唱伴奏";
+prompt_noAccom = "清唱";
+prompt_recommend = "推荐";
+prompt_all = "全部";
+prompt_next = "下一步";
+prompt_voiceBeautify = "一键美化";
+prompt_public = "发布";
+prompt_addTitlePage = "添加封面";
+prompt_addDesc = "添加描述...";
+prompt_saveDraft = "保存草稿";
 
-promot_fans = "fans：";
-promot_focus = "focus：";
-promot_draft = "draft";
-promot_collection = "collection";
-promot_createInspirationRecord = "Inspirtion record";
+prompt_fans = "粉丝";
+prompt_focus = "关注";
+prompt_fansCount = "粉丝：";
+prompt_focusCount = "关注：";
+prompt_draft = "草稿箱";
+prompt_collection = "收藏";
+prompt_createInspirationRecord = "灵感记录";
+
 
 prompt_completeMessage = "完善个人信息";
 prompt_userIcon = "头像";
@@ -81,9 +89,28 @@ prompt_nickName = "昵称";
 prompt_sex = "性别";
 prompt_birthday = "生日";
 prompt_desc = "个性签名";
+prompt_choseMale = "请选择您的性别";
+prompt_male = "男";
+prompt_female = "女";
 
 prompt_clearCache = "清除缓存";
 prompt_newMessageNotifation = "新消息提示";
 prompt_rating = "去评分";
 prompt_userFeedback = "用户反馈";
 prompt_loginOut = "退出登录";
+
+prompt_post = "举报";
+prompt_comment = "请输入您的意见或建议，我们将不断改进";
+prompt_report = "我们会尽快对您举报内容做处理";
+prompt_number = "请输入你的邮箱或电话号码，我们会及时与您取得联系";
+
+prompt_commentMessage = "评论";
+prompt_upvote = "点赞";
+prompt_collection = "收藏";
+prompt_systemMessage = "系统消息";
+prompt_userUpvote = "点赞了你的作品";
+prompt_userCollection = "收藏了你的作品";
+
+prompt_importLyric = "导入歌词";
+prompt_lyricLibrary = "歌词库";
+prompt_lyricCocach = "使用教程";

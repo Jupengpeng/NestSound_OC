@@ -130,7 +130,8 @@ static NSString * cellId = @"SongCell";
 {
     
     //title
-    self.title = LocalizedStr(@"promot_song");
+    self.title = @"歌单";
+//    LocalizedStr(@"promot_song");
     
     //tableView
     songsTable = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];

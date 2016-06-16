@@ -605,7 +605,7 @@ static id _instance;
         
         _musicVc = [[NSMusicListViewController alloc] init];
         
-        NSCommentViewController *commentVC = [[NSCommentViewController alloc] init];
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId:wSelf.musicDetail.itemID andType:1];
         
         commentVC.musicName = wSelf.musicDetail.title;
         
