@@ -214,11 +214,7 @@ static NSString *identifier = @"identifier";
             }
         }];
     }
-<<<<<<< HEAD
-    
-=======
-    [wSelf.navigationController popToRootViewControllerAnimated:YES];
 
->>>>>>> b35939b4a30208d24c9cfcdce9507aa670a4a412
+
 }
 @end
