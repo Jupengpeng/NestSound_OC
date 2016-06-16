@@ -165,7 +165,7 @@ static NSString *identifier = @"identifier";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
- 
+    
     
 }
 @end

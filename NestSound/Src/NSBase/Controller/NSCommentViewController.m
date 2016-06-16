@@ -312,10 +312,10 @@
 
 
 #pragma mark postComment
--(void)postCommentWithComment:(NSString *)comment andUser:(NSString *)user andType:(NSString *)commentType andTargetUID:(NSString *)targetUID
+-(void)postCommentWithComment:(NSString *)comment andUser:(NSString *)user andType:(int)commentType andTargetUID:(long)targetUID
 {
     self.requestType = NO;
-    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":commentType,@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":targetUID};
+    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":@(commentType),@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":@(targetUID)};
     self.requestURL = postCommentURL;
 
 }

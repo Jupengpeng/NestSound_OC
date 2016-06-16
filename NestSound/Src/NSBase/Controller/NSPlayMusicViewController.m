@@ -177,7 +177,7 @@ static id _instance;
     
     [self moreChoice];
     
-    [self addTimer];
+//    [self addTimer];
     
 //    if ([self.player isPlaying]) {
     
@@ -205,7 +205,7 @@ static id _instance;
     
     self.progressBar.maximumValue = self.musicDetail.mp3Times;
     
- 
+    [self addTimer];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 }
@@ -303,17 +303,27 @@ static id _instance;
     } action:^(UIButton *btn) {
         
         btn.selected = !btn.selected;
+        
         if (btn.selected) {
             
             [wSelf addTimer];
-            [wSelf.player play];
-//            [NSPlayMusicTool playMusicWithName:@"我的天空.mp3"];
+            
+            if (wSelf.musicDetail.playURL == nil) {
+                
+//                [wSelf addTimer];
+                
+                [wSelf playMusicUrl:self.ifUrl];
+                
+            } else {
+                
+                [wSelf.player play];
+            }
             
         } else {
             
             [wSelf removeTimer];
             [wSelf.player pause];
-//            [NSPlayMusicTool pauseMusicWithName:@"我的天空.mp3"];
+
         }
         NSLog(@"点击了播放和暂停按钮");
         
@@ -406,7 +416,7 @@ static id _instance;
     } action:^(UIButton *btn) {
         
 //        [wSelf playMusic];
-        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
         
         NSLog(@"点击了上一首按钮");
         
@@ -434,7 +444,7 @@ static id _instance;
         
         
 //        [wSelf playMusic];
-        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
         
         NSLog(@"点击了下一首按钮");
         
@@ -989,6 +999,16 @@ static id _instance;
         [self playMusicUrl:self.musicDetail.playURL];
         
         self.ifUrl = musicDetail.playURL;
+    } else if(![musicDetail.playURL isEqualToString:self.ifUrl]) {
+        
+        self.progressBar.value = 0;
+        
+        [self removeTimer];
+        
+        self.playtime.text = @"00:00";
+        
+        self.playOrPauseBtn.selected = NO;
+        
     }
 }
 

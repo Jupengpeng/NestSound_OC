@@ -15,6 +15,7 @@
 #import "NSAccommpanyListModel.h"
 #import "NSPlayMusicTool.h"
 #import <AVFoundation/AVFoundation.h>
+#import "NSPublicLyricViewController.h"
 
 @interface CenterLine : UIView
 
@@ -62,6 +63,11 @@
 
 @property (nonatomic, strong) NSMutableArray *btns;
 @property (nonatomic, strong) AVAudioPlayer *player;
+
+@property (nonatomic, weak) NSData *data;
+
+@property (nonatomic, strong) NSMutableDictionary *dict;
+
 @end
 
 @implementation NSWriteMusicViewController
@@ -76,13 +82,28 @@
     return _btns;
 }
 
+- (NSMutableDictionary *)dict {
+    
+    if (!_dict) {
+        
+        _dict = [NSMutableDictionary dictionary];
+    }
+    
+    return _dict;
+}
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
+
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
+    
+    NSArray *array = @[next, importLyric];
+    
+    self.navigationItem.rightBarButtonItems = array;
     
     [self setupUI];
     
@@ -118,6 +139,11 @@
         NSString *imageStr = [NSString stringWithFormat:@"2.0_writeMusic_btn%02d",i];
         
         [btn setImage:[UIImage imageNamed:imageStr] forState:UIControlStateNormal];
+        
+        if (i == 0 || i == 4) {
+            
+            btn.hidden = YES;
+        }
         
         if (i == 1) {
             
@@ -205,7 +231,7 @@
     
     titleText.textAlignment = NSTextAlignmentCenter;
     
-    titleText.enabled = NO;
+//    titleText.enabled = NO;
     
     [self.view addSubview:titleText];
     
@@ -240,7 +266,7 @@
     
     lyricView.lyricText.showsVerticalScrollIndicator = NO;
     
-    lyricView.lyricText.editable = NO;
+//    lyricView.lyricText.editable = NO;
     
     [self.view addSubview:lyricView];
     
@@ -299,8 +325,6 @@
         
         if (btn.selected) {
             
-            
-            
             btn1.selected = YES;
             
             [self addLink];
@@ -308,6 +332,10 @@
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
                 
                 self.timerNum = 0;
+                
+                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                
+                self.data = data;
             }];
             
             btn1.userInteractionEnabled = NO;
@@ -395,15 +423,26 @@
 }
 
 
-- (void)rightClick:(UIBarButtonItem *)right {
+- (void)importLyricClick:(UIBarButtonItem *)import {
     
-    NSOptimizeMusicViewController *optimize = [[NSOptimizeMusicViewController alloc] init];
+    NSImportLyricViewController *importLyric = [[NSImportLyricViewController alloc] init];
+    importLyric.delegate = self;
+    [self.navigationController pushViewController:importLyric animated:YES];
     
-    optimize.titleStr = titleText.text;
+    NSLog(@"点击了导入歌词");
+}
+
+
+- (void)nextClick:(UIBarButtonItem *)next {
     
-    optimize.lyricStr = lyricView.lyricText.text;
+    [self.dict setValue:titleText.text forKeyPath:@"lyricName"];
     
-    [self.navigationController pushViewController:optimize animated:YES];
+    [self.dict setValue:lyricView.lyricText.text forKeyPath:@"lyric"];
+    
+    NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+    
+    [self.navigationController pushViewController:public animated:YES];
+    
     
     NSLog(@"点击了下一步");
 }

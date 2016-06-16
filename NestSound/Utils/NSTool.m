@@ -344,7 +344,7 @@ static NSDateFormatter *dateFormatter;
 
 +(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(id)shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_
 {
-
+    
     [UMSocialData defaultData].extConfig.title = title_;
     [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeApp;
 
