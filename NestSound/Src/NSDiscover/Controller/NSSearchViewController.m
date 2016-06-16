@@ -18,7 +18,9 @@
     UIScrollView *_scrollView;
     
     UIView *_lineView;
-    
+    int currentPage;
+    NSString * requestMusicURL;
+    NSString * requestUserURL;
 }
 
 
@@ -32,6 +34,32 @@
     [super viewDidLoad];
     
     [self setupUI];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    
+}
+
+
+-(void)fetchDataWithType:(int)type andIsLoadingMore:(BOOL)isLoadingMore
+{
+    self.requestType = YES;
+    if (!isLoadingMore) {
+        currentPage = 1;
+        self.requestParams = @{kIsLoadingMore:@(NO)};
+    }else{
+        ++currentPage;
+        self.requestParams = @{kIsLoadingMore:@(YES)};
+    }
+//    if (type == 1|| type == 2) {
+//        
+//            requestMusicURL =
+//    }else{
+//    
+//    }
+    
 }
 
 - (void)setupUI {

@@ -16,8 +16,9 @@ pod 'JPush'
 pod 'RSAEncryptor'
 pod 'pop'
 pod'TTTAttributedLabel'
-
+pod 'UMengSocialCOM'
 end
+
 target 'NestSoundTests' do
 
 end

@@ -39,8 +39,7 @@
     headView.layer.cornerRadius = 18;
     headView.layer.masksToBounds = YES;
     [self.contentView addSubview:headView];
-#warning headView placeHold
-    [headView setDDImageWithURLString:nil placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [headView setDDImageWithURLString:nil placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     
     //titleLabel
     titleLabel = [[UILabel alloc] init];

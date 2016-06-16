@@ -97,7 +97,7 @@
   
     _fansModel = fansModel;
     
-    [headerImage setDDImageWithURLString:_fansModel.fansHeadURL placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [headerImage setDDImageWithURLString:_fansModel.fansHeadURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
 
 
     authorLabel.text = _fansModel.fansName;

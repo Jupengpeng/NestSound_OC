@@ -102,8 +102,7 @@
     
     workNameLabel.text = _accompanyModel.title;
     authorNameLabel.text = _accompanyModel.author;
-#warning titlePage placeHolderImage
-    [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 }
 
 @end

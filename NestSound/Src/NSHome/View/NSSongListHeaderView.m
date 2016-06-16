@@ -155,10 +155,8 @@
 #pragma mark - setter && getter
 -(void)setSingListType:(singListModel *)singListType
 {
-    _singListType = singListType;
-#warning placeHolderImage
-    
-    [titlePage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    _singListType = singListType;    
+    [titlePage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     [backImage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
     songListName.text = _singListType.detail;
     songListType.text = _singListType.title;

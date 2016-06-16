@@ -20,6 +20,8 @@
     NSMutableArray * newSongList;
     NSMutableArray * hotSongList;
     BOOL isMusic;
+    NSString * lyricURL;
+    NSString * musicURL;
 }
 
 
@@ -88,20 +90,18 @@ static NSString * const headerView = @"HeaderView";
 {
 
     self.requestType = YES;
-    self.requestParams = @{@"type":@(YES)};
     NSDictionary * dic = @{@"name":@"hjay"};
-    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
-    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-    NSString * url;
+   
+    NSString * str =  [NSTool encrytWithDic:dic];
     if (isMusic) {
-       url = [dicoverMusicURL stringByAppendingString:str];
+       musicURL = [dicoverMusicURL stringByAppendingString:str];
+        self.requestURL = musicURL;
     }else{
-        
-#warning  set url
-        url = [dicoverLyricURL stringByAppendingString:str];
+       lyricURL = [dicoverLyricURL stringByAppendingString:str];
+        self.requestURL = lyricURL;
     }
    
-    self.requestURL = url;
+   
     
 }
 
@@ -109,8 +109,9 @@ static NSString * const headerView = @"HeaderView";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:dicoverMusicURL]) {
+    if (!parserObject.success){
+        NSLog(@"jlsjflsdf");
+        if ([operation.urlTag isEqualToString:musicURL]) {
             
             NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
             if (musicListModel.HotList.hotList.count == 0) {
@@ -125,7 +126,7 @@ static NSString * const headerView = @"HeaderView";
             }
 
             
-        }else if ([operation.urlTag isEqualToString:dicoverLyricURL]){
+        }else if ([operation.urlTag isEqualToString:lyricURL]){
     
         NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
         NSLog(@"dic%lu",(unsigned long)lyricListModel );
@@ -240,8 +241,14 @@ static NSString * const headerView = @"HeaderView";
 - (void)hotMusic:(UIButton *)topBtn {
     
     NSLog(@"点击了热门歌曲的更多");
-    NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot"];
-    [self.navigationController pushViewController:hotMusicVC animated:YES];
+    if (isMusic) {
+        NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:NO];
+        [self.navigationController pushViewController:hotMusicVC animated:YES];
+    }else{
+        NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:YES];
+        [self.navigationController pushViewController:hotMusicVC animated:YES];
+    }
+   
     
 }
 //push newMusicVC
@@ -249,9 +256,18 @@ static NSString * const headerView = @"HeaderView";
     
     NSLog(@"点击了最新歌曲的更多");
     
-    NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:nil];
     
-    [self.navigationController pushViewController:newMusic animated:YES];
+    if (isMusic) {
+        NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:@"lal" andIsLyric:NO];
+        
+        [self.navigationController pushViewController:newMusic animated:YES];
+
+    }else{
+        NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:@"lal" andIsLyric:YES];
+        
+        [self.navigationController pushViewController:newMusic animated:YES];
+
+    }
 }
 
 @end

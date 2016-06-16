@@ -145,6 +145,11 @@ static id _instance;
     
         [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
     }
+    if ([operation.urlTag isEqualToString:upvoteURL] || [operation.urlTag isEqualToString:collectURL]) {
+        if (!parserObject.success) {
+            [[NSToastManager manager] showtoast:@"操作成功"];
+        }
+    }
 
 }
 
@@ -973,8 +978,7 @@ static id _instance;
         _lyricView.lyricText.text = self.musicDetail.lyrics;
         playURL = self.musicDetail.playURL;
         
-#warning placeHolder
-        [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+        [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
         if (self.musicDetail.isZan == 1) {
             upVoteBtn.selected = YES;
         }else{

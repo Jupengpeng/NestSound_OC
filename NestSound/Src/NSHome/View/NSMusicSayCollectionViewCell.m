@@ -44,7 +44,6 @@
     
     [self addSubview:imageView];
     
-#warning placeholdeImage
     imageView.image = [UIImage imageNamed:@"img_03"];
     
     //描述Label
@@ -108,8 +107,7 @@
 #pragma mark -setter &&getter
 -(void)setMusicSay:(NSMusicSay *)musicSay
 {
-#warning placeholder Image
-    [imageView setDDImageWithURLString:musicSay.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [imageView setDDImageWithURLString:musicSay.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 //    describeLabel.text = musicSay.detail;
 //    songNameLabel.text = musicSay.workName;
     

@@ -242,8 +242,7 @@
 -(void)setUserModel:(UserModel *)userModel
 {
     _userModel = userModel;
-#warning placeholderImage
-    [self.iconView setDDImageWithURLString:_userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    [self.iconView setDDImageWithURLString:_userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.userName.text = _userModel.nickName;
     self.introduction.text = _userModel.signature;
   
@@ -252,7 +251,7 @@
 
 -(void)setOtherModel:(UserOtherModel *)otherModel
 {
-
+    _otherModel = otherModel;
     
     [self.followBtn setTitle:[NSString stringWithFormat:@"关注: %zd", _otherModel.focusNum] forState:UIControlStateNormal];
     

@@ -33,7 +33,6 @@ NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNot
     
     self.animationDuration = 0.8;
     self.animationRepeatCount = MAXFLOAT;
-#warning animationImages
     self.animationImages = @[[UIImage imageNamed:@"2.0_loading_1"],
                              [UIImage imageNamed:@"2.0_loading_2"],
                              [UIImage imageNamed:@"2.0_loading_3"],

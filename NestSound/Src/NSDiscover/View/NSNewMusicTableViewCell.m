@@ -328,12 +328,13 @@
 {
     _myMusicModel = myMusicModel;
     self.dateLabel.text =  [date  datetoStringWithDate:_myMusicModel.createDate];
-    [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"UMS_alipay_icon"]];
+    [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.musicName.text = _myMusicModel.title;
 //    self.authorName.text = _myMusicModel.author;
     self.heardLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.lookNum];
     self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.fovNum];
-    
+    self.authorName.text = _myMusicModel.author;
+    self.musicName.text = _myMusicModel.title;
     self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.upvoteNum];
     self.itemId = _myMusicModel.itemId;
 }

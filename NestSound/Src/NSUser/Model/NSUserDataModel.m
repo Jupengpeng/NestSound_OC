@@ -55,7 +55,7 @@
 
     return @{@"userDataModel":@"data",
              @"myMusicList":@"data",
-             @"userOther":@"data"
+             @"userOtherModel":@"data"
              };
 }
 
