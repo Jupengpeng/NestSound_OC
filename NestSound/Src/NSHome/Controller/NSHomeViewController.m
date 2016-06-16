@@ -275,7 +275,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     } else if (indexPath.section == 1) {
         
         CGFloat W = (ScreenWidth - 40) * 0.5;
-        return CGSizeMake(W, W);
+        return CGSizeMake(W, W*0.64);
         
     } else if (indexPath.section == 2) {
         
