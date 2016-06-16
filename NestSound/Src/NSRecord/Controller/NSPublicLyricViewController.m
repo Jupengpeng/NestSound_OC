@@ -95,12 +95,14 @@
     
     addTitlePageLabel = [[UILabel alloc] init];
     addTitlePageLabel.font = [UIFont systemFontOfSize:15];
-    addTitlePageLabel.text = LocalizedStr(@"prompt_addTitlePage");
+    addTitlePageLabel.text = @"添加封面";
+//    LocalizedStr(@"prompt_addTitlePage");
     [backgroundView addSubview:addTitlePageLabel];
     
     publicStateLabel = [[UILabel alloc] init];
     publicStateLabel.font = [UIFont systemFontOfSize:15];
-    publicStateLabel.text = LocalizedStr(@"prompt_publicState");
+    publicStateLabel.text = @"是否发布";
+//    LocalizedStr(@"prompt_publicState");
     [backgroundView addSubview:publicStateLabel];
     
     publicSwitch = [[UISwitch alloc] init];
@@ -113,7 +115,7 @@
     picker.allowsEditing = YES;
     picker.delegate = self;
     
-    chosePhotoLibrary = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LocalizedStr(@"prompt_cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(@"prompt_takePhoto"),LocalizedStr(@"prompt_photoLibary"),nil];
+    chosePhotoLibrary = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"相机",@"相册",nil];
     
     
     //constraints

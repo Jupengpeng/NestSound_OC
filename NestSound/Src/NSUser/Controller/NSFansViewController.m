@@ -94,9 +94,12 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     
     //nav
     if (isFans) {
-        self.title = LocalizedStr(@"prompt_fans");
+        self.title = @"粉丝";
+//        LocalizedStr(@"prompt_fans");
     }else{
-        self.title = LocalizedStr(@"prompt_focus");
+        
+        self.title = @"关注";
+//        LocalizedStr(@"prompt_focus");
     }
     
     

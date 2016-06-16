@@ -85,7 +85,8 @@ UITextFieldDelegate
     cellNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 10)];
     cellNumber.leftViewMode = UITextFieldViewModeAlways;
     cellNumber.delegate = self;
-    cellNumber.placeholder = LocalizedStr(@"number");
+    cellNumber.placeholder = @"请输入你的邮箱或电话号码，我们会及时与您取得联系";
+//    LocalizedStr(@"number");
     cellNumber.font = [UIFont systemFontOfSize:12];
     cellNumber.backgroundColor = [UIColor hexColorFloat:@"ffffff"];
     
@@ -102,11 +103,15 @@ UITextFieldDelegate
     
     //nav
     if ([Type isEqualToString:@"feedBack"]) {
-        self.title = LocalizedStr(@"prompt_userFeedback");
-        placeHolderLabel.text = LocalizedStr(@"prompt_comment");
+        self.title = @"用户反馈";
+//        LocalizedStr(@"prompt_userFeedback");
+        placeHolderLabel.text = @"请输入您的意见或建议，我们将不断改进";
+//        LocalizedStr(@"prompt_comment");
     }else{
-        self.title = LocalizedStr(@"prompt_post");
-        placeHolderLabel.text = LocalizedStr(@"prompt_report");
+        self.title = @"举报";
+//        LocalizedStr(@"prompt_post");
+        placeHolderLabel.text = @"我们会尽快对您举报内容做处理";
+//        LocalizedStr(@"prompt_report");
     }
     
     UIBarButtonItem * upload = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(uploadComment)];

@@ -72,7 +72,8 @@
     playAll = [[UILabel alloc] init];
     playAll.font = [UIFont systemFontOfSize:15];
     playAll.textColor = [UIColor blackColor];
-    playAll.text = LocalizedStr(@"promot_play_all");
+    playAll.text = @"播放全部";
+//    LocalizedStr(@"promot_play_all");
     
     [self addSubview:playAll];
     

@@ -1,0 +1,89 @@
+/* 
+   Localizable.strings
+  NestSound
+
+  Created by 谢豪杰 on 16/4/24.
+  Copyright © 2016年 yinchao. All rights reserved.
+*/
+
+prompt_appName = "NestMusic";
+
+
+prompt_or = "or";
+prompt_reSend = "reSend";
+prompt_pass = "please input your password";
+prompt_port = "please input your cellPhoneNumber";
+prompt_code = "please input your verfication code";
+prompt_sendCode = "send verfication code";
+prompt_register = "Register";
+prompt_login = "Login";
+prompt_resetPassword = "ResetPassword";
+prompt_resetPass = "ForgetPassword?";
+prompt_validPort = "Cell phone number is incorrect, please re-enter";
+prompt_validCode = "Verify that the code is 4 digits, please re-ente";
+prompt_validPass = "Password length of 6 to 16, please re-enter";
+prompt_noMatchPassAndPassAgain = "Two password entered is not consistent, please re-enter";
+prompt_proxyTailer = "《NestMusic user agreement》";
+prompt_userProxy = "user agreement";
+
+
+promot_recommendWorks="Recommended works";
+promot_recommendSongList="Recommended list";
+promot_newWorks="Latest works";
+promot_musicSay = "Music say";
+
+promot_hotActivity = "Hot activities";
+promot_activityIng = "ing";
+promot_activityed = "ed";
+promot_songList = "Song list";
+promot_lyricList = "Lyric list";
+promot_song = "song sheet";
+promot_allLyric = "All Lyrics";
+promot_allSong = "All Songs";
+promot_hot = "Hot";
+promot_new = "New";
+
+title_lyricList = "Lyrics charts";
+title_songList = "Song charts";
+
+promot_createLyric = "Lyric";
+promot_createSong = "Music";
+promot_createInspiration = "Inspiration";
+
+promot_save = "Save";
+promot_title = "Please input the title";
+promot_content = "Please input the content";
+promot_publicState = "public switch";
+promot_play_all = "Play all" ;
+prompt_takePhoto = "camera";
+prompt_photoLibary = "photoLibary";
+
+title_accompany = "Accompany";
+promot_noAccom = "A cappella";
+promot_recommend = "Recommend";
+promot_all = "ALL";
+promot_next = "next";
+promot_voiceBeautify = "voiceBeautify";
+promot_public = "Public";
+promot_addTitlePage = "AddTitlePage";
+promot_addDesc = "AddDesc...";
+promot_saveDraft = "Save Draft";
+
+promot_fans = "fans：";
+promot_focus = "focus：";
+promot_draft = "draft";
+promot_collection = "collection";
+promot_createInspirationRecord = "Inspirtion record";
+
+prompt_completeMessage = "完善个人信息";
+prompt_userIcon = "头像";
+prompt_nickName = "昵称";
+prompt_sex = "性别";
+prompt_birthday = "生日";
+prompt_desc = "个性签名";
+
+prompt_clearCache = "清除缓存";
+prompt_newMessageNotifation = "新消息提示";
+prompt_rating = "去评分";
+prompt_userFeedback = "用户反馈";
+prompt_loginOut = "退出登录";

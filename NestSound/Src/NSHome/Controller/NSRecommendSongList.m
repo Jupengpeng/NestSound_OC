@@ -43,7 +43,8 @@ UICollectionViewDelegate
 -(void)configureUIAppearance
 {
     //title
-    self.title = LocalizedStr(@"promot_song");
+    self.title = @"歌单";
+    LocalizedStr(@"promot_song");
     
     //collection
     

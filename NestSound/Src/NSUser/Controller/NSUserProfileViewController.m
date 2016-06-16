@@ -75,7 +75,8 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)configureAppearance
 {
 
-    self.title =LocalizedStr(@"prompt_completeMessage");
+    self.title = @"完善个人信息";
+//    LocalizedStr(@"prompt_completeMessage");
 //    self.showBackBtn = YES;
     UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(getBack)];
     self.navigationItem.leftBarButtonItem = back;
@@ -94,10 +95,10 @@ static NSString * const settingCellIditify = @"settingCell";
     [self.view addSubview:datePicker];
     [datePicker.cancelBtn addTarget:self action:@selector(cancelChose) forControlEvents:UIControlEventTouchUpInside];
     
-    photoActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:LocalizedStr(@"prompt_cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(@"prompt_takePhoto"),LocalizedStr(@"prompt_photoLibary"), nil];
+    photoActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"相机",@"相册", nil];
     photoActionSheet.tag = 103;
     
-    choseMale = [[UIActionSheet alloc] initWithTitle:LocalizedStr(@"prompt_choseMale") delegate:self cancelButtonTitle:LocalizedStr(@"prompt_cancel") destructiveButtonTitle:nil otherButtonTitles:LocalizedStr(@"prompt_male"),LocalizedStr(@"prompt_female"), nil];
+    choseMale = [[UIActionSheet alloc] initWithTitle:@"请选择您的性别" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男",@"女", nil];
     choseMale.tag =104;
     
     imagePicker = [[UIImagePickerController alloc] init];
@@ -198,26 +199,31 @@ static NSString * const settingCellIditify = @"settingCell";
     UIImageView * userIcon = (UIImageView *)[settingCell.contentView viewWithTag:101];
    
     if (row == 0) {
-        settingCell.textLabel.text = LocalizedStr(@"prompt_userIcon");
+        settingCell.textLabel.text = @"用户头像";
+//        LocalizedStr(@"prompt_userIcon");
         userIcon.image = [UIImage imageNamed:@"2.0_addPicture"];
         userIcon.hidden = NO;
         valueLabel.hidden = YES;
         
     }else if (row == 1){
-        settingCell.textLabel.text = LocalizedStr(@"prompt_nickName");
+        settingCell.textLabel.text = @"昵称";
+//        LocalizedStr(@"prompt_nickName");
         valueLabel.hidden = NO;
         valueLabel.text = nickName;
         
     }else if (row == 2){
-        settingCell.textLabel.text = LocalizedStr(@"prompt_sex");
+        settingCell.textLabel.text = @"性别";
+//        LocalizedStr(@"prompt_sex");
         //male = @"男";
         valueLabel.text = male;
         
     }else if (row == 3){
-        settingCell.textLabel.text = LocalizedStr(@"prompt_birthday");
+        settingCell.textLabel.text = @"生日";
+//        LocalizedStr(@"prompt_birthday");
         valueLabel.text = birthday;
     }else if (row == 4){
-        settingCell.textLabel.text = LocalizedStr(@"prompt_desc");
+        settingCell.textLabel.text = @"个人描述";
+//        LocalizedStr(@"prompt_desc");
         valueLabel.text = signature;
     }
 

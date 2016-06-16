@@ -33,9 +33,11 @@
     [super viewDidLoad];
     
     if ([self.MusicType isEqualToString:@"hot"]) {
-        self.title = LocalizedStr(@"promot_hotMusic");
+        self.title = @"最热歌曲";
+//        LocalizedStr(@"promot_hotMusic");
     }else{
-        self.title = LocalizedStr(@"promot_newMusic");
+        self.title = @"最新歌曲";
+//        LocalizedStr(@"promot_newMusic");
     }
     
     

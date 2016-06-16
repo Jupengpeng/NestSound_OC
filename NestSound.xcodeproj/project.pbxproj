@@ -49,7 +49,7 @@
 		18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8331CF15ED50012880E /* libmp3lame.a */; };
 		2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */; };
 		2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */; };
-		2A0058011D11C17F0028D4D2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A0058001D11C17F0028D4D2 /* Localizable.strings */; };
+		2A0058071D11C4080028D4D2 /*  Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A0058051D11C4080028D4D2 /*  Localizable.strings */; };
 		2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */; };
 		2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */; };
 		2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */; };
@@ -267,7 +267,7 @@
 		2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSGetQiNiuModel.m; sourceTree = "<group>"; };
 		2A0057F41D11263D0028D4D2 /* NSPublicLyricModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPublicLyricModel.h; sourceTree = "<group>"; };
 		2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPublicLyricModel.m; sourceTree = "<group>"; };
-		2A0058001D11C17F0028D4D2 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		2A0058081D11C41A0028D4D2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ Localizable.strings"; sourceTree = "<group>"; };
 		2A0B722E1CFF51B7003957E3 /* NSMusicSayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayViewController.h; sourceTree = "<group>"; };
 		2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayViewController.m; sourceTree = "<group>"; };
 		2A0B72311CFF54F9003957E3 /* NSMusicSayListMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayListMode.h; sourceTree = "<group>"; };
@@ -335,6 +335,7 @@
 		2AAE01C91CFC209E008D3145 /* NSForgetPassWordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSForgetPassWordViewController.m; sourceTree = "<group>"; };
 		2AAE01D11CFC5A40008D3145 /* NSDrawLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDrawLineView.h; sourceTree = "<group>"; };
 		2AAE01D21CFC5A40008D3145 /* NSDrawLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDrawLineView.m; sourceTree = "<group>"; };
+		2AB16BDE1D123E4200A3034C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/ Localizable.strings"; sourceTree = "<group>"; };
 		2AB2D5271CFCAF78007422BD /* NSWriteLyricMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWriteLyricMaskView.h; sourceTree = "<group>"; };
 		2AB2D5281CFCAF78007422BD /* NSWriteLyricMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWriteLyricMaskView.m; sourceTree = "<group>"; };
 		2AB2D52A1CFCB086007422BD /* NSLyricLibraryListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricLibraryListModel.h; sourceTree = "<group>"; };
@@ -1066,8 +1067,8 @@
 		2DFB67191CC1E6DE00DA24DA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2A0058051D11C4080028D4D2 /*  Localizable.strings */,
 				182F33531CDC41AF006AB047 /* Assets.xcassets */,
-				2A0058001D11C17F0028D4D2 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1362,6 +1363,8 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				"zh-Hans",
+				en,
 			);
 			mainGroup = 2DFB66E81CC1E65600DA24DA;
 			productRefGroup = 2DFB66F21CC1E65600DA24DA /* Products */;
@@ -1389,7 +1392,7 @@
 				2AB517441CFEAF4C00583D00 /* UMSCommentDetailController.xib in Resources */,
 				2AB517471CFEAF4C00583D00 /* UMShareEditViewController.xib in Resources */,
 				2AB5174A1CFEAF4C00583D00 /* UMSnsAccountViewController.xib in Resources */,
-				2A0058011D11C17F0028D4D2 /* Localizable.strings in Resources */,
+				2A0058071D11C4080028D4D2 /*  Localizable.strings in Resources */,
 				2AB517551CFEAF4C00583D00 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				2AB517491CFEAF4C00583D00 /* UMSLoginViewController.xib in Resources */,
 				2AB517461CFEAF4C00583D00 /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -1899,6 +1902,18 @@
 			targetProxy = 2DFB670B1CC1E65600DA24DA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2A0058051D11C4080028D4D2 /*  Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A0058081D11C41A0028D4D2 /* zh-Hans */,
+				2AB16BDE1D123E4200A3034C /* en */,
+			);
+			name = " Localizable.strings";
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2DFB67111CC1E65600DA24DA /* Debug */ = {
