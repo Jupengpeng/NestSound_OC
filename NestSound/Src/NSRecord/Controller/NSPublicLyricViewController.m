@@ -10,6 +10,8 @@
 #import "NSGetQiNiuModel.h"
 #import "NSPublicLyricModel.h"
 #import "NSShareViewController.h"
+#import "NSPlayMusicTool.h"
+
 @interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
 
@@ -26,6 +28,11 @@
     UILabel *placeholderLabel;
     NSString * titleImageURL;
     NSString * getQiNiuURL;
+    
+    UIButton *auditionBtn;
+    UILabel *auditionLabel;
+    
+    NSString *mp3URL;
 }
 @property (nonatomic,copy) NSString * titleImage;
 @end
@@ -38,6 +45,7 @@
         
         lyricDic = [NSMutableDictionary dictionaryWithDictionary:LyricDic_];
         isLyric = isLyric_;
+        mp3URL = lyricDic[@"mp3URL"];
     }
     return self;
 }
@@ -99,11 +107,72 @@
 //    LocalizedStr(@"prompt_addTitlePage");
     [backgroundView addSubview:addTitlePageLabel];
     
-    publicStateLabel = [[UILabel alloc] init];
-    publicStateLabel.font = [UIFont systemFontOfSize:15];
-    publicStateLabel.text = @"是否发布";
-//    LocalizedStr(@"prompt_publicState");
-    [backgroundView addSubview:publicStateLabel];
+    if (isLyric) {
+        
+        publicStateLabel = [[UILabel alloc] init];
+        publicStateLabel.font = [UIFont systemFontOfSize:15];
+        publicStateLabel.text = @"是否发布";
+        //    LocalizedStr(@"prompt_publicState");
+        [backgroundView addSubview:publicStateLabel];
+        
+        [publicStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(backgroundView.mas_left).offset(15);
+            make.right.equalTo(backgroundView.mas_centerX);
+            make.centerY.equalTo(backgroundView.mas_bottom).offset(-22);
+        }];
+        
+    } else {
+        
+        auditionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+           
+            [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_play"] forState:UIControlStateNormal];
+            
+            [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_btn01"] forState:UIControlStateSelected];
+            
+        } action:^(UIButton *btn) {
+            
+            btn.selected = !btn.selected;
+            AVPlayer *player;
+            if (btn.selected) {
+                mp3URL = [NSString stringWithFormat:@"http//:www.yincao.cn%@",mp3URL];
+                player = [NSPlayMusicTool playMusicWithUrl:mp3URL block:^(AVPlayerItem *item) {
+                    NSLog(@"%@",mp3URL);
+                    NSLog(@"播放完毕");
+                    
+                }];
+            } else {
+                
+                [player pause];
+            }
+            
+        }];
+        
+        [backgroundView addSubview:auditionBtn];
+        
+        
+        [auditionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(backgroundView.mas_left).offset(15);
+            
+            make.centerY.equalTo(backgroundView.mas_bottom).offset(-22);
+        }];
+        
+        
+        auditionLabel = [[UILabel alloc] init];
+        
+        auditionLabel.text = @"试听";
+        
+        [auditionBtn sizeToFit];
+        
+        [backgroundView addSubview:auditionLabel];
+        
+        [auditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(auditionBtn.mas_right).offset(15);
+            
+            make.centerY.equalTo(backgroundView.mas_bottom).offset(-22);
+        }];
+    }
+    
+   
     
     publicSwitch = [[UISwitch alloc] init];
     publicSwitch.on = YES;
@@ -138,11 +207,7 @@
         make.left.equalTo(addTitlePageBtn.mas_right).with.offset(17);
     }];
     
-    [publicStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(backgroundView.mas_left).offset(15);
-        make.right.equalTo(backgroundView.mas_centerX);
-        make.center.equalTo(backgroundView.mas_bottom).offset(-22);
-    }];
+   
     
     [publicSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(backgroundView.mas_right).offset(-15);

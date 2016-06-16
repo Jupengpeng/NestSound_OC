@@ -88,6 +88,7 @@ extern NSString *port;
 #define getToken @"http://112.124.125.2/java/common/login/tokenCheck?"
 #define changeProfileURL @"http://112.124.125.2/java/userCenter/updateuserinfo"
 #define publicLyricURL @"http://112.124.125.2/java/lyricsopt/optLyrics"
+#define uploadMp3URL  @"http://112.124.125.2/java/common/uploadcallback/uploadmp3"
 
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print

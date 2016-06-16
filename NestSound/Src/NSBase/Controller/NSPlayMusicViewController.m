@@ -999,7 +999,7 @@ static id _instance;
         [self playMusicUrl:self.musicDetail.playURL];
         
         self.ifUrl = musicDetail.playURL;
-    } else if(![musicDetail.playURL isEqualToString:self.ifUrl]) {
+    } else if(![musicDetail.playURL isEqualToString:self.ifUrl] && musicDetail.playURL != nil) {
         
         self.progressBar.value = 0;
         

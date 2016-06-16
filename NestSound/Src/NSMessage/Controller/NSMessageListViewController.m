@@ -180,7 +180,6 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     //nav
     self.title = self.messageListType;
-    self.showBackBtn = YES;
     
     //messageList tableview
     messageList = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];

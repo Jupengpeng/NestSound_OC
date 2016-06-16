@@ -16,6 +16,7 @@
 #import "NSPlayMusicTool.h"
 #import <AVFoundation/AVFoundation.h>
 #import "NSPublicLyricViewController.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface CenterLine : UIView
 
@@ -64,9 +65,13 @@
 @property (nonatomic, strong) NSMutableArray *btns;
 @property (nonatomic, strong) AVAudioPlayer *player;
 
-@property (nonatomic, weak) NSData *data;
+@property (nonatomic, strong) NSData *data;
 
 @property (nonatomic, strong) NSMutableDictionary *dict;
+
+@property (nonatomic, weak)  UIBarButtonItem *next;
+
+@property (nonatomic, copy) NSString *mp3File;
 
 @end
 
@@ -97,7 +102,10 @@
     [super viewDidLoad];
     
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
-
+    
+    next.enabled = NO;
+    
+    self.next = next;
     
     UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
     
@@ -114,7 +122,6 @@
 
 
 - (void)setupUI {
-    
     
     UIView *bottomView = [[UIView alloc] init];
     
@@ -274,6 +281,8 @@
 
 - (void)btnClick:(UIButton *)btn {
     
+    WS(wSelf);
+    
     if (btn.tag == 0) {
         
         NSImportLyricViewController *importLyric = [[NSImportLyricViewController alloc] init];
@@ -303,9 +312,9 @@
                 
                 [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
                     
-                    self.timerNum = 0;
+                    wSelf.timerNum = 0;
                     
-                    [self removeLink];
+                    [wSelf removeLink];
                     
                     btn.selected = YES;
                 }];
@@ -331,11 +340,20 @@
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
                 
-                self.timerNum = 0;
+                wSelf.timerNum = 0;
                 
-                NSData *data = [NSData dataWithContentsOfFile:filePath];
+                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:Simulator filePath:filePath FilePath:^(NSString *newfilePath) {
+                    
+                    NSData *data = [NSData dataWithContentsOfFile:newfilePath];
+                    
+                    wSelf.data = data;
+                    
+                    wSelf.next.enabled = YES;
+                    
+                    wSelf.mp3File = newfilePath;
+                }];
                 
-                self.data = data;
+                
             }];
             
             btn1.userInteractionEnabled = NO;
@@ -435,17 +453,52 @@
 
 - (void)nextClick:(UIBarButtonItem *)next {
     
-    [self.dict setValue:titleText.text forKeyPath:@"lyricName"];
+    // 1.创建网络管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    [self.dict setValue:lyricView.lyricText.text forKeyPath:@"lyric"];
     
-    NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
-    
-    [self.navigationController pushViewController:public animated:YES];
-    
+    [manager POST:uploadMp3URL parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+        
+        [formData appendPartWithFileData:self.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
+        
+        
+    } success:^void(NSURLSessionDataTask * task, id responseObject) {
+        // 请求成功
+        NSLog(@"请求成功 %@", responseObject);
+        
+        NSDictionary *dict;
+        
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            
+            dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+            
+        }
+        
+        
+        NSFileManager *manager = [NSFileManager defaultManager];
+        
+        [manager removeItemAtPath:self.mp3File error:nil];
+        
+        [self.dict setValue:titleText.text forKeyPath:@"lyricName"];
+        
+        [self.dict setValue:lyricView.lyricText.text forKeyPath:@"lyric"];
+        
+        [self.dict setValue:dict[@"data"][@"mp3URL"] forKeyPath:@"mp3URL"];
+        
+        NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+        
+        [self.navigationController pushViewController:public animated:YES];
+        
+    } failure:^void(NSURLSessionDataTask * task, NSError * error) {
+        // 请求失败
+        NSLog(@"请求失败 %@", error);
+    }];
     
     NSLog(@"点击了下一步");
+
+    
 }
+
 
 
 

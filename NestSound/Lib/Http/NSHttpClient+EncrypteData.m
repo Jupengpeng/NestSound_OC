@@ -61,13 +61,17 @@ static NSData* base64_decode(NSString *str){
         NSData * base64DecodeData = base64_decode(par);
         NSString * base64DecodeStr = [[NSString alloc] initWithData:base64DecodeData encoding:NSUTF8StringEncoding];
         NSString * decryptStr =  [RSAEncryptor decryptString:base64DecodeStr publicKey:RSAPublicKey];
+        NSDictionary * resultDataDic;
+        if ([[decryptStr substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"{"] ||[[decryptStr substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"["] ) {
+            resultDataDic = [self dictionaryWithJsonString:decryptStr];
+        }else{
+            resultDataDic = @{@"mp3URL":decryptStr};
+        }
         
-        NSDictionary * resultDataDic = [self dictionaryWithJsonString:decryptStr];
         [dic removeObjectForKey:requestData];
-//        [dic removeAllObjects];
         NSLog(@"ddddd%@",dic);
         if (!resultDataDic) {
-            [[NSToastManager manager] showtoast:@"歌单不存在"];
+//            [[NSToastManager manager] showtoast:@"歌单不存在"];
             return nil;
         }
         [dic setObject:resultDataDic forKey:requestData];

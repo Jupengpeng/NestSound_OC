@@ -10,7 +10,6 @@
 
 @interface NSPublicLyricViewController : NSBaseViewController
 
-
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_;
 
 @end
