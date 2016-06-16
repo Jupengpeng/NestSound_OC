@@ -161,10 +161,6 @@ static NSString *identifier = @"identifier";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-<<<<<<< HEAD
-    
-    
-=======
     NSDictionary * dic = shareModuleAry[indexPath.row];
     WS(wSelf);
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:titleImageURl];
@@ -213,6 +209,6 @@ static NSString *identifier = @"identifier";
         }];
     }
     [wSelf.navigationController popToRootViewControllerAnimated:YES];
->>>>>>> c12699983fbae235f2fb732786c1db43919c9411
+
 }
 @end
