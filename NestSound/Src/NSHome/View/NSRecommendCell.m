@@ -137,8 +137,7 @@
 
     playCountLab.text = _recommend.playCount;
 
-#warning placeholdPicture
-    [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 
     if (recommend.type == 1) {
         [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
@@ -164,8 +163,7 @@
         [listenImage setImage:[UIImage imageNamed:@"2.0_lyricIcon"]];
     }
     
-#warning placeholdPicture
-    [titlePage setDDImageWithURLString:_songNew.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [titlePage setDDImageWithURLString:_songNew.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     
     
 }

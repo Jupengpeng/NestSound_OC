@@ -43,8 +43,7 @@
 -(void)setRecommendSong:(NSRecommendSong *)recommendSong
 {
     
-#warning placeholdImage
-    [imageView setDDImageWithURLString:recommendSong.titleImageURl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [imageView setDDImageWithURLString:recommendSong.titleImageURl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     
 }
 

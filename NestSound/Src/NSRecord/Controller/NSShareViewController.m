@@ -45,8 +45,8 @@ static NSString *identifier = @"identifier";
     self.QQDict             = @{@"icon": @"2.0_shareQQ_btn", @"name": @"QQ"};
     self.QzoneDict          = @{@"icon": @"2.0_qzoneShare_btn", @"name": @"QQ空间"};
     availableShareModuleAry = [NSMutableArray array];
-    
-    [self configureUIAppearance];
+  
+   
 }
 
 
@@ -130,6 +130,7 @@ static NSString *identifier = @"identifier";
 {
     [super viewWillAppear:animated];
     [self availableShareModue];
+     [self configureUIAppearance];
 }
 
 
@@ -147,13 +148,13 @@ static NSString *identifier = @"identifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return shareModuleAry.count;
+    return availableShareModuleAry.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSShareCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    cell.dic = shareModuleAry[indexPath.row];
+    cell.dic = availableShareModuleAry[indexPath.row];
     return cell;
 }
 
@@ -161,7 +162,7 @@ static NSString *identifier = @"identifier";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary * dic = shareModuleAry[indexPath.row];
+    NSDictionary * dic = availableShareModuleAry[indexPath.row];
     WS(wSelf);
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:titleImageURl];
     [UMSocialData defaultData].extConfig.title = workName;
@@ -170,6 +171,7 @@ static NSString *identifier = @"identifier";
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
         
@@ -180,15 +182,17 @@ static NSString *identifier = @"identifier";
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
     }
     
     if ([[dic objectForKey:@"name"] isEqualToString:@"微博"]) {
         [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:self.shareDataDic[@"desc"] image:[UIImage imageNamed:@"2.0_placeHolder"] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
     }
@@ -197,6 +201,7 @@ static NSString *identifier = @"identifier";
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
     }
@@ -205,10 +210,11 @@ static NSString *identifier = @"identifier";
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:self.shareDataDic[@"desc"] image:nil location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 NSLog(@"分享成功！");
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
     }
-    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+
 
 }
 @end

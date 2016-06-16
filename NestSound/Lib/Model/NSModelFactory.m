@@ -28,6 +28,7 @@
 #import "NSCommentListModel.h"
 #import "NSGetQiNiuModel.h"
 #import "NSPublicLyricModel.h"
+#import "NSDiscoverMoreLyricModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -92,6 +93,8 @@
         
     }else if ([url isEqualToString:getQiniuDetail]){
         return [[NSGetQiNiuModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:discoverLyricMoreURL] || [url isEqualToString:discoverMusicMoreURL]){
+        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

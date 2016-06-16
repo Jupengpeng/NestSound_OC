@@ -427,8 +427,6 @@
     NSArray *array = [[NSArray alloc] init];
     
     CGFloat moreChoiceViewH;
-    
-    #warning mark 需要判断是自己的歌词还是别人的歌词
     if (/* DISABLES CODE */ (1) == 1) {
         
         array = @[@"举报",@"分享",@"编辑"];
@@ -567,9 +565,7 @@
 {
     _lyricDetail = lyricDetail;
     itemId = _lyricDetail.itemId;
-    
-#warning placeHolder
-    [userIcon setDDImageWithURLString:_lyricDetail.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    [userIcon setDDImageWithURLString:_lyricDetail.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.title = _lyricDetail.title;
     _nameLabel.text = _lyricDetail.author;
     _dateLabel.text = [date datetoStringWithDate:_lyricDetail.createDate];

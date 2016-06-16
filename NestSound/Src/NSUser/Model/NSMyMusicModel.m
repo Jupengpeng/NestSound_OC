@@ -16,7 +16,7 @@
              @"itemId":@"itemid",
              @"lookNum":@"looknum",
              @"upvoteNum":@"zannum",
-             @"title":@"name",
+             @"title":@"title",
              @"titleImageUrl":@"pic",
              @"userID":@"uid",
              @"author":@"author",

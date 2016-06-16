@@ -12,5 +12,5 @@
 
 @property (nonatomic,copy) NSString * MusicType;
 
--(instancetype)initWithType:(NSString *)type;
+-(instancetype)initWithType:(NSString *)type andIsLyric:(BOOL)isLyric_;
 @end

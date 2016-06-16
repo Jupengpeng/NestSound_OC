@@ -55,6 +55,8 @@ extern NSString *port;
 #define dicoverActivityURL @"http://112.124.125.2/java/common/find/activelist?"
 #define dicoverLyricURL @"http://112.124.125.2/java/common/find/lyrics?"
 #define discoverBandURL @"http://112.124.125.2/java/common/find/rankList?"
+#define discoverLyricMoreURL @"http://112.124.125.2/java/common/find/morelyrics?"
+#define discoverMusicMoreURL @"http://112.124.125.2/java/common/find/moremusic?"
 #define lyricDetailURL @"http://112.124.125.2/java/common/lyrics/detail?"
 #define yueShuoURL @"http://112.124.125.2/java/common/yueshuo/list?"
 #define SongListURL @"http://112.124.125.2/java/common/glee/detail?"

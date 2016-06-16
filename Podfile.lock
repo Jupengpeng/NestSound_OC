@@ -36,6 +36,7 @@ PODS:
   - TheAmazingAudioEngine (1.5.6)
   - TTTAttributedLabel (2.0.0)
   - UMengAnalytics-NO-IDFA (4.0.5)
+  - UMengSocialCOM (5.2.1)
 
 DEPENDENCIES:
   - AFNetworking
@@ -50,6 +51,7 @@ DEPENDENCIES:
   - TheAmazingAudioEngine
   - TTTAttributedLabel
   - UMengAnalytics-NO-IDFA
+  - UMengSocialCOM
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -65,7 +67,8 @@ SPEC CHECKSUMS:
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
+  UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
 
-PODFILE CHECKSUM: 73df8d1ec068d725a714b9656924a8a21285f466
+PODFILE CHECKSUM: 1902b9230c8ed3dec87928eba21498e34a678132
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

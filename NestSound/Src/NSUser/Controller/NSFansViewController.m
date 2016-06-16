@@ -9,6 +9,7 @@
 #import "NSFansViewController.h"
 #import "NSFanscell.h"
 #import "NSUserPageViewController.h"
+#import "NSFansListModel.h"
 @interface NSFansViewController ()
 <
 UITableViewDataSource,
@@ -21,7 +22,7 @@ UITableViewDelegate
     BOOL isFans;
     int currentPage;
     NSString * fansURL;
-    NSString * fansType;
+    int fansType;
 }
 @end
 
@@ -61,11 +62,11 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         ++currentPage;
     }
     if (isFans) {
-        fansType = [NSString stringWithFormat:@"%d",1];
+        fansType = 1;
     }else{
-        fansType = [NSString stringWithFormat:@"%d",2];
+        fansType = 2;
     }
-    NSDictionary * dic = @{@"userid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":fansType};
+    NSDictionary * dic = @{@"userid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSNumber numberWithInt:fansType]};
     NSString * str = [NSTool encrytWithDic:dic];
     fansURL = [myFansListURL stringByAppendingString:str];
     self.requestURL = fansURL;
@@ -79,7 +80,18 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
      
         if ([operation.urlTag isEqualToString:fansURL]) {
             
-            
+            NSFansListModel * fansList = (NSFansListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                fansAry = [NSMutableArray arrayWithArray:fansList.fansListModel];
+            }else{
+                [fansAry addObjectsFromArray:fansList.fansListModel];
+            }
+            [fansTableView reloadData];
+            if (!operation.isLoadingMore) {
+                [fansTableView.pullToRefreshView stopAnimating];
+            }else{
+                [fansTableView.infiniteScrollingView stopAnimating];
+            }
             
         }
         
@@ -110,8 +122,6 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     [fansTableView registerClass:[NSFanscell class] forCellReuseIdentifier:NSFansCellIdeify];
     [self.view addSubview:fansTableView];
     
-    fansAry = [[NSMutableArray alloc] init];
-    
 }
 
 #pragma mark -tableViewDataSource
@@ -136,7 +146,11 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         
     }
     fansCell.fansModel = fansAry[indexPath.row];
-//    fansCell.isFocus = NO;
+    if (isFans) {
+        fansCell.isFans = YES;
+    }else{
+        fansCell.isFans = NO;
+    }
     
     return fansCell;
     

@@ -11,9 +11,10 @@
 #import "NSCommentMessageCell.h"
 #import "NSSystemMessageCell.h"
 #import "NSSystemMessageListModel.h"
-#import "NSCommentMessageListModel.h"
+#import "NSCommentListModel.h"
 #import "NSUpvoteMessageListModel.h"
 #import "NSH5ViewController.h"
+#import "NSCommentTableViewCell.h"
 @interface NSMessageListViewController ()<
 UITableViewDataSource,
 UITableViewDelegate
@@ -137,14 +138,14 @@ static NSString * const systemCellID = @"SystemCellID";
                 
             }
         }else if ([operation.urlTag isEqualToString:commentUrl]){
-            NSCommentMessageListModel * commentMessage = (NSCommentMessageListModel *)parserObject;
+            NSCommentListModel * commentMessage = (NSCommentListModel *)parserObject;
             if (!operation.isLoadingMore) {
-                messageArr = [NSMutableArray arrayWithArray:commentMessage.commentMessageList];
+                messageArr = [NSMutableArray arrayWithArray:commentMessage.commentList];
             }else{
-                if (commentMessage.commentMessageList.count == 0) {
+                if (commentMessage.commentList.count == 0) {
                     
                 }else{
-                    [messageArr addObjectsFromArray:commentMessage.commentMessageList];
+                    [messageArr addObjectsFromArray:commentMessage.commentList];
                 }
                 
             }
@@ -165,7 +166,6 @@ static NSString * const systemCellID = @"SystemCellID";
         [messageList reloadData];
         if (!operation.isLoadingMore) {
             [messageList.pullToRefreshView stopAnimating];
-//            messageList.showsInfiniteScrolling = YES;
         }else{
             [messageList.infiniteScrollingView stopAnimating];
         }
@@ -278,11 +278,11 @@ static NSString * const systemCellID = @"SystemCellID";
         
     }else if (messageType == SystemMessageType){
         NSSystemMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
-        SystemMessageModel * sys = messageArr[row];
-        
+         SystemMessageModel * sys = messageArr[row];
         if (!cell) {
             cell = [[NSSystemMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
         }
+
         if (sys.type == 1 ) {
             cell.isTu = NO;
         }else{
@@ -292,8 +292,12 @@ static NSString * const systemCellID = @"SystemCellID";
         return cell;
         
     }else if (messageType == CommentMessageType){
-        
-        
+        NSCommentTableViewCell * commentCell = [tableView dequeueReusableCellWithIdentifier:comment1CellID];
+        if (!commentCell) {
+            commentCell = [[NSCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:comment1CellID];
+        }
+        commentCell.commentModel = messageArr[indexPath.row];
+        return commentCell;
     }
     return nil;
 }
