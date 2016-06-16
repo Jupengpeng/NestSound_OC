@@ -319,7 +319,9 @@
 -(void)postCommentWithComment:(NSString *)comment andUser:(NSString *)user andType:(int)commentType andTargetUID:(long)targetUID
 {
     self.requestType = NO;
+
     self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID]};
+    
     self.requestURL = postCommentURL;
 
 }
