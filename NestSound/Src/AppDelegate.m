@@ -33,51 +33,35 @@
     self.window.backgroundColor = [UIColor whiteColor];
     NSBaseTabBarViewController *tabController = [[NSBaseTabBarViewController alloc] init];
     
-<<<<<<< HEAD
-//    NSHomeViewController *vc = [[NSHomeViewController alloc] init];
-//    NSLyricViewController *vc = [[NSLyricViewController alloc] init];
-//    NSDiscoverViewController *vc = [[NSDiscoverViewController alloc] init];
-//    NSInspirationRecordViewController *vc = [[NSInspirationRecordViewController alloc] init];
-//    NSUserPageViewController *vc = [[NSUserPageViewController alloc] init];
-//    NSUserProfileViewController  *vc = [[NSUserProfileViewController alloc] init];
-//    NSUserViewController  *vc = [[NSUserViewController alloc] init];
-  //  vc.who = Myself;
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-//    self.window.rootViewController = nav;
-    
-//    [self.window makeKeyAndVisible];
     [UMSocialData setAppKey:umAppKey];
     [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
     [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
     [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
-    [self setupUIAppearance];
-=======
+//    [self setupUIAppearance];
+
     self.window.rootViewController = tabController;
     
     [self.window makeKeyAndVisible];
 
-//    //UMshare
-//    [UMSocialData setAppKey:umAppKey];
-//    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
-//    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
-//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
-//    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
-//    
-//   
-//    
-//    //UmengAnalytics
-//    UMConfigInstance.appKey = umAppKey;
-//    UMConfigInstance.channelId = @"App Store";
-//    [MobClick startWithConfigure:UMConfigInstance];
-//    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-//    [MobClick setAppVersion:version];
-//    
-//    [MobClick setLogEnabled: YES];
+    //UMshare
+    [UMSocialData setAppKey:umAppKey];
+    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
+    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
+    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
     
+   
     
->>>>>>> 191ffaa813045b95a535568a6447d09820393929
+    //UmengAnalytics
+    UMConfigInstance.appKey = umAppKey;
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];
+    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    
+    [MobClick setLogEnabled: YES];
+    
     
     return YES;
 }

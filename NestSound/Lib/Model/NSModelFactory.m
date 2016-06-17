@@ -29,11 +29,9 @@
 #import "NSGetQiNiuModel.h"
 #import "NSPublicLyricModel.h"
 #import "NSDiscoverMoreLyricModel.h"
-<<<<<<< HEAD
 #import "NSSearchUserListModel.h"
-=======
 #import "NSFansListModel.h"
->>>>>>> 191ffaa813045b95a535568a6447d09820393929
+
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -100,13 +98,10 @@
         return [[NSGetQiNiuModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:discoverLyricMoreURL] || [url isEqualToString:discoverMusicMoreURL]){
         return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
-<<<<<<< HEAD
     }else if ([url isEqualToString:searchURL]){
         return [[NSSearchUserListModel alloc] initWithJSONDict:jsonDict];
-=======
     }else if ([url isEqualToString:myFansListURL]){
         return [[NSFansListModel alloc] initWithJSONDict:jsonDict];
->>>>>>> 191ffaa813045b95a535568a6447d09820393929
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     
