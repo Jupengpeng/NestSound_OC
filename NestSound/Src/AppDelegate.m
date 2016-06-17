@@ -32,7 +32,7 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     NSBaseTabBarViewController *tabController = [[NSBaseTabBarViewController alloc] init];
-    
+    [self setupUIAppearance];
     [UMSocialData setAppKey:umAppKey];
     [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
     [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
