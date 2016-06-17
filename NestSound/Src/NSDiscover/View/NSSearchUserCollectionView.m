@@ -8,7 +8,7 @@
 
 #import "NSSearchUserCollectionView.h"
 #import "NSSearchUserCollectionViewCell.h"
-
+#import "NSSearchUserListModel.h"
 @interface NSSearchUserCollectionView () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
@@ -28,7 +28,7 @@ static NSString * const identifier = @"identifierCell";
         self.delegate = self;
         
         self.dataSource = self;
-        
+        self.dataAry = [NSMutableArray array];
         [self registerClass:[NSSearchUserCollectionViewCell class] forCellWithReuseIdentifier:identifier];
         
     }
@@ -38,17 +38,31 @@ static NSString * const identifier = @"identifierCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 9;
+    return _dataAry.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    NSSearchUserModel * user = _dataAry[indexPath.row];
     NSSearchUserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-        
+    cell.searchUser = user;
     return cell;
 }
 
+-(void)setDataAry:(NSMutableArray *)dataAry
+{
+    _dataAry = dataAry;
+    [self reloadData];
+}
 
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self.delegate1 respondsToSelector:@selector(searchUserCollectionView:withUserID:)]) {
+        NSSearchUserModel * user = _dataAry[indexPath.row];
+        [self.delegate1 searchUserCollectionView:self withUserID:user.userID];
+    }
+}
 
 @end
 

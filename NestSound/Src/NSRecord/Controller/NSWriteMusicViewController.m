@@ -115,10 +115,15 @@
     
     [self setupUI];
     
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_addPhoto_btn"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
 }
 
-
+- (void)backClick:(UIBarButtonItem *)back {
+    
+    [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 - (void)setupUI {
@@ -154,9 +159,10 @@
         
         if (i == 1) {
             
-            btn.userInteractionEnabled = NO;
+            btn.enabled = NO;
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_play"] forState:UIControlStateSelected];
+            
         }
         
         if (i == 2) {
@@ -356,7 +362,7 @@
                 
             }];
             
-            btn1.userInteractionEnabled = NO;
+            btn1.enabled = NO;
             
             AVAudioSession *session = [AVAudioSession sharedInstance];
             
@@ -389,7 +395,8 @@
             [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
             [self.player stop];
             
-            btn1.userInteractionEnabled = YES;
+            btn1.enabled = YES;
+            btn.enabled = NO;
         }
         
          NSLog(@"点击了录制");
@@ -398,11 +405,15 @@
         
         UIButton *btn1 = self.btns[1];
         
-        btn1.userInteractionEnabled = NO;
+        btn1.selected = NO;
+        
+        btn1.enabled = NO;
         
         UIButton *btn2 = self.btns[2];
         
         btn2.selected = NO;
+        
+        btn2.enabled = YES;
         
         self.timeLabel.text = @"00:00";
         
@@ -561,5 +572,6 @@
     
     titleText.text = musicName;
 }
+
 
 @end

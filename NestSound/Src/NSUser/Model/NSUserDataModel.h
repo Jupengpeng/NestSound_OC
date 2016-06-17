@@ -9,7 +9,6 @@
 #import "NSBaseModel.h"
 #import "NSMyMusicModel.h"
 
-
 @interface UserOtherModel : NSBaseModel
 @property (nonatomic,assign) long fansNum;
 @property (nonatomic,assign) long focusNum;

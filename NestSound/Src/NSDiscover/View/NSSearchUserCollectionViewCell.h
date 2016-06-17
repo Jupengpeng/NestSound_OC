@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "NSSearchUserListModel.h"
 @interface NSSearchUserCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic,strong) NSSearchUserModel * searchUser;
 
 @end

@@ -68,4 +68,14 @@
     }];
 }
 
+
+-(void)setSearchUser:(NSSearchUserModel *)searchUser
+{
+    _searchUser = searchUser;
+    self.nameLabel.text = searchUser.nickName;
+    [self.icon setDDImageWithURLString:_searchUser.headImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    
+
+}
+
 @end

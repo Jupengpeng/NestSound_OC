@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+@class NSSearchMusicTableView;
+
+@protocol NSSearchMusicTableViewDelegate <NSObject>
+
+- (void)searchMusicTableView:(NSSearchMusicTableView *)tableView;
+
+- (void)searchLyricTableView:(NSSearchMusicTableView *)tableView;
+
+@end
 
 @interface NSSearchMusicTableView : UITableView
 
+@property (nonatomic,strong) NSMutableArray * DataAry;
 
+@property (nonatomic, weak) id<NSSearchMusicTableViewDelegate> delegate1;
 
 @end

@@ -38,13 +38,13 @@
 //    NSInspirationRecordViewController *vc = [[NSInspirationRecordViewController alloc] init];
 //    NSUserPageViewController *vc = [[NSUserPageViewController alloc] init];
 //    NSUserProfileViewController  *vc = [[NSUserProfileViewController alloc] init];
-    NSUserViewController  *vc = [[NSUserViewController alloc] init];
+//    NSUserViewController  *vc = [[NSUserViewController alloc] init];
   //  vc.who = Myself;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     
-    self.window.rootViewController = nav;
+//    self.window.rootViewController = nav;
     
-    [self.window makeKeyAndVisible];
+//    [self.window makeKeyAndVisible];
     [UMSocialData setAppKey:umAppKey];
     [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
     [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];

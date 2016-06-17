@@ -35,6 +35,8 @@
     NSString *mp3URL;
 }
 @property (nonatomic,copy) NSString * titleImage;
+@property (nonatomic, strong) AVPlayerItem *musicItem;
+@property (nonatomic, strong) AVPlayer *player;
 @end
 
 @implementation NSPublicLyricViewController
@@ -53,12 +55,16 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self configureUIAppearance];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 }
 
 -(void)configureUIAppearance
 {
+    WS(wSelf);
+    
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(uploadPhoto)];
@@ -132,17 +138,19 @@
         } action:^(UIButton *btn) {
             
             btn.selected = !btn.selected;
-            AVPlayer *player;
+            
             if (btn.selected) {
-                mp3URL = [NSString stringWithFormat:@"http//:www.yincao.cn%@",mp3URL];
-                player = [NSPlayMusicTool playMusicWithUrl:mp3URL block:^(AVPlayerItem *item) {
+                
+                wSelf.player = [NSPlayMusicTool playMusicWithUrl:[NSString stringWithFormat:@"http://112.124.125.2%@",mp3URL] block:^(AVPlayerItem *item) {
                     NSLog(@"%@",mp3URL);
-                    NSLog(@"播放完毕");
+                    wSelf.musicItem = item;
                     
                 }];
+                
+                
             } else {
                 
-                [player pause];
+                [wSelf.player pause];
             }
             
         }];
@@ -214,6 +222,13 @@
         make.centerY.equalTo(backgroundView.mas_bottom).offset(-22);
     
     }];
+}
+
+- (void)endPlaying {
+    
+    auditionBtn.selected = NO;
+    
+    self.player = nil;
 }
 
 -(void)viewDidDisappear:(BOOL)animated

@@ -12,8 +12,10 @@
 #import "NSActivityViewController.h"
 #import "NSPlayMusicViewController.h"
 #import "NSSearchViewController.h"
+#import "NSUserPageViewController.h"
+#import "NSLyricViewController.h"
 
-@interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
+@interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate, NSSearchViewControllerDelegate> {
     
     UIScrollView *_topScrollView;
     
@@ -56,6 +58,7 @@
         
         _searchVC = [[NSSearchViewController alloc] init];
         
+        _searchVC.delegate1 = self;
     }
     
     return _searchVC;
@@ -81,7 +84,7 @@
     [self setupUI];
     
     
-    _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
+    _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height)];
     
     _maskView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
@@ -102,10 +105,7 @@
     
     self.navigationItem.rightBarButtonItem = nil;
     
-    
-    
     NSLog(@"进入搜索编辑");
-
     
 }
 
@@ -133,6 +133,8 @@
     UIButton *cancelBtn = [searchBar valueForKey:@"cancelButton"]; //首先取出cancelBtn
     
     cancelBtn.enabled = YES; //把enabled设置为yes
+    
+    [self.searchVC fetchData:searchBar.text];
     
     NSLog(@"点击搜索");
     
@@ -308,6 +310,37 @@
     
 }
 
+
+- (void)searchMusicTableView:(NSSearchViewController *)tableView {
+    
+    NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic];
+    
+    [self.navigationController pushViewController:playMusicVC animated:YES];
+    
+    NSLog(@"歌曲");
+}
+
+- (void)searchLyricTableView:(NSSearchViewController *)tableView {
+    
+    NSLyricViewController *lyricVC = [[NSLyricViewController alloc] init];
+    
+    [self.navigationController pushViewController:lyricVC animated:YES];
+    
+    NSLog(@"歌词");
+}
+
+- (void)searchViewController:(NSSearchViewController *)searchVC withUserID:(long)userID {
+    
+    [self searchBarCancelButtonClicked:_search];
+    
+    NSUserPageViewController *userPage = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",userID]];
+    userPage.who = Other;
+    
+    [self.navigationController pushViewController: userPage animated:YES];
+    
+//    [self.parentViewController.navigationController pushViewController:userPage animated:YES];
+
+}
 
 
 @end

@@ -10,19 +10,25 @@
 #import "NSMusicViewController.h"
 #import "NSSearchMusicTableView.h"
 #import "NSSearchUserCollectionView.h"
-
-@interface NSSearchViewController () <UIScrollViewDelegate, UISearchBarDelegate> {
+#import "NSDiscoverMoreLyricModel.h"
+#import "NSSearchUserListModel.h"
+#import "NSUserPageViewController.h"
+@interface NSSearchViewController () <UIScrollViewDelegate, UISearchBarDelegate, NSSearchMusicTableViewDelegate, NSSearchUserCollectionViewDelegate> {
     
     UIScrollView *_topScrollView;
     
-    UIScrollView *_scrollView;
+//    UIScrollView *_scrollView;
     
     UIView *_lineView;
     int currentPage;
     NSString * requestMusicURL;
     NSString * requestUserURL;
+    NSMutableArray * musicDataAry;
+    NSMutableArray * userDataAry;
 }
+@property (nonatomic, strong) UIScrollView *contentScrollView;
 
+@property (nonatomic, copy) NSString *name;
 
 @end
 
@@ -36,10 +42,23 @@
     [self setupUI];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
+
+- (void)fetchData:(NSString *)name {
     
+    self.name = name;
     
+    if (self.contentScrollView.contentOffset.x == 0) {
+        
+        [self fetchDataWithType:1 andIsLoadingMore:NO];
+        
+        NSLog(@"这是搜索的歌曲");
+    } else if (self.contentScrollView.contentOffset.x == ScreenWidth) {
+        [self fetchDataWithType:2 andIsLoadingMore:NO];
+        NSLog(@"这是搜索的歌词");
+    } else {
+        [self fetchDataWithType:3 andIsLoadingMore:NO];
+        NSLog(@"这是搜索的用户");
+    }
 }
 
 
@@ -53,14 +72,42 @@
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-//    if (type == 1|| type == 2) {
-//        
-//            requestMusicURL =
-//    }else{
-//    
-//    }
+    NSDictionary * dic = @{@"type":@(type),@"fansid":JUserID,@"page":@(currentPage),@"name":self.name};
+    NSString * str = [NSTool encrytWithDic:dic];
+    NSLog(@"%@",dic);
+    NSLog(@"%@",str);
+    if (type == 1|| type == 2) {
+        requestMusicURL = [searchURL stringByAppendingString:str];
+        self.requestURL = requestMusicURL;
+    }else{
+        requestUserURL = [searchURL stringByAppendingString:str];
+        self.requestURL = requestUserURL;
+    }
+    
     
 }
+
+
+#pragma mark - override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (!parserObject.success) {
+          NSSearchUserListModel * searchUser = (NSSearchUserListModel *)parserObject;
+        if ([operation.urlTag isEqualToString:requestMusicURL]) {
+            
+            musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+        }else if ([operation.urlTag isEqualToString:requestUserURL]){
+          
+            userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
+            
+        }
+        [self setupContent];
+    }
+
+}
+
+
+#pragma mark -setupUI
 
 - (void)setupUI {
     
@@ -101,19 +148,19 @@
     [_topScrollView addSubview:_lineView];
     
     
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _topScrollView.height, ScreenWidth, self.view.height - _topScrollView.height - 64)];
+    self.contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _topScrollView.height, ScreenWidth, self.view.height - _topScrollView.height - 64)];
     
-    _scrollView.contentSize = CGSizeMake(ScreenWidth * titleArray.count, 0);
+    self.contentScrollView.contentSize = CGSizeMake(ScreenWidth * titleArray.count, 0);
     
-    _scrollView.showsHorizontalScrollIndicator = NO;
+    self.contentScrollView.showsHorizontalScrollIndicator = NO;
     
-    _scrollView.showsVerticalScrollIndicator = NO;
+    self.contentScrollView.showsVerticalScrollIndicator = NO;
     
-    _scrollView.pagingEnabled = YES;
+    self.contentScrollView.pagingEnabled = YES;
     
-    _scrollView.delegate = self;
+    self.contentScrollView.delegate = self;
     
-    [self.view addSubview:_scrollView];
+    [self.view addSubview:self.contentScrollView];
     
     [self setupContent];
     
@@ -125,18 +172,22 @@
 - (void)setupContent {
     
     //歌曲
-    NSSearchMusicTableView *searchMusic = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, _scrollView.height)];
+    NSSearchMusicTableView *searchMusic = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height)];
     
     searchMusic.tag = 1;
+    searchMusic.DataAry = musicDataAry;
+    searchMusic.delegate1 = self;
     
-    [_scrollView addSubview:searchMusic];
+    [self.contentScrollView addSubview:searchMusic];
     
     //歌词
-    NSSearchMusicTableView *searchLyric = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, _scrollView.height)];
+    NSSearchMusicTableView *searchLyric = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, self.contentScrollView.height)];
     
     searchLyric.tag = 2;
+    searchLyric.DataAry = musicDataAry;
+    searchLyric.delegate1 = self;
     
-    [_scrollView addSubview:searchLyric];
+    [self.contentScrollView addSubview:searchLyric];
     
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -151,9 +202,10 @@
     
     layout.sectionInset = UIEdgeInsetsMake(10, 15, 0, 15);
     
-    NSSearchUserCollectionView *searchUser = [[NSSearchUserCollectionView alloc] initWithFrame:CGRectMake(ScreenWidth * 2, 0, ScreenWidth, _scrollView.height) collectionViewLayout:layout];
-    
-    [_scrollView addSubview:searchUser];
+    NSSearchUserCollectionView *searchUser = [[NSSearchUserCollectionView alloc] initWithFrame:CGRectMake(ScreenWidth * 2, 0, ScreenWidth, self.contentScrollView.height) collectionViewLayout:layout];
+    searchUser.delegate1 = self;
+    searchUser.dataAry = userDataAry;
+    [self.contentScrollView addSubview:searchUser];
     
     
     
@@ -164,12 +216,25 @@
 
 - (void)titleBtnClick:(UIButton *)titleBtn {
     
-    [_scrollView setContentOffset:CGPointMake(ScreenWidth * titleBtn.tag, 0) animated:YES];
+    [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * titleBtn.tag, 0) animated:YES];
     
     [UIView animateWithDuration:0.25 animations:^{
         
         _lineView.x = titleBtn.width * titleBtn.tag;
     }];
+    
+    
+    if (titleBtn.tag == 0) {
+        [self fetchDataWithType:1 andIsLoadingMore:NO];
+        NSLog(@"这是搜索的歌曲");
+    } else if (titleBtn.tag == 1) {
+        [self fetchDataWithType:2 andIsLoadingMore:NO];
+
+        NSLog(@"这是搜索的歌词");
+    } else {
+          [self fetchDataWithType:3 andIsLoadingMore:NO];
+        NSLog(@"这是搜索的用户");
+    }
     
 }
 
@@ -179,5 +244,49 @@
     _lineView.x = scrollView.contentOffset.x / ScreenWidth * _lineView.width;
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    if (scrollView.contentOffset.x == 0) {
+        [self fetchDataWithType:1 andIsLoadingMore:NO];
+        NSLog(@"这是搜索的歌曲");
+    } else if (scrollView.contentOffset.x == ScreenWidth) {
+        [self fetchDataWithType:2 andIsLoadingMore:NO];
+        NSLog(@"这是搜索的歌词");
+    } else {
+         [self fetchDataWithType:3 andIsLoadingMore:NO];
+        NSLog(@"这是搜索的用户");
+    }
+}
+
+
+- (void)searchMusicTableView:(NSSearchMusicTableView *)tableView {
+    
+    if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:)]) {
+        
+        [self.delegate1 searchMusicTableView:self];
+    }
+    
+    NSLog(@"歌曲");
+}
+
+- (void)searchLyricTableView:(NSSearchMusicTableView *)tableView {
+    
+    if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:)]) {
+        
+        [self.delegate1 searchLyricTableView:self];
+    }
+    
+    NSLog(@"歌词");
+}
+
+- (void)searchUserCollectionView:(NSSearchUserCollectionView *)collectionView withUserID:(long)userID {
+    
+    if ([self.delegate1 respondsToSelector:@selector(searchViewController:withUserID:)]) {
+        
+        [self.delegate1 searchViewController:self withUserID:userID];
+    }
+    
+    NSLog(@"用户");
+}
 
 @end

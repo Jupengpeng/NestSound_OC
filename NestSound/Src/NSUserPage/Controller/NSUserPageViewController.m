@@ -20,6 +20,7 @@
 #import "NSPlayMusicViewController.h"
 #import "NSLyricViewController.h"
 #import "NSInspirationRecordViewController.h"
+#import "NSMyMusicModel.h"
 @interface NSUserPageViewController ()
 <
 UITableViewDelegate,
@@ -592,6 +593,39 @@ UITableViewDataSource>
             break;
     }
 }
+
+#pragma mark edit
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        
+        self.requestType = NO;
+        
+        NSMyMusicModel * myMode = dataAry[indexPath.row];
+        
+        self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
+        
+        self.requestURL = deleteWorkURL;
+        
+        [dataAry removeObjectAtIndex:indexPath.row];
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        
+        NSLog(@"点击了删除");
+    }
+}
+
 
 #pragma mark - UIScrollViewDelegate
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {

@@ -33,7 +33,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 6;
+    return  _DataAry.count;
 }
 
 
@@ -54,16 +54,28 @@
             make.left.equalTo(cell.mas_left);
         }];
     }
-    
+    cell.myMusicModel = _DataAry[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (tableView.tag == 1) {
+//        - (void)searchMusicTableView:(NSSearchMusicTableView *)tableView;
+//        
+//        - (void)searchLyricTableView:(NSSearchMusicTableView *)tableView;
+        if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:)]) {
+            
+            [self.delegate1 searchMusicTableView:self];
+        }
         
         NSLog(@"点击了歌曲的第%zd个cell",indexPath.row);
     } else if (tableView.tag == 2) {
+        
+        if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:)]) {
+            
+            [self.delegate1 searchLyricTableView:self];
+        }
         
         NSLog(@"点击了歌词的第%zd个cell",indexPath.row);
     }
