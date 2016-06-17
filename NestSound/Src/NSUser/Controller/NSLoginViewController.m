@@ -54,6 +54,7 @@
                                     @"userLoginToken":user.loginToken
                                     };
             [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
+            [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self dismissViewControllerAnimated:YES completion:nil];
         }

@@ -42,13 +42,13 @@
     
     if (isLyric) {
         if ([self.MusicType isEqualToString:@"hot"]) {
-            self.title = @"最热歌词";
+            self.title = @"热门歌词";
         }else{
             self.title = @"最新歌词";
         }
     }else{
     if ([self.MusicType isEqualToString:@"hot"]) {
-            self.title = @"最热歌曲";
+            self.title = @"热门歌曲";
 //          LocalizedStr(@"promot_hotMusic");
         }else{
             self.title = @"最新歌曲";

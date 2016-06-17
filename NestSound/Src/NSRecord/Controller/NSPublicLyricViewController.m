@@ -146,8 +146,12 @@
                     wSelf.musicItem = item;
                     
                 }];
+<<<<<<< HEAD
                 
                 
+=======
+                NSLog(@"%@",player);
+>>>>>>> 191ffaa813045b95a535568a6447d09820393929
             } else {
                 
                 [wSelf.player pause];

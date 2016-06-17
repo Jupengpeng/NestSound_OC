@@ -98,7 +98,7 @@ UITableViewDataSource>
 -(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
     self.requestType = YES;
-    int currentPage;
+    int currentPage = 0;
     NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     if (!isLoadingMore) {
         self.requestParams = @{kIsLoadingMore:@(NO)};

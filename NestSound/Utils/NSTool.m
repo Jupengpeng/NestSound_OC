@@ -192,8 +192,9 @@ static NSDateFormatter *dateFormatter;
 
 +(BOOL)compareWithUser:(long)userID
 {
-    NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    if (   userID == [[userDic objectForKey:@"userID"] longValue]) {
+//    NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSString * user = [NSString stringWithFormat:@"%ld",userID];
+    if ([user isEqualToString:JUserID]) {
         return YES;
     }else{
         

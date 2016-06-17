@@ -153,7 +153,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self configureUIAppearance];
+//    [self configureUIAppearance];
     
 }
 
@@ -212,8 +212,6 @@
     
     
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
-    [maskView addGestureRecognizer:tap];
-   
     [maskView addGestureRecognizer:tap];
     
     //constraints
@@ -321,7 +319,7 @@
 #pragma mark - overrider actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
             NSLyricLibraryListModel * lyricLibrary = (NSLyricLibraryListModel *)parserObject;
             lexiconView.lyricLibraryListModel = lyricLibrary;

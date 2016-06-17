@@ -43,6 +43,7 @@
 }
 
 
+<<<<<<< HEAD
 - (void)fetchData:(NSString *)name {
     
     self.name = name;
@@ -60,6 +61,8 @@
         NSLog(@"这是搜索的用户");
     }
 }
+=======
+>>>>>>> 191ffaa813045b95a535568a6447d09820393929
 
 
 -(void)fetchDataWithType:(int)type andIsLoadingMore:(BOOL)isLoadingMore

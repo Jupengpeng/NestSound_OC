@@ -43,19 +43,28 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self configureUIAppearance];
 }
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self fetchFansListData];
+}
 #pragma mark -fetchFansListData
 -(void)fetchFansListData
 {
-    [fansTableView setContentOffset:CGPointMake(0, 60) animated:YES];
-    [fansTableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+//    [fansTableView setContentOffset:CGPointMake(0, -60) animated:YES];
+//    [fansTableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    [self fetchFansListDataWithIsLoadingMore:NO];
 }
 
 
 -(void)fetchFansListDataWithIsLoadingMore:(BOOL)isLoadingMore
 {
+    self.requestType = YES;
     if (!isLoadingMore) {
         currentPage = 1;
     }else{
@@ -76,7 +85,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 #pragma mark -overrider actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
      
         if ([operation.urlTag isEqualToString:fansURL]) {
             
@@ -89,6 +98,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
             [fansTableView reloadData];
             if (!operation.isLoadingMore) {
                 [fansTableView.pullToRefreshView stopAnimating];
+            
             }else{
                 [fansTableView.infiniteScrollingView stopAnimating];
             }
@@ -116,11 +126,33 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     
     
     //fansTableView
-    fansTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    fansTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight +0.1) style:UITableViewStylePlain];
     fansTableView.dataSource = self;
     fansTableView.delegate = self;
+    fansTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [fansTableView registerClass:[NSFanscell class] forCellReuseIdentifier:NSFansCellIdeify];
     [self.view addSubview:fansTableView];
+    
+    WS(wSelf);
+    [fansTableView addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchFansListDataWithIsLoadingMore:NO];
+        }
+    }];
+    
+    [fansTableView addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchFansListDataWithIsLoadingMore:YES];
+        }
+    }];
+    [fansTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+//    fansTableView.showsInfiniteScrolling = NO;
     
 }
 
@@ -130,14 +162,14 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     return fansAry.count;
     
 }
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0.1;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 0.1;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return 0.1;
+//}
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+//{
+//    return 0.1;
+//}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSFanscell * fansCell = [tableView dequeueReusableCellWithIdentifier:NSFansCellIdeify];
@@ -155,11 +187,21 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     return fansCell;
     
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 72;
+}
 #pragma mark TableViewDelegate
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUserPageViewController * userVC = [[NSUserPageViewController alloc] init];
+    NSFansModel * fans = fansAry[indexPath.row];
+    NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",fans.fansID]];
+    if ([NSTool compareWithUser:fans.fansID]) {
+        userVC.who = Myself;
+    }else{
+        userVC.who = Other;
+    }
     [self.navigationController pushViewController:userVC animated:YES];
 
 }
