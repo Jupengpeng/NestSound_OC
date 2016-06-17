@@ -206,25 +206,30 @@ UITableViewDataSource
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger row = indexPath.row;
-    NSMessageListViewController * messageListVC = [[NSMessageListViewController alloc] init];
-    switch (row) {
-        case 0:
+    NSUInteger section = indexPath.section;
+    NSMessageListViewController * messageListVC;
+    switch (section) {
+        case 0:{
+            messageListVC = [[NSMessageListViewController alloc] initWithMessageType:CommentMessageType];
             messageListVC.messageListType = @"评论";
 //            LocalizedStr(@"prompt_commentMessage");
-            break;
-        case 1:
+            break;}
+        case 1:{
+            messageListVC = [[NSMessageListViewController alloc] initWithMessageType:UpvoteMessageType];
             messageListVC.messageListType = @"赞";
 //            LocalizedStr(@"prompt_upvote");
             break;
-        case 2:
+            }
+        case 2:{
+           messageListVC = [[NSMessageListViewController alloc] initWithMessageType:CollectionMessageType];
             messageListVC.messageListType = @"收藏";
 //            LocalizedStr(@"prompt_collection");
-            break;
-        case 3:
+            break;}
+        case 3:{
+            messageListVC = [[NSMessageListViewController alloc] initWithMessageType:SystemMessageType];
             messageListVC.messageListType = @"系统消息";
 //            LocalizedStr(@"prompt_systemMessage");
-            break;
+            break;}
             
         default:
             break;

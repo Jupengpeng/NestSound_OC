@@ -804,7 +804,7 @@ static id _instance;
     [_maskView addGestureRecognizer:tap];
     
     
-    _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 88)];
+    _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 90)];
     
     _moreChoiceView.backgroundColor = [UIColor whiteColor];
     
@@ -877,7 +877,7 @@ static id _instance;
         
         make.bottom.equalTo(reportBtn.mas_bottom);
         
-        make.height.mas_equalTo(1);
+        make.height.mas_equalTo(0.5);
         
     }];
     

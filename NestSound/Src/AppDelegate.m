@@ -17,6 +17,7 @@
 #import "NSUserProfileViewController.h"
 #import "NSUserViewController.h"
 #import "UMSocial.h"
+#import "NSBaseTabBarViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -26,31 +27,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    // Override point for customization after application launch.
-//    [self setupUIAppearance];
+ 
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     self.window.backgroundColor = [UIColor whiteColor];
+    NSBaseTabBarViewController *tabController = [[NSBaseTabBarViewController alloc] init];
     
-//    NSHomeViewController *vc = [[NSHomeViewController alloc] init];
-//    NSLyricViewController *vc = [[NSLyricViewController alloc] init];
-//    NSDiscoverViewController *vc = [[NSDiscoverViewController alloc] init];
-//    NSInspirationRecordViewController *vc = [[NSInspirationRecordViewController alloc] init];
-//    NSUserPageViewController *vc = [[NSUserPageViewController alloc] init];
-//    NSUserProfileViewController  *vc = [[NSUserProfileViewController alloc] init];
-    NSUserViewController  *vc = [[NSUserViewController alloc] init];
-  //  vc.who = Myself;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-    self.window.rootViewController = nav;
+    self.window.rootViewController = tabController;
     
     [self.window makeKeyAndVisible];
-    [UMSocialData setAppKey:umAppKey];
-    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
-    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
-    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
-    [self setupUIAppearance];
+
+//    //UMshare
+//    [UMSocialData setAppKey:umAppKey];
+//    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
+//    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
+//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
+//    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
+//    
+//   
+//    
+//    //UmengAnalytics
+//    UMConfigInstance.appKey = umAppKey;
+//    UMConfigInstance.channelId = @"App Store";
+//    [MobClick startWithConfigure:UMConfigInstance];
+//    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//    [MobClick setAppVersion:version];
+//    
+//    [MobClick setLogEnabled: YES];
+    
+    
     
     return YES;
 }

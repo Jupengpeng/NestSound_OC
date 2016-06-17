@@ -140,6 +140,7 @@
                     NSLog(@"播放完毕");
                     
                 }];
+                NSLog(@"%@",player);
             } else {
                 
                 [player pause];

@@ -69,6 +69,7 @@
 		2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B251CE317B300086C2C /* NSLyricCoachViewController.m */; };
 		2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */; };
 		2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */; };
+		2A8E49F01D13C33A00F94144 /* NSImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E49EF1D13C33A00F94144 /* NSImageCell.m */; };
 		2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */; };
 		2A9429B61CF419990099A6DB /* NSDiscoverBandListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429B51CF419990099A6DB /* NSDiscoverBandListModel.m */; };
 		2A9429B91CF42E880099A6DB /* NSSongListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9429B81CF42E880099A6DB /* NSSongListModel.m */; };
@@ -287,6 +288,8 @@
 		2A500B281CE31CC400086C2C /* NSPublicLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPublicLyricViewController.m; sourceTree = "<group>"; };
 		2A500B2A1CE33CEB00086C2C /* NSImportLyricViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImportLyricViewController.h; sourceTree = "<group>"; };
 		2A500B2B1CE33CEB00086C2C /* NSImportLyricViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImportLyricViewController.m; sourceTree = "<group>"; };
+		2A8E49EE1D13C33A00F94144 /* NSImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageCell.h; sourceTree = "<group>"; };
+		2A8E49EF1D13C33A00F94144 /* NSImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageCell.m; sourceTree = "<group>"; };
 		2A9429B11CF402960099A6DB /* NSDicoverLyricListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDicoverLyricListModel.h; sourceTree = "<group>"; };
 		2A9429B21CF402960099A6DB /* NSDicoverLyricListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDicoverLyricListModel.m; sourceTree = "<group>"; };
 		2A9429B41CF419990099A6DB /* NSDiscoverBandListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDiscoverBandListModel.h; sourceTree = "<group>"; };
@@ -740,6 +743,8 @@
 				2ADE8F611CFE7715006CD840 /* NSShareModulView.m */,
 				181897241D02DFF90009B145 /* NSShareCollectionViewCell.h */,
 				181897251D02DFF90009B145 /* NSShareCollectionViewCell.m */,
+				2A8E49EE1D13C33A00F94144 /* NSImageCell.h */,
+				2A8E49EF1D13C33A00F94144 /* NSImageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1106,7 +1111,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				ACAD5AEF854295CB1AED4D8F /* 📦 Check Pods Manifest.lock */,
+				ACAD5AEF854295CB1AED4D8F /* [CP] Check Pods Manifest.lock */,
 				0759C9108F4DEA9F581D780E /* [CP] Check Pods Manifest.lock */,
 				0CE45C2D11F8596778E93DE4 /* [CP] Check Pods Manifest.lock */,
 				96FB75E90F916AD5FC182E04 /* [CP] Check Pods Manifest.lock */,
@@ -1136,7 +1141,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				8C49D1EE9E421F2ED503E25E /* 📦 Check Pods Manifest.lock */,
+				8C49D1EE9E421F2ED503E25E /* [CP] Check Pods Manifest.lock */,
 				4FE6539D9690B2BC760483DB /* [CP] Check Pods Manifest.lock */,
 				F283B0B53FE75A8CFD5D3A2C /* [CP] Check Pods Manifest.lock */,
 				5041ECF888C2027969B6D54D /* [CP] Check Pods Manifest.lock */,
@@ -1411,14 +1416,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C49D1EE9E421F2ED503E25E /* 📦 Check Pods Manifest.lock */ = {
+		8C49D1EE9E421F2ED503E25E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1486,14 +1491,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ACAD5AEF854295CB1AED4D8F /* 📦 Check Pods Manifest.lock */ = {
+		ACAD5AEF854295CB1AED4D8F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1668,6 +1673,7 @@
 				2A4564191D05533500D4DB5F /* NSCommentListModel.m in Sources */,
 				188D12061CECDE1F0009FD5B /* NSComposeButton.m in Sources */,
 				18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */,
+				2A8E49F01D13C33A00F94144 /* NSImageCell.m in Sources */,
 				1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */,
 				2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */,
 				2AAE01BE1CFC0F7F008D3145 /* NSMyLricListModel.m in Sources */,
@@ -1879,6 +1885,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1919,7 +1926,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "630d1966-dca2-4e06-9328-ef8d33c1b69e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1930,7 +1937,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1955,9 +1962,10 @@
 					"$(PROJECT_DIR)/NestSound/Lib/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/NestSound/Lib/UMSocial_Sdk_5.2.1/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

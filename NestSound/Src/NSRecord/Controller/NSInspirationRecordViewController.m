@@ -11,12 +11,15 @@
 #import "NSPictureCollectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "XHSoundRecorder.h"
-
-@interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource> {
+#import "HUImagePickerViewController.h"
+#import "NSImageCell.h"
+@interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource,HUImagePickerViewControllerDelegate,UINavigationControllerDelegate> {
     
     UICollectionView *_collection;
     
     UIView *_bottomView;
+    NSMutableArray * ImageArr;
+    HUImagePickerViewController * ImagePicker;
 }
 
 @property (nonatomic, strong) UILabel *placeholderLabel;
@@ -49,6 +52,14 @@
 @end
 static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 @implementation NSInspirationRecordViewController
+
+-(NSMutableArray *)ImageArr{
+    if (!ImageArr) {
+        ImageArr = [NSMutableArray array];
+    }
+
+    return ImageArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -180,6 +191,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         make.height.mas_equalTo(1);
         
     }];
+    
+    //imagePicker
+    ImagePicker = [[HUImagePickerViewController alloc] init];
+    ImagePicker.delegate = self;
+    ImagePicker.maxAllowSelectedCount = 9;
+    
     
     //录音View
     UIView *recordView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 64, ScreenWidth, 258)];
@@ -473,6 +490,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         NSLog(@"点击了添加照片");
         
+        
+        
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         
         layout.minimumLineSpacing = 10;
@@ -493,9 +512,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         _collection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
         
-        [_collection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+        [_collection registerClass:[NSImageCell class] forCellWithReuseIdentifier:reuseIdentifier];
         
         [inspiration.lyricText addSubview:_collection];
+        
+        
+        [wSelf presentViewController:ImagePicker animated:YES completion:nil];
         
         
     }];
@@ -654,15 +676,14 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 9;
+    return ImageArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    NSImageCell *cell = (NSImageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
-    
+    cell.image.image = ImageArr[indexPath.row];
     return cell;
 }
 
@@ -673,10 +694,20 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 }
 
 
+#pragma mark - imagePickerDelegate
+-(void)imagePickerController:(HUImagePickerViewController *)picker didFinishPickingImages:(NSArray *)images
+{
+    ImageArr = [NSMutableArray arrayWithArray:images];
+    [_collection reloadData];
+
+}
+
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
 
 
 @end

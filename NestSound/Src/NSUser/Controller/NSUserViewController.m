@@ -253,6 +253,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         if ([operation.urlTag isEqualToString:loginOutURL]) {
             NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
             [user removeObjectForKey:@"user"];
+            [MobClick profileSignOff];
             [user synchronize];
             [self.navigationController popViewControllerAnimated:YES];
             

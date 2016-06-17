@@ -36,11 +36,7 @@
     [self setupUI];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    
-}
+
 
 
 -(void)fetchDataWithType:(int)type andIsLoadingMore:(BOOL)isLoadingMore

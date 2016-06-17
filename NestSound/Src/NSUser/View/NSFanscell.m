@@ -66,7 +66,7 @@
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.contentView.mas_left).with.offset(15);
         make.height.mas_equalTo(50);
-        
+        make.width.mas_equalTo(50);
     }];
     
     [focusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,13 +77,13 @@
     }];
     
     [authorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(headerImage.mas_left).with.offset(10);
+        make.left.equalTo(headerImage.mas_right).with.offset(10);
         make.top.equalTo(self.contentView.mas_top).with.offset(20);
         make.right.equalTo(focusBtn.mas_right).with.offset(-10);
     }];
     
     [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(authorLabel.mas_left);
+        make.left.equalTo(authorLabel.mas_right);
         make.top.equalTo(authorLabel.mas_bottom).with.offset(6);
         make.right.equalTo(authorLabel.mas_right);
     }];
@@ -103,11 +103,13 @@
     authorLabel.text = _fansModel.fansName;
 
     descLabel.text = _fansModel.fansSign;
-
-    if (_fansModel.status) {
-        [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_addPicture"] forState:UIControlStateNormal];
+    
+    if (_fansModel.status ==1) {
+        [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focused"] forState:UIControlStateNormal];
+    }else if(_fansModel.status == 2){
+        [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateNormal];
     }else{
-        [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_addPicture"] forState:UIControlStateNormal];
+         [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focus"] forState:UIControlStateNormal];
     }
 }
 @end
