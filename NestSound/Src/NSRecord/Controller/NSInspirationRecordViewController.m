@@ -61,13 +61,12 @@
 @property (nonatomic,copy) NSString * audioPath;
 //录音时长
 @property (nonatomic, weak) UILabel *recordDuration;
-<<<<<<< HEAD
+
 @property (nonatomic,strong) NSInspirtation * inspritationModel;
-=======
 
-@property (nonatomic, strong) NSString *filePath;
+@property (nonatomic, strong) NSString *mp3FilePath;
 
->>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
+
 @end
 static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 @implementation NSInspirationRecordViewController
@@ -326,11 +325,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     //textView
-<<<<<<< HEAD
-   inspiration  = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 406)];
-=======
-    NSLyricView *inspiration = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, H)];
->>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
+//<<<<<<< HEAD
+//   inspiration  = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 406)];
+//=======
+    inspiration = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, H)];
+
     
     inspiration.lyricText.delegate = self;
     
@@ -536,13 +535,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
-<<<<<<< HEAD
+
                 wSelf.audioPath = filePath;
-=======
-                
-                wSelf.filePath = filePath;
-                
->>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
                 NSLog(@"%@",filePath);
             }];
             
@@ -915,9 +909,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     WS(wSelf);
     
-    [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.filePath FilePath:^(NSString *newfilePath) {
+    [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.audioPath FilePath:^(NSString *newfilePath) {
         
-        wSelf.filePath = newfilePath;
+        wSelf.mp3FilePath = newfilePath;
         
         NSLog(@"点击了发布");
         
