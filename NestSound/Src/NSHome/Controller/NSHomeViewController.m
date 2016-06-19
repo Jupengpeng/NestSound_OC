@@ -29,6 +29,7 @@
     NSMutableArray * musicSayAry;
     NSString * getTokenUrl;
     NSString * index;
+    int i;
 }
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
@@ -66,11 +67,13 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [super viewDidLoad];
     
+    i == 0;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
     
     
     [self fetchIndexData];
+    [self getAuthorToken];
     
 }
 
@@ -85,11 +88,9 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 -(void)getAuthorToken
 {
     if (JUserID != nil) {
-        self.requestType = YES;
-        NSDictionary * dic = @{@"token":LoginToken};
-        NSString * str = [NSTool encrytWithDic:dic];
-        getTokenUrl = [getToken stringByAppendingString:str];
-        self.requestURL = getTokenUrl;
+        self.requestType = NO;
+        self.requestParams = @{@"token":LoginToken};
+        self.requestURL = getToken;
         
     }
 
@@ -170,19 +171,25 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
         musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
         [self configureUIAppearance];
-        }
-        else if([operation.urlTag isEqualToString:getTokenUrl]){
+        }else if([operation.urlTag isEqualToString:getToken]){
             NSUserModel * userModels = (NSUserModel *)parserObject;
-            userModel * user = userModels.userDetail;
-            NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
-            [userData removeObjectForKey:@"user"];
-            NSDictionary * userDic = @{@"userName":user.userName,
-                                       @"userID":[NSString stringWithFormat:@"%ld",user.userID],
-                                       @"userIcon":user.headerURL,
-                                       @"userLoginToken":user.loginToken
-                                       };
-            [userData setObject:userDic forKey:@"user"];
-            [userData synchronize];
+            if (userModels) {
+                userModel * user = userModels.userDetail;
+                
+                NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
+                NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
+                [dic setObject:user.userName forKey:@"userName"];
+                [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
+                [dic setObject:user.headerURL forKey:@"userIcon"];
+                [dic setObject:user.loginToken forKey:@"userLoginToken"];
+                [userData removeObjectForKey:@"user"];
+                [userData setObject:dic forKey:@"user"];
+                [userData synchronize];
+            }
+            
+            
+            
+            
             
         }
     }else{

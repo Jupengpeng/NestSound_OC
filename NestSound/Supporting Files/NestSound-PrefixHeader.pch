@@ -94,6 +94,10 @@ extern NSString *port;
 #define uploadMp3URL  @"http://112.124.125.2/java/common/uploadcallback/uploadmp3"
 #define deleteWorkURL  @"http://112.124.125.2/java/userCenter/deleteWork"
 #define searchURL @"http://112.124.125.2/java/common/search/search?"
+#define publicMusicURL @"http://112.124.125.2/java/musiopt/optMusic"
+#define publicInspirationURL @"http://112.124.125.2/java/inspire/save"
+#define getInspirationURL @"http://112.124.125.2/java/inspire/detail?"
+#define tunMusicURL @"http://112.124.125.2/java/musiopt/tuningMusic"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG

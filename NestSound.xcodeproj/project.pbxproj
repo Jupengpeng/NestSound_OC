@@ -90,6 +90,8 @@
 		2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2D5281CFCAF78007422BD /* NSWriteLyricMaskView.m */; };
 		2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2D52B1CFCB086007422BD /* NSLyricLibraryListModel.m */; };
 		2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2D52E1CFD593A007422BD /* NSDrawGrayLine.m */; };
+		2AB3006D1D165B0200938F1C /* NSInspirtationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3006C1D165B0200938F1C /* NSInspirtationModel.m */; };
+		2AB300701D1699ED00938F1C /* NSTunMusicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3006F1D1699ED00938F1C /* NSTunMusicModel.m */; };
 		2AB516B91CFE932100583D00 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB516B81CFE932100583D00 /* libsqlite3.tbd */; };
 		2AB516BB1CFE933D00583D00 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AB516BA1CFE933D00583D00 /* libiconv.tbd */; };
 		2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D1091CF7E8B300D9FE53 /* NSAccommpanyListModel.m */; };
@@ -332,6 +334,10 @@
 		2AB2D52B1CFCB086007422BD /* NSLyricLibraryListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricLibraryListModel.m; sourceTree = "<group>"; };
 		2AB2D52D1CFD593A007422BD /* NSDrawGrayLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDrawGrayLine.h; sourceTree = "<group>"; };
 		2AB2D52E1CFD593A007422BD /* NSDrawGrayLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDrawGrayLine.m; sourceTree = "<group>"; };
+		2AB3006B1D165B0200938F1C /* NSInspirtationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInspirtationModel.h; sourceTree = "<group>"; };
+		2AB3006C1D165B0200938F1C /* NSInspirtationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInspirtationModel.m; sourceTree = "<group>"; };
+		2AB3006E1D1699ED00938F1C /* NSTunMusicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTunMusicModel.h; sourceTree = "<group>"; };
+		2AB3006F1D1699ED00938F1C /* NSTunMusicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTunMusicModel.m; sourceTree = "<group>"; };
 		2AB516B81CFE932100583D00 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2AB516BA1CFE933D00583D00 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		2AC3D1081CF7E8B300D9FE53 /* NSAccommpanyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccommpanyListModel.h; sourceTree = "<group>"; };
@@ -723,6 +729,10 @@
 				2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */,
 				2A0057F41D11263D0028D4D2 /* NSPublicLyricModel.h */,
 				2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */,
+				2AB3006B1D165B0200938F1C /* NSInspirtationModel.h */,
+				2AB3006C1D165B0200938F1C /* NSInspirtationModel.m */,
+				2AB3006E1D1699ED00938F1C /* NSTunMusicModel.h */,
+				2AB3006F1D1699ED00938F1C /* NSTunMusicModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1116,7 +1126,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				49019C80C882B944C774F2D0 /* 📦 Check Pods Manifest.lock */,
+				49019C80C882B944C774F2D0 /* [CP] Check Pods Manifest.lock */,
 				ACAD5AEF854295CB1AED4D8F /* [CP] Check Pods Manifest.lock */,
 				0759C9108F4DEA9F581D780E /* [CP] Check Pods Manifest.lock */,
 				0CE45C2D11F8596778E93DE4 /* [CP] Check Pods Manifest.lock */,
@@ -1147,7 +1157,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				16C755D2E25FF1D6E6788C35 /* 📦 Check Pods Manifest.lock */,
+				16C755D2E25FF1D6E6788C35 /* [CP] Check Pods Manifest.lock */,
 				8C49D1EE9E421F2ED503E25E /* [CP] Check Pods Manifest.lock */,
 				4FE6539D9690B2BC760483DB /* [CP] Check Pods Manifest.lock */,
 				F283B0B53FE75A8CFD5D3A2C /* [CP] Check Pods Manifest.lock */,
@@ -1288,14 +1298,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		16C755D2E25FF1D6E6788C35 /* 📦 Check Pods Manifest.lock */ = {
+		16C755D2E25FF1D6E6788C35 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1378,14 +1388,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		49019C80C882B944C774F2D0 /* 📦 Check Pods Manifest.lock */ = {
+		49019C80C882B944C774F2D0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1736,6 +1746,7 @@
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
+				2AB300701D1699ED00938F1C /* NSTunMusicModel.m in Sources */,
 				2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */,
 				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
@@ -1785,6 +1796,7 @@
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
+				2AB3006D1D165B0200938F1C /* NSInspirtationModel.m in Sources */,
 				2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */,
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,

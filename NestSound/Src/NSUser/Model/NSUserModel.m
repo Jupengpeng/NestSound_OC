@@ -14,7 +14,10 @@
     return @{@"headerURL":@"headurl",
              @"loginToken":@"loginToken",
              @"userName":@"name",
-             @"userID":@"userid"};
+             @"userID":@"userid",
+             @"birthday":@"birthday",
+             @"male":@"sex",
+             @"desc":@"descr"};
 }
 
 @end

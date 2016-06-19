@@ -18,6 +18,7 @@
 #import "NSUserViewController.h"
 #import "UMSocial.h"
 #import "NSBaseTabBarViewController.h"
+#import <AVFoundation/AVFoundation.h>
 @interface AppDelegate ()
 
 @end
@@ -38,11 +39,10 @@
     [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
     [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
-//    [self setupUIAppearance];
 
     self.window.rootViewController = tabController;
     
-    [self.window makeKeyAndVisible];
+    
 
     //UMshare
     [UMSocialData setAppKey:umAppKey];
@@ -61,6 +61,12 @@
     [MobClick setAppVersion:version];
     
     [MobClick setLogEnabled: YES];
+    
+    //audioSeesion
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+
+  
+    [self.window makeKeyAndVisible];
     
     
     return YES;

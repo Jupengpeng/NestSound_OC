@@ -10,7 +10,6 @@
 
 @interface NSUserProfileCell ()
 {
-    UIImageView * userIcon;
     UILabel * nickLabel;
     UILabel * numberLabel;
     UIImageView * editImageView;
@@ -36,13 +35,13 @@
 -(void)configureUIAppearance
 {
     //userIcon
-    userIcon = [[UIImageView alloc] init];
-    userIcon.layer.cornerRadius = 25;
-    userIcon.layer.borderWidth = 1;
-    userIcon.layer.masksToBounds = YES;
-    userIcon.layer.borderColor = [UIColor hexColorFloat:@"999999"].CGColor;
-    userIcon.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self addSubview:userIcon];
+    self.userIcon = [[UIImageView alloc] init];
+    _userIcon.layer.cornerRadius = 25;
+    _userIcon.layer.borderWidth = 1;
+    _userIcon.layer.masksToBounds = YES;
+    _userIcon.layer.borderColor = [UIColor hexColorFloat:@"999999"].CGColor;
+    _userIcon.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self addSubview:_userIcon];
     
     //nickNameLabel
     nickLabel = [[UILabel alloc] init];
@@ -72,7 +71,7 @@
     [super layoutSubviews];
     
     //constraints
-    [userIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.userIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self.mas_left).with.offset(15);
         make.width.mas_equalTo(50);
@@ -80,7 +79,7 @@
     }];
     
     [nickLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(userIcon.mas_right).with.offset(10);
+        make.left.equalTo(self.userIcon.mas_right).with.offset(10);
         make.top.equalTo(self.mas_top).with.offset(22);
         make.right.equalTo(self.mas_right).with.offset(-40);
     }];
@@ -99,12 +98,6 @@
 
 #pragma mark setter&getter
 
--(void)setIconURL:(NSString *)iconURL
-{
-    _iconURL = iconURL;
-    [userIcon setDDImageWithURLString:iconURL placeHolderImage:[UIImage imageNamed:@"UMS_twitter_off"]];
-    
-}
 
 -(void)setNickName:(NSString *)nickName
 {

@@ -225,6 +225,8 @@
     }];
 }
 
+
+#pragma mark -stopPlaying
 - (void)endPlaying {
     
     auditionBtn.selected = NO;
@@ -241,6 +243,8 @@
         [fm removeItemAtPath:fullPath error:nil];
     }
 }
+
+#pragma mark -uploadPhoto
 -(void)uploadPhoto
 {
   
@@ -252,12 +256,6 @@
         }else{
             if (isLyric) {
                 getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
-//                self.requestType = YES;
-//                NSDictionary * dic = @{@"type":[NSNumber numberWithInt:1],@"fixx":@"lyrcover"};
-//                NSString * str = [NSTool encrytWithDic:dic];
-//                NSString * url = [getQiniuDetail stringByAppendingString:str];
-//                self.requestURL = url;
-//                getQiNiuURL = self.requestURL;
             }else{
                 getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
             }
@@ -281,21 +279,17 @@
             NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
             qiNiu * data = GetqiNiuModel.qiNIuModel;
             NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
-           
-                titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
+            titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
             
-            
-            
-            }
-        else if ([operation.urlTag isEqualToString:publicLyricURL]){
+        }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
             NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
             [lyricDic setObject:publicLyric.publicLyricModel.shareURL forKey:@"shareURL"];
             [lyricDic setObject:descriptionText.text forKey:@"desc"];
             NSShareViewController * shareVC =[[NSShareViewController alloc] init];
             shareVC.shareDataDic = lyricDic;
             [self.navigationController pushViewController:shareVC animated:YES];
-            
         }
+        
     }
     
 }
@@ -304,18 +298,21 @@
 {
     self.requestType = NO;
     NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    NSLog(@"ddddd%@",dic);
-    NSLog(@"%@",JUserID);
-    NSLog(@"lalal%@",self.titleImage);
-    NSLog(@"%@",descriptionText.text);
-    self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
-    self.requestURL = publicLyricURL;
+    if (type == YES) {
+        self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
+        self.requestURL = publicLyricURL;
+    }else{
+         self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":descriptionText.text,@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":lyricDic[@"itemID"],@"mp3":mp3URL,@"useheadset":lyricDic[@"isHeadset"]};
+        self.requestURL = publicMusicURL;
+   
+    }
+    
     
 }
 
+#pragma mark -addtitlePage
 -(void)addtitlePage
 {
-
     [chosePhotoLibrary showInView:self.view];
 }
 
@@ -356,11 +353,9 @@
     
     [self dismissViewControllerAnimated:YES completion:^{
     }];
-    
-    
-    
 }
 
+#pragma mark -placeHolder
 - (void)textViewDidChange:(UITextView *)textView {
     
     if (textView.text.length != 0) {
@@ -372,6 +367,8 @@
     }
 }
 
+
+#pragma mark -uploadPhoto
 -(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
 {
    
@@ -382,8 +379,6 @@
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-            
-            
             wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
             if (isLyric) {
                 [wSelf publicWithType:YES];

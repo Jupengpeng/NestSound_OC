@@ -159,11 +159,11 @@
  
     
     _upvoteMessage = upvoteMessage;
-    [headerImage setDDImageWithURLString:_upvoteMessage.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [headerImage setDDImageWithURLString:_upvoteMessage.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
 
     createDateLabel.text = [date datetoStringWithDate:_upvoteMessage.upvoteTime];
 
-    [titlePage setDDImageWithURLString:_upvoteMessage.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+    [titlePage setDDImageWithURLString:_upvoteMessage.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
 
     workNameLabel.text = _upvoteMessage.workName;
 

@@ -31,7 +31,8 @@
 #import "NSDiscoverMoreLyricModel.h"
 #import "NSSearchUserListModel.h"
 #import "NSFansListModel.h"
-
+#import "NSInspirtationModel.h"
+#import "NSTunMusicModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -102,6 +103,14 @@
         return [[NSSearchUserListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:myFansListURL]){
         return [[NSFansListModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:getInspirationURL]){
+        return [[NSInspirtationModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:getToken]){
+    
+        return [[NSUserModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:tunMusicURL]){
+    
+        return [[NSTunMusicModel alloc] initWithJSONDict:jsonDict];
     }
         return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

@@ -122,10 +122,21 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             userProfileCell = [[NSUserProfileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserProfileCellIdefity];
             
         }
-        userProfileCell.iconURL = @"http://img5.duitang.com/uploads/item/201406/26/20140626154222_Niydx.thumb.700_0.jpeg";
+        NSMutableDictionary * userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+        [userProfileCell.userIcon setDDImageWithURLString:userInfo[@"userIcon"] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+        if (userInfo[@"userName"]) {
+            userProfileCell.nickName = userInfo[@"userName"];
+        }else{
+            userProfileCell.nickName = @"";
+        }
         
-        userProfileCell.nickName = @"hjay";
-        userProfileCell.number = @"please call me hjay";
+        
+        if (userInfo[@"desc"]) {
+            userProfileCell.number = userInfo[@"desc"];
+        }else{
+            userProfileCell.number = @"您还没有描述哦";
+        }
+        
         return userProfileCell;
     }else if (section == 1){
         
@@ -169,7 +180,8 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             valueLabel.text = [Memory getCacheSize];
             
         }else if (row == 1){
-            settingCell.textLabel.text = LocalizedStr(@"prompt_newMessageNotifation");
+            settingCell.textLabel.text = @"消息通知";
+            //LocalizedStr(@"prompt_newMessageNotifation");
             settingCell.accessoryType = UITableViewCellAccessoryNone;
             
             not.hidden = NO;

@@ -299,9 +299,6 @@
 #pragma mrak -view the lyricLibary view
 -(void)lyricLibary
 {
-    
-    
-    
     [self hiddenMaskView:NO];
 }
 

@@ -518,6 +518,8 @@ UITableViewDataSource>
         
     }else if (type == 4){
         
+        NSInspirationRecordViewController * inspirationVC = [[NSInspirationRecordViewController alloc] initWithItemId:myMusic.itemId andType:NO];
+        [self.navigationController pushViewController:inspirationVC animated:YES];
     }
 
 }

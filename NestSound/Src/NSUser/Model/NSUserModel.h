@@ -14,6 +14,9 @@
 @property (nonatomic,copy) NSString * userName;
 @property (nonatomic,copy) NSString * headerURL;
 @property (nonatomic,copy) NSString * loginToken;
+@property (nonatomic,copy) NSString * birthday;
+@property (nonatomic,copy) NSString * desc;
+@property (nonatomic,assign) int male;
 @end
 
 @interface NSUserModel : NSBaseModel

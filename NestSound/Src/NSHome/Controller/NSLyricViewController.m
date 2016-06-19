@@ -121,9 +121,6 @@
 {
     
     NSLog(@"operer%@",operation.urlTag);
-    
-    
-    
     if ([operation.urlTag isEqualToString:upvoteURL] || [operation.urlTag isEqualToString:collectURL]) {
         NSLog(@"ni daye");
         if (!parserObject.success) {
@@ -141,11 +138,6 @@
             
             self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
                    }
-    
-//    }else if ([operation.urlTag isEqualToString:upvoteURL]||[operation.urlTag isEqualToString:collectURL]){
-//        if (parserObject.success) {
-//            
-//        }
     }
     
 }

@@ -48,11 +48,16 @@
             NSUserModel * userModels = (NSUserModel *)parserObject;
             userModel * user = userModels.userDetail;
         
+            
+            
             NSDictionary * userDic = @{@"userName":user.userName,
                                     @"userID":[NSString stringWithFormat:@"%ld",user.userID],
                                     @"userIcon":user.headerURL,
-                                    @"userLoginToken":user.loginToken
-                                    };
+                                    @"userLoginToken":user.loginToken,
+                                    @"birthday":user.birthday,
+                                    @"male":[NSNumber numberWithInt:user.male],
+                                       @"desc":user.desc
+                                       };
             [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
             [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
             [[NSUserDefaults standardUserDefaults] synchronize];

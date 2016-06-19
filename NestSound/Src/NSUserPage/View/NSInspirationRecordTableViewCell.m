@@ -188,8 +188,13 @@
 -(void)setMyInspirationModel:(NSMyMusicModel *)myInspirationModel
 {
     _myInspirationModel = myInspirationModel;
-    [_backgroundImageView setDDImageWithURLString:_myInspirationModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
-    self.descriptionLabel.text = self.myInspirationModel.spireContent;
+    [_backgroundImageView setDDImageWithURLString:_myInspirationModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    if (!self.myInspirationModel.spireContent) {
+        self.descriptionLabel.text = @"";
+    }else{
+        self.descriptionLabel.text = self.myInspirationModel.spireContent;
+    }
+    
     NSDateFormatter * dateFormater = [[NSDateFormatter alloc] init];
     [dateFormater setDateFormat: @"YYYY"];
     _yearLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
@@ -197,6 +202,11 @@
     _monthLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
     [dateFormater setDateFormat:@"dd"];
     _dayLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
+    if (!_myInspirationModel.audio) {
+        _audioImageView.hidden = YES;
+    }else{
+        _audioImageView.hidden = NO;
+    }
 }
 
 

@@ -247,7 +247,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
             [[NSHttpClient client] downLoadWithFileURL:fileURL];
         }
     }
-    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] init];
+    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID];
     writeMusicVC.accompanyModel = accompany;
     [self.navigationController pushViewController:writeMusicVC animated:YES];
 }

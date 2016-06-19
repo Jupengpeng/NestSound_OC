@@ -17,7 +17,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "NSPublicLyricViewController.h"
 #import "AFHTTPRequestOperationManager.h"
-
+#import "NSTunMusicModel.h"
 @interface CenterLine : UIView
 
 @end
@@ -52,6 +52,9 @@
     UITextField *titleText;
     
     NSLyricView *lyricView;
+    BOOL isHeadset;
+    long itemID;
+    NSString * mp3URL;
 }
 
 @property (nonatomic, strong) UIImageView *slideBarImage;
@@ -98,8 +101,24 @@
 }
 
 
+-(instancetype)initWithItemId:(long)itemID_
+{
+    if (self = [super init]) {
+        itemID = itemID_;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    //addObserver for UserHeadset
+    [AVAudioSession sharedInstance];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
+                                                 name:AVAudioSessionRouteChangeNotification
+                                               object:nil];
+    
     
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     
@@ -125,7 +144,35 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark -userHeadSet
+- (void)audioRouteChangeListenerCallback:(NSNotification*)notification
+{
+    NSDictionary *interuptionDict = notification.userInfo;
+    
+    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    
+    switch (routeChangeReason) {
+            
+        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+            NSLog(@"AVAudioSessionRouteChangeReasonNewDeviceAvailable");
+            NSLog(@"Headphone/Line plugged in");
+            isHeadset = YES;
+            break;
+            
+        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+            NSLog(@"AVAudioSessionRouteChangeReasonOldDeviceUnavailable");
+            NSLog(@"Headphone/Line was pulled. Stopping player....");
+            isHeadset = NO;
+            break;
+            
+        case AVAudioSessionRouteChangeReasonCategoryChange:
+            // called at start - also when other audio wants to play
+            NSLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
+            break;
+    }
+}
 
+#pragma mark - setupUI
 - (void)setupUI {
     
     UIView *bottomView = [[UIView alloc] init];
@@ -490,15 +537,7 @@
         
         [manager removeItemAtPath:self.mp3File error:nil];
         
-        [self.dict setValue:titleText.text forKeyPath:@"lyricName"];
-        
-        [self.dict setValue:lyricView.lyricText.text forKeyPath:@"lyric"];
-        
-        [self.dict setValue:dict[@"data"][@"mp3URL"] forKeyPath:@"mp3URL"];
-        
-        NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
-        
-        [self.navigationController pushViewController:public animated:YES];
+        [self tuningMusicWithCreateType:nil andHotId:itemID andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
         
     } failure:^void(NSURLSessionDataTask * task, NSError * error) {
         // 请求失败
@@ -510,7 +549,42 @@
     
 }
 
+#pragma mark -OptionMusic
+-(void)tuningMusicWithCreateType:(NSString *)createType andHotId:(long)hotId andUserID:(NSString *)userID_ andUseHeadSet:(BOOL)userHeadSet andMusicUrl :(NSString *)musicURl
+{
+    self.requestType = NO;
+    int headSet = 0;
+    if (userHeadSet ) {
+        headSet = 1;
+    }
+    self.requestParams = @{@"hotid":[NSNumber numberWithLong:hotId],
+                           @"uid":JUserID,
+                           @"token":LoginToken,
+                           @"useheadset":[NSNumber numberWithInt:headSet],
+                           @"createtype":@"hot",
+                           @"musicurl":musicURl};
+    self.requestURL = tunMusicURL;
 
+}
+
+#pragma mark -overriderActionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (parserObject.success) {
+        if ([operation.urlTag isEqualToString:tunMusicURL]) {
+            NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
+            mp3URL = tunMusic.tunMusicModel.MusicPath;
+            [self.dict setValue:titleText.text forKeyPath:@"lyricName"];
+            
+            [self.dict setValue:lyricView.lyricText.text forKeyPath:@"lyric"];
+            
+            [self.dict setValue:mp3URL forKeyPath:@"mp3URL"];
+            [self.dict setValue:[NSNumber numberWithBool:isHeadset] forKey:@"isHeadSet"];
+            NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+            [self.navigationController pushViewController:public animated:YES];
+        }
+    }
+}
 
 
 /**

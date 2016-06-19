@@ -124,7 +124,7 @@
         NSLog(@"点击了创作歌曲");
     } else {
         
-        NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] init];
+        NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] initWithItemId:0 andType:YES];
         
         [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:inspirationRecord animated:YES];
        

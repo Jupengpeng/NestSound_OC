@@ -10,4 +10,6 @@
 
 @interface NSInspirationRecordViewController : NSBaseViewController
 
+-(instancetype)initWithItemId:(long)itemId_ andType:(BOOL)Type_;
+
 @end
