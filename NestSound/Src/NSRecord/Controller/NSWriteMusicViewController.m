@@ -570,7 +570,7 @@
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
             NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
             mp3URL = tunMusic.tunMusicModel.MusicPath;

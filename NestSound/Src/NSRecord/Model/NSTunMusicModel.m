@@ -20,7 +20,7 @@
 {
 
     return @{@"oldPath":@"oldPath",
-             @"musicPath":@"newPath"};
+             @"MusicPath":@"newPath"};
 }
 
 @end

@@ -61,13 +61,12 @@
 @property (nonatomic,copy) NSString * audioPath;
 //录音时长
 @property (nonatomic, weak) UILabel *recordDuration;
-<<<<<<< HEAD
 @property (nonatomic,strong) NSInspirtation * inspritationModel;
-=======
+
 
 @property (nonatomic, strong) NSString *filePath;
 
->>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
+
 @end
 static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 @implementation NSInspirationRecordViewController
@@ -96,7 +95,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
     
-    if (isWrite) {
+    if (!isWrite) {
         [self fetchInspirationDataWithItemId:itemID];
     }
     [self fetchDataWithType:1];
@@ -127,8 +126,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 -(void)fetchDataWithType:(int)type
 {
     self.requestType = YES;
-    self.requestParams = @{@"type":[NSNumber numberWithInt:type],@"fixx":@"inspire"};
-    NSString * str = [NSTool encrytWithDic:self.requestParams];
+    NSDictionary * dic  = @{@"type":[NSNumber numberWithInt:type],@"fixx":@"inspire"};
+    NSString * str = [NSTool encrytWithDic:dic];
     if (type == 1) {
         getQiniuImage = [getQiniuDetail stringByAppendingString:str];
         self.requestURL = getQiniuImage;
@@ -165,7 +164,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         for (int i = 0 ; i<ImageArr.count; ++i) {
             UIImage * image = ImageArr[i];
             NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
-            [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 
                 wSelf.titleImageURL = [wSelf.titleImageURL stringByAppendingString:[NSString stringWithFormat:@",%@",[resp objectForKey:@"key"]]];
                 if (i == ImageArr.count) {
@@ -209,6 +208,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     self.requestType = NO;
     self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":self.titleImageURL,@"audio":self.audioURL};
+    self.requestURL = publicInspirationURL;
 }
 
 #pragma mark -actionFetchData
@@ -224,7 +224,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             NSInspirtationModel * inspirtation = (NSInspirtationModel *)parserObject;
             self.inspritationModel = inspirtation.inspirtationModel;
         }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
-        
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         
     }
@@ -326,12 +326,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     //textView
-<<<<<<< HEAD
+
    inspiration  = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 406)];
-=======
-    NSLyricView *inspiration = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, H)];
->>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
-    
+
     inspiration.lyricText.delegate = self;
     
     [self.view addSubview:inspiration];
@@ -536,13 +533,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
-<<<<<<< HEAD
-                wSelf.audioPath = filePath;
-=======
+
+//                wSelf.audioPath = filePath;
+
                 
                 wSelf.filePath = filePath;
                 
->>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
                 NSLog(@"%@",filePath);
             }];
             
@@ -917,8 +913,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.filePath FilePath:^(NSString *newfilePath) {
         
-        wSelf.filePath = newfilePath;
-        
+        wSelf.audioPath = newfilePath;
+        [wSelf uploadPhotoWith:nil type:YES token:nil url:nil];
         NSLog(@"点击了发布");
         
     }];
