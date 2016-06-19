@@ -317,6 +317,7 @@
     }];
     
     
+
     //点赞
     upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
@@ -330,9 +331,15 @@
         
         btn.selected = !btn.selected;
         
+        if (!JUserID) {
+            [[NSToastManager manager] showtoast:@"登陆后才能进行点赞和收藏操作哦"];
+        }else{
+            [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
+            NSLog(@"点击了点赞");
+        }
         
-        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
-        NSLog(@"点击了点赞");
+        
+        
         
     }];
     
@@ -359,10 +366,14 @@
     } action:^(UIButton *btn) {
         
         btn.selected = !btn.selected;
-        
-        [self upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
-        
-        NSLog(@"点击了收藏");
+        if (!JUserID) {
+             [[NSToastManager manager] showtoast:@"登陆后才能进行点赞和收藏操作哦"];
+        }else{
+            [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
+            
+            NSLog(@"点击了收藏");
+
+        }
         
     }];
     
@@ -568,7 +579,11 @@
     [userIcon setDDImageWithURLString:_lyricDetail.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.title = _lyricDetail.title;
     _nameLabel.text = _lyricDetail.author;
-    _dateLabel.text = [date datetoStringWithDate:_lyricDetail.createDate];
+    
+    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:_lyricDetail.createDate];
+    
+    _dateLabel.text = [date datetoStringWithDate:date1];
+    
     
     commentNum = _lyricDetail.commentNum;
     _lyricView.lyricText.text = _lyricDetail.lyrics;

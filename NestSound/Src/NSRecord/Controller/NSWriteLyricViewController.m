@@ -153,7 +153,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-//    [self configureUIAppearance];
+    [self configureUIAppearance];
     
 }
 
@@ -200,14 +200,14 @@
     [self.view addSubview:lyricView];
     
     //maskView
-    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight - 64)];
+    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight)];
     maskView.alpha = 0.5;
     maskView.backgroundColor = [UIColor lightGrayColor];
-    [self.view addSubview:maskView];
+    [self.navigationController.view addSubview:maskView];
     
-    lexiconView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, self.view.height, self.view.width, 300)];
+    lexiconView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, maskView.height, maskView.width, 300)];
     
-    [self.view addSubview:lexiconView];
+    [self.navigationController.view addSubview:lexiconView];
     
     
     
@@ -276,13 +276,14 @@
     if (hidden) {
         [UIView animateWithDuration:0.2 animations:^{
             maskView.y = ScreenHeight;
-            lexiconView.y = self.view.height;
+            lexiconView.y = maskView.height;
         }];
 
     }else{
         [UIView animateWithDuration:0.2 animations:^{
             maskView.y = 0;
-            lexiconView.y = self.view.height - 300;
+            lexiconView.y = maskView.height - 300;
+            
         }];
     }
     

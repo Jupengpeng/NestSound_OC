@@ -60,7 +60,7 @@ UITableViewDataSource>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupUI];
     type = 1;
 }
 
@@ -168,7 +168,7 @@ UITableViewDataSource>
     
 }
 
-
+#pragma mark -setupUI
 - (void)setupUI {
     
         headerView = [[NSTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 290)];

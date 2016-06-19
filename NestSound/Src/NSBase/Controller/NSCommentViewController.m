@@ -45,7 +45,7 @@
     
     self.title = [NSString stringWithFormat:@"%@的评论",self.musicName];
     
-    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 108)];
+    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44)];
     
     commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     commentTableView.delegate = self;
@@ -288,28 +288,30 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    textField.text = nil;
-    
     inputField.placeholder = nil;
     
     [textField resignFirstResponder];
     
     maskView.hidden = YES;
     
+    NSLog(@"%@",textField.text);
     
     if (inputField.tag == 1) {
         
-        [self postCommentWithComment:inputField.text andUser:nil andType:2 andTargetUID:targetUserId];
+        [self postCommentWithComment:textField.text andUser:nil andType:2 andTargetUID:targetUserId];
         NSLog(@"点击了发送. 回复他人的评论");
+       
     } else {
         
-        [self postCommentWithComment:inputField.text andUser:nil andType:1 andTargetUID:0];
+        [self postCommentWithComment:textField.text andUser:nil andType:1 andTargetUID:0];
         
         NSLog(@"点击了发送. 发表评论");
     }
     
     
     inputField.tag = 2;
+    
+    textField.text = nil;
     
     return YES;
 }
@@ -319,8 +321,8 @@
 -(void)postCommentWithComment:(NSString *)comment andUser:(NSString *)user andType:(int)commentType andTargetUID:(long)targetUID
 {
     self.requestType = NO;
-
-    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID]};
+    
+    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
     
     self.requestURL = postCommentURL;
 
@@ -362,8 +364,10 @@
     cell.commentModel = commentAry[indexPath.row];
     cell.commentLabel.delegate = self;
     
+
     return cell;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
