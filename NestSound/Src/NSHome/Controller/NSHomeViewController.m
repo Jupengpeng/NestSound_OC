@@ -67,7 +67,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [super viewDidLoad];
     
-    i == 0;
+//    i == 0;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
     
