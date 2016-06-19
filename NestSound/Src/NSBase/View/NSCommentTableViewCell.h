@@ -29,6 +29,8 @@
 
 @property (nonatomic,strong) NSCommentModel * commentModel;
 
+
+
 @property (nonatomic, weak) id<NSCommentTableViewCellDelegate> delegate;
 
 @end

@@ -38,13 +38,21 @@ static inline NSRegularExpression * NameRegularExpression() {
     
 }
 
+
+@property (nonatomic, assign) CGSize labelSize;
+
 //回复内容
 @property (nonatomic, copy)  NSString *replyStr;
 
 //回复了谁
 @property (nonatomic, copy) NSString *name;
 
-@property (nonatomic, assign) CGSize labelSize;
+
+//@property (nonatomic, strong) UILabel *replyLabel;
+//
+//@property (nonatomic, strong) UIButton *nameBtn;
+//
+//@property (nonatomic, strong) UILabel *contentLabel;
 
 @end
 
@@ -68,7 +76,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     //头像
     iconBtn = [[UIButton alloc] init];
     
-    [iconBtn setImage:[UIImage imageNamed:@"2.0_backgroundImage"] forState:UIControlStateNormal];
+//    [iconBtn setImage:[UIImage imageNamed:@"2.0_backgroundImage"] forState:UIControlStateNormal];
     
     [iconBtn addTarget:self action:@selector(iconBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     iconBtn.adjustsImageWhenHighlighted = NO;
@@ -80,7 +88,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     self.authorNameLabel.font = [UIFont systemFontOfSize:14];
     
-    self.authorNameLabel.text = @"谢豪杰";
+//    self.authorNameLabel.text = @"谢豪杰";
     
     [self.contentView addSubview:self.authorNameLabel];
     
@@ -90,74 +98,113 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     dateLabel.font = [UIFont systemFontOfSize:10];
     
-    dateLabel.text = @"2016-05-26";
+//    dateLabel.text = @"2016-05-26";
     
     [self.contentView addSubview:dateLabel];
+    
+    
+//    self.replyLabel = [[UILabel alloc] init];
+//    
+//    self.replyLabel.x = 65;
+//    self.replyLabel.y = 55;
+//    self.replyLabel.text = @"回复:";
+//    self.replyLabel.font = [UIFont systemFontOfSize:12];
+//    self.replyLabel.textColor = [UIColor blackColor];
+//    self.replyLabel.lineBreakMode = NSLineBreakByCharWrapping;
+//    self.replyLabel.numberOfLines = 0;
+//    [self.replyLabel sizeToFit];
+//    [self.contentView addSubview:self.replyLabel];
+//    
+//    self.nameBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+//        
+//        [btn setTitle:@"hahah" forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//        btn.titleLabel.font = [UIFont systemFontOfSize:12];
+//        btn.x = CGRectGetMaxX(self.replyLabel.frame);
+//        btn.y = 55;
+//        [btn sizeToFit];
+//    } action:^(UIButton *btn) {
+//        
+//        
+//    }];
+//    
+//    [self.contentView addSubview:self.nameBtn];
+//    
+//    self.contentLabel = [[UILabel alloc] init];
+//    self.contentLabel.font = [UIFont systemFontOfSize:12];
+//    self.contentLabel.textColor = [UIColor blackColor];
+//    self.contentLabel.lineBreakMode = NSLineBreakByCharWrapping;
+//    self.contentLabel.numberOfLines = 0;
+//    
+//    [self.contentView addSubview:self.contentLabel];
+    
 
     
-    //评论内容
+//    //评论内容
     self.commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
     self.commentLabel.font = [UIFont systemFontOfSize:12];
     self.commentLabel.textColor = [UIColor blackColor];
     self.commentLabel.lineBreakMode = NSLineBreakByCharWrapping;
     self.commentLabel.numberOfLines = 0;
-    //设置高亮颜色
-    //    self.commentLabel.highlightedTextColor = [UIColor greenColor];
-    
-    //对齐方式
+//    //设置高亮颜色
+//        self.commentLabel.highlightedTextColor = [UIColor greenColor];
+//
+//    //对齐方式
     self.commentLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentCenter;
-    
-    //行间距
+//
+//    //行间距
     self.commentLabel.lineSpacing = 3;
-    
-    //NO 不显示下划线
+//
+//    //NO 不显示下划线
     self.commentLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+//
     
-    
-    WS(wSelf);
-    self.name = @"张轩赫";
-    NSString *text = [NSString stringWithFormat:@"回复 %@ :  %@",self.name, self.replyStr];;
-    
-    
-    [self.commentLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
-     {
-         
-         //设置可点击文字的范围
-         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.name options:NSCaseInsensitiveSearch];
-         
-         //设定可点击文字的的大小
-         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
-         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-         
-         if (font) {
-             
-             //设置可点击文本的大小
-             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
-             
-             //设置可点击文本的颜色
-             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
-             
-             CFRelease(font);
-             
-         }
-         return mutableAttributedString;
-     }];
-    
-    //正则
-    NSRegularExpression *regexp = NameRegularExpression();
-    
-    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.name.length)];
-    
-    [self.commentLabel addLinkToURL:nil withRange:linkRange];
+//    WS(wSelf);
+//    self.name = @"张轩赫";
+//    NSString *text = [NSString stringWithFormat:@"回复 %@ :  %@",self.name, self.replyStr];
+//    
+//    
+//    [self.commentLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
+//     {
+//         
+//         //设置可点击文字的范围
+//         
+//         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.name options:NSCaseInsensitiveSearch];
+//         
+//         //设定可点击文字的的大小
+//         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
+//         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+//         
+//         if (font) {
+//             
+//             //设置可点击文本的大小
+//             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+//             
+//             //设置可点击文本的颜色
+//             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
+//             
+//             CFRelease(font);
+//         
+//         }
+////         }
+//         return mutableAttributedString;
+//     }];
+//    
+//    //正则
+//    NSRegularExpression *regexp = NameRegularExpression();
+//    
+//    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.name.length)];
+//    
+//    [self.commentLabel addLinkToURL:nil withRange:linkRange];
     
     
     [self.contentView addSubview:self.commentLabel];
-    
-    self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
-    
-    self.commentLabel.frame = CGRectMake(60, 55, self.labelSize.width, self.labelSize.height);
-    
-    self.commentLabelMaxY = CGRectGetMaxY(self.commentLabel.frame) + 10;
+//
+//    self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
+//    //65
+//    self.commentLabel.frame = CGRectMake(65, 55, self.labelSize.width, self.labelSize.height);
+//    
+//    self.commentLabelMaxY = CGRectGetMaxY(self.commentLabel.frame) + 10;
     
 }
 
@@ -212,14 +259,103 @@ static inline NSRegularExpression * NameRegularExpression() {
 {
     _commentModel = commentModel;
     self.authorNameLabel.text = self.commentModel.nickName;
-//    [iconBtn set]
     
-    [iconBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    UIImageView *image = [[UIImageView alloc] init];
+    [image setDDImageWithURLString:_commentModel.headerURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     
-    dateLabel.text = [date datetoStringWithDate:self.commentModel.createDate];
+    [iconBtn setImage:image.image forState:UIControlStateNormal];
     
-    self.commentLabel.text = self.commentModel.comment;
+    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:self.commentModel.createDate];
+    NSLog(@"%f",self.commentModel.createDate);
+    dateLabel.text = [date datetoStringWithDate:date1];
     
+    
+//    self.commentLabel.text = self.commentModel.comment;
+    
+//    [self.nameBtn setTitle:self.commentModel.targetName forState:UIControlStateNormal];
+//    if (self.commentModel.targetName == nil) {
+//        self.commentLabel.text = self.commentModel.comment;
+//    } else {
+    
+    
+    //评论内容
+//    self.commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+//    self.commentLabel.font = [UIFont systemFontOfSize:12];
+//    self.commentLabel.textColor = [UIColor blackColor];
+//    self.commentLabel.lineBreakMode = NSLineBreakByCharWrapping;
+//    self.commentLabel.numberOfLines = 0;
+    //设置高亮颜色
+    //    self.commentLabel.highlightedTextColor = [UIColor greenColor];
+    
+    //对齐方式
+//    self.commentLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentCenter;
+    
+    //行间距
+//    self.commentLabel.lineSpacing = 3;
+    
+    //NO 不显示下划线
+//    self.commentLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    
+
+    
+    WS(wSelf);
+    
+    if (self.commentModel.commentType == 1) {
+        
+        self.name = [NSString stringWithFormat:@"%@",self.commentModel.targetName];
+    } else {
+        NSLog(@"%@",self.commentModel.targetName);
+        self.name = [NSString stringWithFormat:@"回复 %@ :",self.commentModel.targetName];
+    }
+    self.replyStr = self.commentModel.comment;
+    NSString *text = [NSString stringWithFormat:@"%@ %@",self.name, self.replyStr];
+    
+    
+    [self.commentLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
+     {
+         
+         //设置可点击文字的范围
+         
+         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.commentModel.targetName options:NSCaseInsensitiveSearch];
+         
+         //设定可点击文字的的大小
+         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
+         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+         
+         if (font) {
+             
+             //设置可点击文本的大小
+             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+             
+             //设置可点击文本的颜色
+             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
+             
+             CFRelease(font);
+             
+         }
+         //         }
+         return mutableAttributedString;
+     }];
+    
+    if (self.commentModel.commentType != 1) {
+        
+        //正则
+        NSRegularExpression *regexp = NameRegularExpression();
+        
+        NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.commentModel.targetName.length)];
+        
+        [self.commentLabel addLinkToURL:nil withRange:linkRange];
+        
+    }
+    
+//    [self.contentView addSubview:self.commentLabel];
+    
+    self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
+    //65
+    self.commentLabel.frame = CGRectMake(65, 55, self.labelSize.width, self.labelSize.height);
+    
+    self.commentLabelMaxY = CGRectGetMaxY(self.commentLabel.frame) + 10;
+
 }
 
 @end

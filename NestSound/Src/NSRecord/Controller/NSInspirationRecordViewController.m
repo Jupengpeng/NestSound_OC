@@ -61,7 +61,13 @@
 @property (nonatomic,copy) NSString * audioPath;
 //录音时长
 @property (nonatomic, weak) UILabel *recordDuration;
+<<<<<<< HEAD
 @property (nonatomic,strong) NSInspirtation * inspritationModel;
+=======
+
+@property (nonatomic, strong) NSString *filePath;
+
+>>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
 @end
 static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 @implementation NSInspirationRecordViewController
@@ -308,8 +314,23 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     WS(wSelf);
     
+    CGFloat H;
+    
+    if (ScreenHeight < 667) {
+        
+        H = 160;
+    } else {
+        
+        H = 200;
+    }
+    
+    
     //textView
+<<<<<<< HEAD
    inspiration  = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 406)];
+=======
+    NSLyricView *inspiration = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, H)];
+>>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
     
     inspiration.lyricText.delegate = self;
     
@@ -323,8 +344,42 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     [inspiration.lyricText addSubview:self.placeholderLabel];
     
+    
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    
+    layout.minimumLineSpacing = 5;
+    
+    layout.minimumInteritemSpacing = 20;
+    
+    layout.sectionInset = UIEdgeInsetsMake(0, 30, 0, 30);
+    
+    CGFloat W = (self.view.width - 120) / 3;
+    
+    layout.itemSize = CGSizeMake(W, W);
+    
+    _collection = [[UICollectionView alloc] initWithFrame:CGRectMake(0, H, self.view.width, W * 3 + 15) collectionViewLayout:layout];
+    
+    _collection.delegate = self;
+    
+    _collection.dataSource = self;
+    
+    _collection.pagingEnabled = YES;
+    
+    _collection.backgroundColor = [UIColor whiteColor];
+    
+    [_collection registerClass:[NSImageCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    
+    [self.view addSubview:_collection];
+    
+    
+    
+    
+    
     //底部工具条View
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 124, ScreenWidth, 60)];
+    
+    _bottomView.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_bottomView];
     
@@ -351,6 +406,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     //录音View
     UIView *recordView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 64, ScreenWidth, 258)];
+    
+    recordView.backgroundColor = [UIColor whiteColor];
     
     self.recordView = recordView;
     
@@ -479,7 +536,13 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
+<<<<<<< HEAD
                 wSelf.audioPath = filePath;
+=======
+                
+                wSelf.filePath = filePath;
+                
+>>>>>>> e7a6886d7738b3b5ac43d2fb6d26cece105a047b
                 NSLog(@"%@",filePath);
             }];
             
@@ -556,6 +619,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
                 
                 btn.selected = NO;
+                
+//                self.timeNum = 0;
                 
                 [wSelf removeLink];
             }];
@@ -642,29 +707,31 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         
         
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        
-        layout.minimumLineSpacing = 10;
-        
-        layout.minimumInteritemSpacing = 20;
-        
-        layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
-        
-        CGFloat W = (inspiration.lyricText.width - 60) / 3;
-        
-        layout.itemSize = CGSizeMake(W, W);
-        
-        _collection = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 100, inspiration.lyricText.width, W + 10) collectionViewLayout:layout];
-        
-        _collection.delegate = self;
-        
-        _collection.dataSource = self;
-        
-        _collection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-        
-        [_collection registerClass:[NSImageCell class] forCellWithReuseIdentifier:reuseIdentifier];
-        
-        [inspiration.lyricText addSubview:_collection];
+//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//        
+//        layout.minimumLineSpacing = 5;
+//        
+//        layout.minimumInteritemSpacing = 20;
+//        
+//        layout.sectionInset = UIEdgeInsetsMake(0, 30, 0, 30);
+//        
+//        CGFloat W = (self.view.width - 120) / 3;
+//        
+//        layout.itemSize = CGSizeMake(W, W);
+//        
+//        _collection = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 200, self.view.width, W + 5) collectionViewLayout:layout];
+//        
+//        _collection.delegate = self;
+//        
+//        _collection.dataSource = self;
+//        
+//        _collection.pagingEnabled = YES;
+//        
+//        _collection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+//        
+//        [_collection registerClass:[NSImageCell class] forCellWithReuseIdentifier:reuseIdentifier];
+//        
+//        [self.view addSubview:_collection];
         
         
         [wSelf presentViewController:ImagePicker animated:YES completion:nil];
@@ -846,7 +913,17 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 
 - (void)rightItemClick:(UIBarButtonItem *)rightItem {
     
-    NSLog(@"点击了发布");
+    WS(wSelf);
+    
+    [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.filePath FilePath:^(NSString *newfilePath) {
+        
+        wSelf.filePath = newfilePath;
+        
+        NSLog(@"点击了发布");
+        
+    }];
+    
+    
 }
 
 

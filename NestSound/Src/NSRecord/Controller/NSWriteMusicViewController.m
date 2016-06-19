@@ -395,7 +395,7 @@
                 
                 wSelf.timerNum = 0;
                 
-                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:Simulator filePath:filePath FilePath:^(NSString *newfilePath) {
+                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:filePath FilePath:^(NSString *newfilePath) {
                     
                     NSData *data = [NSData dataWithContentsOfFile:newfilePath];
                     

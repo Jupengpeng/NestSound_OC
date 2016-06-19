@@ -19,7 +19,7 @@
 @property (nonatomic,assign) long itemId;
 @property (nonatomic,assign) long simpleId;
 @property (nonatomic,assign) long userId;
-@property (nonatomic,strong) NSDate * createDate;
+@property (nonatomic,assign) NSTimeInterval createDate;
 @property (nonatomic,copy) NSString * author;
 @property (nonatomic,copy) NSString * lyrics;
 @property (nonatomic,copy) NSString * shareUrl;

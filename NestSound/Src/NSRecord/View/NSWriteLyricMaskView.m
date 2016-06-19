@@ -69,7 +69,7 @@ static  NSString * const lyricTypeID = @"lyricType";
     lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, bottomView.width, bottomView.height - 45) style:UITableViewStylePlain];
     lyricTableView.dataSource = self;
     lyricTableView.delegate = self;
-    lyricTableView.backgroundColor = [UIColor orangeColor];
+//    lyricTableView.backgroundColor = [UIColor orangeColor];
     [bottomView addSubview:lyricTableView];
     
     

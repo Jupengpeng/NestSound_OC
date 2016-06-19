@@ -82,7 +82,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
     self.navigationController.navigationBar.hidden = NO;
     
-
 }
 
 -(void)getAuthorToken
