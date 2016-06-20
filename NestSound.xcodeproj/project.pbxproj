@@ -1126,7 +1126,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				8CDA17EDD1ACF366178F1381 /* 📦 Check Pods Manifest.lock */,
+				8CDA17EDD1ACF366178F1381 /* [CP] Check Pods Manifest.lock */,
 				49019C80C882B944C774F2D0 /* [CP] Check Pods Manifest.lock */,
 				ACAD5AEF854295CB1AED4D8F /* [CP] Check Pods Manifest.lock */,
 				0759C9108F4DEA9F581D780E /* [CP] Check Pods Manifest.lock */,
@@ -1158,7 +1158,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				9C892A70AAF89EBB206F3C68 /* 📦 Check Pods Manifest.lock */,
+				9C892A70AAF89EBB206F3C68 /* [CP] Check Pods Manifest.lock */,
 				16C755D2E25FF1D6E6788C35 /* [CP] Check Pods Manifest.lock */,
 				8C49D1EE9E421F2ED503E25E /* [CP] Check Pods Manifest.lock */,
 				4FE6539D9690B2BC760483DB /* [CP] Check Pods Manifest.lock */,
@@ -1480,14 +1480,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8CDA17EDD1ACF366178F1381 /* 📦 Check Pods Manifest.lock */ = {
+		8CDA17EDD1ACF366178F1381 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1540,14 +1540,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		9C892A70AAF89EBB206F3C68 /* 📦 Check Pods Manifest.lock */ = {
+		9C892A70AAF89EBB206F3C68 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
