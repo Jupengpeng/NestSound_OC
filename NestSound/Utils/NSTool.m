@@ -156,6 +156,10 @@ static NSDateFormatter *dateFormatter;
     NSData * imageData = UIImageJPEGRepresentation(currentImage, 0.5);
     
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:imageName];
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:fullPath]) {
+        [fm removeItemAtPath:fullPath error:nil];
+    }
     [imageData writeToFile:fullPath atomically:NO];
 }
 

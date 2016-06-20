@@ -76,7 +76,7 @@ extern NSString *port;
 #define systemMessageURL @"http://112.124.125.2/java/message/sysNoteList?"
 #define myLyricListURL @"http://112.124.125.2/java/common/lyrics/myLyrics?"
 #define myFansListURL @"http://112.124.125.2/java/fanfocus/fanslist?"
-#define focusUserURL @"http://112.124.125.2/java/fanfocus/optFans?"
+#define focusUserURL @"http://112.124.125.2/java/fanfocus/optFans"
 #define commentURL @"http://112.124.125.2/java/common/comment/list?"
 #define playMusicURL @"http://112.124.125.2/java/common/music/work?"
 #define feedBackURL @"http://112.124.125.2/java/feedback/save?"
@@ -98,6 +98,8 @@ extern NSString *port;
 #define publicInspirationURL @"http://112.124.125.2/java/inspire/save"
 #define getInspirationURL @"http://112.124.125.2/java/inspire/detail?"
 #define tunMusicURL @"http://112.124.125.2/java/musiopt/tuningMusic"
+#define otherFFURL @"http://112.124.125.2/java/fanfocus/otherfanslist?"
+
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG
