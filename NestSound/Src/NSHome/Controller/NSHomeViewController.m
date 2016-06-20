@@ -88,6 +88,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 {
     if (JUserID != nil) {
         self.requestType = NO;
+        NSLog(@"token%@",LoginToken);
         self.requestParams = @{@"token":LoginToken};
         self.requestURL = getToken;
         
@@ -174,16 +175,18 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             NSUserModel * userModels = (NSUserModel *)parserObject;
             if (userModels) {
                 userModel * user = userModels.userDetail;
+                if (user) {
+                    NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
+                    NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
+                    [dic setObject:user.userName forKey:@"userName"];
+                    [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
+                    [dic setObject:user.headerURL forKey:@"userIcon"];
+                    [dic setObject:user.loginToken forKey:@"userLoginToken"];
+                    [userData removeObjectForKey:@"user"];
+                    [userData setObject:dic forKey:@"user"];
+                    [userData synchronize];
+                }
                 
-                NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
-                NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
-                [dic setObject:user.userName forKey:@"userName"];
-                [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
-                [dic setObject:user.headerURL forKey:@"userIcon"];
-                [dic setObject:user.loginToken forKey:@"userLoginToken"];
-                [userData removeObjectForKey:@"user"];
-                [userData setObject:dic forKey:@"user"];
-                [userData synchronize];
             }
             
             
@@ -220,7 +223,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
     } else {
         
-        return 2;
+        return musicSayAry.count;
     }
     
 }

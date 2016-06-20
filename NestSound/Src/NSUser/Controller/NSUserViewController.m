@@ -44,14 +44,15 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     //nav
-    self.title = LocalizedStr(@"me");
+    self.title = @"设置";
+    //LocalizedStr(@"me");
 //    self.showBackBtn = YES;
     
     //settingPaegTable
     settingPageTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     settingPageTable.dataSource = self;
     settingPageTable.delegate = self;
-    
+    settingPageTable.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     [self.view addSubview:settingPageTable];
     //messageNotificationSwitch
     messageNotifictionSwitch = [[UISwitch alloc] init];

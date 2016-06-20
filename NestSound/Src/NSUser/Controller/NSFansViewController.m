@@ -22,7 +22,9 @@ UITableViewDelegate
     BOOL isFans;
     int currentPage;
     NSString * fansURL;
+    NSString * otherFansURL;
     int fansType;
+    BOOL _iswho;
 }
 @end
 
@@ -30,11 +32,12 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 
 @implementation NSFansViewController
 
--(instancetype)initWithUserID:(NSString *)UserID _isFans:(BOOL)isFans_
+-(instancetype)initWithUserID:(NSString *)UserID _isFans:(BOOL)isFans_ isWho:(BOOL)isWho
 {
     if (self = [super init]) {
         isFans = isFans_;
         userId = UserID;
+        _iswho = isWho;
     }
     return  self;
 }
@@ -58,6 +61,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 {
 //    [fansTableView setContentOffset:CGPointMake(0, -60) animated:YES];
 //    [fansTableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    
     [self fetchFansListDataWithIsLoadingMore:NO];
 }
 
@@ -75,10 +79,18 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     }else{
         fansType = 2;
     }
-    NSDictionary * dic = @{@"userid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSNumber numberWithInt:fansType]};
-    NSString * str = [NSTool encrytWithDic:dic];
-    fansURL = [myFansListURL stringByAppendingString:str];
-    self.requestURL = fansURL;
+    if (_iswho) {
+        NSDictionary * dic = @{@"userid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSNumber numberWithInt:fansType]};
+        NSString * str = [NSTool encrytWithDic:dic];
+        fansURL = [myFansListURL stringByAppendingString:str];
+        self.requestURL = fansURL;
+
+    }else{
+        NSDictionary * dic = @{@"userid":userId,@"uid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSNumber numberWithInt:fansType]};
+        NSString * str = [NSTool encrytWithDic:dic];
+        otherFansURL = [otherFFURL stringByAppendingString:str];
+        self.requestURL = otherFFURL;
+    }
     
 }
 
@@ -87,7 +99,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 {
     if (!parserObject.success) {
      
-        if ([operation.urlTag isEqualToString:fansURL]) {
+        if ([operation.urlTag isEqualToString:fansURL]||[operation.urlTag isEqualToString:otherFansURL]) {
             
             NSFansListModel * fansList = (NSFansListModel *)parserObject;
             if (!operation.isLoadingMore) {
@@ -114,6 +126,8 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 -(void)configureUIAppearance
 {
     
+     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
     //nav
     if (isFans) {
         self.title = @"粉丝";
@@ -126,10 +140,10 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     
     
     //fansTableView
-    fansTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight +0.1) style:UITableViewStylePlain];
+    fansTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight -0.1) style:UITableViewStylePlain];
     fansTableView.dataSource = self;
     fansTableView.delegate = self;
-    fansTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    fansTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [fansTableView registerClass:[NSFanscell class] forCellReuseIdentifier:NSFansCellIdeify];
     [self.view addSubview:fansTableView];
     
@@ -152,7 +166,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     [fansTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self.view);
     }];
-//    fansTableView.showsInfiniteScrolling = NO;
+    fansTableView.showsInfiniteScrolling = NO;
     
 }
 

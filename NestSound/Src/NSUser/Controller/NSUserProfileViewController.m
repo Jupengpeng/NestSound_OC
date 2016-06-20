@@ -69,9 +69,9 @@ static NSString * const settingCellIditify = @"settingCell";
     }else{
         if ([operation.urlTag isEqualToString:changeProfileURL]) {
             [[NSToastManager manager] showtoast:@"修改成功"];
-            NSDictionary * changeDic = [[NSDictionary alloc] init];
+            NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
             [changeDic setValue:JUserID forKey:@"userID"];
-            [changeDic setValue:LoginToken forKey:@"token"];
+            [changeDic setValue:LoginToken forKey:@"userLoginToken"];
             [changeDic setValue:nickName forKey:@"userName"];
             [changeDic setValue:self.titleImageUrl forKey:@"userIcon"];
             [changeDic setValue:male forKey:@"male"];
@@ -88,11 +88,12 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)configureAppearance
 {
 
-    userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    userInfo = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
     
     self.title = @"完善个人信息";
-//    LocalizedStr(@"prompt_completeMessage");
-//    self.showBackBtn = YES;
+
     UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(getBack)];
     self.navigationItem.leftBarButtonItem = back;
     
@@ -100,7 +101,7 @@ static NSString * const settingCellIditify = @"settingCell";
     settingTableView.dataSource = self;
     settingTableView.delegate = self;
     settingTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
+    settingTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     [self.view addSubview:settingTableView];
     
     
@@ -141,8 +142,8 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)ensureBirthday
 {
     NSDate * bir = datePicker.choseBirthday.date;
-
-    userInfo[@"birthday"] = [date datetoStringWithDate:bir];
+    [userInfo setObject:[date datetoStringWithDate:bir] forKey:@"birthday"];
+//    userInfo[@"birthday"] = [date datetoStringWithDate:bir];
 //    birthday = [date datetoStringWithDate:bir];
     datePicker.hidden = YES;
     [settingTableView reloadData];
@@ -173,8 +174,6 @@ static NSString * const settingCellIditify = @"settingCell";
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     
     NSUInteger row = indexPath.row;
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:settingCellIditify];
@@ -220,30 +219,27 @@ static NSString * const settingCellIditify = @"settingCell";
     if (row == 0) {
         settingCell.textLabel.text = @"用户头像";
 //        LocalizedStr(@"prompt_userIcon");
-        [userIcon setDDImageWithURLString:userInfo[@"userIcon"] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+        self.titleImageUrl = userInfo[@"userIcon"];
+        [userIcon setDDImageWithURLString:self.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
         userIcon.hidden = NO;
         valueLabel.hidden = YES;
         
     }else if (row == 1){
         settingCell.textLabel.text = @"昵称";
         valueLabel.hidden = NO;
-        if (userInfo[@"userName"]) {
-            nickName = userInfo[@"userName"];
-        }else{
-            nickName = @"";
-        }
-        
+        nickName = userInfo[@"userName"];
+
         valueLabel.text = nickName;
         
     }else if (row == 2){
         settingCell.textLabel.text = @"性别";
-        if (userInfo[@"male"]) {
-            male = userInfo[@"male"];
+        NSLog(@"%d",[userInfo[@"male"] intValue]);
+        if ([userInfo[@"male"] intValue]== 1) {
+            male = @"女";
         }else{
-            male = @"";
+            male = @"男";
         }
         valueLabel.text = male;
-        
     }else if (row == 3){
         settingCell.textLabel.text = @"生日";
 //        LocalizedStr(@"prompt_birthday");
@@ -281,7 +277,7 @@ static NSString * const settingCellIditify = @"settingCell";
        
         [self.navigationController pushViewController:changeName animated:YES];
         [changeName returnName:^(NSString *name) {
-            nickName = name;
+            userInfo[@"name"] = name;
             [tableView reloadData];
         }];
     }else if (row == 2){
@@ -293,7 +289,7 @@ static NSString * const settingCellIditify = @"settingCell";
         changeName = [[NSChangeNameViewController alloc] initWithType:nil];
         [self.navigationController pushViewController:changeName animated:YES];
         [changeName returnName:^(NSString *name) {
-            userInfo[@"userName"] = name;
+            userInfo[@"desc"] = name;
             [tableView reloadData];
         }];
     }
@@ -331,33 +327,19 @@ static NSString * const settingCellIditify = @"settingCell";
         switch (buttonIndex) {
             case 0:
             {
-//                NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:userInfo];
-//                if (dic[@"male"]) {
-//                    [dic removeObjectForKey:@"male"];
-//                }else{
-//                    [dic setObject:@"男" forKey:@"male"];
-//                }
-//                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
-//                [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"userInfo"];
-                userInfo[@"male"] = @"男";
-                [[NSUserDefaults standardUserDefaults] synchronize];
 
-//                male = @"男";
+                [userInfo setObject:[NSNumber numberWithInt:2] forKey:@"male"];
                 [settingTableView reloadData];
                 
                 break;
             }
             case 1:
             {
-                              NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:userInfo];
-                if (dic[@"male"]) {
-                    [dic removeObjectForKey:@"male"];
-                }else{
-                    [dic setObject:@"女" forKey:@"male"];
-                }
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userInfo"];
-                [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"userInfo"];
-                [[NSUserDefaults standardUserDefaults] synchronize];                [settingTableView reloadData];
+
+//                    [userInfo removeObjectForKey:@"male"];
+
+                    [userInfo setObject:[NSNumber numberWithInt:1] forKey:@"male"];
+                [settingTableView reloadData];
                 break;
             }
             default:
@@ -423,7 +405,32 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)changeProfile
 {
     self.requestType = NO;
-    self.requestParams = @{@"uid":JUserID,@"nickname":nickName,@"sex":male,@"signature":signature,@"birthday":birthday,@"token":LoginToken,@"headurl":self.titleImageUrl};
+    int males = 0 ;
+    if ([male isEqualToString:@"男"]) {
+        males = 2;
+    }else if([male isEqualToString:@"女"]){
+        males = 1;
+    }
+    NSMutableDictionary * dic = [[NSMutableDictionary alloc] init];
+    if (nickName) {
+        [dic setObject:nickName forKey:@"nickname"];
+    }
+    if (males) {
+        [dic setObject:[NSNumber numberWithInt:males] forKey:@"sex"];
+    }
+    if (signature) {
+        [dic setObject:signature forKey:@"signature"];
+    }
+    if (birthday) {
+        [dic setObject:birthday forKey:@"birthday"];
+    }
+    if (self.titleImageUrl != nil) {
+        [dic setObject:self.titleImageUrl forKey:@"headurl"];
+    }
+    [dic setObject:JUserID forKey:@"uid"];
+    [dic setObject:LoginToken forKey:@"token"];
+    self.requestParams = dic;
+//  @{@"uid":JUserID,@"nickname":nickName,@"sex":[NSNumber numberWithInt:males],@"signature":signature,@"birthday":birthday,@"token":LoginToken,@"headurl":self.titleImageUrl};
     self.requestURL = changeProfileURL;
 
 }
