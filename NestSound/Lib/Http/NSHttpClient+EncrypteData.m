@@ -64,7 +64,7 @@ static NSData* base64_decode(NSString *str){
         NSDictionary * resultDataDic;
         
         if (![decryptStr isEqualToString:@""]) {
-            
+        
             if ([[decryptStr substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"{"] ||[[decryptStr substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"["] ) {
                 resultDataDic = [self dictionaryWithJsonString:decryptStr];
             }else{
@@ -72,7 +72,7 @@ static NSData* base64_decode(NSString *str){
             }
             
         }
-        
+    
         [dic removeObjectForKey:requestData];
         NSLog(@"ddddd%@",dic);
         if (!resultDataDic) {

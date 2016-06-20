@@ -33,6 +33,8 @@
 #import "NSFansListModel.h"
 #import "NSInspirtationModel.h"
 #import "NSTunMusicModel.h"
+#import "NSLyricLibraryListModel.h"
+
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -111,8 +113,10 @@
     }else if ([url isEqualToString:tunMusicURL]){
     
         return [[NSTunMusicModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:lyricLibraryURL]){
+        return [[NSLyricLibraryListModel alloc] initWithJSONDict:jsonDict];
     }
-        return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
+    return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     
 }
 

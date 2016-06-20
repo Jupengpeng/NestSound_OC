@@ -223,6 +223,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }
         
     }
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    [manager removeItemAtPath:self.audioURL error:nil];
 }
 
 #pragma mark -setter && getter
@@ -367,8 +371,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     
-    
-    
     //底部工具条View
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 124, ScreenWidth, 60)];
     
@@ -377,7 +379,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     [self.view addSubview:_bottomView];
     
     
-    UIView *line1 = [[UIView alloc] init];//]WithFrame:CGRectMake(0, ScreenHeight - (ScreenHeight - 329), ScreenWidth, 1)];
+    UIView *line1 = [[UIView alloc] init];
     
     line1.backgroundColor = [UIColor lightGrayColor];
     
@@ -529,14 +531,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
-
+                
 
                 wSelf.audioPath = filePath;
-
-//                wSelf.audioPath = filePath;
-
-                
-//                wSelf.filePath = filePath;
                 
 
                 NSLog(@"%@",filePath);
@@ -700,34 +697,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     } action:^(UIButton *btn) {
         
         NSLog(@"点击了添加照片");
-        
-        
-        
-//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//        
-//        layout.minimumLineSpacing = 5;
-//        
-//        layout.minimumInteritemSpacing = 20;
-//        
-//        layout.sectionInset = UIEdgeInsetsMake(0, 30, 0, 30);
-//        
-//        CGFloat W = (self.view.width - 120) / 3;
-//        
-//        layout.itemSize = CGSizeMake(W, W);
-//        
-//        _collection = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 200, self.view.width, W + 5) collectionViewLayout:layout];
-//        
-//        _collection.delegate = self;
-//        
-//        _collection.dataSource = self;
-//        
-//        _collection.pagingEnabled = YES;
-//        
-//        _collection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-//        
-//        [_collection registerClass:[NSImageCell class] forCellWithReuseIdentifier:reuseIdentifier];
-//        
-//        [self.view addSubview:_collection];
         
         
         [wSelf presentViewController:ImagePicker animated:YES completion:nil];
@@ -913,13 +882,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.audioPath FilePath:^(NSString *newfilePath) {
         
-
-//        wSelf.mp3FilePath = newfilePath;
-        
-
         wSelf.audioPath = newfilePath;
         [wSelf uploadPhotoWith:nil type:YES token:nil url:nil];
-
+        
         NSLog(@"点击了发布");
         
     }];

@@ -311,18 +311,18 @@
 }
 
 
-- (void)searchMusicTableView:(NSSearchViewController *)tableView {
-    
-    NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic];
-    
+- (void)searchMusicViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID {
+    [self searchBarCancelButtonClicked:_search];
+    NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic] ;
+    playMusicVC.itemId = itemID;
     [self.navigationController pushViewController:playMusicVC animated:YES];
     
     NSLog(@"歌曲");
 }
 
-- (void)searchLyricTableView:(NSSearchViewController *)tableView {
-    
-    NSLyricViewController *lyricVC = [[NSLyricViewController alloc] init];
+- (void)searchLyricViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID {
+    [self searchBarCancelButtonClicked:_search];
+    NSLyricViewController *lyricVC = [[NSLyricViewController alloc] initWithItemId:itemID];
     
     [self.navigationController pushViewController:lyricVC animated:YES];
     

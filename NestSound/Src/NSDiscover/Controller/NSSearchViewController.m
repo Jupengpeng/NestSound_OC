@@ -261,21 +261,21 @@
 }
 
 
-- (void)searchMusicTableView:(NSSearchMusicTableView *)tableView {
+- (void)searchMusicTableView:(NSSearchMusicTableView *)tableView withItemId:(long)itemID {
     
-    if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:)]) {
+    if ([self.delegate1 respondsToSelector:@selector(searchMusicViewController:withItemId:)]) {
         
-        [self.delegate1 searchMusicTableView:self];
+        [self.delegate1 searchMusicViewController:self withItemId:itemID];
     }
     
     NSLog(@"歌曲");
 }
 
-- (void)searchLyricTableView:(NSSearchMusicTableView *)tableView {
+- (void)searchLyricTableView:(NSSearchMusicTableView *)tableView withItemId:(long)itemID {
     
-    if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:)]) {
+    if ([self.delegate1 respondsToSelector:@selector(searchLyricViewController:withItemId:)]) {
         
-        [self.delegate1 searchLyricTableView:self];
+        [self.delegate1 searchLyricViewController:self withItemId:itemID];
     }
     
     NSLog(@"歌词");

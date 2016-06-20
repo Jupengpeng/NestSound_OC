@@ -598,7 +598,14 @@ UITableViewDataSource>
 
 #pragma mark edit
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    
+    if (self.who == Myself) {
+        
+        return YES;
+    } else {
+        
+        return NO;
+    }
 }
 
 
@@ -611,20 +618,29 @@ UITableViewDataSource>
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        
         self.requestType = NO;
-        
         NSMyMusicModel * myMode = dataAry[indexPath.row];
-        
-        self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
-        
-        self.requestURL = deleteWorkURL;
-        
+        if (type == 3) {
+            self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
+            self.requestURL = collectURL;
+        }else{
+            
+            if (type == 4) {
+                type = 3;
+            }
+            self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
+            
+            self.requestURL = deleteWorkURL;
+            
+            
+        }
         [dataAry removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
         NSLog(@"点击了删除");
+
+       
     }
 }
 

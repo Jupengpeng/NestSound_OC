@@ -32,7 +32,7 @@ static  NSString * const lyricTypeID = @"lyricType";
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        [self configreUIAppearance];
+       
     }
     return self;
 }
@@ -91,6 +91,7 @@ static  NSString * const lyricTypeID = @"lyricType";
     NSTypeLyricListModel * typeList =lyricTypeAry[0];
     lyricsAry = [NSMutableArray arrayWithArray:typeList.lyricLibaryList];
     dataAry = lyricsAry;
+    [self configreUIAppearance];
     
 }
 #pragma mark collectionViewDataSource
@@ -101,7 +102,7 @@ static  NSString * const lyricTypeID = @"lyricType";
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
        return  lyricTypeAry.count;
-//    return 5;
+
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -158,7 +159,11 @@ static  NSString * const lyricTypeID = @"lyricType";
     UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     
     NSString * lyricStr = cell.textLabel.text;
-    [_delegate selectedlrcString:lyricStr];
+    
+    if ([self.delegate respondsToSelector:@selector(selectedlrcString:)]) {
+        
+        [_delegate selectedlrcString:lyricStr];
+    }
 }
 
 
