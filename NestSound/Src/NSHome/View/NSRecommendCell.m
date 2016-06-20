@@ -144,6 +144,7 @@
     }else{
         [listenImage setImage:[UIImage imageNamed:@"2.0_lyricIcon"]];
     }
+    
 }
 
 

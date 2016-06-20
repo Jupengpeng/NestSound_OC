@@ -137,12 +137,13 @@ extern NSString *port;
 // weibo - appInfo
 #define wbAppId        @"4209676241"
 #define wbAppKey       @"8856a07ab99f27d94005a3fb536ad4c8"
-#define wbSecretURL    @"http://sns.whalecloud.com/sina2/callback"
+#define wbSecretURL    @"http://121.196.236.189/api/weiboin.php"
 
 // UMeng - appInfo
 #define umAppKey       @"56a8661967e58ea24f002e3f"
 
-
+//JPush appkey
+#define JPushAPPKey @"fc0c317f16cfdc18ebcb7180"
 
 
 
