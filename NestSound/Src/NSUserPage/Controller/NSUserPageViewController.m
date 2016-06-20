@@ -88,8 +88,9 @@ UITableViewDataSource>
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
     }else{
-        
-        [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+        if (dataAry.count == 0) {
+            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+        }
         
     }
 }
@@ -111,17 +112,14 @@ UITableViewDataSource>
     if (userDic) {
         
         if (who == Myself) {
-            NSDictionary * dic = @{@"uid":JUserID,@"token":userDic[@"userLoginToken"],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
-            NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
-            NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-            
-           
+            NSDictionary * dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
+            NSString * str = [NSTool encrytWithDic:dic];
             url = [userCenterURL stringByAppendingString:str];
           
         
         }else{
         
-            NSDictionary * dic = @{@"otherid":userId,@"uid":userId,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
+            NSDictionary * dic = @{@"otherid":userId,@"uid":JUserID,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             url = [otherCenterURL stringByAppendingString:str];
@@ -160,6 +158,8 @@ UITableViewDataSource>
 
             dataAry = myMusicAry;
             [_tableView reloadData];
+        }else if ([operation.urlTag isEqualToString:focusUserURL]){
+            NSLog(@"lalal");
         }
             }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
@@ -255,12 +255,13 @@ UITableViewDataSource>
 
 - (void)followBtnClick:(UIButton *)follow {
     if (self.who == Myself) {
-        NSFansViewController * myFocusVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:NO];
+        NSFansViewController * myFocusVC = [[NSFansViewController alloc] initWithUserID:JUserID _isFans:NO isWho:Myself];
         [self.navigationController pushViewController:myFocusVC animated:YES];
     }
     
     if (self.who == Other) {
-        NSFansViewController * otherFocusVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:NO];
+        
+        NSFansViewController * otherFocusVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:NO isWho:Other];
         [self.navigationController pushViewController:otherFocusVC animated:YES];
     }
     
@@ -268,12 +269,12 @@ UITableViewDataSource>
 
 - (void)fansBtnClick:(UIButton *)fansBtn {
     if (self.who == Myself) {
-        NSFansViewController * myFansVC = [[NSFansViewController alloc] initWithUserID:JUserID _isFans:YES];
+        NSFansViewController * myFansVC = [[NSFansViewController alloc] initWithUserID:JUserID _isFans:YES isWho:Myself];
         [self.navigationController pushViewController:myFansVC animated:YES];
     }
     
     if (self.who == Other) {
-        NSFansViewController * otherFansVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:YES];
+        NSFansViewController * otherFansVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:YES isWho:Other];
         [self.navigationController pushViewController:otherFansVC animated:YES];
         NSLog(@"点击了他人的粉丝");
     }
