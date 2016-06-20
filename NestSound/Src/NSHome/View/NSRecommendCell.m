@@ -137,7 +137,7 @@
 
     playCountLab.text = _recommend.playCount;
 
-    [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
 
     if (recommend.type == 1) {
         [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];

@@ -13,7 +13,7 @@
     UIImageView * headerImage;
     UILabel * authorLabel;
     UILabel * descLabel;
-    UIButton * focusBtn;
+    
 }
 @end
 
@@ -51,8 +51,8 @@
     
     
     //focusBtn
-    focusBtn = [[UIButton alloc] init];
-    [self.contentView addSubview:focusBtn];
+    self.focusBtn = [[UIButton alloc] init];
+    [self.contentView addSubview:self.focusBtn];
     
 }
 
@@ -69,7 +69,7 @@
         make.width.mas_equalTo(50);
     }];
     
-    [focusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.focusBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.right.equalTo(self.contentView.mas_right).with.offset(-15);
         make.height.mas_equalTo(35);
@@ -79,7 +79,7 @@
     [authorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headerImage.mas_right).with.offset(10);
         make.top.equalTo(self.contentView.mas_top).with.offset(20);
-        make.right.equalTo(focusBtn.mas_right).with.offset(-10);
+        make.right.equalTo(self.focusBtn.mas_right).with.offset(-10);
     }];
     
     [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -103,13 +103,19 @@
     authorLabel.text = _fansModel.fansName;
 
     descLabel.text = _fansModel.fansSign;
+    if (!self.isFans) {
+        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focused"] forState:UIControlStateNormal];
+        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateSelected];
+    }else{
+        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focus"]  forState:UIControlStateNormal];
+        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateSelected];
+    }
+    
     
     if (_fansModel.status ==1) {
-        [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focused"] forState:UIControlStateNormal];
-    }else if(_fansModel.status == 2){
-        [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateNormal];
+        self.focusBtn.selected = NO;
     }else{
-         [focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focus"] forState:UIControlStateNormal];
+        self.focusBtn.selected = YES;
     }
 }
 @end

@@ -105,7 +105,10 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
             if (!operation.isLoadingMore) {
                 fansAry = [NSMutableArray arrayWithArray:fansList.fansListModel];
             }else{
-                [fansAry addObjectsFromArray:fansList.fansListModel];
+                if (fansList.fansListModel.count!=0) {
+                    [fansAry addObjectsFromArray:fansList.fansListModel];
+                }
+                
             }
             [fansTableView reloadData];
             if (!operation.isLoadingMore) {
@@ -170,10 +173,21 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     
 }
 
+
+#pragma mark -focusUser
+-(void)focusWithBtn:(UIButton *)btn
+{
+    NSFanscell * cell = (NSFanscell *)btn.superview.superview;
+    self.requestType = NO;
+    self.requestParams =@{@"uid":@(cell.fansModel.fansID),@"fansid":JUserID,@"token":LoginToken};
+    self.requestURL = focusUserURL;
+}
+
 #pragma mark -tableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return fansAry.count;
+    
     
 }
 //-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -191,6 +205,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         fansCell = [[NSFanscell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSFansCellIdeify];
         
     }
+    [fansCell.focusBtn addTarget:self action:@selector(focusWithBtn:) forControlEvents:UIControlEventTouchUpInside];
     fansCell.fansModel = fansAry[indexPath.row];
     if (isFans) {
         fansCell.isFans = YES;
@@ -201,6 +216,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     return fansCell;
     
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 72;
