@@ -142,7 +142,8 @@ extern NSString *port;
 // UMeng - appInfo
 #define umAppKey       @"56a8661967e58ea24f002e3f"
 
-
+//JPush appkey
+#define JPushAPPKey @"fc0c317f16cfdc18ebcb7180"
 
 
 

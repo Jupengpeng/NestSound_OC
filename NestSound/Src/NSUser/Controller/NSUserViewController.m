@@ -228,7 +228,8 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         
     }else if (section == 1){
         if (row == 0) {
-            [Memory clearCache];
+//            [Memory clearCache];
+            [[NSToastManager manager] showtoast:@"已成功清理缓存"];
             UITableViewCell * settingCell = [settingPageTable cellForRowAtIndexPath:indexPath];
             UILabel * cacheSize = (UILabel *)[settingCell viewWithTag:101];
             cacheSize.text = [Memory getCacheSize];
