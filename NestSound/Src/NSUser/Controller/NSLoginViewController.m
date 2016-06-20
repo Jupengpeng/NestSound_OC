@@ -287,12 +287,19 @@
 
 -(void)loagin
 {
-    self.requestType = NO;
-    self.requestParams = @{@"mobile":phoneText.text,
-                           @"password":[passwordText.text stringToMD5]};
-    NSLog(@"%@",self.requestParams);
-    self.requestURL = loginURl;
-}
+    if (passwordText.text.length == 0 || phoneText.text.length == 0) {
+        [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
+    }else{
+        
+        self.requestType = NO;
+        self.requestParams = @{@"mobile":phoneText.text,
+                               @"password":[passwordText.text stringToMD5]};
+        NSLog(@"%@",self.requestParams);
+        self.requestURL = loginURl;
+        
+    }
+
+   }
 
 - (void)tap:(UIGestureRecognizer *)tap {
     
