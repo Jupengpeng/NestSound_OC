@@ -11,9 +11,9 @@
 
 @protocol NSSearchMusicTableViewDelegate <NSObject>
 
-- (void)searchMusicTableView:(NSSearchMusicTableView *)tableView;
+- (void)searchMusicTableView:(NSSearchMusicTableView *)tableView withItemId:(long)itemID;
 
-- (void)searchLyricTableView:(NSSearchMusicTableView *)tableView;
+- (void)searchLyricTableView:(NSSearchMusicTableView *)tableView withItemId:(long)itemID;
 
 @end
 
