@@ -11,7 +11,8 @@
 @implementation NSSearchUserListModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    return @{@"searchUserList":@"data"};
+    return @{@"searchUserList":@"data",@"searchMusicList":@"data"};
+    
     
 }
 @end

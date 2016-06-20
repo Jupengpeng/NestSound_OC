@@ -130,7 +130,7 @@
 
 
 @interface NSWriteLyricViewController ()<
-    UITextFieldDelegate,UITextViewDelegate,lyricsDelegate,ImportLyric
+    UITextFieldDelegate,UITextViewDelegate,lyricsDelegate,ImportLyric,lyricsDelegate
 >
 {
 
@@ -206,6 +206,8 @@
     [self.navigationController.view addSubview:maskView];
     
     lexiconView = [[NSWriteLyricMaskView alloc] initWithFrame:CGRectMake(0, maskView.height, maskView.width, 300)];
+    
+    lexiconView.delegate = self;
     
     [self.navigationController.view addSubview:lexiconView];
     
@@ -300,6 +302,7 @@
 #pragma mrak -view the lyricLibary view
 -(void)lyricLibary
 {
+    [self fetchLyricLibraryData];
     [self hiddenMaskView:NO];
 }
 
@@ -307,11 +310,11 @@
 -(void)fetchLyricLibraryData
 {
     self.requestType = YES;
-    NSDictionary * dic = @{@"keyword":@""};
+    NSDictionary * dic = @{@"token":LoginToken};
     NSString * str = [NSTool encrytWithDic:dic];
     url = [lyricLibraryURL stringByAppendingString:str];
     self.requestURL = url;
-
+    
 }
 
 #pragma mark - overrider actionFetchData
@@ -321,7 +324,6 @@
         if ([operation.urlTag isEqualToString:url]) {
             NSLyricLibraryListModel * lyricLibrary = (NSLyricLibraryListModel *)parserObject;
             lexiconView.lyricLibraryListModel = lyricLibrary;
-            
         }
     }
     
@@ -335,6 +337,11 @@
     
     [self presentViewController:lyricCoachVC animated:YES completion:nil];
     
+}
+
+- (void)selectedlrcString:(NSString *)lrcString_ {
+    
+    lyricView.lyricText.text = [lyricView.lyricText.text stringByAppendingString:[NSString stringWithFormat:@"%@\n",lrcString_]];
 }
 
 @end

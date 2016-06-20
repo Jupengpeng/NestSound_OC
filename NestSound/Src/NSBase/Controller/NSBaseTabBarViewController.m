@@ -20,6 +20,7 @@
 #import "NSPlayMusicViewController.h"
 #import "NSAccompanyListViewController.h"
 #import "NSWriteMusicViewController.h"
+#import "NSLoginViewController.h"
 
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
 
@@ -114,21 +115,49 @@
     
      [composeView removeFromSuperview];
     if (composeBtn.tag == 0) {
-        NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
-       [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
-        NSLog(@"点击了创作歌词");
+        
+        if (JUserID) {
+            
+            NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
+            [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
+            NSLog(@"点击了创作歌词");
+        } else {
+            
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
+        
 
     } else if (composeBtn.tag == 1) {
-        NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
-        [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:accompanyList animated:YES];
-        NSLog(@"点击了创作歌曲");
+        
+        if (JUserID) {
+            
+            NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
+            [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:accompanyList animated:YES];
+            NSLog(@"点击了创作歌曲");
+        } else {
+            
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
+        
     } else {
         
-        NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] initWithItemId:0 andType:YES];
-        
-        [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:inspirationRecord animated:YES];
-       
-        NSLog(@"点击了创作灵感记录");
+        if (JUserID) {
+            
+            NSInspirationRecordViewController *inspirationRecord = [[NSInspirationRecordViewController alloc] initWithItemId:0 andType:YES];
+            
+            [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:inspirationRecord animated:YES];
+            
+            NSLog(@"点击了创作灵感记录");
+        } else {
+            
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
     }
     
 }

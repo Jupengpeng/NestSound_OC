@@ -8,6 +8,7 @@
 
 #import "NSSearchMusicTableView.h"
 #import "NSNewMusicTableViewCell.h"
+#import "NSMyMusicModel.h"
 
 @interface NSSearchMusicTableView () <UITableViewDelegate, UITableViewDataSource>
 
@@ -59,22 +60,25 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSMyMusicModel *model = _DataAry[indexPath.row];
     if (tableView.tag == 1) {
 //        - (void)searchMusicTableView:(NSSearchMusicTableView *)tableView;
 //        
 //        - (void)searchLyricTableView:(NSSearchMusicTableView *)tableView;
-        if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:)]) {
+        
+        NSMyMusicModel *model = _DataAry[indexPath.row];
+        
+        if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:withItemId:)]) {
             
-            [self.delegate1 searchMusicTableView:self];
+            [self.delegate1 searchMusicTableView:self withItemId:model.itemId];
         }
         
         NSLog(@"点击了歌曲的第%zd个cell",indexPath.row);
     } else if (tableView.tag == 2) {
         
-        if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:)]) {
+        if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:withItemId:)]) {
             
-            [self.delegate1 searchLyricTableView:self];
+            [self.delegate1 searchLyricTableView:self withItemId:model.itemId];
         }
         
         NSLog(@"点击了歌词的第%zd个cell",indexPath.row);

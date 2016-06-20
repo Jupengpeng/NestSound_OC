@@ -550,6 +550,7 @@ static id _instance;
         
         btn.selected = !btn.selected;
         
+     
        [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:NO];
         
         NSLog(@"点击了播放页的收藏");

@@ -532,12 +532,12 @@
             
         }
         
+        [self tuningMusicWithCreateType:nil andHotId:itemID andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
+        
         
         NSFileManager *manager = [NSFileManager defaultManager];
         
         [manager removeItemAtPath:self.mp3File error:nil];
-        
-        [self tuningMusicWithCreateType:nil andHotId:itemID andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
         
     } failure:^void(NSURLSessionDataTask * task, NSError * error) {
         // 请求失败
