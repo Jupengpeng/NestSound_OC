@@ -262,11 +262,11 @@
             //    NSShareViewController *shareView = [[NSShareViewController alloc] init];
             //
             [self.navigationController pushViewController:publicVC animated:YES];
-        
+            
         }
     }
     
-    }
+}
 
 - (void)tapClick {
     
@@ -295,6 +295,9 @@
 -(void)imporLyric
 {
     importLyricVC = [[NSImportLyricViewController alloc] init];
+    
+    importLyricVC.delegate = self;
+    
     [self.navigationController pushViewController:importLyricVC animated:YES];
     importLyricVC.delegate = self;
 }
@@ -342,6 +345,13 @@
 - (void)selectedlrcString:(NSString *)lrcString_ {
     
     lyricView.lyricText.text = [lyricView.lyricText.text stringByAppendingString:[NSString stringWithFormat:@"%@\n",lrcString_]];
+}
+
+- (void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName {
+    
+    titleTextFiled.text = musicName;
+    
+    lyricView.lyricText.text = lyrics;
 }
 
 @end

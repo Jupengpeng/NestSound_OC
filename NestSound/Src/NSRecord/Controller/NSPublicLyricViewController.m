@@ -77,6 +77,13 @@
     
     [self.view addSubview:backgroundView];
     
+    UIView *lineView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
+    
+    lineView0.backgroundColor = [UIColor lightGrayColor];
+    
+    [backgroundView addSubview:lineView0];
+
+    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, backgroundView.height - 1, ScreenWidth, 1)];
     
     lineView.backgroundColor = [UIColor lightGrayColor];
@@ -307,12 +314,13 @@
    
     }
     
-    
 }
 
 #pragma mark -addtitlePage
 -(void)addtitlePage
 {
+    [descriptionText resignFirstResponder];
+    
     [chosePhotoLibrary showInView:self.view];
 }
 

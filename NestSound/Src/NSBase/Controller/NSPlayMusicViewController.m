@@ -16,6 +16,7 @@
 #import "NSUserFeedbackViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSWriteMusicViewController.h"
+#import "NSLoginViewController.h"
 
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
@@ -392,7 +393,7 @@ static id _instance;
         
         playOrPauseBtn.selected = NO;
         
-        NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] init];
+        NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId];
         
         [self.navigationController pushViewController:musicView animated:YES];
         
@@ -548,12 +549,18 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        btn.selected = !btn.selected;
+        if (JUserID) {
+            
+            btn.selected = !btn.selected;
+            
+            [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:NO];
+            
+            NSLog(@"点击了播放页的收藏");
+        } else {
+            
+            [[NSToastManager manager] showtoast:@"请登录后再收藏"];
+        }
         
-     
-       [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:NO];
-        
-        NSLog(@"点击了播放页的收藏");
     }];
     
     [self.view addSubview:collectionBtn];
@@ -579,9 +586,16 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        btn.selected = !btn.selected;
-        [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:YES];
-        NSLog(@"点击了播放页的点赞");
+        if (JUserID) {
+            
+            btn.selected = !btn.selected;
+            [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:YES];
+            NSLog(@"点击了播放页的点赞");
+        } else {
+         
+            [[NSToastManager manager] showtoast:@"请登录后再点赞"];
+        }
+        
     }];
     
     [self.view addSubview:upVoteBtn];
@@ -598,7 +612,6 @@ static id _instance;
     }];
     
     
-
     
     //评论
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
@@ -609,16 +622,22 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        _musicVc = [[NSMusicListViewController alloc] init];
+        if (JUserID) {
+            
+            _musicVc = [[NSMusicListViewController alloc] init];
+            
+            NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId:wSelf.musicDetail.itemID andType:1];
+            
+            commentVC.musicName = wSelf.musicDetail.title;
+            
+            [self.navigationController pushViewController:commentVC animated:YES];
+            
+            NSLog(@"点击了播放页的评论");
+        } else {
+            
+            [[NSToastManager manager] showtoast:@"请登录后查看评论"];
+        }
         
-        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId:wSelf.musicDetail.itemID andType:1];
-        
-        commentVC.musicName = wSelf.musicDetail.title;
-        
-        [self.navigationController pushViewController:commentVC animated:YES];
-        
-        
-        NSLog(@"点击了播放页的评论");
     }];
     
     [self.view addSubview:commentBtn];
@@ -759,8 +778,6 @@ static id _instance;
     
     lyricView.lyricText.editable = NO;
     
-//    lyricView.lyricText.text = @"月溅星河 长路漫漫\n风烟残尽 独影阑珊\n谁叫我身手不凡\n谁让我爱恨两难\n到后来 肝肠寸断\n幻世当空 恩怨休怀\n舍悟离迷 六尘不改\n且怒且悲且狂哉\n是人是鬼是妖怪\n不过是心有魔债\n叫一声佛祖 回头无岸\n跪一人为师 生死无关\n善恶浮世真假界\n尘缘散去不分明\n难断\n我要 这铁棒有何用\n我有 这变化又如何\n还是不安 还是氏惆\n金箍当头 欲说还休\n我要 这铁棒醉舞魔\n我有 这变化乱迷浊\n踏碎凌霄 放肆桀骜\n世恶道险 终究难逃\n这一棒\n叫你灰飞烟灭";
-    
     self.lyricView = lyricView;
     
     lyricView.backgroundColor = [UIColor clearColor];
@@ -778,8 +795,6 @@ static id _instance;
     describeView.lyricText.showsVerticalScrollIndicator = NO;
     
     describeView.lyricText.editable = NO;
-    
-//    describeView.lyricText.text = @"《悟空》灵感来源于戴荃心中的悟空精神，叛逆、多变、乐观和坚持。从五岁的时候学习音乐开始到2015年，已经有30年了，遇到过被人欺骗、被人否定、被人不承认。觉得孙悟空就是要身经百战，要去打仗，打一次强一次。这首歌将戏曲和流行音乐相结合，应该让它以时代的声音表现出来。";
     
     self.describeView = describeView;
     
@@ -822,9 +837,15 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        NSUserFeedbackViewController * reportVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
-        [wSelf.navigationController pushViewController:reportVC animated:YES];
-        NSLog(@"点击了举报");
+        if (JUserID) {
+            
+            NSUserFeedbackViewController * reportVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
+            [wSelf.navigationController pushViewController:reportVC animated:YES];
+            NSLog(@"点击了举报");
+        } else {
+            
+            [[NSToastManager manager] showtoast:@"请登录后再举报"];
+        }
     }];
     
     [_moreChoiceView addSubview:reportBtn];
@@ -847,10 +868,28 @@ static id _instance;
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
     } action:^(UIButton *btn) {
-        NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.musicDetail.userID]];
-        userVC.who = Other;
-        [wSelf.navigationController pushViewController:userVC animated:YES];
-        NSLog(@"点击了进入个人主页");
+        
+        if (JUserID) {
+            
+            NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.musicDetail.userID]];
+            userVC.who = Other;
+            [wSelf.navigationController pushViewController:userVC animated:YES];
+            NSLog(@"点击了进入个人主页");
+        } else {
+            
+            _maskView.hidden = YES;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _moreChoiceView.y = ScreenHeight;
+                
+            }];
+
+            
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
     }];
     
     [_moreChoiceView addSubview:personalBtn];

@@ -13,7 +13,7 @@
 @interface NSShareViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
     NSMutableArray * shareModuleAry;
-    NSMutableArray * availableShareModuleAry;
+//    NSMutableArray * availableShareModuleAry;
     NSString * workName;
     NSString * titleImageURl;
     NSString * shareUrl;
@@ -26,11 +26,22 @@
 @property (nonatomic, strong) NSDictionary *QQDict;
 @property (nonatomic, strong) NSDictionary *QzoneDict;
 
+@property (nonatomic, strong) NSMutableArray * availableShareModuleAry;;
 @end
 
 static NSString *identifier = @"identifier";
 
 @implementation NSShareViewController
+
+- (NSMutableArray *)availableShareModuleAry {
+    
+    if (!_availableShareModuleAry) {
+        
+        _availableShareModuleAry = [NSMutableArray array];
+    }
+    
+    return _availableShareModuleAry;
+}
 
 
 -(void)viewDidLoad
@@ -44,9 +55,11 @@ static NSString *identifier = @"identifier";
     self.weiboDict          = @{@"icon": @"2.0_shareSina_btn", @"name": @"微博"};
     self.QQDict             = @{@"icon": @"2.0_shareQQ_btn", @"name": @"QQ"};
     self.QzoneDict          = @{@"icon": @"2.0_qzoneShare_btn", @"name": @"QQ空间"};
-    availableShareModuleAry = [NSMutableArray array];
+//    availableShareModuleAry = [NSMutableArray array];
   
-   
+    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_share_background"]];
+    image.userInteractionEnabled = YES;
+    self.view = image;
 }
 
 
@@ -54,7 +67,7 @@ static NSString *identifier = @"identifier";
 -(void)configureUIAppearance
 {
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_share_background"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_share_background"]];
     
     CGFloat W = (ScreenWidth - 120) / 3;
     
@@ -111,16 +124,16 @@ static NSString *identifier = @"identifier";
 -(void)availableShareModue
 {
     if ([Share shareAvailableWeiXin]) {
-        [availableShareModuleAry addObject:_weixinDict];
-        [availableShareModuleAry addObject:_pengyouquanDict];
+        [self.availableShareModuleAry addObject:_weixinDict];
+        [self.availableShareModuleAry addObject:_pengyouquanDict];
     }
     if ([Share shareAvailableQQ]) {
-     [availableShareModuleAry addObject:_QQDict];
-     [availableShareModuleAry addObject:_QzoneDict];
+     [self.availableShareModuleAry addObject:_QQDict];
+     [self.availableShareModuleAry addObject:_QzoneDict];
 
     }
 
-    [availableShareModuleAry addObject:_weiboDict];
+    [self.availableShareModuleAry addObject:_weiboDict];
 
 
 }
@@ -130,7 +143,8 @@ static NSString *identifier = @"identifier";
 {
     [super viewWillAppear:animated];
     [self availableShareModue];
-     [self configureUIAppearance];
+    [self configureUIAppearance];
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 
@@ -148,13 +162,13 @@ static NSString *identifier = @"identifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return availableShareModuleAry.count;
+    return self.availableShareModuleAry.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSShareCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    cell.dic = availableShareModuleAry[indexPath.row];
+    cell.dic = self.availableShareModuleAry[indexPath.row];
     return cell;
 }
 
@@ -162,7 +176,7 @@ static NSString *identifier = @"identifier";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary * dic = availableShareModuleAry[indexPath.row];
+    NSDictionary * dic = self.availableShareModuleAry[indexPath.row];
     WS(wSelf);
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:titleImageURl];
     [UMSocialData defaultData].extConfig.title = workName;

@@ -287,9 +287,14 @@
 
 -(void)loagin
 {
+        
     if (passwordText.text.length == 0 || phoneText.text.length == 0) {
         [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
-    }else{
+    }else if ([NSTool isStringEmpty:phoneText.text]) {
+     
+        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
+        
+    } else {
         
         self.requestType = NO;
         self.requestParams = @{@"mobile":phoneText.text,
@@ -298,8 +303,8 @@
         self.requestURL = loginURl;
         
     }
-
-   }
+    
+}
 
 - (void)tap:(UIGestureRecognizer *)tap {
     

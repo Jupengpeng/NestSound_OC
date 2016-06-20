@@ -33,8 +33,6 @@ UIWebViewDelegate
 #pragma mark configureUIAppearance
 -(void)configureUIAppearance
 {
-    //nav
-//    self.showBackBtn = YES;
     
     //webView
     h5WebView = [[UIWebView alloc] init];

@@ -16,7 +16,7 @@
              @"itemId":@"itemid",
              @"lookNum":@"looknum",
              @"lyrics":@"lyrics",
-             @"title":@"name",
+             @"title":@"title",
              @"titleImageUrl":@"pic"
              };
     

@@ -43,6 +43,12 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = YES;
+}
 
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
@@ -322,7 +328,7 @@
     passwordText.leftViewMode = UITextFieldViewModeAlways;
     
     passwordText.placeholder = @"输入密码";
-    
+    passwordText.secureTextEntry = YES;
     [passwordView addSubview:passwordText];
     
     [passwordText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -367,7 +373,7 @@
     repasswordText.leftViewMode = UITextFieldViewModeAlways;
     
     repasswordText.placeholder = @"重新输入密码";
-    
+    repasswordText.secureTextEntry = YES;
     [repasswordView addSubview:repasswordText];
     
     [repasswordText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -444,8 +450,9 @@
     } action:^(UIButton *btn) {
         
         NSH5ViewController * protocolVC =[[NSH5ViewController alloc] init];
-#warning protocol url
-        protocolVC.h5Url = @"123";
+        
+        protocolVC.h5Url = @"http://www.yinchao.cn/html/xieyi.html";
+        
         [self.navigationController pushViewController:protocolVC animated:YES];
         
         NSLog(@"点击了协议");
@@ -480,6 +487,8 @@
         btn.height = 44;
         
     } action:^(UIButton *btn) {
+        
+        [self registerNumber];
         
         NSLog(@"点击了确定");
     
@@ -527,10 +536,21 @@
 
 -(void)registerNumber
 {
-    
+    if (userNameText.text.length == 0) {
         
-   
-    if (![passwordText.text isEqualToString:repasswordText.text]) {
+        [[NSToastManager manager] showtoast:@"昵称不能为空"];
+    } else if (passwordText.text.length == 0 || phoneText.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
+    } else if ([NSTool isStringEmpty:phoneText.text]) {
+        
+        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
+        
+    } else if (captchaText.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"请输入验证码"];
+    } else if (![passwordText.text isEqualToString:repasswordText.text]) {
+        
         [[NSToastManager manager] showtoast:@"亲，两次输入密码不一致哦"];
     }else{
         
@@ -545,9 +565,6 @@
         self.requestURL = registerURL;
     
     }
-        
-    
-    
 
 }
 

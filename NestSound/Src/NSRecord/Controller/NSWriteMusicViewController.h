@@ -8,8 +8,11 @@
 
 #import "NSBaseViewController.h"
 @class NSAccommpanyModel;
+
 @interface NSWriteMusicViewController : NSBaseViewController
 
 @property (nonatomic,strong) NSAccommpanyModel * accompanyModel;
+
 -(instancetype)initWithItemId:(long)itemID_;
+
 @end

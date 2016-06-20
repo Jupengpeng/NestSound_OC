@@ -12,6 +12,7 @@
 #import "NSLyricDetailModel.h"
 #import "NSCommentViewController.h"
 #import "NSUserPageViewController.h"
+#import "NSLoginViewController.h"
 
 @interface NSLyricViewController ()<UMSocialUIDelegate>
 {
@@ -171,18 +172,26 @@
     
     //头像
     UIButton *iconBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-      
-        
        
         
     } action:^(UIButton *btn) {
         
-        NSUserPageViewController * userPageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.lyricDetail.userId]];
-        userPageVC.who = Other;
-        [self.navigationController pushViewController:userPageVC animated:YES];
-        
-        NSLog(@"点击了头像");
+        if (JUserID) {
+            
+            NSUserPageViewController * userPageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.lyricDetail.userId]];
+            userPageVC.who = Other;
+            [self.navigationController pushViewController:userPageVC animated:YES];
+            
+            NSLog(@"点击了头像");
+            
+        } else {
+            
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
+    
+    
     }];
     
     
@@ -253,13 +262,20 @@
         
     } action:^(UIButton *btn) {
         
-        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: wSelf.lyricDetail.itemId andType:2];
+        if (JUserID) {
+            
+            NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: wSelf.lyricDetail.itemId andType:2];
+            
+            commentVC.musicName = self.lyricDetail.title;
+            
+            [self.navigationController pushViewController:commentVC animated:YES];
+            
+            NSLog(@"点击了评论");
+        } else {
+            
+            [[NSToastManager manager] showtoast:@"请登录后查看评论"];
+        }
         
-        commentVC.musicName = self.lyricDetail.title;
-        
-        [self.navigationController pushViewController:commentVC animated:YES];
-
-        NSLog(@"点击了评论");
         
     }];
     
@@ -321,11 +337,10 @@
         
     } action:^(UIButton *btn) {
         
-        btn.selected = !btn.selected;
-        
         if (!JUserID) {
             [[NSToastManager manager] showtoast:@"登陆后才能进行点赞和收藏操作哦"];
         }else{
+            btn.selected = !btn.selected;
             [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
             NSLog(@"点击了点赞");
         }
@@ -357,10 +372,12 @@
         
     } action:^(UIButton *btn) {
         
-        btn.selected = !btn.selected;
         if (!JUserID) {
              [[NSToastManager manager] showtoast:@"登陆后才能进行点赞和收藏操作哦"];
         }else{
+            
+            btn.selected = !btn.selected;
+            
             [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
             
             NSLog(@"点击了收藏");
@@ -405,8 +422,6 @@
     
     _lyricView.lyricText.editable = NO;
     
-//    lyricView.lyricText.text = @"可可豆（词音：kekedou）亦称“可可子”。\n梧桐科常绿乔木可可树的果实，\n长卵圆形坚果的扁平种子，\n含油53%～58% 。\n榨出的可可脂有独特香味及融化性能。\n是可可树的产物。\n中国于1922年开始引种此种树木。\n可可喜生于温暖和湿润的气侯和富于有机质的冲积土所形成的缓坡上，\n在排水不良和重粘土上或常受台风侵袭的地方则不适宜生长。";
-    
     [self.view addSubview:_lyricView];
 }
 
@@ -430,17 +445,18 @@
     NSArray *array = [[NSArray alloc] init];
     
     CGFloat moreChoiceViewH;
-    if (/* DISABLES CODE */ (1) == 1) {
-        
-        array = @[@"举报",@"分享",@"编辑"];
-        
-        moreChoiceViewH = 132;
-    } else {
-        
+    
+//    if (/* DISABLES CODE */ (1) == 1) {
+//        
+//        array = @[@"举报",@"分享",@"编辑"];
+//        
+//        moreChoiceViewH = 132;
+//    } else {
+    
         array = @[@"举报",@"分享"];
         
         moreChoiceViewH = 88;
-    }
+//    }
     
     
     _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, moreChoiceViewH)];
@@ -481,21 +497,28 @@
     
     if (btn.tag == 0) {
         
-        _maskView.hidden = YES;
-        
-        [UIView animateWithDuration:0.25 animations:^{
+        if (JUserID) {
             
-            _moreChoiceView.y = ScreenHeight;
-        }];
-        
+            _maskView.hidden = YES;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _moreChoiceView.y = ScreenHeight;
+            }];
+            
 #ifdef debug
-        NSLog(@"点击了举报");
+            NSLog(@"点击了举报");
 #endif
+            
+            NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
+            
+            [self.navigationController pushViewController:feedBackVC animated:YES];
+            
+        } else {
+            
+            [[NSToastManager manager] showtoast:@"请登录后再举报"];
+        }
         
-        NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
-        
-        [self.navigationController pushViewController:feedBackVC animated:YES];
-    
     } else if (btn.tag == 1) {
         
         _maskView.hidden = YES;

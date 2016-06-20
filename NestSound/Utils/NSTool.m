@@ -185,7 +185,7 @@ static NSDateFormatter *dateFormatter;
 }
 
 
-+(BOOL) isValidateMobile:(NSString *)mobile
++(BOOL)isValidateMobile:(NSString *)mobile
 {
     //cell number is 13， 15，18 begain，nine \d number
     NSString *phoneRegex = @"^((13[0-9])|(14[0-9])|(15[^4,\\D])|(18[0,0-9])|(17[0,6,7,8]))\\d{8}$";
