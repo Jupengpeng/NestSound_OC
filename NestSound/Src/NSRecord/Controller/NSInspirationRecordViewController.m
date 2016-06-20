@@ -187,7 +187,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
             NSData * audioData = [NSData dataWithContentsOfFile:self.audioPath];
             [upManager putData:audioData key:[NSString stringWithFormat:@"%@",self.audioPath.lastPathComponent] token:getQiniuAudioModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                
                 wSelf.audioURL = [NSString stringWithFormat:@"%@",key];
                 [wSelf publicWithType:NO];
             } option:nil];
