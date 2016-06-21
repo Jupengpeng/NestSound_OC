@@ -80,7 +80,7 @@
     }else if ([url isEqualToString:collectMessageURL]){
         return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:commentMessageURL]){
-        return [[NSCommentMessageListModel alloc] initWithJSONDict:jsonDict];
+        return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:systemMessageURL]){
         return [[NSSystemMessageListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:playMusicURL]){

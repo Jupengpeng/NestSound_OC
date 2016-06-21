@@ -111,8 +111,6 @@ static NSString * const systemCellID = @"SystemCellID";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (!parserObject.success) {
-        
-        
         if ([operation.urlTag isEqualToString:upvoteUrl]) {
             NSUpvoteMessageListModel * upvoteMessage = (NSUpvoteMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
@@ -236,9 +234,9 @@ static NSString * const systemCellID = @"SystemCellID";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (messageType == UpvoteMessageType) {
-        return 80;
+        return 140;
     }else if (messageType == CollectionMessageType){
-        return 80;
+        return 140;
     }else if (messageType == SystemMessageType){
         SystemMessageModel * sys = messageArr[indexPath.row];
         if (sys.type == 1) {
@@ -267,9 +265,9 @@ static NSString * const systemCellID = @"SystemCellID";
         return cell;
         
     }else if (messageType == CollectionMessageType){
-        NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:upvoteCellID];
+        NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:collectionCellID];
         if (!cell) {
-            cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:upvoteCellID];
+            cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:collectionCellID];
         }
         cell.isUpvote = NO;
         cell.upvoteMessage = messageArr[row];

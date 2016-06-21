@@ -528,7 +528,7 @@
             _moreChoiceView.y = ScreenHeight;
         }];
         
-        [Share ShareWithTitle:_lyricDetail.title andShareUrl:_lyricDetail.shareUrl andShareImage:_lyricDetail.titleImageUrl andShareText:_lyricDetail.title andVC:self];
+        [Share ShareWithTitle:_lyricDetail.title andShareUrl:_lyricDetail.shareUrl andShareImage:nil andShareText:_lyricDetail.title andVC:self];
         
         //        [UMSocialData defaultData].extConfig.title = @"分享的title";
         //        [UMSocialData defaultData].extConfig.qqData.url = @"http://baidu.com";

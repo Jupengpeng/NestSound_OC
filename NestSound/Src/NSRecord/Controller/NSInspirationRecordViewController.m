@@ -566,7 +566,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             retractBtn.userInteractionEnabled = YES;
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
             
             wSelf.totalTime = self.timeNum;
             
@@ -618,7 +618,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 [wSelf removeLink];
             }];
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
             
             NSLog(@"点击了播放录音");
         } else {
@@ -847,11 +847,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     
     
-    self.recordDuration.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+    self.recordDuration.text = [NSString stringWithFormat:@"%02d:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
     
     if (self.isPlayer) {
         
-        self.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
+        self.promptLabel.text = [NSString stringWithFormat:@"%02d:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
     }
     
 }
