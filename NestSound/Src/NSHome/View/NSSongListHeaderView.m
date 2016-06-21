@@ -18,6 +18,7 @@
     UILabel * playAll;
     UILabel * songCount;
     UIButton * playBtn;
+    UIVisualEffectView * effct;
 
 }
 @end
@@ -46,10 +47,8 @@
 //    
     UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     
-    UIVisualEffectView * effct = [[UIVisualEffectView alloc] initWithEffect:blur];
+     effct = [[UIVisualEffectView alloc] initWithEffect:blur];
     effct.alpha = 0.9;
-    effct.frame = backImage.frame;
-    
     [backImage addSubview:effct];
     
     [self addSubview:backImage];
@@ -115,6 +114,11 @@
     //backImage
     [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self);
+    }];
+    
+    //effect
+    [effct mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(backImage);
     }];
     
     [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
