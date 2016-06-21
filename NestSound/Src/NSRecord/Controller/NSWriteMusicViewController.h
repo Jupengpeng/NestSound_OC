@@ -13,6 +13,6 @@
 
 @property (nonatomic,strong) NSAccommpanyModel * accompanyModel;
 
--(instancetype)initWithItemId:(long)itemID_;
+-(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;;
 
 @end

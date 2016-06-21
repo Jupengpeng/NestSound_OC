@@ -393,7 +393,7 @@ static id _instance;
         
         playOrPauseBtn.selected = NO;
         
-        NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId];
+        NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
         
         [self.navigationController pushViewController:musicView animated:YES];
         

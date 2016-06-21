@@ -47,7 +47,7 @@
 @end
 
 
-@interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric> {
+@interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric, AVAudioPlayerDelegate> {
     
     UILabel *totalTimeLabel;
     
@@ -55,7 +55,9 @@
     
     NSLyricView *lyricView;
     BOOL isHeadset;
-    long itemID;
+    NSString  * hotMp3Url;
+    long hotId;
+    long musicTime;
     NSString * mp3URL;
 }
 
@@ -105,10 +107,12 @@
 }
 
 
--(instancetype)initWithItemId:(long)itemID_
+-(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime_ andHotMp3:(NSString *)hotMp3
 {
     if (self = [super init]) {
-        itemID = itemID_;
+        hotId = itemID_;
+        hotMp3Url = hotMp3;
+        musicTime = musicTime_;
     }
     return self;
 }
@@ -141,6 +145,24 @@
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_addPhoto_btn"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSString * fileURL = hotMp3Url;
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:LocalAccompanyPath]) {
+        [fm createDirectoryAtPath:LocalAccompanyPath withIntermediateDirectories:YES attributes:nil error:nil];
+        NSLog(@"%@",LocalAccompanyPath);
+    }else{
+        if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
+            NSLog(@"uu%@",LocalAccompanyPath);
+            [[NSHttpClient client] downLoadWithFileURL:fileURL];
+        }
+    }
+
+}
+
 
 - (void)backClick:(UIBarButtonItem *)back {
     
@@ -266,7 +288,7 @@
     
     totalTimeLabel.font = [UIFont systemFontOfSize:10];
     
-    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:_accompanyModel.mp3Times]];
+    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:musicTime]];
     
     [self.view addSubview:totalTimeLabel];
     
@@ -408,18 +430,6 @@
                 
                 self.wavFilePath = filePath;
                 
-//                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:filePath FilePath:^(NSString *newfilePath) {
-//                    
-//                    NSData *data = [NSData dataWithContentsOfFile:newfilePath];
-//                    
-//                    wSelf.data = data;
-//                    
-//                    wSelf.next.enabled = YES;
-//                    
-//                    wSelf.mp3File = newfilePath;
-//                }];
-                
-                
             }];
             
             btn1.enabled = NO;
@@ -435,18 +445,17 @@
                 NSLog(@"播放错误说明%@", [error description]);
             }
             
-            NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[self.accompanyModel.mp3URL lastPathComponent]]];
+            NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             
             AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
             
+            player.delegate = self;
             
             [player prepareToPlay];
             
             [player play];
             
             self.player = player;
-            
-            [[XHSoundRecorder sharedSoundRecorder] playsound:[LocalAccompanyPath stringByAppendingPathComponent:[self.accompanyModel.mp3URL lastPathComponent]] withFinishPlaying:nil];
             
         } else {
             
@@ -567,7 +576,7 @@
                             
                         }
                         
-                        [self tuningMusicWithCreateType:nil andHotId:itemID andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
+                        [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
                         
                         
                         NSFileManager *manager = [NSFileManager defaultManager];
@@ -598,14 +607,14 @@
 }
 
 #pragma mark -OptionMusic
--(void)tuningMusicWithCreateType:(NSString *)createType andHotId:(long)hotId andUserID:(NSString *)userID_ andUseHeadSet:(BOOL)userHeadSet andMusicUrl :(NSString *)musicURl
+-(void)tuningMusicWithCreateType:(NSString *)createType andHotId:(long)hotId_ andUserID:(NSString *)userID_ andUseHeadSet:(BOOL)userHeadSet andMusicUrl :(NSString *)musicURl
 {
     self.requestType = NO;
     int headSet = 0;
     if (userHeadSet ) {
         headSet = 1;
     }
-    self.requestParams = @{@"hotid":[NSNumber numberWithLong:hotId],
+    self.requestParams = @{@"hotid":[NSNumber numberWithLong:hotId_],
                            @"uid":JUserID,
                            @"token":LoginToken,
                            @"useheadset":[NSNumber numberWithInt:headSet],
@@ -679,6 +688,20 @@
     
 }
 
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
+    [self removeLink];
+    [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+    [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
+    [self.player stop];
+    UIButton *btn2 = self.btns[2];
+    UIButton *btn1 = self.btns[1];
+    btn2.enabled = NO;
+    btn2.selected = NO;
+    btn1.enabled = YES;
+    
+}
+
 #pragma mark -setter && getter
 -(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
 {
@@ -694,6 +717,7 @@
     
     titleText.text = musicName;
 }
+
 
 
 @end
