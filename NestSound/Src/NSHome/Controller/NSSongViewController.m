@@ -38,8 +38,6 @@ static NSString * cellId = @"SongCell";
 {
     
     if (self = [super init]) {
-        self = [[NSSongViewController alloc] init];
-        
         songListId = listId;
         NSLog(@"thsi is %ld",listId);
     }
@@ -51,8 +49,6 @@ static NSString * cellId = @"SongCell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-
-    
     [self configureUIApperance];
 }
 
@@ -66,28 +62,26 @@ static NSString * cellId = @"SongCell";
 #pragma mark -fetchSongListData
 -(void)fetchSongListData
 {
-        
         [songsTable setContentOffset:CGPointMake(0, -60) animated:YES];
         [songsTable performSelector:@selector(triggerPullToRefresh)];
 
 }
 
 #pragma mark -fetchDataWithIsLoadingMore
--(void)fetchDataWithIsLoadingMore:(NSNumber *)isLodadingMore
+-(void)fetchDataWithIsLoadingMore:(BOOL)isLodadingMore
 {
-    int currentPage =[[self.requestParams objectForKey:@"page"] intValue];
-    if (!!!isLodadingMore.boolValue) {
+    int currentPage;
+    if (!isLodadingMore) {
         currentPage = 1;
     }else{
         ++ currentPage;
     }
-    NSDictionary * dic = @{@"id":[NSString stringWithFormat:@"%ld",songListId],@"page":[NSString stringWithFormat:@"%d",currentPage]};
-    NSDictionary * dic1 =[[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
-    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+    NSDictionary * dic = @{@"id":@(songListId),@"page":@(currentPage)};
+
+    NSString * str = [NSTool encrytWithDic:dic];
     url = [SongListURL stringByAppendingString:str];
    
-    self.requestParams = @{kNoLoading:@(YES),
-                           kIsLoadingMore:@(!!isLodadingMore.boolValue)};
+    self.requestParams = @{kIsLoadingMore:@(isLodadingMore)};
     self.requestType = YES;
     NSLog(@"%@",url);
     self.requestURL = url;
@@ -102,16 +96,15 @@ static NSString * cellId = @"SongCell";
             singListDetail = songListModel.songListDetail.listDetail;
             if (!operation.isLoadingMore) {
                 songAry = [NSMutableArray arrayWithArray:songListModel.SongList.songList];
-                [songsTable reloadData];
-                
             }else
             {
                 [songAry addObjectsFromArray:songListModel.SongList.songList];
-                [songsTable reloadData];
             }
             
             
         }
+       
+        [songsTable reloadData];
         if (!operation.isLoadingMore) {
             [songsTable.pullToRefreshView stopAnimating];
         }else{
@@ -134,13 +127,20 @@ static NSString * cellId = @"SongCell";
 //    LocalizedStr(@"promot_song");
     
     //tableView
-    songsTable = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-    songsTable.backgroundColor = [UIColor whiteColor];
+    songsTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    songsTable.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     songsTable.delegate = self;
     songsTable.dataSource = self;
-//    songsTable.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    songsTable.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     songsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+     [self.view addSubview:songsTable];
     
+    
+        //constraints
+        [songsTable mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.bottom.equalTo(self.view);
+        }];
+
     WS(wSelf);
     // refresh
     [songsTable addDDPullToRefreshWithActionHandler:^{
@@ -160,21 +160,15 @@ static NSString * cellId = @"SongCell";
         [wSelf fetchDataWithIsLoadingMore:@(YES)];
     }];
     
-    
-    
     // hidden LoadingMoreView
     songsTable.showsInfiniteScrolling = NO;
-    [self.view addSubview:songsTable];
-
-//    
-//    //constraints
-//    [songsTable mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.right.bottom.equalTo(self.view);
-//    }];
 }
 
 #pragma mark tablView datasource
-
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
@@ -193,8 +187,6 @@ static NSString * cellId = @"SongCell";
 {
     //headerView
     header = [[NSSongListHeaderView alloc] init];
-    //songsTable.tableHeaderView = header;
-    
     header.singListType = singListDetail;
     return header;
 }
@@ -207,7 +199,7 @@ static NSString * cellId = @"SongCell";
     if (!songCell) {
         songCell = [[NSSongCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:songCellIdentifer];
     }
-    
+
     songCell.number = indexPath.row + 1 ;
     songCell.songModel = song;
     return songCell;
