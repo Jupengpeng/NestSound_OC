@@ -236,18 +236,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 {
     //downLoading accompany and push to recordVC
     NSAccommpanyModel * accompany = dataAry[indexPath.section];
-    NSString * fileURL = accompany.mp3URL;
-    NSFileManager * fm = [NSFileManager defaultManager];
-    if (![fm fileExistsAtPath:LocalAccompanyPath]) {
-        [fm createDirectoryAtPath:LocalAccompanyPath withIntermediateDirectories:YES attributes:nil error:nil];
-        NSLog(@"%@",LocalAccompanyPath);
-    }else{
-        if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
-            NSLog(@"uu%@",LocalAccompanyPath);
-            [[NSHttpClient client] downLoadWithFileURL:fileURL];
-        }
-    }
-    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID];
+    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
     writeMusicVC.accompanyModel = accompany;
     [self.navigationController pushViewController:writeMusicVC animated:YES];
 }
