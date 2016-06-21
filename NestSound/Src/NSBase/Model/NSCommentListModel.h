@@ -17,7 +17,7 @@
 @property (nonatomic,assign) long userID;
 @property (nonatomic,assign) long targetUserID;
 @property (nonatomic,assign) int type;
-@property (nonatomic,assign) NSTimeInterval createDate;
+@property (nonatomic,copy) NSString *createDate;
 @property (nonatomic,copy) NSString * comment;
 @property (nonatomic,copy) NSString * headerURL;
 @property (nonatomic,copy) NSString * nickName;

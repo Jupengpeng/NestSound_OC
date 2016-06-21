@@ -78,6 +78,8 @@
 
 @property (nonatomic, copy) NSString *mp3File;
 
+@property (nonatomic, copy) NSString *wavFilePath;
+
 @end
 
 @implementation NSWriteMusicViewController
@@ -124,7 +126,7 @@
     
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     
-    next.enabled = NO;
+//    next.enabled = NO;
     
     self.next = next;
     
@@ -404,16 +406,18 @@
                 
                 wSelf.timerNum = 0;
                 
-                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:filePath FilePath:^(NSString *newfilePath) {
-                    
-                    NSData *data = [NSData dataWithContentsOfFile:newfilePath];
-                    
-                    wSelf.data = data;
-                    
-                    wSelf.next.enabled = YES;
-                    
-                    wSelf.mp3File = newfilePath;
-                }];
+                self.wavFilePath = filePath;
+                
+//                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:filePath FilePath:^(NSString *newfilePath) {
+//                    
+//                    NSData *data = [NSData dataWithContentsOfFile:newfilePath];
+//                    
+//                    wSelf.data = data;
+//                    
+//                    wSelf.next.enabled = YES;
+//                    
+//                    wSelf.mp3File = newfilePath;
+//                }];
                 
                 
             }];
@@ -520,6 +524,8 @@
 
 - (void)nextClick:(UIBarButtonItem *)next {
     
+    WS(wSelf);
+    
     if (titleText.text.length == 0) {
         [[NSToastManager manager] showtoast:@"歌词标题不能为空"];
     }else{
@@ -530,40 +536,54 @@
             
             if (JUserID) {
                 
-                // 1.创建网络管理者
-                AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-                
-                
-                [manager POST:uploadMp3URL parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
                     
-                    [formData appendPartWithFileData:self.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
+                    NSData *data = [NSData dataWithContentsOfFile:newfilePath];
+                    
+                    wSelf.data = data;
+                    
+//                    self.next.enabled = YES;
+                    
+                    wSelf.mp3File = newfilePath;
+                    
+                    // 1.创建网络管理者
+                    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
                     
                     
-                } success:^void(NSURLSessionDataTask * task, id responseObject) {
-                    // 请求成功
-                    NSLog(@"请求成功 %@", responseObject);
-                    
-                    NSDictionary *dict;
-                    
-                    if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                    [manager POST:uploadMp3URL parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                         
-                        dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+                        [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
                         
-                    }
+                        
+                    } success:^void(NSURLSessionDataTask * task, id responseObject) {
+                        // 请求成功
+                        NSLog(@"请求成功 %@", responseObject);
+                        
+                        NSDictionary *dict;
+                        
+                        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                            
+                            dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+                            
+                        }
+                        
+                        [self tuningMusicWithCreateType:nil andHotId:itemID andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
+                        
+                        
+                        NSFileManager *manager = [NSFileManager defaultManager];
+                        
+                        [manager removeItemAtPath:wSelf.mp3File error:nil];
+                        
+                    } failure:^void(NSURLSessionDataTask * task, NSError * error) {
+                        // 请求失败
+                        NSLog(@"请求失败 %@", error);
+                    }];
                     
-                    [self tuningMusicWithCreateType:nil andHotId:itemID andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
-                    
-                    
-                    NSFileManager *manager = [NSFileManager defaultManager];
-                    
-                    [manager removeItemAtPath:self.mp3File error:nil];
-                    
-                } failure:^void(NSURLSessionDataTask * task, NSError * error) {
-                    // 请求失败
-                    NSLog(@"请求失败 %@", error);
+                    NSLog(@"点击了下一步");
+
                 }];
+
                 
-                NSLog(@"点击了下一步");
                 
             } else {
                 

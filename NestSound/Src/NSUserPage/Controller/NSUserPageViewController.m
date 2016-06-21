@@ -452,13 +452,13 @@ UITableViewDataSource>
     
     UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 1)];
     
-    line1.backgroundColor = [UIColor lightGrayColor];
+    line1.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
     
     [backgoundView addSubview:line1];
     
     UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 60, ScreenWidth, 1)];
     
-    line2.backgroundColor = [UIColor lightGrayColor];
+    line2.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
     
     [backgoundView addSubview:line2];
     
@@ -470,7 +470,7 @@ UITableViewDataSource>
             
             UIView *line = [[UIView alloc] initWithFrame:CGRectMake(W * i, 0, 1, 60)];
             
-            line.backgroundColor = [UIColor lightGrayColor];
+            line.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
             
             [backgoundView addSubview:line];
         }

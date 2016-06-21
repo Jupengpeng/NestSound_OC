@@ -14,6 +14,7 @@
 #import "NSSearchViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSLyricViewController.h"
+#import "NSLoginViewController.h"
 
 @interface NSDiscoverViewController () <UIScrollViewDelegate, UISearchBarDelegate, NSSearchViewControllerDelegate> {
     
@@ -331,14 +332,23 @@
 
 - (void)searchViewController:(NSSearchViewController *)searchVC withUserID:(long)userID {
     
-    [self searchBarCancelButtonClicked:_search];
+    if (JUserID) {
+        
+        [self searchBarCancelButtonClicked:_search];
+        
+        NSUserPageViewController *userPage = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",userID]];
+        userPage.who = Other;
+        
+        [self.navigationController pushViewController: userPage animated:YES];
+        
+    } else {
+        
+        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+        
+        [self presentViewController:loginVC animated:YES completion:nil];
+    }
     
-    NSUserPageViewController *userPage = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",userID]];
-    userPage.who = Other;
     
-    [self.navigationController pushViewController: userPage animated:YES];
-    
-//    [self.parentViewController.navigationController pushViewController:userPage animated:YES];
 
 }
 

@@ -74,7 +74,16 @@
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    NSDictionary * dic = @{@"type":@(type),@"fansid":JUserID,@"page":@(currentPage),@"name":self.name};
+    
+    NSDictionary *dic;
+    
+    if (JUserID) {
+        
+        dic = @{@"type":@(type),@"fansid":JUserID,@"page":@(currentPage),@"name":self.name};
+    } else {
+        dic = @{@"type":@(type),@"page":@(currentPage),@"name":self.name};
+    }
+    
     NSString * str = [NSTool encrytWithDic:dic];
     NSLog(@"%@",dic);
     NSLog(@"%@",str);

@@ -80,7 +80,7 @@
     
     _line1 = [[UIView alloc] init];
     
-    _line1.backgroundColor = [UIColor lightGrayColor];
+    _line1.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
     
     [self addSubview:_line1];
     
@@ -96,7 +96,7 @@
     
     _line2 = [[UIView alloc] init];
     
-    _line2.backgroundColor = [UIColor lightGrayColor];
+    _line2.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
     
     [self addSubview:_line2];
     
@@ -112,7 +112,7 @@
     
     _line3 = [[UIView alloc] init];
     
-    _line3.backgroundColor = [UIColor lightGrayColor];
+    _line3.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
     
     [self addSubview:_line3];
     
