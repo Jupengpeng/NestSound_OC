@@ -62,9 +62,9 @@ static NSString * cellId = @"SongCell";
 #pragma mark -fetchSongListData
 -(void)fetchSongListData
 {
-        [songsTable setContentOffset:CGPointMake(0, -60) animated:YES];
-        [songsTable performSelector:@selector(triggerPullToRefresh)];
-
+//        [songsTable setContentOffset:CGPointMake(0, -60) animated:YES];
+//        [songsTable performSelector:@selector(triggerPullToRefresh)];
+    [self fetchDataWithIsLoadingMore:NO];
 }
 
 #pragma mark -fetchDataWithIsLoadingMore
@@ -100,16 +100,19 @@ static NSString * cellId = @"SongCell";
             {
                 [songAry addObjectsFromArray:songListModel.SongList.songList];
             }
-            
+          
+            if (!operation.isLoadingMore) {
+                [songsTable.pullToRefreshView stopAnimating];
+            }else{
+                [songsTable.infiniteScrollingView stopAnimating];
+                songsTable.showsInfiniteScrolling = NO;
+            }
+            [songsTable reloadData];
+           
+
             
         }
        
-        [songsTable reloadData];
-        if (!operation.isLoadingMore) {
-            [songsTable.pullToRefreshView stopAnimating];
-        }else{
-            [songsTable.infiniteScrollingView stopAnimating];
-        }
         
     }else{
         
@@ -127,11 +130,11 @@ static NSString * cellId = @"SongCell";
 //    LocalizedStr(@"promot_song");
     
     //tableView
-    songsTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    songsTable = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     songsTable.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     songsTable.delegate = self;
     songsTable.dataSource = self;
-    songsTable.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    songsTable.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     songsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
      [self.view addSubview:songsTable];
     
@@ -142,13 +145,16 @@ static NSString * cellId = @"SongCell";
         }];
 
     WS(wSelf);
+    
     // refresh
     [songsTable addDDPullToRefreshWithActionHandler:^{
         
         if (!wSelf) {
             return ;
         }
+        
         [wSelf fetchDataWithIsLoadingMore:@(NO)];
+  
     }];
     
     // loadingMore
@@ -215,5 +221,12 @@ static NSString * cellId = @"SongCell";
     
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (songsTable.contentOffset.y >songsTable.contentSize.height ) {
+        [self fetchDataWithIsLoadingMore:YES];
+        songsTable.showsInfiniteScrolling = YES;
+    }
+}
 
 @end

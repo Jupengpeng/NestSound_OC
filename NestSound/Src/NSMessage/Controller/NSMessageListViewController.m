@@ -71,7 +71,7 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     if (messageArr.count == 0) {
         [messageList setContentOffset:CGPointMake(0, -60) animated:YES];
-        [messageList performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+        [messageList performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
     }
 }
 
@@ -80,7 +80,7 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     self.requestType = YES;
     
-    
+     [messageList.infiniteScrollingView startAnimating];
     if (!isLoadingMore) {
         
         currentPage = 1;
@@ -166,6 +166,7 @@ static NSString * const systemCellID = @"SystemCellID";
             [messageList.pullToRefreshView stopAnimating];
         }else{
             [messageList.infiniteScrollingView stopAnimating];
+            messageList.showsInfiniteScrolling = NO;
         }
         
     }else{
@@ -322,6 +323,11 @@ static NSString * const systemCellID = @"SystemCellID";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSLog(@"this %f",messageList.contentOffset.y);
+    if ( messageList.contentOffset.y > messageList.contentSize.height) {
+        [self fetchDataWithIsLoadingMore:YES];
+        messageList.showsInfiniteScrolling = YES;
+       
+    }
 }
 
 @end

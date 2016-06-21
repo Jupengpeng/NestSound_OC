@@ -45,10 +45,10 @@
     //backimage
     backImage = [[UIImageView alloc] init];
 //    
-    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     
      effct = [[UIVisualEffectView alloc] initWithEffect:blur];
-    effct.alpha = 0.9;
+//    effct.alpha = 0.9;
     [backImage addSubview:effct];
     
     [self addSubview:backImage];

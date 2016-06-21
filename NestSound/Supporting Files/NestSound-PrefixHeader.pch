@@ -40,7 +40,7 @@
 #import "NSToastManager.h"
 #import "NSString+NSMD5Addition.h"
 #import "WXApi.h"
-
+#import "JPUSHService.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;
