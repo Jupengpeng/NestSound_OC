@@ -153,16 +153,11 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
 
-    if (!parserObject.success&&parserObject) {
+    if (!parserObject.success) {
 
         if ([operation.urlTag isEqualToString:index]) {
-            
-        
-#ifdef debug
         
         NSLog(@"this is%@",parserObject.description);
-        
-#endif
         
             NSIndexModel * indexModel = (NSIndexModel *)parserObject;
             bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
@@ -188,11 +183,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                 }
                 
             }
-            
-            
-            
-            
-            
         }
     }else{
         [[NSToastManager manager] showtoast:@"网络异常"];

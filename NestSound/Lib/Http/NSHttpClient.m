@@ -103,13 +103,13 @@ static NSHttpClient *client;
                               
                               [[NSToastManager manager] hideprogress];
                           }
-#ifdef DEBUG
+//#ifdef DEBUG
                           NSLog(@"RESPONSE JSON:%@", responseObject);
-#endif
+//#endif
                           
-                          if (!success) {
-                              return ;
-                          }
+//                          if (!success) {
+//                              return ;
+//                          }
                           
                           if ([responseObject isKindOfClass:[NSDictionary class]]) {
                              
@@ -117,9 +117,10 @@ static NSHttpClient *client;
                              
                               NSLog(@"dic;%@",dic);
                               NSInteger i = [requestURL rangeOfString:@"data="].location;
-                              
-                              NSString * str = [requestURL substringWithRange:NSMakeRange(32, i-32)];
+//debug
+//                              NSString * str = [requestURL substringWithRange:NSMakeRange(27, i-27)];
 
+                              NSString * str = [requestURL substringWithRange:NSMakeRange(32, i-32)];
                               NSLog(@"str%@",str);
                              
                               NSBaseModel *model = [NSModelFactory modelWithURL:str

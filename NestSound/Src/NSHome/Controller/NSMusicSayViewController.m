@@ -56,6 +56,10 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 
 -(void)configureUIAppearance
 {
+    
+    self.navigationController.title = @"乐说";
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     UICollectionViewFlowLayout * layOut = [[UICollectionViewFlowLayout alloc] init];
@@ -63,7 +67,7 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     musicSayList.dataSource = self;
     musicSayList.delegate = self;
     musicSayList.backgroundColor = [UIColor whiteColor];
-//    musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:musicSayList];
     [musicSayList registerClass:[NSMusicSayCollectionViewCell class] forCellWithReuseIdentifier:musicSayCellId];
     WS(wSelf);

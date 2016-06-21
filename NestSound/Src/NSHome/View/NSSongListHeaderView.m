@@ -18,6 +18,7 @@
     UILabel * playAll;
     UILabel * songCount;
     UIButton * playBtn;
+    UIVisualEffectView * effct;
 
 }
 @end
@@ -44,12 +45,13 @@
     //backimage
     backImage = [[UIImageView alloc] init];
 //    
-//    UIBlurEffect * efffct = [[UIBlurEffect alloc] init];
-//    
-//    UIVisualEffectView * effct = [[UIVisualEffectView alloc] initWithEffect:efffct];
+    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    
+     effct = [[UIVisualEffectView alloc] initWithEffect:blur];
+//    effct.alpha = 0.9;
+    [backImage addSubview:effct];
     
     [self addSubview:backImage];
-//    [self addSubview:effct];
     
     //titlepage
     titlePage = [[UIImageView alloc] init];
@@ -109,6 +111,16 @@
     
     [super layoutSubviews];
     //constains
+    //backImage
+    [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self);
+    }];
+    
+    //effect
+    [effct mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(backImage);
+    }];
+    
     [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).with.offset(10);
         make.left.equalTo(self.mas_left).with.offset(15);
@@ -156,8 +168,8 @@
 -(void)setSingListType:(singListModel *)singListType
 {
     _singListType = singListType;    
-    [titlePage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
-    [backImage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_accompany_highlighted"]];
+    [titlePage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    [backImage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     songListName.text = _singListType.detail;
     songListType.text = _singListType.title;
     

@@ -58,10 +58,8 @@
     
 
     
-    NSURLSessionDataTask *operation =[[NSHttpClient client] requestWithURL:requestURL type:self.requestType                                          paras:self.requestParams
+    NSURLSessionDataTask *operation =[[NSHttpClient client] requestWithURL:url type:self.requestType                                          paras:self.requestParams
                                                                     success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
-                                                                        
-                                                                        
                                                                         
                                                                         NSBaseModel *responseModel = (NSBaseModel *)parserObject;
                                                                         
@@ -75,9 +73,9 @@
                                                                         
                                                                         [wSelf actionFetchRequest:operation result:nil error:requestErr];
                                                                     }];
-#ifdef DEBUG
+
     NSLog(@"requestURL %@",operation.originalRequest.URL.absoluteString);
-#endif
+
 }
 
 - (void)setShowBackBtn:(BOOL)showBackBtn {

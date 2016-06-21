@@ -280,7 +280,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        [Share ShareWithTitle:_musicDetail.title andShareUrl:_musicDetail.shareURL andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
+        [Share ShareWithTitle:_musicDetail.title andShareUrl:_musicDetail.shareURL andShareImage:nil andShareText:_musicDetail.title andVC:self];
         NSLog(@"点击了播放界面的分享");
         
     }];
@@ -991,7 +991,7 @@ static id _instance;
 - (void)actionTiming {
     
     self.progressBar.value ++;
-    NSLog(@"定时器%ld",(NSInteger)self.progressBar.value);
+    NSLog(@"定时器%ld",(long)self.progressBar.value);
     
     CMTime ctime = self.musicItem.currentTime;
     UInt64 currentTimeSec = ctime.value/ctime.timescale;

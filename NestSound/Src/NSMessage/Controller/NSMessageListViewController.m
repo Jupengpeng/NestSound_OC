@@ -71,7 +71,7 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     if (messageArr.count == 0) {
         [messageList setContentOffset:CGPointMake(0, -60) animated:YES];
-        [messageList performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+        [messageList performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
     }
 }
 
@@ -80,7 +80,7 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     self.requestType = YES;
     
-    
+     [messageList.infiniteScrollingView startAnimating];
     if (!isLoadingMore) {
         
         currentPage = 1;
@@ -111,8 +111,6 @@ static NSString * const systemCellID = @"SystemCellID";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (!parserObject.success) {
-        
-        
         if ([operation.urlTag isEqualToString:upvoteUrl]) {
             NSUpvoteMessageListModel * upvoteMessage = (NSUpvoteMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
@@ -168,6 +166,7 @@ static NSString * const systemCellID = @"SystemCellID";
             [messageList.pullToRefreshView stopAnimating];
         }else{
             [messageList.infiniteScrollingView stopAnimating];
+            messageList.showsInfiniteScrolling = NO;
         }
         
     }else{
@@ -236,9 +235,9 @@ static NSString * const systemCellID = @"SystemCellID";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (messageType == UpvoteMessageType) {
-        return 80;
+        return 140;
     }else if (messageType == CollectionMessageType){
-        return 80;
+        return 140;
     }else if (messageType == SystemMessageType){
         SystemMessageModel * sys = messageArr[indexPath.row];
         if (sys.type == 1) {
@@ -267,9 +266,9 @@ static NSString * const systemCellID = @"SystemCellID";
         return cell;
         
     }else if (messageType == CollectionMessageType){
-        NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:upvoteCellID];
+        NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:collectionCellID];
         if (!cell) {
-            cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:upvoteCellID];
+            cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:collectionCellID];
         }
         cell.isUpvote = NO;
         cell.upvoteMessage = messageArr[row];
@@ -324,6 +323,11 @@ static NSString * const systemCellID = @"SystemCellID";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSLog(@"this %f",messageList.contentOffset.y);
+    if ( messageList.contentOffset.y > messageList.contentSize.height) {
+        [self fetchDataWithIsLoadingMore:YES];
+        messageList.showsInfiniteScrolling = YES;
+       
+    }
 }
 
 @end

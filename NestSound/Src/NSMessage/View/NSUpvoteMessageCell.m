@@ -57,6 +57,10 @@
     bkView.layer.masksToBounds = YES;
     [self.contentView addSubview:bkView];
     
+    //titlePage
+    titlePage = [[UIImageView alloc] init];
+    [bkView addSubview:titlePage];
+    
     //upvoteLabel
     upvoteLabel = [[UILabel alloc] init];
     upvoteLabel.font = [UIFont systemFontOfSize:11];
@@ -73,13 +77,13 @@
     workNameLabel = [[UILabel alloc] init];
     workNameLabel.font = [UIFont systemFontOfSize:14];
     workNameLabel.textColor = [UIColor hexColorFloat:@"181818"];
-    [self.contentView addSubview:workNameLabel];
+    [bkView addSubview:workNameLabel];
     
     //authorLabel
     authorNameLabel = [[UILabel alloc] init];
     authorNameLabel.font = [UIFont systemFontOfSize:11];
     authorNameLabel.textColor = [UIColor hexColorFloat:@"666666"];
-    [self.contentView addSubview:authorNameLabel];
+    [bkView addSubview:authorNameLabel];
 
 }
 
@@ -98,12 +102,12 @@
         make.top.equalTo(self.contentView.mas_top).with.offset(12);
         make.left.equalTo(headerImage.mas_right).with.offset(10);
     }];
-    
+
     [upvoteLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(nickNameLabel.mas_right).with.offset(6);
         make.bottom.equalTo(nickNameLabel.mas_bottom);
     }];
-    
+
     [createDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(nickNameLabel.mas_left);
         make.top.equalTo(nickNameLabel.mas_bottom).with.offset(6);
@@ -115,21 +119,21 @@
         make.top.equalTo(headerImage.mas_bottom).with.offset(10);
         make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
     }];
-    
+
     [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(bkView.mas_left);
         make.top.equalTo(bkView.mas_top);
         make.bottom.equalTo(bkView.mas_bottom);
         make.width.mas_equalTo(75);
     }];
-    
+
     [workNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titlePage.mas_right).with.offset(10);
         make.top.equalTo(titlePage.mas_top).with.offset(20);
         make.right.equalTo(bkView.mas_right).with.offset(-10);
         
     }];
-    
+
     [authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(workNameLabel.mas_left);
         make.top.equalTo(workNameLabel.mas_bottom).with.offset(10);
@@ -164,7 +168,7 @@
     createDateLabel.text = [date datetoStringWithDate:_upvoteMessage.upvoteTime];
 
     [titlePage setDDImageWithURLString:_upvoteMessage.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
-
+    nickNameLabel.text = _upvoteMessage.nickName;
     workNameLabel.text = _upvoteMessage.workName;
 
     authorNameLabel.text = _upvoteMessage.author;

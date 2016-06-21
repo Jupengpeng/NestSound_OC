@@ -24,7 +24,7 @@ UITableViewDelegate
     NSString * fansURL;
     NSString * otherFansURL;
     int fansType;
-    BOOL _iswho;
+    Who _iswho;
 }
 @end
 
@@ -51,18 +51,21 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     [self fetchFansListData];
 }
 #pragma mark -fetchFansListData
 -(void)fetchFansListData
 {
-//    [fansTableView setContentOffset:CGPointMake(0, -60) animated:YES];
-//    [fansTableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    if (fansAry.count == 0) {
+        [fansTableView setContentOffset:CGPointMake(0, -60) animated:YES];
+        [fansTableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    }
+   
     
-    [self fetchFansListDataWithIsLoadingMore:NO];
+//    [self fetchFansListDataWithIsLoadingMore:NO];
 }
 
 
@@ -74,12 +77,13 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     }else{
         ++currentPage;
     }
+    self.requestParams = @{kIsLoadingMore :@(isLoadingMore)};
     if (isFans) {
         fansType = 1;
     }else{
         fansType = 2;
     }
-    if (_iswho) {
+    if (_iswho == Myself) {
         NSDictionary * dic = @{@"userid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSNumber numberWithInt:fansType]};
         NSString * str = [NSTool encrytWithDic:dic];
         fansURL = [myFansListURL stringByAppendingString:str];
@@ -110,14 +114,13 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                 }
                 
             }
-            [fansTableView reloadData];
-            if (!operation.isLoadingMore) {
-                [fansTableView.pullToRefreshView stopAnimating];
+        }
+        [fansTableView reloadData];
+        if (!operation.isLoadingMore) {
+            [fansTableView.pullToRefreshView stopAnimating];
             
-            }else{
-                [fansTableView.infiniteScrollingView stopAnimating];
-            }
-            
+        }else{
+            [fansTableView.infiniteScrollingView stopAnimating];
         }
         
     }
@@ -129,7 +132,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 -(void)configureUIAppearance
 {
     
-     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+//     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     //nav
     if (isFans) {
@@ -143,12 +146,17 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     
     
     //fansTableView
-    fansTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight -0.1) style:UITableViewStylePlain];
+    fansTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     fansTableView.dataSource = self;
     fansTableView.delegate = self;
-//    fansTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+     fansTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    fansTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [fansTableView registerClass:[NSFanscell class] forCellReuseIdentifier:NSFansCellIdeify];
     [self.view addSubview:fansTableView];
+    
+    [fansTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
     
     WS(wSelf);
     [fansTableView addDDPullToRefreshWithActionHandler:^{
@@ -166,9 +174,8 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
             [wSelf fetchFansListDataWithIsLoadingMore:YES];
         }
     }];
-    [fansTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.bottom.equalTo(self.view);
-    }];
+    
+   
     fansTableView.showsInfiniteScrolling = NO;
     
 }
@@ -179,25 +186,26 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 {
     NSFanscell * cell = (NSFanscell *)btn.superview.superview;
     self.requestType = NO;
-    self.requestParams =@{@"uid":@(cell.fansModel.fansID),@"fansid":JUserID,@"token":LoginToken};
+    self.requestParams =@{@"userid":@(cell.fansModel.fansID),@"fansid":JUserID,@"token":LoginToken};
     self.requestURL = focusUserURL;
 }
 
 #pragma mark -tableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+
 {
     return fansAry.count;
     
     
 }
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 0.1;
-//}
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    return 0.1;
-//}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.1;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSFanscell * fansCell = [tableView dequeueReusableCellWithIdentifier:NSFansCellIdeify];
