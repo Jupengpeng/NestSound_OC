@@ -93,8 +93,6 @@
     
     [self.tabBarController.view addSubview:_maskView];
     
-
-    
 }
 
 
@@ -176,7 +174,7 @@
     
     _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, _topScrollView.height - 3, ScreenWidth / titleArray.count, 3)];
     
-    _lineView.backgroundColor = [UIColor orangeColor];
+    _lineView.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
     
     [_topScrollView addSubview:_lineView];
     

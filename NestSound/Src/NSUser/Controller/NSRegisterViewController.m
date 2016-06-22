@@ -27,6 +27,12 @@
     
     UITextField *captchaText;
     NSString * url;
+    
+    NSTimer *timer;
+    
+    UIButton *captchaBtn;
+    
+    int num;
 }
 
 @end
@@ -39,6 +45,8 @@
     self.navigationController.navigationBar.hidden = YES;
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
+    
+    num = 60;
     
     [self setupUI];
 }
@@ -233,15 +241,14 @@
         make.centerY.equalTo(captchaView.mas_centerY);
     }];
     
-    UIButton *captchaBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    captchaBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
         btn.titleLabel.font = [UIFont systemFontOfSize:15];
     } action:^(UIButton *btn) {
         
-        if ([NSTool isStringEmpty:captchaText.text]) {
-            
-            
+        if ([NSTool isValidateMobile:phoneText.text]) {
            
             wSelf.requestParams = @{
                     kIsLoadingMore:@(NO),
@@ -253,9 +260,16 @@
             wSelf.requestURL = [sendCodeURL stringByAppendingString:str];
             url = wSelf.requestURL;
             
+            btn.enabled = NO;;
+            
+            btn.titleLabel.font = [UIFont systemFontOfSize:12];
+            
+            [btn setTitle:@"(60s)重新获取" forState:UIControlStateDisabled];
+            
+            [wSelf addTimer];
             
         }else{
-            [[NSToastManager manager] showtoast:@"请输入正确的电话号码"];
+            [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
         }
         
         
@@ -542,7 +556,7 @@
     } else if (passwordText.text.length == 0 || phoneText.text.length == 0) {
         
         [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
-    } else if ([NSTool isStringEmpty:phoneText.text]) {
+    } else if (![NSTool isValidateMobile:phoneText.text]) {
         
         [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
         
@@ -568,6 +582,42 @@
 
 }
 
+- (void)addTimer {
+    
+    timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)removeTimer {
+    
+    [timer invalidate];
+    
+    timer = nil;
+}
+
+- (void)timerAction {
+    
+    num--;
+    
+    [captchaBtn setTitle:[NSString stringWithFormat:@"(%ds)重新获取",num] forState:UIControlStateDisabled];
+    
+    if (num == 0) {
+        
+        captchaBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        
+        num = 60;
+        
+        captchaBtn.enabled = YES;
+        
+        [self removeTimer];
+    }
+}
+
+- (void)dealloc {
+    
+    [self removeTimer];
+}
 
 @end
 

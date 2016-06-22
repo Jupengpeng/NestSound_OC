@@ -633,7 +633,6 @@ UITableViewDataSource>
             
             self.requestURL = deleteWorkURL;
             
-            
         }
         [dataAry removeObjectAtIndex:indexPath.row];
         
