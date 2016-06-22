@@ -90,7 +90,7 @@ static NSString * const headerView = @"HeaderView";
 {
 
     self.requestType = YES;
-    NSDictionary * dic = @{@"name":@"hjay"};
+    NSDictionary * dic = @{@"name":@""};
    
     NSString * str =  [NSTool encrytWithDic:dic];
     if (isMusic) {

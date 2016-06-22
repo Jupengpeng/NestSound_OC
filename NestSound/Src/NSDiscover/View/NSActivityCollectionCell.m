@@ -19,9 +19,9 @@
 
 @implementation NSActivityCollectionCell
 
--(instancetype)init
+-(instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     
     if (self) {
         [self configureUIAppearance];
@@ -47,6 +47,8 @@
     stateLabel.font  = [UIFont systemFontOfSize:15];
     stateLabel.textColor = [UIColor hexColorFloat:@"ffffff"];
     [self addSubview:stateLabel];
+    
+    self.layer.cornerRadius = 10;
     
 
 }
