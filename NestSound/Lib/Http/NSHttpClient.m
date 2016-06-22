@@ -94,7 +94,7 @@ static NSHttpClient *client;
     NSURLSessionDataTask *operation;
     
     if (requestType) {
-        operation = [self GET: url
+        operation = [self GET: requestURL
                    parameters:nil
                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                           
@@ -116,11 +116,9 @@ static NSHttpClient *client;
                            NSDictionary * dic =  [self encryptWithDictionary:responseObject isEncrypt:NO];
                              
                               NSLog(@"dic;%@",dic);
-                              NSInteger i = [requestURL rangeOfString:@"data="].location;
-//debug
-//                              NSString * str = [requestURL substringWithRange:NSMakeRange(27, i-27)];
+                              NSInteger i = [url rangeOfString:@"data="].location;
 
-                              NSString * str = [requestURL substringWithRange:NSMakeRange(32, i-32)];
+                              NSString * str = [url substringWithRange:NSMakeRange(0, i)];
                               NSLog(@"str%@",str);
                              
                               NSBaseModel *model = [NSModelFactory modelWithURL:str
@@ -153,7 +151,7 @@ static NSHttpClient *client;
     }else{
     
     
-    operation = [self POST:url
+    operation = [self POST:requestURL
                 parameters:[self encryptWithDictionary:@{@"data":parasDict} isEncrypt:YES]
                                          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                            

@@ -134,7 +134,7 @@ static NSString * const settingCellIditify = @"settingCell";
 
 -(void)getBack
 {
-    [self changeProfile];
+    url = [self getQiniuDetailWithType:2 andFixx:@"headport"];
     [self.navigationController popViewControllerAnimated:YES];
 
 }
@@ -363,7 +363,7 @@ static NSString * const settingCellIditify = @"settingCell";
 //    userIcon.layer.cornerRadius = 21;
     userIcon.image = userIconImage;
     
-   url = [self getQiniuDetailWithType:2 andFixx:@"headport"];
+   
     
     [self dismissViewControllerAnimated:YES completion:^{
     }];
@@ -383,7 +383,10 @@ static NSString * const settingCellIditify = @"settingCell";
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImageUrl = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+            [self changeProfile];
         } option:nil];
+    }else{
+        [self changeProfile];
     }
     
     return file;
@@ -430,7 +433,7 @@ static NSString * const settingCellIditify = @"settingCell";
     [dic setObject:JUserID forKey:@"uid"];
     [dic setObject:LoginToken forKey:@"token"];
     self.requestParams = dic;
-//  @{@"uid":JUserID,@"nickname":nickName,@"sex":[NSNumber numberWithInt:males],@"signature":signature,@"birthday":birthday,@"token":LoginToken,@"headurl":self.titleImageUrl};
+
     self.requestURL = changeProfileURL;
 
 }

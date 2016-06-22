@@ -58,7 +58,7 @@
     [self addSubview:numberLabel];
     
     editImageView = [[UIImageView alloc] init];
-   
+    editImageView.image = [UIImage imageNamed:@"2.0_modify"];
     [self addSubview:editImageView];
     
     
@@ -91,7 +91,10 @@
     }];
     
     [editImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
+        make.centerY.equalTo(self.mas_centerY);
+        make.right.equalTo(self.mas_right).with.offset(-15);
+        make.width.mas_equalTo(12);
+        make.height.mas_equalTo(14);
     }];
 }
 
