@@ -42,7 +42,7 @@
             
             make.left.equalTo(self.mas_left).offset(15);
             
-            make.bottom.equalTo(self.mas_bottom).offset(-6);
+            make.bottom.equalTo(self.mas_bottom).offset(-8);
             
         }];
         
@@ -54,7 +54,7 @@
         
         [_titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
            
-            make.bottom.equalTo(self.mas_bottom).offset(-6);
+            make.bottom.equalTo(self.mas_bottom).offset(-8);
             
             make.left.equalTo(icon.mas_right).offset(8);
             
@@ -91,8 +91,8 @@
     [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self.mas_right).offset(-15);
-        
-        make.bottom.equalTo(self.mas_bottom).offset(-6);
+        make.centerY.equalTo(self.mas_centerY);
+
         
     }];
     

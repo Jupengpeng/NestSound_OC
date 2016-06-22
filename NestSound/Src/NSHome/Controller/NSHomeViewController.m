@@ -372,7 +372,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         return CGSizeMake(ScreenWidth, 230);
     }
-    return CGSizeMake(ScreenWidth, 30);
+    return CGSizeMake(ScreenWidth, 35);
     
 }
 

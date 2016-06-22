@@ -164,20 +164,22 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 
                 wSelf.titleImageURL = [wSelf.titleImageURL stringByAppendingString:[NSString stringWithFormat:@",%@",[resp objectForKey:@"key"]]];
                 if (i == ImageArr.count) {
-                    [wSelf uploadAudio];
+                    [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
                 }
                 
             } option:nil];
 
         }
         
-            }
+    }else{
+        [self uploadAudioWithImageURL:nil];
+    }
     
     return file;
 }
 
 #pragma mark -uploadAudio
--(void)uploadAudio
+-(void)uploadAudioWithImageURL:(NSString *)Image
 {
     WS(wSelf);
     NSFileManager * fm = [NSFileManager defaultManager];
@@ -188,21 +190,31 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             NSData * audioData = [NSData dataWithContentsOfFile:self.audioPath];
             [upManager putData:audioData key:[NSString stringWithFormat:@"%@",self.audioPath.lastPathComponent] token:getQiniuAudioModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 wSelf.audioURL = [NSString stringWithFormat:@"%@",key];
-                [wSelf publicWithType:NO];
+                [wSelf publicWithType:YES andAudioURL:wSelf.audioURL andImageURL:Image];
             } option:nil];
         
         
     }else{
-        [self publicWithType:NO];
+        [self publicWithType:NO andAudioURL:nil andImageURL:Image];
     }
 }
 
 
 #pragma mark -public
--(void)publicWithType:(BOOL)type_
+-(void)publicWithType:(BOOL)type_ andAudioURL:(NSString *)audioURL_ andImageURL:(NSString *)imageURL_
 {
     self.requestType = NO;
-    self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":self.titleImageURL,@"audio":self.audioURL};
+    if (audioURL_!= nil&&imageURL_!= nil&&inspiration.lyricText.text.length>0) {
+        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":imageURL_,@"audio":audioURL_};
+    }else if (audioURL_!= nil&&imageURL_== nil&&inspiration.lyricText.text.length>0){
+        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"audio":audioURL_};
+    
+    }else if (audioURL_== nil&&imageURL_!= nil&&inspiration.lyricText.text.length>0){
+        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":imageURL_};
+    }else if (audioURL_!= nil&&imageURL_!= nil&&inspiration.lyricText.text.length==0){
+        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"pics":imageURL_,@"audio":audioURL_};
+    }
+    
     self.requestURL = publicInspirationURL;
 }
 
@@ -566,7 +578,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             retractBtn.userInteractionEnabled = YES;
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
             
             wSelf.totalTime = self.timeNum;
             
