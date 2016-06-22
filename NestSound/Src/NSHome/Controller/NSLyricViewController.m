@@ -604,9 +604,9 @@
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
     paragraphStyle.lineSpacing = 10;
     NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor blackColor]};
-    _lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
-    _lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:self.lyricDetail.lyrics attributes:attributes];
     
+    _lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:self.lyricDetail.lyrics attributes:attributes];
+    _lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
 //    _lyricView.lyricText.text = _lyricDetail.lyrics;
     NSLog(@"_lyricView%@",_lyricView.lyricText);
     if (_lyricDetail.isZan == 1) {

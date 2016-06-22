@@ -201,7 +201,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     if (section == 0) {
         
-        return 6;
+        return recommendAry.count;
         
     } else if (section == 1) {
         
