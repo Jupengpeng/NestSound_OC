@@ -41,6 +41,7 @@
 		18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E402881CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m */; };
 		18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */; };
 		18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E4CB221D0E61690059783C /* XHSoundRecorder.m */; };
+		18EA3ADA1D1A2A5500A98CC5 /* NSWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA3AD91D1A2A5500A98CC5 /* NSWaveformView.m */; };
 		18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */; };
 		18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E341CFC19300027D534 /* NSSearchMusicTableView.m */; };
 		18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */; };
@@ -236,6 +237,8 @@
 		18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftBoxTableViewCell.m; sourceTree = "<group>"; };
 		18E4CB211D0E61690059783C /* XHSoundRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHSoundRecorder.h; sourceTree = "<group>"; };
 		18E4CB221D0E61690059783C /* XHSoundRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHSoundRecorder.m; sourceTree = "<group>"; };
+		18EA3AD81D1A2A5500A98CC5 /* NSWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWaveformView.h; sourceTree = "<group>"; };
+		18EA3AD91D1A2A5500A98CC5 /* NSWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWaveformView.m; sourceTree = "<group>"; };
 		18FA5E2D1CFBDA110027D534 /* NSSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchViewController.h; sourceTree = "<group>"; };
 		18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchViewController.m; sourceTree = "<group>"; };
 		18FA5E331CFC19300027D534 /* NSSearchMusicTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchMusicTableView.h; sourceTree = "<group>"; };
@@ -760,6 +763,8 @@
 				181897251D02DFF90009B145 /* NSShareCollectionViewCell.m */,
 				2A8E49EE1D13C33A00F94144 /* NSImageCell.h */,
 				2A8E49EF1D13C33A00F94144 /* NSImageCell.m */,
+				18EA3AD81D1A2A5500A98CC5 /* NSWaveformView.h */,
+				18EA3AD91D1A2A5500A98CC5 /* NSWaveformView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1909,6 +1914,7 @@
 				18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */,
 				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
 				2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */,
+				18EA3ADA1D1A2A5500A98CC5 /* NSWaveformView.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
 				2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */,
@@ -2047,7 +2053,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2084,8 +2090,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

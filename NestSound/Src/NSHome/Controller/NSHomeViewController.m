@@ -149,7 +149,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
 }
 
-#pragma mark -override FetchData;
+#pragma mak -override FetchData;
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
 

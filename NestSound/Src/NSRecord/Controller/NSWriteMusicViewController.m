@@ -19,6 +19,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "NSTunMusicModel.h"
 #import "NSLoginViewController.h"
+#import "NSWaveformView.h"
 
 @interface CenterLine : UIView
 
@@ -81,6 +82,10 @@
 @property (nonatomic, copy) NSString *mp3File;
 
 @property (nonatomic, copy) NSString *wavFilePath;
+
+@property (nonatomic, strong) NSWaveformView *waveform;
+
+@property (nonatomic, assign) int lineNum;
 
 @end
 
@@ -260,28 +265,20 @@
     }
     
     //150为伴奏的时长
-//    CGFloat scrollW = 150 * 60 + 40;
-//    
-//    self.waveform = [[NSWaveformScrollView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
-//    
-//    self.waveform.backgroundColor = [UIColor whiteColor];
-//    
-//    self.waveform.contentSize = CGSizeMake(scrollW, 64);
-//    
-//    self.waveform.showsHorizontalScrollIndicator = NO;
-//    self.waveform.delegate = self;
-//    self.waveform.bounces = NO;
-//    
-////    self.waveform.userInteractionEnabled = NO;
-//    
-//    [self.view addSubview:self.waveform];
+    CGFloat scrollW = 150 * 60 + 40;
+    
+    self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
+    
+    self.waveform.backgroundColor = [UIColor whiteColor];
+    
+    [self.view addSubview:self.waveform];
     
     
-//    self.slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
+    self.slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
     
-//    self.slideBarImage.frame = CGRectMake(self.view.width * 0.5 - 3, self.waveform.y, 6, 64);
+    self.slideBarImage.frame = CGRectMake(self.view.width * 0.5 - 3, self.waveform.y - 2, 6, 69);
     
-//    [self.view addSubview:self.slideBarImage];
+    [self.view addSubview:self.slideBarImage];
     
     
     totalTimeLabel = [[UILabel alloc] init];
@@ -396,6 +393,8 @@
                 
                 [self addLink];
                 
+                [self.waveform playerAllPath];
+                
                 [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
                     
                     wSelf.timerNum = 0;
@@ -406,7 +405,7 @@
                 }];
             } else {
                 
-                 btn.selected = YES;
+                btn.selected = YES;
             }
         }
         
@@ -492,7 +491,7 @@
         
         [self.player stop];
         
-        
+        [self.waveform removeAllPath];
         
         [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
         
@@ -675,8 +674,19 @@
     self.timerNum += 1/60.0;
     
     //分贝数
-//    CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
+    CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
     
+    
+    self.lineNum++;
+    
+    if (self.lineNum % 3 == 0) {
+        
+        self.waveform.num = count * 0.5 + 20;
+        
+        [self.waveform drawLine];
+        
+        [self.waveform setNeedsDisplay];
+    }
     
     //计时显示
     self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
