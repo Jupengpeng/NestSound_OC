@@ -13,7 +13,7 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"author":@"author",
-             @"workName":@"name",
+             @"workName":@"title",
              @"titleImageUrl":@"pic",
              @"createDate":@"createDate",
              @"fovNum":@"fovnum",

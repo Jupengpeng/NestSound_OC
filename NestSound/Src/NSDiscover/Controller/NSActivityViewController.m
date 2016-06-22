@@ -62,10 +62,8 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)fetchData
 {
     self.requestType = YES;
-    self.requestParams = @{@"type":@(YES)};
     NSDictionary * dic = @{@"name":@"what"};
-    NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
-    NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+    NSString * str = [NSTool encrytWithDic:dic];
     self.requestURL = [dicoverActivityURL stringByAppendingString:str];
 }
 

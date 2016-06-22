@@ -82,14 +82,12 @@ NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNot
         
         loadingImageView = [[YDAnimatingView alloc] init];
         loadingImageView.stringTag = @"loadingImageView";
-        loadingImageView.frame = CGRectMake(ScreenWidth/2-15, 20, 30, 30);
+        loadingImageView.frame = CGRectMake(ScreenWidth/2-7, 15, 15, 15);
         [baseView addSubview:loadingImageView];
     }
     [loadingImageView startAnimating];
     
     [refreshView setTitle:@"" forState:SVPullToRefreshStateStopped];
-    [refreshView setTitle:@"shuaxin" forState:SVPullToRefreshStateTriggered];
-    [refreshView setTitle:@"shuaxin" forState:SVPullToRefreshStateLoading];
 }
 
 - (void)addDDInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler {

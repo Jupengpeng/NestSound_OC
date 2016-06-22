@@ -30,6 +30,7 @@
 @property (nonatomic,copy) NSString * titleImageURL;
 @property (nonatomic,copy) NSString * playURL;
 @property (nonatomic,copy) NSString * title;
+@property (nonatomic,copy) NSString * detaile;
 @end
 
 @interface NSPlayMusicDetailModel : NSBaseModel

@@ -67,6 +67,7 @@
 
 @property (nonatomic, weak) UIButton *loopBtn;
 
+@property (nonatomic,strong) UILabel * numLabel;
 @end
 
 static id _instance;
@@ -655,11 +656,11 @@ static id _instance;
     
     
     //评论数
-    UILabel *numLabel = [[UILabel alloc] init];
+   _numLabel = [[UILabel alloc] init];
     
     if (self.commentNum > 999) {
         
-        numLabel.text = @"999+";
+        _numLabel.text = @"999+";
         
     } else if (self.commentNum < 1) {
         
@@ -669,17 +670,17 @@ static id _instance;
         
     } else {
         
-        numLabel.text = [NSString stringWithFormat:@"%ld",self.commentNum];
+        _numLabel.text = [NSString stringWithFormat:@"%ld",self.commentNum];
         
     }
     
-    numLabel.textColor = [UIColor hexColorFloat:@"d5d5d5"];
+    _numLabel.textColor = [UIColor hexColorFloat:@"d5d5d5"];
     
-    numLabel.font = [UIFont boldSystemFontOfSize:10];
+    _numLabel.font = [UIFont boldSystemFontOfSize:10];
     
-    [commentBtn addSubview:numLabel];
+    [commentBtn addSubview:_numLabel];
     
-    [numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.equalTo(commentBtn.mas_top).offset(6);
         
@@ -1025,9 +1026,20 @@ static id _instance;
         _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
         NSLog(@"%@",_totaltime.text);
         _commentNum = self.musicDetail.commentNum;
-        _lyricView.lyricText.text = self.musicDetail.lyrics;
-        playURL = self.musicDetail.playURL;
         
+        
+        NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
+        paragraphStyle.lineSpacing = 10;
+        NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};
+        _lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:self.musicDetail.lyrics attributes:attributes];
+        _lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
+//        _lyricView.lyricText.text = self.musicDetail.lyrics;
+        playURL = self.musicDetail.playURL;
+        if (self.musicDetail.detaile!=nil&&self.musicDetail.detaile.length!=0) {
+            self.describeView.lyricText.text = [NSString stringWithFormat:@"歌曲描述:%@",self.musicDetail.detaile];
+        }else{
+            self.describeView.lyricText.text = @"亲,singer并木有添加描述哦";
+        }
         [backgroundImage setDDImageWithURLString:self.musicDetail.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
         if (self.musicDetail.isZan == 1) {
             upVoteBtn.selected = YES;

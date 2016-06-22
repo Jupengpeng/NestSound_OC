@@ -205,7 +205,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
     } else if (section == 1) {
         
-        return 4;
+        return recommendSongAry.count;
         
     } else if (section == 2){
         
@@ -372,7 +372,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         return CGSizeMake(ScreenWidth, 230);
     }
-    return CGSizeMake(ScreenWidth, 30);
+    return CGSizeMake(ScreenWidth, 35);
     
 }
 
@@ -458,13 +458,10 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         NSH5ViewController * event = [[NSH5ViewController alloc] init];
         event.h5Url = banner.activityURL;
         [self.navigationController pushViewController:event animated:YES];
-    }else if (banner.state == 2){
-     
-        NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:item];
-        [self.navigationController pushViewController:lyricVC animated:YES];
     }else{
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         playVC.itemId = item;
+        [self.navigationController pushViewController:playVC animated:YES];
     }
     
     NSLog(@"点击了第%zd张图片",imageBtn.tag);

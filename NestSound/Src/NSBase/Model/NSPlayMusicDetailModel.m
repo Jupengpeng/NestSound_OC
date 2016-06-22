@@ -39,7 +39,8 @@
              @"titleImageURL":@"pic",
              @"playURL":@"playurl",
              @"title":@"title",
-             @"author":@"author"};
+             @"author":@"author",
+             @"detaile":@"diyids"};
 
 }
 

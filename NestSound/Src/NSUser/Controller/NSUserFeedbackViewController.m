@@ -82,7 +82,7 @@ UITextFieldDelegate
     
     //number textFiled
     cellNumber = [[UITextField alloc] init];
-    cellNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 15, 10)];
+    cellNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 10)];
     cellNumber.leftViewMode = UITextFieldViewModeAlways;
     cellNumber.delegate = self;
     cellNumber.placeholder = @"请输入你的邮箱或电话号码，我们会及时与您取得联系";
