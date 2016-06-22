@@ -39,7 +39,6 @@
     [self addSubview:lyricView];
     
     self.lyricText = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, lyricView.width - 30, lyricView.height - 15)];
-    
     self.lyricText.font = [UIFont systemFontOfSize:15];
     
     [lyricView addSubview:self.lyricText];
