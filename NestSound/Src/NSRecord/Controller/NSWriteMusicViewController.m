@@ -558,7 +558,7 @@
                     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
                     
                     
-                    [manager POST:uploadMp3URL parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+                    [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                         
                         [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
                         

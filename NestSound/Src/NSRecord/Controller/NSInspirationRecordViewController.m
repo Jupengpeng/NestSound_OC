@@ -148,7 +148,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 
 
 #pragma mark -uploadPhoto
--(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
+-(void)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
 {
     
     WS(wSelf);
@@ -175,7 +175,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         [self uploadAudioWithImageURL:nil];
     }
     
-    return file;
 }
 
 #pragma mark -uploadAudio
@@ -213,6 +212,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":imageURL_};
     }else if (audioURL_!= nil&&imageURL_!= nil&&inspiration.lyricText.text.length==0){
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"pics":imageURL_,@"audio":audioURL_};
+    }else if (audioURL_== nil&&imageURL_== nil&&inspiration.lyricText.text.length!=0){
+        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text};
     }
     
     self.requestURL = publicInspirationURL;
@@ -230,10 +231,13 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }else if ([operation.urlTag isEqualToString:getInspiration]){
             NSInspirtationModel * inspirtation = (NSInspirtationModel *)parserObject;
             self.inspritationModel = inspirtation.inspirtationModel;
-        }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
-            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         
+    }else{
+        if ([operation.urlTag isEqualToString:publicInspirationURL]){
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+    
     }
     
     NSFileManager *manager = [NSFileManager defaultManager];
@@ -891,15 +895,20 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 - (void)rightItemClick:(UIBarButtonItem *)rightItem {
     
     WS(wSelf);
+    if (self.audioPath != nil) {
+        [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.audioPath FilePath:^(NSString *newfilePath) {
+            
+            wSelf.audioPath = newfilePath;
+            [wSelf uploadPhotoWith:nil type:YES token:nil url:nil];
+            
+            NSLog(@"点击了发布");
+            
+        }];
+    }else{
+        [self uploadPhotoWith:nil type:YES token:nil url:nil];
+    }
     
-    [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.audioPath FilePath:^(NSString *newfilePath) {
-        
-        wSelf.audioPath = newfilePath;
-        [wSelf uploadPhotoWith:nil type:YES token:nil url:nil];
-        
-        NSLog(@"点击了发布");
-        
-    }];
+    
     
     
 }
