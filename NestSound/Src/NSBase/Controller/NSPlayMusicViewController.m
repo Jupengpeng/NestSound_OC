@@ -35,8 +35,6 @@
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
 
-@property (nonatomic, weak) UIButton *playOrPauseBtn;
-
 @property (nonatomic, weak) UIPageControl *page;
 
 //图片

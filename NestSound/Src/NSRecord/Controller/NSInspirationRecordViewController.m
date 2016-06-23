@@ -15,6 +15,7 @@
 #import "NSImageCell.h"
 #import "NSGetQiNiuModel.h"
 #import "NSInspirtationModel.h"
+#import "NSPlayMusicViewController.h"
 @interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource,HUImagePickerViewControllerDelegate,UINavigationControllerDelegate> {
     
     UICollectionView *_collection;
@@ -98,6 +99,16 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     [self fetchDataWithType:1];
     [self fetchDataWithType:2];
+    
+    
+    //stop the music
+    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+    
+    playVC.playOrPauseBtn.selected = NO;
+    
+    [playVC.player pause];
+    
+    
     
     [self setupUI];
     

@@ -167,13 +167,11 @@
     [super viewWillAppear:animated];
     
     //stop the music
-    
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     
-    if (playVC.player) {
-        
-        playVC.player = [[AVPlayer alloc] initWithURL: [NSURL URLWithString: @"http:www.baidu.com"]];
-    }
+    playVC.playOrPauseBtn.selected = NO;
+    
+    [playVC.player pause];
     
     
     NSString * fileURL = hotMp3Url;

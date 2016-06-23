@@ -13,6 +13,8 @@
 
 + (instancetype)sharedPlayMusic;
 
+@property (nonatomic, weak) UIButton *playOrPauseBtn;
+
 @property (nonatomic,strong) AVPlayer *player;
 
 @property (nonatomic,assign) long itemId;
