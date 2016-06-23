@@ -88,7 +88,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = [date datetoLongStringWithDate:[NSDate date]];
+    NSTimeInterval time = [date getTimeStamp];
+  
+    self.title = [date datetoLongStringWithDate:time];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
     
@@ -179,14 +181,17 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
    
     if (ImageArr.count != 0) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
-        
+        NSLog(@"%lu",(unsigned long)ImageArr.count);
         for (int i = 0 ; i<ImageArr.count; ++i) {
             UIImage * image = ImageArr[i];
             NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
             [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                
-                wSelf.titleImageURL = [wSelf.titleImageURL stringByAppendingString:[NSString stringWithFormat:@",%@",[resp objectForKey:@"key"]]];
-                if (i == ImageArr.count) {
+                NSLog(@"%@",key);
+                NSLog(@"%@",resp);
+                wSelf.titleImageURL =[NSString stringWithFormat:@",%@",[resp objectForKey:@"key"]];
+                NSLog(@"%@",wSelf.titleImageURL);
+                NSLog(@"%d",i);
+                if ((i + 1)  == ImageArr.count) {
                     [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
                 }
                 
@@ -278,6 +283,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     _inspritationModel = inspritationModel;
     NSString * str = _inspritationModel.pics;
     NSArray * arr =[str componentsSeparatedByString:@","];
+    
     self.title = [date datetoLongStringWithDate:_inspritationModel.createDate];
     inspiration.lyricText.text = _inspritationModel.spireContent;
     self.placeholderLabel.hidden = YES;

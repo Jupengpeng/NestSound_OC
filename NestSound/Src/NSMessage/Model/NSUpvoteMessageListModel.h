@@ -18,7 +18,7 @@
 @property (nonatomic,assign) long userId;//upvote userID
 @property (nonatomic,assign) int type;
 @property (nonatomic,assign) long workId;
-@property (nonatomic,assign) NSDate * upvoteTime;
+@property (nonatomic,assign) NSTimeInterval  upvoteTime;
 @property (nonatomic,copy) NSString * author;
 @property (nonatomic,copy) NSString * headerUrl;
 @property (nonatomic,copy) NSString * nickName;

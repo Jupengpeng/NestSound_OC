@@ -313,6 +313,7 @@
 -(void)setMusicModel:(NSBandMusic *)musicModel
 {
     _musicModel = musicModel;
+    
     self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
     [self.coverIcon setDDImageWithURLString:_musicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"UMS_alipay_icon"]];
     self.musicName.text = _musicModel.workName;
@@ -327,7 +328,8 @@
 -(void)setMyMusicModel:(NSMyMusicModel *)myMusicModel
 {
     _myMusicModel = myMusicModel;
-    self.dateLabel.text =  [date  datetoStringWithDate:_myMusicModel.createDate];
+   
+    self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
     [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.musicName.text = _myMusicModel.title;
 //    self.authorName.text = _myMusicModel.author;

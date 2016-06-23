@@ -585,9 +585,11 @@
     self.title = _lyricDetail.title;
     _nameLabel.text = _lyricDetail.author;
     
-    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:_lyricDetail.createDate];
+   
+   
+//                     _lyricDetail.createDate];
     
-    _dateLabel.text = [date datetoStringWithDate:date1];
+    _dateLabel.text = [date datetoStringWithDate:_lyricDetail.createDate];
     
     
     commentNum = _lyricDetail.commentNum;

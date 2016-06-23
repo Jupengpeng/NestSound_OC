@@ -115,7 +115,7 @@
         imageBtn.tag = i % arrConut;
         
         
-        [im setDDImageWithURLString:imageArray[i % arrConut] placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];
+        [im setDDImageWithURLString:imageArray[i % arrConut] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
         
         NSLog(@"d%@",imageArray[i % arrConut]);
         im.userInteractionEnabled = YES;

@@ -34,10 +34,10 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 @end
 //date to string formate like "1992-12-05"；
 @interface date : NSObject
-+(NSString *)datetoStringWithDate:(NSDate *)date;
-+(NSString *)datetoLongStringWithDate:(NSDate *)date;
-+(NSString *)datetoMonthStringWithDate:(NSDate *)date;
-+(NSString *)getTimeStamp;
++(NSString *)datetoStringWithDate:(NSTimeInterval)date;
++(NSString *)datetoLongStringWithDate:(NSTimeInterval)date;
++(NSString *)datetoMonthStringWithDate:(NSTimeInterval)date;
++(NSTimeInterval)getTimeStamp;
 @end
 
 @interface Share : NSObject

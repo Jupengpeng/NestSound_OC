@@ -250,12 +250,10 @@
         
         if ([NSTool isValidateMobile:phoneText.text]) {
            
-            wSelf.requestParams = @{
-                    kIsLoadingMore:@(NO),
-                                  kNoLoading:@(YES),@"type":@(YES)}; 
-            NSDictionary * dic = @{@"mobile":captchaText.text};
-            NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
-            NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
+            wSelf.requestType = YES;
+            NSDictionary * dic = @{@"mobile":captchaText.text,@"type":@"1"};
+            
+            NSString * str = [NSTool encrytWithDic:dic];
             
             wSelf.requestURL = [sendCodeURL stringByAppendingString:str];
             url = wSelf.requestURL;

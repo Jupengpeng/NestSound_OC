@@ -14,9 +14,9 @@
 
 @property (nonatomic,assign) int  status;
 @property (nonatomic,assign) long itemId;
-@property (nonatomic,strong) NSDate * beginDate;
+@property (nonatomic,assign) NSTimeInterval beginDate;
 @property (nonatomic,copy) NSString * detail;
-@property (nonatomic,strong) NSDate * endDate;
+@property (nonatomic,assign) NSTimeInterval endDate;
 @property (nonatomic,copy) NSString * name;
 @property (nonatomic,copy) NSString * titleImageUrl;
 @property (nonatomic,copy) NSString * activityUrl;

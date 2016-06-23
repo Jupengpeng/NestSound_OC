@@ -19,7 +19,7 @@
 @property (nonatomic,copy) NSString * author;
 @property (nonatomic,copy) NSString * workName;
 @property (nonatomic,copy) NSString * titleImageUrl;
-@property (nonatomic,assign) NSDate * createDate;
+@property (nonatomic,assign) NSTimeInterval  createDate;
 @property (nonatomic,assign) long fovNum;
 @property (nonatomic,assign) long lookNum;
 @property (nonatomic,assign) long zanNum;

@@ -195,12 +195,13 @@
     }
     
     NSDateFormatter * dateFormater = [[NSDateFormatter alloc] init];
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:_myInspirationModel.createDate];
     [dateFormater setDateFormat: @"YYYY"];
-    _yearLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
+    _yearLabel.text = [dateFormater stringFromDate:date];
     [dateFormater setDateFormat:@"MM"];
-    _monthLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
+    _monthLabel.text = [dateFormater stringFromDate:date];
     [dateFormater setDateFormat:@"dd"];
-    _dayLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
+    _dayLabel.text = [dateFormater stringFromDate:date];
     if (_myInspirationModel.audio.length == 0) {
         _audioImageView.hidden = YES;
         self.frequencyImageView.hidden = YES;

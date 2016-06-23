@@ -308,40 +308,51 @@ static NSDateFormatter *dateFormatter;
 
 @implementation date
 
-+(NSString *)datetoStringWithDate:(NSDate *)date
++(NSString *)datetoStringWithDate:(NSTimeInterval)date
 {
+//    NSLog(@"%f",date);
+//    NSNumber * num = [NSNumber numberWithDouble:date];
+//    NSString * str = [num stringValue];
+//    NSLog(@"%@",str);
+//    NSString * subStr = [str substringToIndex:9];
+//    NSLog(@"%@",subStr);
+//    NSTimeInterval timeSam = [subStr doubleValue];
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:date];
     NSDateFormatter * fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"YYYY-MM-dd"];
-    NSString * dateString = [fomatter stringFromDate:date];
+    NSString * dateString = [fomatter stringFromDate:dat];
     return dateString;
 }
 
 //date to string format like "1992-12-05 12:33"
-+(NSString *)datetoLongStringWithDate:(NSDate *)date
++(NSString *)datetoLongStringWithDate:(NSTimeInterval)date
 {
+    
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:date];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    NSString * currentTimeString = [formatter stringFromDate:date];
+    NSString * currentTimeString = [formatter stringFromDate:dat];
     return currentTimeString;
 }
 
 //date to string formatLike "4月5日"
 
-+(NSString *)datetoMonthStringWithDate:(NSDate *)date
++(NSString *)datetoMonthStringWithDate:(NSTimeInterval)date
 {
+     NSDate * dat = [NSDate dateWithTimeIntervalSince1970:date];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM月dd日"];
-    NSString * dateString = [formatter stringFromDate:date];
+    NSString * dateString = [formatter stringFromDate:dat];
     return dateString;
 }
 
 //get the time stamp
-+(NSString *)getTimeStamp
++(NSTimeInterval )getTimeStamp
 {
     NSDate * date = [NSDate dateWithTimeIntervalSinceNow:0];
     NSTimeInterval  timeStamp = [date timeIntervalSince1970];
-    NSString * timeString = [NSString stringWithFormat:@"%f",timeStamp];
-    return timeString;
+   
+    return timeStamp;
 }
 @end
 

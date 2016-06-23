@@ -15,7 +15,7 @@
 @property (nonatomic,copy) NSString * spireContent;
 @property (nonatomic,copy) NSString * pics;
 @property (nonatomic,copy) NSString * audio;
-@property (nonatomic,assign) NSDate * createDate;
+@property (nonatomic,assign) NSTimeInterval  createDate;
 @property (nonatomic,copy) NSString * audioDomain;
 @property (nonatomic,copy) NSString * picDomain;
 
