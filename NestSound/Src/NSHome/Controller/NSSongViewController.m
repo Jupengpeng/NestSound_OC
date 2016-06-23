@@ -170,6 +170,18 @@ static NSString * cellId = @"SongCell";
     songsTable.showsInfiniteScrolling = NO;
 }
 
+#pragma mark -playAllGedan
+-(void)playAll
+{
+    songModel * song = songAry[0];
+    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+    playVC.itemId = song.itemId;
+    playVC.from = @"gedan";
+    playVC.geDanID = (int)songListId;
+    [self.navigationController pushViewController:playVC animated:YES];
+                                          
+}
+
 #pragma mark tablView datasource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -194,6 +206,7 @@ static NSString * cellId = @"SongCell";
     //headerView
     header = [[NSSongListHeaderView alloc] init];
     header.singListType = singListDetail;
+    [header.playAllBtn addTarget:self action:@selector(playAll) forControlEvents:UIControlEventTouchUpInside];
     return header;
 }
 
@@ -205,7 +218,7 @@ static NSString * cellId = @"SongCell";
     if (!songCell) {
         songCell = [[NSSongCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:songCellIdentifer];
     }
-
+    
     songCell.number = indexPath.row + 1 ;
     songCell.songModel = song;
     return songCell;
@@ -217,6 +230,8 @@ static NSString * cellId = @"SongCell";
     songModel * song = songAry[indexPath.row];
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     playVC.itemId = song.itemId;
+    playVC.from = @"gedan";
+    playVC.geDanID = (int)songListId;
     [self.navigationController pushViewController:playVC animated:YES];
     
 }

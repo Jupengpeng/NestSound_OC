@@ -127,7 +127,12 @@ static id _instance;
 -(void)fetchPlayDataWithItemId:(long)musicItemId
 {
     self.requestType = YES;
-    NSDictionary * dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":@"tuijian"};
+    NSDictionary * dic;
+    if (self.geDanID!=0) {
+      dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
+    }else{
+         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
+    }
     NSString * str = [NSTool encrytWithDic:dic];
     url = [playMusicURL stringByAppendingString:str];
     self.requestURL = url;

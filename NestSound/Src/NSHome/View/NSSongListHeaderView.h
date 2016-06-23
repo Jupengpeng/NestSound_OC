@@ -11,5 +11,5 @@
 @interface NSSongListHeaderView : UIView
 
 @property (nonatomic,strong) singListModel * singListType;
-
+@property (nonatomic,strong) UIButton * playAllBtn;
 @end

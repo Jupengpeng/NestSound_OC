@@ -132,6 +132,14 @@
                                                  name:AVAudioSessionRouteChangeNotification
                                                object:nil];
     
+    AVAudioSessionRouteDescription * route = [[AVAudioSession sharedInstance] currentRoute];
+    for (AVAudioSessionPortDescription * desc in [route outputs]) {
+        if([[desc portType] isEqualToString:AVAudioSessionPortHeadphones]){
+            isHeadset = YES;
+        }else{
+            isHeadset = NO;
+        }
+    }
     
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     

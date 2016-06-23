@@ -19,5 +19,5 @@
 
 @property (nonatomic,strong) NSPlayMusicDetail * musicDetail;
 @property (nonatomic,copy) NSString * from;
-
+@property (nonatomic,assign) int geDanID;
 @end

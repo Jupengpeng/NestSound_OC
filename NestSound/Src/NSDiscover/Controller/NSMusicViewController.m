@@ -217,17 +217,22 @@ static NSString * const headerView = @"HeaderView";
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     NSRecommend * music;
+    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     if (section == 0) {
        
         music = hotSongList[row];
-        
+        playVC.itemId = music.itemId;
+        playVC.from = @"red";
+        playVC.geDanID = 0;
     }else{
        
         music = newSongList[row];
+        music = hotSongList[row];
+        playVC.itemId = music.itemId;
+        playVC.from = @"news";
+        playVC.geDanID = 0;
     }
    long itemId = music.itemId;
-    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-    playVC.itemId = itemId;
     if (isMusic) {
         [self.navigationController pushViewController:playVC animated:YES];
     }else{

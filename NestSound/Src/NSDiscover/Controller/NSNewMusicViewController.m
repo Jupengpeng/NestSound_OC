@@ -202,7 +202,14 @@
         [self.navigationController pushViewController:lyricVC animated:YES];
     }else{
         NSPlayMusicViewController * playVC =[[NSPlayMusicViewController alloc] init];
+        
+        if ([self.MusicType isEqualToString:@"hot"]) {
+           playVC.from = @"red";
+        }else{
+           playVC.from = @"news";
+        }
         playVC.itemId = itemID;
+        playVC.geDanID = 0;
         [self.navigationController pushViewController:playVC animated:YES];
     }
     

@@ -152,7 +152,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     
     WS(wSelf);
-    __block NSString * file = self.titleImageURL;
    
     if (ImageArr.count != 0) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];

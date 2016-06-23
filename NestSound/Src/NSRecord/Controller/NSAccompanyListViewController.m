@@ -151,6 +151,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     headerView.xinBtn.selected = YES;
     [headerView.xinBtn addTarget:self action:@selector(doNew) forControlEvents:UIControlEventTouchUpInside];
     [headerView.hotBtn addTarget:self action:@selector(doHot) forControlEvents:UIControlEventTouchUpInside];
+    [headerView.singBtn addTarget:self action:@selector(doSingNoAccompany) forControlEvents:UIControlEventTouchUpInside];
+    
     accompanyListTabelView.tableHeaderView = headerView;
     [accompanyListTabelView registerClass:[NSAccompanyTableCell class] forCellReuseIdentifier:accompanyCellIditify];
     
@@ -195,6 +197,14 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     headerView.hotBtn.selected = YES;
     headerView.xinBtn.selected = NO;
     [self fetchAccompanyListDataWithIsLoadingMore:NO];
+
+}
+
+#pragma mark - sing no accompany
+-(void)doSingNoAccompany
+{
+    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:108 andMusicTime:300 andHotMp3:@"http://audio.yinchao.cn/empty_hot_temp.mp3"];
+    [self.navigationController pushViewController:writeMusicVC animated:YES];
 
 }
 

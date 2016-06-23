@@ -500,6 +500,8 @@ UITableViewDataSource>
     if (type == 1) {
         NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
         playVC.itemId = myMusic.itemId;
+        playVC.from = @"homepage";
+        playVC.geDanID = 0;
         [self.navigationController pushViewController: playVC animated:YES];
     }else if (type == 2){
         NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
@@ -509,6 +511,8 @@ UITableViewDataSource>
         if (myMusic.type == 1) {
             NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
             playVC.itemId = myMusic.itemId;
+            playVC.from = @"myfov";
+            playVC.geDanID = 0;
             [self.navigationController pushViewController: playVC animated:YES];
 
         }else{

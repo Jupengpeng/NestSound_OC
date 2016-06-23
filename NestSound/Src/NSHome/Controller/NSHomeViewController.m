@@ -300,6 +300,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         if (recomm.type == 1) {
             NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
             playVC.itemId = recomm.itemId;
+            playVC.from = @"tuijian";
+            playVC.geDanID = 0;
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
             NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
@@ -321,6 +323,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         if (newModel.type == 1) {
             NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
             playVC.itemId = item;
+            playVC.from = @"news";
+            playVC.geDanID = 0;
             [self.navigationController pushViewController:playVC animated:YES];
             
         }else{
@@ -335,6 +339,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         if (musicSay.type == 1) {
             NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
             playVC.itemId = musicSay.itemID;
+            playVC.from = @"yueshuo";
+            playVC.geDanID = 0;
             [self.navigationController pushViewController:playVC animated:YES];
             
             
@@ -461,6 +467,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     }else{
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         playVC.itemId = item;
+        playVC.from = @"tuijian";
+        playVC.geDanID = 0;
         [self.navigationController pushViewController:playVC animated:YES];
     }
     
