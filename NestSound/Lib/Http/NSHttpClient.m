@@ -76,7 +76,7 @@ static NSHttpClient *client;
                                    failure:(void(^)(NSURLSessionDataTask *operation,NSError *requestErr))failure {
     
     NSMutableDictionary *transferParas = [parasDict mutableCopy];
-   
+    NSLog(@"paraDisct%@",parasDict);
     // Loading
     BOOL showLoading = ![[transferParas objectForKey:kNoLoading] boolValue];
     [transferParas removeObjectForKey:kNoLoading];

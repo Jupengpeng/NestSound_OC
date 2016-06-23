@@ -18,7 +18,7 @@ UICollectionViewDelegateFlowLayout
 {
     UICollectionView * activityColl;
     NSMutableArray * activityAry;
-
+    NSString * url;
 }
 
 @end
@@ -31,30 +31,36 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self fetchData];
+    [self configureUIAppearance];
 }
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self fetchData];
+}
 
 
 #pragma makr -configureUIAppearance
 -(void)configureUIAppearance
 {
-    
-    
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
-    
+    CGFloat W = (ScreenWidth - 30);
+    layout.itemSize = CGSizeMake(W, W * 0.4);
     //activityColl
-    activityColl = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    activityColl = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     activityColl.dataSource = self;
     activityColl.delegate = self;
+//    activityColl.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     activityColl.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     [activityColl registerClass:[NSActivityCollectionCell class] forCellWithReuseIdentifier:activityCellIdentity];
-    [self.view addSubview:activityColl];
-    
+//    [self.view addSubview:activityColl];
+    self.view = activityColl;
     //constaints
-    [activityColl mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.bottom.equalTo(self.view);
-    }];
+//    [activityColl mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.right.bottom.equalTo(self.view);
+//    }];
     
 }
 
@@ -62,19 +68,25 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)fetchData
 {
     self.requestType = YES;
-    NSDictionary * dic = @{@"name":@"what"};
+    NSDictionary * dic = @{@"page":@(1)};
     NSString * str = [NSTool encrytWithDic:dic];
     self.requestURL = [dicoverActivityURL stringByAppendingString:str];
+    url = self.requestURL;
 }
 
 #pragma mark -actiontFetchData
+
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (!parserObject.success) {
-        NSActivityListModel * activityListModel = (NSActivityListModel *)parserObject;
-        activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
-    }
-    [self configureUIAppearance];
+        
+        if ([operation.urlTag isEqualToString:url]) {
+            NSActivityListModel * activityListModel = (NSActivityListModel *)parserObject;
+            activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
+
+        }
+            }
+    [activityColl reloadData];
 
 }
 
@@ -84,6 +96,11 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     return activityAry.count;
 
 }
+
+//-(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return CGSizeMake(ScreenWidth-30, 140);
+//}
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -111,6 +128,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     return 10;
 }
 
+
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
 
@@ -120,7 +138,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 15, 0, 15);
+    return UIEdgeInsetsMake(-10, 15, 0, 15);
 }
 
 @end

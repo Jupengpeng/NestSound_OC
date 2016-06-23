@@ -58,7 +58,7 @@
              @"authorName":@"author",
              @"itemId":@"itemid",
              @"playCount":@"looknum",
-             @"workName":@"name",
+             @"workName":@"title",
              @"type":@"status"
              };
     

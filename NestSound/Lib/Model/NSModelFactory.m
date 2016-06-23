@@ -44,8 +44,8 @@
         return [[NSIndexModel alloc] initWithJSONDict:jsonDict];
         
     }else if ([url isEqualToString:dicoverActivityURL]){
-    
         return [[NSActivityListModel alloc] initWithJSONDict:jsonDict];
+        
     }else if([url isEqualToString:dicoverMusicURL]){
         return [[NSDiscoverMusicListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:discoverBandURL]){
