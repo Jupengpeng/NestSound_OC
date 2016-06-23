@@ -89,6 +89,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     self.title = [date datetoLongStringWithDate:[NSDate date]];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
     
     if (!isWrite) {
@@ -115,6 +117,17 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     
+}
+
+- (void)backClick:(UIBarButtonItem *)back {
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    [manager removeItemAtPath:self.audioPath error:nil];
+    
+    self.audioPath = nil;
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -581,7 +594,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             retractBtn.userInteractionEnabled = YES;
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
             
             wSelf.totalTime = self.timeNum;
             

@@ -214,7 +214,7 @@ static NSHttpClient *client;
 
 
 #pragma  mark -downLoadWithFIleURL
--(void)downLoadWithFileURL:(NSString *)fileURL
+-(void)downLoadWithFileURL:(NSString *)fileURL completionHandler:(void(^)())completion
 {
     [[NSToastManager manager] showprogress];
     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL] cachePolicy:1 timeoutInterval:6];
@@ -226,8 +226,10 @@ static NSHttpClient *client;
     }completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
         NSLog(@"%@",error.localizedDescription);
         [[NSToastManager manager] hideprogress];
+        completion();
     }] resume];
-
+    
 }
+
 
 @end

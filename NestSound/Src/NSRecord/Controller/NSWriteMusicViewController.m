@@ -87,6 +87,8 @@
 
 @property (nonatomic, assign) int lineNum;
 
+@property (nonatomic, assign) BOOL isPlay;
+
 @end
 
 @implementation NSWriteMusicViewController
@@ -143,7 +145,7 @@
     
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     
-//    next.enabled = NO;
+    next.enabled = NO;
     
     self.next = next;
     
@@ -156,11 +158,12 @@
     
     [self setupUI];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_addPhoto_btn"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBackClick:)];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    WS(wSelf);
     [super viewWillAppear:animated];
     NSString * fileURL = hotMp3Url;
     NSFileManager * fm = [NSFileManager defaultManager];
@@ -170,18 +173,61 @@
     }else{
         if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
             NSLog(@"uu%@",LocalAccompanyPath);
-            [[NSHttpClient client] downLoadWithFileURL:fileURL];
+            [[NSHttpClient client] downLoadWithFileURL:fileURL completionHandler:^{
+                
+                UIButton *btn2 = wSelf.btns[2];
+                
+                btn2.enabled = YES;
+            }];
         }
     }
 
 }
 
 
-- (void)backClick:(UIBarButtonItem *)back {
+- (void)leftBackClick:(UIBarButtonItem *)back {
     
-    [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+    WS(wSelf);
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self removeLink];
+    [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+    [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
+    [self.player stop];
+    self.next.enabled = YES;
+    
+    
+    if (self.wavFilePath) {
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定放弃?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+            
+            [wSelf.waveform removeAllPath];
+            
+            [wSelf.navigationController popViewControllerAnimated:YES];
+            
+        }];
+        
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            return;
+        }];
+        
+        [alert addAction:action1];
+        
+        [alert addAction:action];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    } else {
+        
+        [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 #pragma mark -userHeadSet
@@ -260,6 +306,8 @@
         
         if (i == 2) {
             
+            btn.enabled = NO;
+            
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_recording"] forState:UIControlStateSelected];
         }
         
@@ -272,8 +320,6 @@
         [bottomView addSubview:btn];
     }
     
-    //150为伴奏的时长
-    CGFloat scrollW = 150 * 60 + 40;
     
     self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
     
@@ -395,7 +441,7 @@
             
         } else {
             
-             UIButton *btn2 = self.btns[2];
+            UIButton *btn2 = self.btns[2];
             
             if (!btn2.selected) {
                 
@@ -403,7 +449,11 @@
                 
                 [self.waveform playerAllPath];
                 
+                self.isPlay = YES;
+                
                 [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
+                    
+                    [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
                     
                     wSelf.timerNum = 0;
                     
@@ -430,6 +480,8 @@
             btn1.selected = YES;
             
             [self addLink];
+            
+            self.isPlay = NO;
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
                 
@@ -470,7 +522,7 @@
             [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
             [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
             [self.player stop];
-            
+            self.next.enabled = YES;
             btn1.enabled = YES;
             btn.enabled = NO;
         }
@@ -558,8 +610,6 @@
                     
                     wSelf.data = data;
                     
-//                    self.next.enabled = YES;
-                    
                     wSelf.mp3File = newfilePath;
                     
                     // 1.创建网络管理者
@@ -596,9 +646,9 @@
                     }];
                     
                     NSLog(@"点击了下一步");
-
+                    
                 }];
-
+                
                 
                 
             } else {
@@ -634,6 +684,7 @@
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
+    
     if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
             NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
@@ -682,19 +733,23 @@
     self.timerNum += 1/60.0;
     
     //分贝数
-    CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
     
-    
-    self.lineNum++;
-    
-    if (self.lineNum % 3 == 0) {
+    if (!self.isPlay) {
         
-        self.waveform.num = count * 0.5 + 20;
+        CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
         
-        [self.waveform drawLine];
-        
-        [self.waveform setNeedsDisplay];
+        self.lineNum++;
+            
+        if (self.lineNum % 3 == 0) {
+            
+            self.waveform.num = count * 0.5 + 20;
+            
+            [self.waveform drawLine];
+            
+            [self.waveform setNeedsDisplay];
+        }
     }
+    
     
     //计时显示
     self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
@@ -706,12 +761,14 @@
     
 }
 
+//伴奏播放完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     
     [self removeLink];
     [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
     [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
     [self.player stop];
+    self.next.enabled = YES;
     UIButton *btn2 = self.btns[2];
     UIButton *btn1 = self.btns[1];
     btn2.enabled = NO;

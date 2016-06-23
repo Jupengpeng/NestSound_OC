@@ -315,7 +315,7 @@ static inline NSRegularExpression * NameRegularExpression() {
          
          //设置可点击文字的范围
          
-         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.commentModel.targetName options:NSCaseInsensitiveSearch];
+         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.name options:NSCaseInsensitiveSearch];
          
          //设定可点击文字的的大小
          UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
@@ -337,7 +337,7 @@ static inline NSRegularExpression * NameRegularExpression() {
      }];
     
     if (self.commentModel.commentType != 1) {
-        
+        NSLog(@"%d",self.commentModel.commentType );
         //正则
         NSRegularExpression *regexp = NameRegularExpression();
         

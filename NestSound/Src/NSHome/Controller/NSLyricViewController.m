@@ -36,6 +36,8 @@
     //日期
     UILabel * _dateLabel;
     
+    UILabel *numLabel;
+    
     //评论数
     long commentNum;
     
@@ -48,6 +50,8 @@
 }
 
 @property (nonatomic,strong) LyricDetailModel * lyricDetail;
+
+@property (nonatomic, weak) UIButton *commentBtn;
 
 @end
 
@@ -279,6 +283,8 @@
         
     }];
     
+    self.commentBtn = commentBtn;
+    
     [_bottomView addSubview:commentBtn];
     
     [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -290,42 +296,26 @@
     }];
     
     
-
     //评论数
-    UILabel *numLabel = [[UILabel alloc] init];
-    
-    if (commentNum > 999) {
-        
-        numLabel.text = @"999+";
-        
-    } else if (commentNum < 1) {
-        
-        [commentBtn setImage:[UIImage imageNamed:@"2.0_comment_no"] forState:UIControlStateNormal];
-        
-    } else {
-        
-        numLabel.text = [NSString stringWithFormat:@"%ld",commentNum];
-        
-    }
+    numLabel = [[UILabel alloc] init];
     
     numLabel.textColor = [UIColor hexColorFloat:@"181818"];
     
     numLabel.font = [UIFont boldSystemFontOfSize:10];
     
-    [commentBtn addSubview:numLabel];
+    [self.commentBtn addSubview:numLabel];
     
     [numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.centerY.equalTo(commentBtn.mas_top).offset(1.5);
         
-        make.left.equalTo(commentBtn.mas_centerX).offset(3);
+        make.centerY.equalTo(self.commentBtn.mas_top).offset(1.5);
+        
+        make.left.equalTo(self.commentBtn.mas_centerX).offset(3);
         
         make.width.mas_equalTo(30);
         
     }];
     
     
-
     //点赞
     upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
@@ -625,6 +615,24 @@
     
     }
     workAuthorId = _lyricDetail.userId;
+    
+    
+    //评论数
+    if (commentNum > 999) {
+        
+        numLabel.text = @"999+";
+        
+    } else if (commentNum < 1) {
+        
+        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_comment_no"] forState:UIControlStateNormal];
+        
+        numLabel.text = nil;
+        
+    } else {
+        
+        numLabel.text = [NSString stringWithFormat:@"%ld",commentNum];
+        
+    }
     
 }
 

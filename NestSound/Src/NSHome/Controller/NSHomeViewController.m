@@ -209,7 +209,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
     } else if (section == 2){
         
-        return 6;
+        return newListAry.count;
         
     } else {
         
