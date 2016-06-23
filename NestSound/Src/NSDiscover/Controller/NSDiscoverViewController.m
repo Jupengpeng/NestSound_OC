@@ -335,6 +335,9 @@
     [self searchBarCancelButtonClicked:_search];
     NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic] ;
     playMusicVC.itemId = itemID;
+    playMusicVC.from = @"homepage";
+    playMusicVC.geDanID = 0;
+    
     [self.navigationController pushViewController:playMusicVC animated:YES];
     
     NSLog(@"歌曲");
@@ -367,11 +370,7 @@
         [self presentViewController:loginVC animated:YES completion:nil];
     }
     
-    
-
 }
-
-
 @end
 
 

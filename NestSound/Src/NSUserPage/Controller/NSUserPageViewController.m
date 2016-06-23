@@ -502,7 +502,17 @@ UITableViewDataSource>
         playVC.itemId = myMusic.itemId;
         playVC.from = @"homepage";
         playVC.geDanID = 0;
-        [self.navigationController pushViewController: playVC animated:YES];
+        BOOL isH = false;
+        for (id vc in self.navigationController.childViewControllers) {
+            if ([vc isKindOfClass:[NSPlayMusicViewController class]]) {
+                isH = YES;
+            }
+        }
+        if (isH) {
+            [self.navigationController popToViewController:playVC animated:YES];
+        }else{
+            [self.navigationController pushViewController:playVC animated:YES];
+        }
     }else if (type == 2){
         NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
         [self.navigationController pushViewController:lyricVC animated:YES];
@@ -513,7 +523,18 @@ UITableViewDataSource>
             playVC.itemId = myMusic.itemId;
             playVC.from = @"myfov";
             playVC.geDanID = 0;
-            [self.navigationController pushViewController: playVC animated:YES];
+            BOOL isH = false;
+            for (id vc in self.navigationController.childViewControllers) {
+                if ([vc isKindOfClass:[NSPlayMusicViewController class]]) {
+                    isH = YES;
+                }
+            }
+            if (isH) {
+                [self.navigationController popToViewController:playVC animated:YES];
+            }else{
+                [self.navigationController pushViewController:playVC animated:YES];
+            }
+            
 
         }else{
             NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
