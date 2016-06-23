@@ -630,6 +630,8 @@
         
     } else {
         
+        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_comment_yes"] forState:UIControlStateNormal];
+        
         numLabel.text = [NSString stringWithFormat:@"%ld",commentNum];
         
     }

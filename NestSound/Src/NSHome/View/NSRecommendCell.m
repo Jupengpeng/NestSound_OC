@@ -168,5 +168,12 @@
     
     
 }
+-(void)setIsMusic:(BOOL)isMusic
+{
+    _isMusic = isMusic;
+    if (_isMusic) {
+         [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
+    }
+}
 
 @end

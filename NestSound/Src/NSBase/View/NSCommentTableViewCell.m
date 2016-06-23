@@ -314,8 +314,7 @@ static inline NSRegularExpression * NameRegularExpression() {
      {
          
          //设置可点击文字的范围
-         
-         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.name options:NSCaseInsensitiveSearch];
+         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.commentModel.targetName == nil ? @"" : wSelf.commentModel.targetName options:NSCaseInsensitiveSearch];
          
          //设定可点击文字的的大小
          UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];

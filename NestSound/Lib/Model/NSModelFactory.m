@@ -115,6 +115,8 @@
         return [[NSTunMusicModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:lyricLibraryURL]){
         return [[NSLyricLibraryListModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:publicMusicURL]){
+        return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
     }
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

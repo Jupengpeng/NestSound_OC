@@ -175,6 +175,11 @@ static NSString * const headerView = @"HeaderView";
     }
     cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
     cell.contentView.layer.borderWidth = 1;
+    if (isMusic) {
+        cell.isMusic = YES;
+    }else{
+        cell.isMusic = NO;
+    }
     return cell;
     
 }

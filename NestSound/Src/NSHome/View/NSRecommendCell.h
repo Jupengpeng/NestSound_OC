@@ -17,6 +17,6 @@
 @property (nonatomic,strong) NSRecommend * recommend;
 
 @property (nonatomic,strong) NSNew * songNew;
-
+@property (nonatomic,assign) BOOL isMusic;
 
 @end

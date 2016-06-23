@@ -57,6 +57,8 @@
 //描述
 @property (nonatomic, weak)  NSLyricView *describeView;
 
+@property (nonatomic, strong) UIScrollView *scrollV;
+
 
 @property (nonatomic, weak) UIButton *commentBtn;
 
@@ -114,6 +116,9 @@ static id _instance;
         [self fetchPlayDataWithItemId:self.itemId];
 
 //    }
+    
+    self.scrollV.contentOffset = CGPointMake(0, 0);
+    
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
 
 }
@@ -176,7 +181,6 @@ static id _instance;
     UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
 //    [image applyBlurWithRadius:0.8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:0.5 maskImage:nil];
     transparentImage.image = image;
-    
     
     
     [self.view addSubview:backgroundImage];
@@ -729,6 +733,8 @@ static id _instance;
     
     scrollView.pagingEnabled = YES;
     
+    self.scrollV = scrollView;
+    
     [self.view addSubview:scrollView];
     
     NSLog(@"%@",NSStringFromCGRect(collectionBtn.frame));
@@ -1071,6 +1077,10 @@ static id _instance;
         _numLabel.text = nil;
         
     } else {
+        
+        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_comment_normal"] forState:UIControlStateNormal];
+        
+        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_comment_highlighted"] forState:UIControlStateHighlighted];
         
         _numLabel.text = [NSString stringWithFormat:@"%ld",self.commentNum];
         

@@ -44,8 +44,8 @@
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_
 {
     if (self = [super init]) {
-        
-        lyricDic = [NSMutableDictionary dictionaryWithDictionary:LyricDic_];
+        lyricDic = [NSMutableDictionary dictionary];
+        lyricDic = LyricDic_;
         isLyric = isLyric_;
         mp3URL = lyricDic[@"mp3URL"];
     }
@@ -290,11 +290,16 @@
             
         }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
             NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
-            [lyricDic setObject:publicLyric.publicLyricModel.shareURL forKey:@"shareURL"];
-            [lyricDic setObject:descriptionText.text forKey:@"desc"];
+            
+            
+            [lyricDic setValue:publicLyric.publicLyricModel.shareURL forKeyPath:@"shareURL"];
+            
+            [lyricDic setValue:descriptionText.text forKeyPath:@"desc"];
             NSShareViewController * shareVC =[[NSShareViewController alloc] init];
             shareVC.shareDataDic = lyricDic;
             [self.navigationController pushViewController:shareVC animated:YES];
+            
+            
         }
         
     }
@@ -309,7 +314,9 @@
         self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
         self.requestURL = publicLyricURL;
     }else{
-         self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":descriptionText.text,@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":lyricDic[@"itemID"],@"mp3":mp3URL,@"useheadset":lyricDic[@"isHeadset"]};
+        NSLog(@"lyyy%@,%@",lyricDic,descriptionText.text);
+    
+        self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
         self.requestURL = publicMusicURL;
    
     }

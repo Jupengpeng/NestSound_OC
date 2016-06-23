@@ -84,7 +84,7 @@
 {
     _activityModel = activityModel;
     
-    [titlePage setDDImageWithURLString:_activityModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_back"]];
+    [titlePage setDDImageWithURLString:_activityModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     NSString * dateStr = [NSString stringWithFormat:@"%@ ~ %@",[date datetoMonthStringWithDate:_activityModel.beginDate],[date datetoMonthStringWithDate:_activityModel.endDate]];
     dateLabel.text = dateStr;
 

@@ -681,11 +681,14 @@
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
             NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
             mp3URL = tunMusic.tunMusicModel.MusicPath;
-            [self.dict setValue:titleText.text forKeyPath:@"lyricName"];
+            NSString * lyricName = [NSString stringWithFormat:@"%@",titleText.text];
             
-            [self.dict setValue:lyricView.lyricText.text forKeyPath:@"lyric"];
+            [self.dict setValue:titleText.text forKey:@"lyricName"];
             
-            [self.dict setValue:mp3URL forKeyPath:@"mp3URL"];
+            [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+            
+            [self.dict setValue:@(hotId) forKey:@"itemID"];
+            [self.dict setValue:mp3URL forKey:@"mp3URL"];
             [self.dict setValue:[NSNumber numberWithBool:isHeadset] forKey:@"isHeadSet"];
             NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
             [self.navigationController pushViewController:public animated:YES];
