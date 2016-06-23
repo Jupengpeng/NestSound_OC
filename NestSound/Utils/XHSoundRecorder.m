@@ -117,11 +117,13 @@ static id _instance;
 }
 
 //暂停录音
-- (void)pauseRecorder {
+- (void)pauseRecorder:(void (^)(NSString *filePath))PauseRecording {
     
     if ([self.recorder isRecording]) {
         
         [self.recorder pause];
+        
+        PauseRecording(self.wavPath);
     }
     
 }

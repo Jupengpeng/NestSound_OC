@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, Type) {
 /**
  *  暂停录音
  */
-- (void)pauseRecorder;
+- (void)pauseRecorder:(void (^)(NSString *filePath))PauseRecording;
 
 /**
  *  停止录音

@@ -207,7 +207,11 @@
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
-            [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+            NSFileManager *manager = [NSFileManager defaultManager];
+            
+            [manager removeItemAtPath:self.wavFilePath error:nil];
+            
+            [manager removeItemAtPath:self.mp3File error:nil];
             
             [wSelf.waveform removeAllPath];
             
@@ -511,22 +515,27 @@
             
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             
-            AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+            if (!self.player) {
+                
+                AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+                
+                player.delegate = self;
+                
+                [player prepareToPlay];
+                
+                self.player = player;
+            }
             
-            player.delegate = self;
-            
-            [player prepareToPlay];
-            
-            [player play];
-            
-            self.player = player;
+            [self.player play];
             
         } else {
             
             [self removeLink];
-            [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
             [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
+            [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+            
             [self.player stop];
+            self.player = nil;
             self.next.enabled = YES;
             btn1.enabled = YES;
             btn.enabled = NO;
@@ -553,6 +562,8 @@
         [self removeLink];
         
         self.timerNum = 0;
+        
+        self.wavFilePath = nil;
         
         [self.player stop];
         
@@ -642,11 +653,7 @@
                             
                             [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
                             
-                            self.wavFilePath = nil;
-                            
-//                            NSFileManager *manager = [NSFileManager defaultManager];
-//                            
-//                            [manager removeItemAtPath:wSelf.mp3File error:nil];
+//                            self.wavFilePath = nil;
                             
                         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
                             // 请求失败
