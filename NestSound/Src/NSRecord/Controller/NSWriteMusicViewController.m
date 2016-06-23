@@ -439,6 +439,8 @@
                 
                 [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
                     
+                    [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+                    
                     wSelf.timerNum = 0;
                     
                     [wSelf removeLink];
@@ -594,8 +596,6 @@
                     
                     wSelf.data = data;
                     
-//                    self.next.enabled = YES;
-                    
                     wSelf.mp3File = newfilePath;
                     
                     // 1.创建网络管理者
@@ -719,13 +719,13 @@
     self.timerNum += 1/60.0;
     
     //分贝数
-    CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
-    
-    
-    self.lineNum++;
     
     if (!self.isPlay) {
         
+        CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
+        
+        self.lineNum++;
+            
         if (self.lineNum % 3 == 0) {
             
             self.waveform.num = count * 0.5 + 20;
