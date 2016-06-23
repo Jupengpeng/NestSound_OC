@@ -1131,7 +1131,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				01BE406388035D3267391631 /* 📦 Check Pods Manifest.lock */,
+				01BE406388035D3267391631 /* [CP] Check Pods Manifest.lock */,
 				7E8795F89907AC0A1C7B3BC8 /* [CP] Check Pods Manifest.lock */,
 				218F02D99BC282544587CCF0 /* [CP] Check Pods Manifest.lock */,
 				891A7BB98EF9E812C05983EE /* [CP] Check Pods Manifest.lock */,
@@ -1170,7 +1170,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				5B5C46CB03C00DAC020B4A29 /* 📦 Check Pods Manifest.lock */,
+				5B5C46CB03C00DAC020B4A29 /* [CP] Check Pods Manifest.lock */,
 				958F822E5D8282B3489E3B87 /* [CP] Check Pods Manifest.lock */,
 				F4E2C5948A51C6DC08F5E48D /* [CP] Check Pods Manifest.lock */,
 				6D47EBA6E60365D94C6FF2F6 /* [CP] Check Pods Manifest.lock */,
@@ -1274,14 +1274,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		01BE406388035D3267391631 /* 📦 Check Pods Manifest.lock */ = {
+		01BE406388035D3267391631 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1529,14 +1529,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		5B5C46CB03C00DAC020B4A29 /* 📦 Check Pods Manifest.lock */ = {
+		5B5C46CB03C00DAC020B4A29 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2241,7 +2241,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2280,7 +2280,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

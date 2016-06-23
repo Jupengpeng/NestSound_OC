@@ -265,9 +265,9 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     [iconBtn setImage:image.image forState:UIControlStateNormal];
     
-    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:[self.commentModel.createDate doubleValue]];
-    NSLog(@"%@",self.commentModel.createDate);
-    dateLabel.text = [date datetoStringWithDate:date1];
+//    NSDate *date1 = [NSDate dateWithTimeIntervalSince1970:self.commentModel.createDate];
+    NSLog(@"%f",self.commentModel.createDate);
+    dateLabel.text = [date datetoStringWithDate:self.commentModel.createDate];
     
     
     WS(wSelf);

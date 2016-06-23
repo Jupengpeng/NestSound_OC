@@ -14,7 +14,7 @@
 
 @interface SystemMessageModel : NSBaseModel
 
-@property (nonatomic,assign) NSDate * createDate;
+@property (nonatomic,assign) NSTimeInterval  createDate;
 @property (nonatomic,assign) long messageId;
 @property (nonatomic,assign) int status;
 @property (nonatomic,assign) int type;

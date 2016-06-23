@@ -103,7 +103,7 @@
         return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:searchURL]){
         return [[NSSearchUserListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:myFansListURL]){
+    }else if ([url isEqualToString:myFansListURL] || [url isEqualToString:otherFFURL]){
         return [[NSFansListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:getInspirationURL]){
         return [[NSInspirtationModel alloc] initWithJSONDict:jsonDict];

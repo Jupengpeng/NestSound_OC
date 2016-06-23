@@ -108,6 +108,10 @@ static id _instance;
     
     [super viewWillAppear:animated];
     
+    AVAudioSession * session =[ AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    
     if (self.playOrPauseBtn.selected) {
         
         [self addTimer];

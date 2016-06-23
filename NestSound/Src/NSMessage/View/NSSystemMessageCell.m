@@ -158,6 +158,7 @@
 {
 
     _systemMessageModel = systemMessageModel;
+//    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:_systemMessageModel.createDate];
     dateLabel.text = [date datetoStringWithDate:_systemMessageModel.createDate];
 
     [titleImage setDDImageWithURLString:_systemMessageModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_addPicture"]];

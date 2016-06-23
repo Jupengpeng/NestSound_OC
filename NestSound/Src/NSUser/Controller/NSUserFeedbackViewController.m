@@ -44,7 +44,13 @@ UITextFieldDelegate
 -(void)feedBackWithContent:(NSString *)content_ andNumber:(NSString *)number
 {
     self.requestType = NO;
+<<<<<<< HEAD
     self.requestParams= @{@"userid":JUserID,@"text":[NSString stringWithFormat:@"%@",content_],@"phone":[NSString stringWithFormat:@"%@",number],@"token":LoginToken};
+=======
+    NSLog(@"%@",number);
+    NSLog(@"%@",content_);
+    self.requestParams= @{@"userid":JUserID,@"text":content_,@"phone":number,@"token":LoginToken};
+>>>>>>> f91fd36bf6e06c8c585f74f06c8fb2eed4dbc8fd
     if ([Type isEqualToString:@"feedBack"]) {
         self.requestURL = feedBackURL;
 
@@ -59,7 +65,7 @@ UITextFieldDelegate
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
 
-    if (parserObject.success) {
+    if (!parserObject.success) {
         [[NSToastManager manager] showtoast:@"发布成功，我们运营会尽快解决您反馈的问题"];
         [self.navigationController popViewControllerAnimated:YES];
     }

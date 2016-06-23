@@ -21,7 +21,7 @@
 @property (nonatomic,assign) long workId;//comment workID
 @property (nonatomic,copy) NSString * author;
 @property (nonatomic,copy) NSString * comment;
-@property (nonatomic,assign) NSDate * createDate;
+@property (nonatomic,assign) NSTimeInterval  createDate;
 @property (nonatomic,copy) NSString * headerUrl;
 @property (nonatomic,copy) NSString * nickName;
 @property (nonatomic,copy) NSString * titleImageUrl;

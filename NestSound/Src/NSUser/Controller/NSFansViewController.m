@@ -93,7 +93,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         NSDictionary * dic = @{@"userid":userId,@"uid":JUserID,@"token":LoginToken,@"page":[NSString stringWithFormat:@"%d",currentPage],@"type":[NSNumber numberWithInt:fansType]};
         NSString * str = [NSTool encrytWithDic:dic];
         otherFansURL = [otherFFURL stringByAppendingString:str];
-        self.requestURL = otherFFURL;
+        self.requestURL = otherFansURL;
     }
     
 }

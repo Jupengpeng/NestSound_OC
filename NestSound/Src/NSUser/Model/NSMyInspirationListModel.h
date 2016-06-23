@@ -13,7 +13,7 @@
 @protocol InspirationModel <NSObject>
 @end
 @interface InspirationModel : NSBaseModel
-@property (nonatomic,assign) NSDate * createDate;
+@property (nonatomic,assign) NSTimeInterval  createDate;
 @property (nonatomic,assign) long userId;
 @property (nonatomic,assign) long itemId;
 @property (nonatomic,copy) NSString * title;

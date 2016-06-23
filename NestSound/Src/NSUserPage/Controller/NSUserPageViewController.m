@@ -159,7 +159,7 @@ UITableViewDataSource>
             dataAry = myMusicAry;
             [_tableView reloadData];
         }else if ([operation.urlTag isEqualToString:focusUserURL]){
-            NSLog(@"lalal");
+            [[NSToastManager manager] showtoast:@"关注成功"];
         }
             }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
@@ -303,14 +303,16 @@ UITableViewDataSource>
 - (void)followClick:(UIBarButtonItem *)follow {
     
     [self focusUserWithUserId:userId];
+    NSLog(@"%@",userId);
     NSLog(@"点击了Nav的关注");
 }
 
 
 -(void)focusUserWithUserId:(NSString *)userId_
 {
+    NSLog(@"%@",userId_);
     self.requestType = NO;
-    self.requestParams =@{@"uid":userId_,@"fansid":JUserID,@"token":LoginToken};
+    self.requestParams =@{@"userid":userId_,@"fansid":JUserID,@"token":LoginToken};
     self.requestURL = focusUserURL;
 
 }

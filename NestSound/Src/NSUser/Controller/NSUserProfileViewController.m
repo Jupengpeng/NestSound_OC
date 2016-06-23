@@ -142,7 +142,8 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)ensureBirthday
 {
     NSDate * bir = datePicker.choseBirthday.date;
-    [userInfo setObject:[date datetoStringWithDate:bir] forKey:@"birthday"];
+    NSTimeInterval timeStmp = [bir timeIntervalSince1970];
+    [userInfo setObject:[date datetoStringWithDate:timeStmp] forKey:@"birthday"];
 //    userInfo[@"birthday"] = [date datetoStringWithDate:bir];
 //    birthday = [date datetoStringWithDate:bir];
     datePicker.hidden = YES;
