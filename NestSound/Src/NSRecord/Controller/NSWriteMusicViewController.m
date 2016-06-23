@@ -155,6 +155,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    WS(wSelf);
     [super viewWillAppear:animated];
     NSString * fileURL = hotMp3Url;
     NSFileManager * fm = [NSFileManager defaultManager];
@@ -164,7 +165,12 @@
     }else{
         if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
             NSLog(@"uu%@",LocalAccompanyPath);
-            [[NSHttpClient client] downLoadWithFileURL:fileURL];
+            [[NSHttpClient client] downLoadWithFileURL:fileURL completionHandler:^{
+                
+                UIButton *btn2 = wSelf.btns[2];
+                
+                btn2.enabled = YES;
+            }];
         }
     }
 
@@ -291,8 +297,8 @@
         }
         
         if (i == 2) {
-            #warning mark 需要下载完的回调
-//            btn.enabled = NO;
+            
+            btn.enabled = NO;
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_recording"] forState:UIControlStateSelected];
         }
