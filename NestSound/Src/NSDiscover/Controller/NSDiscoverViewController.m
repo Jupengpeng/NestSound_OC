@@ -26,7 +26,8 @@
     
     UISearchBar *_search;
     
-    UIView *_maskView;
+//    UIView *_maskView;
+    
     NSActivityViewController *activity;
     NSMusicViewController *music;
     NSMusicViewController *lyric;
@@ -35,8 +36,9 @@
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
-
 @property (nonatomic, strong) NSSearchViewController *searchVC;
+
+@property (nonatomic, strong) UIView *maskView;
 
 @end
 
@@ -66,6 +68,30 @@
     
 }
 
+- (UIView *)maskView {
+    
+    if (!_maskView) {
+        
+        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height)];
+        
+        _maskView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+        
+        _maskView.alpha = 0;
+        
+        [self.tabBarController.view addSubview:_maskView];
+    }
+    
+    return _maskView;
+}
+
+//- (void)viewWillAppear:(BOOL)animated {
+//    
+//    [super viewWillAppear:animated];
+//    
+//    [self.tabBarController.view addSubview:self.maskView];
+//}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -84,15 +110,6 @@
     
     [self setupUI];
     
-    
-    _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height)];
-    
-    _maskView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    
-    _maskView.alpha = 0;
-    
-    [self.tabBarController.view addSubview:_maskView];
-    
 }
 
 
@@ -100,9 +117,11 @@
     
     [_search setShowsCancelButton:YES animated:YES];
     
-    _maskView.alpha = 1;
+    self.maskView.alpha = 1;
     
     self.navigationItem.rightBarButtonItem = nil;
+    
+    self.tabBarController.tabBar.hidden = YES;
     
     NSLog(@"进入搜索编辑");
     
@@ -112,13 +131,15 @@
     
     [_search setShowsCancelButton:NO animated:YES];
     
-    _maskView.alpha = 0;
+    self.maskView.alpha = 0;
     
     [_search resignFirstResponder];
     
     _search.text = nil;
     
-    [_maskView removeAllSubviews];
+    self.tabBarController.tabBar.hidden = NO;
+    
+    [self.maskView removeAllSubviews];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
 }
@@ -127,7 +148,7 @@
     
     [_search resignFirstResponder];
     
-    [_maskView addSubview:self.searchVC.view];
+    [self.maskView addSubview:self.searchVC.view];
     
     UIButton *cancelBtn = [searchBar valueForKey:@"cancelButton"]; //首先取出cancelBtn
     

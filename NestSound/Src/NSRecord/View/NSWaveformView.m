@@ -68,94 +68,94 @@
 - (void)drawRect:(CGRect)rect {
     
     NSArray *numArray = [[self.nums reverseObjectEnumerator] allObjects];
-    
+//    
     if (self.player) {
-        
-        for (int i = 0; i < numArray.count; i++) {
-            
-            if (2 * i >= self.width) {
-                
-                if (i < self.width / 2) {
-                    
-                    UIBezierPath * path = [UIBezierPath bezierPath];
-                    
-                    [path moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
-                    
-                    [path addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 - [numArray[i] doubleValue])];
-                    
-                    [path setLineWidth:1];
-                    
-                    [[UIColor hexColorFloat:@"ff833f"] setStroke];
-                    
-                    [[UIColor hexColorFloat:@"ff833f"] setFill];
-                    
-                    [path stroke];
-                    
-                    
-                    UIBezierPath * path1 = [UIBezierPath bezierPath];
-                    
-                    [path1 moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
-                    
-                    [path1 addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 + ([numArray[i] doubleValue] * 0.7))];
-                    
-                    [path1 setLineWidth:1];
-                    
-                    [[UIColor hexColorFloat:@"ffbd99"] setStroke];
-                    
-                    [[UIColor hexColorFloat:@"ffbd99"] setFill];
-                    
-                    [path1 stroke];
-                    
-                }
-            } else {
-                
-                UIBezierPath * path = [UIBezierPath bezierPath];
-                
-                [path moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
-                
-                [path addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 - [numArray[i] doubleValue])];
-                
-                [path setLineWidth:1];
-                
-                [[UIColor hexColorFloat:@"ff833f"] setStroke];
-                
-                [[UIColor hexColorFloat:@"ff833f"] setFill];
-                
-                [path stroke];
-                
-                UIBezierPath * path1 = [UIBezierPath bezierPath];
-                
-                [path1 moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
-                
-                [path1 addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 + ([numArray[i] doubleValue] * 0.7))];
-                
-                [path1 setLineWidth:1];
-                
-                [[UIColor hexColorFloat:@"ffbd99"] setStroke];
-                
-                [[UIColor hexColorFloat:@"ffbd99"] setFill];
-                
-                [path1 stroke];
-                
-                UIBezierPath * centerPath = [UIBezierPath bezierPath];
-                
-                [centerPath moveToPoint:CGPointMake(self.width, self.height * 0.5)];
-                
-                [centerPath addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
-                
-                [centerPath setLineWidth:1];
-                
-                [[UIColor hexColorFloat:@"ff833f"] setStroke];
-                
-                [[UIColor hexColorFloat:@"ff833f"] setFill];
-                
-                [centerPath stroke];
-                
-            }
-        }
-        
+//
+//        for (int i = 0; i < numArray.count; i++) {
+//            
+//            if (2 * i >= self.width) {
+//                
+//                if (i < self.width / 2) {
+//                    
+//                    UIBezierPath * path = [UIBezierPath bezierPath];
+//                    
+//                    [path moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
+//                    
+//                    [path addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 - [numArray[i] doubleValue])];
+//                    
+//                    [path setLineWidth:1];
+//                    
+//                    [[UIColor hexColorFloat:@"ff833f"] setStroke];
+//                    
+//                    [[UIColor hexColorFloat:@"ff833f"] setFill];
+//                    
+//                    [path stroke];
+//                    
+//                    
+//                    UIBezierPath * path1 = [UIBezierPath bezierPath];
+//                    
+//                    [path1 moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
+//                    
+//                    [path1 addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 + ([numArray[i] doubleValue] * 0.7))];
+//                    
+//                    [path1 setLineWidth:1];
+//                    
+//                    [[UIColor hexColorFloat:@"ffbd99"] setStroke];
+//                    
+//                    [[UIColor hexColorFloat:@"ffbd99"] setFill];
+//                    
+//                    [path1 stroke];
+//                    
+//                }
+//            } else {
+//                
+//                UIBezierPath * path = [UIBezierPath bezierPath];
+//                
+//                [path moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
+//                
+//                [path addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 - [numArray[i] doubleValue])];
+//                
+//                [path setLineWidth:1];
+//                
+//                [[UIColor hexColorFloat:@"ff833f"] setStroke];
+//                
+//                [[UIColor hexColorFloat:@"ff833f"] setFill];
+//                
+//                [path stroke];
+//                
+//                UIBezierPath * path1 = [UIBezierPath bezierPath];
+//                
+//                [path1 moveToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
+//                
+//                [path1 addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5 + ([numArray[i] doubleValue] * 0.7))];
+//                
+//                [path1 setLineWidth:1];
+//                
+//                [[UIColor hexColorFloat:@"ffbd99"] setStroke];
+//                
+//                [[UIColor hexColorFloat:@"ffbd99"] setFill];
+//                
+//                [path1 stroke];
+//                
+//                UIBezierPath * centerPath = [UIBezierPath bezierPath];
+//                
+//                [centerPath moveToPoint:CGPointMake(self.width, self.height * 0.5)];
+//                
+//                [centerPath addLineToPoint:CGPointMake(self.width - 2 * i, self.height * 0.5)];
+//                
+//                [centerPath setLineWidth:1];
+//                
+//                [[UIColor hexColorFloat:@"ff833f"] setStroke];
+//                
+//                [[UIColor hexColorFloat:@"ff833f"] setFill];
+//                
+//                [centerPath stroke];
+//                
+//            }
+//        }
+//        
     } else {
-        
+    
         for (int i = 0; i < numArray.count; i++) {
             
             if (2 * i >= self.width * 0.5) {
@@ -246,9 +246,9 @@
 
 - (void)playerAllPath {
     
-    self.player = YES;
-    
-    [self setNeedsDisplay];
+//    self.player = YES;
+//
+//    [self setNeedsDisplay];
 }
 
 

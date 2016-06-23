@@ -71,7 +71,6 @@ UITableViewDataSource
     url = [messageURL stringByAppendingString:str];
      self.requestURL = url;
     
-
 }
 
 

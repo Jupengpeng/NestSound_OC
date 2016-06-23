@@ -17,7 +17,8 @@
 #import "NSCommentTableViewCell.h"
 @interface NSMessageListViewController ()<
 UITableViewDataSource,
-UITableViewDelegate
+UITableViewDelegate,
+TTTAttributedLabelDelegate
 >
 {
     UITableView * messageList;
@@ -246,7 +247,10 @@ static NSString * const systemCellID = @"SystemCellID";
             return 175;
         }
     }else if (messageType == CommentMessageType){
-            return 160;
+        
+        NSCommentTableViewCell *cell = (NSCommentTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        
+        return cell.commentLabelMaxY;
     }
     return 1;
 }
@@ -296,10 +300,13 @@ static NSString * const systemCellID = @"SystemCellID";
             commentCell = [[NSCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:comment1CellID];
         }
         commentCell.commentModel = messageArr[indexPath.row];
+        commentCell.commentLabel.delegate = self;
         return commentCell;
     }
     return nil;
 }
+
+
 
 #pragma mark - tableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

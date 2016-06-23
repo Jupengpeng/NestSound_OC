@@ -57,6 +57,9 @@
 //描述
 @property (nonatomic, weak)  NSLyricView *describeView;
 
+
+@property (nonatomic, weak) UIButton *commentBtn;
+
 @property (nonatomic, weak) UISlider *progressBar;
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -641,6 +644,8 @@ static id _instance;
         
     }];
     
+    self.commentBtn = commentBtn;
+    
     [self.view addSubview:commentBtn];
     
     [commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -656,23 +661,7 @@ static id _instance;
     
     
     //评论数
-   _numLabel = [[UILabel alloc] init];
-    
-    if (self.commentNum > 999) {
-        
-        _numLabel.text = @"999+";
-        
-    } else if (self.commentNum < 1) {
-        
-        [commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
-        
-        [commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
-        
-    } else {
-        
-        _numLabel.text = [NSString stringWithFormat:@"%ld",self.commentNum];
-        
-    }
+    _numLabel = [[UILabel alloc] init];
     
     _numLabel.textColor = [UIColor hexColorFloat:@"d5d5d5"];
     
@@ -1066,6 +1055,27 @@ static id _instance;
         self.playOrPauseBtn.selected = NO;
         
     }
+    
+    
+    //评论数
+    if (self.commentNum > 999) {
+        
+        _numLabel.text = @"999+";
+        
+    } else if (self.commentNum < 1) {
+        
+        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
+        
+        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
+        
+        _numLabel.text = nil;
+        
+    } else {
+        
+        _numLabel.text = [NSString stringWithFormat:@"%ld",self.commentNum];
+        
+    }
+
 }
 
 
