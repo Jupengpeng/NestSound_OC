@@ -855,6 +855,13 @@ static id _instance;
         
         if (JUserID) {
             
+            _maskView.hidden = YES;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _moreChoiceView.y = ScreenHeight;
+            }];
+            
             NSUserFeedbackViewController * reportVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
             [wSelf.navigationController pushViewController:reportVC animated:YES];
             NSLog(@"点击了举报");

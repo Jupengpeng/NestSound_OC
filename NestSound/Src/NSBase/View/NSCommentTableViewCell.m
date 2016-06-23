@@ -269,33 +269,6 @@ static inline NSRegularExpression * NameRegularExpression() {
     NSLog(@"%@",self.commentModel.createDate);
     dateLabel.text = [date datetoStringWithDate:date1];
     
-//    self.commentLabel.text = self.commentModel.comment;
-    
-//    [self.nameBtn setTitle:self.commentModel.targetName forState:UIControlStateNormal];
-//    if (self.commentModel.targetName == nil) {
-//        self.commentLabel.text = self.commentModel.comment;
-//    } else {
-    
-    
-    //评论内容
-//    self.commentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-//    self.commentLabel.font = [UIFont systemFontOfSize:12];
-//    self.commentLabel.textColor = [UIColor blackColor];
-//    self.commentLabel.lineBreakMode = NSLineBreakByCharWrapping;
-//    self.commentLabel.numberOfLines = 0;
-    //设置高亮颜色
-    //    self.commentLabel.highlightedTextColor = [UIColor greenColor];
-    
-    //对齐方式
-//    self.commentLabel.verticalAlignment = TTTAttributedLabelVerticalAlignmentCenter;
-    
-    //行间距
-//    self.commentLabel.lineSpacing = 3;
-    
-    //NO 不显示下划线
-//    self.commentLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
-    
-
     
     WS(wSelf);
     

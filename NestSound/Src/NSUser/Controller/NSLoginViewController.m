@@ -139,7 +139,11 @@
     phoneText.leftViewMode = UITextFieldViewModeAlways;
     
     phoneText.placeholder = @"手机号";
+    
+    [phoneText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     phoneText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
+    
     phoneText.keyboardType = UIKeyboardTypeNumberPad;
     
     [phoneView addSubview:phoneText];
@@ -185,6 +189,7 @@
     passwordText.leftViewMode = UITextFieldViewModeAlways;
     passwordText.secureTextEntry = YES;
     passwordText.placeholder = @"密码";
+    [passwordText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
     
     [passwordView addSubview:passwordText];
     

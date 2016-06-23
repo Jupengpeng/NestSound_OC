@@ -115,6 +115,8 @@
     
     phoneText.placeholder = @"手机号";
     
+    [phoneText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     phoneText.keyboardType = UIKeyboardTypeNumberPad;
     
     [phoneView addSubview:phoneText];
@@ -185,6 +187,8 @@
     
     captchaText.placeholder = @"验证码";
     
+    [captchaText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     captchaText.keyboardType = UIKeyboardTypeNumberPad;
     
     [captchaView addSubview:captchaText];
@@ -232,6 +236,8 @@
     
     passwordText.placeholder = @"输入密码";
     
+    [passwordText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     [passwordView addSubview:passwordText];
     
     [passwordText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -276,6 +282,8 @@
     repasswordText.leftViewMode = UITextFieldViewModeAlways;
     
     repasswordText.placeholder = @"重新输入密码";
+    
+    [repasswordText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
     
     [repasswordView addSubview:repasswordText];
     
@@ -366,26 +374,33 @@
 -(void)resetPassword
 {
     if (phoneText.text.length!=0) {
-        if (passwordText.text.length!=0) {
-            if (captchaText.text.length!=0) {
-                if (repasswordText.text.length!=0) {
-                    if ([repasswordText.text isEqualToString:passwordText.text]) {
-                        self.requestType = NO;
-                        self.requestParams = @{@"mobile":phoneText.text,@"code":captchaText.text,@"password":passwordText.text};
-                        self.requestURL = reSetPasswordURL;
+        if ([NSTool isValidateMobile:phoneText.text]) {
+            if (passwordText.text.length!=0) {
+                if (captchaText.text.length!=0) {
+                    if (repasswordText.text.length!=0 || passwordText.text.length != 0) {
+                        if ([repasswordText.text isEqualToString:passwordText.text]) {
+                            self.requestType = NO;
+                            self.requestParams = @{@"mobile":phoneText.text,@"code":captchaText.text,@"password":passwordText.text};
+                            self.requestURL = reSetPasswordURL;
+                            
+                        }else{
+                            [[NSToastManager manager] showtoast:@"两次输入密码不一致"];
+                        }
+                        
                     }else{
-                        [[NSToastManager manager] showtoast:@"两次输入密码不一致"];
+                        [[NSToastManager manager] showtoast:@"新密码不能为空"];
                     }
+                    
                 }else{
-                    [[NSToastManager manager] showtoast:@"新密码不能为空"];
+                    [[NSToastManager manager] showtoast:@"请输入验证码"];
                 }
                 
             }else{
-                [[NSToastManager manager] showtoast:@"请输入验证码"];
+                [[NSToastManager manager] showtoast:@"密码不能为空"];
             }
             
         }else{
-            [[NSToastManager manager] showtoast:@"密码不能为空"];
+            [[NSToastManager manager] showtoast:@"手机号不正确"];
         }
         
     }else{

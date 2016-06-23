@@ -156,7 +156,11 @@
     userNameText.leftViewMode = UITextFieldViewModeAlways;
     
     userNameText.placeholder = @"用户名";
+    
+    [userNameText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     userNameText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
+    
     [userNameView addSubview:userNameText];
     
     [userNameText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -202,7 +206,11 @@
     phoneText.leftViewMode = UITextFieldViewModeAlways;
     
     phoneText.placeholder = @"手机号";
+    
+    [phoneText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     phoneText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
+    
     phoneText.keyboardType = UIKeyboardTypeNumberPad;
     
     [phoneView addSubview:phoneText];
@@ -295,7 +303,11 @@
     captchaText.leftViewMode = UITextFieldViewModeAlways;
     
     captchaText.placeholder = @"验证码";
+    
+    [captchaText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     captchaText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
+    
     captchaText.keyboardType = UIKeyboardTypeNumberPad;
     
     [captchaView addSubview:captchaText];
@@ -340,9 +352,15 @@
     passwordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     passwordText.leftViewMode = UITextFieldViewModeAlways;
+    
     passwordText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
+    
     passwordText.placeholder = @"输入密码";
+    
+    [passwordText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     passwordText.secureTextEntry = YES;
+    
     [passwordView addSubview:passwordText];
     
     [passwordText mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -385,9 +403,15 @@
     repasswordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     repasswordText.leftViewMode = UITextFieldViewModeAlways;
+    
     repasswordText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
+    
     repasswordText.placeholder = @"重新输入密码";
+    
+    [repasswordText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
+    
     repasswordText.secureTextEntry = YES;
+    
     [repasswordView addSubview:repasswordText];
     
     [repasswordText mas_makeConstraints:^(MASConstraintMaker *make) {

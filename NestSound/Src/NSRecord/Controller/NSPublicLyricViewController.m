@@ -59,6 +59,16 @@
     [self configureUIAppearance];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
+    
+    [self.view addGestureRecognizer:tap];
+    
+}
+
+- (void)tapClick:(UIGestureRecognizer *)tap {
+    
+    [descriptionText resignFirstResponder];
 }
 
 -(void)configureUIAppearance
@@ -69,28 +79,27 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(uploadPhoto)];
     
-    //nav
-//    self.showBackBtn = YES;
+    
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height * 0.5)];
     
     backgroundView.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:backgroundView];
     
-    UIView *lineView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
+    UIView *lineView0 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0.5)];
     
     lineView0.backgroundColor = [UIColor lightGrayColor];
     
     [backgroundView addSubview:lineView0];
-
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, backgroundView.height - 1, ScreenWidth, 1)];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, backgroundView.height - 1, ScreenWidth, 0.5)];
     
     lineView.backgroundColor = [UIColor lightGrayColor];
     
     [backgroundView addSubview:lineView];
     
-    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, backgroundView.height - 44, ScreenWidth, 1)];
+    UIView *lineView1 = [[UIView alloc] initWithFrame:CGRectMake(0, backgroundView.height - 44, ScreenWidth, 0.5)];
     
     lineView1.backgroundColor = [UIColor lightGrayColor];
     
