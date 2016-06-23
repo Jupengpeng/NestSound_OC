@@ -10,6 +10,8 @@
 
 @interface NSPublicLyricViewController : NSBaseViewController
 
+@property (nonatomic, copy) NSString *mp3File;
+
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_;
 
 @end

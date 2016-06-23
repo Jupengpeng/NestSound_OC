@@ -299,9 +299,12 @@
             shareVC.shareDataDic = lyricDic;
             [self.navigationController pushViewController:shareVC animated:YES];
             
-            
         }
         
+        
+        NSFileManager *manager = [NSFileManager defaultManager];
+        
+        [manager removeItemAtPath:self.mp3File error:nil];
     }
     
 }

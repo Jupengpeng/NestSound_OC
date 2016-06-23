@@ -190,6 +190,11 @@
                 
                 btn2.enabled = YES;
             }];
+        } else {
+            
+            UIButton *btn2 = wSelf.btns[2];
+            
+            btn2.enabled = YES;
         }
     }
 
@@ -615,52 +620,58 @@
             
             if (JUserID) {
                 
-                [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
+                if (self.wavFilePath) {
                     
-                    NSData *data = [NSData dataWithContentsOfFile:newfilePath];
-                    
-                    wSelf.data = data;
-                    
-                    wSelf.mp3File = newfilePath;
-                    
-                    // 1.创建网络管理者
-                    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-                    
-                    
-                    [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+                    [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
                         
-                        [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
+                        NSData *data = [NSData dataWithContentsOfFile:newfilePath];
+                        
+                        wSelf.data = data;
+                        
+                        wSelf.mp3File = newfilePath;
+                        
+                        // 1.创建网络管理者
+                        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
                         
                         
-                    } success:^void(NSURLSessionDataTask * task, id responseObject) {
-                        // 请求成功
-                        NSLog(@"请求成功 %@", responseObject);
-                        
-                        NSDictionary *dict;
-                        
-                        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                        [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                             
-                            dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+                            [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
                             
-                        }
+                            
+                        } success:^void(NSURLSessionDataTask * task, id responseObject) {
+                            // 请求成功
+                            NSLog(@"请求成功 %@", responseObject);
+                            
+                            NSDictionary *dict;
+                            
+                            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                                
+                                dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+                                
+                            }
+                            
+                            [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+                            
+                            self.wavFilePath = nil;
+                            
+//                            NSFileManager *manager = [NSFileManager defaultManager];
+//                            
+//                            [manager removeItemAtPath:wSelf.mp3File error:nil];
+                            
+                        } failure:^void(NSURLSessionDataTask * task, NSError * error) {
+                            // 请求失败
+                            NSLog(@"请求失败 %@", error);
+                        }];
                         
-                        [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:[NSNumber numberWithBool:isHeadset] andMusicUrl:dict[@"data"][@"mp3URL"]];
+                        NSLog(@"点击了下一步");
                         
-                        
-                        NSFileManager *manager = [NSFileManager defaultManager];
-                        
-                        [manager removeItemAtPath:wSelf.mp3File error:nil];
-                        
-                    } failure:^void(NSURLSessionDataTask * task, NSError * error) {
-                        // 请求失败
-                        NSLog(@"请求失败 %@", error);
                     }];
+                } else {
                     
-                    NSLog(@"点击了下一步");
-                    
-                }];
-                
-                
+                    NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+                    [self.navigationController pushViewController:public animated:YES];
+                }
                 
             } else {
                 
@@ -669,7 +680,6 @@
                 [self presentViewController:loginVC animated:YES completion:nil];
             }
            
-            
         }
     }
 }
@@ -700,16 +710,16 @@
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
             NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
             mp3URL = tunMusic.tunMusicModel.MusicPath;
-            NSString * lyricName = [NSString stringWithFormat:@"%@",titleText.text];
             
             [self.dict setValue:titleText.text forKey:@"lyricName"];
             
             [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
             
-            [self.dict setValue:@(hotId) forKey:@"itemID"];
+            [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
             [self.dict setValue:mp3URL forKey:@"mp3URL"];
             [self.dict setValue:[NSNumber numberWithBool:isHeadset] forKey:@"isHeadSet"];
             NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+            public.mp3File = self.mp3File;
             [self.navigationController pushViewController:public animated:YES];
         }
     }
@@ -766,7 +776,7 @@
     
     
     //计时显示
-    self.timeLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
     
 }
 
