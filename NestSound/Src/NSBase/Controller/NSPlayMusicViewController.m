@@ -28,6 +28,9 @@
     UIImageView *backgroundImage;
     UIButton *collectionBtn;
     UIButton *upVoteBtn;
+    UILabel * upvoteNumLabel;
+    UILabel * collecNumLabel;
+    UILabel * commentNumLabel;
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -211,12 +214,10 @@ static id _instance;
     
     WS(wSelf);
     
-    AVPlayer *player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
+    self.player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
         
         wSelf.musicItem = musicItem;
     }];
-    
-    self.player = player;
     
     self.playOrPauseBtn.selected = YES;
     
@@ -589,6 +590,19 @@ static id _instance;
         make.height.mas_equalTo(30);
     }];
     
+    //collectNumLabel
+    collecNumLabel = [[UILabel alloc] init];
+    collecNumLabel.font = [UIFont systemFontOfSize:11];
+    collecNumLabel.textAlignment = NSTextAlignmentCenter;
+    collecNumLabel.textColor = [UIColor hexColorFloat:@"d6cdcb"];
+    [self.view addSubview:collecNumLabel];
+    
+    [collecNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(collectionBtn.mas_centerX);
+        make.top.equalTo(collectionBtn.mas_bottom).offset(5);
+    }];
+    
+    
     
     //点赞
    upVoteBtn  = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
@@ -624,7 +638,17 @@ static id _instance;
         make.height.mas_equalTo(30);
     }];
     
+    //upvoteNumLabel
+    upvoteNumLabel = [[UILabel alloc] init];
+    upvoteNumLabel.font = [UIFont systemFontOfSize:11];
+    upvoteNumLabel.textAlignment = NSTextAlignmentCenter;
+    upvoteNumLabel.textColor = [UIColor hexColorFloat:@"d6cdcb"];
+    [self.view addSubview:upvoteNumLabel];
     
+    [upvoteNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(upVoteBtn.mas_centerX);
+        make.top.equalTo(upVoteBtn.mas_bottom).offset(5);
+    }];
     
     //评论
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
@@ -669,25 +693,18 @@ static id _instance;
     }];
     
     
-    //评论数
-    _numLabel = [[UILabel alloc] init];
+    //commentNumLabe
+    commentNumLabel = [[UILabel alloc] init];
+    commentNumLabel.font = [UIFont systemFontOfSize:11];
+    commentNumLabel.textAlignment = NSTextAlignmentCenter;
+    commentNumLabel.textColor = [UIColor hexColorFloat:@"d6cdcb"];
+    [self.view addSubview:commentNumLabel];
     
-    _numLabel.textColor = [UIColor hexColorFloat:@"d5d5d5"];
-    
-    _numLabel.font = [UIFont boldSystemFontOfSize:10];
-    
-    [commentBtn addSubview:_numLabel];
-    
-    [_numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerY.equalTo(commentBtn.mas_top).offset(6);
-        
-        make.left.equalTo(commentBtn.mas_centerX).offset(3);
-        
-        make.width.mas_equalTo(30);
+    [commentNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(commentBtn.mas_centerX);
+        make.top.equalTo(commentBtn.mas_bottom).offset(5);
         
     }];
-    
     
     //更多
     UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
@@ -874,7 +891,7 @@ static id _instance;
             
             NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.musicDetail.userID]];
             userVC.who = Other;
-            [wSelf.navigationController pushViewController:userVC animated:YES];
+            [self.navigationController pushViewController:userVC animated:YES];
             NSLog(@"点击了进入个人主页");
         } else {
             
@@ -1025,7 +1042,9 @@ static id _instance;
         _songName.text = self.musicDetail.title;
         _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
         NSLog(@"%@",_totaltime.text);
-        _commentNum = self.musicDetail.commentNum;
+//        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
+//        upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
+//        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
         
         
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
@@ -1033,7 +1052,7 @@ static id _instance;
         NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};
         _lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:self.musicDetail.lyrics attributes:attributes];
         _lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
-//        _lyricView.lyricText.text = self.musicDetail.lyrics;
+
         playURL = self.musicDetail.playURL;
         if (self.musicDetail.detaile!=nil&&self.musicDetail.detaile.length!=0) {
             self.describeView.lyricText.text = [NSString stringWithFormat:@"歌曲描述:%@",self.musicDetail.detaile];
@@ -1069,27 +1088,14 @@ static id _instance;
     
     
     //评论数
-    if (self.commentNum > 999) {
-        
-        _numLabel.text = @"999+";
-        
-    } else if (self.commentNum < 1) {
-        
+    
         [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
         
         [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
-        
-        _numLabel.text = nil;
-        
-    } else {
-        
-        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_comment_normal"] forState:UIControlStateNormal];
-        
-        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_comment_highlighted"] forState:UIControlStateHighlighted];
-        
-        _numLabel.text = [NSString stringWithFormat:@"%ld",self.commentNum];
-        
-    }
+    commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
+    NSLog(@"comme%ld",_musicDetail.commentNum);
+    upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
+    collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
 
 }
 

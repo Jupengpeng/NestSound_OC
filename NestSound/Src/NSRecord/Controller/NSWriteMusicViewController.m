@@ -20,7 +20,7 @@
 #import "NSTunMusicModel.h"
 #import "NSLoginViewController.h"
 #import "NSWaveformView.h"
-
+#import "NSPlayMusicViewController.h"
 @interface CenterLine : UIView
 
 @end
@@ -165,6 +165,17 @@
 {
     WS(wSelf);
     [super viewWillAppear:animated];
+    
+    //stop the music
+    
+    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+    
+    if (playVC.player) {
+        
+        playVC.player = [[AVPlayer alloc] initWithURL: [NSURL URLWithString: @"http:www.baidu.com"]];
+    }
+    
+    
     NSString * fileURL = hotMp3Url;
     NSFileManager * fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:LocalAccompanyPath]) {
