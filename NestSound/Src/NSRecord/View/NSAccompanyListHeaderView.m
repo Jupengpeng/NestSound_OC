@@ -33,8 +33,14 @@
     //titlePage
     titilePage = [[UIImageView alloc] init];
     titilePage.layer.cornerRadius = 10;
-    [titilePage setDDImageWithURLString:@"http://pic.yinchao.cn/%E6%B8%85%E5%94%B1.png" placeHolderImage:nil];
+    [titilePage setDDImageWithURLString:@"http://pic.yinchao.cn/%E6%B8%85%E5%94%B1.png" placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    titilePage.userInteractionEnabled = YES;
     [self addSubview:titilePage];
+    
+    //singBtn
+    self.singBtn = [[UIButton alloc] init];
+    
+    [titilePage addSubview:self.singBtn];
     
     //line
     line = [[UIView alloc] init];
@@ -74,6 +80,11 @@
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.height.mas_equalTo(140);
+    }];
+    
+    //self.singBtn
+    [self.singBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(titilePage);
     }];
     
     [self.hotBtn mas_makeConstraints:^(MASConstraintMaker *make) {

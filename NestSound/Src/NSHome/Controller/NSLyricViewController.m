@@ -331,7 +331,7 @@
             [[NSToastManager manager] showtoast:@"登陆后才能进行点赞和收藏操作哦"];
         }else{
             btn.selected = !btn.selected;
-            [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
+            [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
             NSLog(@"点击了点赞");
         }
         
@@ -368,7 +368,7 @@
             
             btn.selected = !btn.selected;
             
-            [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
+            [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
             
             NSLog(@"点击了收藏");
 

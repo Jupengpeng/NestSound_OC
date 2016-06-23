@@ -182,6 +182,8 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     if (mm.type == 1) {
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         playVC.itemId = itemId;
+        playVC.geDanID = 0;
+        playVC.from = @"yueshuo";
         [self.navigationController pushViewController: playVC animated:YES];
     }else{
         NSH5ViewController * eventVC =[[NSH5ViewController alloc] init];

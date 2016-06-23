@@ -17,7 +17,6 @@
     UILabel * songListName;
     UILabel * playAll;
     UILabel * songCount;
-    UIButton * playBtn;
     UIVisualEffectView * effct;
 
 }
@@ -61,19 +60,20 @@
     //songlistype
     songListType = [[UILabel alloc] init];
     songListType.font = [UIFont systemFontOfSize:15];
-    songListType.textColor = [UIColor blackColor];
+    songListType.textColor = [UIColor whiteColor];
     [self addSubview:songListType];
     
     //songListName
     songListName = [[UILabel alloc] init];
     songListName.font = [UIFont systemFontOfSize:15];
-    songListName.textColor = [UIColor blackColor];
+    songListName.numberOfLines = 0;
+    songListName.textColor = [UIColor whiteColor];
     [self addSubview:songListName];
     
     //playAllLab
     playAll = [[UILabel alloc] init];
     playAll.font = [UIFont systemFontOfSize:15];
-    playAll.textColor = [UIColor blackColor];
+    playAll.textColor = [UIColor whiteColor];
     playAll.text = @"播放全部";
 //    LocalizedStr(@"promot_play_all");
     
@@ -88,10 +88,10 @@
     WS(wSelf);
     
     //playbtn
-    playBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    self.playAllBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.adjustsImageWhenHighlighted = NO;
-        [btn setBackgroundImage:[UIImage imageNamed:@"1"] forState:UIControlStateNormal];
-        [btn setBackgroundImage:[UIImage imageNamed:@"2"] forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:[UIImage imageNamed:@"2.0_gedan_stopBtn"] forState:UIControlStateNormal];
+//        [btn setBackgroundImage:[UIImage imageNamed:@"2"] forState:UIControlStateHighlighted];
         
     } action:^(UIButton *btn) {
         
@@ -100,8 +100,8 @@
         }
         
     }];
-    playBtn.layer.masksToBounds = YES;
-    [self addSubview:playBtn];
+    self.playAllBtn.layer.masksToBounds = YES;
+    [self addSubview:self.playAllBtn];
 
 }
 
@@ -139,20 +139,21 @@
     
     [songListName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(songListType.mas_left);
+        make.right.equalTo(self.mas_right).with.offset(-15);
         make.top.equalTo(songListType.mas_bottom);
-        make.height.mas_equalTo(16);
+//        make.height.mas_equalTo(16);
     }];
     
-    [playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.playAllBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(songListName.mas_left);
-        make.bottom.equalTo(titlePage.mas_bottom).offset(15);
+        make.bottom.equalTo(titlePage.mas_bottom).offset(-10);
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(30);
     }];
     
     [playAll mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(playBtn.mas_centerY);
-        make.left.equalTo(playBtn.mas_right).with.offset(10);
+        make.centerY.equalTo(self.playAllBtn.mas_centerY);
+        make.left.equalTo(self.playAllBtn.mas_right).with.offset(20);
         make.width.mas_equalTo(65);
             }];
     
@@ -171,7 +172,7 @@
     [titlePage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     [backImage setDDImageWithURLString:_singListType.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     songListName.text = _singListType.detail;
-    songListType.text = _singListType.title;
+    songListType.text = [NSString stringWithFormat:@"[%@]",_singListType.title];
     
 }
 

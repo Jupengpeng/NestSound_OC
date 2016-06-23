@@ -165,7 +165,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     
     WS(wSelf);
-    __block NSString * file = self.titleImageURL;
    
     if (ImageArr.count != 0) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
@@ -249,6 +248,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }else{
         if ([operation.urlTag isEqualToString:publicInspirationURL]){
             [self.navigationController popToRootViewControllerAnimated:YES];
+        }else if ([operation.urlTag isEqualToString:getInspiration]){
+            NSInspirtationModel * insp = (NSInspirtationModel *)parserObject;
+            self.inspritationModel = insp.inspirtationModel;
+        
         }
     
     }
@@ -266,6 +269,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     NSArray * arr =[str componentsSeparatedByString:@","];
     self.title = [date datetoLongStringWithDate:_inspritationModel.createDate];
     inspiration.lyricText.text = _inspritationModel.spireContent;
+    self.placeholderLabel.hidden = YES;
     ImageArr = [NSMutableArray arrayWithArray:arr];
     [_collection reloadData];
 

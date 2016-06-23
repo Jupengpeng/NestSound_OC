@@ -11,5 +11,5 @@
 
 @property (nonatomic,strong) UIButton * hotBtn;
 @property (nonatomic,strong) UIButton * xinBtn;
-
+@property (nonatomic,strong) UIButton * singBtn;
 @end

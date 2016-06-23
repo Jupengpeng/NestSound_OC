@@ -148,7 +148,7 @@
             
             if (btn.selected) {
                 
-                wSelf.player = [NSPlayMusicTool playMusicWithUrl:[NSString stringWithFormat:@"http://112.124.125.2%@",mp3URL] block:^(AVPlayerItem *item) {
+                wSelf.player = [NSPlayMusicTool playMusicWithUrl:[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL] block:^(AVPlayerItem *item) {
                     NSLog(@"%@",mp3URL);
                     wSelf.musicItem = item;
                     

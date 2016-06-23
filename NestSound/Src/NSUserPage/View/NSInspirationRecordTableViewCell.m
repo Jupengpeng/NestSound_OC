@@ -201,10 +201,12 @@
     _monthLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
     [dateFormater setDateFormat:@"dd"];
     _dayLabel.text = [dateFormater stringFromDate:_myInspirationModel.createDate];
-    if (!_myInspirationModel.audio) {
+    if (_myInspirationModel.audio.length == 0) {
         _audioImageView.hidden = YES;
+        self.frequencyImageView.hidden = YES;
     }else{
         _audioImageView.hidden = NO;
+        self.frequencyImageView.hidden = NO;
     }
 }
 
