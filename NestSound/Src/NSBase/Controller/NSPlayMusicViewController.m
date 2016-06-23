@@ -114,16 +114,16 @@ static id _instance;
         
         [self addTimer];
     }
-//    if (self.player == nil) {
+    //    if (self.player == nil) {
     
-        [self fetchPlayDataWithItemId:self.itemId];
-
-//    }
+    [self fetchPlayDataWithItemId:self.itemId];
+    
+    //    }
     
     self.scrollV.contentOffset = CGPointMake(0, 0);
     
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -140,9 +140,9 @@ static id _instance;
     self.requestType = YES;
     NSDictionary * dic;
     if (self.geDanID!=0) {
-      dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
     }else{
-         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
     }
     NSString * str = [NSTool encrytWithDic:dic];
     url = [playMusicURL stringByAppendingString:str];
@@ -157,10 +157,10 @@ static id _instance;
     if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
             NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
-           self.musicDetail = musicModel.musicdDetail;
+            self.musicDetail = musicModel.musicdDetail;
         }
     }else{
-    
+        
         [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
     }
     if ([operation.urlTag isEqualToString:upvoteURL] || [operation.urlTag isEqualToString:collectURL]) {
@@ -168,16 +168,16 @@ static id _instance;
             [[NSToastManager manager] showtoast:@"操作成功"];
         }
     }
-
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
     UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-
+    
     
     UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectView.alpha = 0.9;
@@ -187,7 +187,7 @@ static id _instance;
     
     UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
     UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
-//    [image applyBlurWithRadius:0.8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:0.5 maskImage:nil];
+    //    [image applyBlurWithRadius:0.8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:0.5 maskImage:nil];
     transparentImage.image = image;
     
     
@@ -199,14 +199,14 @@ static id _instance;
     
     [self moreChoice];
     
-//    [self addTimer];
+    //    [self addTimer];
     
-//    if ([self.player isPlaying]) {
+    //    if ([self.player isPlaying]) {
     
-//        self.playOrPauseBtn.selected = YES;
-//    }
+    //        self.playOrPauseBtn.selected = YES;
+    //    }
     
-//    [self playMusic];
+    //    [self playMusic];
 }
 
 //播放音乐
@@ -272,7 +272,7 @@ static id _instance;
     
     songName.textColor = [UIColor whiteColor];
     
-//    songName.text = @"我在那一角落患过伤风";
+    //    songName.text = @"我在那一角落患过伤风";
     
     self.songName = songName;
     
@@ -288,7 +288,7 @@ static id _instance;
     
     //分享
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-       
+        
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_share"] forState:UIControlStateNormal];
         
         
@@ -298,7 +298,7 @@ static id _instance;
         NSLog(@"点击了播放界面的分享");
         
     }];
-
+    
     [self.view addSubview:shareBtn];
     
     [shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -311,7 +311,7 @@ static id _instance;
     
     //播放暂停按钮
     UIButton *playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-       
+        
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_normal"] forState:UIControlStateNormal];
         
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_highlighted"] forState:UIControlStateHighlighted];
@@ -330,7 +330,7 @@ static id _instance;
             
             if (wSelf.musicDetail.playURL == nil) {
                 
-//                [wSelf addTimer];
+                //                [wSelf addTimer];
                 
                 [wSelf playMusicUrl:self.ifUrl];
                 
@@ -343,7 +343,7 @@ static id _instance;
             
             [wSelf removeTimer];
             [wSelf.player pause];
-
+            
         }
         NSLog(@"点击了播放和暂停按钮");
         
@@ -392,7 +392,7 @@ static id _instance;
         make.centerY.equalTo(playOrPauseBtn.mas_centerY);
         
     }];
-
+    
     
     //伴奏按钮
     UIButton *accompanyBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
@@ -435,7 +435,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-//        [wSelf playMusic];
+        //        [wSelf playMusic];
         [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
         
         NSLog(@"点击了上一首按钮");
@@ -463,7 +463,7 @@ static id _instance;
     } action:^(UIButton *btn) {
         
         
-//        [wSelf playMusic];
+        //        [wSelf playMusic];
         [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
         
         NSLog(@"点击了下一首按钮");
@@ -605,7 +605,7 @@ static id _instance;
     
     
     //点赞
-   upVoteBtn  = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    upVoteBtn  = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_upvote_normal"] forState:UIControlStateNormal];
         
@@ -619,7 +619,7 @@ static id _instance;
             [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:YES];
             NSLog(@"点击了播放页的点赞");
         } else {
-         
+            
             [[NSToastManager manager] showtoast:@"请登录后再点赞"];
         }
         
@@ -749,7 +749,7 @@ static id _instance;
     
     scrollView.showsHorizontalScrollIndicator = NO;
     
-//    scrollView.bounces = NO;
+    //    scrollView.bounces = NO;
     
     scrollView.contentSize = CGSizeMake((ScreenWidth - 30) * 2, 0);
     
@@ -902,7 +902,7 @@ static id _instance;
                 _moreChoiceView.y = ScreenHeight;
                 
             }];
-
+            
             
             NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
             
@@ -983,7 +983,7 @@ static id _instance;
         default:
             break;
     }
-
+    
 }
 
 
@@ -1042,9 +1042,9 @@ static id _instance;
         _songName.text = self.musicDetail.title;
         _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
         NSLog(@"%@",_totaltime.text);
-//        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
-//        upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
-//        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
+        //        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
+        //        upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
+        //        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
         
         
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
@@ -1052,7 +1052,7 @@ static id _instance;
         NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};
         _lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:self.musicDetail.lyrics attributes:attributes];
         _lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
-
+        
         playURL = self.musicDetail.playURL;
         if (self.musicDetail.detaile!=nil&&self.musicDetail.detaile.length!=0) {
             self.describeView.lyricText.text = [NSString stringWithFormat:@"歌曲描述:%@",self.musicDetail.detaile];
@@ -1089,14 +1089,14 @@ static id _instance;
     
     //评论数
     
-        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
-        
-        [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
+    [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
+    
+    [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
     commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
     NSLog(@"comme%ld",_musicDetail.commentNum);
     upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
     collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
-
+    
 }
 
 
