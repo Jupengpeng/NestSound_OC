@@ -263,7 +263,10 @@
 #pragma mark -uploadPhoto
 -(void)uploadPhoto
 {
-  
+    [self.player pause];
+    
+    auditionBtn.selected = NO;
+    
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]) {
@@ -280,8 +283,6 @@
     }else{
         [[NSToastManager manager] showtoast:@"封面不能为空哟"];
     }
-    
-   
     
 }
 

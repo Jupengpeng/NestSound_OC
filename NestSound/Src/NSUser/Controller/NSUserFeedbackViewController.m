@@ -42,16 +42,16 @@ UITextFieldDelegate
 }
 
 -(void)feedBackWithContent:(NSString *)content_ andNumber:(NSString *)number
-{
+{   
     self.requestType = NO;
-
+    
     self.requestParams= @{@"userid":JUserID,@"text":[NSString stringWithFormat:@"%@",content_],@"phone":[NSString stringWithFormat:@"%@",number],@"token":LoginToken};
     
     if ([Type isEqualToString:@"feedBack"]) {
         self.requestURL = feedBackURL;
-
+        
     }else{
-    
+        
         self.requestURL = reportURL;
         
     }

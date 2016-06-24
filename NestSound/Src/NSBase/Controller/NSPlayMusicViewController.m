@@ -234,7 +234,18 @@ static id _instance;
 
 - (void)endPlaying {
     
-    [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+    if (self.musicDetail.nextItemID) {
+        
+        [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+    } else {
+        
+        [self removeTimer];
+        
+        [self.player pause];
+        
+        self.playOrPauseBtn.selected = NO;
+    }
+    
     
     NSLog(@"播放结束");
 }

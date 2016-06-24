@@ -82,7 +82,7 @@ static id _instance;
         
         NSError *error = nil;
         
-        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+        [session setCategory:AVAudioSessionCategoryRecord error:&error];
         
         if(error){
             

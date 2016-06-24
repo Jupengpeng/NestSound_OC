@@ -71,6 +71,7 @@
 @property (nonatomic, assign) CGFloat timerNum;
 
 @property (nonatomic, strong) NSMutableArray *btns;
+
 @property (nonatomic, strong) AVAudioPlayer *player;
 
 @property (nonatomic, strong) NSData *data;
@@ -127,6 +128,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
     //addObserver for UserHeadset
     [AVAudioSession sharedInstance];
@@ -511,20 +513,31 @@
             
             btn1.enabled = NO;
             
-            AVAudioSession *session = [AVAudioSession sharedInstance];
-            
-            NSError *error = nil;
-            
-            [session setCategory:AVAudioSessionCategoryPlayback error:&error];
-            
-            if(error){
-                
-                NSLog(@"播放错误说明%@", [error description]);
-            }
-            
-            NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             
             if (!self.player) {
+                
+                AVAudioSession *session = [AVAudioSession sharedInstance];
+                
+                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+                
+                [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+                
+                [session setActive:YES error:nil];
+                
+                
+                UInt32 mode = kAudioUnitSubType_RemoteIO;
+                
+                AudioSessionSetProperty(kAudioSessionProperty_Mode, sizeof(mode), &mode);
+                
+                
+                NSError *error = nil;
+                
+                if(error){
+                    
+                    NSLog(@"播放错误说明%@", [error description]);
+                }
+                
+                NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
                 
                 AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
                 
@@ -579,6 +592,10 @@
         [self.waveform removeAllPath];
         
         [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+        
+        [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
+        
+        [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
         
         NSLog(@"点击了重唱");
     } else {
