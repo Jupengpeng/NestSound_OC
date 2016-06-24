@@ -123,6 +123,7 @@ static NSString *identifier = @"identifier";
 #pragma mark - chose avaiableShareModule
 -(void)availableShareModue
 {
+    self.availableShareModuleAry = [NSMutableArray array];
     if ([Share shareAvailableWeiXin]) {
         [self.availableShareModuleAry addObject:_weixinDict];
         [self.availableShareModuleAry addObject:_pengyouquanDict];
@@ -132,9 +133,12 @@ static NSString *identifier = @"identifier";
      [self.availableShareModuleAry addObject:_QzoneDict];
 
     }
+    if ([Share shareAvailableSina]) {
+        [self.availableShareModuleAry addObject:_weiboDict];
 
-    [self.availableShareModuleAry addObject:_weiboDict];
+    }
 
+    
 
 }
 
@@ -142,6 +146,9 @@ static NSString *identifier = @"identifier";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (self.availableShareModuleAry) {
+        self.availableShareModuleAry = nil;
+    }
     [self availableShareModue];
     [self configureUIAppearance];
     self.navigationController.navigationBar.hidden = YES;

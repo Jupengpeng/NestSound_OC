@@ -46,7 +46,11 @@ UITextFieldDelegate
     self.requestType = NO;
     
     self.requestParams= @{@"userid":JUserID,@"text":[NSString stringWithFormat:@"%@",content_],@"phone":[NSString stringWithFormat:@"%@",number],@"token":LoginToken};
+<<<<<<< HEAD
+
+=======
     
+>>>>>>> a5ba1170361d7268127e650d9a8dab28d96f9cec
     if ([Type isEqualToString:@"feedBack"]) {
         self.requestURL = feedBackURL;
         

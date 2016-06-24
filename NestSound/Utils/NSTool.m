@@ -244,29 +244,22 @@ static NSDateFormatter *dateFormatter;
 {
     
     NSFileManager * fm = [NSFileManager defaultManager];
-    NSString *webPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Temp"];
-    
-    NSString *cachePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/musicCache"];
+   
     NSString * fileName;
     //获取cache
     //    if (![fm fileExistsAtPath:webPath]&&![fm fileExistsAtPath:cachePath]) {
     //        return @"0";
     //    }
     
-    NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:webPath] objectEnumerator];
+    NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:LocalAccompanyPath] objectEnumerator];
     float folderSize = 0;
     while ((fileName = [childFilesEnumerator nextObject])!=nil) {
         NSLog(@"file%@",fileName);
-        NSString * fileAbsolutePath = [webPath stringByAppendingPathComponent:fileName];
+        NSString * fileAbsolutePath = [LocalAccompanyPath stringByAppendingPathComponent:fileName];
         folderSize+=[[fm attributesOfItemAtPath:fileAbsolutePath error:nil] fileSize];
     }
     
-    NSEnumerator * childFilesEnumerator1 = [[fm subpathsAtPath:cachePath] objectEnumerator];
     
-    while ((fileName = [childFilesEnumerator1 nextObject])!=nil) {
-        NSString * fileAbsolutePath1 = [cachePath stringByAppendingPathComponent:fileName];
-        folderSize+=[[fm attributesOfItemAtPath:fileAbsolutePath1 error:nil] fileSize];
-    }
     folderSize = folderSize/(1024.0*1024.0);
     
     NSString * size = [NSString stringWithFormat:@"%0.2fM",folderSize];
@@ -275,24 +268,17 @@ static NSDateFormatter *dateFormatter;
 
 +(void)clearCache
 {
-    NSString *webPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/Temp"];
-    NSString *cachePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/musicCache"];
+    
     NSFileManager * fm = [NSFileManager defaultManager];
     NSString * fileName;
-    NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:webPath] objectEnumerator];
+    NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:LocalAccompanyPath] objectEnumerator];
     //    long long folderSize = 0;
     while ((fileName = [childFilesEnumerator nextObject])!=nil) {
         NSLog(@"file%@",fileName);
-        NSString * fileAbsolutePath = [webPath stringByAppendingPathComponent:fileName];
+        NSString * fileAbsolutePath = [LocalAccompanyPath stringByAppendingPathComponent:fileName];
         [fm removeItemAtPath:fileAbsolutePath error:nil];
     }
     
-    NSEnumerator * childFilesEnumerator1 = [[fm subpathsAtPath:cachePath] objectEnumerator];
-    
-    while ((fileName = [childFilesEnumerator1 nextObject])!=nil) {
-        NSString * fileAbsolutePath1 = [cachePath stringByAppendingPathComponent:fileName];
-        [fm removeItemAtPath:fileAbsolutePath1 error:nil];
-    }
     
     
     //    [fm removeItemAtPath:webPath error:nil];
@@ -390,6 +376,14 @@ static NSDateFormatter *dateFormatter;
     }else{
         return NO;
     }
+}
+
++(BOOL)shareAvailableSina
+{
+//    if () {
+//        <#statements#>
+//    }
+    return YES;
 }
 
 @end

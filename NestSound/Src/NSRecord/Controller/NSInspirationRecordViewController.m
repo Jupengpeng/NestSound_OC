@@ -188,9 +188,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 NSLog(@"%@",key);
                 NSLog(@"%@",resp);
+                if (i == 0) {
+                    wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                }else{
                 wSelf.titleImageURL =[NSString stringWithFormat:@",%@",[resp objectForKey:@"key"]];
-                NSLog(@"%@",wSelf.titleImageURL);
-                NSLog(@"%d",i);
+                }
+                
                 if ((i + 1)  == ImageArr.count) {
                     [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
                 }
@@ -250,7 +253,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:getQiniuImage]) {
             getQiniuImageModel = (NSGetQiNiuModel *)parserObject;
             
@@ -259,10 +262,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }else if ([operation.urlTag isEqualToString:getInspiration]){
             NSInspirtationModel * inspirtation = (NSInspirtationModel *)parserObject;
             self.inspritationModel = inspirtation.inspirtationModel;
-        }
-        
-    }else{
-        if ([operation.urlTag isEqualToString:publicInspirationURL]){
+        }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
             [self.navigationController popToRootViewControllerAnimated:YES];
         }else if ([operation.urlTag isEqualToString:getInspiration]){
             NSInspirtationModel * insp = (NSInspirtationModel *)parserObject;
@@ -270,11 +270,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         }
     
-    }
+  
     
     NSFileManager *manager = [NSFileManager defaultManager];
     
     [manager removeItemAtPath:self.audioURL error:nil];
+    }
 }
 
 #pragma mark -setter && getter

@@ -60,7 +60,16 @@
 				<string>tencent1105011804</string>
 			</array>
 		</dict>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.yintao.wybz</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>NestSound</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2.0</string>
