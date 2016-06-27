@@ -259,7 +259,7 @@
         if ([NSTool isValidateMobile:phoneText.text]) {
            
             wSelf.requestType = YES;
-            NSDictionary * dic = @{@"mobile":captchaText.text,@"type":@"1"};
+            NSDictionary * dic = @{@"mobile":phoneText.text,@"type":@"1"};
             
             NSString * str = [NSTool encrytWithDic:dic];
             

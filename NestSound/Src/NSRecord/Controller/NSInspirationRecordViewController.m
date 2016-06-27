@@ -181,12 +181,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
    
     if (ImageArr.count != 0) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
-        NSLog(@"%lu",(unsigned long)ImageArr.count);
         for (int i = 0 ; i<ImageArr.count; ++i) {
             UIImage * image = ImageArr[i];
             NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
             [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                NSLog(@"%@",key);
                 NSLog(@"%@",resp);
                 if (i == 0) {
                     wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];

@@ -113,7 +113,7 @@
     
     [composeView startAnimation];
     
-    NSLog(@"点击了加号");
+
 }
 
 - (void)composeView:(NSComposeView *)composeView withComposeButton:(UIButton *)composeBtn {
@@ -125,7 +125,7 @@
             
             NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
             [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
-            NSLog(@"点击了创作歌词");
+
         } else {
             
             NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
@@ -140,7 +140,7 @@
             
             NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
             [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:accompanyList animated:YES];
-            NSLog(@"点击了创作歌曲");
+
         } else {
             
             NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
@@ -156,7 +156,7 @@
             
             [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:inspirationRecord animated:YES];
             
-            NSLog(@"点击了创作灵感记录");
+
         } else {
             
             NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];

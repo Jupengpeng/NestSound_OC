@@ -123,7 +123,7 @@
     
     self.tabBarController.tabBar.hidden = YES;
     
-    NSLog(@"进入搜索编辑");
+
     
 }
 
@@ -156,7 +156,6 @@
     
     [self.searchVC fetchData:searchBar.text];
     
-    NSLog(@"点击搜索");
     
 }
 

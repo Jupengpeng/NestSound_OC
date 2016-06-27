@@ -125,9 +125,7 @@
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     
-    NSLog(@"operer%@",operation.urlTag);
     if ([operation.urlTag isEqualToString:upvoteURL] || [operation.urlTag isEqualToString:collectURL]) {
-        NSLog(@"ni daye");
         if (!parserObject.success) {
             [[NSToastManager manager] showtoast:@"操作成功"];
         }
@@ -186,8 +184,6 @@
             userPageVC.who = Other;
             [self.navigationController pushViewController:userPageVC animated:YES];
             
-            NSLog(@"点击了头像");
-            
         } else {
             
             NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
@@ -219,8 +215,6 @@
     
 
     _nameLabel = [[UILabel alloc] init];
-    
-//    nameLabel.text = @"戴荃";
     
     _nameLabel.font = [UIFont systemFontOfSize:14];
     
@@ -274,7 +268,6 @@
             
             [self.navigationController pushViewController:commentVC animated:YES];
             
-            NSLog(@"点击了评论");
         } else {
             
             [[NSToastManager manager] showtoast:@"请登录后查看评论"];
@@ -332,7 +325,6 @@
         }else{
             btn.selected = !btn.selected;
             [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:YES];
-            NSLog(@"点击了点赞");
         }
         
         
@@ -369,8 +361,6 @@
             btn.selected = !btn.selected;
             
             [wSelf upvoteItemId:itemId _targetUID:workAuthorId _type:2 _isUpvote:NO];
-            
-            NSLog(@"点击了收藏");
 
         }
         
@@ -518,18 +508,10 @@
             _moreChoiceView.y = ScreenHeight;
         }];
         
+        
+        NSLog(@"shareurl%@",[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]);
+        
         [Share ShareWithTitle:_lyricDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]  andShareImage:nil andShareText:_lyricDetail.title andVC:self];
-        
-        //        [UMSocialData defaultData].extConfig.title = @"分享的title";
-        //        [UMSocialData defaultData].extConfig.qqData.url = @"http://baidu.com";
-        //        [UMSocialSnsService presentSnsIconSheetView:self
-        //                                             appKey:umAppKey
-        //                                          shareText:@"友盟社会化分享让您快速实现分享等社会化功能，http://umeng.com/social"
-        //                                         shareImage:[UIImage imageNamed:@"icon"]
-        //                                    shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ,UMShareToQzone]
-        //                                           delegate:self];
-        
-        NSLog(@"点击了分享");
     } else {
         
         _maskView.hidden = YES;
@@ -585,10 +567,6 @@
     self.title = _lyricDetail.title;
     _nameLabel.text = _lyricDetail.author;
     
-   
-   
-//                     _lyricDetail.createDate];
-    
     _dateLabel.text = [date datetoStringWithDate:_lyricDetail.createDate];
     
     
@@ -596,11 +574,12 @@
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
     paragraphStyle.lineSpacing = 10;
     NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor blackColor]};
+    if (lyricDetail.lyrics.length !=0) {
+        _lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:self.lyricDetail.lyrics attributes:attributes];
+    }
     
-    _lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:self.lyricDetail.lyrics attributes:attributes];
     _lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
-//    _lyricView.lyricText.text = _lyricDetail.lyrics;
-    NSLog(@"_lyricView%@",_lyricView.lyricText);
+
     if (_lyricDetail.isZan == 1) {
         upVoteBtn.selected = YES;
     }else{

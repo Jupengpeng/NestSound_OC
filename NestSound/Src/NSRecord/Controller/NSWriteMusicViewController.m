@@ -53,7 +53,9 @@
     UILabel *totalTimeLabel;
     
     UITextField *titleText;
-    
+    UIImageView * listenBk;
+    UIImageView * recordBk;
+    UIImageView * reRecordBk;
     NSLyricView *lyricView;
     BOOL isHeadset;
     NSString  * hotMp3Url;
@@ -280,6 +282,11 @@
 
 #pragma mark - setupUI
 - (void)setupUI {
+    
+    //listenBk
+    listenBk = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_listen_bk"]];
+    [self.view addSubview:listenBk];
+    
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
     

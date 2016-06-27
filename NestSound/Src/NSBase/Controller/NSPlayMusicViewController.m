@@ -142,7 +142,11 @@ static id _instance;
     if (self.geDanID!=0) {
         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
     }else{
+<<<<<<< HEAD
         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
+=======
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from};
+>>>>>>> 1ff6631bbe688576f32fb1c68a740b18f229bdc9
     }
     NSString * str = [NSTool encrytWithDic:dic];
     url = [playMusicURL stringByAppendingString:str];
@@ -329,7 +333,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:nil andShareText:_musicDetail.title andVC:self];
+        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
         NSLog(@"点击了播放界面的分享");
         
     }];
@@ -433,6 +437,7 @@ static id _instance;
     
     
     //上一首按钮
+<<<<<<< HEAD
     UIButton *previousBtn = [[UIButton alloc] init];
 
     [previousBtn setImage:[UIImage imageNamed:@"2.0_previous_normal"] forState:UIControlStateNormal];
@@ -440,6 +445,22 @@ static id _instance;
     [previousBtn setImage:[UIImage imageNamed:@"2.0_previous_highlighted"] forState:UIControlStateHighlighted];
     
     [previousBtn addTarget:self action:@selector(previousBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+=======
+    UIButton *previousBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setImage:[UIImage imageNamed:@"2.0_previous_normal"] forState:UIControlStateNormal];
+        
+        [btn setImage:[UIImage imageNamed:@"2.0_previous_highlighted"] forState:UIControlStateHighlighted];
+        
+    } action:^(UIButton *btn) {
+        
+        //        [wSelf playMusic];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
+        
+        NSLog(@"点击了上一首按钮");
+        
+    }];
+>>>>>>> 1ff6631bbe688576f32fb1c68a740b18f229bdc9
     
     [self.view addSubview:previousBtn];
     
@@ -453,11 +474,29 @@ static id _instance;
     
     
     //下一首按钮
+<<<<<<< HEAD
     UIButton *nextBtn = [[UIButton alloc] init];
     
     [nextBtn setImage:[UIImage imageNamed:@"2.0_next_normal"] forState:UIControlStateNormal];
     [nextBtn setImage:[UIImage imageNamed:@"2.0_next_highlighted"] forState:UIControlStateHighlighted];
     [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+=======
+    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setImage:[UIImage imageNamed:@"2.0_next_normal"] forState:UIControlStateNormal];
+        
+        [btn setImage:[UIImage imageNamed:@"2.0_next_highlighted"] forState:UIControlStateHighlighted];
+        
+    } action:^(UIButton *btn) {
+        
+        
+        //        [wSelf playMusic];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
+        
+        NSLog(@"点击了下一首按钮");
+        
+    }];
+>>>>>>> 1ff6631bbe688576f32fb1c68a740b18f229bdc9
     
     [self.view addSubview:nextBtn];
     
@@ -1091,6 +1130,7 @@ static id _instance;
         
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
+<<<<<<< HEAD
         self.totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
         NSLog(@"%@",self.totaltime.text);
         //        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
@@ -1098,6 +1138,10 @@ static id _instance;
         //        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
         
         
+=======
+        _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+        NSLog(@"%@",_totaltime.text);
+>>>>>>> 1ff6631bbe688576f32fb1c68a740b18f229bdc9
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
         paragraphStyle.lineSpacing = 10;
         NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};

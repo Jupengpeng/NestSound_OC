@@ -146,16 +146,16 @@ static NSString * cellId = @"SongCell";
 
     WS(wSelf);
     
-    // refresh
-    [songsTable addDDPullToRefreshWithActionHandler:^{
-        
-        if (!wSelf) {
-            return ;
-        }
-        
-        [wSelf fetchDataWithIsLoadingMore:@(NO)];
-  
-    }];
+//    // refresh
+//    [songsTable addDDPullToRefreshWithActionHandler:^{
+//        
+//        if (!wSelf) {
+//            return ;
+//        }
+//        
+//        [wSelf fetchDataWithIsLoadingMore:@(NO)];
+//  
+//    }];
     
     // loadingMore
     [songsTable addDDInfiniteScrollingWithActionHandler:^{

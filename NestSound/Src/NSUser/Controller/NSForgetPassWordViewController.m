@@ -116,7 +116,7 @@
     phoneText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     phoneText.leftViewMode = UITextFieldViewModeAlways;
-    
+    phoneText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
     phoneText.placeholder = @"手机号";
     
     [phoneText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
@@ -170,7 +170,7 @@
         if ([NSTool isValidateMobile:phoneText.text]) {
             
             wSelf.requestType = YES;
-            NSDictionary * dic = @{@"mobile":captchaText.text,@"type":@"1"};
+            NSDictionary * dic = @{@"mobile":phoneText.text,@"type":@"2"};
             
             NSString * str = [NSTool encrytWithDic:dic];
             
@@ -208,7 +208,7 @@
     captchaText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     captchaText.leftViewMode = UITextFieldViewModeAlways;
-    
+    captchaText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
     captchaText.placeholder = @"验证码";
     
     [captchaText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
@@ -257,7 +257,7 @@
     passwordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     passwordText.leftViewMode = UITextFieldViewModeAlways;
-    
+    passwordText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
     passwordText.placeholder = @"输入密码";
     
     [passwordText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
@@ -371,7 +371,6 @@
         
         [wSelf.navigationController pushViewController:registerView animated:YES];
         
-        NSLog(@"点击了重新注册账号");
         
     }];
     

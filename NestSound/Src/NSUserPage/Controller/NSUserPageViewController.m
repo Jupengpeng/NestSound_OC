@@ -186,16 +186,7 @@ UITableViewDataSource>
 //        [array addObject:draftBox];
         
         self.navigationItem.rightBarButtonItems = array;
-        
-        headerView.iconView.image = [UIImage imageNamed:@"img_03"];
-        
-        headerView.userName.text = @"子夜";
-        
-        headerView.introduction.text = @"我要这铁棒有何用,我有这变化又如何,还是不安,还是低惆,金箍当头,欲说还休.";
-        
-        [headerView.followBtn setTitle:[NSString stringWithFormat:@"关注: %zd",8] forState:UIControlStateNormal];
-        
-        [headerView.fansBtn setTitle:[NSString stringWithFormat:@"粉丝: %zd",16] forState:UIControlStateNormal];
+
     }
     
     if (self.who == Other) {
@@ -203,16 +194,7 @@ UITableViewDataSource>
         UIBarButtonItem *follow = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_follow"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
         
         self.navigationItem.rightBarButtonItem = follow;
-        
-        headerView.iconView.image = [UIImage imageNamed:@"img_02"];
-        
-        headerView.userName.text = @"烟魂";
-        
-        headerView.introduction.text = @"我要这铁棒醉舞魔,我有这变化乱迷浊,踏破凌霄,放肆桀骜,事恶道险,终究难逃.";
-        
-        [headerView.followBtn setTitle:[NSString stringWithFormat:@"关注: %zd",9] forState:UIControlStateNormal];
-        
-        [headerView.fansBtn setTitle:[NSString stringWithFormat:@"粉丝: %zd",17] forState:UIControlStateNormal];
+
         
     }
     

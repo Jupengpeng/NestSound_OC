@@ -48,7 +48,9 @@
             NSUserModel * userModels = (NSUserModel *)parserObject;
             userModel * user = userModels.userDetail;
         
-            
+            if (user.userName.length ==0) {
+                
+            }else{
             
             NSDictionary * userDic = @{@"userName":user.userName,
                                     @"userID":[NSString stringWithFormat:@"%ld",user.userID],
@@ -62,7 +64,7 @@
             [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self dismissViewControllerAnimated:YES completion:nil];
-           
+            }
         }
         
     }else{
@@ -220,7 +222,6 @@
         NSForgetPassWordViewController *forgetPassword = [[NSForgetPassWordViewController alloc] init];
         
         [wSelf.navigationController pushViewController:forgetPassword animated:YES];
-        NSLog(@"点击了忘记密码");
         
     }];
     
@@ -257,7 +258,6 @@
     } action:^(UIButton *btn) {
         
         [wSelf loagin];
-        NSLog(@"点击了登录");
         
     }];
     
@@ -278,8 +278,6 @@
         NSRegisterViewController *registerView = [[NSRegisterViewController alloc] init];
         
         [wSelf.navigationController pushViewController:registerView animated:YES];
-        
-        NSLog(@"点击了注册账号");
         
     }];
     
@@ -305,7 +303,6 @@
         self.requestType = NO;
         self.requestParams = @{@"mobile":phoneText.text,
                                @"password":[passwordText.text stringToMD5]};
-        NSLog(@"%@",self.requestParams);
         self.requestURL = loginURl;
         
     }

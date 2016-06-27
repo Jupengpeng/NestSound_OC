@@ -232,7 +232,6 @@ static NSString * const headerView = @"HeaderView";
     }else{
        
         music = newSongList[row];
-        music = hotSongList[row];
         playVC.itemId = music.itemId;
         playVC.from = @"news";
         playVC.geDanID = 0;
