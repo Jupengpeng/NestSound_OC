@@ -17,6 +17,7 @@ UITableViewDelegate
 >
 {
     UITableView * fansTableView;
+    UIImageView * emptyImageView;
     NSMutableArray * fansAry;
     NSString * userId;
     BOOL isFans;
@@ -64,8 +65,6 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         [fansTableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
     }
    
-    
-//    [self fetchFansListDataWithIsLoadingMore:NO];
 }
 
 
@@ -115,6 +114,9 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                 
             }
         }
+        if (fansAry.count == 0) {
+            emptyImageView.hidden = NO;
+        }
         [fansTableView reloadData];
         if (!operation.isLoadingMore) {
             [fansTableView.pullToRefreshView stopAnimating];
@@ -132,16 +134,17 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 -(void)configureUIAppearance
 {
     
-//     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    
+    //emptyImageView
+    emptyImageView = [[UIImageView alloc] init];
+    [self.view addSubview:emptyImageView];
+    emptyImageView.hidden = YES;
     //nav
     if (isFans) {
         self.title = @"粉丝";
-//        LocalizedStr(@"prompt_fans");
+        emptyImageView.image = [UIImage imageNamed:@"2.0_noFans_bk"];
     }else{
-        
         self.title = @"关注";
-//        LocalizedStr(@"prompt_focus");
+        emptyImageView.image = [UIImage imageNamed:@"2.0_noFocus_bk"];
     }
     
     

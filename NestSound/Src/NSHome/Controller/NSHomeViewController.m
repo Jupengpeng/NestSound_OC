@@ -88,7 +88,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 {
     if (JUserID != nil) {
         self.requestType = NO;
-        NSLog(@"token%@",LoginToken);
         self.requestParams = @{@"token":LoginToken};
         self.requestURL = getToken;
         
@@ -156,9 +155,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     if (!parserObject.success) {
 
         if ([operation.urlTag isEqualToString:index]) {
-        
-        NSLog(@"this is%@",parserObject.description);
-        
             NSIndexModel * indexModel = (NSIndexModel *)parserObject;
             bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
             recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
@@ -312,7 +308,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     }else if (section == 1){
         
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
-        NSLog(@"lalalla %ld",recommendSongModel.itemID);
         NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:recommendSongModel.itemID];
         [self.navigationController pushViewController:songVC animated:YES];
     }else if (section == 2){
@@ -443,7 +438,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [self.navigationController pushViewController:songListVC animated:YES];
     
-    NSLog(@"点击了歌单更多");
 }
 
 - (void)songSayBtnClick:(UIButton *)btn {
@@ -452,7 +446,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [self.navigationController pushViewController:musicSayVC animated:YES];
     
-    NSLog(@"点击了乐说更多");
 }
 
 //轮播器点击事件
@@ -472,7 +465,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [self.navigationController pushViewController:playVC animated:YES];
     }
     
-    NSLog(@"点击了第%zd张图片",imageBtn.tag);
     
 }
 

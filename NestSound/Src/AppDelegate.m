@@ -47,7 +47,7 @@
     //UMshare
     [UMSocialData setAppKey:umAppKey];
     [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
-    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
+    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://www.baidu.com"];
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
     [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
     

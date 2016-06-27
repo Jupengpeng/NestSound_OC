@@ -15,6 +15,8 @@
 #import "NSUpvoteMessageListModel.h"
 #import "NSH5ViewController.h"
 #import "NSCommentTableViewCell.h"
+#import "NSLyricViewController.h"
+#import "NSPlayMusicViewController.h"
 @interface NSMessageListViewController ()<
 UITableViewDataSource,
 UITableViewDelegate,
@@ -116,6 +118,8 @@ static NSString * const systemCellID = @"SystemCellID";
             NSUpvoteMessageListModel * upvoteMessage = (NSUpvoteMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 messageArr = [NSMutableArray arrayWithArray:upvoteMessage.upvoteMessageList];
+                
+                
             }else{
                 if (upvoteMessage.upvoteMessageList.count == 0) {
                     
@@ -124,10 +128,13 @@ static NSString * const systemCellID = @"SystemCellID";
             
                 }
             }
+            emptyImage.image = [UIImage imageNamed:@"2.0_noUpvote_bk"];
         }else if ([operation.urlTag isEqualToString:collectUrl]){
             NSUpvoteMessageListModel * collecMessage = (NSUpvoteMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 messageArr = [NSMutableArray arrayWithArray:collecMessage.upvoteMessageList];
+                
+               
             }else{
                 if (collecMessage.upvoteMessageList.count == 0) {
                     
@@ -136,6 +143,8 @@ static NSString * const systemCellID = @"SystemCellID";
                 }
                 
             }
+            emptyImage.image = [UIImage imageNamed:@"2.0_nocollection_bk"];
+        
         }else if ([operation.urlTag isEqualToString:commentUrl]){
             NSCommentListModel * commentMessage = (NSCommentListModel *)parserObject;
             if (!operation.isLoadingMore) {
@@ -148,6 +157,8 @@ static NSString * const systemCellID = @"SystemCellID";
                 }
                 
             }
+            emptyImage.image = [UIImage imageNamed:@"2.0_noComment_bk"];
+        
         }else if ([operation.urlTag isEqualToString:systemUrl]){
             NSSystemMessageListModel * systemMessage = (NSSystemMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
@@ -160,8 +171,13 @@ static NSString * const systemCellID = @"SystemCellID";
                 }
                 
             }
+#warning emptyImage -noSystemMessage
+            emptyImage.image = [UIImage imageNamed:@"2.0_noNetwork_bk"];
         }
         
+        if (messageArr.count == 0) {
+            emptyImage.hidden = NO;
+        }
         [messageList reloadData];
         if (!operation.isLoadingMore) {
             [messageList.pullToRefreshView stopAnimating];
@@ -180,6 +196,8 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     //nav
     self.title = self.messageListType;
+    
+    
     
     //messageList tableview
     messageList = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -217,6 +235,16 @@ static NSString * const systemCellID = @"SystemCellID";
     // hide infiniteView
   messageList.showsInfiniteScrolling = NO;
     NSLog(@"thise%f",messageList.contentOffset.y);
+    
+    emptyImage = [[UIImageView alloc] init];
+    [self.view addSubview:emptyImage];
+    emptyImage.hidden = YES;
+    //constraints
+    [emptyImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+    
+    
 }
 
 
@@ -311,10 +339,19 @@ static NSString * const systemCellID = @"SystemCellID";
 #pragma mark - tableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (messageType == UpvoteMessageType) {
-       
-    }else if (messageType == CollectionMessageType){
+    UpvoteMessage * upvoteMessage = messageArr[indexPath.row];
+    if (messageType == UpvoteMessageType || messageType == CollectionMessageType) {
         
+        if (upvoteMessage.type == 2) {
+            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:upvoteMessage.workId];
+            [self.navigationController pushViewController:lyricVC animated:YES];
+        }else{
+            NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+            playVC.itemId = upvoteMessage.workId;
+            playVC.from = @"tuijian";
+            playVC.geDanID = 0;
+            [self.navigationController pushViewController:playVC animated:YES];
+        }
     }else if (messageType == SystemMessageType){
         SystemMessageModel * sys = messageArr[indexPath.row];
         if (sys.type == 2) {

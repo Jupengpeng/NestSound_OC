@@ -296,14 +296,11 @@ static NSDateFormatter *dateFormatter;
 
 +(NSString *)datetoStringWithDate:(NSTimeInterval)date
 {
-//    NSLog(@"%f",date);
-//    NSNumber * num = [NSNumber numberWithDouble:date];
-//    NSString * str = [num stringValue];
-//    NSLog(@"%@",str);
-//    NSString * subStr = [str substringToIndex:9];
-//    NSLog(@"%@",subStr);
-//    NSTimeInterval timeSam = [subStr doubleValue];
-    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:date];
+
+    NSLog(@"%f",date);
+    double d = date /1000;
+    NSLog(@"%f",d);
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
     NSDateFormatter * fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"YYYY-MM-dd"];
     NSString * dateString = [fomatter stringFromDate:dat];
@@ -314,7 +311,8 @@ static NSDateFormatter *dateFormatter;
 +(NSString *)datetoLongStringWithDate:(NSTimeInterval)date
 {
     
-    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:date];
+    double d = date /1000;
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
     NSString * currentTimeString = [formatter stringFromDate:dat];
@@ -325,7 +323,8 @@ static NSDateFormatter *dateFormatter;
 
 +(NSString *)datetoMonthStringWithDate:(NSTimeInterval)date
 {
-     NSDate * dat = [NSDate dateWithTimeIntervalSince1970:date];
+    double d = date /1000;
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM月dd日"];
     NSString * dateString = [formatter stringFromDate:dat];
@@ -344,18 +343,26 @@ static NSDateFormatter *dateFormatter;
 
 @implementation Share
 
-+(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(id)shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_
++(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(NSString * )shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_
 {
     
     [UMSocialData defaultData].extConfig.title = title_;
-    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeApp;
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb ;
+    [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
+    [UMSocialData defaultData].extConfig.qqData.title = title_;
+    if (shareUrl_.length == 0) {
+        [UMSocialData defaultData].extConfig.qqData.shareImage = [UIImage imageNamed:@"2.0_placeHolder"];
 
-    
+    }else{
+    [UMSocialData defaultData].extConfig.qqData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
+    }
+    [UMSocialData defaultData].extConfig.qqData.url = shareUrl_;
+    [UMSocialData defaultData].extConfig.wechatSessionData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
+    [UMSocialData defaultData].extConfig.wechatTimelineData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
     [UMSocialData defaultData].extConfig.wechatTimelineData.url =  shareUrl_;
     [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl_;
    
-    [UMSocialData defaultData].extConfig.qqData.url = shareUrl_;
-    [UMSocialSnsService presentSnsIconSheetView:VC_ appKey:umAppKey shareText:shareText_ shareImage:shareImage shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ,UMShareToQzone] delegate:nil];
+    [UMSocialSnsService presentSnsIconSheetView:VC_ appKey:umAppKey shareText:shareText_ shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]]shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ] delegate:nil];
     
 }
 

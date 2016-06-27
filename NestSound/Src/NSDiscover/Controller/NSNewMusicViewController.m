@@ -93,8 +93,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if (DataAry.count == 0) {
+        [self fetchDataWithIsLoadingMore:NO];
+    }
     
-    [self fetchDataWithIsLoadingMore:NO];
+    
     
 }
 

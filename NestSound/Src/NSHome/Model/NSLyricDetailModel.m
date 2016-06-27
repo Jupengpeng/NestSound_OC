@@ -29,7 +29,7 @@
              @"titleImageUrl":@"pic",
              @"title":@"title",
              @"headerUrl":@"headurl",
-             @"createDate":@"createdare"
+             @"createDate":@"createdate"
              };
 }
 

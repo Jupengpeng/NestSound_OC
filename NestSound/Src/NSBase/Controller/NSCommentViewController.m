@@ -227,30 +227,6 @@
     
     [self.view addSubview:bottomView];
     
-//    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-//       
-//        [btn setTitle:@"发送" forState:UIControlStateNormal];
-//        
-//        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//        
-//    } action:^(UIButton *btn) {
-//        
-//        NSLog(@"点击了发送");
-//        
-//    }];
-    
-//    [bottomView addSubview:sendBtn];
-//    
-//    [sendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        
-//        make.right.equalTo(bottomView.mas_right).offset(-15);
-//        
-//        make.width.mas_equalTo(45);
-//        
-//        make.centerY.equalTo(bottomView.mas_centerY);
-//        
-//    }];
-    
     inputField = [[UITextField alloc] init];
     
     inputField.borderStyle = UITextBorderStyleRoundedRect;
@@ -293,8 +269,6 @@
     [textField resignFirstResponder];
     
     maskView.hidden = YES;
-    
-    NSLog(@"%@",textField.text);
     
     if (inputField.tag == 1) {
         
@@ -398,7 +372,7 @@
     
     [self.navigationController pushViewController:pageVC animated:YES];
     
-    NSLog(@"点击了回复的用户");
+
 }
 
 
@@ -409,7 +383,6 @@
     
     [self.navigationController pushViewController:pageVC animated:YES];
     
-    NSLog(@"点击了用户的头像");
     
 }
 

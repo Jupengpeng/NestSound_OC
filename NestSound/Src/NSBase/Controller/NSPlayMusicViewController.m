@@ -144,7 +144,7 @@ static id _instance;
     if (self.geDanID!=0) {
         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
     }else{
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from};
     }
     NSString * str = [NSTool encrytWithDic:dic];
     url = [playMusicURL stringByAppendingString:str];
@@ -307,7 +307,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:nil andShareText:_musicDetail.title andVC:self];
+        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
         NSLog(@"点击了播放界面的分享");
         
     }];
@@ -449,7 +449,7 @@ static id _instance;
     } action:^(UIButton *btn) {
         
         //        [wSelf playMusic];
-        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
         
         NSLog(@"点击了上一首按钮");
         
@@ -477,7 +477,7 @@ static id _instance;
         
         
         //        [wSelf playMusic];
-        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
+        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
         
         NSLog(@"点击了下一首按钮");
         
@@ -1062,11 +1062,6 @@ static id _instance;
         _songName.text = self.musicDetail.title;
         _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
         NSLog(@"%@",_totaltime.text);
-        //        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
-        //        upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
-        //        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
-        
-        
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
         paragraphStyle.lineSpacing = 10;
         NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};
