@@ -163,7 +163,6 @@
                     
                 }];
                 
-                NSLog(@"%@",_player);
                 
             } else {
                 
@@ -247,7 +246,7 @@
     
     auditionBtn.selected = NO;
     
-    self.player = nil;
+    [NSPlayMusicTool stopMusicWithName:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated

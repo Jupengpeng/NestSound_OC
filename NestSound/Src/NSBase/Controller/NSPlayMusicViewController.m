@@ -74,6 +74,7 @@
 @property (nonatomic, weak) UIButton *loopBtn;
 
 @property (nonatomic,strong) UILabel * numLabel;
+
 @end
 
 static id _instance;
@@ -116,11 +117,8 @@ static id _instance;
         
         [self addTimer];
     }
-    //    if (self.player == nil) {
     
     [self fetchPlayDataWithItemId:self.itemId];
-    
-    //    }
     
     self.scrollV.contentOffset = CGPointMake(0, 0);
     
@@ -142,9 +140,9 @@ static id _instance;
     self.requestType = YES;
     NSDictionary * dic;
     if (self.geDanID!=0) {
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
     }else{
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@"1",@"come":self.from,@"gedanid":@(self.geDanID)};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
     }
     NSString * str = [NSTool encrytWithDic:dic];
     url = [playMusicURL stringByAppendingString:str];
@@ -201,14 +199,6 @@ static id _instance;
     
     [self moreChoice];
     
-    //    [self addTimer];
-    
-    //    if ([self.player isPlaying]) {
-    
-    //        self.playOrPauseBtn.selected = YES;
-    //    }
-    
-    //    [self playMusic];
 }
 
 //播放音乐
@@ -221,31 +211,63 @@ static id _instance;
         wSelf.musicItem = musicItem;
     }];
     
-    self.playOrPauseBtn.selected = YES;
     
-    self.progressBar.value = 0;
+    self.playOrPauseBtn.selected = YES;
     
     self.progressBar.maximumValue = self.musicDetail.mp3Times;
     
-    [self addTimer];
+    if (!self.timer) {
+        
+        [self addTimer];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 }
 
 - (void)endPlaying {
     
-    if (self.musicDetail.nextItemID) {
-        
-        [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
-    } else {
+    if (self.loopBtn.selected) {
         
         [self removeTimer];
         
         [self.player pause];
         
+        self.player = nil;
+        
+        self.progressBar.value = 0;
+        
+        self.playtime.text = @"00:00";
+        
         self.playOrPauseBtn.selected = NO;
+        
+        [NSPlayMusicTool stopMusicWithName:nil];
+        
+        [self playMusicUrl:self.musicDetail.playURL];
+    } else {
+        
+        [self removeTimer];
+        
+        if (self.musicDetail.nextItemID) {
+            
+            [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+            
+        } else {
+            
+            [self removeTimer];
+            
+            [self.player pause];
+            
+            self.player = nil;
+            
+            self.progressBar.value = 0;
+            
+            self.playtime.text = @"00:00";
+            
+            self.playOrPauseBtn.selected = NO;
+            
+            [NSPlayMusicTool stopMusicWithName:nil];
+        }
     }
-    
     
     NSLog(@"播放结束");
 }
@@ -323,44 +345,14 @@ static id _instance;
     }];
     
     //播放暂停按钮
-    UIButton *playOrPauseBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_normal"] forState:UIControlStateNormal];
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_highlighted"] forState:UIControlStateHighlighted];
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_pause_normal"] forState:UIControlStateSelected];
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_pause_highlighted"] forState:UIControlStateSelected|UIControlStateHighlighted];
-        
-    } action:^(UIButton *btn) {
-        
-        btn.selected = !btn.selected;
-        
-        if (btn.selected) {
-            
-            [wSelf addTimer];
-            
-            if (wSelf.musicDetail.playURL == nil) {
-                
-                //                [wSelf addTimer];
-                
-                [wSelf playMusicUrl:self.ifUrl];
-                
-            } else {
-                
-                [wSelf.player play];
-            }
-            
-        } else {
-            
-            [wSelf removeTimer];
-            [wSelf.player pause];
-            
-        }
-        NSLog(@"点击了播放和暂停按钮");
-        
-    }];
+    UIButton *playOrPauseBtn = [[UIButton alloc] init];
+    
+    [playOrPauseBtn setImage:[UIImage imageNamed:@"2.0_playSongs_normal"] forState:UIControlStateNormal];
+    [playOrPauseBtn setImage:[UIImage imageNamed:@"2.0_playSongs_highlighted"] forState:UIControlStateHighlighted];
+    [playOrPauseBtn setImage:[UIImage imageNamed:@"2.0_pause_normal"] forState:UIControlStateSelected];
+    [playOrPauseBtn setImage:[UIImage imageNamed:@"2.0_pause_highlighted"] forState:UIControlStateSelected|UIControlStateHighlighted];
+    
+    [playOrPauseBtn addTarget:self action:@selector(playOrPauseBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.playOrPauseBtn = playOrPauseBtn;
     
@@ -373,6 +365,7 @@ static id _instance;
         make.centerX.equalTo(self.view.mas_centerX);
         
     }];
+    
     
     
     //循环按钮
@@ -440,20 +433,13 @@ static id _instance;
     
     
     //上一首按钮
-    UIButton *previousBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_previous_normal"] forState:UIControlStateNormal];
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_previous_highlighted"] forState:UIControlStateHighlighted];
-        
-    } action:^(UIButton *btn) {
-        
-        //        [wSelf playMusic];
-        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.nextItemID];
-        
-        NSLog(@"点击了上一首按钮");
-        
-    }];
+    UIButton *previousBtn = [[UIButton alloc] init];
+
+    [previousBtn setImage:[UIImage imageNamed:@"2.0_previous_normal"] forState:UIControlStateNormal];
+    
+    [previousBtn setImage:[UIImage imageNamed:@"2.0_previous_highlighted"] forState:UIControlStateHighlighted];
+    
+    [previousBtn addTarget:self action:@selector(previousBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:previousBtn];
     
@@ -467,21 +453,11 @@ static id _instance;
     
     
     //下一首按钮
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_next_normal"] forState:UIControlStateNormal];
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_next_highlighted"] forState:UIControlStateHighlighted];
-        
-    } action:^(UIButton *btn) {
-        
-        
-        //        [wSelf playMusic];
-        [wSelf fetchPlayDataWithItemId:wSelf.musicDetail.prevItemID];
-        
-        NSLog(@"点击了下一首按钮");
-        
-    }];
+    UIButton *nextBtn = [[UIButton alloc] init];
+    
+    [nextBtn setImage:[UIImage imageNamed:@"2.0_next_normal"] forState:UIControlStateNormal];
+    [nextBtn setImage:[UIImage imageNamed:@"2.0_next_highlighted"] forState:UIControlStateHighlighted];
+    [nextBtn addTarget:self action:@selector(nextBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:nextBtn];
     
@@ -490,7 +466,6 @@ static id _instance;
         make.centerX.equalTo(self.view.mas_centerX).multipliedBy(1.5).offset(-5);
         
         make.centerY.equalTo(playOrPauseBtn.mas_centerY);
-        
     }];
     
     
@@ -833,6 +808,62 @@ static id _instance;
     
 }
 
+//播放暂停点击事件
+- (void)playOrPauseBtnClick:(UIButton *)btn {
+    
+    btn.selected = !btn.selected;
+    
+    if (btn.selected) {
+        
+        
+        
+        if (self.musicDetail.playURL != nil) {
+            
+            //                [wSelf addTimer];
+            
+            [self playMusicUrl:self.ifUrl];
+            
+        } else {
+            [self addTimer];
+            [self.player play];
+        }
+        
+    } else {
+        
+        [self removeTimer];
+        [self.player pause];
+        
+    }
+    NSLog(@"点击了播放和暂停按钮");
+    
+}
+
+//上一首歌的点击事件
+- (void)previousBtnClick:(UIButton *)btn {
+    
+//    if (self.musicDetail.prevItemID) {
+//        
+//        [self removeTimer];
+//    }
+    
+    [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
+    
+    NSLog(@"点击了上一首按钮");
+    
+}
+
+//下一首歌曲的点击事件
+- (void)nextBtnClick:(UIButton *)btn {
+    
+//    if (self.musicDetail.nextItemID) {
+//        
+//        [self removeTimer];
+//    }
+    
+    [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+    
+    NSLog(@"点击了下一首按钮");
+}
 
 - (void)moreChoice {
     
@@ -1060,8 +1091,8 @@ static id _instance;
         
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
-        _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
-        NSLog(@"%@",_totaltime.text);
+        self.totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+        NSLog(@"%@",self.totaltime.text);
         //        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
         //        upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
         //        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];

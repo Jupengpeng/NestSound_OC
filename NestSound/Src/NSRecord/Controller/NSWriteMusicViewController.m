@@ -167,7 +167,7 @@
 {
     WS(wSelf);
     [super viewWillAppear:animated];
-    
+    self.view.userInteractionEnabled = YES;
     //stop the music
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     
@@ -212,7 +212,7 @@
     self.next.enabled = YES;
     
     
-    if (self.wavFilePath) {
+    if (self.wavFilePath || self.mp3File) {
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定放弃?" message:nil preferredStyle:UIAlertControllerStyleAlert];
         
@@ -646,6 +646,8 @@
             
             if (JUserID) {
                 
+                self.view.userInteractionEnabled = NO;
+                
                 if (self.wavFilePath) {
                     
                     [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
@@ -668,7 +670,7 @@
                         } success:^void(NSURLSessionDataTask * task, id responseObject) {
                             // 请求成功
                             NSLog(@"请求成功 %@", responseObject);
-                            
+                            self.view.userInteractionEnabled = YES;
                             NSDictionary *dict;
                             
                             if ([responseObject isKindOfClass:[NSDictionary class]]) {
@@ -679,10 +681,11 @@
                             
                             [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
                             
-//                            self.wavFilePath = nil;
+                            self.wavFilePath = nil;
                             
                         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
                             // 请求失败
+                            self.view.userInteractionEnabled = YES;
                             NSLog(@"请求失败 %@", error);
                         }];
                         

@@ -20,6 +20,7 @@
 		18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18453A8A1CF5A53D004EE0E6 /* NSCommentViewController.m */; };
 		18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18453A8D1CF6D20E004EE0E6 /* NSCommentTableViewCell.m */; };
 		18453A951CF73596004EE0E6 /* NSString+SizeFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 18453A941CF73596004EE0E6 /* NSString+SizeFont.m */; };
+		187016671D21268B0041B5D7 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 187016661D21268B0041B5D7 /* NSArray+Log.m */; };
 		188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */; };
 		188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D11FF1CECBF5F0009FD5B /* NSBaseNavigationController.m */; };
 		188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188D12021CECC7ED0009FD5B /* NSComposeView.m */; };
@@ -195,6 +196,8 @@
 		18453A8D1CF6D20E004EE0E6 /* NSCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCommentTableViewCell.m; sourceTree = "<group>"; };
 		18453A931CF73596004EE0E6 /* NSString+SizeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SizeFont.h"; sourceTree = "<group>"; };
 		18453A941CF73596004EE0E6 /* NSString+SizeFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SizeFont.m"; sourceTree = "<group>"; };
+		187016651D21268B0041B5D7 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		187016661D21268B0041B5D7 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
 		188BEEA41CF4BBE900494D64 /* NSPlayMusicTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicTool.h; sourceTree = "<group>"; };
 		188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayMusicTool.m; sourceTree = "<group>"; };
 		188D11FE1CECBF5F0009FD5B /* NSBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseNavigationController.h; sourceTree = "<group>"; };
@@ -1005,6 +1008,8 @@
 				188BEEA51CF4BBE900494D64 /* NSPlayMusicTool.m */,
 				18453A931CF73596004EE0E6 /* NSString+SizeFont.h */,
 				18453A941CF73596004EE0E6 /* NSString+SizeFont.m */,
+				187016651D21268B0041B5D7 /* NSArray+Log.h */,
+				187016661D21268B0041B5D7 /* NSArray+Log.m */,
 				2A0B72341D003870003957E3 /* NSString+NSMD5Addition.h */,
 				2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */,
 			);
@@ -2060,6 +2065,7 @@
 				2AAE01CA1CFC209E008D3145 /* NSForgetPassWordViewController.m in Sources */,
 				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
+				187016671D21268B0041B5D7 /* NSArray+Log.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,

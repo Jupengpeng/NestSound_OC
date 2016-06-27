@@ -14,6 +14,9 @@
 //播放音乐
 + (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *item))block;
 
+
++ (AVPlayer *)playIdenticalMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *item))block;
+
 //暂停音乐
 + (void)pauseMusicWithName:(NSString *)name;
 

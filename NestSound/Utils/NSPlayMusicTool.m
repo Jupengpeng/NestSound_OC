@@ -47,6 +47,37 @@ static AVPlayerItem *musicItem;
 
 }
 
+
++ (AVPlayer *)playIdenticalMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
+    
+//    if (![oldMusicUrl isEqualToString:musicUrl]) {
+//        
+//        [player pause];
+//        player = nil;
+//    }
+    
+    
+    if (player == nil ) {
+        
+        musicItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:musicUrl]];
+        
+        player = [AVPlayer playerWithPlayerItem:musicItem];
+        
+        oldMusicUrl = musicUrl;
+    }
+    
+    if (block) {
+        
+        block(musicItem);
+    }
+    
+    [player play];
+    
+    return player;
+    
+}
+
+
 //暂停音乐
 + (void)pauseMusicWithName:(NSString *)name {
     
@@ -62,7 +93,7 @@ static AVPlayerItem *musicItem;
     
     if (player) {
         
-        
+        player = nil;
     }
 }
 
