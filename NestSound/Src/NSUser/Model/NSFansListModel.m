@@ -23,6 +23,7 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"fansID":@"fansid",
+             @"userID":@"userid",
              @"status":@"status",
              @"fansSign":@"fansign",
              @"fansName":@"fansname",

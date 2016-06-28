@@ -41,6 +41,7 @@ UITableViewDataSource>
     NSString * url;
     int type;
     NSTableHeaderView *headerView ;
+    int page;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -62,6 +63,7 @@ UITableViewDataSource>
     [super viewDidLoad];
     [self setupUI];
     type = 1;
+    page = 0;
 }
 
 
@@ -70,8 +72,8 @@ UITableViewDataSource>
 {
 
     [super viewWillAppear: animated];
-    
-    if (JUserID == nil) {
+    ++page;
+    if (JUserID == nil&&page ==1) {
         login = [[NSLoginViewController alloc] init];
         
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
@@ -87,6 +89,7 @@ UITableViewDataSource>
     [super viewDidAppear:animated];
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
+        page = 0;
     }else{
         if (dataAry.count == 0) {
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];

@@ -53,6 +53,8 @@
     //focusBtn
     self.focusBtn = [[UIButton alloc] init];
     [self.contentView addSubview:self.focusBtn];
+   
+
     
 }
 
@@ -92,30 +94,26 @@
 
 
 #pragma mark setter & getter
+-(void)setIsFans:(BOOL)isFans
+{
+    _isFans = isFans;
+    if (!self.isFans) {
+        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focused"]  forState:UIControlStateNormal];
+    }else{
+        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusBtn"] forState:UIControlStateNormal];
+    }
+}
 -(void)setFansModel:(NSFansModel *)fansModel
 {
   
     _fansModel = fansModel;
     
     [headerImage setDDImageWithURLString:_fansModel.fansHeadURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
-
-
     authorLabel.text = _fansModel.fansName;
-
     descLabel.text = _fansModel.fansSign;
-    if (!self.isFans) {
-        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focused"] forState:UIControlStateNormal];
-        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateSelected];
-    }else{
-        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focus"]  forState:UIControlStateNormal];
-        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateSelected];
-    }
     
-    
-    if (_fansModel.status ==1) {
-        self.focusBtn.selected = NO;
-    }else{
-        self.focusBtn.selected = YES;
+    if (_fansModel.status ==2) {
+        [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateNormal];
     }
 }
 @end

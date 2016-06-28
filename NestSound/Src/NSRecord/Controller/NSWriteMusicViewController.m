@@ -285,7 +285,7 @@
     
     //listenBk
     listenBk = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_listen_bk"]];
-    [self.view addSubview:listenBk];
+//    [self.view addSubview:listenBk];
     
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
