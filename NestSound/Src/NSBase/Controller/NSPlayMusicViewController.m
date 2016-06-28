@@ -212,10 +212,17 @@ static id _instance;
         wSelf.musicItem = musicItem;
     }];
     
+    CMTime duration = self.player.currentItem.asset.duration;
+    
+    CGFloat seconds = CMTimeGetSeconds(duration);
+    
+    NSLog(@"duration: %.2f", seconds);
+    
+    self.progressBar.maximumValue = seconds;
+    
+    self.totaltime.text = [NSString stringWithFormat:@"%02d:%02d",(int)seconds / 60, (int)seconds % 60];
     
     self.playOrPauseBtn.selected = YES;
-    
-    self.progressBar.maximumValue = self.musicDetail.mp3Times;
     
     if (!self.timer) {
         
@@ -415,7 +422,7 @@ static id _instance;
         playOrPauseBtn.selected = NO;
         
         NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
-        
+        NSLog(@"%ld",_musicDetail.hotId);
         [self.navigationController pushViewController:musicView animated:YES];
         
         NSLog(@"点击了伴奏按钮");
@@ -1094,14 +1101,14 @@ static id _instance;
         
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
-
+        
         //        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
         //        upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
         //        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
         
         
-        _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
-        NSLog(@"%@",_totaltime.text);
+//        _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
+//        NSLog(@"%@",_totaltime.text);
 
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
         paragraphStyle.lineSpacing = 10;

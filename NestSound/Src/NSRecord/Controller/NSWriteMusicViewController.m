@@ -550,6 +550,8 @@
                 
                 player.delegate = self;
                 
+                totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)player.duration / 60, (int)player.duration % 60];
+                
                 [player prepareToPlay];
                 
                 self.player = player;
@@ -809,11 +811,6 @@
     
     //计时显示
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
-    
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
     
 }
 
