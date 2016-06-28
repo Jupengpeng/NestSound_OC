@@ -113,6 +113,8 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                 }
                 
             }
+        }else if ([operation.urlTag isEqualToString:focusUserURL]){
+            [self fetchFansListDataWithIsLoadingMore:NO];
         }
         if (fansAry.count == 0) {
             emptyImageView.hidden = NO;
@@ -189,7 +191,12 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 {
     NSFanscell * cell = (NSFanscell *)btn.superview.superview;
     self.requestType = NO;
-    self.requestParams =@{@"userid":@(cell.fansModel.fansID),@"fansid":JUserID,@"token":LoginToken};
+    if (isFans) {
+         self.requestParams =@{@"userid":@(cell.fansModel.fansID),@"fansid":JUserID,@"token":LoginToken};
+    }else{
+        self.requestParams = @{@"userid":@(cell.fansModel.userID),@"fansid":JUserID,@"token":LoginToken};
+    }
+   
     self.requestURL = focusUserURL;
 }
 
@@ -217,12 +224,13 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         
     }
     [fansCell.focusBtn addTarget:self action:@selector(focusWithBtn:) forControlEvents:UIControlEventTouchUpInside];
-    fansCell.fansModel = fansAry[indexPath.row];
     if (isFans) {
-        fansCell.isFans = YES;
+        fansCell.isFans = 1;
     }else{
-        fansCell.isFans = NO;
+        fansCell.isFans = 0;
     }
+    fansCell.fansModel = fansAry[indexPath.row];
+    
     
     return fansCell;
     
