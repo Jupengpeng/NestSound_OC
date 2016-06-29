@@ -111,7 +111,7 @@
     [headerImage setDDImageWithURLString:_fansModel.fansHeadURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     authorLabel.text = _fansModel.fansName;
     descLabel.text = _fansModel.fansSign;
-    
+
     if (_fansModel.status ==2) {
         [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateNormal];
     }
