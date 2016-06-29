@@ -531,12 +531,6 @@
                 
                 [session setActive:YES error:nil];
                 
-                
-                UInt32 mode = kAudioUnitSubType_RemoteIO;
-                
-                AudioSessionSetProperty(kAudioSessionProperty_Mode, sizeof(mode), &mode);
-                
-                
                 NSError *error = nil;
                 
                 if(error){

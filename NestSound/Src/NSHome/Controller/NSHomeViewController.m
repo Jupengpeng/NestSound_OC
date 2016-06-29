@@ -49,7 +49,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     if (!_playSongsVC) {
         
         _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
-        
     }
     
     return _playSongsVC;
@@ -465,7 +464,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [self.navigationController pushViewController:playVC animated:YES];
     }
     
-    
 }
 
 
@@ -484,6 +482,5 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 {
 //    [self.navigationItem.rightBarButtonItem]
 }
-
 
 @end
