@@ -419,7 +419,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [[reusable viewWithTag:100] removeFromSuperview];
-
+        
         [[reusable viewWithTag:200] removeFromSuperview];
 
         reusable.titleLable.text = @"乐说";

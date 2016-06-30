@@ -63,7 +63,7 @@ extern NSString *port;
 #define SongListURL @"java/common/glee/detail?"
 #define songListURL @"java/common/glee/list?"
 #define sendCodeURL @"java/common/send/code?"
-#define registerURL @"java/common/regist/mobile?"
+#define registerURL @"java/common/regist/mobile"
 #define loginURl @"java/common/login/mobile?"
 #define reSetPasswordURL @"java/common/login/resetPassword?"
 #define userCenterURL @"java/userCenter/index?"

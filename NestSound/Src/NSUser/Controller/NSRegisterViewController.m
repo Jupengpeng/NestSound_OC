@@ -572,6 +572,7 @@
 
 -(void)registerNumber
 {
+    self.requestType = NO;
     if (userNameText.text.length == 0) {
         
         [[NSToastManager manager] showtoast:@"昵称不能为空"];
@@ -589,7 +590,7 @@
         
         [[NSToastManager manager] showtoast:@"亲，两次输入密码不一致哦"];
     }else{
-        
+        NSLog(@"%@",captchaText.text);
         NSString * password = [passwordText.text stringToMD5];
         NSString * rePassword = [repasswordText.text stringToMD5];
         self.requestParams = @{@"name":userNameText.text,
@@ -601,7 +602,7 @@
         self.requestURL = registerURL;
     
     }
-
+    
 }
 
 - (void)addTimer {

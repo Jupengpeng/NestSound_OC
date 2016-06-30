@@ -107,7 +107,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     NSActivityCollectionCell * activityCell = [collectionView dequeueReusableCellWithReuseIdentifier:activityCellIdentity forIndexPath:indexPath];
     activityCell.activityModel = activityAry[indexPath.row];
     return activityCell;
-
+    
 }
 
 #pragma mark collectionViewDelegate

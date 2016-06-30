@@ -1094,7 +1094,7 @@ static id _instance;
         
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
-
+        
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
         paragraphStyle.lineSpacing = 10;
         NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14],NSParagraphStyleAttributeName:paragraphStyle,NSForegroundColorAttributeName:[UIColor whiteColor]};

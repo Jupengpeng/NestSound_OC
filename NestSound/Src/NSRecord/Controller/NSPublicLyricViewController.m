@@ -129,11 +129,20 @@
 //    LocalizedStr(@"prompt_addTitlePage");
     [backgroundView addSubview:addTitlePageLabel];
     
+    
+    publicSwitch = [[UISwitch alloc] init];
+    publicSwitch.on = NO;
+    publicSwitch.tintColor = [UIColor hexColorFloat:@"ffd111"];
+    publicSwitch.onTintColor = [UIColor hexColorFloat:@"ffd111"];
+    [backgroundView addSubview:publicSwitch];
+    
+    
     if (isLyric) {
         
         publicStateLabel = [[UILabel alloc] init];
         publicStateLabel.font = [UIFont systemFontOfSize:15];
         publicStateLabel.text = @"是否发布";
+        publicStateLabel.textAlignment = NSTextAlignmentLeft;
         //    LocalizedStr(@"prompt_publicState");
         [backgroundView addSubview:publicStateLabel];
         
@@ -144,6 +153,19 @@
         }];
         
     } else {
+        
+        publicStateLabel = [[UILabel alloc] init];
+        publicStateLabel.font = [UIFont systemFontOfSize:15];
+        publicStateLabel.text = @"是否发布";
+        publicStateLabel.textAlignment = NSTextAlignmentRight;
+        //    LocalizedStr(@"prompt_publicState");
+        [backgroundView addSubview:publicStateLabel];
+        
+        [publicStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(publicSwitch.mas_left).offset(-15);
+            make.left.equalTo(backgroundView.mas_centerX);
+            make.centerY.equalTo(backgroundView.mas_bottom).offset(-22);
+        }];
         
         auditionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
            
@@ -196,13 +218,6 @@
         }];
     }
     
-   
-    
-    publicSwitch = [[UISwitch alloc] init];
-    publicSwitch.on = YES;
-    publicSwitch.tintColor = [UIColor hexColorFloat:@"ffd111"];
-    publicSwitch.onTintColor = [UIColor hexColorFloat:@"ffd111"];
-    [backgroundView addSubview:publicSwitch];
     
     picker = [[UIImagePickerController alloc] init];
     picker.allowsEditing = YES;

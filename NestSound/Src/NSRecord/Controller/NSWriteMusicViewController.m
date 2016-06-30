@@ -163,6 +163,19 @@
     [self setupUI];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBackClick:)];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
+    
+    [self.view addGestureRecognizer:tap];
+    
+}
+
+- (void)tapClick:(UIGestureRecognizer *)tap {
+    
+    [lyricView.lyricText resignFirstResponder];
+    
+    [titleText resignFirstResponder];
 }
 
 -(void)viewWillAppear:(BOOL)animated

@@ -155,21 +155,30 @@
     [super viewDidLoad];
     [self configureUIAppearance];
     
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
+    
+    [self.view addGestureRecognizer:tap];
+    
 }
+
+- (void)tapClick:(UIGestureRecognizer *)tap {
+    
+    [lyricView.lyricText resignFirstResponder];
+    
+    [titleTextFiled resignFirstResponder];
+}
+
 
 #pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
-    //nav
-//    self.showBackBtn = YES;
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     
     
     
     lexiconView.delegate = self;
     
-    //titleTextFiled
     titleTextFiled = [[UITextField alloc] init];
     titleTextFiled.textAlignment = NSTextAlignmentCenter;
     titleTextFiled.font = [UIFont systemFontOfSize:15];

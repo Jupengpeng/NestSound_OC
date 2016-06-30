@@ -110,7 +110,7 @@ static NSString * const headerView = @"HeaderView";
 {
     
     if (!parserObject.success){
-        NSLog(@"jlsjflsdf");
+        
         if ([operation.urlTag isEqualToString:musicURL]) {
             
             NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
