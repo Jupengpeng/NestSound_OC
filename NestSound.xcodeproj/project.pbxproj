@@ -1135,6 +1135,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
+				08535AC5CE178193945A4A6E /* 📦 Check Pods Manifest.lock */,
 				D8F4F9D73DE76ABC428D6F2B /* [CP] Check Pods Manifest.lock */,
 				39A18E0E90485163F6FA4D8F /* [CP] Check Pods Manifest.lock */,
 				5BC931B10F6857B4BC0135E0 /* [CP] Check Pods Manifest.lock */,
@@ -1178,6 +1179,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
+				6B9BEEC14414667BA2820681 /* 📦 Check Pods Manifest.lock */,
 				C5447B10F78F0683D016FA86 /* [CP] Check Pods Manifest.lock */,
 				6B04EE4252F8349A15242CCC /* [CP] Check Pods Manifest.lock */,
 				7DAE55E69C05C8F1BBE3444D /* [CP] Check Pods Manifest.lock */,
@@ -1328,6 +1330,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		08535AC5CE178193945A4A6E /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		0CE45C2D11F8596778E93DE4 /* [CP] Check Pods Manifest.lock */ = {
@@ -1623,6 +1640,21 @@
 			inputPaths = (
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6B9BEEC14414667BA2820681 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
