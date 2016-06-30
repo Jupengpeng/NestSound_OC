@@ -42,6 +42,16 @@
     titlePage = [[UIImageView alloc] init];
     [self.contentView addSubview:titlePage];
     
+    UIButton *btn = [[UIButton alloc] init];
+    
+    [btn setImage:[UIImage imageNamed:@"2.0_play"] forState:UIControlStateNormal];
+    
+    [btn setImage:[UIImage imageNamed:@"2.0_suspended"] forState:UIControlStateSelected];
+    
+    self.btn = btn;
+    
+    [self.contentView addSubview:btn];
+    
 //    //playbtn
 //    playBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
 //                
@@ -91,6 +101,12 @@
         make.top.equalTo(workNameLabel.mas_bottom).with.offset(10);
         make.right.equalTo(self.contentView.mas_right).with.offset(-10);
         make.height.mas_equalTo(11);
+        
+    }];
+    
+    [self.btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerX.centerY.equalTo(titlePage);
         
     }];
 

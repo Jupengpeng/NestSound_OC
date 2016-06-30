@@ -14,4 +14,6 @@
 
 @property (nonatomic,strong) NSAccommpanyModel * accompanyModel;
 
+@property (nonatomic, weak) UIButton *btn;
+
 @end

@@ -11,6 +11,9 @@
 #import "NSAccompanyTableCell.h"
 #import "NSAccommpanyListModel.h"
 #import "NSWriteMusicViewController.h"
+#import "NSPlayMusicTool.h"
+#import <AVFoundation/AVFoundation.h>
+
 @interface NSAccompanyListViewController ()
 <
     UITableViewDataSource,
@@ -27,6 +30,11 @@
     NSString * hotUrl;
     
 }
+
+@property (nonatomic, strong) AVPlayer *player;
+
+@property (nonatomic, strong) UIButton *btn;
+
 @end
 
 static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
@@ -42,8 +50,20 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     [self fetchAccompanyData];
 }
+
+- (void)leftClick:(UIBarButtonItem *)barButtonItem {
+    
+    [NSPlayMusicTool pauseMusicWithName:nil];
+    
+    [NSPlayMusicTool stopMusicWithName:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 #pragma mark -fetchData
 -(void)fetchAccompanyData
@@ -237,6 +257,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     NSInteger section = indexPath.section;
     NSAccompanyTableCell * accompanyCell = [tableView dequeueReusableCellWithIdentifier:accompanyCellIditify];
     
+    [accompanyCell.btn addTarget:self action:@selector(playerClick:) forControlEvents:UIControlEventTouchUpInside];
     accompanyCell.accompanyModel = dataAry[section];
     return accompanyCell;
     
@@ -248,9 +269,42 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     NSAccommpanyModel * accompany = dataAry[indexPath.section];
     NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
     writeMusicVC.accompanyModel = accompany;
+    
+    [NSPlayMusicTool pauseMusicWithName:nil];
+    
+    [NSPlayMusicTool stopMusicWithName:nil];
+    
     [self.navigationController pushViewController:writeMusicVC animated:YES];
 }
 
+- (void)playerClick:(UIButton *)btn {
+    
+    btn.selected = !btn.selected;
+    
+    NSAccompanyTableCell * cell = (NSAccompanyTableCell *)btn.superview.superview;
+    
+    if (btn.selected) {
+        
+        if (self.player) {
+            
+            [NSPlayMusicTool pauseMusicWithName:nil];
+            
+            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+            
+            self.btn.selected = NO;
+            
+        } else {
+            
+            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+        }
+        
+    } else {
+        
+        [NSPlayMusicTool pauseMusicWithName:nil];
+    }
+    
+    self.btn = btn;
+}
 
 
 @end

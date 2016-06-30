@@ -92,6 +92,8 @@
 
 @property (nonatomic, assign) BOOL isPlay;
 
+@property (nonatomic, weak) AVAudioSession *session;
+
 @end
 
 @implementation NSWriteMusicViewController
@@ -212,6 +214,13 @@
             btn2.enabled = YES;
         }
     }
+    
+    if (self.mp3File) {
+        
+        UIButton *btn2 = wSelf.btns[2];
+        
+        btn2.enabled = NO;
+    }
 
 }
 
@@ -277,12 +286,14 @@
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
             NSLog(@"AVAudioSessionRouteChangeReasonNewDeviceAvailable");
             NSLog(@"Headphone/Line plugged in");
+            
             isHeadset = YES;
             break;
             
         case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
             NSLog(@"AVAudioSessionRouteChangeReasonOldDeviceUnavailable");
             NSLog(@"Headphone/Line was pulled. Stopping player....");
+            [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
             isHeadset = NO;
             break;
             
@@ -540,9 +551,12 @@
                 
                 [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
                 
-                [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+                
+//                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
                 
                 [session setActive:YES error:nil];
+                
+                self.session = session;
                 
                 NSError *error = nil;
                 
