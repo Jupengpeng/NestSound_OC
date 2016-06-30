@@ -259,6 +259,8 @@ static id _instance;
         
         if (self.musicDetail.nextItemID) {
             
+            self.itemId = self.musicDetail.nextItemID;
+            
             [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
             
         } else {
@@ -854,25 +856,16 @@ static id _instance;
 //上一首歌的点击事件
 - (void)previousBtnClick:(UIButton *)btn {
     
-//    if (self.musicDetail.prevItemID) {
-//        
-//        [self removeTimer];
-//    }
-    
+    self.itemId = self.musicDetail.prevItemID;
     [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
     
     NSLog(@"点击了上一首按钮");
-    
 }
 
 //下一首歌曲的点击事件
 - (void)nextBtnClick:(UIButton *)btn {
     
-//    if (self.musicDetail.nextItemID) {
-//        
-//        [self removeTimer];
-//    }
-    
+    self.itemId = self.musicDetail.nextItemID;
     [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
     
     NSLog(@"点击了下一首按钮");
@@ -1104,14 +1097,6 @@ static id _instance;
         
         _musicDetail = musicDetail;
         _songName.text = self.musicDetail.title;
-        
-        //        commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
-        //        upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
-        //        collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
-        
-        
-//        _totaltime.text = [NSTool stringFormatWithTimeLong:self.musicDetail.mp3Times];
-//        NSLog(@"%@",_totaltime.text);
 
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
         paragraphStyle.lineSpacing = 10;
@@ -1154,7 +1139,6 @@ static id _instance;
     
     
     //评论数
-    
     [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
     
     [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
