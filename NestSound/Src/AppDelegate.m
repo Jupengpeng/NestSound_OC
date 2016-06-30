@@ -34,12 +34,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     NSBaseTabBarViewController *tabController = [[NSBaseTabBarViewController alloc] init];
     [self setupUIAppearance];
-    [UMSocialData setAppKey:umAppKey];
-    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
-    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:nil];
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
-    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
-
     self.window.rootViewController = tabController;
     
     
@@ -72,14 +66,7 @@
                                                           UIUserNotificationTypeSound |
                                                           UIUserNotificationTypeAlert)
                                               categories:nil];
-    } else {
-        //categories 必须为nil
-        [JPUSHService registerForRemoteNotificationTypes:                       (UIRemoteNotificationTypeBadge |
-                                                          UIRemoteNotificationTypeSound |
-                                                          UIRemoteNotificationTypeAlert)
-                                              categories:nil];
     }
-  
     [JPUSHService setupWithOption:launchOptions appKey:JPushAPPKey channel:@"AppStore" apsForProduction:YES advertisingIdentifier:nil];
     
     

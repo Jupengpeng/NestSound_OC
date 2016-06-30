@@ -41,7 +41,7 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 @end
 
 @interface Share : NSObject
-+(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(UIImage *)shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_;;
++(void)ShareWithTitle:(NSString *)title_ andShareUrl:(NSString *)shareUrl_ andShareImage:(NSString *)shareImage andShareText:(NSString *)shareText_ andVC:(UIViewController *)VC_;;
 +(BOOL)shareAvailableWeiXin;
 +(BOOL)shareAvailableQQ;
 +(BOOL)shareAvailableSina;

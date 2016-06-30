@@ -171,8 +171,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 }
                 
             }
-#warning emptyImage -noSystemMessage
-            emptyImage.image = [UIImage imageNamed:@"2.0_noNetwork_bk"];
+            emptyImage.image = [UIImage imageNamed:@"2.0_noMessage_Bk"];
         }
         
         if (messageArr.count == 0) {

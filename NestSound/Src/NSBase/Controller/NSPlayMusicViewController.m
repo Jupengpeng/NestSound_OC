@@ -212,6 +212,8 @@ static id _instance;
         wSelf.musicItem = musicItem;
     }];
     
+   
+    
     CMTime duration = self.player.currentItem.asset.duration;
     
     CGFloat seconds = CMTimeGetSeconds(duration);
@@ -284,7 +286,7 @@ static id _instance;
 - (void)setupUI {
     
     WS(wSelf);
-    
+    self.view.backgroundColor = [UIColor grayColor];
     //pop按钮
     UIButton *popBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
@@ -336,6 +338,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
+
         [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
         
         NSLog(@"点击了播放界面的分享");
