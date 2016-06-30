@@ -179,6 +179,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     WS(wSelf);
    
+    
+    if ([ImageArr[0] isKindOfClass:[NSString class]]) {
+        [self uploadAudioWithImageURL:self.titleImageURL];
+    }else{
     if (ImageArr.count != 0) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
         for (int i = 0 ; i<ImageArr.count; ++i) {
@@ -190,20 +194,20 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                     wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                 }else{
                 wSelf.titleImageURL =[NSString stringWithFormat:@",%@",[resp objectForKey:@"key"]];
-                }
+                    }
                 
-                if ((i + 1)  == ImageArr.count) {
+                    if ((i + 1)  == ImageArr.count) {
                     [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
-                }
+                    }
                 
-            } option:nil];
+                } option:nil];
 
-        }
+            }
         
-    }else{
-        [self uploadAudioWithImageURL:nil];
+        }else{
+            [self uploadAudioWithImageURL:nil];
+        }
     }
-    
 }
 
 #pragma mark -uploadAudio
@@ -262,13 +266,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             self.inspritationModel = inspirtation.inspirtationModel;
         }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
             [self.navigationController popToRootViewControllerAnimated:YES];
-        }else if ([operation.urlTag isEqualToString:getInspiration]){
-            NSInspirtationModel * insp = (NSInspirtationModel *)parserObject;
-            self.inspritationModel = insp.inspirtationModel;
-        
         }
-    
-  
     
     NSFileManager *manager = [NSFileManager defaultManager];
     
@@ -615,7 +613,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             retractBtn.userInteractionEnabled = YES;
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
             
             wSelf.totalTime = self.timeNum;
             
@@ -667,7 +665,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 [wSelf removeLink];
             }];
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02d/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
             
             NSLog(@"点击了播放录音");
         } else {
@@ -896,7 +894,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     
     
-    self.recordDuration.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+    self.recordDuration.text = [NSString stringWithFormat:@"%02d:%02d",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
     
     if (self.isPlayer) {
         

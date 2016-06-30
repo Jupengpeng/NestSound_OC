@@ -347,7 +347,7 @@ static NSDateFormatter *dateFormatter;
 {
     
     [UMSocialData defaultData].extConfig.title = title_;
-    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb ;
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeNone;
     [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
     [UMSocialData defaultData].extConfig.qqData.title = title_;
     if (shareUrl_.length == 0) {

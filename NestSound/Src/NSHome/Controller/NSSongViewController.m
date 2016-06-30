@@ -163,7 +163,7 @@ static NSString * cellId = @"SongCell";
         if (!wSelf) {
             return ;
         }
-        [wSelf fetchDataWithIsLoadingMore:@(YES)];
+        [wSelf fetchDataWithIsLoadingMore:YES];
     }];
     
     // hidden LoadingMoreView
