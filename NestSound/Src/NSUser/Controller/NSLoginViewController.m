@@ -27,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
     self.isHidden = YES;
@@ -204,7 +207,7 @@
         make.centerY.equalTo(passwordView.mas_centerY);
     }];
     
-    
+
     //忘记密码
     UIButton *forgetPasswordBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
@@ -275,11 +278,12 @@
         
     } action:^(UIButton *btn) {
         
-        NSRegisterViewController *registerView = [[NSRegisterViewController alloc] init];
-        
-        [wSelf.navigationController pushViewController:registerView animated:YES];
+//        NSRegisterViewController *registerView = [[NSRegisterViewController alloc] init];
+//        
+//        [wSelf.navigationController pushViewController:registerView animated:YES];
         
     }];
+    [registerBtn addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
     
     registerBtn.centerX = loginBtn.centerX;
     
@@ -287,6 +291,12 @@
 
     
     
+}
+
+-(void)registerUser:(UIButton *)btn
+{
+    NSRegisterViewController * registerVC = [[NSRegisterViewController alloc] init];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 
 -(void)loagin

@@ -10,7 +10,10 @@
 #import "NSPlayMusicViewController.h"
 
 @interface NSBaseNavigationController ()
+{
+    UIImageView * playStatus;
 
+}
 @end
 
 @implementation NSBaseNavigationController
@@ -18,11 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+//    self.playStatusBtn = self.btn;
 
 }
 
-
+#pragma -mark -stopPlayAnimation
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
     

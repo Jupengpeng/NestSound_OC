@@ -119,6 +119,9 @@
 - (void)composeView:(NSComposeView *)composeView withComposeButton:(UIButton *)composeBtn {
     
      [composeView removeFromSuperview];
+    NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+    
     if (composeBtn.tag == 0) {
         
         if (JUserID) {
@@ -128,9 +131,8 @@
 
         } else {
             
-            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-            
-            [self presentViewController:loginVC animated:YES completion:nil];
+           
+            [self presentViewController:nav animated:YES completion:nil];
         }
         
 
@@ -143,9 +145,7 @@
 
         } else {
             
-            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-            
-            [self presentViewController:loginVC animated:YES completion:nil];
+            [self presentViewController:nav animated:YES completion:nil];
         }
         
     } else {
@@ -159,9 +159,7 @@
 
         } else {
             
-            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-            
-            [self presentViewController:loginVC animated:YES completion:nil];
+            [self presentViewController:nav animated:YES completion:nil];
         }
     }
     

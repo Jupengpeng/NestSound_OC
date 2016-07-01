@@ -10,4 +10,5 @@
 
 @interface NSBaseViewController (CustomNavBar)
 
+
 @end

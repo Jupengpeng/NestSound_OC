@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface NSBaseNavigationController : UINavigationController
-
+@property (nonatomic,strong) UIButton * playStatusBtn;
 - (void)backClick:(UIBarButtonItem *)back;
-
 @end
