@@ -28,6 +28,7 @@
     int currentPage;
     NSString * newUrl;
     NSString * hotUrl;
+    NSInteger tages;
     
 }
 
@@ -50,7 +51,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    tages = 200;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     [self fetchAccompanyData];
 }
@@ -258,7 +259,13 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     NSAccompanyTableCell * accompanyCell = [tableView dequeueReusableCellWithIdentifier:accompanyCellIditify];
     
     [accompanyCell.btn addTarget:self action:@selector(playerClick:) forControlEvents:UIControlEventTouchUpInside];
-    accompanyCell.accompanyModel = dataAry[section];
+    accompanyCell.btn.tag = indexPath.section;
+    accompanyCell.btn.selected = NO;
+    NSLog(@"tages:%ld",(long)tages);
+    if (tages == accompanyCell.btn.tag) {
+        accompanyCell.btn.selected = YES;
+    }
+        accompanyCell.accompanyModel = dataAry[section];
     return accompanyCell;
     
 }
@@ -292,15 +299,17 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
             self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
             
             self.btn.selected = NO;
-            
+            tages = cell.btn.tag;
         } else {
             
             self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+            tages = cell.btn.tag;
         }
         
     } else {
         
         [NSPlayMusicTool pauseMusicWithName:nil];
+        tages = 200;
     }
     
     self.btn = btn;
