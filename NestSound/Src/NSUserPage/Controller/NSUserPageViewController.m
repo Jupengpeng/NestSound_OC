@@ -103,7 +103,8 @@ UITableViewDataSource>
 {
     self.requestType = YES;
     int currentPage = 0;
-    NSDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    NSLog(@"userDic%@",userDic);
     if (!isLoadingMore) {
         self.requestParams = @{kIsLoadingMore:@(NO)};
         currentPage = 1;
