@@ -274,7 +274,7 @@ static inline NSRegularExpression * NameRegularExpression() {
         
         self.name = [NSString stringWithFormat:@"%@",self.commentModel.targetName];
     } else {
-        NSLog(@"%@",self.commentModel.targetName);
+
         self.name = [NSString stringWithFormat:@"回复 %@ :",self.commentModel.targetName];
     }
     self.replyStr = self.commentModel.comment;

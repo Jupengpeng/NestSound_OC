@@ -9,7 +9,7 @@
 #import "NSUserProfileViewController.h"
 #import "NSDatePicker.h"
 #import "NSChangeNameViewController.h"
-#import "NSQiniuModel.h"
+#import "NSGetQiNiuModel.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 @interface NSUserProfileViewController ()
 
@@ -53,6 +53,11 @@ static NSString * const settingCellIditify = @"settingCell";
     [self configureAppearance];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -61,13 +66,11 @@ static NSString * const settingCellIditify = @"settingCell";
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
-            NSQiniuModel *  qiniu = (NSQiniuModel *)parserObject;
-            self.qiniuDetail = qiniu.qiniuDetail;
-        }
-    }else{
-        if ([operation.urlTag isEqualToString:changeProfileURL]) {
+            NSGetQiNiuModel *  qiniu = (NSGetQiNiuModel *)parserObject;
+            self.qiniuDetail = qiniu.qiNIuModel;
+        }else if([operation.urlTag isEqualToString:changeProfileURL]){
             [[NSToastManager manager] showtoast:@"修改成功"];
             NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
             [changeDic setValue:JUserID forKey:@"userID"];
@@ -81,6 +84,7 @@ static NSString * const settingCellIditify = @"settingCell";
             [[NSUserDefaults standardUserDefaults] setObject:changeDic forKey:@"user"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
+
     }
     
 }
@@ -142,10 +146,13 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)ensureBirthday
 {
     NSDate * bir = datePicker.choseBirthday.date;
-    NSTimeInterval timeStmp = [bir timeIntervalSince1970];
-    [userInfo setObject:[date datetoStringWithDate:timeStmp] forKey:@"birthday"];
+   // NSTimeInterval timeStmp = [bir timeIntervalSince1970];
+    NSDateFormatter * fomatter = [[NSDateFormatter alloc] init];
+    [fomatter setDateFormat:@"YYYY-MM-dd"];
+    NSString * dateString = [fomatter stringFromDate:bir];
+    [userInfo setObject:dateString forKey:@"birthday"];
 //    userInfo[@"birthday"] = [date datetoStringWithDate:bir];
-//    birthday = [date datetoStringWithDate:bir];
+    birthday = dateString;
     datePicker.hidden = YES;
     [settingTableView reloadData];
 }
@@ -154,6 +161,7 @@ static NSString * const settingCellIditify = @"settingCell";
 {
     datePicker.hidden = YES;
 }
+
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -394,13 +402,13 @@ static NSString * const settingCellIditify = @"settingCell";
 }
 
 
--(void)setQiniuDetail:(QiniuDetail *)qiniuDetail
+-(void)setQiniuDetail:(qiNiu *)qiniuDetail
 {
     _qiniuDetail = qiniuDetail;
     
     
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"userIcon.png"];
-    [self uploadPhotoWith:fullPath type:NO token:_qiniuDetail.token url:_qiniuDetail.QiniuDomain];
+    [self uploadPhotoWith:fullPath type:NO token:_qiniuDetail.token url:_qiniuDetail.qiNIuDomain];
 
 }
 
