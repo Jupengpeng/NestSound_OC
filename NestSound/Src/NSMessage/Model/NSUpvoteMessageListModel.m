@@ -16,12 +16,13 @@
              @"target_uid":@"target_uid",
              @"userId":@"user_id",
              @"type":@"type",
-             @"workId":@"work_id",
-             @"upvoteTime":@"add_time",
+             @"workId":@"itemid",
+             @"upvoteTime":@"intabletime",
              @"author":@"author",
              @"headerUrl":@"headerurl",
              @"nickName":@"nickname",
              @"titleImageUrl":@"pic",
+             @"titleImageUrls":@"pics",
              @"workName":@"title"
              };
 

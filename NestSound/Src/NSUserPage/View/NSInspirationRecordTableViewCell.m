@@ -187,7 +187,8 @@
 -(void)setMyInspirationModel:(NSMyMusicModel *)myInspirationModel
 {
     _myInspirationModel = myInspirationModel;
-    [_backgroundImageView setDDImageWithURLString:_myInspirationModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    NSArray * arr = [_myInspirationModel.titleImageUrls componentsSeparatedByString:@","];
+    [_backgroundImageView setDDImageWithURLString:arr[0] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     if (!self.myInspirationModel.spireContent) {
         self.descriptionLabel.text = @"";
     }else{
@@ -195,7 +196,8 @@
     }
     
     NSDateFormatter * dateFormater = [[NSDateFormatter alloc] init];
-    NSDate * date = [NSDate dateWithTimeIntervalSince1970:_myInspirationModel.createDate];
+    double timeStamp = _myInspirationModel.createDate / 1000;
+    NSDate * date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
     [dateFormater setDateFormat: @"YYYY"];
     _yearLabel.text = [dateFormater stringFromDate:date];
     [dateFormater setDateFormat:@"MM"];

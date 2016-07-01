@@ -185,25 +185,31 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }else{
     if (ImageArr.count != 0) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
-        for (int i = 0 ; i<ImageArr.count; ++i) {
+        for (int i = 0 ; i<ImageArr.count; i++) {
             UIImage * image = ImageArr[i];
             NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
-            [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            [upManager putData:imageData key:nil token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 NSLog(@"%@",resp);
-                if (i == 0) {
+                NSLog(@"this is a info%@",info);
+                if ([key isEqualToString:@"1.png"]) {
                     wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                    NSLog(@"%@",wSelf.titleImageURL);
                 }else{
-                wSelf.titleImageURL =[NSString stringWithFormat:@",%@",[resp objectForKey:@"key"]];
+                wSelf.titleImageURL =[NSString stringWithFormat:@"%@,",[resp objectForKey:@"key"]];
                     }
-                
+                    
                     if ((i + 1)  == ImageArr.count) {
-                    [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
+                        
+                        NSLog(@"tmdTitle%@",wSelf.titleImageURL);
+                        
+                        [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
+                        
                     }
                 
                 } option:nil];
 
             }
-        
+            
         }else{
             [self uploadAudioWithImageURL:nil];
         }
@@ -236,18 +242,31 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 -(void)publicWithType:(BOOL)type_ andAudioURL:(NSString *)audioURL_ andImageURL:(NSString *)imageURL_
 {
     self.requestType = NO;
+    
     if (audioURL_!= nil&&imageURL_!= nil&&inspiration.lyricText.text.length>0) {
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":imageURL_,@"audio":audioURL_};
     }else if (audioURL_!= nil&&imageURL_== nil&&inspiration.lyricText.text.length>0){
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"audio":audioURL_};
     
     }else if (audioURL_== nil&&imageURL_!= nil&&inspiration.lyricText.text.length>0){
+        
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":imageURL_};
     }else if (audioURL_!= nil&&imageURL_!= nil&&inspiration.lyricText.text.length==0){
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"pics":imageURL_,@"audio":audioURL_};
-    }else if (audioURL_== nil&&imageURL_== nil&&inspiration.lyricText.text.length!=0){
+    }else if (audioURL_== nil&&imageURL_== nil&&inspiration.lyricText.text.length==0){
+        
+        [[NSToastManager manager] showtoast:@"图片,文字和录音不能全为空哦"];
+        return;
+    } else if (audioURL_== nil&&imageURL_== nil&&inspiration.lyricText.text.length>0) {
+        
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text};
+    }else if (audioURL_== nil&&imageURL_!= nil&&inspiration.lyricText.text.length==0){
+        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"pics":imageURL_};
+        
+    }else if (audioURL_!= nil&&imageURL_== nil&&inspiration.lyricText.text.length==0){
+        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"audio":audioURL_};
     }
+
     
     self.requestURL = publicInspirationURL;
 }
@@ -613,7 +632,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             retractBtn.userInteractionEnabled = YES;
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
             
             wSelf.totalTime = self.timeNum;
             
@@ -665,7 +684,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 [wSelf removeLink];
             }];
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02d:%02d/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
             
             NSLog(@"点击了播放录音");
         } else {
@@ -914,9 +933,15 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     NSImageCell *cell = (NSImageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     if (isWrite) {
-       cell.image.image = ImageArr[indexPath.row];
-    }else{
-        [cell.image setDDImageWithURLString:[self.inspritationModel.picDomain stringByAppendingString:ImageArr[indexPath.row]] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+        cell.image.image = ImageArr[indexPath.row];
+
+           }else{
+        if ([ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
+            [cell.image setDDImageWithURLString:[self.inspritationModel.picDomain stringByAppendingString:ImageArr[indexPath.row]] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+        }else{
+            cell.image.image = ImageArr[indexPath.row];
+        }
+        
     }
     
     

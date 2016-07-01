@@ -23,6 +23,7 @@
 @property (nonatomic,copy) NSString * headerUrl;
 @property (nonatomic,copy) NSString * nickName;
 @property (nonatomic,copy) NSString * titleImageUrl;
+@property (nonatomic,copy) NSString * titleImageUrls;
 @property (nonatomic,copy) NSString * workName;
 
 @end

@@ -98,8 +98,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
      UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     
     self.navigationItem.rightBarButtonItem = item;
-
-    
     
     [self fetchIndexData];
     [self getAuthorToken];
@@ -112,7 +110,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     self.navigationController.navigationBar.hidden = NO;
     
     if (self.playSongsVC.player == nil) {
-        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
+       
     } else {
         
         if (self.playSongsVC.player.rate != 0.0) {

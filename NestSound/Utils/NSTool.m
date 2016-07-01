@@ -297,9 +297,9 @@ static NSDateFormatter *dateFormatter;
 +(NSString *)datetoStringWithDate:(NSTimeInterval)date
 {
 
-    NSLog(@"%f",date);
-    double d = date /1000;
-    NSLog(@"%f",d);
+    NSLog(@"zhe s tmd%f",date);
+    double d = date / 1000;
+    NSLog(@"tmd%f",d);
     NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
     NSDateFormatter * fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"YYYY-MM-dd"];

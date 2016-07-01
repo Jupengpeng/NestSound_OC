@@ -293,7 +293,9 @@ static NSString * const systemCellID = @"SystemCellID";
             cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:upvoteCellID];
         }
         cell.isUpvote = YES;
+        
         cell.upvoteMessage = messageArr[row];
+       
         return cell;
         
     }else if (messageType == CollectionMessageType){
@@ -303,6 +305,7 @@ static NSString * const systemCellID = @"SystemCellID";
         }
         cell.isUpvote = NO;
         cell.upvoteMessage = messageArr[row];
+         NSLog(@"tmd time %f",cell.upvoteMessage.upvoteTime);
         return cell;
         
         
