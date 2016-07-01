@@ -188,10 +188,13 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         for (int i = 0 ; i<ImageArr.count; i++) {
             UIImage * image = ImageArr[i];
             NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
-            [upManager putData:imageData key:nil token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+    [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 NSLog(@"%@",resp);
                 NSLog(@"this is a info%@",info);
                 if ([key isEqualToString:@"1.png"]) {
+
+    
+              
                     wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                     NSLog(@"%@",wSelf.titleImageURL);
                 }else{
@@ -602,7 +605,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 wSelf.audioPath = filePath;
                 
 
-                NSLog(@"%@",filePath);
+
             }];
             
             wSelf.promptLabel.text = @"点击完成";

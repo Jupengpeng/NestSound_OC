@@ -7,9 +7,9 @@
 //
 
 #import "NSBaseViewController.h"
-@class QiniuDetail;
+@class qiNiu;
 @interface NSUserProfileViewController : NSBaseViewController
 
-@property (nonatomic,strong) QiniuDetail * qiniuDetail;
+@property (nonatomic,strong) qiNiu * qiniuDetail;
 
 @end

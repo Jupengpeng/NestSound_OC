@@ -249,7 +249,7 @@ static NSString * const headerView = @"HeaderView";
 //push hotMusicVC
 - (void)hotMusic:(UIButton *)topBtn {
     
-    NSLog(@"点击了热门歌曲的更多");
+
     if (isMusic) {
         NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:NO];
         [self.navigationController pushViewController:hotMusicVC animated:YES];
@@ -263,7 +263,6 @@ static NSString * const headerView = @"HeaderView";
 //push newMusicVC
 - (void)newMusic:(UIButton *)newBtn {
     
-    NSLog(@"点击了最新歌曲的更多");
     
     
     if (isMusic) {
