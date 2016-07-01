@@ -184,7 +184,7 @@
 {
     WS(wSelf);
     [super viewWillAppear:animated];
-    self.view.userInteractionEnabled = YES;
+    self.next.enabled = YES;
     //stop the music
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     
@@ -676,7 +676,7 @@
             
             if (JUserID) {
                 
-                self.view.userInteractionEnabled = NO;
+                self.next.enabled = NO;
                 
                 if (self.wavFilePath) {
                     
@@ -687,6 +687,8 @@
                         wSelf.data = data;
                         
                         wSelf.mp3File = newfilePath;
+                        
+                        [[NSToastManager manager] showprogress];
                         
                         // 1.创建网络管理者
                         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -700,7 +702,7 @@
                         } success:^void(NSURLSessionDataTask * task, id responseObject) {
                             // 请求成功
                             NSLog(@"请求成功 %@", responseObject);
-                            self.view.userInteractionEnabled = YES;
+                            
                             NSDictionary *dict;
                             
                             if ([responseObject isKindOfClass:[NSDictionary class]]) {
@@ -713,9 +715,14 @@
                             
                             self.wavFilePath = nil;
                             
+                            [[NSToastManager manager] hideprogress];
+                            
+                            self.next.enabled = YES;
+                            
                         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
                             // 请求失败
-                            self.view.userInteractionEnabled = YES;
+                            [[NSToastManager manager] hideprogress];
+                            self.next.enabled = YES;
                             NSLog(@"请求失败 %@", error);
                         }];
                         
