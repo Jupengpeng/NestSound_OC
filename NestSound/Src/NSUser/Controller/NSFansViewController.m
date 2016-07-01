@@ -254,7 +254,6 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
             userVC.who = Other;
         }
     }else{
-        NSLog(@"userid:%@",[NSString stringWithFormat:@"%ld",fans.userID]);
         
         
         userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",fans.userID]];
