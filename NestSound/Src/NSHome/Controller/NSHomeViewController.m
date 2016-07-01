@@ -480,7 +480,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 -(void)animation:(BOOL)animat
 {
-//    [self.navigationItem.rightBarButtonItem]
+    
+    
 }
 
 @end
