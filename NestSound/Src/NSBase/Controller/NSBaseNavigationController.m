@@ -21,11 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-<<<<<<< HEAD
-=======
-//    self.playStatusBtn = self.btn;
-
->>>>>>> 78cbdc19088353f6b714c4967a737a017fcfa014
 }
 
 #pragma -mark -stopPlayAnimation
