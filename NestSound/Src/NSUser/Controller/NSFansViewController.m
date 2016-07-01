@@ -245,12 +245,27 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSFansModel * fans = fansAry[indexPath.row];
-    NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",fans.fansID]];
-    if ([NSTool compareWithUser:fans.fansID]) {
-        userVC.who = Myself;
+    NSUserPageViewController * userVC;
+    if (isFans) {
+      userVC  = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",fans.fansID]];
+        if ([NSTool compareWithUser:fans.fansID]) {
+            userVC.who = Myself;
+        }else{
+            userVC.who = Other;
+        }
     }else{
-        userVC.who = Other;
+        NSLog(@"userid:%@",[NSString stringWithFormat:@"%ld",fans.userID]);
+        
+        
+        userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",fans.userID]];
+        if ([NSTool compareWithUser:fans.userID]) {
+            userVC.who = Myself;
+        }else{
+            userVC.who = Other;
+        }
     }
+    
+    
     [self.navigationController pushViewController:userVC animated:YES];
 
 }

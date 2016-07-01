@@ -84,12 +84,7 @@
     return _maskView;
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    
-//    [super viewWillAppear:animated];
-//    
-//    [self.tabBarController.view addSubview:self.maskView];
-//}
+
 
 
 - (void)viewDidLoad {

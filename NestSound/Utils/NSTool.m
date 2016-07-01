@@ -350,19 +350,25 @@ static NSDateFormatter *dateFormatter;
     [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeNone;
     [UMSocialData defaultData].extConfig.qqData.qqMessageType = UMSocialQQMessageTypeDefault;
     [UMSocialData defaultData].extConfig.qqData.title = title_;
-    if (shareUrl_.length == 0) {
+    [UMSocialData defaultData].extConfig.qzoneData.title = title_;
+    if (shareImage.length == 0) {
         [UMSocialData defaultData].extConfig.qqData.shareImage = [UIImage imageNamed:@"2.0_placeHolder"];
-
+        [UMSocialData defaultData].extConfig.qzoneData.shareImage = [UIImage imageNamed:@"2.0_placeHolder"];
+        [UMSocialData defaultData].extConfig.wechatSessionData.shareImage = [UIImage imageNamed:@"2.0_placeHolder"];
+        [UMSocialData defaultData].extConfig.wechatTimelineData.shareImage = [UIImage imageNamed:@"2.0_placeHolder"];
+        
     }else{
     [UMSocialData defaultData].extConfig.qqData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
+         [UMSocialData defaultData].extConfig.qzoneData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
+        [UMSocialData defaultData].extConfig.wechatSessionData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
+        [UMSocialData defaultData].extConfig.wechatTimelineData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
     }
+    [UMSocialData defaultData].extConfig.qzoneData.url = shareUrl_;
     [UMSocialData defaultData].extConfig.qqData.url = shareUrl_;
-    [UMSocialData defaultData].extConfig.wechatSessionData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
-    [UMSocialData defaultData].extConfig.wechatTimelineData.shareImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]];
     [UMSocialData defaultData].extConfig.wechatTimelineData.url =  shareUrl_;
     [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl_;
    
-    [UMSocialSnsService presentSnsIconSheetView:VC_ appKey:umAppKey shareText:shareText_ shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]]shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ] delegate:nil];
+    [UMSocialSnsService presentSnsIconSheetView:VC_ appKey:umAppKey shareText:shareText_ shareImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:shareImage]]]shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToSina,UMShareToQQ,UMShareToQzone] delegate:nil];
     
 }
 

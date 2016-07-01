@@ -60,6 +60,7 @@
 		2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */; };
 		2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3750281CEC422C007C2967 /* NSChangeNameViewController.m */; };
 		2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37502B1CEC5701007C2967 /* NSUserFeedbackViewController.m */; };
+		2A3CC9EC1D261C7E0072B801 /* UINavigationController+NSPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3CC9EB1D261C7E0072B801 /* UINavigationController+NSPlayView.m */; };
 		2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */; };
 		2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4325621CF324E7008889BE /* NSActivityListModel.m */; };
 		2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4325651CF32912008889BE /* NSDiscoverMusicListModel.m */; };
@@ -276,6 +277,8 @@
 		2A3750281CEC422C007C2967 /* NSChangeNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSChangeNameViewController.m; sourceTree = "<group>"; };
 		2A37502A1CEC5701007C2967 /* NSUserFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserFeedbackViewController.h; sourceTree = "<group>"; };
 		2A37502B1CEC5701007C2967 /* NSUserFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserFeedbackViewController.m; sourceTree = "<group>"; };
+		2A3CC9EA1D261C7E0072B801 /* UINavigationController+NSPlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+NSPlayView.h"; sourceTree = "<group>"; };
+		2A3CC9EB1D261C7E0072B801 /* UINavigationController+NSPlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+NSPlayView.m"; sourceTree = "<group>"; };
 		2A3E7C631CDAE2A7006C8519 /* NSSongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSongCell.h; sourceTree = "<group>"; };
 		2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSongCell.m; sourceTree = "<group>"; };
 		2A4325611CF324E7008889BE /* NSActivityListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityListModel.h; sourceTree = "<group>"; };
@@ -1011,6 +1014,8 @@
 				187016661D21268B0041B5D7 /* NSArray+Log.m */,
 				2A0B72341D003870003957E3 /* NSString+NSMD5Addition.h */,
 				2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */,
+				2A3CC9EA1D261C7E0072B801 /* UINavigationController+NSPlayView.h */,
+				2A3CC9EB1D261C7E0072B801 /* UINavigationController+NSPlayView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2178,6 +2183,7 @@
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
 				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
+				2A3CC9EC1D261C7E0072B801 /* UINavigationController+NSPlayView.m in Sources */,
 				2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
