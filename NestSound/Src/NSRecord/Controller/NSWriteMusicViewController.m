@@ -717,8 +717,6 @@
                             
                             [[NSToastManager manager] hideprogress];
                             
-                            self.next.enabled = YES;
-                            
                         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
                             // 请求失败
                             [[NSToastManager manager] hideprogress];

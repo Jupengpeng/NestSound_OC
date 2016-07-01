@@ -17,7 +17,7 @@
 
 @property (nonatomic,strong) AVPlayer *player;
 
-@property (nonatomic,assign) long itemId;
+@property (nonatomic,assign) long itemUid;
 
 @property (nonatomic,strong) NSPlayMusicDetail * musicDetail;
 @property (nonatomic,copy) NSString * from;

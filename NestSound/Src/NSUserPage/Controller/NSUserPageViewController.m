@@ -197,7 +197,6 @@ UITableViewDataSource>
         UIBarButtonItem *follow = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_follow"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
         
         self.navigationItem.rightBarButtonItem = follow;
-
         
     }
     
@@ -402,7 +401,6 @@ UITableViewDataSource>
     }
     
     
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -425,7 +423,7 @@ UITableViewDataSource>
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     NSArray *array;
-
+    
     if (self.who == Myself) {
        array = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
     }else{
@@ -486,7 +484,7 @@ UITableViewDataSource>
     
     if (type == 1) {
         NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
-        playVC.itemId = myMusic.itemId;
+        playVC.itemUid = myMusic.itemId;
         playVC.from = @"homepage";
         playVC.geDanID = 0;
         BOOL isH = false;
@@ -507,7 +505,7 @@ UITableViewDataSource>
     
         if (myMusic.type == 1) {
             NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
-            playVC.itemId = myMusic.itemId;
+            playVC.itemUid = myMusic.itemId;
             playVC.from = @"myfov";
             playVC.geDanID = 0;
             BOOL isH = false;

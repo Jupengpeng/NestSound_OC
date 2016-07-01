@@ -75,6 +75,7 @@
 
 @property (nonatomic,strong) UILabel * numLabel;
 
+@property (nonatomic,assign) long itemId;
 @end
 
 static id _instance;
@@ -118,7 +119,7 @@ static id _instance;
         [self addTimer];
     }
     
-    [self fetchPlayDataWithItemId:self.itemId];
+    [self fetchPlayDataWithItemId:self.itemUid];
     
     self.scrollV.contentOffset = CGPointMake(0, 0);
     

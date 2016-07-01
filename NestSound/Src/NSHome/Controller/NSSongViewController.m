@@ -175,7 +175,7 @@ static NSString * cellId = @"SongCell";
 {
     songModel * song = songAry[0];
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-    playVC.itemId = song.itemId;
+    playVC.itemUid = song.itemId;
     playVC.from = @"gedan";
     playVC.geDanID = (int)songListId;
     [self.navigationController pushViewController:playVC animated:YES];
@@ -229,7 +229,7 @@ static NSString * cellId = @"SongCell";
 {
     songModel * song = songAry[indexPath.row];
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-    playVC.itemId = song.itemId;
+    playVC.itemUid = song.itemId;
     playVC.from = @"gedan";
     playVC.geDanID = (int)songListId;
     [self.navigationController pushViewController:playVC animated:YES];

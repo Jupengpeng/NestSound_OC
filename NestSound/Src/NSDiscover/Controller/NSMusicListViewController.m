@@ -147,7 +147,7 @@
     if (section == 0) {
         NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
         NSPlayMusicViewController * playMusicVC = [[NSPlayMusicViewController alloc] init];
-        playMusicVC.itemId = cell.musicModel.itemId;
+        playMusicVC.itemUid = cell.musicModel.itemId;
         playMusicVC.from = @"red";
         playMusicVC.geDanID = 0;
         [self.navigationController pushViewController:playMusicVC animated:YES];

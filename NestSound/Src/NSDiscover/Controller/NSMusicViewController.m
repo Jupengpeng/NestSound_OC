@@ -226,13 +226,13 @@ static NSString * const headerView = @"HeaderView";
     if (section == 0) {
        
         music = hotSongList[row];
-        playVC.itemId = music.itemId;
+        playVC.itemUid = music.itemId;
         playVC.from = @"red";
         playVC.geDanID = 0;
     }else{
        
         music = newSongList[row];
-        playVC.itemId = music.itemId;
+        playVC.itemUid = music.itemId;
         playVC.from = @"news";
         playVC.geDanID = 0;
     }

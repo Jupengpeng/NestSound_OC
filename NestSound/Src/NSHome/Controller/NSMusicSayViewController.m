@@ -181,7 +181,7 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     NSMusicSay * mm = musicSayAry[row];
     if (mm.type == 1) {
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-        playVC.itemId = itemId;
+        playVC.itemUid = itemId;
         playVC.geDanID = 0;
         playVC.from = @"yueshuo";
         [self.navigationController pushViewController: playVC animated:YES];

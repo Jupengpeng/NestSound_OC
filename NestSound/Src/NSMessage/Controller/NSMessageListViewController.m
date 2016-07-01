@@ -346,7 +346,7 @@ static NSString * const systemCellID = @"SystemCellID";
             [self.navigationController pushViewController:lyricVC animated:YES];
         }else{
             NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
-            playVC.itemId = upvoteMessage.workId;
+            playVC.itemUid = upvoteMessage.workId;
             playVC.from = @"tuijian";
             playVC.geDanID = 0;
             [self.navigationController pushViewController:playVC animated:YES];

@@ -211,7 +211,7 @@
         }else{
            playVC.from = @"news";
         }
-        playVC.itemId = itemID;
+        playVC.itemUid = itemID;
         playVC.geDanID = 0;
         [self.navigationController pushViewController:playVC animated:YES];
     }

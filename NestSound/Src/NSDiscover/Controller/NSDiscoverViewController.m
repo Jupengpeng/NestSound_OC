@@ -333,7 +333,7 @@
 - (void)searchMusicViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID {
     [self searchBarCancelButtonClicked:_search];
     NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic] ;
-    playMusicVC.itemId = itemID;
+    playMusicVC.itemUid = itemID;
     playMusicVC.from = @"homepage";
     playMusicVC.geDanID = 0;
     

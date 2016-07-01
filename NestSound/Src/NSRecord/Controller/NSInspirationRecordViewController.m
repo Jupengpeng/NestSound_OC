@@ -894,7 +894,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     
     
-    self.recordDuration.text = [NSString stringWithFormat:@"%02d:%02d",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+    self.recordDuration.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+    
     
     if (self.isPlayer) {
         
@@ -917,7 +918,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }else{
         [cell.image setDDImageWithURLString:[self.inspritationModel.picDomain stringByAppendingString:ImageArr[indexPath.row]] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     }
-        
+    
     
     return cell;
 }

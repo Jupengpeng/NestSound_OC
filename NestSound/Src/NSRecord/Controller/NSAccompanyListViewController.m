@@ -275,6 +275,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     //downLoading accompany and push to recordVC
     NSAccommpanyModel * accompany = dataAry[indexPath.section];
     NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
+    
     writeMusicVC.accompanyModel = accompany;
     
     [NSPlayMusicTool pauseMusicWithName:nil];

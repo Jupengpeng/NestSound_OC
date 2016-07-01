@@ -37,6 +37,7 @@
 @property (nonatomic,copy) NSString * titleImage;
 @property (nonatomic, strong) AVPlayerItem *musicItem;
 @property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, weak) UIBarButtonItem *btn;
 @end
 
 @implementation NSPublicLyricViewController
@@ -77,7 +78,7 @@
     
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(uploadPhoto)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(uploadPhoto:)];
     
     
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height * 0.5)];
@@ -275,9 +276,13 @@
 }
 
 #pragma mark -uploadPhoto
--(void)uploadPhoto
+-(void)uploadPhoto:(UIBarButtonItem *)btn
 {
+    self.btn = btn;
+    
     [self.player pause];
+    
+    btn.enabled = NO;
     
     auditionBtn.selected = NO;
     
@@ -286,6 +291,7 @@
     if ([fm fileExistsAtPath:fullPath]) {
         if (descriptionText.text.length == 0) {
             [[NSToastManager manager ] showtoast:@"描述不能为空哦"];
+            btn.enabled = YES;
         }else{
             if (isLyric) {
                 getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
@@ -295,6 +301,7 @@
         }
         
     }else{
+        btn.enabled = YES;
         [[NSToastManager manager] showtoast:@"封面不能为空哟"];
     }
     
@@ -324,7 +331,6 @@
             [self.navigationController pushViewController:shareVC animated:YES];
             
         }
-        
         
         NSFileManager *manager = [NSFileManager defaultManager];
         
