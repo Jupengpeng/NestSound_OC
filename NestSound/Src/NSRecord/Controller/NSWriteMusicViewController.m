@@ -836,7 +836,7 @@
     
     
     //计时显示
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02ld",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
     
 }
 

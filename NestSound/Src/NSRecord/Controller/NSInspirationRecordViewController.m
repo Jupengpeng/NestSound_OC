@@ -81,7 +81,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     if (!ImageArr) {
         ImageArr = [NSMutableArray array];
     }
-
+    
     return ImageArr;
 }
 
@@ -89,7 +89,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     [super viewDidLoad];
     
     NSTimeInterval time = [date getTimeStamp];
-  
+    
     self.title = [date datetoLongStringWithDate:time];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
@@ -156,7 +156,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }else{
         getQiniuAudio = [getQiniuDetail stringByAppendingString:str];
         self.requestURL = getQiniuAudio;
-
+        
     }
     
 }
@@ -169,7 +169,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     NSString * str = [NSTool encrytWithDic:dic];
     getInspiration = [getInspirationURL stringByAppendingString:str];
     self.requestURL = getInspiration;
-
+    
 }
 
 
@@ -178,27 +178,28 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     
     WS(wSelf);
-   
+    
     
     if ([ImageArr[0] isKindOfClass:[NSString class]]) {
         [self uploadAudioWithImageURL:self.titleImageURL];
     }else{
-    if (ImageArr.count != 0) {
-        QNUploadManager * upManager = [[QNUploadManager alloc] init];
-        for (int i = 0 ; i<ImageArr.count; i++) {
-            UIImage * image = ImageArr[i];
-            NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
-    [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                NSLog(@"%@",resp);
-                NSLog(@"this is a info%@",info);
-                if ([key isEqualToString:@"1.png"]) {
-
-    
-              
-                    wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
-                    NSLog(@"%@",wSelf.titleImageURL);
-                }else{
-                wSelf.titleImageURL =[NSString stringWithFormat:@"%@,",[resp objectForKey:@"key"]];
+        if (ImageArr.count != 0) {
+            QNUploadManager * upManager = [[QNUploadManager alloc] init];
+            for (int i = 0 ; i<ImageArr.count; i++) {
+                UIImage * image = ImageArr[i];
+                NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
+                
+                [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                    
+                    NSLog(@"%@",resp);
+                    NSLog(@"this is a info%@",info);
+                    if ([key isEqualToString:@"1.png"]) {
+                        
+                        wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                        NSLog(@"%@",wSelf.titleImageURL);
+                    }else{
+                        
+                        wSelf.titleImageURL =[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                     }
                     
                     if ((i + 1)  == ImageArr.count) {
@@ -208,9 +209,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                         [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
                         
                     }
-                
+                    
                 } option:nil];
-
+                
             }
             
         }else{
@@ -228,14 +229,18 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
         
         
-            NSData * audioData = [NSData dataWithContentsOfFile:self.audioPath];
-            [upManager putData:audioData key:[NSString stringWithFormat:@"%@",self.audioPath.lastPathComponent] token:getQiniuAudioModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                wSelf.audioURL = [NSString stringWithFormat:@"%@",key];
-                [wSelf publicWithType:YES andAudioURL:wSelf.audioURL andImageURL:Image];
-            } option:nil];
+        NSData * audioData = [NSData dataWithContentsOfFile:self.audioPath];
+        [upManager putData:audioData key:[NSString stringWithFormat:@"%@",self.audioPath.lastPathComponent] token:getQiniuAudioModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+           
+            wSelf.audioURL = [NSString stringWithFormat:@"%@",key];
+            
+            [wSelf publicWithType:YES andAudioURL:wSelf.audioURL andImageURL:Image];
+        
+        } option:nil];
         
         
     }else{
+        
         [self publicWithType:NO andAudioURL:nil andImageURL:Image];
     }
 }
@@ -250,7 +255,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":imageURL_,@"audio":audioURL_};
     }else if (audioURL_!= nil&&imageURL_== nil&&inspiration.lyricText.text.length>0){
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"audio":audioURL_};
-    
+        
     }else if (audioURL_== nil&&imageURL_!= nil&&inspiration.lyricText.text.length>0){
         
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"spirecontent":inspiration.lyricText.text,@"pics":imageURL_};
@@ -269,7 +274,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }else if (audioURL_!= nil&&imageURL_== nil&&inspiration.lyricText.text.length==0){
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"audio":audioURL_};
     }
-
+    
     
     self.requestURL = publicInspirationURL;
 }
@@ -289,10 +294,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
-    
-    NSFileManager *manager = [NSFileManager defaultManager];
-    
-    [manager removeItemAtPath:self.audioURL error:nil];
+        
+        NSFileManager *manager = [NSFileManager defaultManager];
+        
+        [manager removeItemAtPath:self.audioURL error:nil];
     }
 }
 
@@ -308,14 +313,14 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     self.placeholderLabel.hidden = YES;
     ImageArr = [NSMutableArray arrayWithArray:arr];
     [_collection reloadData];
-
+    
 }
 
 #pragma mark -action to notifiction
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     
     NSDictionary *userInfo = [aNotification userInfo];
-
+    
     NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     
     CGFloat keyBoardEndY = value.CGRectValue.origin.y;
@@ -337,7 +342,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             wSelf.recordView.y = ScreenHeight - 64;
         }
-
+        
     }];
     
     
@@ -394,10 +399,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     //textView
-
+    
     inspiration = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, H)];
-
-
+    
+    
     inspiration.lyricText.delegate = self;
     
     [self.view addSubview:inspiration];
@@ -578,7 +583,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     [recordView addSubview:promptLabel];
     
     [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.top.equalTo(retractBtn.mas_bottom).offset(10);
         
         make.centerX.equalTo(retractBtn.mas_centerX);
@@ -601,11 +606,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
                 
-
+                
                 wSelf.audioPath = filePath;
                 
-
-
+                
+                
             }];
             
             wSelf.promptLabel.text = @"点击完成";
@@ -618,7 +623,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             [wSelf addLink];
             
-             NSLog(@"点击了录音");
+            NSLog(@"点击了录音");
         } else {
             
             [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
@@ -641,7 +646,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             [wSelf removeLink];
             
-             NSLog(@"点击了暂停录音");
+            NSLog(@"点击了暂停录音");
         }
         
     }];
@@ -682,7 +687,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 
                 btn.selected = NO;
                 
-//                self.timeNum = 0;
+                //                self.timeNum = 0;
                 
                 [wSelf removeLink];
             }];
@@ -717,7 +722,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     //删除录音按钮
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-       
+        
         [btn setImage:[UIImage imageNamed:@"2.0_record_delete"] forState:UIControlStateNormal];
         
         btn.hidden = YES;
@@ -750,7 +755,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     [recordView addSubview:deleteBtn];
     
     [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+        
         make.left.equalTo(recordBtn.mas_right).offset(35);
         
         make.centerY.equalTo(recordBtn.mas_centerY);
@@ -937,8 +942,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     NSImageCell *cell = (NSImageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     if (isWrite) {
         cell.image.image = ImageArr[indexPath.row];
-
-           }else{
+        
+    }else{
         if ([ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
             [cell.image setDDImageWithURLString:[self.inspritationModel.picDomain stringByAppendingString:ImageArr[indexPath.row]] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
         }else{
@@ -979,7 +984,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     ImageArr = [NSMutableArray arrayWithArray:images];
     [_collection reloadData];
-
+    
 }
 
 - (void)dealloc {
