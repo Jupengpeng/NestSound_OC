@@ -53,7 +53,7 @@ static NSToastManager *toastManager;
     [keywindow addSubview:toastHud];
     
     progressHud = [[MBProgressHUD alloc] initWithWindow:keywindow];
-    progressHud.animationType = MBProgressHUDAnimationZoomOut;
+    progressHud.animationType = MBProgressHUDAnimationZoomIn;
     progressHud.mode = MBProgressHUDModeIndeterminate;
     progressHud.bounds = CGRectMake(0, 0, 80, 80);
     progressHud.userInteractionEnabled = NO;
