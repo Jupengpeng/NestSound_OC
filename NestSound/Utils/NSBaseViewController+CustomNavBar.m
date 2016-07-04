@@ -10,6 +10,8 @@
 #import "NSBaseViewController+CustomNavBar.h"
 #import "NSPlayMusicViewController.h"
 #import "NSH5ViewController.h"
+#import "NSLyricViewController.h"
+#import "NSHomeViewController.h"
 
 @implementation NSBaseViewController (CustomNavBar)
 
@@ -34,6 +36,21 @@
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5) ]];
         
     }
+    
+    if ([self isKindOfClass:[NSLyricViewController class]]) {
+        
+        self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
+    }
+    
+    if ([self isKindOfClass:[NSHomeViewController class]]) {
+        
+        self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
+    }
+
 
 }
 

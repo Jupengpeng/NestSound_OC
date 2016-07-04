@@ -213,7 +213,7 @@ static id _instance;
         wSelf.musicItem = musicItem;
     }];
     
-   
+    
     
     CMTime duration = self.player.currentItem.asset.duration;
     
