@@ -75,7 +75,7 @@
 
 @property (nonatomic,strong) UILabel * numLabel;
 
-@property (nonatomic,assign) long itemId;
+//@property (nonatomic,assign) long itemId;
 @end
 
 static id _instance;
@@ -211,6 +211,7 @@ static id _instance;
     self.player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
         
         wSelf.musicItem = musicItem;
+        
     }];
     
     
@@ -260,7 +261,7 @@ static id _instance;
         
         if (self.musicDetail.nextItemID) {
             
-            self.itemId = self.musicDetail.nextItemID;
+            self.itemUid = self.musicDetail.nextItemID;
             
             [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
             
@@ -857,7 +858,7 @@ static id _instance;
 //上一首歌的点击事件
 - (void)previousBtnClick:(UIButton *)btn {
     
-    self.itemId = self.musicDetail.prevItemID;
+    self.itemUid = self.musicDetail.prevItemID;
     [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
     
     NSLog(@"点击了上一首按钮");
@@ -866,7 +867,7 @@ static id _instance;
 //下一首歌曲的点击事件
 - (void)nextBtnClick:(UIButton *)btn {
     
-    self.itemId = self.musicDetail.nextItemID;
+    self.itemUid = self.musicDetail.nextItemID;
     [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
     
     NSLog(@"点击了下一首按钮");

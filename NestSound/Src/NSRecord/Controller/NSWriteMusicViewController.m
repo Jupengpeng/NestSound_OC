@@ -179,12 +179,17 @@
     
     [titleText resignFirstResponder];
 }
-
+    
 -(void)viewWillAppear:(BOOL)animated
 {
     WS(wSelf);
     [super viewWillAppear:animated];
-    self.next.enabled = YES;
+    
+    if (self.wavFilePath || self.mp3File) {
+        
+        self.next.enabled = YES;
+    }
+    
     //stop the music
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     
@@ -234,7 +239,6 @@
     [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
     [self.player stop];
     self.next.enabled = YES;
-    
     
     if (self.wavFilePath || self.mp3File) {
         
@@ -793,7 +797,7 @@
     
     self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
     
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 

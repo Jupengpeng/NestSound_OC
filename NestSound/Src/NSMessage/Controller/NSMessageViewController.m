@@ -47,6 +47,8 @@ UITableViewDataSource
         loginNav.navigationBar.hidden = YES;
         [self presentViewController:loginNav animated:YES completion:nil];
     }
+    
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 

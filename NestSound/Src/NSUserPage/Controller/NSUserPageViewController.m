@@ -81,7 +81,7 @@ UITableViewDataSource>
         [self presentViewController:nav animated:YES completion:nil];
     }
     self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
-    
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -91,9 +91,9 @@ UITableViewDataSource>
         [self.tabBarController setSelectedIndex:0];
         page = 0;
     }else{
-        if (dataAry.count == 0) {
+//        if (dataAry.count == 0) {
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-        }
+//        }
         
     }
 }
