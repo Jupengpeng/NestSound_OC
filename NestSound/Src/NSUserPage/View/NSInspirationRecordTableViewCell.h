@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class NSMyMusicModel;
+
 @interface NSInspirationRecordTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
@@ -17,6 +19,7 @@
 @property (nonatomic, strong) UIImageView *frequencyImageView;
 
 @property (nonatomic,strong) NSMyMusicModel * myInspirationModel;
+
 @end
 
 

@@ -16,6 +16,7 @@
 #import "NSGetQiNiuModel.h"
 #import "NSInspirtationModel.h"
 #import "NSPlayMusicViewController.h"
+#import "NSPlayMusicTool.h"
 @interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource,HUImagePickerViewControllerDelegate,UINavigationControllerDelegate> {
     
     UICollectionView *_collection;
@@ -29,7 +30,7 @@
     NSGetQiNiuModel * getQiniuImageModel;
     NSGetQiNiuModel * getQiniuAudioModel;
     NSLyricView *inspiration ;
-    
+    UIButton *pictureBtn;
     long itemID;
     BOOL isWrite;
 }
@@ -64,6 +65,9 @@
 @property (nonatomic, weak) UILabel *recordDuration;
 @property (nonatomic,strong) NSInspirtation * inspritationModel;
 @property (nonatomic, strong) NSString *mp3FilePath;
+
+@property (nonatomic, copy) NSString *audio;
+@property (nonatomic, strong) AVPlayerItem *musicItem;
 @end
 static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 @implementation NSInspirationRecordViewController
@@ -130,6 +134,17 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+}
+
+- (void)endPlaying {
+    
+    self.playSongsBtn.selected = NO;
+    
+    [NSPlayMusicTool pauseMusicWithName:nil];
+    
+    [NSPlayMusicTool stopMusicWithName:nil];
 }
 
 - (void)backClick:(UIBarButtonItem *)back {
@@ -189,7 +204,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 UIImage * image = ImageArr[i];
                 NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
                 
-                [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i+1] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                     
                     NSLog(@"%@",resp);
                     NSLog(@"this is a info%@",info);
@@ -231,11 +246,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         NSData * audioData = [NSData dataWithContentsOfFile:self.audioPath];
         [upManager putData:audioData key:[NSString stringWithFormat:@"%@",self.audioPath.lastPathComponent] token:getQiniuAudioModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-           
+            
             wSelf.audioURL = [NSString stringWithFormat:@"%@",key];
             
             [wSelf publicWithType:YES andAudioURL:wSelf.audioURL andImageURL:Image];
-        
+            
         } option:nil];
         
         
@@ -305,13 +320,44 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 -(void)setInspritationModel:(NSInspirtation *)inspritationModel
 {
     _inspritationModel = inspritationModel;
-    NSString * str = _inspritationModel.pics;
+    NSString * str = [NSString stringWithFormat:@"%@%@",_inspritationModel.picDomain,_inspritationModel.pics];
+    
     NSArray * arr =[str componentsSeparatedByString:@","];
     
     self.title = [date datetoLongStringWithDate:_inspritationModel.createDate];
     inspiration.lyricText.text = _inspritationModel.spireContent;
     self.placeholderLabel.hidden = YES;
     ImageArr = [NSMutableArray arrayWithArray:arr];
+    
+    self.audio = [NSString stringWithFormat:@"%@%@",_inspritationModel.audioDomain,_inspritationModel.audio];
+    
+    if (![self.audio isEqualToString:_inspritationModel.audioDomain] || inspiration.lyricText.text.length != 0 || str != nil) {
+        
+        self.recordBtn.hidden = YES;
+        
+        self.playSongsBtn.hidden = NO;
+        
+        self.promptLabel.text = @"点击播放";
+        
+        [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
+        
+        self.navigationItem.rightBarButtonItem = nil;
+        
+        inspiration.lyricText.editable = NO;
+        
+        pictureBtn.enabled = NO;
+        
+        if ([self.audio isEqualToString:_inspritationModel.audioDomain]) {
+            
+            [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addSound"] forState:UIControlStateNormal];
+            
+            self.promptLabel.text = @"没有录音";
+            
+            self.playSongsBtn.enabled = NO;
+        }
+        
+    }
+    
     [_collection reloadData];
     
 }
@@ -344,8 +390,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }
         
     }];
-    
-    
     
 }
 
@@ -399,9 +443,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     //textView
-    
     inspiration = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, H)];
-    
     
     inspiration.lyricText.delegate = self;
     
@@ -602,7 +644,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         if (btn.selected) {
             
-            [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
+            [wSelf.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
                 
@@ -679,29 +721,51 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         if (btn.selected) {
             
-            wSelf.isPlayer = YES;
-            
-            [wSelf addLink];
-            
-            [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
+            if (![self.audio isEqualToString:_inspritationModel.audioDomain] && self.audio != nil) {
                 
-                btn.selected = NO;
+                [NSPlayMusicTool playMusicWithUrl:self.audio block:^(AVPlayerItem *item) {
+                    
+                    self.musicItem = item;
+                }];
                 
-                //                self.timeNum = 0;
+            } else {
                 
-                [wSelf removeLink];
-            }];
+                wSelf.isPlayer = YES;
+                
+                [wSelf addLink];
+                
+                [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
+                    
+                    btn.selected = NO;
+                    
+                    //self.timeNum = 0;
+                    
+                    [wSelf removeLink];
+                }];
+                
+                wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
+                
+                NSLog(@"点击了播放录音");
+                
+            }
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
-            
-            NSLog(@"点击了播放录音");
         } else {
             
-            [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
-            
-            [wSelf removeLink];
-            
-            NSLog(@"点击了停止播放录音");
+            if (![self.audio isEqualToString:_inspritationModel.audioDomain] && self.audio != nil) {
+                
+                [NSPlayMusicTool pauseMusicWithName:nil];
+                
+                [NSPlayMusicTool stopMusicWithName:nil];
+                
+            } else {
+                
+                [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+                
+                [wSelf removeLink];
+                
+                NSLog(@"点击了停止播放录音");
+                
+            }
         }
         
         
@@ -764,7 +828,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     
     //添加照片
-    UIButton *pictureBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    pictureBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setImage:[UIImage imageNamed:@"2.0_addPicture"] forState:UIControlStateNormal];
         
@@ -945,7 +1009,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
     }else{
         if ([ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
-            [cell.image setDDImageWithURLString:[self.inspritationModel.picDomain stringByAppendingString:ImageArr[indexPath.row]] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+            [cell.image setDDImageWithURLString:ImageArr[indexPath.row] placeHolderImage:nil];
         }else{
             cell.image.image = ImageArr[indexPath.row];
         }
@@ -972,9 +1036,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }else{
         [self uploadPhotoWith:nil type:YES token:nil url:nil];
     }
-    
-    
-    
     
 }
 

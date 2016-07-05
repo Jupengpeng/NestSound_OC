@@ -116,7 +116,10 @@ static id _instance;
     
     if (self.playOrPauseBtn.selected) {
         
-        [self addTimer];
+        if (!self.timer) {
+            
+            [self addTimer];
+        }
     }
     
     [self fetchPlayDataWithItemId:self.itemUid];
@@ -271,7 +274,7 @@ static id _instance;
             
             [self.player pause];
             
-            self.player = nil;
+//            self.player = nil;
             
             self.progressBar.value = 0;
             
