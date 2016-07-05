@@ -392,7 +392,7 @@ UITableViewDataSource>
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
-
+        
     }
     
     
@@ -630,12 +630,18 @@ UITableViewDataSource>
             self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
             
             self.requestURL = deleteWorkURL;
-            
         }
+        
         [dataAry removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
+<<<<<<< HEAD
+=======
+        [tableView reloadData];
+        
+        NSLog(@"点击了删除");
+>>>>>>> 92ba7942fd0fe882865630dbbf48e107f29abf6e
 
        
     }
