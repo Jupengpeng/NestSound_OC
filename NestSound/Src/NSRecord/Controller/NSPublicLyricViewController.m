@@ -181,7 +181,6 @@
             if (btn.selected) {
                 
                 wSelf.player = [NSPlayMusicTool playMusicWithUrl:[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL] block:^(AVPlayerItem *item) {
-                    NSLog(@"%@",mp3URL);
                     wSelf.musicItem = item;
                     
                 }];
@@ -347,8 +346,6 @@
         self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
         self.requestURL = publicLyricURL;
     }else{
-        NSLog(@"lyyy%@,%@",lyricDic,descriptionText.text);
-    
         self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
         self.requestURL = publicMusicURL;
    

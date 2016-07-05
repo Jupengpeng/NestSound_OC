@@ -202,10 +202,8 @@
     NSFileManager * fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:LocalAccompanyPath]) {
         [fm createDirectoryAtPath:LocalAccompanyPath withIntermediateDirectories:YES attributes:nil error:nil];
-        NSLog(@"%@",LocalAccompanyPath);
     }else{
         if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
-            NSLog(@"uu%@",LocalAccompanyPath);
             [[NSHttpClient client] downLoadWithFileURL:fileURL completionHandler:^{
                 
                 UIButton *btn2 = wSelf.btns[2];
@@ -288,14 +286,13 @@
     switch (routeChangeReason) {
             
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
-            NSLog(@"AVAudioSessionRouteChangeReasonNewDeviceAvailable");
+
             NSLog(@"Headphone/Line plugged in");
             
             isHeadset = YES;
             break;
             
         case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-            NSLog(@"AVAudioSessionRouteChangeReasonOldDeviceUnavailable");
             NSLog(@"Headphone/Line was pulled. Stopping player....");
             [self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
             isHeadset = NO;
@@ -481,7 +478,6 @@
         importLyric.delegate = self;
         [self.navigationController pushViewController:importLyric animated:YES];
         
-        NSLog(@"点击了导入歌词");
         
     } else if (btn.tag == 1) {
         
@@ -522,7 +518,6 @@
             }
         }
         
-        NSLog(@"点击了暂停和播放");
         
     } else if (btn.tag == 2) {
         
@@ -597,7 +592,6 @@
             btn.enabled = NO;
         }
         
-         NSLog(@"点击了录制");
         
     } else if (btn.tag == 3) {
         
@@ -631,7 +625,6 @@
         
         [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
         
-        NSLog(@"点击了重唱");
     } else {
         
         btn.selected = !btn.selected;
@@ -642,14 +635,13 @@
             
             lyricView.lyricText.editable = YES;
             
-            NSLog(@"点击了编辑");
+
         } else {
             
             titleText.enabled = NO;
             
             lyricView.lyricText.editable = NO;
             
-            NSLog(@"点击了保存");
         }
         
     }
@@ -704,8 +696,6 @@
                             
                             
                         } success:^void(NSURLSessionDataTask * task, id responseObject) {
-                            // 请求成功
-                            NSLog(@"请求成功 %@", responseObject);
                             
                             NSDictionary *dict;
                             
@@ -725,10 +715,8 @@
                             // 请求失败
                             [[NSToastManager manager] hideprogress];
                             self.next.enabled = YES;
-                            NSLog(@"请求失败 %@", error);
                         }];
                         
-                        NSLog(@"点击了下一步");
                         
                     }];
                 } else {
@@ -868,8 +856,6 @@
 }
 
 - (void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName {
-    
-    NSLog(@"%@",lyrics);
     
     lyricView.lyricText.text = lyrics;
     

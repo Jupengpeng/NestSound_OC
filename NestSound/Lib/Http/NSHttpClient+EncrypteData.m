@@ -74,7 +74,6 @@ static NSData* base64_decode(NSString *str){
         }
     
         [dic removeObjectForKey:requestData];
-        NSLog(@"ddddd%@",dic);
         if (!resultDataDic) {
             return nil;
         }

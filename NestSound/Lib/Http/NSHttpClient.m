@@ -103,9 +103,9 @@ static NSHttpClient *client;
                               
                               [[NSToastManager manager] hideprogress];
                           }
-//#ifdef DEBUG
+#ifdef DEBUG
                           NSLog(@"RESPONSE JSON:%@", responseObject);
-//#endif
+#endif
                           
 //                          if (!success) {
 //                              return ;
@@ -115,11 +115,9 @@ static NSHttpClient *client;
                              
                            NSDictionary * dic =  [self encryptWithDictionary:responseObject isEncrypt:NO];
                              
-                              NSLog(@"dic;%@",dic);
                               NSInteger i = [url rangeOfString:@"data="].location;
 
                               NSString * str = [url substringWithRange:NSMakeRange(0, i)];
-                              NSLog(@"str%@",str);
                              
                               NSBaseModel *model = [NSModelFactory modelWithURL:str
                                                                    responseJson:dic];
@@ -174,9 +172,7 @@ static NSHttpClient *client;
                                                  
                                                  success(task,model);
                                                  
-                                                 NSLog(@"quni %@",responseObject);
                                                  long resultCode = [responseObject[@"code"] longValue];
-                                                 NSLog(@"%ld",resultCode);
                                                 
                                                  if (resultCode == 200) {
                                                      

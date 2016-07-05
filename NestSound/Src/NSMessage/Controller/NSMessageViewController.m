@@ -66,8 +66,6 @@ UITableViewDataSource
 -(void)fetchData
 {
     self.requestType = YES;
-    NSDictionary * dic1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    NSLog(@"dic1 %@",dic1);
     NSDictionary * dic =@{@"uid":JUserID,@"token":LoginToken,@"timeStamp": [NSNumber  numberWithDouble:[date getTimeStamp]]};
     NSString * str = [NSTool encrytWithDic:dic];
     url = [messageURL stringByAppendingString:str];

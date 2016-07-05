@@ -254,7 +254,6 @@ static NSDateFormatter *dateFormatter;
     NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:LocalAccompanyPath] objectEnumerator];
     float folderSize = 0;
     while ((fileName = [childFilesEnumerator nextObject])!=nil) {
-        NSLog(@"file%@",fileName);
         NSString * fileAbsolutePath = [LocalAccompanyPath stringByAppendingPathComponent:fileName];
         folderSize+=[[fm attributesOfItemAtPath:fileAbsolutePath error:nil] fileSize];
     }
@@ -274,7 +273,6 @@ static NSDateFormatter *dateFormatter;
     NSEnumerator * childFilesEnumerator = [[fm subpathsAtPath:LocalAccompanyPath] objectEnumerator];
     //    long long folderSize = 0;
     while ((fileName = [childFilesEnumerator nextObject])!=nil) {
-        NSLog(@"file%@",fileName);
         NSString * fileAbsolutePath = [LocalAccompanyPath stringByAppendingPathComponent:fileName];
         [fm removeItemAtPath:fileAbsolutePath error:nil];
     }
@@ -297,9 +295,8 @@ static NSDateFormatter *dateFormatter;
 +(NSString *)datetoStringWithDate:(NSTimeInterval)date
 {
 
-    NSLog(@"zhe s tmd%f",date);
+
     double d = date / 1000;
-    NSLog(@"tmd%f",d);
     NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
     NSDateFormatter * fomatter = [[NSDateFormatter alloc] init];
     [fomatter setDateFormat:@"YYYY-MM-dd"];

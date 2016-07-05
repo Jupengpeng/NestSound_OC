@@ -233,7 +233,6 @@ static NSString * const systemCellID = @"SystemCellID";
     }];
     // hide infiniteView
   messageList.showsInfiniteScrolling = NO;
-    NSLog(@"thise%f",messageList.contentOffset.y);
     
     emptyImage = [[UIImageView alloc] init];
     [self.view addSubview:emptyImage];
@@ -305,7 +304,6 @@ static NSString * const systemCellID = @"SystemCellID";
         }
         cell.isUpvote = NO;
         cell.upvoteMessage = messageArr[row];
-         NSLog(@"tmd time %f",cell.upvoteMessage.upvoteTime);
         return cell;
         
         
@@ -368,7 +366,6 @@ static NSString * const systemCellID = @"SystemCellID";
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"this %f",messageList.contentOffset.y);
     if ( messageList.contentOffset.y > messageList.contentSize.height) {
         [self fetchDataWithIsLoadingMore:YES];
         messageList.showsInfiniteScrolling = YES;

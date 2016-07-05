@@ -36,6 +36,7 @@ UINavigationControllerDelegate
     NSString * url ;
     NSString * userIconUrl;
     NSMutableDictionary * userInfo;
+    int males ;
     
     
 }
@@ -51,6 +52,7 @@ static NSString * const settingCellIditify = @"settingCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self configureAppearance];
+    males = 0;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -77,7 +79,8 @@ static NSString * const settingCellIditify = @"settingCell";
             [changeDic setValue:LoginToken forKey:@"userLoginToken"];
             [changeDic setValue:nickName forKey:@"userName"];
             [changeDic setValue:self.titleImageUrl forKey:@"userIcon"];
-            [changeDic setValue:male forKey:@"male"];
+          
+            [changeDic setValue:[NSNumber numberWithInt:males] forKey:@"male"];
             [changeDic setValue:birthday  forKey:@"birthday"];
             [changeDic setValue:signature forKey:@"desc"];
             [[NSUserDefaults standardUserDefaults ] removeObjectForKey:@"user"];
@@ -242,7 +245,6 @@ static NSString * const settingCellIditify = @"settingCell";
         
     }else if (row == 2){
         settingCell.textLabel.text = @"性别";
-        NSLog(@"%d",[userInfo[@"male"] intValue]);
         if ([userInfo[@"male"] intValue]== 1) {
             male = @"女";
         }else{
@@ -251,7 +253,6 @@ static NSString * const settingCellIditify = @"settingCell";
         valueLabel.text = male;
     }else if (row == 3){
         settingCell.textLabel.text = @"生日";
-//        LocalizedStr(@"prompt_birthday");
         if (userInfo[@"birthday"]) {
             birthday = userInfo[@"birthday"];
         }else{
@@ -276,7 +277,6 @@ static NSString * const settingCellIditify = @"settingCell";
 #pragma mark -UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@",indexPath);
     NSUInteger row = indexPath.row;
     if (row == 0) {
         [photoActionSheet showInView:self.view];
@@ -417,7 +417,7 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)changeProfile
 {
     self.requestType = NO;
-    int males = 0 ;
+    
     if ([male isEqualToString:@"男"]) {
         males = 2;
     }else if([male isEqualToString:@"女"]){

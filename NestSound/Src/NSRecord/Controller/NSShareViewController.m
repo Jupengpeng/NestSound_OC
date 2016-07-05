@@ -197,7 +197,6 @@ static NSString *identifier = @"identifier";
         [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl;
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
@@ -208,7 +207,6 @@ static NSString *identifier = @"identifier";
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = shareUrl;
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
@@ -218,7 +216,6 @@ static NSString *identifier = @"identifier";
         [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
@@ -227,7 +224,6 @@ static NSString *identifier = @"identifier";
         [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];
@@ -239,7 +235,6 @@ static NSString *identifier = @"identifier";
         [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
-                NSLog(@"分享成功！");
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
             }
         }];

@@ -149,13 +149,11 @@ static const char *NSBaseModelPropertiesKey;
             NSString *jsonKey = property.name;
             NSString *mapperKey = [keyMapper objectForKey:jsonKey];
             jsonKey = mapperKey ?: jsonKey;
-            NSLog(@" %d",i++);
             id jsonValue = [dataObject objectForKey:jsonKey];
             
             id propertyValue = [self valueForProperty:property withJSONValue:jsonValue];
             
             if (propertyValue) {
-                NSLog(@"name%@",property.name);
                 [self setValue:propertyValue forKey:property.name];
                
             } else {

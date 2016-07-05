@@ -81,7 +81,6 @@
         
     } action:^(UIButton *btn) {
         
-        NSLog(@"点击了优化页的播放");
     }];
     
     [bottomView addSubview:playBtn];
@@ -331,8 +330,6 @@
 
 
 - (void)rightClick:(UIBarButtonItem *)right {
-    
-    NSLog(@"点击了发布");
 }
 
 

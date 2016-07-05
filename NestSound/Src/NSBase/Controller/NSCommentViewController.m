@@ -273,13 +273,11 @@
     if (inputField.tag == 1) {
         
         [self postCommentWithComment:textField.text andUser:nil andType:2 andTargetUID:targetUserId];
-        NSLog(@"点击了发送. 回复他人的评论");
        
     } else {
         
         [self postCommentWithComment:textField.text andUser:nil andType:1 andTargetUID:0];
         
-        NSLog(@"点击了发送. 发表评论");
     }
     
     

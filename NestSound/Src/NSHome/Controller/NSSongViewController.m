@@ -39,7 +39,6 @@ static NSString * cellId = @"SongCell";
     
     if (self = [super init]) {
         songListId = listId;
-        NSLog(@"thsi is %ld",listId);
     }
 
     return self;
@@ -83,7 +82,6 @@ static NSString * cellId = @"SongCell";
    
     self.requestParams = @{kIsLoadingMore:@(isLodadingMore)};
     self.requestType = YES;
-    NSLog(@"%@",url);
     self.requestURL = url;
 }
 

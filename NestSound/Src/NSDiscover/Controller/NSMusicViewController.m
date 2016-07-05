@@ -129,8 +129,6 @@ static NSString * const headerView = @"HeaderView";
         }else if ([operation.urlTag isEqualToString:lyricURL]){
     
         NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
-        NSLog(@"dic%lu",(unsigned long)lyricListModel );
-        
         if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
             
         }else{

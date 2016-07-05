@@ -191,12 +191,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 
                 [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                     
-                    NSLog(@"%@",resp);
-                    NSLog(@"this is a info%@",info);
                     if ([key isEqualToString:@"1.png"]) {
                         
                         wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
-                        NSLog(@"%@",wSelf.titleImageURL);
                     }else{
                         
                         wSelf.titleImageURL =[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
@@ -204,7 +201,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                     
                     if ((i + 1)  == ImageArr.count) {
                         
-                        NSLog(@"tmdTitle%@",wSelf.titleImageURL);
                         
                         [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
                         

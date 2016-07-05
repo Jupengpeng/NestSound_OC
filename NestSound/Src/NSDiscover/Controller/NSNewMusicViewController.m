@@ -216,7 +216,6 @@
         [self.navigationController pushViewController:playVC animated:YES];
     }
     
-    NSLog(@"点击了第%zd个cell",indexPath.row);
 }
 
 

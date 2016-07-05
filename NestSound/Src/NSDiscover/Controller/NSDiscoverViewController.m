@@ -25,6 +25,7 @@
     UIView *_lineView;
     
     UISearchBar *_search;
+    UIImageView * playStatus;
     
 //    UIView *_maskView;
     
@@ -89,6 +90,17 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.hidden = NO;
+    if (self.playSongsVC.player == nil) {
+        
+    } else {
+        
+        if (self.playSongsVC.player.rate != 0.0) {
+            [playStatus startAnimating];
+        }else{
+            [playStatus stopAnimating];
+        }
+    }
+
 
 }
 
@@ -97,8 +109,35 @@
     [super viewDidLoad];
 
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
     
+    playStatus.animationDuration = 0.8;
+    playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
+                                   [UIImage imageNamed:@"2.0_play_status_2"],
+                                   [UIImage imageNamed:@"2.0_play_status_3"],
+                                   [UIImage imageNamed:@"2.0_play_status_4"],
+                                   [UIImage imageNamed:@"2.0_play_status_5"],
+                                   [UIImage imageNamed:@"2.0_play_status_6"],
+                                   [UIImage imageNamed:@"2.0_play_status_7"],
+                                   [UIImage imageNamed:@"2.0_play_status_8"],
+                                   [UIImage imageNamed:@"2.0_play_status_9"],
+                                   [UIImage imageNamed:@"2.0_play_status_10"],
+                                   [UIImage imageNamed:@"2.0_play_status_11"],
+                                   [UIImage imageNamed:@"2.0_play_status_12"],
+                                   [UIImage imageNamed:@"2.0_play_status_13"],
+                                   [UIImage imageNamed:@"2.0_play_status_14"],
+                                   [UIImage imageNamed:@"2.0_play_status_15"],
+                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    
+    [playStatus stopAnimating];
+    playStatus.userInteractionEnabled = YES;
+    playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
+    UIButton * btn = [[UIButton alloc] initWithFrame:playStatus.frame ];
+    [playStatus addSubview:btn];
+    [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
+    
+    self.navigationItem.rightBarButtonItem = item;
     
     _search = [[UISearchBar alloc] init];
     

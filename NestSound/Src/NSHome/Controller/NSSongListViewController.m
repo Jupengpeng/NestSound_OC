@@ -126,7 +126,6 @@ UICollectionViewDelegateFlowLayout
     }
     NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
     NSString * str = [NSTool encrytWithDic:dic];
-    NSLog(@"zhes str%@",str);
     url = [songListURL  stringByAppendingString:str];
     self.requestType = YES;
     self.requestURL = url;

@@ -104,7 +104,6 @@ UITableViewDataSource>
     self.requestType = YES;
     int currentPage = 0;
     NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    NSLog(@"userDic%@",userDic);
     if (!isLoadingMore) {
         self.requestParams = @{kIsLoadingMore:@(NO)};
         currentPage = 1;
@@ -261,7 +260,6 @@ UITableViewDataSource>
     if (self.who == Other) {
         NSFansViewController * otherFansVC = [[NSFansViewController alloc] initWithUserID:userId _isFans:YES isWho:Other];
         [self.navigationController pushViewController:otherFansVC animated:YES];
-        NSLog(@"点击了他人的粉丝");
     }
     
 }
@@ -270,7 +268,6 @@ UITableViewDataSource>
 
 - (void)settingClick:(UIBarButtonItem *)editing {
     
-    NSLog(@"点击了设置");
     NSUserViewController * userSettingVC = [[NSUserViewController alloc] init];
     [self.navigationController pushViewController:userSettingVC animated:YES];
 }
@@ -282,20 +279,17 @@ UITableViewDataSource>
     
     [self.navigationController pushViewController:draftBox animated:YES];
     
-    NSLog(@"点击了草稿");
 }
 
 - (void)followClick:(UIBarButtonItem *)follow {
     
     [self focusUserWithUserId:userId];
-    NSLog(@"%@",userId);
-    NSLog(@"点击了Nav的关注");
+  
 }
 
 
 -(void)focusUserWithUserId:(NSString *)userId_
 {
-    NSLog(@"%@",userId_);
     self.requestType = NO;
     self.requestParams =@{@"userid":userId_,@"fansid":JUserID,@"token":LoginToken};
     self.requestURL = focusUserURL;
@@ -552,8 +546,6 @@ UITableViewDataSource>
             }
             
             
-            NSLog(@"点击了歌曲");
-            
             break;
         }
         case 1: {
@@ -568,7 +560,6 @@ UITableViewDataSource>
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             }
             
-            NSLog(@"点击了歌词");
             
             break;
         }
@@ -583,8 +574,6 @@ UITableViewDataSource>
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             }
             
-            NSLog(@"点击了收藏");
-            
             break;
         }
         case 3: {
@@ -596,8 +585,6 @@ UITableViewDataSource>
             if (dataAry.count != 0) {
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             }
-            
-            NSLog(@"点击了灵感记录");
             
             break;
         }
@@ -649,7 +636,6 @@ UITableViewDataSource>
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
-        NSLog(@"点击了删除");
 
        
     }

@@ -522,7 +522,6 @@
             _moreChoiceView.y = ScreenHeight;
         }];
         
-         NSLog(@"点击了编辑");
     }
 }
 

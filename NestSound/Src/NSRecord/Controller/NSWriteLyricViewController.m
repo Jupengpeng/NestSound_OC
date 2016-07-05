@@ -265,7 +265,6 @@
             [dict setValue:titleTextFiled.text forKey:@"lyricName"];
             
             [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
-            NSLog(@"dict %@",dict);
             NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
             
             //    NSShareViewController *shareView = [[NSShareViewController alloc] init];

@@ -65,15 +65,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"进入编辑");
+
 }
 
 
 - (void)draftBoxTableViewCell:(NSDraftBoxTableViewCell *)draftBoxCell withSendBtn:(UIButton *)sendBtn {
     
     NSIndexPath *index = [_tableView indexPathForCell:draftBoxCell];
-    
-    NSLog(@"点击了第%zd个cell的发送",index.row);
+    NSLog(@"%@",index);
 }
 
 

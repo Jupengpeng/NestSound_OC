@@ -220,8 +220,6 @@ static id _instance;
     
     CGFloat seconds = CMTimeGetSeconds(duration);
     
-    NSLog(@"duration: %.2f", seconds);
-    
     self.progressBar.maximumValue = seconds;
     
     self.totaltime.text = [NSString stringWithFormat:@"%02d:%02d",(int)seconds / 60, (int)seconds % 60];
@@ -283,7 +281,6 @@ static id _instance;
         }
     }
     
-    NSLog(@"播放结束");
 }
 
 
@@ -345,7 +342,6 @@ static id _instance;
 
         [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
         
-        NSLog(@"点击了播放界面的分享");
         
     }];
     
@@ -398,8 +394,6 @@ static id _instance;
         
         btn.selected = !btn.selected;
         
-        NSLog(@"点击了循环播放按钮");
-        
     }];
     
     self.loopBtn = loopBtn;
@@ -431,8 +425,6 @@ static id _instance;
         NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
         NSLog(@"%ld",_musicDetail.hotId);
         [self.navigationController pushViewController:musicView animated:YES];
-        
-        NSLog(@"点击了伴奏按钮");
         
     }];
     
@@ -574,7 +566,6 @@ static id _instance;
             
             [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:NO];
             
-            NSLog(@"点击了播放页的收藏");
         } else {
             
             [[NSToastManager manager] showtoast:@"请登录后再收藏"];
@@ -622,7 +613,7 @@ static id _instance;
             
             btn.selected = !btn.selected;
             [self upvoteItemId:self.musicDetail.itemID _targetUID:self.musicDetail.userID _type:1 _isUpvote:YES];
-            NSLog(@"点击了播放页的点赞");
+
         } else {
             
             [[NSToastManager manager] showtoast:@"请登录后再点赞"];
@@ -674,7 +665,6 @@ static id _instance;
             
             [self.navigationController pushViewController:commentVC animated:YES];
             
-            NSLog(@"点击了播放页的评论");
         } else {
             
             [[NSToastManager manager] showtoast:@"请登录后查看评论"];
@@ -728,7 +718,6 @@ static id _instance;
             
         }];
         
-        NSLog(@"点击了播放页的更多");
     }];
     
     [self.view addSubview:moreBtn];
@@ -764,7 +753,6 @@ static id _instance;
     
     [self.view addSubview:scrollView];
     
-    NSLog(@"%@",NSStringFromCGRect(collectionBtn.frame));
     
     
     //page
@@ -851,26 +839,23 @@ static id _instance;
         [self.player pause];
         
     }
-    NSLog(@"点击了播放和暂停按钮");
     
 }
 
-//上一首歌的点击事件
+//previous song
 - (void)previousBtnClick:(UIButton *)btn {
     
     self.itemUid = self.musicDetail.prevItemID;
     [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
     
-    NSLog(@"点击了上一首按钮");
 }
 
-//下一首歌曲的点击事件
+//next song
 - (void)nextBtnClick:(UIButton *)btn {
     
     self.itemUid = self.musicDetail.nextItemID;
     [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
     
-    NSLog(@"点击了下一首按钮");
 }
 
 - (void)moreChoice {
@@ -918,7 +903,7 @@ static id _instance;
             
             NSUserFeedbackViewController * reportVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
             [wSelf.navigationController pushViewController:reportVC animated:YES];
-            NSLog(@"点击了举报");
+
         } else {
             
             [[NSToastManager manager] showtoast:@"请登录后再举报"];
@@ -951,7 +936,6 @@ static id _instance;
             NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.musicDetail.userID]];
             userVC.who = Other;
             [self.navigationController pushViewController:userVC animated:YES];
-            NSLog(@"点击了进入个人主页");
         } else {
             
             _maskView.hidden = YES;
@@ -1046,14 +1030,13 @@ static id _instance;
 }
 
 
-//进度条数值
+//progress
 - (void)progressBarSlither:(UISlider *)progressBar {
     
     CMTime ctime = CMTimeMake(progressBar.value, 1);
     
     [self.musicItem seekToTime:ctime];
     
-    NSLog(@"%f",progressBar.value);
 }
 
 
@@ -1068,7 +1051,6 @@ static id _instance;
 - (void)actionTiming {
     
     self.progressBar.value ++;
-    NSLog(@"定时器%ld",(long)self.progressBar.value);
     
     CMTime ctime = self.musicItem.currentTime;
     UInt64 currentTimeSec = ctime.value/ctime.timescale;
@@ -1145,7 +1127,6 @@ static id _instance;
     
     [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
     commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
-    NSLog(@"comme%ld",_musicDetail.commentNum);
     upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
     collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
     

@@ -52,13 +52,10 @@
         
         [self fetchDataWithType:1 andIsLoadingMore:NO];
         
-        NSLog(@"这是搜索的歌曲");
     } else if (self.contentScrollView.contentOffset.x == ScreenWidth) {
         [self fetchDataWithType:2 andIsLoadingMore:NO];
-        NSLog(@"这是搜索的歌词");
     } else {
         [self fetchDataWithType:3 andIsLoadingMore:NO];
-        NSLog(@"这是搜索的用户");
     }
 }
 
@@ -86,8 +83,6 @@
     }
     
     NSString * str = [NSTool encrytWithDic:dic];
-    NSLog(@"%@",dic);
-    NSLog(@"%@",str);
     if (type == 1|| type == 2) {
         requestMusicURL = [searchURL stringByAppendingString:str];
         self.requestURL = requestMusicURL;
@@ -238,14 +233,10 @@
     
     if (titleBtn.tag == 0) {
         [self fetchDataWithType:1 andIsLoadingMore:NO];
-        NSLog(@"这是搜索的歌曲");
     } else if (titleBtn.tag == 1) {
         [self fetchDataWithType:2 andIsLoadingMore:NO];
-
-        NSLog(@"这是搜索的歌词");
     } else {
           [self fetchDataWithType:3 andIsLoadingMore:NO];
-        NSLog(@"这是搜索的用户");
     }
     
 }
@@ -260,13 +251,10 @@
     
     if (scrollView.contentOffset.x == 0) {
         [self fetchDataWithType:1 andIsLoadingMore:NO];
-        NSLog(@"这是搜索的歌曲");
     } else if (scrollView.contentOffset.x == ScreenWidth) {
         [self fetchDataWithType:2 andIsLoadingMore:NO];
-        NSLog(@"这是搜索的歌词");
     } else {
          [self fetchDataWithType:3 andIsLoadingMore:NO];
-        NSLog(@"这是搜索的用户");
     }
 }
 
@@ -278,7 +266,6 @@
         [self.delegate1 searchMusicViewController:self withItemId:itemID];
     }
     
-    NSLog(@"歌曲");
 }
 
 - (void)searchLyricTableView:(NSSearchMusicTableView *)tableView withItemId:(long)itemID {
@@ -288,7 +275,6 @@
         [self.delegate1 searchLyricViewController:self withItemId:itemID];
     }
     
-    NSLog(@"歌词");
 }
 
 - (void)searchUserCollectionView:(NSSearchUserCollectionView *)collectionView withUserID:(long)userID {
@@ -298,7 +284,6 @@
         [self.delegate1 searchViewController:self withUserID:userID];
     }
     
-    NSLog(@"用户");
 }
 
 @end

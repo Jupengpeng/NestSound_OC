@@ -440,7 +440,7 @@
                     if (repasswordText.text.length!=0 || passwordText.text.length != 0) {
                         if ([repasswordText.text isEqualToString:passwordText.text]) {
                             self.requestType = NO;
-                            self.requestParams = @{@"mobile":phoneText.text,@"code":captchaText.text,@"password":passwordText.text};
+                            self.requestParams = @{@"mobile":phoneText.text,@"code":captchaText.text,@"password":[passwordText.text stringToMD5] };
                             self.requestURL = reSetPasswordURL;
                             
                         }else{

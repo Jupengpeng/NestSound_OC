@@ -278,8 +278,6 @@
             [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
         }
         
-        
-        NSLog(@"点击了获取验证码");
     }];
     
     [captchaView addSubview:captchaBtn];
@@ -491,7 +489,6 @@
         
         [self.navigationController pushViewController:protocolVC animated:YES];
         
-        NSLog(@"点击了协议");
         
     }];
     
@@ -525,8 +522,6 @@
     } action:^(UIButton *btn) {
         
         [self registerNumber];
-        
-        NSLog(@"点击了确定");
     
     }];
     
@@ -545,7 +540,6 @@
     } action:^(UIButton *btn) {
         
         [wSelf.navigationController popToRootViewControllerAnimated:YES];
-        NSLog(@"点击了有账号 登录");
         
     }];
     
@@ -590,7 +584,6 @@
         
         [[NSToastManager manager] showtoast:@"亲，两次输入密码不一致哦"];
     }else{
-        NSLog(@"%@",captchaText.text);
         NSString * password = [passwordText.text stringToMD5];
         NSString * rePassword = [repasswordText.text stringToMD5];
         self.requestParams = @{@"name":userNameText.text,

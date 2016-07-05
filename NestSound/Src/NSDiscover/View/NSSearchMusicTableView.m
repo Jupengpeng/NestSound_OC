@@ -73,7 +73,6 @@
             [self.delegate1 searchMusicTableView:self withItemId:model.itemId];
         }
         
-        NSLog(@"点击了歌曲的第%zd个cell",indexPath.row);
     } else if (tableView.tag == 2) {
         
         if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:withItemId:)]) {
@@ -81,7 +80,6 @@
             [self.delegate1 searchLyricTableView:self withItemId:model.itemId];
         }
         
-        NSLog(@"点击了歌词的第%zd个cell",indexPath.row);
     }
 }
 

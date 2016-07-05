@@ -157,7 +157,6 @@
     
     playCountLab.text = _songNew.playCount;
     
-    NSLog(@"thie type:%d",_songNew.type);
     if (_songNew.type == 1) {
         [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
     }else{

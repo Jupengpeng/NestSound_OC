@@ -74,7 +74,7 @@
                                                                         [wSelf actionFetchRequest:operation result:nil error:requestErr];
                                                                     }];
 
-    NSLog(@"requestURL %@",operation.originalRequest.URL.absoluteString);
+    NSLog(@"%@",operation);
 
 }
 
