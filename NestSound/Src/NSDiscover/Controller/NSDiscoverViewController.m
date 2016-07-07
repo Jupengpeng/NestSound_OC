@@ -25,6 +25,7 @@
     UIView *_lineView;
     
     UISearchBar *_search;
+    
     UIImageView * playStatus;
     
 //    UIView *_maskView;
@@ -40,6 +41,8 @@
 @property (nonatomic, strong) NSSearchViewController *searchVC;
 
 @property (nonatomic, strong) UIView *maskView;
+
+@property (nonatomic, assign) BOOL maskAlpha;
 
 @end
 
@@ -89,7 +92,22 @@
     
     [super viewWillAppear:animated];
     
+    if (self.maskAlpha == YES) {
+        
+        self.tabBarController.tabBar.hidden = YES;
+        
+        self.maskView.alpha = 1;
+        
+    } else {
+        
+        [self searchBarCancelButtonClicked:_search];
+        
+        self.tabBarController.tabBar.hidden = NO;
+    }
+    
+    
     self.navigationController.navigationBar.hidden = NO;
+    
     if (self.playSongsVC.player == nil) {
         
     } else {
@@ -100,8 +118,7 @@
             [playStatus stopAnimating];
         }
     }
-
-
+    
 }
 
 
@@ -163,7 +180,6 @@
     
     self.tabBarController.tabBar.hidden = YES;
     
-
     
 }
 
@@ -314,7 +330,6 @@
 }
 
 
-
 - (void)titleBtnClick:(UIButton *)titleBtn {
     
     if (titleBtn.tag == 0) {
@@ -356,8 +371,6 @@
 }
 
 
-
-
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
     
     if (self.playSongsVC.player == nil) {
@@ -371,7 +384,11 @@
 
 
 - (void)searchMusicViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID {
-    [self searchBarCancelButtonClicked:_search];
+//    [self searchBarCancelButtonClicked:_search];
+    self.maskAlpha = YES;
+    self.maskView.alpha = 0;
+    
+    
     NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic] ;
     playMusicVC.itemUid = itemID;
     playMusicVC.from = @"homepage";
@@ -383,7 +400,11 @@
 }
 
 - (void)searchLyricViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID {
-    [self searchBarCancelButtonClicked:_search];
+//    [self searchBarCancelButtonClicked:_search];
+    self.maskAlpha = YES;
+    self.maskView.alpha = 0;
+    
+    
     NSLyricViewController *lyricVC = [[NSLyricViewController alloc] initWithItemId:itemID];
     
     [self.navigationController pushViewController:lyricVC animated:YES];
@@ -395,7 +416,10 @@
     
     if (JUserID) {
         
-        [self searchBarCancelButtonClicked:_search];
+//        [self searchBarCancelButtonClicked:_search];
+        self.maskAlpha = YES;
+        self.maskView.alpha = 0;
+        
         
         NSUserPageViewController *userPage = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",userID]];
         userPage.who = Other;
@@ -410,6 +434,7 @@
     }
     
 }
+
 @end
 
 

@@ -194,7 +194,7 @@
         
         [UIView setAnimationBeginsFromCurrentState:YES];
         [UIView setAnimationCurve:[curve intValue]];
-            
+        
         bottomView.y = keyBoardEndY - bottomView.height - 64;
         
     }];

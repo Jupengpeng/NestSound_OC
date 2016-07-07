@@ -214,8 +214,6 @@
     searchUser.dataAry = userDataAry;
     [self.contentScrollView addSubview:searchUser];
     
-    
-    
 }
 
 

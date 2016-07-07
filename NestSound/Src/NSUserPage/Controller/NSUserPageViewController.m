@@ -168,7 +168,6 @@ UITableViewDataSource>
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
     }
     
-    
 }
 
 #pragma mark -setupUI
