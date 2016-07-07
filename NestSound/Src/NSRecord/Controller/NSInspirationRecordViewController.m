@@ -153,13 +153,45 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 
 - (void)backClick:(UIBarButtonItem *)back {
     
-    NSFileManager *manager = [NSFileManager defaultManager];
+    WS(wSelf);
     
-    [manager removeItemAtPath:self.audioPath error:nil];
+    [self removeLink];
+    [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+    [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
     
-    self.audioPath = nil;
+    if (self.audioPath || inspiration.lyricText.text.length > 0 || ImageArr.count > 0) {
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定放弃?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            
+            [manager removeItemAtPath:self.audioPath error:nil];
+            
+            self.audioPath = nil;
+            
+            [wSelf.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            return;
+        }];
+        
+        [alert addAction:action1];
+        
+        [alert addAction:action];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    } else {
+        
+        [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -314,6 +346,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             NSInspirtationModel * inspirtation = (NSInspirtationModel *)parserObject;
             self.inspritationModel = inspirtation.inspirtationModel;
         }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
+            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            
+            [manager removeItemAtPath:self.audioPath error:nil];
+            
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         
@@ -1020,9 +1057,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }else{
             cell.image.image = ImageArr[indexPath.row];
         }
-        
     }
-    
     
     return cell;
 }
@@ -1036,7 +1071,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             wSelf.audioPath = newfilePath;
             [wSelf uploadPhotoWith:nil type:YES token:nil url:nil];
-            
+            rightItem.enabled = NO;
             NSLog(@"点击了发布");
             
         }];

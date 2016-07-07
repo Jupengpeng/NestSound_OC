@@ -237,8 +237,8 @@
     [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
     [self.player stop];
     self.next.enabled = YES;
-    
-    if (self.wavFilePath || self.mp3File) {
+    UIButton *btn =  self.btns[2];
+    if (self.wavFilePath || self.mp3File || btn.selected) {
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定放弃?" message:nil preferredStyle:UIAlertControllerStyleAlert];
         
