@@ -646,18 +646,11 @@ UITableViewDataSource>
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
-<<<<<<< HEAD
 
         [tableView reloadData];
         
         NSLog(@"点击了删除");
 
-
-=======
-        [tableView reloadData];
-        
-        NSLog(@"点击了删除");
->>>>>>> bdb391bf5d114e4fd0117ea996a9bd224dda5bda
        
     }
 }
