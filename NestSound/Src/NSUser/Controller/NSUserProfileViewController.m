@@ -212,7 +212,7 @@ static NSString * const settingCellIditify = @"settingCell";
             make.centerY.equalTo(settingCell.contentView.mas_centerY);
             make.right.equalTo(settingCell.contentView.mas_right
                                ).with.offset(-15);
-            
+            make.left.equalTo(settingCell.contentView.mas_left).offset(50);
         }];
         
         [userIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -260,7 +260,7 @@ static NSString * const settingCellIditify = @"settingCell";
         }
         valueLabel.text = birthday;
     }else if (row == 4){
-        settingCell.textLabel.text = @"个人描述";
+        settingCell.textLabel.text = @"个人签名";
         if (userInfo[@"desc"]) {
             signature = userInfo[@"desc"];
         }else{

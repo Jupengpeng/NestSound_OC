@@ -68,7 +68,7 @@
     _cocachBtn = [UIButton buttonWithType:UIButtonTypeCustom
                                configure:^(UIButton *btn) {
                                    [btn setImage:[UIImage imageNamed:@"2.0_coach_btn"] forState:UIControlStateNormal];
-                                   [btn setTitle:@"教程" forState:UIControlStateNormal];
+                                   [btn setTitle:@"使用教程" forState:UIControlStateNormal];
                                    [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
                                    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                                }
@@ -252,7 +252,6 @@
 - (void)rightClick:(UIBarButtonItem *)right {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    // = @{@"lyricName" : titleTextFiled.text, @"lyric" : lyricView.lyricText.text};
     
     
     if (titleTextFiled.text.length == 0) {
@@ -266,9 +265,6 @@
             
             [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
             NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
-            
-            //    NSShareViewController *shareView = [[NSShareViewController alloc] init];
-            //
             [self.navigationController pushViewController:publicVC animated:YES];
             
         }

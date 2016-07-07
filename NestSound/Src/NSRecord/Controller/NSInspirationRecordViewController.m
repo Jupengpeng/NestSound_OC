@@ -92,13 +92,17 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //time stamp
     NSTimeInterval time = [date getTimeStamp];
-    
-    self.title = [date datetoLongStringWithDate:time];
-    
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:time];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    NSString * currentTimeString = [formatter stringFromDate:dat];
+    //nav
+    self.title = currentTimeString;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(rightItemClick:)];
+    
     
     if (!isWrite) {
         [self fetchInspirationDataWithItemId:itemID];
@@ -286,8 +290,15 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"audio":audioURL_};
     }
     
+    if (isWrite) {
+        self.requestURL = publicInspirationURL;
+    }else{
+        NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:self.requestParams];
+        [dic setObject:[NSNumber numberWithLong:itemID] forKey:@"itemid"];
+        self.requestParams = dic;
+        self.requestURL = changeInspirationURL;
+    }
     
-    self.requestURL = publicInspirationURL;
 }
 
 #pragma mark -actionFetchData

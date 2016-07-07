@@ -10,6 +10,7 @@
 #import "NSMessageListViewController.h"
 #import "NSMessageListModel.h"
 #import "NSLoginViewController.h"
+#import "NSPlayMusicViewController.h"
 @interface NSMessageViewController ()<
 UITableViewDelegate,
 UITableViewDataSource
@@ -21,22 +22,74 @@ UITableViewDataSource
     NSMutableArray * bageAry;
     NSString * userID;
     NSString * url;
+    UIImageView * playStatus;
     NSLoginViewController * login;
 }
+
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 @end
 
 
 
 @implementation NSMessageViewController
 
-
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+    }
+    
+    return _playSongsVC;
+}
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
+    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
+    
+    playStatus.animationDuration = 0.8;
+    playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
+                                   [UIImage imageNamed:@"2.0_play_status_2"],
+                                   [UIImage imageNamed:@"2.0_play_status_3"],
+                                   [UIImage imageNamed:@"2.0_play_status_4"],
+                                   [UIImage imageNamed:@"2.0_play_status_5"],
+                                   [UIImage imageNamed:@"2.0_play_status_6"],
+                                   [UIImage imageNamed:@"2.0_play_status_7"],
+                                   [UIImage imageNamed:@"2.0_play_status_8"],
+                                   [UIImage imageNamed:@"2.0_play_status_9"],
+                                   [UIImage imageNamed:@"2.0_play_status_10"],
+                                   [UIImage imageNamed:@"2.0_play_status_11"],
+                                   [UIImage imageNamed:@"2.0_play_status_12"],
+                                   [UIImage imageNamed:@"2.0_play_status_13"],
+                                   [UIImage imageNamed:@"2.0_play_status_14"],
+                                   [UIImage imageNamed:@"2.0_play_status_15"],
+                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    
+    [playStatus stopAnimating];
+    playStatus.userInteractionEnabled = YES;
+    playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
+    UIButton * btn = [[UIButton alloc] initWithFrame:playStatus.frame ];
+    [playStatus addSubview:btn];
+    [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
+    
+    self.navigationItem.rightBarButtonItem = item;
+    
+    [self fetchData];
 }
-
+#pragma mark -playMusic
+- (void)musicPaly:(UIBarButtonItem *)palyItem {
+    
+    if (self.playSongsVC.player == nil) {
+        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
+    } else {
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    }
+    
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -58,8 +111,16 @@ UITableViewDataSource
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
     }else{
-    [super viewDidAppear:animated];
-    [self fetchData];
+        if (self.playSongsVC.player == nil) {
+            
+        } else {
+            
+            if (self.playSongsVC.player.rate != 0.0) {
+                [playStatus startAnimating];
+            }else{
+                [playStatus stopAnimating];
+            }
+        }
     }
 }
 #pragma mark -fetchData
@@ -103,6 +164,10 @@ UITableViewDataSource
 {
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
+    //nav
+    
+    
+    
     //imageAry;
     imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.0_message_system.png"];
     
@@ -131,6 +196,15 @@ UITableViewDataSource
         make.left.top.right.bottom.equalTo(self.view);
     }];
 //
+    WS(wSelf);
+    //refresh
+    [_messageTypeTab addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchData];
+        }
+    }];
     
 }
 

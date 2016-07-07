@@ -140,7 +140,7 @@
     [songListName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(songListType.mas_left);
         make.right.equalTo(self.mas_right).with.offset(-15);
-        make.top.equalTo(songListType.mas_bottom);
+        make.top.equalTo(songListType.mas_bottom).offset(10);
 //        make.height.mas_equalTo(16);
     }];
     

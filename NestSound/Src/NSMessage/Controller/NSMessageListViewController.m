@@ -369,7 +369,6 @@ static NSString * const systemCellID = @"SystemCellID";
     if ( messageList.contentOffset.y > messageList.contentSize.height) {
         [self fetchDataWithIsLoadingMore:YES];
         messageList.showsInfiniteScrolling = YES;
-       
     }
 }
 

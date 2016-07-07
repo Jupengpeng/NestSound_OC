@@ -134,7 +134,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 }
 
-
+#pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
     
@@ -164,6 +164,12 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [_collection registerClass:[NSIndexCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView];
     
     [self.view addSubview:_collection];
+    
+    WS(wSelf);
+    //reloading
+    [_collection addDDPullToRefreshWithActionHandler:^{
+        [wSelf fetchIndexData];
+    }];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -309,7 +315,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     } else if (indexPath.section == 1) {
         
         CGFloat W = (ScreenWidth - 40) * 0.5;
-        return CGSizeMake(W, W*0.64);
+        return CGSizeMake(W, 135);
         
     } else if (indexPath.section == 2) {
         

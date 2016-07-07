@@ -33,7 +33,7 @@
     //titlePage
     titilePage = [[UIImageView alloc] init];
     titilePage.layer.cornerRadius = 10;
-    [titilePage setDDImageWithURLString:@"http://pic.yinchao.cn/%E6%B8%85%E5%94%B1.png" placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [titilePage setDDImageWithURLString:@"http://pic.yinchao.cn/noAccomy20160707134021.png" placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     titilePage.userInteractionEnabled = YES;
     [self addSubview:titilePage];
     

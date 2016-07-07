@@ -44,7 +44,12 @@ UITextFieldDelegate
 {   
     self.requestType = NO;
     
-    self.requestParams= @{@"userid":JUserID,@"text":[NSString stringWithFormat:@"%@",content_],@"phone":[NSString stringWithFormat:@"%@",number],@"token":LoginToken};
+    if (number == nil) {
+        self.requestParams= @{@"userid":JUserID,@"text":[NSString stringWithFormat:@"%@",content_],@"token":LoginToken};
+    }else{
+        self.requestParams= @{@"userid":JUserID,@"text":[NSString stringWithFormat:@"%@",content_],@"phone":[NSString stringWithFormat:@"%@",number],@"token":LoginToken};
+    }
+    
 
     if ([Type isEqualToString:@"feedBack"]) {
         self.requestURL = feedBackURL;
@@ -183,7 +188,7 @@ UITextFieldDelegate
         [[NSToastManager manager] showtoast:@"反馈内容不能为空"];
     }else{
         if (cellNumber.text.length == 0) {
-            [[NSToastManager manager] showtoast:@"手机号码不能为空"];
+            [self feedBackWithContent:comment.text andNumber:nil];
         }else{
             [self feedBackWithContent:comment.text andNumber:cellNumber.text];
             

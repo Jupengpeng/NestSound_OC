@@ -161,6 +161,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 #pragma mark configureUIAppearance
 -(void)configureUIAppearance
 {
+    //nav
+    self.title = @"原唱伴奏";
+    
     //accompanyListTableView
     accompanyListTabelView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     accompanyListTabelView.dataSource = self;

@@ -181,7 +181,7 @@
     }
     
     
-    [cell addDateLabel];
+//    [cell addDateLabel];
     
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
