@@ -151,42 +151,53 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     WS(wSelf);
     
-    [self removeLink];
-    [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
-    [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
-    
-    if (self.audioPath || inspiration.lyricText.text.length > 0 || ImageArr.count > 0) {
+    if (self.navigationItem.rightBarButtonItem == nil) {
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定放弃?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [NSPlayMusicTool pauseMusicWithName:nil];
         
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSFileManager *manager = [NSFileManager defaultManager];
-            
-            [manager removeItemAtPath:self.audioPath error:nil];
-            
-            self.audioPath = nil;
-            
-            [wSelf.navigationController popViewControllerAnimated:YES];
-        }];
-        
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            return;
-        }];
-        
-        [alert addAction:action1];
-        
-        [alert addAction:action];
-        
-        [self presentViewController:alert animated:YES completion:nil];
-        
-    } else {
-        
-        [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+        [NSPlayMusicTool stopMusicWithName:nil];
         
         [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        
+        [self removeLink];
+        [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+        [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
+        
+        if (self.audioPath || inspiration.lyricText.text.length > 0 || ImageArr.count > 0) {
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定放弃?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                
+                NSFileManager *manager = [NSFileManager defaultManager];
+                
+                [manager removeItemAtPath:self.audioPath error:nil];
+                
+                self.audioPath = nil;
+                
+                [wSelf.navigationController popViewControllerAnimated:YES];
+            }];
+            
+            UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                return;
+            }];
+            
+            [alert addAction:action1];
+            
+            [alert addAction:action];
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        } else {
+            
+            [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
+    
     
 }
 
