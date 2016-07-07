@@ -182,7 +182,11 @@
     titleTextFiled = [[UITextField alloc] init];
     titleTextFiled.textAlignment = NSTextAlignmentCenter;
     titleTextFiled.font = [UIFont systemFontOfSize:15];
+    if (self.lyricTitle.length) {
+        titleTextFiled.text = self.lyricTitle;
+    } else {
     titleTextFiled.placeholder = @"标  题";
+    }
 //    LocalizedStr(@"promot_title");
     titleTextFiled.borderStyle = UITextBorderStyleNone;
     titleTextFiled.delegate = self;
@@ -203,6 +207,11 @@
     //lyricView
     lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 45, ScreenWidth, ScreenHeight - 162)];
     lyricView.backgroundColor = [UIColor whiteColor];
+    if (self.lyricText.length) {
+        lyricView.lyricText.text = self.lyricText;
+    } else {
+        
+    }
     lyricView.lyricText.delegate = self;
     lyricView.lyricText.editable = YES;
     lyricView.lyricText.textAlignment = NSTextAlignmentCenter;

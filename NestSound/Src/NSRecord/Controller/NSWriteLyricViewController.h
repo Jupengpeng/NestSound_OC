@@ -9,5 +9,5 @@
 #import "NSBaseViewController.h"
 
 @interface NSWriteLyricViewController: NSBaseViewController
-
+@property (nonatomic,copy) NSString *lyricTitle,*lyricText;
 @end
