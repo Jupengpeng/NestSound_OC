@@ -13,7 +13,7 @@
 #import "NSCommentViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSLoginViewController.h"
-
+#import "NSWriteLyricViewController.h"
 @interface NSLyricViewController ()<UMSocialUIDelegate>
 {
 
@@ -434,9 +434,9 @@
 //        moreChoiceViewH = 132;
 //    } else {
     
-        array = @[@"举报",@"分享"];
+        array = @[@"举报",@"分享",@"编辑"];
         
-        moreChoiceViewH = 88;
+        moreChoiceViewH = 44 *array.count;
 //    }
     
     
@@ -514,7 +514,8 @@
         
         [Share ShareWithTitle:_lyricDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]  andShareImage:nil andShareText:_lyricDetail.title andVC:self];
     } else {
-        
+        NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
+        [self.navigationController pushViewController:writeLyricVC animated:YES];
         _maskView.hidden = YES;
         
         [UIView animateWithDuration:0.25 animations:^{

@@ -42,6 +42,7 @@ UITableViewDataSource>
     int type;
     NSTableHeaderView *headerView ;
     int page;
+    UIImageView * emptyImage;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -160,6 +161,11 @@ UITableViewDataSource>
             }
 
             dataAry = myMusicAry;
+            if (dataAry.count == 0) {
+                emptyImage.hidden = NO;
+            } else {
+                emptyImage.hidden = YES;
+            }
             [_tableView reloadData];
         }else if ([operation.urlTag isEqualToString:focusUserURL]){
             [[NSToastManager manager] showtoast:@"关注成功"];
@@ -234,7 +240,10 @@ UITableViewDataSource>
     _tableView.showsInfiniteScrolling = NO;
     
     [self.view addSubview:_tableView];
-    
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    emptyImage.centerX = ScreenWidth/2;
+    emptyImage.y = 380;
+    [_tableView addSubview:emptyImage];
 }
 
 - (void)followBtnClick:(UIButton *)follow {
