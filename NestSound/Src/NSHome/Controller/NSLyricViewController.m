@@ -479,7 +479,7 @@
     if (btn.tag == 0) {
         
         if (JUserID) {
-            
+            //举报
             _maskView.hidden = YES;
             
             [UIView animateWithDuration:0.25 animations:^{
@@ -501,7 +501,7 @@
         }
         
     } else if (btn.tag == 1) {
-        
+        //分享
         _maskView.hidden = YES;
         
         [UIView animateWithDuration:0.25 animations:^{
@@ -514,7 +514,10 @@
         
         [Share ShareWithTitle:_lyricDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]  andShareImage:nil andShareText:_lyricDetail.title andVC:self];
     } else {
+        //编辑
         NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
+        writeLyricVC.lyricTitle = self.lyricDetail.title;
+        writeLyricVC.lyricText = self.lyricDetail.lyrics;
         [self.navigationController pushViewController:writeLyricVC animated:YES];
         _maskView.hidden = YES;
         
