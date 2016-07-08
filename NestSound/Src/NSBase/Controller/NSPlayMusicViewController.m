@@ -372,7 +372,7 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-<<<<<<< HEAD
+
 #warning 分享
         [self.view.window addSubview:self.shareMaskView];
 //        [[UIApplication sharedApplication].keyWindow addSubview:self.maskView];
@@ -394,11 +394,7 @@ static id _instance;
             self.shareMaskView.alpha = 0.4;
             self.shareBGView.bottom = self.view.height;
         }];
-        
-=======
-        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
-        
->>>>>>> 1628a13e562b208c21f38b37f549329a5ab6a195
+
     }];
     
     [self.view addSubview:shareBtn];
