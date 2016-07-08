@@ -36,7 +36,9 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self fetchData];
+    if (musicList.count == 0 || musicList == nil) {
+        [self fetchData];
+    }
 }
 
 #pragma mark - configureUIAppearance
