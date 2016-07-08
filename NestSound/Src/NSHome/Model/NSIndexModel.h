@@ -32,12 +32,13 @@
 @end
 
 @interface NSRecommend : NSBaseModel
+
 @property (nonatomic,copy) NSString * titlePageUrl;
 @property (nonatomic,copy) NSString * authorName;
-@property (nonatomic,copy) NSString * playCount;
 @property (nonatomic,copy) NSString * workName;
 @property (nonatomic,assign) long  itemId;
 @property (nonatomic,assign) int type;
+@property (nonatomic,assign) int playCount;
 
 @end
 
@@ -68,12 +69,13 @@
 @end
 
 @interface NSNew : NSBaseModel
+
 @property (nonatomic,copy) NSString * titlePageUrl;
 @property (nonatomic,copy) NSString * authorName;
-@property (nonatomic,copy) NSString * playCount;
 @property (nonatomic,copy) NSString * workName;
 @property (nonatomic,assign) long  itemId;
 @property (nonatomic,assign) int type;
+@property (nonatomic,assign) int  playCount;
 @end
 
 @interface NSNewList : NSBaseModel

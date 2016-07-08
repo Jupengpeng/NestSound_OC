@@ -134,8 +134,13 @@
     workNameLab.text = _recommend.workName;
 
     authorNameLab.text = _recommend.authorName;
-
-    playCountLab.text = _recommend.playCount;
+    if (_recommend.playCount > 9999) {
+        double count = (double)_recommend.playCount/10000.0;
+        NSLog(@"%f",count);
+        playCountLab.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        playCountLab.text = [NSString stringWithFormat:@"%d",_recommend.playCount];
+    }
 
     [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
 
@@ -155,7 +160,13 @@
     
     authorNameLab.text = _songNew.authorName;
     
-    playCountLab.text = _songNew.playCount;
+    
+    if (_songNew.playCount > 9999) {
+        float count = _songNew.playCount/10000;
+        playCountLab.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        playCountLab.text = [NSString stringWithFormat:@"%d",_songNew.playCount];
+    }
     
     if (_songNew.type == 1) {
         [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];

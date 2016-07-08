@@ -38,7 +38,9 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self fetchData];
+    if (activityAry.count == 0) {
+        [self fetchData];
+    }
 }
 
 
