@@ -367,10 +367,9 @@
     
     NSCommentTableViewCell * cell = (NSCommentTableViewCell *)label.superview.superview;
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.targetUserID]];
-    
+    pageVC.who = Other;
     [self.navigationController pushViewController:pageVC animated:YES];
     
-
 }
 
 
@@ -378,6 +377,8 @@
     
     
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.userID]];
+    
+    pageVC.who = Other;
     
     [self.navigationController pushViewController:pageVC animated:YES];
     

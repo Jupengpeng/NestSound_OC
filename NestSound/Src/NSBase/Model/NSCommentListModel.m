@@ -22,7 +22,11 @@
              @"comment":@"comment",
              @"headerURL":@"headerurl",
              @"nickName":@"nickname",
-             @"targetName":@"target_nickname"};
+             @"targetName":@"targetname",
+             @"titleImageURL":@"pic",
+             @"title":@"title",
+             @"authorName":@"author",
+             @"nowTargetName":@"target_nickname"};
 }
 
 @end

@@ -16,7 +16,7 @@
 
 @property (nonatomic,copy) NSString * titlePageUrl;
 @property (nonatomic,copy) NSString * authorName;
-@property (nonatomic,copy) NSString * playCount;
+@property (nonatomic,assign) int playCount;
 @property (nonatomic,copy) NSString * workName;
 @property (nonatomic,assign) long  itemId;
 @property (nonatomic,assign) int type;

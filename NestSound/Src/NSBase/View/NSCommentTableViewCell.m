@@ -36,6 +36,11 @@ static inline NSRegularExpression * NameRegularExpression() {
     //日期
     UILabel *dateLabel;
     
+    
+    UIView * bkView;
+    UIImageView * titlePage;
+    UILabel * authorName;
+    UILabel * workNameLabel;
 }
 
 
@@ -47,7 +52,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 //回复了谁
 @property (nonatomic, copy) NSString *name;
 
-
+@property (nonatomic, assign) BOOL message;
 //@property (nonatomic, strong) UILabel *replyLabel;
 //
 //@property (nonatomic, strong) UIButton *nameBtn;
@@ -208,6 +213,63 @@ static inline NSRegularExpression * NameRegularExpression() {
     
 }
 
+- (void)messagePage {
+    
+    self.message = YES;
+    
+    //bkview
+    bkView = [[UIView alloc] init];
+    bkView.backgroundColor = [UIColor hexColorFloat:@"f0f0f0"];
+    bkView.layer.cornerRadius = 10;
+    bkView.layer.masksToBounds = YES;
+    [self.contentView addSubview:bkView];
+    
+    //titlePage
+    titlePage = [[UIImageView alloc] init];
+    [bkView addSubview:titlePage];
+  
+    //worknameLabel
+    workNameLabel = [[UILabel alloc] init];
+    workNameLabel.font = [UIFont systemFontOfSize:14];
+    workNameLabel.textColor = [UIColor hexColorFloat:@"181818"];
+    [bkView addSubview:workNameLabel];
+    
+    //authorLabel
+    authorName = [[UILabel alloc] init];
+    authorName.font = [UIFont systemFontOfSize:11];
+    authorName.textColor = [UIColor hexColorFloat:@"666666"];
+    [bkView addSubview:authorName];
+
+    
+    [bkView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(iconBtn.mas_left);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-15);
+        make.top.equalTo(self.commentLabel.mas_bottom).with.offset(10);
+        make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
+    }];
+    
+    [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(bkView.mas_left);
+        make.top.equalTo(bkView.mas_top);
+        make.bottom.equalTo(bkView.mas_bottom);
+        make.width.mas_equalTo(75);
+    }];
+    
+    [workNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titlePage.mas_right).with.offset(10);
+        make.top.equalTo(titlePage.mas_top).with.offset(20);
+        make.right.equalTo(bkView.mas_right).with.offset(-10);
+        
+    }];
+    
+    [authorName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(workNameLabel.mas_left);
+        make.top.equalTo(workNameLabel.mas_bottom).with.offset(10);
+        make.right.equalTo(workNameLabel.mas_right);
+    }];
+
+}
+
 
 - (void)layoutSubviews {
     
@@ -267,15 +329,21 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     dateLabel.text = [date datetoStringWithDate:self.commentModel.createDate];
     
+    [titlePage setDDImageWithURLString:self.commentModel.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    
+    workNameLabel.text = self.commentModel.title;
+    
+    authorName.text = self.commentModel.authorName;
+    
     
     WS(wSelf);
     
     if (self.commentModel.commentType == 1) {
         
-        self.name = [NSString stringWithFormat:@"%@",self.commentModel.targetName];
+        self.name = [NSString stringWithFormat:@"%@",self.message == YES ? self.commentModel.targetName : self.commentModel.nowTargetName];
     } else {
 
-        self.name = [NSString stringWithFormat:@"回复 %@ :",self.commentModel.targetName];
+        self.name = [NSString stringWithFormat:@"回复 %@ :",self.message == YES ? self.commentModel.targetName : self.commentModel.nowTargetName];
     }
     self.replyStr = self.commentModel.comment;
     NSString *text = [NSString stringWithFormat:@"%@ %@",self.name, self.replyStr];
@@ -285,7 +353,7 @@ static inline NSRegularExpression * NameRegularExpression() {
      {
          
          //设置可点击文字的范围
-         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.commentModel.targetName == nil ? @"" : wSelf.commentModel.targetName options:NSCaseInsensitiveSearch];
+         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.message == YES ? wSelf.commentModel.targetName : wSelf.commentModel.nowTargetName options:NSCaseInsensitiveSearch];
          
          //设定可点击文字的的大小
          UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
@@ -311,7 +379,7 @@ static inline NSRegularExpression * NameRegularExpression() {
         //正则
         NSRegularExpression *regexp = NameRegularExpression();
         
-        NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.commentModel.targetName.length)];
+        NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.message == YES ? self.commentModel.targetName.length : self.commentModel.nowTargetName.length)];
         
         [self.commentLabel addLinkToURL:nil withRange:linkRange];
         

@@ -24,6 +24,7 @@ UITableViewDataSource
     NSString * url;
     UIImageView * playStatus;
     NSLoginViewController * login;
+    int count;
 }
 
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
@@ -46,6 +47,8 @@ UITableViewDataSource
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    count = 1;
     
     playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
     
@@ -77,7 +80,6 @@ UITableViewDataSource
     
     self.navigationItem.rightBarButtonItem = item;
     
-    [self fetchData];
 }
 #pragma mark -playMusic
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
@@ -93,8 +95,10 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    count ++;
+    
     [super viewWillAppear:animated];
-    if (JUserID == nil) {
+    if (JUserID == nil&count == 2) {
         login = [[NSLoginViewController alloc] init];
         UINavigationController * loginNav = [[UINavigationController alloc] initWithRootViewController:login];
         loginNav.navigationBar.hidden = YES;
@@ -111,6 +115,7 @@ UITableViewDataSource
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
     }else{
+         [self fetchData];
         if (self.playSongsVC.player == nil) {
             
         } else {
@@ -163,9 +168,6 @@ UITableViewDataSource
 -(void)configureUIAppearance
 {
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    
-    //nav
-    
     
     
     //imageAry;

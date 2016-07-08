@@ -32,6 +32,10 @@
         
         self.navigationBar.barTintColor = [UIColor whiteColor];
         
+        
+        [self.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+        
+        [self.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
         
         viewController.hidesBottomBarWhenPushed = YES;
@@ -48,6 +52,11 @@
     if (self.childViewControllers.count <= 2) {
         
         self.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
+        
+        [self.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
+        
+        [self.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
+        
     }
     
     [self popViewControllerAnimated:YES];

@@ -33,4 +33,7 @@
 
 @property (nonatomic, weak) id<NSCommentTableViewCellDelegate> delegate;
 
+
+- (void)messagePage;
+
 @end
