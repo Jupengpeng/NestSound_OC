@@ -504,6 +504,12 @@ UITableViewDataSource>
         }
     }else if (type == 2){
         NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
+        if (self.who == Myself ) {
+            lyricVC.who = My;
+        }else{
+            lyricVC.who = His;
+        }
+        
         [self.navigationController pushViewController:lyricVC animated:YES];
     }else if (type == 3){
     

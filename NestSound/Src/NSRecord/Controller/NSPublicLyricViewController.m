@@ -320,10 +320,10 @@
             
         }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
             NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
+            NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
             
-            
-            [lyricDic setValue:publicLyric.publicLyricModel.shareURL forKeyPath:@"shareURL"];
-            
+            [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
+            [lyricDic setValue:titleImageURL forKey:@"titleImageURl"];
             [lyricDic setValue:descriptionText.text forKeyPath:@"desc"];
             NSShareViewController * shareVC =[[NSShareViewController alloc] init];
             shareVC.shareDataDic = lyricDic;
@@ -384,7 +384,7 @@
 #pragma mark -imagePicker
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage * image = [info objectForKey:UIImagePickerControllerEditedImage];
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]) {

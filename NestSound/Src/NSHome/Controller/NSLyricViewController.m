@@ -112,7 +112,7 @@
 -(void)fetchData
 {
     self.requestType = YES;
-    NSDictionary * dic = @{@"id": [NSString stringWithFormat:@"%ld",itemId],@"uid":@""};
+    NSDictionary * dic = @{@"id": [NSString stringWithFormat:@"%ld",itemId],@"uid":JUserID};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
     
@@ -427,18 +427,17 @@
     
     CGFloat moreChoiceViewH;
     
-//    if (/* DISABLES CODE */ (1) == 1) {
-//        
-//        array = @[@"举报",@"分享",@"编辑"];
-//        
-//        moreChoiceViewH = 132;
-//    } else {
+    if (self.who == His) {
+        
+        array = @[@"举报",@"分享"];
+        
+    } else {
     
         array = @[@"举报",@"分享",@"编辑"];
         
-        moreChoiceViewH = 44 *array.count;
-//    }
-    
+        
+    }
+    moreChoiceViewH = 44 *array.count;
     
     _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, moreChoiceViewH)];
     

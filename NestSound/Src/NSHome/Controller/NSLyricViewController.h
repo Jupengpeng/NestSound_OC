@@ -8,9 +8,18 @@
 
 #import "NSBaseViewController.h"
 
+typedef NS_ENUM(NSUInteger, Whose) {
+    
+    My,
+    
+    His,
+    
+};
+
+
 @interface NSLyricViewController : NSBaseViewController
 
-
+@property (nonatomic, assign) Whose who;
 
 -(instancetype)initWithItemId:(long) itemId_;
 

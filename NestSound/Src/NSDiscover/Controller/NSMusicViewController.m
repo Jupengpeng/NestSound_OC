@@ -51,7 +51,10 @@ static NSString * const headerView = @"HeaderView";
 {
 
     [super viewDidAppear:animated];
-    [self fetchData];
+    if (newSongList.count == 0 || newSongList == nil) {
+         [self fetchData];
+    }
+   
 }
 
 #pragma mark -configureUIAppearance

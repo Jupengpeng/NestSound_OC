@@ -159,8 +159,8 @@ static NSString *identifier = @"identifier";
 -(void)setShareDataDic:(NSMutableDictionary *)shareDataDic
 {
     _shareDataDic = shareDataDic;
-    workName = _shareDataDic[@"workName"];
-    shareUrl = _shareDataDic[@"shareUrl"];
+    workName = _shareDataDic[@"lyricName"];
+    shareUrl = _shareDataDic[@"shareURL"];
     titleImageURl = _shareDataDic[@"titleImageURl"];
     desc = _shareDataDic[@"desc"];
 }
