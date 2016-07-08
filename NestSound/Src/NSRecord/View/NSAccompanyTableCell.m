@@ -86,7 +86,7 @@
     
     [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.equalTo(self.contentView);
-        make.width.mas_equalTo(13*ScreenWidth/25);
+        make.width.mas_equalTo(12*ScreenWidth/25);
     }];
     
     [playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
