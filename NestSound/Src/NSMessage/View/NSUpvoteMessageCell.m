@@ -155,7 +155,7 @@
         upvoteLabel.text = @"收藏了你的作品";
 //        LocalizedStr(@"prompt_userCollection");
     }
-
+    
 }
 
 -(void)setUpvoteMessage:(UpvoteMessage *)upvoteMessage

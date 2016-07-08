@@ -21,7 +21,11 @@
 @property (nonatomic,copy) NSString * comment;
 @property (nonatomic,copy) NSString * headerURL;
 @property (nonatomic,copy) NSString * nickName;
+@property (nonatomic,copy) NSString * titleImageURL;
+@property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * targetName;//commented Name
+@property (nonatomic, copy) NSString *nowTargetName;
+@property (nonatomic, copy) NSString *authorName;
 @end
 
 @interface NSCommentListModel : NSBaseModel

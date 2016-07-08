@@ -671,7 +671,7 @@ static id _instance;
     //评论
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-        [btn setImage:[UIImage imageNamed:@"2.0_comment_normal"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
         
         [btn setImage:[UIImage imageNamed:@"2.0_comment_highlighted"] forState:UIControlStateHighlighted];
         

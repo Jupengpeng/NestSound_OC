@@ -17,10 +17,12 @@
 #import "NSCommentTableViewCell.h"
 #import "NSLyricViewController.h"
 #import "NSPlayMusicViewController.h"
+#import "NSUserPageViewController.h"
 @interface NSMessageListViewController ()<
 UITableViewDataSource,
 UITableViewDelegate,
-TTTAttributedLabelDelegate
+TTTAttributedLabelDelegate,
+NSCommentTableViewCellDelegate
 >
 {
     UITableView * messageList;
@@ -124,10 +126,11 @@ static NSString * const systemCellID = @"SystemCellID";
                 if (upvoteMessage.upvoteMessageList.count == 0) {
                     
                 }else{
-                [messageArr addObjectsFromArray:upvoteMessage.upvoteMessageList];
-            
+                    
+                    [messageArr addObjectsFromArray:upvoteMessage.upvoteMessageList];
                 }
             }
+            
             emptyImage.image = [UIImage imageNamed:@"2.0_noUpvote_bk"];
         }else if ([operation.urlTag isEqualToString:collectUrl]){
             NSUpvoteMessageListModel * collecMessage = (NSUpvoteMessageListModel *)parserObject;
@@ -222,7 +225,7 @@ static NSString * const systemCellID = @"SystemCellID";
         }
         
     }];
-   
+    
     //loadingMore
     [messageList addDDInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
@@ -276,7 +279,7 @@ static NSString * const systemCellID = @"SystemCellID";
         
         NSCommentTableViewCell *cell = (NSCommentTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         
-        return cell.commentLabelMaxY;
+        return cell.commentLabelMaxY + 80;
     }
     return 1;
 }
@@ -290,17 +293,19 @@ static NSString * const systemCellID = @"SystemCellID";
         NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:upvoteCellID];
         if (!cell) {
             cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:upvoteCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.isUpvote = YES;
         
         cell.upvoteMessage = messageArr[row];
-       
+        
         return cell;
         
     }else if (messageType == CollectionMessageType){
         NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:collectionCellID];
         if (!cell) {
             cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:collectionCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.isUpvote = NO;
         cell.upvoteMessage = messageArr[row];
@@ -312,8 +317,9 @@ static NSString * const systemCellID = @"SystemCellID";
          SystemMessageModel * sys = messageArr[row];
         if (!cell) {
             cell = [[NSSystemMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-
+        
         if (sys.type == 1 ) {
             cell.isTu = NO;
         }else{
@@ -326,6 +332,11 @@ static NSString * const systemCellID = @"SystemCellID";
         NSCommentTableViewCell * commentCell = [tableView dequeueReusableCellWithIdentifier:comment1CellID];
         if (!commentCell) {
             commentCell = [[NSCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:comment1CellID];
+            commentCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            commentCell.delegate = self;
+            
+            [commentCell messagePage];
         }
         commentCell.commentModel = messageArr[indexPath.row];
         commentCell.commentLabel.delegate = self;
@@ -360,6 +371,19 @@ static NSString * const systemCellID = @"SystemCellID";
             [self.navigationController pushViewController:eventDetail animated:YES];
         }
     }else if (messageType == CommentMessageType){
+        NSCommentModel *comment = messageArr[indexPath.row];
+        if (comment.type == 1) {
+            
+            NSPlayMusicViewController *playMusic = [NSPlayMusicViewController sharedPlayMusic];
+            playMusic.itemUid = comment.itemID;
+            playMusic.from = @"";
+            
+            [self.navigationController pushViewController:playMusic animated:YES];
+        } else {
+            
+            NSLyricViewController *lyric = [[NSLyricViewController alloc] initWithItemId:comment.itemID];
+            [self.navigationController pushViewController:lyric animated:YES];
+        }
         
     }
 
@@ -370,6 +394,29 @@ static NSString * const systemCellID = @"SystemCellID";
         [self fetchDataWithIsLoadingMore:YES];
         messageList.showsInfiniteScrolling = YES;
     }
+}
+
+
+- (void)commentTableViewCell:(NSCommentTableViewCell *)cell {
+    
+    
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.userID]];
+    
+    pageVC.who = Other;
+    
+    [self.navigationController pushViewController:pageVC animated:YES];
+    
+}
+
+
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    NSCommentTableViewCell * cell = (NSCommentTableViewCell *)label.superview.superview;
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.targetUserID]];
+    pageVC.who = Other;
+    [self.navigationController pushViewController:pageVC animated:YES];
+    
+    
 }
 
 @end

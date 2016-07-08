@@ -164,9 +164,6 @@ UITableViewDataSource
 {
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
-    //nav
-    
-    
     
     //imageAry;
     imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.0_message_system.png"];
