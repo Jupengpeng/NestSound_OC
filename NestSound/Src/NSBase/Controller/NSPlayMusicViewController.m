@@ -17,7 +17,7 @@
 #import "NSUserPageViewController.h"
 #import "NSWriteMusicViewController.h"
 #import "NSLoginViewController.h"
-
+#import "NSShareView.h"
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -31,6 +31,7 @@
     UILabel * upvoteNumLabel;
     UILabel * collecNumLabel;
     UILabel * commentNumLabel;
+    NSShareView *shareView;
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -75,6 +76,9 @@
 
 @property (nonatomic,strong) UILabel * numLabel;
 
+@property (nonatomic, strong) UIView * shareMaskView; //遮盖
+
+@property (nonatomic, strong) UIView *shareBGView;
 //@property (nonatomic,assign) long itemId;
 @end
 
@@ -104,7 +108,15 @@ static id _instance;
     return _instance;
 }
 
-
+//- (UIView *)maskView{
+//    if (!_maskView) {
+//        self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+//        self.maskView.backgroundColor = [UIColor blackColor];
+//        self.maskView.alpha = 0;
+//        [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHideSharegroundView)]];
+//    }
+//    return _maskView;
+//}
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -361,8 +373,26 @@ static id _instance;
     } action:^(UIButton *btn) {
         
 #warning 分享
-        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
+        [self.view.window addSubview:self.shareMaskView];
+//        [[UIApplication sharedApplication].keyWindow addSubview:self.maskView];
+        self.shareBGView = [UIView new];
+        [self.view.window addSubview:_shareBGView];
+        [self.shareBGView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.bottom.and.right.equalTo(self.view).with.offset(0);
+            make.height.mas_offset(180);
+        }];
         
+        shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
+        shareView.backgroundColor = [UIColor whiteColor];
+        
+        [self.shareBGView addSubview:shareView];
+        
+//        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
+       self.shareBGView.top = self.view.height;
+        [UIView animateWithDuration:0.4 animations:^{
+            self.shareMaskView.alpha = 0.4;
+            self.shareBGView.bottom = self.view.height;
+        }];
         
     }];
     
@@ -833,6 +863,15 @@ static id _instance;
     
     [scrollView addSubview:describeView];
     
+    //分享maskView
+    self.shareMaskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    
+    self.shareMaskView.backgroundColor = [UIColor blackColor];
+    
+    self.shareMaskView.alpha = 0;
+    
+    [self.shareMaskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHideSharegroundView)]];
+
 }
 
 //播放暂停点击事件
@@ -1153,7 +1192,19 @@ static id _instance;
     collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
     
 }
-
+- (void)setupMaskView {
+    
+}
+#pragma 隐藏分享弹框
+- (void)tapHideSharegroundView {
+    [UIView animateWithDuration:0.4 animations:^{
+        self.shareMaskView.alpha = 0;
+        self.shareBGView.top = self.view.bottom;
+    } completion:^(BOOL finished) {
+        [self.shareMaskView removeFromSuperview];
+        [self.shareBGView removeFromSuperview];
+    }];
+}
 
 @end
 
