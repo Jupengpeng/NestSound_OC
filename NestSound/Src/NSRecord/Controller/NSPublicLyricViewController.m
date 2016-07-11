@@ -109,18 +109,33 @@
     descriptionText = [[UITextView alloc] init];
     descriptionText.font = [UIFont systemFontOfSize:15];
     descriptionText.delegate = self;
+    if (self.lyricDetail.length) {
+        descriptionText.text = self.lyricDetail;
+    } else {
+        
+    }
     [backgroundView addSubview:descriptionText];
     
-    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 6, descriptionText.width, 15)];
     
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 6, descriptionText.width, 15)];
     placeholderLabel.text = @"快来写一下你为什么创作这首歌吧!";
-    [placeholderLabel sizeToFit];
     placeholderLabel.textColor = [UIColor lightGrayColor];
+    if (self.lyricDetail.length) {
+        placeholderLabel.hidden = YES;
+    } else {
+        placeholderLabel.hidden = NO;
+    }
+    [placeholderLabel sizeToFit];
+    
     
     [descriptionText addSubview:placeholderLabel];
     
     addTitlePageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (self.lyricImgUrl.length) {
+        [addTitlePageBtn setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.lyricImgUrl]]] forState:UIControlStateNormal];
+    } else {
     [addTitlePageBtn setBackgroundImage:[UIImage imageNamed:@"2.0_addPhoto_btn"] forState:UIControlStateNormal];
+    }
     [addTitlePageBtn addTarget:self action:@selector(addtitlePage) forControlEvents:UIControlEventTouchUpInside];
     [backgroundView addSubview:addTitlePageBtn];
     
@@ -287,12 +302,13 @@
     
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
-    if ([fm fileExistsAtPath:fullPath]) {
-        if (descriptionText.text.length == 0) {
+    if ([fm fileExistsAtPath:fullPath]||self.lyricImgUrl.length) {
+        if (descriptionText.text.length == 0 && !self.lyricDetail.length) {
             [[NSToastManager manager ] showtoast:@"描述不能为空哦"];
             btn.enabled = YES;
         }else{
             if (isLyric) {
+                
                 getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
             }else{
                 getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
@@ -316,6 +332,7 @@
             NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
             qiNiu * data = GetqiNiuModel.qiNIuModel;
             NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+
             titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
             
         }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
@@ -367,17 +384,20 @@
     switch (buttonIndex) {
         case 0:
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            
+            [self presentViewController:picker animated:YES completion:^{
+                
+            }];
             break;
         case 1:
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:picker animated:YES completion:^{
+                
+            }];
             break;
         default:
             break;
     }
-    [self presentViewController:picker animated:YES completion:^{
-
-    }];
+    
 
 }
 

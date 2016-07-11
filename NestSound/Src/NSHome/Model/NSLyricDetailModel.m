@@ -29,7 +29,8 @@
              @"titleImageUrl":@"pic",
              @"title":@"title",
              @"headerUrl":@"headurl",
-             @"createDate":@"createdate"
+             @"createDate":@"createdate",
+             @"detail":@"detail"
              };
 }
 

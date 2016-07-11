@@ -26,7 +26,7 @@
 @property (nonatomic,copy) NSString * titleImageUrl;
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * headerUrl;
-
+@property (nonatomic,copy) NSString *detail;
 @end
 
 @interface NSLyricDetailModel : NSBaseModel
