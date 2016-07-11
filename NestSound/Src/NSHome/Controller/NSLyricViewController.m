@@ -14,6 +14,7 @@
 #import "NSUserPageViewController.h"
 #import "NSLoginViewController.h"
 #import "NSWriteLyricViewController.h"
+#import "NSShareView.h"
 @interface NSLyricViewController ()<UMSocialUIDelegate>
 {
 
@@ -40,7 +41,8 @@
     
     //评论数
     long commentNum;
-    
+    // 分享
+    NSShareView *shareView;
     //歌词
     NSLyricView * _lyricView;
     long itemId;
@@ -93,7 +95,7 @@
     _maskView.hidden = NO;
     
     [UIView animateWithDuration:0.25 animations:^{
-        
+        shareView.y = ScreenHeight-shareView.height;
         _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
         
     }];
@@ -500,23 +502,35 @@
         }
         
     } else if (btn.tag == 1) {
+        
         //分享
-        _maskView.hidden = YES;
+        shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
+        
+        shareView.backgroundColor = [UIColor whiteColor];
+        for (int i = 0; i < 6; i++) {
+            UIButton *shareBtn = (UIButton *)[shareView viewWithTag:250+i];
+            [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        [self.navigationController.view  addSubview:shareView];
         
         [UIView animateWithDuration:0.25 animations:^{
             
             _moreChoiceView.y = ScreenHeight;
+            
+            shareView.y = ScreenHeight - shareView.height;
         }];
         
         
         NSLog(@"shareurl%@",[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]);
         
-        [Share ShareWithTitle:_lyricDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]  andShareImage:nil andShareText:_lyricDetail.title andVC:self];
     } else {
         //编辑
         NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
         writeLyricVC.lyricTitle = self.lyricDetail.title;
         writeLyricVC.lyricText = self.lyricDetail.lyrics;
+        writeLyricVC.lyricDetail = self.lyricDetail.detail;
+        writeLyricVC.lyricImgUrl = self.lyricDetail.titleImageUrl;
         [self.navigationController pushViewController:writeLyricVC animated:YES];
         _maskView.hidden = YES;
         
@@ -547,8 +561,9 @@
     _maskView.hidden = YES;
     
     [UIView animateWithDuration:0.25 animations:^{
-        
+        shareView.y = ScreenHeight;
         _moreChoiceView.y = ScreenHeight;
+        [shareView removeFromSuperview];
     }];
 }
 
@@ -621,6 +636,66 @@
     }
     
 }
-
+//
+- (void)handleShareAction:(UIButton *)sender {
+    NSLog(@"%@",sender.currentTitle);
+    WS(wSelf);
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:_lyricDetail.titleImageUrl];
+    [UMSocialData defaultData].extConfig.title = _lyricDetail.title;
+    if ([sender.currentTitle isEqualToString:@"微信"]) {
+        NSLog(@"微信");
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+        
+    }
+    
+    if ([sender.currentTitle isEqualToString:@"朋友圈"]) {
+        NSLog(@"朋友圈");
+                [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                    if (response.responseCode == UMSResponseCodeSuccess) {
+                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                }];
+    }
+    
+    if ([sender.currentTitle isEqualToString:@"微博"]) {
+        NSLog(@"微博");
+                [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
+                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                    if (response.responseCode == UMSResponseCodeSuccess) {
+                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                }];
+    }
+    if ([sender.currentTitle isEqualToString:@"QQ"]) {
+        NSLog(@"QQ");
+                [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                    if (response.responseCode == UMSResponseCodeSuccess) {
+                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                }];
+    }
+    if ([sender.currentTitle isEqualToString:@"QQ空间"]) {
+        NSLog(@"QQ空间");
+                [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                    if (response.responseCode == UMSResponseCodeSuccess) {
+                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                }];
+    }
+    if ([sender.currentTitle isEqualToString:@"复制链接" ]) {
+        NSLog(@"复制链接");
+        [UIPasteboard generalPasteboard].string = @"Hello World!";
+         [[NSToastManager manager] showtoast:@"复制成功"];
+                [shareView removeFromSuperview];
+    }
+}
 @end
 

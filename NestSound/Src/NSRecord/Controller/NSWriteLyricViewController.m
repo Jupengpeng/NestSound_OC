@@ -274,6 +274,8 @@
             
             [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
             NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
+            publicVC.lyricDetail = self.lyricDetail;
+            publicVC.lyricImgUrl = self.lyricImgUrl;
             [self.navigationController pushViewController:publicVC animated:YES];
             
         }

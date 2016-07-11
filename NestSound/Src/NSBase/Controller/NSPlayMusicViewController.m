@@ -77,9 +77,6 @@
 
 @property (nonatomic,strong) UILabel * numLabel;
 
-@property (nonatomic, strong) UIView * shareMaskView; //遮盖
-
-@property (nonatomic, strong) UIView *shareBGView;
 //@property (nonatomic,assign) long itemId;
 @end
 
@@ -372,25 +369,19 @@ static id _instance;
         
 
 #warning 分享
-        [self.view.window addSubview:self.shareMaskView];
-//        [[UIApplication sharedApplication].keyWindow addSubview:self.maskView];
-        self.shareBGView = [UIView new];
-        [self.view.window addSubview:_shareBGView];
-        [self.shareBGView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.bottom.and.right.equalTo(self.view).with.offset(0);
-            make.height.mas_offset(180);
-        }];
         
-        shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
+        shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
         shareView.backgroundColor = [UIColor whiteColor];
+        for (int i = 0; i < 6; i++) {
+            UIButton *shareBtn = (UIButton *)[shareView viewWithTag:250+i];
+            [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        [self.view addSubview:shareView];
         
-        [self.shareBGView addSubview:shareView];
         
-//        [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
-       self.shareBGView.top = self.view.height;
+         _maskView.hidden = NO;
         [UIView animateWithDuration:0.4 animations:^{
-            self.shareMaskView.alpha = 0.4;
-            self.shareBGView.bottom = self.view.height;
+            shareView.y = ScreenHeight - shareView.height;
         }];
 
     }];
@@ -862,14 +853,6 @@ static id _instance;
     
     [scrollView addSubview:describeView];
     
-    //分享maskView
-    self.shareMaskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    
-    self.shareMaskView.backgroundColor = [UIColor blackColor];
-    
-    self.shareMaskView.alpha = 0;
-    
-    [self.shareMaskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHideSharegroundView)]];
 
 }
 
@@ -1063,7 +1046,8 @@ static id _instance;
     _maskView.hidden = YES;
     
     [UIView animateWithDuration:0.25 animations:^{
-        
+        shareView.y = ScreenHeight;
+        [shareView removeFromSuperview];
         _moreChoiceView.y = ScreenHeight;
     }];
 }
@@ -1191,19 +1175,74 @@ static id _instance;
     collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
     
 }
-- (void)setupMaskView {
+//分享
+- (void)handleShareAction:(UIButton *)sender {
+    NSLog(@"%@",sender.currentTitle);
+    WS(wSelf);
+//      [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:_musicDetail.titleImageURL];
+    [UMSocialData defaultData].extConfig.title = _musicDetail.title;
+    if ([sender.currentTitle isEqualToString:@"微信"]) {
+        NSLog(@"微信");
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_musicDetail.lyrics image:_musicDetail.titleImageURL location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+        
+    }
     
+    if ([sender.currentTitle isEqualToString:@"朋友圈"]) {
+        NSLog(@"朋友圈");
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:_musicDetail.lyrics image:_musicDetail.titleImageURL location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    }
+    
+    if ([sender.currentTitle isEqualToString:@"微博"]) {
+        NSLog(@"微博");
+        [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:[NSString stringWithFormat:@"%@%@",_musicDetail.title,[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]] image:_musicDetail.titleImageURL location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    }
+    if ([sender.currentTitle isEqualToString:@"QQ"]) {
+        NSLog(@"QQ");
+        [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:_musicDetail.lyrics image:_musicDetail.titleImageURL location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    }
+    if ([sender.currentTitle isEqualToString:@"QQ空间"]) {
+        NSLog(@"QQ空间");
+        [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:_musicDetail.lyrics image:_musicDetail.titleImageURL  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    }
+    if ([sender.currentTitle isEqualToString:@"复制链接" ]) {
+        NSLog(@"复制链接");
+        [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.prevItemID];
+        [[NSToastManager manager] showtoast:@"复制成功"];
+//        _maskView.hidden = YES;
+//        [UIView animateWithDuration:0.25 animations:^{
+//            shareView.y = ScreenHeight;
+//            [shareView removeFromSuperview];
+//            _moreChoiceView.y = ScreenHeight;
+//        }];
+    }
 }
-#pragma 隐藏分享弹框
-- (void)tapHideSharegroundView {
-    [UIView animateWithDuration:0.4 animations:^{
-        self.shareMaskView.alpha = 0;
-        self.shareBGView.top = self.view.bottom;
-    } completion:^(BOOL finished) {
-        [self.shareMaskView removeFromSuperview];
-        [self.shareBGView removeFromSuperview];
-    }];
-}
+
 
 @end
 

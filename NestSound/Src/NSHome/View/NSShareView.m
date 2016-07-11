@@ -25,7 +25,7 @@
             if (i*5+j < picarray.count) {
                 UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 shareBtn.frame = CGRectMake(j *((ScreenWidth-20)/5)+10, 80*i+10, (ScreenWidth-20)/5, 80);
-                shareBtn.tag = 10 + i + j;
+                shareBtn.tag = 250 + i * 5 + j;
                 shareBtn.titleLabel.font = kBtnFont;
                 shareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 //                shareBtn.titleLabel.contentMode = UIViewContentModeCenter;
@@ -34,7 +34,6 @@
                 [shareBtn setTitle:titarray[i*5+j] forState:UIControlStateNormal];
                 shareBtn.titleEdgeInsets=UIEdgeInsetsMake(0, -shareBtn.imageView.frame.size.width-5 , -shareBtn.imageView.frame.size.width-5, 0);
                 shareBtn.imageEdgeInsets=UIEdgeInsetsMake(-shareBtn.titleLabel.frame.size.height, 5, 0, 0);
-                [shareBtn addTarget:self action:@selector(handleShareBtn:) forControlEvents:UIControlEventTouchUpInside];
                 [self addSubview:shareBtn];
                 
             } else {
@@ -46,50 +45,5 @@
 - (void)setShareDic:(NSDictionary *)shareDic {
     
 }
-- (void)handleShareBtn:(UIButton *)sender {
-    if ([sender.currentTitle isEqualToString:@"微信"]) {
-//        [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl;
-//        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//            if (response.responseCode == UMSResponseCodeSuccess) {
-//                [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//            }
-//        }];
-        
-    }
-    
-    if ([sender.currentTitle isEqualToString:@"朋友圈"]) {
-//        [UMSocialData defaultData].extConfig.wechatTimelineData.url = shareUrl;
-//        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//            if (response.responseCode == UMSResponseCodeSuccess) {
-//                [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//            }
-//        }];
-    }
-    
-    if ([sender.currentTitle isEqualToString:@"微博"]) {
-//        [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-//        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//            if (response.responseCode == UMSResponseCodeSuccess) {
-//                [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//            }
-//        }];
-    }
-    if ([sender.currentTitle isEqualToString:@"QQ"]) {
-//        [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
-//        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//            if (response.responseCode == UMSResponseCodeSuccess) {
-//                [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//            }
-//        }];
-    }
-    if ([sender.currentTitle isEqualToString:@"QQ空间"]) {
-        
-//        [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
-//        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:self.shareDataDic[@"desc"] image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//            if (response.responseCode == UMSResponseCodeSuccess) {
-//                [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//            }
-//        }];
-    }
-}
+
 @end
