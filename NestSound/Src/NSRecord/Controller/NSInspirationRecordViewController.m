@@ -162,6 +162,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         [NSPlayMusicTool stopMusicWithName:nil];
         
         [self.navigationController popViewControllerAnimated:YES];
+        
     } else {
         
         [self removeLink];
@@ -251,9 +252,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 UIImage * image = ImageArr[i];
                 NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
                 
-                [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i+1] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                     
-                    if ([key isEqualToString:@"1.png"]) {
+                    
+                   // if ([key isEqualToString:@"1.png"]) {
+                    if (self.titleImageURL == nil || self.titleImageURL.length == 0) {
                         
                         wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                     }else{
@@ -263,9 +266,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                     
                     if ((i + 1)  == ImageArr.count) {
                         
-                        
                         [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
-                        
                     }
                     
                 } option:nil];

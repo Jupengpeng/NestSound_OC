@@ -21,6 +21,7 @@
 #import "NSLyricViewController.h"
 #import "NSInspirationRecordViewController.h"
 #import "NSMyMusicModel.h"
+
 @interface NSUserPageViewController ()
 <
 UITableViewDelegate,

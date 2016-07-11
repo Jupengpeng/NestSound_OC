@@ -33,6 +33,8 @@
     int i;
 }
 
+@property (nonatomic, strong) NSMutableArray *itemIDArray;
+
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
 @end
@@ -44,6 +46,17 @@ static NSString * const headerView = @"HeaderView";
 static NSString * const NewWorkCell = @"NewWorkCell";
 
 @implementation NSHomeViewController
+
+
+- (NSMutableArray *)itemIDArray {
+    
+    if (!_itemIDArray) {
+        
+        _itemIDArray = [NSMutableArray array];
+    }
+    
+    return _itemIDArray;
+}
 
 - (NSPlayMusicViewController *)playSongsVC {
     
@@ -87,7 +100,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                                    [UIImage imageNamed:@"2.0_play_status_14"],
                                    [UIImage imageNamed:@"2.0_play_status_15"],
                                    [UIImage imageNamed:@"2.0_play_status_16"]];
-   
+    
     [playStatus stopAnimating];
     playStatus.userInteractionEnabled = YES;
         playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];

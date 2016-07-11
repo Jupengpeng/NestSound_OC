@@ -13,6 +13,7 @@
 #import "NSDiscoverMoreLyricModel.h"
 #import "NSSearchUserListModel.h"
 #import "NSUserPageViewController.h"
+
 @interface NSSearchViewController () <UIScrollViewDelegate, UISearchBarDelegate, NSSearchMusicTableViewDelegate, NSSearchUserCollectionViewDelegate> {
     
     UIScrollView *_topScrollView;
