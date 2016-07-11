@@ -175,34 +175,31 @@ static id _instance;
         if ([operation.urlTag isEqualToString:url]) {
             NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
             self.musicDetail = musicModel.musicdDetail;
+        }else if ([operation.urlTag isEqualToString:upvoteURL]) {
+                if (upVoteBtn.selected == YES) {
+                    self.musicDetail.zanNum = self.musicDetail.zanNum + 1;
+                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
+                }else{
+                    self.musicDetail.zanNum = self.musicDetail.zanNum - 1;
+                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
+                }
+                [[NSToastManager manager] showtoast:@"操作成功"];
+            }else if ([operation.urlTag isEqualToString:collectURL]){
+            if (collectionBtn.selected == YES) {
+                self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
+                collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                
+            }else{
+                self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
+                collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+            }
+            [[NSToastManager manager] showtoast:@"操作成功"];
         }
     }else{
         
         [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
     }
-    if ([operation.urlTag isEqualToString:upvoteURL]) {
-        if (!parserObject.success) {
-            if (upVoteBtn.selected == YES) {
-                self.musicDetail.zanNum = self.musicDetail.zanNum + 1;
-                upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
-                [self.view reloadInputViews];
-            }else{
-                self.musicDetail.zanNum = self.musicDetail.zanNum - 1;
-                upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
-            }
-            [[NSToastManager manager] showtoast:@"操作成功"];
-        }
-    }else if ([operation.urlTag isEqualToString:collectURL]){
-        if (upVoteBtn.selected == YES) {
-            self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
-            upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
-            [self.view reloadInputViews];
-        }else{
-            self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
-            upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
-        }
-        [[NSToastManager manager] showtoast:@"操作成功"];
-    }
+    
     
 }
 

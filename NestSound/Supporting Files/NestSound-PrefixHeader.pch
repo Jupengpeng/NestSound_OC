@@ -120,6 +120,8 @@ extern NSString *port;
 #define LocalPath            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define LocalAccompanyPath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/AccompanyCache"]
 #define UUID [UIDevice currentDevice].identifierForVendor
+#define IPHONE4S @"iPhone_4S"
+#define IPHONE4 @"iPhone_4"
 
 // Keys
 #define kNoLoading       @"noLoading"
