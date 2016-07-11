@@ -42,6 +42,7 @@
 #import "NSString+NSMD5Addition.h"
 #import "WXApi.h"
 #import "JPUSHService.h"
+#import "AFNetworking.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;

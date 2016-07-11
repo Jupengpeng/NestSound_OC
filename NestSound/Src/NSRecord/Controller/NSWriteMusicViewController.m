@@ -16,11 +16,12 @@
 #import "NSPlayMusicTool.h"
 #import <AVFoundation/AVFoundation.h>
 #import "NSPublicLyricViewController.h"
-#import "AFHTTPRequestOperationManager.h"
 #import "NSTunMusicModel.h"
 #import "NSLoginViewController.h"
 #import "NSWaveformView.h"
 #import "NSPlayMusicViewController.h"
+
+
 @interface CenterLine : UIView
 
 @end
@@ -159,6 +160,7 @@
     
     NSArray *array = @[next, importLyric];
 #import "NSLoginViewController.h"
+#import "AFHTTPSessionManager.h"
     
     self.navigationItem.rightBarButtonItems = array;
     
