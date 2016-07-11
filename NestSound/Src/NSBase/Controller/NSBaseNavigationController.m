@@ -40,13 +40,12 @@
         
         viewController.hidesBottomBarWhenPushed = YES;
         
-        
     }
     
       [super pushViewController:viewController animated:animated];
     
 }
-    
+
 - (void)backClick:(UIBarButtonItem *)back {
     
     if (self.childViewControllers.count <= 2) {

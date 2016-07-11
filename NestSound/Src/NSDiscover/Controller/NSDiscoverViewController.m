@@ -185,6 +185,8 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
+    self.maskAlpha = NO;
+    
     [_search setShowsCancelButton:NO animated:YES];
     
     self.maskView.alpha = 0;

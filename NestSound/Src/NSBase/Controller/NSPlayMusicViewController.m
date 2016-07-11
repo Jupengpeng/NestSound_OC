@@ -18,6 +18,7 @@
 #import "NSWriteMusicViewController.h"
 #import "NSLoginViewController.h"
 #import "NSShareView.h"
+#import "NSIndexModel.h"
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;

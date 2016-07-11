@@ -17,8 +17,8 @@
 @implementation AppDelegate (configureUIAppearance)
 
 - (void)setupUIAppearance {
-    
- 
+
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
