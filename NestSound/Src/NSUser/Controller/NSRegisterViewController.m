@@ -89,7 +89,12 @@
     
     scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     scrollView.autoAdaptKeyboard = YES;
-    scrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight);
+    if ([[NSTool getMachine] isEqualToString:IPHONE4] || [[NSTool getMachine] isEqualToString:IPHONE4S]) {
+        scrollView.contentSize = CGSizeMake(self.view.width, self.view.height + 100);
+    }else{
+        scrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight);
+    }
+
     [self.view addSubview:scrollView];
     
     CGFloat logoY = 90;

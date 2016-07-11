@@ -7,7 +7,7 @@
 //
 
 #import "NSTool.h"
-
+#include <sys/sysctl.h>
 void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelector) {
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
     Method swizzeldMethod = class_getInstanceMethod(class, swizzledSelector);
@@ -236,6 +236,34 @@ static NSDateFormatter *dateFormatter;
     return str;
 }
 
++ (NSString*)getMachine{
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *name = malloc(size);
+    sysctlbyname("hw.machine", name, &size, NULL, 0);
+    
+    NSString *machine = [NSString stringWithCString:name encoding:NSUTF8StringEncoding];
+    
+    free(name);
+    
+    if( [machine isEqualToString:@"i386"] || [machine isEqualToString:@"x86_64"] ) machine = @"ios_Simulator";
+    else if( [machine isEqualToString:@"iPhone1,1"] ) machine = @"iPhone_1G";
+    else if( [machine isEqualToString:@"iPhone1,2"] ) machine = @"iPhone_3G";
+    else if( [machine isEqualToString:@"iPhone2,1"] ) machine = @"iPhone_3GS";
+    else if( [machine isEqualToString:@"iPhone3,1"] ) machine = @"iPhone_4";
+    else if ( [machine isEqualToString:@"iPhone4,1"]) machine = @"iPhone_4S";
+    else if( [machine isEqualToString:@"iPod1,1"] ) machine = @"iPod_Touch_1G";
+    else if( [machine isEqualToString:@"iPod2,1"] ) machine = @"iPod_Touch_2G";
+    else if( [machine isEqualToString:@"iPod3,1"] ) machine = @"iPod_Touch_3G";
+    else if( [machine isEqualToString:@"iPod4,1"] ) machine = @"iPod_Touch_4G";
+    else if( [machine isEqualToString:@"iPad1,1"] ) machine = @"iPad_1";
+    else if( [machine isEqualToString:@"iPad2,1"] ) machine = @"iPad_2";
+    
+    
+    return machine;
+}
+
+
 @end
 
 @implementation Memory
@@ -284,7 +312,6 @@ static NSDateFormatter *dateFormatter;
     
     
 }
-
 
 
 

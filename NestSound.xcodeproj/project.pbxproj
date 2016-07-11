@@ -1150,7 +1150,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				5C3BD5D9A3BF05EBE1C1F84C /* 📦 Check Pods Manifest.lock */,
+				5C3BD5D9A3BF05EBE1C1F84C /* [CP] Check Pods Manifest.lock */,
 				FEA377F7D3CF44C7A89FD564 /* [CP] Check Pods Manifest.lock */,
 				A92696ED8F467202B722320D /* [CP] Check Pods Manifest.lock */,
 				4D3CB4CAA3301E51E34EBBF9 /* [CP] Check Pods Manifest.lock */,
@@ -1199,7 +1199,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				8D9996CE2B296A37B9DDE803 /* 📦 Check Pods Manifest.lock */,
+				8D9996CE2B296A37B9DDE803 /* [CP] Check Pods Manifest.lock */,
 				9C9B10E507439FBC16ACEC80 /* [CP] Check Pods Manifest.lock */,
 				B1093E7265A5D5BB2DC5BDB7 /* [CP] Check Pods Manifest.lock */,
 				378BDF7E3884062143767195 /* [CP] Check Pods Manifest.lock */,
@@ -1257,7 +1257,7 @@
 				TargetAttributes = {
 					2DFB66F01CC1E65600DA24DA = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 8LE994RPJG;
+						DevelopmentTeam = 62UDHM98C2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1702,14 +1702,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		5C3BD5D9A3BF05EBE1C1F84C /* 📦 Check Pods Manifest.lock */ = {
+		5C3BD5D9A3BF05EBE1C1F84C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1897,14 +1897,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8D9996CE2B296A37B9DDE803 /* 📦 Check Pods Manifest.lock */ = {
+		8D9996CE2B296A37B9DDE803 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2500,7 +2500,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "630d1966-dca2-4e06-9328-ef8d33c1b69e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -2544,7 +2544,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2573,7 +2573,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "630d1966-dca2-4e06-9328-ef8d33c1b69e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2600,7 +2600,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

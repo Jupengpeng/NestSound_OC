@@ -23,6 +23,7 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(BOOL)compareWithUser:(long)userID;
 +(NSString *)encrytWithDic:(NSDictionary *)dic;
 +(NSString *)stringFormatWithTimeLong:(long)times;
++(NSString *)getMachine;
 @end
 //cache include ：accompany，record file ，music file
 @interface Memory : NSObject
