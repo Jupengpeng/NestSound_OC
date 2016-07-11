@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface NSShareView : UIView
-
+@property (nonatomic, strong) NSDictionary *shareDic;
 @end

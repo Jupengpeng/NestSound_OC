@@ -71,7 +71,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 -(instancetype)init
 {
     if (self = [super init]) {
-        
     }
     return self;
 }
@@ -155,7 +154,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    
     _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     
     _collection.delegate = self;
@@ -163,7 +161,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     _collection.dataSource = self;
     
     _collection.showsVerticalScrollIndicator = NO;
-    
+    _collection.alwaysBounceVertical = YES;
     _collection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     [_collection registerClass:[NSRecommendCell class] forCellWithReuseIdentifier:RecommendCell];
@@ -195,10 +193,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 #pragma  mark -fetchIndexData
 -(void)fetchIndexData
 {
-//    self.requestParams = @{@"type":@(YES)};
     self.requestType = YES;
     NSDictionary * dic = @{@"1":@"2"};
-    
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:1];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
     self.requestURL = [indexURL stringByAppendingString:str];
@@ -541,6 +537,11 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 {
     
     
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSLog(@"this is y%f",scrollView.y);
 }
 
 @end
