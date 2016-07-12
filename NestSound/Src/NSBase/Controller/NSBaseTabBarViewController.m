@@ -55,15 +55,12 @@
     
     [self addChildViewController:homeVc imageName:@"2.0_home_normal" selectedImageName:@"2.0_home_selected" title:@"音巢音乐"];
     
-//    homeVc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
     
     
     //发现
     NSDiscoverViewController *recommendVc = [[NSDiscoverViewController alloc] init];
     
-    [self addChildViewController:recommendVc imageName:@"2.0_discovery_normal" selectedImageName:@"2.0_discovery_selected" title:nil];
-    
-//     recommendVc.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+    [self addChildViewController:recommendVc imageName:@"2.0_discovery_normal" selectedImageName:@"2.0_discovery_selected" title:nil];;
     
     
     //消息
