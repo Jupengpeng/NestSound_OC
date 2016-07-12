@@ -24,18 +24,23 @@
         for (int j = 0; j < 5; j++) {
             if (i*5+j < picarray.count) {
                 UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-                shareBtn.frame = CGRectMake(j *((ScreenWidth-20)/5)+10, 80*i+10, (ScreenWidth-20)/5, 80);
+                shareBtn.frame = CGRectMake(j *((ScreenWidth-20)/5)+10, 85*i+10, (ScreenWidth-20)/5, 60);
                 shareBtn.tag = 250 + i * 5 + j;
                 shareBtn.titleLabel.font = kBtnFont;
                 shareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 //                shareBtn.titleLabel.contentMode = UIViewContentModeCenter;
                 [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:picarray[i*5+j]] forState:UIControlStateNormal];
-                [shareBtn setTitle:titarray[i*5+j] forState:UIControlStateNormal];
-                shareBtn.titleEdgeInsets=UIEdgeInsetsMake(0, -shareBtn.imageView.frame.size.width-5 , -shareBtn.imageView.frame.size.width-5, 0);
-                shareBtn.imageEdgeInsets=UIEdgeInsetsMake(-shareBtn.titleLabel.frame.size.height, 5, 0, 0);
+//                [shareBtn setTitle:titarray[i*5+j] forState:UIControlStateNormal];
+//                shareBtn.titleEdgeInsets=UIEdgeInsetsMake(0, -shareBtn.imageView.frame.size.width-5 , -shareBtn.imageView.frame.size.width-5, 0);
+//                shareBtn.imageEdgeInsets=UIEdgeInsetsMake(-shareBtn.titleLabel.frame.size.height, 5, 0, 0);
                 [self addSubview:shareBtn];
-                
+                UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(j *((ScreenWidth-20)/5)+10, 85*i+65, (ScreenWidth-20)/5, 20)];
+                shareLabel.font = [UIFont systemFontOfSize:15];
+                shareLabel.textAlignment = NSTextAlignmentCenter;
+                shareLabel.textColor = [UIColor blackColor];
+                shareLabel.text = titarray[i*5+j];
+                [self addSubview:shareLabel];
             } else {
                 break;
             }

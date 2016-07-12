@@ -224,7 +224,30 @@ static NSHttpClient *client;
         [[NSToastManager manager] hideprogress];
         completion();
     }] resume];
+    /*
+    NSURLSessionConfiguration*sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:sessionConfiguration];
     
+     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL] cachePolicy:1 timeoutInterval:6];
+    NSProgress *kProgress = nil;
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:&kProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        NSString * filePath = [LocalAccompanyPath stringByAppendingPathComponent:response.suggestedFilename];
+        NSURL * url = [NSURL fileURLWithPath:filePath];
+        return url;
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nonnull filePath, NSError * _Nonnull error) {
+        NSLog(@"File downloaded to: %@,%@", filePath, error);
+        [kProgress removeObserver:self forKeyPath:@"downloadProgress"];
+    }];
+    [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        
+    }];
+    [kProgress addObserver:self
+                forKeyPath:@"downloadProgress"
+                   options:NSKeyValueObservingOptionNew
+                   context:NULL];
+    [downloadTask resume];
+    NSLog(@"总大小：%lld,当前大小:%lld",kProgress.totalUnitCount,kProgress.completedUnitCount);
+     */
 }
 
 
