@@ -243,7 +243,7 @@
     //收藏
     self.collectionIcon = [[UIImageView alloc] init];
     
-    self.collectionIcon.image = [UIImage imageNamed:@"2.0_playSongs_collection_normal"];
+    self.collectionIcon.image = [UIImage imageNamed:@"2.0_collection"];
     
     [self.background addSubview:self.collectionIcon];
     
@@ -276,7 +276,7 @@
     //点赞
     self.upVoteIcon = [[UIImageView alloc] init];
     
-    self.upVoteIcon.image = [UIImage imageNamed:@"2.0_playSongs_upvote_normal"];
+    self.upVoteIcon.image = [UIImage imageNamed:@"2.0_upvote"];
     
     [self.background addSubview:self.upVoteIcon];
     
