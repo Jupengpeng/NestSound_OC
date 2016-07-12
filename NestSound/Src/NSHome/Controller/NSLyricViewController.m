@@ -420,11 +420,7 @@
     
     CGFloat moreChoiceViewH;
     
-<<<<<<< HEAD
-    if (self.who == My) {
-=======
     if (![NSTool compareWithUser:self.lyricDetail.userId]) {
->>>>>>> 1919d956699dbdbb23debbb76376d1ddfd565a59
         
         array = @[@"举报",@"分享",@"编辑"];
         
