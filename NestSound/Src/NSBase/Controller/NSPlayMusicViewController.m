@@ -1177,8 +1177,9 @@ static id _instance;
 - (void)handleShareAction:(UIButton *)sender {
     NSLog(@"%@",sender.currentTitle);
     WS(wSelf);
-//      [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
+    
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:_musicDetail.titleImageURL];
+    
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     if ([sender.currentTitle isEqualToString:@"微信"]) {
         NSLog(@"微信");
