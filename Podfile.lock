@@ -1,27 +1,33 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - HappyDNS (0.3.6)
+  - HappyDNS (0.3.5)
   - HUPhotoPicker (1.0.1)
-  - JPush (2.1.8)
+  - JPush (2.1.7)
   - Masonry (1.0.1)
   - MBProgressHUD (0.9.2)
   - pop (1.0.9)
-  - Qiniu (7.1.0.1):
-    - AFNetworking (~> 3)
+  - Qiniu (7.0.20):
+    - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.3)
   - RSAEncryptor (0.0.1)
   - SDWebImage (3.8.1):
@@ -50,14 +56,14 @@ DEPENDENCIES:
   - UMengSocialCOM
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  HappyDNS: 81ee311e61d316684b88f2066302cdf3404cc9ea
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  HappyDNS: 6f8cf46fa7c0b98a6591fe8ecb2e08d9907a6e8b
   HUPhotoPicker: 4e4edc30caa26ed6cb01d2517113e2af1450b8d5
-  JPush: 2d1286494eae216433f6d7709b2721565b4babc9
+  JPush: d37320eba856bf91f2c73989df4abf1e8846db2c
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
-  Qiniu: 0e92ff0d1b9afbc55275306671284e4ebeb08d03
+  Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
@@ -68,4 +74,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 184d351c10fecba9340b7ffa08dcf913d3c5f581
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

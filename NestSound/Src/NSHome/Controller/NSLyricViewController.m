@@ -68,22 +68,13 @@
     return self;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_moreChoice"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
-    
-//    [self.navigationItem actionCustomRightBarButton:@"" nrlImage:@"2.0_moreChoice" hltImage:@"2.0_moreChoice" action:^{
-//        
-//        _maskView.hidden = NO;
-//        
-//        [UIView animateWithDuration:0.25 animations:^{
-//            
-//            _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
-//            
-//        }];
-//        
-//    }];
+
     
     [self fetchData];
     
@@ -315,9 +306,9 @@
     //点赞
     upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-        [btn setImage:[UIImage imageNamed:@"2.0_upVote_normal"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_upvote_normal"] forState:UIControlStateNormal];
         
-        [btn setImage:[UIImage imageNamed:@"2.0_upVote_selected"] forState:UIControlStateSelected];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_upvote_selected"] forState:UIControlStateSelected];
         
         [btn sizeToFit];
         
@@ -349,9 +340,9 @@
     //收藏
     collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-        [btn setImage:[UIImage imageNamed:@"2.0_collection_normal"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_collection_normal"] forState:UIControlStateNormal];
         
-        [btn setImage:[UIImage imageNamed:@"2.0_collection_selected"] forState:UIControlStateSelected];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_collection_selected"] forState:UIControlStateSelected];
         
         [btn sizeToFit];
         

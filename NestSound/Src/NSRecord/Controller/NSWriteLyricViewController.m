@@ -40,7 +40,7 @@
                                     configure:^(UIButton *btn) {
                                         
                                         [btn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
-#import "NSShareViewController.h"
+
                                         [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
                                         [btn setTitle:@"导入歌词" forState:UIControlStateNormal];
                                         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
