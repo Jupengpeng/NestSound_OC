@@ -129,11 +129,10 @@
             [self setupBottomView];
             
             [self setupLyricView];
-            
-            [self moreChoice];
 
             
             self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
+            [self moreChoice];
                    }
     }
     
@@ -420,7 +419,7 @@
     
     CGFloat moreChoiceViewH;
     
-    if (self.who == His) {
+    if (![NSTool compareWithUser:self.lyricDetail.userId]) {
         
         array = @[@"举报",@"分享"];
         
@@ -428,8 +427,8 @@
     
         array = @[@"举报",@"分享",@"编辑"];
         
-        
     }
+    
     moreChoiceViewH = 44 *array.count;
     
     _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, moreChoiceViewH)];
