@@ -425,7 +425,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     if (section == 0) {
         
-        return CGSizeMake(ScreenWidth, 230);
+        return CGSizeMake(ScreenWidth, 190);
     }
     return CGSizeMake(ScreenWidth, 35);
     
@@ -444,7 +444,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         reusable.titleLable.text = @"推荐作品";
 //        NSLocalizedString(@"promot_recommendWorks", @"");
-//        LocalizedStr(@"promot_recommendWorks");
+//        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
         
     } else if (indexPath.section == 1) {
         

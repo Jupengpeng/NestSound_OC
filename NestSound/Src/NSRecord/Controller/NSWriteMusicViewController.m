@@ -95,6 +95,7 @@
 
 @property (nonatomic, weak) AVAudioSession *session;
 
+@property (nonatomic,strong) UIAlertView *alertView;
 @end
 
 @implementation NSWriteMusicViewController
@@ -118,7 +119,12 @@
     
     return _dict;
 }
-
+- (UIAlertView *)alertView {
+    if (!_alertView) {
+        self.alertView =[ [UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在美化，请稍候..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    }
+    return _alertView;
+}
 
 -(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime_ andHotMp3:(NSString *)hotMp3
 {
@@ -228,7 +234,6 @@
     }
 
 }
-
 
 - (void)leftBackClick:(UIBarButtonItem *)back {
     
@@ -677,7 +682,7 @@
                 self.next.enabled = NO;
                 
                 if (self.wavFilePath) {
-                    
+                    [self.alertView show];
                     [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
                         
                         NSData *data = [NSData dataWithContentsOfFile:newfilePath];
@@ -690,7 +695,6 @@
                         
                         // 1.创建网络管理者
                         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-                        
                         
                         [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                             
@@ -711,7 +715,7 @@
                             
                             self.wavFilePath = nil;
                             
-                            [[NSToastManager manager] hideprogress];
+//                            [[NSToastManager manager] hideprogress];
                             
                         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
                             // 请求失败
@@ -759,7 +763,7 @@
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
+    [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
     if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
             NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;

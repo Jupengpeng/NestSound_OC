@@ -429,13 +429,13 @@
     
     CGFloat moreChoiceViewH;
     
-    if (self.who == His) {
+    if (self.who == My) {
         
-        array = @[@"举报",@"分享"];
+        array = @[@"举报",@"分享",@"编辑"];
         
     } else {
     
-        array = @[@"举报",@"分享",@"编辑"];
+        array = @[@"举报",@"分享"];
         
         
     }
@@ -643,59 +643,66 @@
     WS(wSelf);
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:_lyricDetail.titleImageUrl];
     [UMSocialData defaultData].extConfig.title = _lyricDetail.title;
-    if ([sender.currentTitle isEqualToString:@"微信"]) {
-        NSLog(@"微信");
-        [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
-            }
-        }];
-        
-    }
-    
-    if ([sender.currentTitle isEqualToString:@"朋友圈"]) {
-        NSLog(@"朋友圈");
-                [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                    if (response.responseCode == UMSResponseCodeSuccess) {
-                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                    }
-                }];
-    }
-    
-    if ([sender.currentTitle isEqualToString:@"微博"]) {
-        NSLog(@"微博");
-                [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                    if (response.responseCode == UMSResponseCodeSuccess) {
-                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                    }
-                }];
-    }
-    if ([sender.currentTitle isEqualToString:@"QQ"]) {
-        NSLog(@"QQ");
-                [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                    if (response.responseCode == UMSResponseCodeSuccess) {
-                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                    }
-                }];
-    }
-    if ([sender.currentTitle isEqualToString:@"QQ空间"]) {
-        NSLog(@"QQ空间");
-                [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-                [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:_lyricDetail.lyrics image:_lyricDetail.titleImageUrl  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                    if (response.responseCode == UMSResponseCodeSuccess) {
-                        [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                    }
-                }];
-    }
-    if ([sender.currentTitle isEqualToString:@"复制链接" ]) {
-        NSLog(@"复制链接");
-        [UIPasteboard generalPasteboard].string = @"Hello World!";
-         [[NSToastManager manager] showtoast:@"复制成功"];
-                [shareView removeFromSuperview];
+    switch (sender.tag) {
+        case 250:
+        {
+            [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                }
+            }];
+        }
+            break;
+        case 251:
+        {
+            [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                }
+            }];
+        }
+            break;
+        case 252:
+        {
+            [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                }
+            }];
+        }
+            break;
+        case 253:
+        {
+            [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                }
+            }];
+        }
+            break;
+        case 254:
+        {
+            [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:_lyricDetail.title image:_lyricDetail.titleImageUrl  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                }
+            }];
+        }
+            break;
+        case 255:
+        {
+            [UIPasteboard generalPasteboard].string = @"Hello World!";
+            [[NSToastManager manager] showtoast:@"复制成功"];
+            [shareView removeFromSuperview];
+        }
+            break;
+        default:
+            break;
     }
 }
 @end

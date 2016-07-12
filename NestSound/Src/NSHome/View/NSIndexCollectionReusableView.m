@@ -102,18 +102,21 @@
 
 - (void)addHeaderViewWithImageArray:(NSArray *)imageArray {
 
-    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 180)];
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 140)];
     arrConut = imageArray.count;
     _scrollView.delegate = self;
     for (int i = 0; i < arrConut * 3; i++) {
      
-        UIButton *imageBtn = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width * i, 0, [UIScreen mainScreen].bounds.size.width, 180)];
-        UIImageView * im = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width * i, 0, [UIScreen mainScreen].bounds.size.width, 180)];
+        UIButton *imageBtn = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width * i, 0, [UIScreen mainScreen].bounds.size.width, 140)];
+        UIImageView * im = [[UIImageView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width * i, 0, [UIScreen mainScreen].bounds.size.width, 140)];
         
         [imageBtn setAdjustsImageWhenHighlighted:NO];
         
         imageBtn.tag = i % arrConut;
-        
+//        [im setContentScaleFactor:[[UIScreen mainScreen] scale]];
+//        im.contentMode =  UIViewContentModeScaleAspectFill;
+//        im.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//        im.clipsToBounds  = YES;
         
         [im setDDImageWithURLString:imageArray[i % arrConut] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
         
