@@ -58,7 +58,7 @@
     [super viewDidLoad];
     
     [self configureUIAppearance];
-    
+    self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
@@ -109,8 +109,8 @@
     descriptionText = [[UITextView alloc] init];
     descriptionText.font = [UIFont systemFontOfSize:15];
     descriptionText.delegate = self;
-    if (self.lyricDetail.length) {
-        descriptionText.text = self.lyricDetail;
+    if (lyricDic[@"lyricDetail"]!=NULL) {
+        descriptionText.text = lyricDic[@"lyricDetail"];
     } else {
         
     }
@@ -120,7 +120,7 @@
     placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 6, descriptionText.width, 15)];
     placeholderLabel.text = @"快来写一下你为什么创作这首歌吧!";
     placeholderLabel.textColor = [UIColor lightGrayColor];
-    if (self.lyricDetail.length) {
+    if (lyricDic[@"lyricDetail"]!=NULL) {
         placeholderLabel.hidden = YES;
     } else {
         placeholderLabel.hidden = NO;
@@ -131,8 +131,8 @@
     [descriptionText addSubview:placeholderLabel];
     
     addTitlePageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    if (self.lyricImgUrl.length) {
-        [addTitlePageBtn setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.lyricImgUrl]]] forState:UIControlStateNormal];
+    if (lyricDic[@"lyricImgUrl"]!=NULL) {
+        [addTitlePageBtn setBackgroundImage:[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:lyricDic[@"lyricImgUrl"]]]] forState:UIControlStateNormal];
     } else {
     [addTitlePageBtn setBackgroundImage:[UIImage imageNamed:@"2.0_addPhoto_btn"] forState:UIControlStateNormal];
     }
@@ -302,16 +302,24 @@
     
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
-    if ([fm fileExistsAtPath:fullPath]||self.lyricImgUrl.length) {
-        if (descriptionText.text.length == 0 && !self.lyricDetail.length) {
+    if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
+        if (descriptionText.text.length == 0 && lyricDic[@"lyricDetail"]==NULL) {
             [[NSToastManager manager ] showtoast:@"描述不能为空哦"];
             btn.enabled = YES;
         }else{
-            if (isLyric) {
-                
-                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
-            }else{
-                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
+            if (lyricDic[@"lyricImgUrl"] !=NULL) {
+                if (isLyric) {
+                    [self publicWithType:YES];
+                }else{
+                    [self publicWithType:NO];
+                }
+            } else {
+                if (isLyric) {
+                    
+                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
+                }else{
+                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
+                }
             }
         }
         
@@ -332,10 +340,12 @@
             NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
             qiNiu * data = GetqiNiuModel.qiNIuModel;
             NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
-
+ 
             titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
             
+            
         }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
+            
             NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
             NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
             
@@ -360,7 +370,11 @@
     self.requestType = NO;
     NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     if (type == YES) {
-        self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
+        if (!self.lyricId) {
+            self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
+        } else {
+        self.requestParams = @{@"id":@(self.lyricId),@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
+        }
         self.requestURL = publicLyricURL;
     }else{
         self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
@@ -442,6 +456,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:photoPath]) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
+        
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];

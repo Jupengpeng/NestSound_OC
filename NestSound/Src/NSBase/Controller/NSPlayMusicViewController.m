@@ -217,7 +217,7 @@ static id _instance;
     
     UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
     UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
-    //    [image applyBlurWithRadius:0.8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:0.5 maskImage:nil];
+    
     transparentImage.image = image;
     
     
@@ -345,8 +345,6 @@ static id _instance;
     UILabel *songName = [[UILabel alloc] init];
     
     songName.textColor = [UIColor whiteColor];
-    
-    //    songName.text = @"我在那一角落患过伤风";
     
     self.songName = songName;
     

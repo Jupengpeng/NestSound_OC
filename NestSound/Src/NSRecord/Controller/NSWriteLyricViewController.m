@@ -40,7 +40,7 @@
                                     configure:^(UIButton *btn) {
                                         
                                         [btn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
-#import "NSShareViewController.h"
+
                                         [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
                                         [btn setTitle:@"导入歌词" forState:UIControlStateNormal];
                                         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -273,9 +273,13 @@
             [dict setValue:titleTextFiled.text forKey:@"lyricName"];
             
             [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+            
+            [dict setValue:self.lyricDetail forKey:@"lyricDetail"];
+            
+            [dict setValue:self.lyricImgUrl forKey:@"lyricImgUrl"];
+            
             NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
-            publicVC.lyricDetail = self.lyricDetail;
-            publicVC.lyricImgUrl = self.lyricImgUrl;
+            publicVC.lyricId = self.lyricId;
             [self.navigationController pushViewController:publicVC animated:YES];
             
         }

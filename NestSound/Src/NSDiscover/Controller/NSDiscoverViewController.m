@@ -197,8 +197,10 @@
     self.tabBarController.tabBar.hidden = NO;
     
     [self.maskView removeAllSubviews];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_musicNote"] style:UIBarButtonItemStylePlain target:self action:@selector(musicPaly:)];
+    UIButton * btn = [[UIButton alloc] initWithFrame:playStatus.frame ];
+    [playStatus addSubview:btn];
+    [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
