@@ -219,7 +219,7 @@ static id _instance;
     
     UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
     UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
-    //    [image applyBlurWithRadius:0.8 tintColor:[UIColor colorWithWhite:1.0 alpha:0.3] saturationDeltaFactor:0.5 maskImage:nil];
+    
     transparentImage.image = image;
     
     
@@ -347,8 +347,6 @@ static id _instance;
     UILabel *songName = [[UILabel alloc] init];
     
     songName.textColor = [UIColor whiteColor];
-    
-    //    songName.text = @"我在那一角落患过伤风";
     
     self.songName = songName;
     
@@ -1178,8 +1176,13 @@ static id _instance;
 - (void)handleShareAction:(UIButton *)sender {
     NSLog(@"%@",sender.currentTitle);
     WS(wSelf);
+<<<<<<< HEAD
     //      [Share ShareWithTitle:_musicDetail.title andShareUrl:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID] andShareImage:_musicDetail.titleImageURL andShareText:_musicDetail.title andVC:self];
+=======
+    
+>>>>>>> 1919d956699dbdbb23debbb76376d1ddfd565a59
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:_musicDetail.titleImageURL];
+    
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     switch (sender.tag) {
         case 250:

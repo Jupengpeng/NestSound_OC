@@ -276,7 +276,7 @@
     //点赞
     self.upVoteIcon = [[UIImageView alloc] init];
     
-    self.upVoteIcon.image = [UIImage imageNamed:@"2.0_upVote"];
+    self.upVoteIcon.image = [UIImage imageNamed:@"2.0_upvote"];
     
     [self.background addSubview:self.upVoteIcon];
     

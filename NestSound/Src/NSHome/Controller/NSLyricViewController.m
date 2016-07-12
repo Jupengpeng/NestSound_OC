@@ -68,22 +68,13 @@
     return self;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_moreChoice"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
-    
-//    [self.navigationItem actionCustomRightBarButton:@"" nrlImage:@"2.0_moreChoice" hltImage:@"2.0_moreChoice" action:^{
-//        
-//        _maskView.hidden = NO;
-//        
-//        [UIView animateWithDuration:0.25 animations:^{
-//            
-//            _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
-//            
-//        }];
-//        
-//    }];
+
     
     [self fetchData];
     
@@ -108,6 +99,7 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    
 }
 
 #pragma mark -fetchData
@@ -138,11 +130,10 @@
             [self setupBottomView];
             
             [self setupLyricView];
-            
-            [self moreChoice];
 
             
             self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
+            [self moreChoice];
                    }
     }
     
@@ -315,9 +306,9 @@
     //点赞
     upVoteBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-        [btn setImage:[UIImage imageNamed:@"2.0_upVote_normal"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_upvote_normal"] forState:UIControlStateNormal];
         
-        [btn setImage:[UIImage imageNamed:@"2.0_upVote_selected"] forState:UIControlStateSelected];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_upvote_selected"] forState:UIControlStateSelected];
         
         [btn sizeToFit];
         
@@ -349,9 +340,9 @@
     //收藏
     collectionBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-        [btn setImage:[UIImage imageNamed:@"2.0_collection_normal"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_collection_normal"] forState:UIControlStateNormal];
         
-        [btn setImage:[UIImage imageNamed:@"2.0_collection_selected"] forState:UIControlStateSelected];
+        [btn setImage:[UIImage imageNamed:@"2.0_playSongs_collection_selected"] forState:UIControlStateSelected];
         
         [btn sizeToFit];
         
@@ -429,7 +420,11 @@
     
     CGFloat moreChoiceViewH;
     
+<<<<<<< HEAD
     if (self.who == My) {
+=======
+    if (![NSTool compareWithUser:self.lyricDetail.userId]) {
+>>>>>>> 1919d956699dbdbb23debbb76376d1ddfd565a59
         
         array = @[@"举报",@"分享",@"编辑"];
         
@@ -437,8 +432,8 @@
     
         array = @[@"举报",@"分享"];
         
-        
     }
+    
     moreChoiceViewH = 44 *array.count;
     
     _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, moreChoiceViewH)];

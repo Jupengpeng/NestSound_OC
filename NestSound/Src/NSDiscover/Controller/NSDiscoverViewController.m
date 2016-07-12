@@ -180,7 +180,6 @@
     
     self.tabBarController.tabBar.hidden = YES;
     
-    
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
