@@ -9,9 +9,8 @@
 #import "NSBaseViewController.h"
 
 @interface NSPublicLyricViewController : NSBaseViewController
-
+@property (nonatomic,assign) long lyricId;
 @property (nonatomic, copy) NSString *mp3File;
-@property (nonatomic, copy) NSString *lyricDetail,*lyricImgUrl;
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_;
 
 @end

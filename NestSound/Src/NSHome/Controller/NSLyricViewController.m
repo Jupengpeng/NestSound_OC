@@ -531,6 +531,7 @@
         writeLyricVC.lyricText = self.lyricDetail.lyrics;
         writeLyricVC.lyricDetail = self.lyricDetail.detail;
         writeLyricVC.lyricImgUrl = self.lyricDetail.titleImageUrl;
+        writeLyricVC.lyricId = self.lyricDetail.itemId;
         [self.navigationController pushViewController:writeLyricVC animated:YES];
         _maskView.hidden = YES;
         

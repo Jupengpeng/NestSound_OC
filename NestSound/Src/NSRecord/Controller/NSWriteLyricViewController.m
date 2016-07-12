@@ -273,9 +273,13 @@
             [dict setValue:titleTextFiled.text forKey:@"lyricName"];
             
             [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+            
+            [dict setValue:self.lyricDetail forKey:@"lyricDetail"];
+            
+            [dict setValue:self.lyricImgUrl forKey:@"lyricImgUrl"];
+            
             NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
-            publicVC.lyricDetail = self.lyricDetail;
-            publicVC.lyricImgUrl = self.lyricImgUrl;
+            publicVC.lyricId = self.lyricId;
             [self.navigationController pushViewController:publicVC animated:YES];
             
         }
