@@ -17,7 +17,6 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 + (AppDelegate *)appDelegate;
 + (BOOL)isStringEmpty:(NSString *)targetString;
 + (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName;
-//+ (UIImage *)cutImage:(UIImage*)image scaledToSize:(CGSize)newSize2;
 +(NSString *)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url;
 +(BOOL) isValidateMobile:(NSString *)mobile;
 +(BOOL)compareWithUser:(long)userID;
@@ -25,15 +24,13 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(NSString *)stringFormatWithTimeLong:(long)times;
 +(NSString *)getMachine;
 @end
-//cache include ：accompany，record file ，music file
+
+//cache include ：accompany，record file
 @interface Memory : NSObject
-
 +(NSString *)getCacheSize;
-
 +(void)clearCache;
-
 @end
-//date to string formate like "1992-12-05"；
+
 @interface date : NSObject
 +(NSString *)datetoStringWithDate:(NSTimeInterval)date;
 +(NSString *)datetoLongStringWithDate:(NSTimeInterval)date;

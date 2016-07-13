@@ -41,11 +41,10 @@
     //UMshare
     [UMSocialData setAppKey:umAppKey];
     [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
-    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://www.baidu.com"];
+    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://www.yinchao.cn"];
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
     [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
     
-   
     
     //UmengAnalytics
     UMConfigInstance.appKey = umAppKey;
