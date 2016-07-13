@@ -19,6 +19,8 @@
     
     UIPageControl *_page;
     NSMutableArray * bannerImageArr;
+    NSMutableArray * songAry;
+    
     
 }
 
@@ -269,6 +271,7 @@
         NSBanner * banner = (NSBanner *)obj;
        
         [bannerAry1 addObject:banner.titleImageUrl];
+        
     }
     [self addHeaderViewWithImageArray:bannerAry1];
 }

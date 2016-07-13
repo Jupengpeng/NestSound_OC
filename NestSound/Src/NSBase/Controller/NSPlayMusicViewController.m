@@ -6,6 +6,7 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
+
 #import "NSPlayMusicViewController.h"
 #import "NSPlayMusicTool.h"
 #import "NSMusicListViewController.h"
@@ -19,6 +20,7 @@
 #import "NSLoginViewController.h"
 #import "NSShareView.h"
 #import "NSIndexModel.h"
+#import "NSSongListModel.h"
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -885,16 +887,42 @@ static id _instance;
 //previous song
 - (void)previousBtnClick:(UIButton *)btn {
     
-    self.itemUid = self.musicDetail.prevItemID;
-    [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
+    
+    if (self.songAry.count != 0) {
+        self.songID = self.songID - 1;
+        if (self.songID == -1) {
+            self.itemUid   = [[self.songAry lastObject] longValue];
+            self.songID = self.songAry.count - 1;
+        }else{
+            self.itemUid   = [self.songAry[self.songID] longValue];
+        }
+        
+        [self fetchPlayDataWithItemId:self.itemUid];
+    }else{
+        self.itemUid = self.musicDetail.prevItemID;
+        [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
+    }
     
 }
 
 //next song
 - (void)nextBtnClick:(UIButton *)btn {
     
-    self.itemUid = self.musicDetail.nextItemID;
-    [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+    if (self.songAry.count != 0) {
+        if (self.songID == self.songAry.count - 1) {
+            self.itemUid   = [[self.songAry firstObject] longValue];
+            self.songID = 0;
+        }else{
+            self.songID = self.songID + 1;
+            self.itemUid   = [self.songAry[self.songID] longValue];
+        }
+        [self fetchPlayDataWithItemId:self.itemUid];
+    }else{
+        self.itemUid = self.musicDetail.nextItemID;
+        [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+    }
+    
+    
     
 }
 
