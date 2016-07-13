@@ -31,6 +31,7 @@
     NSString * index;
     UIImageView * playStatus;
     int i;
+    NSMutableArray * songAry;
 }
 
 @property (nonatomic, strong) NSMutableArray *itemIDArray;
@@ -425,7 +426,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     if (section == 0) {
         
-        return CGSizeMake(ScreenWidth, 230);
+        return CGSizeMake(ScreenWidth, 190);
     }
     return CGSizeMake(ScreenWidth, 35);
     
@@ -442,9 +443,10 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         reusable.bannerAry = bannerAry;
         
+        
         reusable.titleLable.text = @"推荐作品";
 //        NSLocalizedString(@"promot_recommendWorks", @"");
-//        LocalizedStr(@"promot_recommendWorks");
+//        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
         
     } else if (indexPath.section == 1) {
         
@@ -512,7 +514,29 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         event.h5Url = banner.activityURL;
         [self.navigationController pushViewController:event animated:YES];
     }else{
-        NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+        
+        
+        if (!songAry) {
+            songAry = [NSMutableArray array];
+        }else{
+            [songAry removeAllObjects];
+                   }
+        for (NSBanner * banner in bannerAry) {
+            if (banner.state == 0) {
+                [songAry  addObject:@(banner.itemID)];
+            }
+            
+        }
+
+         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+        int g;
+        for (g =0; g<songAry.count; g++) {
+            if (item == [songAry[g] longValue]) {
+                playVC.songID = g;
+                break;
+            }
+        }
+        playVC.songAry = songAry;
         playVC.itemUid = item;
         playVC.from = @"tuijian";
         playVC.geDanID = 0;
@@ -531,17 +555,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
     
-}
-
--(void)animation:(BOOL)animat
-{
-    
-    
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSLog(@"this is y%f",scrollView.y);
 }
 
 @end

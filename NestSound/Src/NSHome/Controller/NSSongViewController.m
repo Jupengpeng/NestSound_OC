@@ -17,12 +17,12 @@ UITableViewDataSource,
 UITableViewDelegate
 >{
     NSMutableArray * songAry;
-    
     long songListId;
     UITableView * songsTable;
     NSSongListHeaderView * header;
     NSString * url;
     singListModel * singListDetail;
+    NSMutableArray * songList;
 }
 
 
@@ -39,6 +39,7 @@ static NSString * cellId = @"SongCell";
     
     if (self = [super init]) {
         songListId = listId;
+        songList = [NSMutableArray array];
     }
 
     return self;
@@ -94,6 +95,9 @@ static NSString * cellId = @"SongCell";
             singListDetail = songListModel.songListDetail.listDetail;
             if (!operation.isLoadingMore) {
                 songAry = [NSMutableArray arrayWithArray:songListModel.SongList.songList];
+                for (songModel * model in songAry) {
+                    [songList addObject:@(model.itemId)];
+                }
             }else
             {
                 [songAry addObjectsFromArray:songListModel.SongList.songList];
@@ -176,6 +180,8 @@ static NSString * cellId = @"SongCell";
     playVC.itemUid = song.itemId;
     playVC.from = @"gedan";
     playVC.geDanID = (int)songListId;
+    playVC.songAry = songList;
+    playVC.songID = 0;
     [self.navigationController pushViewController:playVC animated:YES];
                                           
 }
@@ -226,10 +232,13 @@ static NSString * cellId = @"SongCell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     songModel * song = songAry[indexPath.row];
+    NSInteger row = indexPath.row;
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     playVC.itemUid = song.itemId;
     playVC.from = @"gedan";
     playVC.geDanID = (int)songListId;
+    playVC.songAry = songList;
+    playVC.songID = row;
     [self.navigationController pushViewController:playVC animated:YES];
     
 }

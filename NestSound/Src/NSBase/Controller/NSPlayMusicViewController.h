@@ -22,5 +22,7 @@
 @property (nonatomic,strong) NSPlayMusicDetail * musicDetail;
 @property (nonatomic,copy) NSString * from;
 @property (nonatomic,assign) int geDanID;
+@property (nonatomic,strong) NSMutableArray * songAry;
+@property (nonatomic,assign) NSInteger songID;
 
 @end

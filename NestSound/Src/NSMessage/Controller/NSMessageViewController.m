@@ -103,6 +103,8 @@ UITableViewDataSource
         UINavigationController * loginNav = [[UINavigationController alloc] initWithRootViewController:login];
         loginNav.navigationBar.hidden = YES;
         [self presentViewController:loginNav animated:YES completion:nil];
+    }else if (count == 2){
+        [self fetchData];
     }
     
     self.navigationController.navigationBar.hidden = NO;
@@ -115,7 +117,7 @@ UITableViewDataSource
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
     }else{
-         [self fetchData];
+        
         if (self.playSongsVC.player == nil) {
             
         } else {
