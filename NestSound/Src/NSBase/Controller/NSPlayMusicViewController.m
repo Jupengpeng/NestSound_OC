@@ -922,8 +922,6 @@ static id _instance;
         [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
     }
     
-    
-    
 }
 
 - (void)moreChoice {
