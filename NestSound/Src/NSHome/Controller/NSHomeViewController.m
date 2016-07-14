@@ -501,7 +501,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     NSMusicSayViewController *musicSayVC = [[NSMusicSayViewController alloc] init];
     
     [self.navigationController pushViewController:musicSayVC animated:YES];
-    
 }
 
 //轮播器点击事件
