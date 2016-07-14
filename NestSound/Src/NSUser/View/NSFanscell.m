@@ -115,5 +115,8 @@
     if (_fansModel.status ==2) {
         [self.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusTurn"] forState:UIControlStateNormal];
     }
+    
 }
+
+
 @end

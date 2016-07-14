@@ -13,4 +13,5 @@
 @property (nonatomic,assign) BOOL isFans;
 @property (nonatomic,strong) NSFansModel * fansModel;
 @property (nonatomic,strong) UIButton * focusBtn;
+
 @end

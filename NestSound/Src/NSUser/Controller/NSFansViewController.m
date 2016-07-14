@@ -26,12 +26,17 @@ UITableViewDelegate
     NSString * otherFansURL;
     int fansType;
     Who _iswho;
+    NSInteger btnTag;
 }
+
+@property (nonatomic, strong) NSMutableArray *btnTags;
+
 @end
 
 static NSString * const NSFansCellIdeify = @"NSFanscell";
 
 @implementation NSFansViewController
+
 
 -(instancetype)initWithUserID:(NSString *)UserID _isFans:(BOOL)isFans_ isWho:(BOOL)isWho
 {
@@ -40,6 +45,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         userId = UserID;
         _iswho = isWho;
     }
+    
     return  self;
 }
 
@@ -103,7 +109,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     if (!parserObject.success) {
      
         if ([operation.urlTag isEqualToString:fansURL]||[operation.urlTag isEqualToString:otherFansURL]) {
-            
+            btnTag = -2;
             NSFansListModel * fansList = (NSFansListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 fansAry = [NSMutableArray arrayWithArray:fansList.fansListModel];
@@ -114,7 +120,16 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                 
             }
         }else if ([operation.urlTag isEqualToString:focusUserURL]){
-            [self fetchFansListDataWithIsLoadingMore:NO];
+            
+            if (isFans) {
+                
+                [self fetchFansListDataWithIsLoadingMore:NO];
+            } else {
+                
+                NSLog(@"关注");
+            }
+            
+        
         }
         if (fansAry.count == 0) {
             emptyImageView.hidden = NO;
@@ -180,7 +195,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         }
     }];
     
-   
+    
     fansTableView.showsInfiniteScrolling = NO;
     
 }
@@ -188,12 +203,23 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 
 #pragma mark -focusUser
 -(void)focusWithBtn:(UIButton *)btn
-{
+{   btn.selected = !btn.selected;
     NSFanscell * cell = (NSFanscell *)btn.superview.superview;
     self.requestType = NO;
     if (isFans) {
          self.requestParams =@{@"userid":@(cell.fansModel.fansID),@"fansid":JUserID,@"token":LoginToken};
     }else{
+        
+        if (cell.focusBtn.selected) {
+            
+            btnTag = cell.focusBtn.tag;
+            
+            [cell.focusBtn setBackgroundImage:[UIImage imageNamed:@"2.0_focusBtn"]  forState:UIControlStateSelected];
+        } else {
+            btnTag = -1;
+            cell.focusBtn.selected = NO;
+        }
+        
         self.requestParams = @{@"userid":@(cell.fansModel.userID),@"fansid":JUserID,@"token":LoginToken};
     }
    
@@ -223,6 +249,20 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         fansCell = [[NSFanscell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSFansCellIdeify];
         
     }
+    
+    fansCell.focusBtn.tag = indexPath.row;
+    if (!fansCell.focusBtn.selected) {
+        fansCell.focusBtn.selected = NO;
+    }
+    
+    if (btnTag == fansCell.focusBtn.tag || fansCell.focusBtn.selected) {
+        fansCell.focusBtn.selected = YES;
+    }
+    
+    if (btnTag == -2) {
+        fansCell.focusBtn.selected = NO;
+    }
+    
     [fansCell.focusBtn addTarget:self action:@selector(focusWithBtn:) forControlEvents:UIControlEventTouchUpInside];
     if (isFans) {
         fansCell.isFans = 1;

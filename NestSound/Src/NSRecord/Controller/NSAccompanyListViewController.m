@@ -264,7 +264,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [accompanyCell.btn addTarget:self action:@selector(playerClick:) forControlEvents:UIControlEventTouchUpInside];
     accompanyCell.btn.tag = indexPath.section;
     accompanyCell.btn.selected = NO;
-
+    
     if (tages == accompanyCell.btn.tag) {
         accompanyCell.btn.selected = YES;
     }
