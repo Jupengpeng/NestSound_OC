@@ -420,7 +420,7 @@
     
     CGFloat moreChoiceViewH;
     
-    if (![NSTool compareWithUser:self.lyricDetail.userId]) {
+    if ([NSTool compareWithUser:self.lyricDetail.userId]) {
         
         array = @[@"举报",@"分享",@"编辑"];
         

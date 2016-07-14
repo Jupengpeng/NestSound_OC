@@ -29,6 +29,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
  
+    NSLog(@"----------commit test by liuxiangwei");
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -40,12 +41,13 @@
 
     //UMshare
     [UMSocialData setAppKey:umAppKey];
-    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:@"http://api.yinchao.cn/"];
-    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://api.yinchao.cn/"];
+
+    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
+    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://www.yinchao.cn"];
+
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
     [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
     
-   
     
     //UmengAnalytics
     UMConfigInstance.appKey = umAppKey;

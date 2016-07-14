@@ -333,7 +333,13 @@
     [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.musicName.text = _myMusicModel.title;
 //    self.authorName.text = _myMusicModel.author;
-    self.heardLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.lookNum];
+    if (_myMusicModel.lookNum > 9999) {
+        double count = (double)_myMusicModel.lookNum/10000.0;
+        NSLog(@"%f",count);
+        self.heardLabel.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.heardLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.lookNum];
+    }
     self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.fovNum];
     self.authorName.text = _myMusicModel.author;
     self.musicName.text = _myMusicModel.title;

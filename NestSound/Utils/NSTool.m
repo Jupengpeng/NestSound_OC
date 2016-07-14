@@ -417,9 +417,7 @@ static NSDateFormatter *dateFormatter;
 
 +(BOOL)shareAvailableSina
 {
-//    if () {
-//        statements
-//    }
+
     return YES;
 }
 
