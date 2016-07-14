@@ -289,11 +289,9 @@ static id _instance;
         
         [self removeTimer];
         
-        if (self.musicDetail.nextItemID) {
+        if (self.songAry.count != 0) {
             
-            self.itemUid = self.musicDetail.nextItemID;
-            
-            [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+            [self nextBtnClick:nil];
             
         } else {
             

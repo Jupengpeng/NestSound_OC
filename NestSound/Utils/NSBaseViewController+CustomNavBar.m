@@ -18,6 +18,7 @@
 #import "NSInspirationRecordViewController.h"
 #import "NSAccompanyListViewController.h"
 #import "NSMessageViewController.h"
+#import "NSUserPageViewController.h"
 @implementation NSBaseViewController (CustomNavBar)
 
 + (void)load {
@@ -49,7 +50,7 @@
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
     }
     
-    if ([self isKindOfClass:[NSHomeViewController class]] || [self isKindOfClass:[NSDiscoverViewController class]] || [self isKindOfClass:[NSMessageViewController class]]) {
+    if ([self isKindOfClass:[NSHomeViewController class]] || [self isKindOfClass:[NSDiscoverViewController class]] || [self isKindOfClass:[NSMessageViewController class]] || [self isKindOfClass:[NSUserPageViewController class]]) {
         
         self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
