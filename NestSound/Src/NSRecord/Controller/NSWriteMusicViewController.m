@@ -20,7 +20,7 @@
 #import "NSLoginViewController.h"
 #import "NSWaveformView.h"
 #import "NSPlayMusicViewController.h"
-
+#import "NSDownloadProgressView.h"
 
 @interface CenterLine : UIView
 
@@ -63,6 +63,7 @@
     long hotId;
     long musicTime;
     NSString * mp3URL;
+    NSDownloadProgressView *ProgressView;
 }
 
 @property (nonatomic, strong) UIImageView *slideBarImage;
@@ -96,6 +97,8 @@
 @property (nonatomic, weak) AVAudioSession *session;
 
 @property (nonatomic,strong) UIAlertView *alertView;
+
+@property (nonatomic, strong) UIView *maskView;
 @end
 
 @implementation NSWriteMusicViewController
@@ -212,7 +215,26 @@
         [fm createDirectoryAtPath:LocalAccompanyPath withIntermediateDirectories:YES attributes:nil error:nil];
     }else{
         if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
+            //下载进度条
+            self.maskView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+            
+            _maskView.backgroundColor = [UIColor blackColor];
+            
+            _maskView.alpha = 0.5;
+            
+            [self.navigationController.view addSubview:_maskView];
+            
+            ProgressView = [[NSDownloadProgressView alloc] initWithFrame:CGRectMake(ScreenWidth/6, ScreenHeight/3, 2*ScreenWidth/3, ScreenHeight/4)];
+            
+            ProgressView.downloadDic = @{@"title":@"温馨提示",@"message":@"带上耳机，效果更佳哦～",@"loading":@"正在努力加载，请稍候..."};
+            
+            [ProgressView.cancelBtn addTarget:self action:@selector(removeProgressView) forControlEvents:UIControlEventTouchUpInside];
+            
+            [self.navigationController.view addSubview:ProgressView];
+            
             [[NSHttpClient client] downLoadWithFileURL:fileURL completionHandler:^{
+                
+                [self removeProgressView];
                 
                 UIButton *btn2 = wSelf.btns[2];
                 
@@ -234,7 +256,13 @@
     }
 
 }
-
+//移除进度条
+- (void)removeProgressView {
+    
+    [self.maskView removeFromSuperview];
+    
+    [ProgressView removeFromSuperview];
+}
 - (void)leftBackClick:(UIBarButtonItem *)back {
     
     WS(wSelf);
@@ -682,7 +710,9 @@
                 self.next.enabled = NO;
                 
                 if (self.wavFilePath) {
-                    [self.alertView show];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.alertView show];
+                    });
                     [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
                         
                         NSData *data = [NSData dataWithContentsOfFile:newfilePath];

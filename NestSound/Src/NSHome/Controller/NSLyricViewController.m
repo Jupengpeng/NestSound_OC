@@ -86,7 +86,7 @@
     _maskView.hidden = NO;
     
     [UIView animateWithDuration:0.25 animations:^{
-        shareView.y = ScreenHeight-shareView.height;
+//        shareView.y = ScreenHeight-shareView.height;
         _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
         
     }];
@@ -438,6 +438,16 @@
     
     [self.navigationController.view addSubview:_moreChoiceView];
     
+    //分享
+    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
+    
+    shareView.backgroundColor = [UIColor whiteColor];
+    for (int i = 0; i < 6; i++) {
+        UIButton *shareBtn = (UIButton *)[shareView viewWithTag:250+i];
+        [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    [self.navigationController.view  addSubview:shareView];
     
     for (int i = 0; i < array.count; i++) {
         
@@ -494,17 +504,8 @@
         
     } else if (btn.tag == 1) {
         
+       
         //分享
-        shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
-        
-        shareView.backgroundColor = [UIColor whiteColor];
-        for (int i = 0; i < 6; i++) {
-            UIButton *shareBtn = (UIButton *)[shareView viewWithTag:250+i];
-            [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        
-        [self.navigationController.view  addSubview:shareView];
-        
         [UIView animateWithDuration:0.25 animations:^{
             
             _moreChoiceView.y = ScreenHeight;
@@ -555,8 +556,9 @@
     [UIView animateWithDuration:0.25 animations:^{
         shareView.y = ScreenHeight;
         _moreChoiceView.y = ScreenHeight;
-        [shareView removeFromSuperview];
+        
     }];
+//    [shareView removeFromSuperview];
 }
 
 - (UIView *)cuttingLine {
@@ -628,17 +630,24 @@
     }
     
 }
-//
+//分享
 - (void)handleShareAction:(UIButton *)sender {
     NSLog(@"%@",sender.currentTitle);
     WS(wSelf);
-    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:_lyricDetail.titleImageUrl];
+    UIImage * imageShare;
+    NSString *contentShare = [NSString stringWithFormat:@"我用音巢APP创作了一首歌词，快来看看吧！《%@》,%@",_lyricDetail.title,[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]];
+    if (_lyricDetail.titleImageUrl.length != 0) {
+        imageShare = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_lyricDetail.titleImageUrl]]];
+    }else{
+        imageShare = [UIImage imageNamed:@"2.0_placeHolder"];
+    }
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:_lyricDetail.titleImageUrl];
     [UMSocialData defaultData].extConfig.title = _lyricDetail.title;
     switch (sender.tag) {
         case 250:
         {
             [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [wSelf.navigationController popToRootViewControllerAnimated:YES];
                 }
@@ -648,7 +657,7 @@
         case 251:
         {
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [wSelf.navigationController popToRootViewControllerAnimated:YES];
                 }
@@ -658,7 +667,7 @@
         case 252:
         {
             [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [wSelf.navigationController popToRootViewControllerAnimated:YES];
                 }
@@ -668,7 +677,7 @@
         case 253:
         {
             [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:_lyricDetail.title image:_lyricDetail.titleImageUrl location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [wSelf.navigationController popToRootViewControllerAnimated:YES];
                 }
@@ -678,7 +687,7 @@
         case 254:
         {
             [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:_lyricDetail.title image:_lyricDetail.titleImageUrl  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:contentShare image:imageShare  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [wSelf.navigationController popToRootViewControllerAnimated:YES];
                 }

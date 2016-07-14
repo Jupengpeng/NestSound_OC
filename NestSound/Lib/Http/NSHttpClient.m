@@ -212,43 +212,53 @@ static NSHttpClient *client;
 #pragma  mark -downLoadWithFIleURL
 -(void)downLoadWithFileURL:(NSString *)fileURL completionHandler:(void(^)())completion
 {
-    [[NSToastManager manager] showprogress];
-    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL] cachePolicy:1 timeoutInterval:6];
-    [[self downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-        NSString * filePath = [LocalAccompanyPath stringByAppendingPathComponent:response.suggestedFilename];
-        NSURL * url = [NSURL fileURLWithPath:filePath];
-        
-        return url;
-    }completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
-        NSLog(@"%@",error.localizedDescription);
-        [[NSToastManager manager] hideprogress];
-        completion();
-    }] resume];
-    /*
+//    [[NSToastManager manager] showprogress];
+//    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL] cachePolicy:1 timeoutInterval:6];
+//    [[self downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+//        NSString * filePath = [LocalAccompanyPath stringByAppendingPathComponent:response.suggestedFilename];
+//        NSURL * url = [NSURL fileURLWithPath:filePath];
+//        
+//        return url;
+//    }completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+//        NSLog(@"%@",error.localizedDescription);
+//        [[NSToastManager manager] hideprogress];
+//        completion();
+//    }] resume];
     NSURLSessionConfiguration*sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:sessionConfiguration];
     
-     NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL] cachePolicy:1 timeoutInterval:6];
+    NSURLRequest*request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL]];
     NSProgress *kProgress = nil;
     NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:&kProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        
         NSString * filePath = [LocalAccompanyPath stringByAppendingPathComponent:response.suggestedFilename];
         NSURL * url = [NSURL fileURLWithPath:filePath];
+        
         return url;
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nonnull filePath, NSError * _Nonnull error) {
         NSLog(@"File downloaded to: %@,%@", filePath, error);
-        [kProgress removeObserver:self forKeyPath:@"downloadProgress"];
-    }];
-    [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        [kProgress removeObserver:self forKeyPath:@"fractionComplete"];
         
     }];
+    [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        self.progress = (CGFloat)kProgress.completedUnitCount/kProgress.totalUnitCount;
+        if ([self.delegate respondsToSelector:@selector(passProgressValue:)]) {
+            [self.delegate passProgressValue:[NSHttpClient client]];
+        }
+        if (kProgress.completedUnitCount/kProgress.totalUnitCount == 1) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion();
+            });
+        }
+//        NSLog(@"总大小：%lld,当前大小:%lld",kProgress.totalUnitCount,kProgress.completedUnitCount);
+    }];
+    
     [kProgress addObserver:self
-                forKeyPath:@"downloadProgress"
+                forKeyPath:@"fractionComplete"
                    options:NSKeyValueObservingOptionNew
                    context:NULL];
     [downloadTask resume];
-    NSLog(@"总大小：%lld,当前大小:%lld",kProgress.totalUnitCount,kProgress.completedUnitCount);
-     */
+    
 }
-
 
 @end

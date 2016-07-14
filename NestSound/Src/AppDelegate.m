@@ -40,8 +40,8 @@
 
     //UMshare
     [UMSocialData setAppKey:umAppKey];
-    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
-    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://www.baidu.com"];
+    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:@"http://api.yinchao.cn/"];
+    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://api.yinchao.cn/"];
     [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
     [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
     

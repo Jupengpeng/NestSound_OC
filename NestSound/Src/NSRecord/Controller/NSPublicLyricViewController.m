@@ -350,10 +350,13 @@
             NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
             
             [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
-            [lyricDic setValue:titleImageURL forKey:@"titleImageURl"];
-            [lyricDic setValue:descriptionText.text forKeyPath:@"desc"];
+            [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
+            [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
+            [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
+            [lyricDic setValue:mp3URL forKey:@"mp3Url"];
             NSShareViewController * shareVC =[[NSShareViewController alloc] init];
             shareVC.shareDataDic = lyricDic;
+            shareVC.lyricOrMusic = isLyric;
             [self.navigationController pushViewController:shareVC animated:YES];
             
         }

@@ -12,5 +12,5 @@
 
 @property (nonatomic,strong) NSMutableDictionary * shareDataDic;
 @property (nonatomic,strong) publicLyricModel * publicModel;
-
+@property (nonatomic,assign) BOOL lyricOrMusic;
 @end

@@ -159,6 +159,7 @@
 		3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */; };
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
+		94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
 
@@ -481,6 +482,8 @@
 		945708E11D2F41A90074C331 /* NSShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSShareView.m; sourceTree = "<group>"; };
 		945708E31D2F92AD0074C331 /* UIView+RGSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RGSize.h"; sourceTree = "<group>"; };
 		945708E41D2F92AD0074C331 /* UIView+RGSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RGSize.m"; sourceTree = "<group>"; };
+		94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownloadProgressView.h; sourceTree = "<group>"; };
+		94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownloadProgressView.m; sourceTree = "<group>"; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F632447B70FFF967631B2741 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -778,6 +781,8 @@
 				2A8E49EF1D13C33A00F94144 /* NSImageCell.m */,
 				18EA3AD81D1A2A5500A98CC5 /* NSWaveformView.h */,
 				18EA3AD91D1A2A5500A98CC5 /* NSWaveformView.m */,
+				94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */,
+				94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2363,6 +2368,7 @@
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
 				2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */,
+				94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */,
 				2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */,
 				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
 				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,
@@ -2532,7 +2538,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PROVISIONING_PROFILE = "630d1966-dca2-4e06-9328-ef8d33c1b69e";
+				PROVISIONING_PROFILE = "09293cbe-0a33-4528-a3ab-b6964da78b8f";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -2605,7 +2611,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "630d1966-dca2-4e06-9328-ef8d33c1b69e";
+				PROVISIONING_PROFILE = "3537b471-02b5-4853-847b-0ae54980de28";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2632,7 +2638,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
+				PROVISIONING_PROFILE = "5a7f3e3f-8cae-4670-bdaa-e3d63965d278";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

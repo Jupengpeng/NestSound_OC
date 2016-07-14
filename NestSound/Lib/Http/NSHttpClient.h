@@ -7,16 +7,20 @@
 //
 
 #import "AFHTTPSessionManager.h"
-
+@class NSHttpClient;
 typedef enum {
     GetRequest = 1,
     PostRuest = 0
 }requestType;
+@protocol NSHttpClientDelegate <NSObject>
 
+- (void)passProgressValue:(NSHttpClient *)httplient;
+
+@end
 @interface NSHttpClient : AFHTTPSessionManager;
 
-
-
+@property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, assign) id<NSHttpClientDelegate>delegate;
 + (instancetype)client;
 + (NSString *)actionCustomUsrAgent;
 - (NSURLSessionDataTask *)requestWithURL:(NSString *)url
