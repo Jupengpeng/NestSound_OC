@@ -83,7 +83,7 @@ static NSHttpClient *client;
     if (showLoading) {
         
         // show hud
-        [[NSToastManager manager] showprogress];
+//        [[NSToastManager manager] showprogress];
     }
 
     BOOL isLoadingMore = [[transferParas objectForKey:kIsLoadingMore] boolValue];
@@ -101,7 +101,7 @@ static NSHttpClient *client;
                           //hide toast
                           if (showLoading) {
                               
-                              [[NSToastManager manager] hideprogress];
+//                              [[NSToastManager manager] hideprogress];
                           }
 #ifdef DEBUG
                           NSLog(@"RESPONSE JSON:%@", responseObject);

@@ -44,17 +44,19 @@ static NSString * const headerView = @"HeaderView";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self configureUIAppearance];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
-
+    
     [super viewDidAppear:animated];
     if (newSongList.count == 0 || newSongList == nil) {
-         [self fetchData];
+        [_collection setContentOffset:CGPointMake(0, -60) animated:YES];
+        [_collection performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
+//        [self fetchData];
+       
     }
-   
 }
 
 #pragma mark -configureUIAppearance
@@ -62,11 +64,11 @@ static NSString * const headerView = @"HeaderView";
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
-    layout.minimumLineSpacing = 10;
+//    layout.minimumLineSpacing = 10;
+//    
+//    layout.minimumInteritemSpacing = 10;
     
-    layout.minimumInteritemSpacing = 10;
-    
-    layout.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
+//    layout.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
     
     CGFloat W = (ScreenWidth - 50) / 3;
     
@@ -83,8 +85,20 @@ static NSString * const headerView = @"HeaderView";
     [_collection registerClass:[NSRecommendCell class] forCellWithReuseIdentifier:RecommendCell];
     
     [_collection registerClass:[NSIndexCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView];
-    
     self.view = _collection;
+//    [self.view addSubview:_collection];
+    //refresh
+    WS(wSelf);
+    [_collection addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            
+            [wSelf fetchData];
+        }
+        
+    }];
+    
 }
 
 
@@ -94,7 +108,6 @@ static NSString * const headerView = @"HeaderView";
 
     self.requestType = YES;
     NSDictionary * dic = @{@"name":@""};
-   
     NSString * str =  [NSTool encrytWithDic:dic];
     if (isMusic) {
        musicURL = [dicoverMusicURL stringByAppendingString:str];
@@ -111,7 +124,6 @@ static NSString * const headerView = @"HeaderView";
 #pragma  mark override -actionFectionData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
     if (!parserObject.success){
         
         if ([operation.urlTag isEqualToString:musicURL]) {
@@ -127,29 +139,28 @@ static NSString * const headerView = @"HeaderView";
             }else{
                 newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
             }
-
+            
             
         }else if ([operation.urlTag isEqualToString:lyricURL]){
-    
-        NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
-        if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
+            
+            NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
+            if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
+                
+            }else{
+                hotSongList = [NSMutableArray arrayWithArray:lyricListModel.HotLyricList.hotLyricList];
+            }
+            if (lyricListModel.LyricList.lyricList.count == 0) {
+                
+            }else{
+                newSongList = [NSMutableArray arrayWithArray:lyricListModel.LyricList.lyricList];
+            }
             
         }else{
-            hotSongList = [NSMutableArray arrayWithArray:lyricListModel.HotLyricList.hotLyricList];
-        }
-        if (lyricListModel.LyricList.lyricList.count == 0) {
             
-        }else{
-            newSongList = [NSMutableArray arrayWithArray:lyricListModel.LyricList.lyricList];
         }
-
-        
-    }else{
-        
-    
-        }
-    
-    [self configureUIAppearance];
+            [_collection.pullToRefreshView stopAnimating];
+        [_collection reloadData];
+//    [self configureUIAppearance];
     
     }
 }
@@ -163,7 +174,7 @@ static NSString * const headerView = @"HeaderView";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 6;
+    return section ? newSongList.count : hotSongList.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {

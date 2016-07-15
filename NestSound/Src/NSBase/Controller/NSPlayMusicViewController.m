@@ -419,7 +419,15 @@ static id _instance;
         
         [btn setImage:[UIImage imageNamed:@"2.0_repeatOne_highlighted"] forState:UIControlStateSelected|UIControlStateHighlighted];
         
+        
+        
     } action:^(UIButton *btn) {
+        
+        if (btn.selected) {
+            [[NSToastManager manager] showtoast:@"顺序播放"];
+        } else {
+            [[NSToastManager manager] showtoast:@"单曲循环"];
+        }
         
         btn.selected = !btn.selected;
         

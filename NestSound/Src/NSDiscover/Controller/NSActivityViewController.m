@@ -39,7 +39,9 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 {
     [super viewWillAppear:animated];
     if (activityAry.count == 0) {
-        [self fetchData];
+        [activityColl setContentOffset:CGPointMake(0, -60) animated:YES];
+        [activityColl performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
+//        [self fetchData];
     }
 }
 
@@ -59,6 +61,17 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     [activityColl registerClass:[NSActivityCollectionCell class] forCellWithReuseIdentifier:activityCellIdentity];
 //    [self.view addSubview:activityColl];
     self.view = activityColl;
+    //refresh
+    WS(wSelf);
+    [activityColl addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            
+            [wSelf fetchData];
+        }
+        
+    }];
     //constaints
 //    [activityColl mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.top.right.bottom.equalTo(self.view);
@@ -80,15 +93,19 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
+    
     if (!parserObject.success) {
         
         if ([operation.urlTag isEqualToString:url]) {
             NSActivityListModel * activityListModel = (NSActivityListModel *)parserObject;
             activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
-
+            
         }
-            }
-    [activityColl reloadData];
+            [activityColl.pullToRefreshView stopAnimating];
+        [activityColl reloadData];
+    } else {
+        
+    }
 
 }
 

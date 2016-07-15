@@ -37,7 +37,9 @@
 {
     [super viewDidAppear:animated];
     if (musicList.count == 0 || musicList == nil) {
-        [self fetchData];
+        [_tableView setContentOffset:CGPointMake(0, -60) animated:YES];
+        [_tableView performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
+//        [self fetchData];
     }
 }
 
@@ -56,8 +58,18 @@
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    
+//    [self.view addSubview:_tableView];
     self.view = _tableView;
+    WS(wSelf);
+    [_tableView addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            
+            [wSelf fetchData];
+        }
+        
+    }];
     
 }
 
@@ -83,7 +95,7 @@
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
+    [_tableView.pullToRefreshView stopAnimating];
     if (!parserObject.success) {
         NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
         if ([operation.urlTag isEqualToString:musicUrl]) {
@@ -91,13 +103,12 @@
         }else if ([operation.urlTag isEqualToString:lyricUrl]){
             lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
         }
-        
+        [_tableView.pullToRefreshView stopAnimating];
+        [_tableView reloadData];
     }else{
-    
+        
     }
     
-    
-    [_tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -109,7 +120,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 6;
+    return section ? lyricList.count : musicList.count;
 }
 
 

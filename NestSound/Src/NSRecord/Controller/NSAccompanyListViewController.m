@@ -109,17 +109,17 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
         if (!operation.isLoadingMore) {
             
-        
-        
-        if ([operation.urlTag isEqualToString:hotUrl]) {
             
-            hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
-        }else{
             
-            newAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+            if ([operation.urlTag isEqualToString:hotUrl]) {
+                
+                hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+            }else{
+                
+                newAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+                
+            }
             
-        }
-        
         }else{
             if ([operation.urlTag isEqualToString:hotUrl]) {
                 if (listModel.accommpanyList.count == 0) {
@@ -129,17 +129,17 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                     [hotAccompanyAry addObjectsFromArray:listModel.accommpanyList];
                 }
                 
-               
+                
             }else{
                 
                 if (listModel.accommpanyList.count == 0) {
                     
                 }else{
                     
-                     [newAccompanyAry addObjectsFromArray:listModel.accommpanyList];
+                    [newAccompanyAry addObjectsFromArray:listModel.accommpanyList];
                     
                 }
-               
+                
             }
         }
         if (headerView.xinBtn.selected) {

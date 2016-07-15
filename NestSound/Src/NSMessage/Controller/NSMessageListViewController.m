@@ -137,7 +137,7 @@ static NSString * const systemCellID = @"SystemCellID";
             if (!operation.isLoadingMore) {
                 messageArr = [NSMutableArray arrayWithArray:collecMessage.upvoteMessageList];
                 
-               
+                
             }else{
                 if (collecMessage.upvoteMessageList.count == 0) {
                     
@@ -147,7 +147,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 
             }
             emptyImage.image = [UIImage imageNamed:@"2.0_nocollection_bk"];
-        
+            
         }else if ([operation.urlTag isEqualToString:commentUrl]){
             NSCommentListModel * commentMessage = (NSCommentListModel *)parserObject;
             if (!operation.isLoadingMore) {
@@ -161,7 +161,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 
             }
             emptyImage.image = [UIImage imageNamed:@"2.0_noComment_bk"];
-        
+            
         }else if ([operation.urlTag isEqualToString:systemUrl]){
             NSSystemMessageListModel * systemMessage = (NSSystemMessageListModel *)parserObject;
             if (!operation.isLoadingMore) {
