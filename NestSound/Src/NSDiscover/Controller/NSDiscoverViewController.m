@@ -286,7 +286,7 @@
     //活动
    activity = [[NSActivityViewController alloc] init];
     
-    activity.view.frame = CGRectMake(0, 0, ScreenWidth, _scrollView.height);
+    activity.view.frame = CGRectMake(0, 10, ScreenWidth, _scrollView.height);
     
     [self addChildViewController:activity];
     
@@ -303,7 +303,7 @@
     
     [self addChildViewController:music];
     
-//    [_scrollView addSubview:music.view];
+    [_scrollView addSubview:music.view];
     
     //歌词
     
@@ -317,7 +317,7 @@
     
     [self addChildViewController:lyric];
     
-   // [_scrollView addSubview:lyric.view];
+    [_scrollView addSubview:lyric.view];
     
     
     //榜单
@@ -327,7 +327,7 @@
     
     [self addChildViewController:list];
     
-//    [_scrollView addSubview:list.view];
+    [_scrollView addSubview:list.view];
     
     
 }

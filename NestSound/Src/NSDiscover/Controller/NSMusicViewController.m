@@ -64,11 +64,11 @@ static NSString * const headerView = @"HeaderView";
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
-//    layout.minimumLineSpacing = 10;
-//    
-//    layout.minimumInteritemSpacing = 10;
+    layout.minimumLineSpacing = 10;
     
-//    layout.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
+    layout.minimumInteritemSpacing = 10;
+    
+    layout.sectionInset = UIEdgeInsetsMake(0, 15, 0, 15);
     
     CGFloat W = (ScreenWidth - 50) / 3;
     
@@ -105,7 +105,6 @@ static NSString * const headerView = @"HeaderView";
 #pragma mark -fetchData
 -(void)fetchData
 {
-
     self.requestType = YES;
     NSDictionary * dic = @{@"name":@""};
     NSString * str =  [NSTool encrytWithDic:dic];
@@ -116,7 +115,6 @@ static NSString * const headerView = @"HeaderView";
        lyricURL = [dicoverLyricURL stringByAppendingString:str];
         self.requestURL = lyricURL;
     }
-   
    
     
 }

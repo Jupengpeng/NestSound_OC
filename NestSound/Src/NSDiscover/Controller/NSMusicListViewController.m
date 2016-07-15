@@ -95,7 +95,6 @@
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    [_tableView.pullToRefreshView stopAnimating];
     if (!parserObject.success) {
         NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
         if ([operation.urlTag isEqualToString:musicUrl]) {

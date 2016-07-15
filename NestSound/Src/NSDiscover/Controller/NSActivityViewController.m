@@ -35,9 +35,9 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 }
 
 
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     if (activityAry.count == 0) {
         [activityColl setContentOffset:CGPointMake(0, -60) animated:YES];
         [activityColl performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
@@ -101,8 +101,9 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
             activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
             
         }
-            [activityColl.pullToRefreshView stopAnimating];
+        [activityColl.pullToRefreshView stopAnimating];
         [activityColl reloadData];
+
     } else {
         
     }
