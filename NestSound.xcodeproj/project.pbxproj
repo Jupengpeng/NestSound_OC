@@ -2642,11 +2642,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< HEAD
-				PROVISIONING_PROFILE = "3b408c50-9d03-4677-827a-33e34bf3e15d";
-=======
+
 				PROVISIONING_PROFILE = "";
->>>>>>> 583907dc31ad0b119c5d57b05284dd03a6ee3a1a
+
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
