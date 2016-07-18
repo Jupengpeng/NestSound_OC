@@ -430,8 +430,9 @@
     [NSTool saveImage:image withName:@"lyricTitlePage.png"];
     
     UIImage * titlepageImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
+    
     //set addtitlePageBtn backgroundImage
-    [addTitlePageBtn setBackgroundImage:titlepageImage forState:UIControlStateNormal];
+    [addTitlePageBtn setBackgroundImage:[titlepageImage scaleFillToSize:CGSizeMake(66, 66)] forState:UIControlStateNormal];
     
     [self dismissViewControllerAnimated:YES completion:^{
     }];

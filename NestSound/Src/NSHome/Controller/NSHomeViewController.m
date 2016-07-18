@@ -450,13 +450,15 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
     } else if (indexPath.section == 1) {
         
+        [[reusable viewWithTag:100] removeFromSuperview];
+        
+        [[reusable viewWithTag:200] removeFromSuperview];
+        
         UIButton *songMenuBtn = [reusable loadMore];
         
         [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        [[reusable viewWithTag:100] removeFromSuperview];
-        
-        [[reusable viewWithTag:200] removeFromSuperview];
+
         
         reusable.titleLable.text = @"推荐歌单";
 //        LocalizedStr(@"promot_recommendSongList");
