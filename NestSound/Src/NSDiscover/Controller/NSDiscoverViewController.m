@@ -329,7 +329,7 @@
     
     [_scrollView addSubview:list.view];
     
-    
+     
 }
 
 
@@ -363,14 +363,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     _lineView.x = scrollView.contentOffset.x / ScreenWidth * _lineView.width;
-    if (scrollView.contentOffset.x/ScreenWidth == 1) {
-        [_scrollView addSubview:music.view];
-    }
-    else if(scrollView.contentOffset.x/ScreenWidth == 2){
-        [_scrollView addSubview:lyric.view];
-    }else if(scrollView.contentOffset.x /ScreenWidth == 3){
-        [_scrollView addSubview:list.view];
-    }
+//    if (scrollView.contentOffset.x/ScreenWidth == 1) {
+//        [_scrollView addSubview:music.view];
+//    }
+//    else if(scrollView.contentOffset.x/ScreenWidth == 2){
+//        [_scrollView addSubview:lyric.view];
+//    }else if(scrollView.contentOffset.x /ScreenWidth == 3){
+//        [_scrollView addSubview:list.view];
+//    }
 }
 
 
