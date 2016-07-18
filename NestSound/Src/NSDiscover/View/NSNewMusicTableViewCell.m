@@ -318,7 +318,14 @@
     [self.coverIcon setDDImageWithURLString:_musicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"UMS_alipay_icon"]];
     self.musicName.text = _musicModel.workName;
     self.authorName.text = _musicModel.author;
-    self.heardLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.lookNum];
+    if (_musicModel.lookNum > 9999) {
+        double count = (double)_musicModel.lookNum/10000.0;
+        NSLog(@"%f",count);
+        self.heardLabel.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.heardLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.lookNum];
+    }
+
     self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.fovNum];
     
     self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.zanNum];
