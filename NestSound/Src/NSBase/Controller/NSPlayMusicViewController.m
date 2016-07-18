@@ -202,26 +202,29 @@ static id _instance;
         [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
     }
     
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    //毛玻璃效果
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    [backgroundImage setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    backgroundImage.contentMode =  UIViewContentModeScaleAspectFill;
+    backgroundImage.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    backgroundImage.clipsToBounds  = YES;
+    
+    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     
     
     UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
-    effectView.alpha = 0.9;
+    effectView.alpha = 1.0;
     effectView.frame = backgroundImage.frame;
     
     [backgroundImage addSubview:effectView];
     
     UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
     UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
-    
     transparentImage.image = image;
     
     

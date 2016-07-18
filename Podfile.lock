@@ -41,7 +41,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - HUPhotoPicker
+  - HUPhotoPicker (~> 1.0.1)
   - JPush
   - Masonry
   - MBProgressHUD
@@ -72,6 +72,6 @@ SPEC CHECKSUMS:
   UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
 
-PODFILE CHECKSUM: 184d351c10fecba9340b7ffa08dcf913d3c5f581
+PODFILE CHECKSUM: 098d3786d69c60cf36a5b09f9dd54527ee527a33
 
 COCOAPODS: 1.0.1

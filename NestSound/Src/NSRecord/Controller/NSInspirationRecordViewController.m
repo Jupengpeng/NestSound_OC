@@ -247,21 +247,21 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         [self uploadAudioWithImageURL:self.titleImageURL];
     }else{
         if (ImageArr.count != 0) {
+             NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
             QNUploadManager * upManager = [[QNUploadManager alloc] init];
-            for (int i = 0 ; i<ImageArr.count; i++) {
+            for (int i = 0 ; i<1; i++) {
                 UIImage * image = ImageArr[i];
                 NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
-                
-                [upManager putData:imageData key:[NSString stringWithFormat:@"%d.png",i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                NSLog(@"时间戳%@",timeSp);
+                [upManager putData:imageData key:[NSString stringWithFormat:@"%@%d.png",timeSp,i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                    NSLog(@" 图片key：%@",[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]]);
                     
-                    
-                   // if ([key isEqualToString:@"1.png"]) {
                     if (self.titleImageURL == nil || self.titleImageURL.length == 0) {
                         
                         wSelf.titleImageURL = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                     }else{
                         
-                        wSelf.titleImageURL =[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                        wSelf.titleImageURL =[NSString stringWithFormat:@"%@,",[resp objectForKey:@"key"]];
                     }
                     
                     if ((i + 1)  == ImageArr.count) {
@@ -397,9 +397,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
         
-        self.navigationItem.rightBarButtonItem = nil;
+//        self.navigationItem.rightBarButtonItem = nil;
         
-        inspiration.lyricText.editable = NO;
+//        inspiration.lyricText.editable = NO;
         
         pictureBtn.enabled = NO;
         
@@ -1053,7 +1053,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 
 #pragma mark -collectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
+    NSLog(@" item个数%d",ImageArr.count);
     return ImageArr.count;
 }
 
@@ -1098,6 +1098,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 -(void)imagePickerController:(HUImagePickerViewController *)picker didFinishPickingImages:(NSArray *)images
 {
     ImageArr = [NSMutableArray arrayWithArray:images];
+    NSLog(@"图片个数：%d",ImageArr.count);
     [_collection reloadData];
     
 }
