@@ -10,4 +10,5 @@
 
 @interface NSImageCell : UICollectionViewCell
 @property (nonatomic,strong) UIImageView * image;
+@property (nonatomic, strong) UIButton *deleteBtn;
 @end

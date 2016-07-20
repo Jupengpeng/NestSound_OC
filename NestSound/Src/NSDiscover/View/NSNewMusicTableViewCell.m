@@ -148,9 +148,10 @@
     
     //封面
     self.coverIcon = [[UIImageView alloc] init];
-    
-    
-    
+    [_coverIcon setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    _coverIcon.contentMode =  UIViewContentModeScaleAspectFill;
+    _coverIcon.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _coverIcon.clipsToBounds  = YES;
     [self.background addSubview:self.coverIcon];
     
     [self.coverIcon mas_makeConstraints:^(MASConstraintMaker *make) {

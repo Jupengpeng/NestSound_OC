@@ -230,6 +230,7 @@ static NSString * const headerView = @"HeaderView";
 #pragma mark - collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     NSRecommend * music;

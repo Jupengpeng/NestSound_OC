@@ -152,9 +152,7 @@
     }else{
         cell.musicModel = (NSBandMusic *)lyricList[row];
     }
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+        
     cell.numLabel.text = [NSString stringWithFormat:@"%02zd",indexPath.row + 1];
     
     return cell;
@@ -162,7 +160,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger section = indexPath.section;
 //    NSPlayMusicViewController * playMusicVC;
     if (section == 0) {

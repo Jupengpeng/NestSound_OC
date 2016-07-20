@@ -283,6 +283,7 @@ UITableViewDataSource
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSUInteger section = indexPath.section;
     NSMessageListViewController * messageListVC;
     switch (section) {

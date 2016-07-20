@@ -189,7 +189,11 @@
     _myInspirationModel = myInspirationModel;
     NSArray * arr = [_myInspirationModel.titleImageUrls componentsSeparatedByString:@","];
     if (arr.count) {
-        [_backgroundImageView setDDImageWithURLString:arr[0] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+        NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:arr[0]]];
+        UIImage * image = [[UIImage alloc] initWithData:imageData];
+        _backgroundImageView.image = [image scaleFillToSize:CGSizeMake(ScreenWidth-30, 140)];
+    }else{
+        _backgroundImageView.image = [UIImage imageNamed:@"2.0_placeHolder_long"];
     }
     
     if (!self.myInspirationModel.spireContent) {
@@ -201,6 +205,7 @@
     NSDateFormatter * dateFormater = [[NSDateFormatter alloc] init];
     double timeStamp = _myInspirationModel.createDate / 1000;
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
+    
     [dateFormater setDateFormat: @"YYYY"];
     _yearLabel.text = [dateFormater stringFromDate:date];
     [dateFormater setDateFormat:@"MM"];

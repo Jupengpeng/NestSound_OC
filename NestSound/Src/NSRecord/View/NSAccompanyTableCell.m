@@ -41,9 +41,9 @@
     //titlePage
     titlePage = [[UIImageView alloc] init];
     [titlePage setContentScaleFactor:[[UIScreen mainScreen] scale]];
-    titlePage.contentMode =  UIViewContentModeScaleAspectFit;
-//    titlePage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//    titlePage.clipsToBounds  = YES;
+    titlePage.contentMode =  UIViewContentModeScaleAspectFill;
+    titlePage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    titlePage.clipsToBounds  = YES;
     [self.contentView addSubview:titlePage];
     
     UIButton *btn = [[UIButton alloc] init];

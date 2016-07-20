@@ -149,19 +149,19 @@ UITableViewDataSource>
             headerView.userModel = userData.userDataModel.userModel;
             headerView.otherModel = userData.userOtherModel;
             if (!operation.isLoadingMore) {
-            
+                
                 myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
                 
             }else{
                 [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
-            
+                
             }
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
             }else{
                 [_tableView.infiniteScrollingView stopAnimating];
             }
-
+            
             dataAry = myMusicAry;
             if (dataAry.count == 0) {
                 emptyImage.hidden = NO;
@@ -171,8 +171,10 @@ UITableViewDataSource>
             [_tableView reloadData];
         }else if ([operation.urlTag isEqualToString:focusUserURL]){
             [[NSToastManager manager] showtoast:@"关注成功"];
+        } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
+            [_tableView reloadData];
         }
-            }else{
+    }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
     }
     
@@ -483,6 +485,7 @@ UITableViewDataSource>
 }
 
 #pragma mark -tableViewDelegate
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSMyMusicModel * myMusic = dataAry[indexPath.row];
@@ -652,12 +655,11 @@ UITableViewDataSource>
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
-
-        [tableView reloadData];
+//        [tableView reloadData];
         
         NSLog(@"点击了删除");
-
-       
+        
+        
     }
 }
 

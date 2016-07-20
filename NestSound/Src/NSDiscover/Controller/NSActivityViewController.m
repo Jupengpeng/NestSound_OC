@@ -138,6 +138,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 #pragma mark collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
     NSActivity * activity = activityAry[indexPath.row];
     eventVC.h5Url = activity.activityUrl;
