@@ -77,6 +77,7 @@
 -(void)fetchData
 {
     self.requestType = YES;
+    [_tableView.infiniteScrollingView startAnimating];
     NSDictionary * dic = @{@"modelType":@"1"};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
@@ -98,11 +99,19 @@
     if (!parserObject.success) {
         NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
         if ([operation.urlTag isEqualToString:musicUrl]) {
-            musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
+            if (bandListModel.BandMusicList.count) {
+                musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
+            } else {
+             
+            }
         }else if ([operation.urlTag isEqualToString:lyricUrl]){
-            lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
+            if (bandListModel.BandLyricList.count) {
+                lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
+            } else {
+               
+            }
         }
-        [_tableView.pullToRefreshView stopAnimating];
+         [_tableView.pullToRefreshView stopAnimating];
         [_tableView reloadData];
     }else{
         

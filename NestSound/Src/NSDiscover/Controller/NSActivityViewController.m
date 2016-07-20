@@ -83,6 +83,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)fetchData
 {
     self.requestType = YES;
+    [activityColl.infiniteScrollingView startAnimating];
     NSDictionary * dic = @{@"page":@(1)};
     NSString * str = [NSTool encrytWithDic:dic];
     self.requestURL = [dicoverActivityURL stringByAppendingString:str];
@@ -98,10 +99,14 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
         
         if ([operation.urlTag isEqualToString:url]) {
             NSActivityListModel * activityListModel = (NSActivityListModel *)parserObject;
-            activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
+            if (activityListModel.ActivityList.count) {
+                activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
+            } else {
+                
+            }
             
         }
-        [activityColl.pullToRefreshView stopAnimating];
+       [activityColl.pullToRefreshView stopAnimating];
         [activityColl reloadData];
 
     } else {

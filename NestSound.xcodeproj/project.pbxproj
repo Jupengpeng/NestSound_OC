@@ -2570,7 +2570,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PROVISIONING_PROFILE = "09293cbe-0a33-4528-a3ab-b6964da78b8f";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s i386";
@@ -2614,7 +2614,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
-				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2628,8 +2627,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+<<<<<<< HEAD
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+=======
+				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+>>>>>>> 712f682ab735d502a5aa865c963c5bef3820eb98
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2643,7 +2647,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
 				PROVISIONING_PROFILE = "3b408c50-9d03-4677-827a-33e34bf3e15d";
+=======
+
+				PROVISIONING_PROFILE = "";
+
+>>>>>>> 712f682ab735d502a5aa865c963c5bef3820eb98
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2654,8 +2664,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+<<<<<<< HEAD
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+=======
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+>>>>>>> 712f682ab735d502a5aa865c963c5bef3820eb98
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2670,7 +2685,11 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< HEAD
 				PROVISIONING_PROFILE = "3b408c50-9d03-4677-827a-33e34bf3e15d";
+=======
+				PROVISIONING_PROFILE = "";
+>>>>>>> 712f682ab735d502a5aa865c963c5bef3820eb98
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

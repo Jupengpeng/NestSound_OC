@@ -188,7 +188,10 @@
 {
     _myInspirationModel = myInspirationModel;
     NSArray * arr = [_myInspirationModel.titleImageUrls componentsSeparatedByString:@","];
-    [_backgroundImageView setDDImageWithURLString:arr[0] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    if (arr.count) {
+        [_backgroundImageView setDDImageWithURLString:arr[0] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    }
+    
     if (!self.myInspirationModel.spireContent) {
         self.descriptionLabel.text = @"";
     }else{

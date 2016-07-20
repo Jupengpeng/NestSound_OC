@@ -106,6 +106,8 @@ static NSString * const headerView = @"HeaderView";
 -(void)fetchData
 {
     self.requestType = YES;
+//    [_collection.]
+    [_collection.infiniteScrollingView startAnimating];
     NSDictionary * dic = @{@"name":@""};
     NSString * str =  [NSTool encrytWithDic:dic];
     if (isMusic) {
@@ -138,7 +140,6 @@ static NSString * const headerView = @"HeaderView";
                 newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
             }
             
-            
         }else if ([operation.urlTag isEqualToString:lyricURL]){
             
             NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
@@ -156,7 +157,7 @@ static NSString * const headerView = @"HeaderView";
         }else{
             
         }
-            [_collection.pullToRefreshView stopAnimating];
+        [_collection.pullToRefreshView stopAnimating];
         [_collection reloadData];
 //    [self configureUIAppearance];
     

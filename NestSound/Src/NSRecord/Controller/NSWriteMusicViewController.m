@@ -227,7 +227,6 @@ extern NSString* path;
     
     [playVC.player pause];
     
-    
     NSString * fileURL = hotMp3Url;
     NSFileManager * fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:LocalAccompanyPath]) {
@@ -235,7 +234,7 @@ extern NSString* path;
     }else{
         if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
             //下载进度条
-            self.maskView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+            self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
             
             _maskView.backgroundColor = [UIColor blackColor];
             
@@ -746,50 +745,52 @@ extern NSString* path;
                 
                 if (self.wavFilePath) {
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        
                         [self.alertView show];
                     });
-                    [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
-                        
-                        NSData *data = [NSData dataWithContentsOfFile:newfilePath];
-                        
-                        wSelf.data = data;
-                        
-                        wSelf.mp3File = newfilePath;
-                        
-                        [[NSToastManager manager] showprogress];
-                        
-                        // 1.创建网络管理者
-                        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-                        
-                        [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+                    //后台执行mp3转换和上传
+                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
                             
-                            [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
+                            NSData *data = [NSData dataWithContentsOfFile:newfilePath];
                             
+                            wSelf.data = data;
                             
-                        } success:^void(NSURLSessionDataTask * task, id responseObject) {
+                            wSelf.mp3File = newfilePath;
                             
-                            NSDictionary *dict;
-                            
-                            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                            // 1.创建网络管理者
+                            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//                            [[NSToastManager manager] showprogress];
+                            [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                                 
-                                dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+                                [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
                                 
-                            }
+                            } success:^void(NSURLSessionDataTask * task, id responseObject) {
+                                
+                                NSDictionary *dict;
+                                
+                                if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                                    
+                                    dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+                                    
+                                }
+                                
+                                [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+                                
+                                self.wavFilePath = nil;
+                                
+                                //                            [[NSToastManager manager] hideprogress];
+                                
+                            } failure:^void(NSURLSessionDataTask * task, NSError * error) {
+                                // 请求失败
+                                [[NSToastManager manager] hideprogress];
+                                self.next.enabled = YES;
+                            }];
                             
-                            [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
-                            
-                            self.wavFilePath = nil;
-                            
-//                            [[NSToastManager manager] hideprogress];
-                            
-                        } failure:^void(NSURLSessionDataTask * task, NSError * error) {
-                            // 请求失败
-                            [[NSToastManager manager] hideprogress];
-                            self.next.enabled = YES;
                         }];
-                        
-                        
-                    }];
+                    });
+//                    [[NSToastManager manager] showprogress];
+                    
                 } else {
                     
                     NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
@@ -802,7 +803,6 @@ extern NSString* path;
                 
                 [self presentViewController:loginVC animated:YES completion:nil];
             }
-           
         }
     }
 }
@@ -828,7 +828,9 @@ extern NSString* path;
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
+   [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
+//    [self.maskView removeFromSuperview];
+//    [ProgressView removeFromSuperview];
     if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
             NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
