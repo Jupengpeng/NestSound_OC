@@ -17,6 +17,7 @@
 #import "NSInspirtationModel.h"
 #import "NSPlayMusicViewController.h"
 #import "NSPlayMusicTool.h"
+static  CGFloat timeNum =0;
 @interface NSInspirationRecordViewController () <UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource,HUImagePickerViewControllerDelegate,UINavigationControllerDelegate> {
     
     UICollectionView *_collection;
@@ -52,7 +53,7 @@
 
 @property (nonatomic, strong)  CADisplayLink *link;
 
-@property (nonatomic, assign) CGFloat timeNum;
+//@property (nonatomic, assign) CGFloat timeNum;
 
 @property (nonatomic, assign) NSInteger totalTime;
 
@@ -758,9 +759,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             retractBtn.userInteractionEnabled = YES;
             
-            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+            wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)timeNum / 60, (NSInteger)timeNum % 60];
             
-            wSelf.totalTime = self.timeNum;
+            wSelf.totalTime = timeNum;
             
             [wSelf removeLink];
             
@@ -819,7 +820,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                     [wSelf removeLink];
                 }];
                 
-                wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
+                wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)timeNum / 60, (NSInteger)timeNum % 60, self.totalTime / 60, self.totalTime % 60];
                 
                 NSLog(@"点击了播放录音");
                 
@@ -1020,7 +1021,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
  */
 - (void)removeLink {
     
-    self.timeNum = 0;
+    timeNum = 0;
     
     self.recordDuration.text = @"00:00";
     
@@ -1030,8 +1031,8 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 }
 
 - (void)actionTiming {
-    
-    self.timeNum += 1/60.0;
+    NSLog(@"----------------timeNum = %f",timeNum);
+    timeNum += 1/60.0;
     
     if (self.deleteBtn.hidden) {
         
@@ -1061,12 +1062,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     
     
-    self.recordDuration.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60];
+    self.recordDuration.text = [NSString stringWithFormat:@"%02ld:%02ld",(NSInteger)timeNum / 60, (NSInteger)timeNum % 60];
     
     
     if (self.isPlayer) {
         
-        self.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)self.timeNum / 60, (NSInteger)self.timeNum % 60, self.totalTime / 60, self.totalTime % 60];
+        self.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)timeNum / 60, (NSInteger)timeNum % 60, self.totalTime / 60, self.totalTime % 60];
     }
     
 }

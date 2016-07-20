@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 
 typedef NS_ENUM(NSUInteger, Type) {
@@ -16,8 +17,9 @@ typedef NS_ENUM(NSUInteger, Type) {
 };
 
 @interface XHSoundRecorder : NSObject
-
+@property (nonatomic, strong) AVAudioRecorder *recorder;
 + (instancetype)sharedSoundRecorder;
+//@property (nonatomic, strong) AVAudioPlayer *player;
 
 /**
  *  开始录音和继续录音
@@ -29,7 +31,7 @@ typedef NS_ENUM(NSUInteger, Type) {
 /**
  *  暂停录音
  */
-- (void)pauseRecorder:(void (^)(NSString *filePath))PauseRecording;
+- (void)pauseRecorder;
 
 /**
  *  停止录音
@@ -65,6 +67,7 @@ typedef NS_ENUM(NSUInteger, Type) {
  *  @return 分贝数值
  */
 - (CGFloat)decibels;
+- (CGFloat)decibels2;
 
 /**
  *  转成mp3格式

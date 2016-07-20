@@ -12,13 +12,14 @@
 
 @interface XHSoundRecorder () <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
-@property (nonatomic, strong) AVAudioRecorder *recorder;
+
+@property (nonatomic, strong)AVAudioSession *session;
+@property (nonatomic, strong)AVAudioSession *session2;
 
 @property (nonatomic, copy) NSString *fileName;
 
 @property (nonatomic, assign) SystemSoundID soundID;
 
-@property (nonatomic, strong) AVAudioPlayer *player;
 
 @property (nonatomic, copy) NSString *wavPath;
 
@@ -27,11 +28,12 @@
 @property (nonatomic, copy) void (^FinishPlaying)();
 
 @property (nonatomic, copy) void (^FinishRecording)(NSString *);
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 @end
 
 static id _instance;
-
+NSString * path = nil;;
 @implementation XHSoundRecorder
 
 + (instancetype)sharedSoundRecorder {
@@ -45,7 +47,7 @@ static id _instance;
     return _instance;
 }
 
-+ (instancetype)alloc {
+/*+ (instancetype)alloc {
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -54,7 +56,7 @@ static id _instance;
     });
     
     return _instance;
-}
+}*/
 
 - (AVAudioRecorder *)recorder {
     
@@ -72,17 +74,24 @@ static id _instance;
         
         NSString *wavPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
         
-        wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.wav",currentTimeString]];
+        wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf",currentTimeString]];
         
         self.wavPath = wavPath;
-        
+        path=self.wavPath;
         NSURL *url = [NSURL URLWithString:wavPath];
-        
-        AVAudioSession *session = [AVAudioSession sharedInstance];
+        NSError *error = nil;
+
+        //一下session一定不能注释，会有问题
+        /*AVAudioSession *session = [AVAudioSession sharedInstance];
         
         NSError *error = nil;
         
-        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];*/
+        
+        AVAudioSession* session = [AVAudioSession sharedInstance];
+        
+        [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+        [session setActive:YES error:nil];
         
         if(error){
             
@@ -106,7 +115,8 @@ static id _instance;
 - (void)startRecorder:(void (^)(NSString *filePath))FinishRecording {
     
     if (![self.recorder isRecording]) {
-        
+        [self.recorder peakPowerForChannel:0];
+
         [self.recorder prepareToRecord];
         
         [self.recorder record];
@@ -117,13 +127,12 @@ static id _instance;
 }
 
 //暂停录音
-- (void)pauseRecorder:(void (^)(NSString *filePath))PauseRecording {
+- (void)pauseRecorder {
     
     if ([self.recorder isRecording]) {
         
         [self.recorder pause];
         
-        PauseRecording(self.wavPath);
     }
     
 }
@@ -138,26 +147,25 @@ static id _instance;
 
 //播放
 - (void)playsound:(NSString *)filePath withFinishPlaying:(void (^)())FinishPlaying {
+   
     
-    if (!self.player) {
-        
-        AVAudioSession *session = [AVAudioSession sharedInstance];
-        
+    //if (!self.player)
+    {
         NSError *error = nil;
-        
-        [session setCategory:AVAudioSessionCategoryPlayback error:&error];
         
         if(error){
             
             NSLog(@"播放错误说明%@", [error description]);
         }
         
-        NSURL *url;
+        NSURL *url=nil;;
         
         if (filePath == nil) {
             
             if (self.wavPath) {
-                
+                NSFileManager* f = [NSFileManager defaultManager];
+                long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
+                NSLog(@"-----------l =%lld",l);
                 url = [NSURL fileURLWithPath:self.wavPath];
             } else if (self.mp3Path) {
                 
@@ -176,9 +184,13 @@ static id _instance;
             
             return;
         }
+        AVAudioSession* session = [AVAudioSession sharedInstance];
+        
+        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [session setActive:YES error:nil];
         
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-        
+
         self.player.delegate = self;
         
     }
@@ -235,6 +247,43 @@ static id _instance;
     [self.recorder updateMeters];
     
     CGFloat decibels = [self.recorder averagePowerForChannel:0];
+    
+    return decibels;
+}
+
+//分贝数
+- (CGFloat)decibels2 {
+    
+    NSURL *url = [NSURL URLWithString:self.wavPath];
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    
+    NSError *error = nil;
+    
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
+    
+    if(error){
+        
+        NSLog(@"录音错误说明%@", [error description]);
+    }
+    
+    
+    NSDictionary *setting = [NSDictionary dictionary];
+    
+    AVAudioRecorder* recorder2 = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
+    
+    recorder2.meteringEnabled = YES;
+    
+    recorder2.delegate = self;
+
+    
+    
+    
+    
+    ////
+    [recorder2 updateMeters];
+    
+    CGFloat decibels = [recorder2 averagePowerForChannel:0];
     
     return decibels;
 }

@@ -21,7 +21,12 @@
 #import "NSWaveformView.h"
 #import "NSPlayMusicViewController.h"
 #import "NSDownloadProgressView.h"
+static CGFloat timerNum=0;
+static CGFloat timerNum_temp=0;
 
+static CGFloat durationRecord=0;
+static CGFloat count =0;
+extern NSString* path;
 @interface CenterLine : UIView
 
 @end
@@ -71,12 +76,16 @@
 @property (nonatomic, strong) UILabel *timeLabel;
 
 @property (nonatomic, strong)  CADisplayLink *link;
+@property (nonatomic, strong)  CADisplayLink *link2;
 
-@property (nonatomic, assign) CGFloat timerNum;
+@property (nonatomic, assign) CGFloat timerNum2;
+@property (nonatomic, assign) CGFloat count2;
+
 
 @property (nonatomic, strong) NSMutableArray *btns;
 
 @property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, strong) AVAudioPlayer *player2;
 
 @property (nonatomic, strong) NSData *data;
 
@@ -91,8 +100,10 @@
 @property (nonatomic, strong) NSWaveformView *waveform;
 
 @property (nonatomic, assign) int lineNum;
+@property (nonatomic, assign) int lineNum2;
 
 @property (nonatomic, assign) BOOL isPlay;
+@property (nonatomic, assign) BOOL isPlay2;
 
 @property (nonatomic, weak) AVAudioSession *session;
 
@@ -141,6 +152,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    timerNum=0;
+    durationRecord=0;
+    count=0;
+    timerNum_temp=0;
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
@@ -195,6 +210,10 @@
 {
     WS(wSelf);
     [super viewWillAppear:animated];
+    timerNum=0;
+    durationRecord=0;
+    count=0;
+    timerNum_temp=0;
     
     if (self.wavFilePath || self.mp3File) {
         
@@ -514,47 +533,71 @@
         
         
     } else if (btn.tag == 1) {
+        UIButton *btn2 = self.btns[2];
         
-        btn.selected = !btn.selected;
-        
-        if (btn.selected) {
-            
-            [self removeLink];
-            
-            [[XHSoundRecorder sharedSoundRecorder] pausePlaysound];
-            
-            
-        } else {
-            
-            UIButton *btn2 = self.btns[2];
-            
-            if (!btn2.selected) {
-                
-                [self addLink];
-                
+        btn.selected = !btn.selected;//－－no
+        if (!btn.selected) { //回听
+            btn2.selected=YES;
+            btn2.enabled=NO;
+            NSLog(@"--------path =%@",path);
+            [self.waveform removeAllPath];
+            self.timerNum2=0;
+
+                [self addLink2];
+            [self.link2 setPaused:NO];
+
                 [self.waveform playerAllPath];
                 
-                self.isPlay = YES;
+                self.isPlay2 = NO;//YES
                 
                 [[XHSoundRecorder sharedSoundRecorder] playsound:nil withFinishPlaying:^{
-                    
-                    [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
-                    
-                    wSelf.timerNum = 0;
-                    
-                    [wSelf removeLink];
-                    
-                    btn.selected = YES;
-                }];
-            } else {
+                 
+                 [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
+                 
+                    wSelf.timerNum2=0;
+                 
+                 [wSelf removeLink2];
+                 
+                 btn.selected = YES;
+                    btn2.enabled=YES;
+                 }];
+                //////////////////////add by liuxiangwei
                 
-                btn.selected = YES;
-            }
+                /*AVAudioSession *session = [AVAudioSession sharedInstance];
+                
+                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+                [session setActive:YES error:nil];
+                
+                self.session = session;
+                
+                
+                NSURL* url = [NSURL fileURLWithPath:path];
+                
+                self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+                
+                
+                
+                self.player2.delegate = self;
+                
+                [self.player2 prepareToPlay];
+                
+                [self.player2 play];*/
+                
+                //////////////////////end
+            
+
+        }else{//没回听
+            //btn2.enabled=YES;
+            [self removeLink2];
+            [self.link2 setPaused:YES];
+            [[XHSoundRecorder sharedSoundRecorder] pausePlaysound];
+
+            //[self.player2 stop];
+            //self.player2=nil;
+
         }
         
-        
     } else if (btn.tag == 2) {
-        
         btn.selected = !btn.selected;
         
         UIButton *btn1 = self.btns[1];
@@ -562,14 +605,13 @@
         if (btn.selected) {
             
             btn1.selected = YES;
-            
+            //timerNum = timerNum_temp;
+            [self.link setPaused:NO];
+
             [self addLink];
-            
             self.isPlay = NO;
             
             [[XHSoundRecorder sharedSoundRecorder] startRecorder:^(NSString *filePath) {
-                
-                wSelf.timerNum = 0;
                 
                 self.wavFilePath = filePath;
                 
@@ -578,52 +620,43 @@
             btn1.enabled = NO;
             
             
-            if (!self.player) {
+            {
                 
-                AVAudioSession *session = [AVAudioSession sharedInstance];
+                    self.session = [AVAudioSession sharedInstance];
                 
-                [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+                    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+                    [self.session setActive:YES error:nil];
                 
                 
-//                [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
                 
-                [session setActive:YES error:nil];
-                
-                self.session = session;
-                
-                NSError *error = nil;
-                
-                if(error){
-                    
-                    NSLog(@"播放错误说明%@", [error description]);
-                }
                 
                 NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
+                if (!self.player) {
+                    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+
+                }
                 
-                AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+                self.player.delegate = self;
+                totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
                 
-                player.delegate = self;
+                [self.player prepareToPlay];
                 
-                totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)player.duration / 60, (int)player.duration % 60];
-                
-                [player prepareToPlay];
-                
-                self.player = player;
             }
             
             [self.player play];
             
+            
         } else {
             
-            [self removeLink];
-            [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
-            [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
-            
-            [self.player stop];
-            self.player = nil;
+            [self.link setPaused:YES];
+            [[XHSoundRecorder sharedSoundRecorder] pauseRecorder];
+            [self.player pause];
             self.next.enabled = YES;
             btn1.enabled = YES;
-            btn.enabled = NO;
+            durationRecord = self.player.currentTime;
+            count = [[XHSoundRecorder sharedSoundRecorder] decibels];
+            //timerNum_temp =timerNum;
+
         }
         
         
@@ -644,13 +677,15 @@
         self.timeLabel.text = @"00:00";
         
         [self removeLink];
-        
-        self.timerNum = 0;
-        
+        [self removeLink2];
+
+        timerNum = 0;
+        self.timerNum2=0;
+        count=0;
         self.wavFilePath = nil;
         
         [self.player stop];
-        
+        self.player=nil;
         [self.waveform removeAllPath];
         
         [[XHSoundRecorder sharedSoundRecorder] removeSoundRecorder];
@@ -821,9 +856,22 @@
  */
 - (void)addLink {
     
-    self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
+    if (!self.link) {
+        
+        self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
     
-    [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+}
+
+- (void)addLink2 {
+    
+    if (!self.link2) {
+        
+        self.link2 = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming2)];
+        
+        [self.link2 addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
 }
 
 
@@ -838,20 +886,33 @@
     
 }
 
+- (void)removeLink2 {
+    
+    [self.link2 invalidate];
+    
+    self.link2 = nil;
+    
+}
+
+- (void)stopLink{
+    [self.link setPaused:YES];
+
+}
+
 /**
  *  定时器执行
  */
 - (void)actionTiming {
-    
+    //NSLog(@"---------timerNum=%f",timerNum);
     //计时数
-    self.timerNum += 1/60.0;
+    timerNum += 1/60.0;
     
     //分贝数
     
     if (!self.isPlay) {
         
-        CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
-        
+        count = [[XHSoundRecorder sharedSoundRecorder] decibels];
+       // NSLog(@"-2-------count=%f",count);
         self.lineNum++;
             
         if (self.lineNum % 3 == 0) {
@@ -866,9 +927,39 @@
     
     
     //计时显示
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)self.timerNum / 60, (NSInteger)self.timerNum % 60];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum / 60, (NSInteger)timerNum % 60];
     
 }
+
+- (void)actionTiming2 {
+    //计时数
+    self.timerNum2 += 1/60.0;
+    //NSLog(@"--------timerNum2=%f",self.timerNum2);
+
+    //分贝数
+    
+    if (!self.isPlay2) {
+        
+        self.count2 = [[XHSoundRecorder sharedSoundRecorder] decibels2];
+        //NSLog(@"--------count2=%f",self.count2);
+        self.lineNum2++;
+        
+        if (self.lineNum2 % 3 == 0) {
+            
+            self.waveform.num = self.count2 * 0.5 + 20;
+            
+            [self.waveform drawLine];
+            
+            [self.waveform setNeedsDisplay];
+        }
+    }
+    
+    
+    //计时显示
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)self.timerNum2 / 60, (NSInteger)self.timerNum2 % 60];
+    
+}
+
 
 //伴奏播放完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
