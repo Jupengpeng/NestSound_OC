@@ -44,6 +44,7 @@ UITableViewDataSource>
     NSTableHeaderView *headerView ;
     int page;
     UIImageView * emptyImage;
+     int currentPage;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -105,7 +106,7 @@ UITableViewDataSource>
 -(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
     self.requestType = YES;
-    int currentPage = 0;
+   
     NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     if (!isLoadingMore) {
         self.requestParams = @{kIsLoadingMore:@(NO)};
@@ -240,7 +241,7 @@ UITableViewDataSource>
      }];
     
     
-    _tableView.showsInfiniteScrolling = NO;
+    _tableView.showsInfiniteScrolling = YES;
     
     [self.view addSubview:_tableView];
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];

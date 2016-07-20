@@ -1160,9 +1160,14 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     anotherImgArr = [NSMutableArray arrayWithArray:images];
     for (int i = 0; i < images.count; i++) {
-        [ImageArr addObject:images[i]];
+        if ([ImageArr containsObject:images[i]]) {
+            
+        } else {
+            [ImageArr addObject:images[i]];
+        }
+        
     }
-//    [ImageArr insertObjects:images atIndexes:[NSIndexSet indexSetWithIndex:ImageArr.count]];
+    //    [ImageArr insertObjects:images atIndexes:[NSIndexSet indexSetWithIndex:ImageArr.count]];
     [_collection reloadData];
     
 }

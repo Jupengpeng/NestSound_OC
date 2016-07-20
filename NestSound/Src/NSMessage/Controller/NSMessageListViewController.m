@@ -85,7 +85,7 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     self.requestType = YES;
     
-     [messageList.infiniteScrollingView startAnimating];
+//     [messageList.infiniteScrollingView startAnimating];
     if (!isLoadingMore) {
         
         currentPage = 1;
@@ -235,7 +235,7 @@ static NSString * const systemCellID = @"SystemCellID";
         }
     }];
     // hide infiniteView
-  messageList.showsInfiniteScrolling = NO;
+  messageList.showsInfiniteScrolling = YES;
     
     emptyImage = [[UIImageView alloc] init];
     [self.view addSubview:emptyImage];
