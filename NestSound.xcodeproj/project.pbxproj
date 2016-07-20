@@ -1155,7 +1155,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67131CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSound" */;
 			buildPhases = (
-				6CFB2F0513762BDF92CE7AA2 /* 📦 Check Pods Manifest.lock */,
+				6CFB2F0513762BDF92CE7AA2 /* [CP] Check Pods Manifest.lock */,
 				8774D417BD609D9A58BB9CAA /* [CP] Check Pods Manifest.lock */,
 				5C3BD5D9A3BF05EBE1C1F84C /* [CP] Check Pods Manifest.lock */,
 				FEA377F7D3CF44C7A89FD564 /* [CP] Check Pods Manifest.lock */,
@@ -1206,7 +1206,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DFB67161CC1E65600DA24DA /* Build configuration list for PBXNativeTarget "NestSoundTests" */;
 			buildPhases = (
-				307001FCD1EBAD0512C6CB8B /* 📦 Check Pods Manifest.lock */,
+				307001FCD1EBAD0512C6CB8B /* [CP] Check Pods Manifest.lock */,
 				7BCCC07FB6275D3B09E16C29 /* [CP] Check Pods Manifest.lock */,
 				8D9996CE2B296A37B9DDE803 /* [CP] Check Pods Manifest.lock */,
 				9C9B10E507439FBC16ACEC80 /* [CP] Check Pods Manifest.lock */,
@@ -1486,14 +1486,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		307001FCD1EBAD0512C6CB8B /* 📦 Check Pods Manifest.lock */ = {
+		307001FCD1EBAD0512C6CB8B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1786,14 +1786,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6CFB2F0513762BDF92CE7AA2 /* 📦 Check Pods Manifest.lock */ = {
+		6CFB2F0513762BDF92CE7AA2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2629,7 +2629,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2643,7 +2643,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3537b471-02b5-4853-847b-0ae54980de28";
+				PROVISIONING_PROFILE = "3b408c50-9d03-4677-827a-33e34bf3e15d";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2655,7 +2655,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2670,7 +2670,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5a7f3e3f-8cae-4670-bdaa-e3d63965d278";
+				PROVISIONING_PROFILE = "3b408c50-9d03-4677-827a-33e34bf3e15d";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

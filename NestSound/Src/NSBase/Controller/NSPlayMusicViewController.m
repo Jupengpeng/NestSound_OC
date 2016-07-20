@@ -342,6 +342,7 @@ static id _instance;
         make.width.mas_equalTo(50);
     }];
     
+
     
     //歌名
     UILabel *songName = [[UILabel alloc] init];
