@@ -45,6 +45,7 @@ UITableViewDataSource>
     int page;
     UIImageView * emptyImage;
      int currentPage;
+    BOOL resetHeaderView;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -67,14 +68,14 @@ UITableViewDataSource>
     [self setupUI];
     type = 1;
     page = 0;
+    resetHeaderView = YES;
+    //注册刷新界面的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserPage) name:@"refreshUserPageNotific" object:nil];
     [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
 }
 
-
-
 -(void)viewWillAppear:(BOOL)animated
 {
-
     [super viewWillAppear: animated];
     ++page;
     if (JUserID == nil&&page ==1) {
@@ -101,10 +102,14 @@ UITableViewDataSource>
         
     }
 }
-
+//接收通知刷新界面
+- (void)refreshUserPage {
+    [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+}
 #pragma mark -fetchMemberData
 -(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
+//    [_tableView.infiniteScrollingView startAnimating];
     self.requestType = YES;
    
     NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
@@ -145,22 +150,17 @@ UITableViewDataSource>
 {
     if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
-            
             NSUserDataModel * userData = (NSUserDataModel *)parserObject;
-            headerView.userModel = userData.userDataModel.userModel;
-            headerView.otherModel = userData.userOtherModel;
-            if (!operation.isLoadingMore) {
-                
-                myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
-                
-            }else{
-                [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
-                
-            }
+
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
+                myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                headerView.userModel = userData.userDataModel.userModel;
+                headerView.otherModel = userData.userOtherModel;
             }else{
-                [_tableView.infiniteScrollingView stopAnimating];
+                 [_tableView.infiniteScrollingView stopAnimating];
+                [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
+                
             }
             
             dataAry = myMusicAry;
@@ -228,22 +228,23 @@ UITableViewDataSource>
     
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    _tableView.showsVerticalScrollIndicator = YES;
     WS(wSelf);
-    _tableView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_tableView];
+
     //loadingMore
-     [_tableView addDDInfiniteScrollingWithActionHandler:^{
-         if (!wSelf) {
-             return ;
-         }else{
-             [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
-         }
-         
-     }];
-    
+    [_tableView addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
+        }
+    }];
+
     
     _tableView.showsInfiniteScrolling = YES;
     
-    [self.view addSubview:_tableView];
+    
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
     emptyImage.centerX = ScreenWidth/2;
     emptyImage.y = 380;
@@ -427,7 +428,10 @@ UITableViewDataSource>
     
     return 60;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     NSArray *array;

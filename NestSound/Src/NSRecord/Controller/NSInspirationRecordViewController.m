@@ -261,7 +261,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 }else{
                     imageData = UIImagePNGRepresentation(image);
                 }
-                [[NSToastManager manager] showprogress];
                 [upManager putData:imageData key:[NSString stringWithFormat:@"%@%d.png",timeSp,i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                     
                     NSLog(@" 图片key：%@",[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]]);
@@ -298,6 +297,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark -uploadAudio
 -(void)uploadAudioWithImageURL:(NSString *)Image
 {
+    [[NSToastManager manager] showprogress];
     WS(wSelf);
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:self.audioPath]){
@@ -315,7 +315,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
     }else{
         
-        [self publicWithType:NO andAudioURL:nil andImageURL:Image];
+        [self publicWithType:NO andAudioURL:self.audioURL andImageURL:Image];
     }
 }
 
@@ -403,7 +403,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     self.placeholderLabel.hidden = YES;
     
     self.audio = [NSString stringWithFormat:@"%@%@",_inspritationModel.audioDomain,_inspritationModel.audio];
+    if (_inspritationModel.audio.length) {
+        NSArray *audioArr = [_inspritationModel.audio componentsSeparatedByString:@"/"];
+        self.audioURL = [_inspritationModel.audio substringFromIndex:1];
+    }
     
+    NSLog(@"杨雪的灵感纪录：%@",self.audioURL);
     if (![self.audio isEqualToString:_inspritationModel.audioDomain] || inspiration.lyricText.text.length != 0 || str != nil) {
         
         self.recordBtn.hidden = YES;
@@ -913,9 +918,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         NSLog(@"点击了添加照片");
         
-        
         [wSelf presentViewController:ImagePicker animated:YES completion:nil];
-        
         
     }];
     
@@ -1102,22 +1105,21 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     NSImageCell *cell = (NSImageCell *)[sender superview].superview;
     NSIndexPath *indexPath = [_collection indexPathForCell:cell];
     if (isWrite) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:anotherImgArr[indexPath.row]];
         [anotherImgArr removeObjectAtIndex:indexPath.item];
     } else {
+        
         NSMutableArray *images = [NSMutableArray arrayWithArray:[self.titleImageURL componentsSeparatedByString:@","]];
         if (indexPath.row < images.count) {
             [images removeObjectAtIndex:indexPath.row];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:ImageArr[indexPath.row]];
         }
-//         if ([ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
-//             [images removeObjectAtIndex:indexPath.row];
-//             ImageArr = images;
-//         } else {
-             [ImageArr removeObjectAtIndex:indexPath.row];
+        [ImageArr removeObjectAtIndex:indexPath.row];
+        
         if (!ImageArr.count) {
             [anotherImgArr removeAllObjects];
         }
-//         }
-        
         self.titleImageURL = nil;
         for (int i = 0; i < images.count; i++) {
              if (self.titleImageURL == nil || self.titleImageURL.length == 0) {
@@ -1158,6 +1160,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark - imagePickerDelegate
 -(void)imagePickerController:(HUImagePickerViewController *)picker didFinishPickingImages:(NSArray *)images
 {
+    [anotherImgArr removeAllObjects];
     anotherImgArr = [NSMutableArray arrayWithArray:images];
     for (int i = 0; i < images.count; i++) {
         if ([ImageArr containsObject:images[i]]) {
@@ -1167,7 +1170,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }
         
     }
-    //    [ImageArr insertObjects:images atIndexes:[NSIndexSet indexSetWithIndex:ImageArr.count]];
     [_collection reloadData];
     
 }

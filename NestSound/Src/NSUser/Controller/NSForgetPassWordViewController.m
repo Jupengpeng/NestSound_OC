@@ -256,6 +256,8 @@
     
     passwordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
+    passwordText.secureTextEntry = YES;
+    
     passwordText.leftViewMode = UITextFieldViewModeAlways;
     passwordText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
     passwordText.placeholder = @"输入密码";
@@ -303,10 +305,12 @@
     
     repasswordText.clearButtonMode = UITextFieldViewModeWhileEditing;
     
+    repasswordText.secureTextEntry = YES;
+    
     repasswordText.leftViewMode = UITextFieldViewModeAlways;
     
     repasswordText.placeholder = @"重新输入密码";
-    
+    repasswordText.textColor = [UIColor hexColorFloat:@"c1c1c1"];
     [repasswordText setValue:[UIColor hexColorFloat:@"c1c1c1"] forKeyPath:@"_placeholderLabel.textColor"];
     
     [repasswordView addSubview:repasswordText];
@@ -470,7 +474,7 @@
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (parserObject.success) {
+    if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:url]) {
             [[NSToastManager manager] showtoast:@"验证码已发送，请注意查收"];
         }else if ([operation.urlTag isEqualToString:reSetPasswordURL]){
