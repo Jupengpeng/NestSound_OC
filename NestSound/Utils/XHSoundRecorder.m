@@ -9,7 +9,7 @@
 #import "XHSoundRecorder.h"
 #import <AVFoundation/AVFoundation.h>
 #import "lame.h"
-
+NSString *mp3PathTTest=nil;;
 @interface XHSoundRecorder () <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
 
@@ -29,11 +29,15 @@
 
 @property (nonatomic, copy) void (^FinishRecording)(NSString *);
 @property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, strong) AVAudioPlayer *player2;
+
 
 @end
 
 static id _instance;
 NSString * path = nil;;
+NSString * pathMp3 = nil;;
+
 @implementation XHSoundRecorder
 
 + (instancetype)sharedSoundRecorder {
@@ -81,12 +85,6 @@ NSString * path = nil;;
         NSURL *url = [NSURL URLWithString:wavPath];
         NSError *error = nil;
 
-        //一下session一定不能注释，会有问题
-        /*AVAudioSession *session = [AVAudioSession sharedInstance];
-        
-        NSError *error = nil;
-        
-        [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];*/
         
         AVAudioSession* session = [AVAudioSession sharedInstance];
         
@@ -100,6 +98,7 @@ NSString * path = nil;;
         
         
         NSDictionary *setting = [NSDictionary dictionary];
+       
         
         _recorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
         
@@ -114,12 +113,16 @@ NSString * path = nil;;
 //开始、继续 录音
 - (void)startRecorder:(void (^)(NSString *filePath))FinishRecording {
     
+    
     if (![self.recorder isRecording]) {
-        [self.recorder peakPowerForChannel:0];
+        [self.recorder averagePowerForChannel:0];
 
         [self.recorder prepareToRecord];
         
         [self.recorder record];
+        NSFileManager* f = [NSFileManager defaultManager];
+        long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
+        NSLog(@"录制---------%@,%lld",self.wavPath,l);
         
         //self.FinishRecording = FinishRecording;
         FinishRecording(self.wavPath);
@@ -142,40 +145,33 @@ NSString * path = nil;;
 //停止录音
 - (void)stopRecorder {
     
-    [self.recorder stop];
-    
-    self.recorder = nil;
+    if (self.recorder) {
+        [self.recorder stop];
+        self.recorder = nil;
+    }
+   
 }
 
 //播放
 - (void)playsound:(NSString *)filePath withFinishPlaying:(void (^)())FinishPlaying {
-   
-    if (self.wavPath== nil && self.mp3Path==nil) {
-        return;
-    }
-    if (!self.player)
-    {
+    
         AVAudioSession* session = [AVAudioSession sharedInstance];
-        NSError *error = nil;
-
-        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        
+        [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
         [session setActive:YES error:nil];
         
         
-        if(error){
-            
-            NSLog(@"播放错误说明%@", [error description]);
-        }
-        
+                
         NSURL *url=nil;;
         
         if (filePath == nil) {
             
             if (self.wavPath) {
+                
+                url = [NSURL fileURLWithPath:self.wavPath];
                 NSFileManager* f = [NSFileManager defaultManager];
                 long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
-                NSLog(@"-----------l =%lld",l);
-                url = [NSURL fileURLWithPath:self.wavPath];
+                NSLog(@"回放----------%@,%lld",self.wavPath,l);
             } else if (self.mp3Path) {
                 
                 url = [NSURL fileURLWithPath:self.mp3Path];
@@ -189,22 +185,17 @@ NSString * path = nil;;
             url = [NSURL fileURLWithPath:filePath];;
         }
         
-        if (url == nil) {
-            
-            return;
-        }
-        
-        
+    //if (!self.player)
+    {
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-
-        self.player.volume=1.0f;
+        
         self.player.delegate = self;
         
+        [self.player prepareToPlay];
     }
     
-    [self.player prepareToPlay];
     
-    [self.player play];
+      [self.player play];
     
     self.FinishPlaying = FinishPlaying;
     
@@ -219,9 +210,11 @@ NSString * path = nil;;
 //停止播放
 - (void)stopPlaysound {
     
-    [self.player stop];
+    if (self.player) {
+        [self.player stop];
+        self.player = nil;
+    }
     
-    self.player = nil;
 }
 
 //删除录音
@@ -235,7 +228,8 @@ NSString * path = nil;;
         
         self.wavPath = nil;
         
-    } else {
+    }
+    if (self.mp3Path){
         
         [manager removeItemAtPath:self.mp3Path error:nil];
         
@@ -251,47 +245,10 @@ NSString * path = nil;;
 //分贝数
 - (CGFloat)decibels {
     
-    [self.recorder updateMeters];
     
     CGFloat decibels = [self.recorder averagePowerForChannel:0];
-    
-    return decibels;
-}
+    [self.recorder updateMeters];
 
-//分贝数
-- (CGFloat)decibels2 {
-    
-    NSURL *url = [NSURL URLWithString:self.wavPath];
-    
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    
-    NSError *error = nil;
-    
-    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-    
-    if(error){
-        
-        NSLog(@"录音错误说明%@", [error description]);
-    }
-    
-    
-    NSDictionary *setting = [NSDictionary dictionary];
-    
-    AVAudioRecorder* recorder2 = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
-    
-    recorder2.meteringEnabled = YES;
-    
-    recorder2.delegate = self;
-
-    
-    
-    
-    
-    ////
-    [recorder2 updateMeters];
-    
-    CGFloat decibels = [recorder2 averagePowerForChannel:0];
-    
     return decibels;
 }
 
@@ -344,6 +301,7 @@ NSString * path = nil;;
 
 //转成mp3格式
 - (void)recorderFileToMp3WithType:(Type)type filePath:(NSString *)filePath FilePath:(void (^)(NSString *newfilePath))newFilePath {
+    
     
     
     NSString *wavFilePath;
@@ -416,15 +374,49 @@ NSString * path = nil;;
     @finally {
         NSLog(@"转换完毕");
         self.mp3Path = mp3FilePath;
-        
+        pathMp3 =mp3FilePath;
+        mp3PathTTest=mp3FilePath;
         NSFileManager *manager = [NSFileManager defaultManager];
+        long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
+        long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
+
+        NSLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
         
-        [manager removeItemAtPath:self.wavPath error:nil];
         
-        self.wavPath = nil;
+       /* [manager removeItemAtPath:self.wavPath error:nil];
+        self.wavPath = nil;*/
         
-        newFilePath(mp3FilePath);
+        
+        if (newFilePath) {
+            newFilePath(mp3FilePath);
+        }
     }
+    
+}
+
+- (void)testMp3:(NSString*)file{
+    
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    
+    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    
+    [session setActive:YES error:nil];
+    
+    
+    
+    
+    NSURL *url = [NSURL fileURLWithPath:file];
+    NSError* err=nil;
+    self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
+    
+    
+    self.player2.delegate = self;
+    
+    [self.player2 prepareToPlay];
+    
+    [self.player2 play];
+    
+    
     
 }
 

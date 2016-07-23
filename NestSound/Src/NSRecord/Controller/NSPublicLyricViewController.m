@@ -11,6 +11,8 @@
 #import "NSPublicLyricModel.h"
 #import "NSShareViewController.h"
 #import "NSPlayMusicTool.h"
+#import <AVFoundation/AVFoundation.h>
+extern NSString *mp3PathTTest;
 
 @interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
@@ -20,11 +22,10 @@
     UILabel * addTitlePageLabel;
     UILabel * publicStateLabel;
     UISwitch * publicSwitch;
-    NSMutableDictionary * lyricDic;
+    NSDictionary * lyricDic;
     NSString * description;
     UIActionSheet * chosePhotoLibrary;
     UIImagePickerController * picker;
-    BOOL isLyric;
     UILabel *placeholderLabel;
     NSString * titleImageURL;
     NSString * getQiNiuURL;
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) AVPlayerItem *musicItem;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, weak) UIBarButtonItem *btn;
+@property (nonatomic, strong)AVAudioPlayer* player2;
 @end
 
 @implementation NSPublicLyricViewController
@@ -47,7 +49,7 @@
     if (self = [super init]) {
         lyricDic = [NSMutableDictionary dictionary];
         lyricDic = LyricDic_;
-        isLyric = isLyric_;
+        self.isLyric = isLyric_;
         mp3URL = lyricDic[@"mp3URL"];
     }
     return self;
@@ -60,13 +62,23 @@
     [self configureUIAppearance];
     self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveDictionaryData:) name:NotitionDictionaryData object:nil];
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
     
 }
+- (void)receiveDictionaryData:(NSNotification*)sender{
+    NSDictionary* LyricDic_ = [sender userInfo];
+    
+    lyricDic = [NSMutableDictionary dictionary];
+    lyricDic = LyricDic_;
+    NSLog(@"-------------------1");
+    mp3URL = lyricDic[@"mp3URL"];
+    
 
+}
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
     [descriptionText resignFirstResponder];
@@ -153,7 +165,7 @@
     [backgroundView addSubview:publicSwitch];
     
     
-    if (isLyric) {
+    if (self.isLyric) {
         
         publicStateLabel = [[UILabel alloc] init];
         publicStateLabel.font = [UIFont systemFontOfSize:15];
@@ -194,8 +206,10 @@
             btn.selected = !btn.selected;
             
             if (btn.selected) {
-                
-                wSelf.player = [NSPlayMusicTool playMusicWithUrl:[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL] block:^(AVPlayerItem *item) {
+                NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
+                NSLog(@"-------------------2");
+
+                wSelf.player = [NSPlayMusicTool playMusicWithUrl:url block:^(AVPlayerItem *item) {
                     wSelf.musicItem = item;
                     
                 }];
@@ -268,6 +282,11 @@
         make.centerY.equalTo(backgroundView.mas_bottom).offset(-22);
     
     }];
+    
+    UIButton* bb = [[UIButton alloc]initWithFrame:CGRectMake(20, 130, 200, 150)];
+    bb.backgroundColor = [UIColor redColor];
+    [bb addTarget:self action:@selector(xxx:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:bb];
 }
 
 
@@ -308,13 +327,13 @@
             btn.enabled = YES;
         }else{
             if (lyricDic[@"lyricImgUrl"] !=NULL) {
-                if (isLyric) {
+                if (self.isLyric) {
                     [self publicWithType:YES];
                 }else{
                     [self publicWithType:NO];
                 }
             } else {
-                if (isLyric) {
+                if (self.isLyric) {
                     
                     getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
                 }else{
@@ -356,7 +375,7 @@
             [lyricDic setValue:mp3URL forKey:@"mp3Url"];
             NSShareViewController * shareVC =[[NSShareViewController alloc] init];
             shareVC.shareDataDic = lyricDic;
-            shareVC.lyricOrMusic = isLyric;
+            shareVC.lyricOrMusic = self.isLyric;
             [self.navigationController pushViewController:shareVC animated:YES];
             
         }
@@ -464,7 +483,7 @@
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
-            if (isLyric) {
+            if (self.isLyric) {
                 [wSelf publicWithType:YES];
             }else{
                 [wSelf publicWithType:NO];
@@ -475,6 +494,68 @@
     
     return file;
 }
+
+- (void)testMp3:(NSString*)file{ //mp3PathTTest
+
+    
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    
+    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    
+    [session setActive:YES error:nil];
+    
+    
+    
+    
+    NSURL *url = [NSURL fileURLWithPath:file];
+    NSError* err=nil;
+    self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
+    
+    
+    //self.player2.delegate = self;
+    
+    [self.player2 prepareToPlay];
+    
+    [self.player2 play];
+    
+    
+    
+}
+
+- (void)xxx:(UIButton*)sender{
+    //在线音乐
+    
+    //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
+    NSString* urlString =[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
+    NSLog(@"------------在线音乐：%@",urlString);
+    [self testMp3Online:urlString];
+    //本地音乐
+   /* NSLog(@"----------mp3PathTTest = %@",mp3PathTTest);
+    [self testMp3:mp3PathTTest];*/
+}
+
+- (void)testMp3Online:(NSString*)file{
+    
+    
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    
+    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    
+    [session setActive:YES error:nil];
+    
+    
+    
+    
+    NSURL *url = [NSURL URLWithString:file];
+    self.musicItem = [AVPlayerItem playerItemWithURL:url];
+    self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
+    
+    [self.player play];
+    
+    
+    
+}
+
 
 
 @end

@@ -49,7 +49,6 @@
 		18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */; };
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */; };
-		18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8331CF15ED50012880E /* libmp3lame.a */; };
 		2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */; };
 		2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */; };
 		2A0058071D11C4080028D4D2 /*  Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A0058051D11C4080028D4D2 /*  Localizable.strings */; };
@@ -160,6 +159,7 @@
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
 		94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */; };
+		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
 
@@ -257,8 +257,6 @@
 		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
 		18FFE82C1CF025250012880E /* NSPlayMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicViewController.h; sourceTree = "<group>"; };
 		18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPlayMusicViewController.m; sourceTree = "<group>"; };
-		18FFE8321CF15ED50012880E /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
-		18FFE8331CF15ED50012880E /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		18FFE8351CF1809F0012880E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2A0057F11D111FB70028D4D2 /* NSGetQiNiuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSGetQiNiuModel.h; sourceTree = "<group>"; };
 		2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSGetQiNiuModel.m; sourceTree = "<group>"; };
@@ -484,6 +482,9 @@
 		945708E41D2F92AD0074C331 /* UIView+RGSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RGSize.m"; sourceTree = "<group>"; };
 		94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownloadProgressView.h; sourceTree = "<group>"; };
 		94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownloadProgressView.m; sourceTree = "<group>"; };
+		B80C86491D42930C00B22855 /* record.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = record.h; sourceTree = "<group>"; };
+		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F632447B70FFF967631B2741 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -494,8 +495,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AB516BB1CFE933D00583D00 /* libiconv.tbd in Frameworks */,
+				B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */,
 				2AB516B91CFE932100583D00 /* libsqlite3.tbd in Frameworks */,
-				18FFE8341CF15ED50012880E /* libmp3lame.a in Frameworks */,
 				E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -898,6 +899,7 @@
 		2DFB66E81CC1E65600DA24DA = {
 			isa = PBXGroup;
 			children = (
+				B80C86481D4292DA00B22855 /* Problem */,
 				2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */,
 				2DFB66F31CC1E65600DA24DA /* NestSound */,
 				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
@@ -977,8 +979,8 @@
 		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				18FFE8321CF15ED50012880E /* lame.h */,
-				18FFE8331CF15ED50012880E /* libmp3lame.a */,
+				B899FA481D41B9AE001E79F3 /* lame.h */,
+				B899FA491D41B9AE001E79F3 /* libmp3lame.a */,
 				2DFB67531CC1EC4000DA24DA /* NSTool.h */,
 				2DFB67541CC1EC4000DA24DA /* NSTool.m */,
 				2DFB67561CC1ED8E00DA24DA /* NSToastManager.h */,
@@ -1135,6 +1137,14 @@
 				F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B80C86481D4292DA00B22855 /* Problem */ = {
+			isa = PBXGroup;
+			children = (
+				B80C86491D42930C00B22855 /* record.h */,
+			);
+			name = Problem;
 			sourceTree = "<group>";
 		};
 		D52D193CDD30D4B66C17B677 /* Pods */ = {

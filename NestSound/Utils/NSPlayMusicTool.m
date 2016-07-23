@@ -20,11 +20,12 @@ static AVPlayerItem *musicItem;
 //播放音乐
 + (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
     
-    if (![oldMusicUrl isEqualToString:musicUrl]) {
+    /*if (![oldMusicUrl isEqualToString:musicUrl])
+    {
         
         [player pause];
         player = nil;
-    }
+    }*/
     
     
     if (player == nil ) {
@@ -50,6 +51,7 @@ static AVPlayerItem *musicItem;
 
 + (AVPlayer *)playIdenticalMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
     
+    NSLog(@"musicUrl----------%@",musicUrl);
 //    if (![oldMusicUrl isEqualToString:musicUrl]) {
 //        
 //        [player pause];
