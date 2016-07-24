@@ -74,8 +74,9 @@ extern NSString *mp3PathTTest;
     
     lyricDic = [NSMutableDictionary dictionary];
     lyricDic = LyricDic_;
-    NSLog(@"-------------------1");
+
     mp3URL = lyricDic[@"mp3URL"];
+
     
 
 }
@@ -207,7 +208,8 @@ extern NSString *mp3PathTTest;
             
             if (btn.selected) {
                 NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
-                NSLog(@"-------------------2");
+                NSLog(@"url--------------%@",url);
+                //NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
 
                 wSelf.player = [NSPlayMusicTool playMusicWithUrl:url block:^(AVPlayerItem *item) {
                     wSelf.musicItem = item;
@@ -283,10 +285,7 @@ extern NSString *mp3PathTTest;
     
     }];
     
-    UIButton* bb = [[UIButton alloc]initWithFrame:CGRectMake(20, 130, 200, 150)];
-    bb.backgroundColor = [UIColor redColor];
-    [bb addTarget:self action:@selector(xxx:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:bb];
+    
 }
 
 
@@ -494,6 +493,7 @@ extern NSString *mp3PathTTest;
     
     return file;
 }
+/*//for test
 
 - (void)testMp3:(NSString*)file{ //mp3PathTTest
 
@@ -512,8 +512,6 @@ extern NSString *mp3PathTTest;
     self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
     
     
-    //self.player2.delegate = self;
-    
     [self.player2 prepareToPlay];
     
     [self.player2 play];
@@ -522,17 +520,21 @@ extern NSString *mp3PathTTest;
     
 }
 
+
+
 - (void)xxx:(UIButton*)sender{
     //在线音乐
     
     //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
     NSString* urlString =[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
-    NSLog(@"------------在线音乐：%@",urlString);
-    [self testMp3Online:urlString];
+    NSLog(@"------------在线MP3音乐：%@",urlString);
+    //[self testMp3Online:urlString];
     //本地音乐
-   /* NSLog(@"----------mp3PathTTest = %@",mp3PathTTest);
-    [self testMp3:mp3PathTTest];*/
+    NSLog(@"----------本地MP3音乐:mp3PathTTest = %@",mp3PathTTest);
+    [self testMp3:mp3PathTTest];
 }
+
+
 
 - (void)testMp3Online:(NSString*)file{
     
@@ -546,7 +548,8 @@ extern NSString *mp3PathTTest;
     
     
     
-    NSURL *url = [NSURL URLWithString:file];
+   // NSURL *url = [NSURL URLWithString:file];
+    NSURL* url = [NSURL URLWithString:file];
     self.musicItem = [AVPlayerItem playerItemWithURL:url];
     self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
     
@@ -554,7 +557,7 @@ extern NSString *mp3PathTTest;
     
     
     
-}
+}*/
 
 
 

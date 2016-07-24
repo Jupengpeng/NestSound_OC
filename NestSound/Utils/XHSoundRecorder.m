@@ -78,7 +78,7 @@ NSString * pathMp3 = nil;;
         
         NSString *wavPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
         
-        wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf",currentTimeString]];
+        wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.wav",currentTimeString]];
         
         self.wavPath = wavPath;
         path=self.wavPath;
@@ -97,10 +97,9 @@ NSString * pathMp3 = nil;;
         }
         
         
-        NSDictionary *setting = [NSDictionary dictionary];
-       
+        NSDictionary *settings = [NSDictionary dictionary];
         
-        _recorder = [[AVAudioRecorder alloc] initWithURL:url settings:setting error:nil];
+        _recorder = [[AVAudioRecorder alloc] initWithURL:url settings:settings error:nil];
         
         _recorder.meteringEnabled = YES;
         
@@ -349,7 +348,7 @@ NSString * pathMp3 = nil;;
         unsigned char mp3_buffer[MP3_SIZE];
         
         lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, type == TrueMachine ? 22050 : 44100);
+        lame_set_in_samplerate(lame, type == TrueMachine ? 22050 : 44100.0);
         lame_set_VBR(lame, vbr_default);
         lame_init_params(lame);
         

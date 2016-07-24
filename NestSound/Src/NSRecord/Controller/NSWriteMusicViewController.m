@@ -369,7 +369,6 @@ extern NSString* pathMp3;
     
     //listenBk
     listenBk = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_listen_bk"]];
-//    [self.view addSubview:listenBk];
     
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
@@ -523,17 +522,10 @@ extern NSString* pathMp3;
     
     lyricView.lyricText.showsVerticalScrollIndicator = NO;
     
-//    lyricView.lyricText.editable = NO;
     
     [self.view addSubview:lyricView];
     
-    //////test begin/////
-    /*UIButton* bb = [[UIButton alloc]initWithFrame:CGRectMake(50, 150, 200, 100)];
-    //bb.hidden=YES;
-    bb.backgroundColor = [UIColor redColor];
-    [bb addTarget:self action:@selector(xxx:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:bb];*/
-    /////test end/////
+ 
     
 }
 
@@ -744,32 +736,7 @@ extern NSString* pathMp3;
                  [self presentViewController:loginVC animated:YES completion:nil];
              }
 
-            
-            /*if (JUserID) {
-             
-                self.next.enabled = NO;
-                
-                /*if (self.wavFilePath) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        
-                        [self.alertView show];
-                    });*/
-                    /*[self uploadMusic];
-//                    [[NSToastManager manager] showprogress];
-                    
-                } else {
-                    
-                    NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
-                    [self.navigationController pushViewController:public animated:YES];
-                }
-                
-            } else
-            {
-                
-                NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-                
-                [self presentViewController:loginVC animated:YES completion:nil];
-            }*/
+   
     
     }
 }
@@ -810,7 +777,6 @@ extern NSString* pathMp3;
             [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
             [self.dict setValue:mp3URL forKey:@"mp3URL"];
             [self.dict setValue:[NSNumber numberWithBool:isHeadset] forKey:@"isHeadSet"];
-            
             
             [[NSNotificationCenter defaultCenter] postNotificationName:NotitionDictionaryData object:self userInfo:self.dict];
             self.public.isLyric=NO;
@@ -948,7 +914,7 @@ extern NSString* pathMp3;
             NSString* url =[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL];
             [manager POST:url parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                 
-                [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/x-mpeg"];//audio/mp3
+                [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];//audio/mp3／／audio/x-mpeg
                 
             } success:^void(NSURLSessionDataTask * task, id responseObject) {
                 NSLog(@"------------MP3音频上传成功！");
