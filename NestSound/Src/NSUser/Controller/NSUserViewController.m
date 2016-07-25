@@ -269,6 +269,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             [user removeObjectForKey:@"user"];
             [MobClick profileSignOff];
             [user synchronize];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"changeBtnsState" object:nil];
             [self.navigationController popViewControllerAnimated:YES];
             
         }

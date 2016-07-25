@@ -175,6 +175,10 @@ UITableViewDataSource>
         } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
             [_tableView reloadData];
         }
+//        if (operation.isLoadingMore) {
+//            _tableView.showsInfiniteScrolling = NO;
+//        }
+        
     }else{
         [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
     }
@@ -241,7 +245,6 @@ UITableViewDataSource>
         }
     }];
 
-    
     _tableView.showsInfiniteScrolling = YES;
     
     
@@ -370,7 +373,7 @@ UITableViewDataSource>
         
     } else if (self.btnTag == 2) {
         
-        static NSString *ID = @"cell0";
+        static NSString * ID = @"cell0";
         
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
@@ -393,9 +396,9 @@ UITableViewDataSource>
         
     } else {
         
-        static NSString *ID = @"cell3";
+        static NSString *ID= @"cell3";
         
-        NSInspirationRecordTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        NSInspirationRecordTableViewCell *cell =(NSInspirationRecordTableViewCell *) [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             
@@ -605,9 +608,12 @@ UITableViewDataSource>
             self.btnTag = toolbarBtn.tag;
             type = 4;
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+           
 //            [_tableView reloadData];
+            
             if (dataAry.count != 0) {
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+                
             }
             
             break;
@@ -660,10 +666,7 @@ UITableViewDataSource>
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
-//        [tableView reloadData];
-        
-        NSLog(@"点击了删除");
-        
+        [tableView reloadData];
         
     }
 }

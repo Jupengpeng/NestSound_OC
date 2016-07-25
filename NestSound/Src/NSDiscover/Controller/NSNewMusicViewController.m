@@ -19,11 +19,22 @@
     int currentPage;
     NSString * url;
     int typed;
+    UIImageView * playStatus;
 }
-
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 @end
 
 @implementation NSNewMusicViewController
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+        
+    }
+    
+    return _playSongsVC;
+}
 
 -(instancetype)initWithType:(NSString *)type andIsLyric:(BOOL)isLyric_
 {
@@ -40,6 +51,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
+    
+    playStatus.animationDuration = 0.8;
+    playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
+                                   [UIImage imageNamed:@"2.0_play_status_2"],
+                                   [UIImage imageNamed:@"2.0_play_status_3"],
+                                   [UIImage imageNamed:@"2.0_play_status_4"],
+                                   [UIImage imageNamed:@"2.0_play_status_5"],
+                                   [UIImage imageNamed:@"2.0_play_status_6"],
+                                   [UIImage imageNamed:@"2.0_play_status_7"],
+                                   [UIImage imageNamed:@"2.0_play_status_8"],
+                                   [UIImage imageNamed:@"2.0_play_status_9"],
+                                   [UIImage imageNamed:@"2.0_play_status_10"],
+                                   [UIImage imageNamed:@"2.0_play_status_11"],
+                                   [UIImage imageNamed:@"2.0_play_status_12"],
+                                   [UIImage imageNamed:@"2.0_play_status_13"],
+                                   [UIImage imageNamed:@"2.0_play_status_14"],
+                                   [UIImage imageNamed:@"2.0_play_status_15"],
+                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    
+    [playStatus stopAnimating];
+    playStatus.userInteractionEnabled = YES;
+    playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
+    UIButton * btn = [[UIButton alloc] initWithFrame:playStatus.frame ];
+    [playStatus addSubview:btn];
+    [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
+    self.navigationItem.rightBarButtonItem = item;
     if (isLyric) {
         if ([self.MusicType isEqualToString:@"hot"]) {
             self.title = @"热门歌词";
@@ -97,7 +136,16 @@
         [self fetchDataWithIsLoadingMore:NO];
     }
     
-    
+    if (self.playSongsVC.player == nil) {
+        
+    } else {
+        
+        if (self.playSongsVC.player.rate != 0.0) {
+            [playStatus startAnimating];
+        }else{
+            [playStatus stopAnimating];
+        }
+    }
     
 }
 
@@ -220,7 +268,16 @@
     
 }
 
-
+- (void)musicPaly:(UIBarButtonItem *)palyItem {
+    
+    if (self.playSongsVC.player == nil) {
+        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
+    } else {
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    }
+    
+}
 @end
 
 

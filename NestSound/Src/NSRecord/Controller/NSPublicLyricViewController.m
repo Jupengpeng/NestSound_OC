@@ -303,23 +303,18 @@
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
-        if (descriptionText.text.length == 0 && lyricDic[@"lyricDetail"]==NULL) {
-            [[NSToastManager manager ] showtoast:@"描述不能为空哦"];
-            btn.enabled = YES;
-        }else{
-            if (lyricDic[@"lyricImgUrl"] !=NULL) {
-                if (isLyric) {
-                    [self publicWithType:YES];
-                }else{
-                    [self publicWithType:NO];
-                }
-            } else {
-                if (isLyric) {
-                    
-                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
-                }else{
-                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
-                }
+        if (lyricDic[@"lyricImgUrl"] !=NULL) {
+            if (isLyric) {
+                [self publicWithType:YES];
+            }else{
+                [self publicWithType:NO];
+            }
+        } else {
+            if (isLyric) {
+                
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
+            }else{
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
             }
         }
         

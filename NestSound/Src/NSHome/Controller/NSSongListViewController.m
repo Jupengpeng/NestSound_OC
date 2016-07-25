@@ -10,6 +10,7 @@
 #import "NSSongViewController.h"
 #import "NSSingListModel.h"
 #import "NSSongMenuCollectionViewCell.h"
+#import "NSPlayMusicViewController.h"
 @interface NSSongListViewController ()
 <
 UICollectionViewDelegate,
@@ -26,10 +27,10 @@ UICollectionViewDelegateFlowLayout
     NSString * itemId;
     int currentPage;
     NSString * url;
+    UIImageView * playStatus;
 }
 
-
-
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 @end
 
 @implementation NSSongListViewController
@@ -48,15 +49,51 @@ UICollectionViewDelegateFlowLayout
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
+    playStatus.animationDuration = 0.8;
+    playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
+                                   [UIImage imageNamed:@"2.0_play_status_2"],
+                                   [UIImage imageNamed:@"2.0_play_status_3"],
+                                   [UIImage imageNamed:@"2.0_play_status_4"],
+                                   [UIImage imageNamed:@"2.0_play_status_5"],
+                                   [UIImage imageNamed:@"2.0_play_status_6"],
+                                   [UIImage imageNamed:@"2.0_play_status_7"],
+                                   [UIImage imageNamed:@"2.0_play_status_8"],
+                                   [UIImage imageNamed:@"2.0_play_status_9"],
+                                   [UIImage imageNamed:@"2.0_play_status_10"],
+                                   [UIImage imageNamed:@"2.0_play_status_11"],
+                                   [UIImage imageNamed:@"2.0_play_status_12"],
+                                   [UIImage imageNamed:@"2.0_play_status_13"],
+                                   [UIImage imageNamed:@"2.0_play_status_14"],
+                                   [UIImage imageNamed:@"2.0_play_status_15"],
+                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    
+    [playStatus stopAnimating];
+    playStatus.userInteractionEnabled = YES;
+    playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
+    UIButton * btn = [[UIButton alloc] initWithFrame:playStatus.frame ];
+    [playStatus addSubview:btn];
+    [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
+    self.navigationItem.rightBarButtonItem = item;
     
     [self configureUIAperance];
     
-
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (self.playSongsVC.player == nil) {
+        
+    } else {
+        
+        if (self.playSongsVC.player.rate != 0.0) {
+            [playStatus startAnimating];
+        }else{
+            [playStatus stopAnimating];
+        }
+    }
     [self fetchSongList];
 }
 
@@ -104,15 +141,23 @@ UICollectionViewDelegateFlowLayout
     SongListColl.showsInfiniteScrolling = NO;
 
 }
-
+- (void)musicPaly:(UIBarButtonItem *)palyItem {
+    
+    if (self.playSongsVC.player == nil) {
+        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
+    } else {
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    }
+    
+}
 #pragma mark -fetchData
 -(void)fetchSongList
 {
     
-        [SongListColl setContentOffset:CGPointMake(0 , -60) animated:YES];
-        [SongListColl performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
+    [SongListColl setContentOffset:CGPointMake(0 , -60) animated:YES];
+    [SongListColl performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
     
-
 }
 
 #pragma mark -fetchSongListIsLoadingMore

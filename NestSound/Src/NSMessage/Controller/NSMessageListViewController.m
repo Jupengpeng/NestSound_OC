@@ -316,7 +316,7 @@ static NSString * const systemCellID = @"SystemCellID";
         
     }else if (messageType == SystemMessageType){
         NSSystemMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
-         SystemMessageModel * sys = messageArr[row];
+        SystemMessageModel * sys = messageArr[row];
         if (!cell) {
             cell = [[NSSystemMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;

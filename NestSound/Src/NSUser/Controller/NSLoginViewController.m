@@ -50,11 +50,8 @@
         if ([operation.urlTag isEqualToString:loginURl]) {
             NSUserModel * userModels = (NSUserModel *)parserObject;
             userModel * user = userModels.userDetail;
-            
             if (user.userName.length ==0) {
-                
             }else{
-                
                 NSDictionary * userDic = @{@"userName":user.userName,
                                            @"userID":[NSString stringWithFormat:@"%ld",user.userID],
                                            @"userIcon":user.headerURL,

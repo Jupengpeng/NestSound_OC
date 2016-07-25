@@ -141,7 +141,39 @@ static id _instance;
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
 }
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
+    //毛玻璃效果
+    backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    [backgroundImage setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    backgroundImage.contentMode =  UIViewContentModeScaleAspectFill;
+    backgroundImage.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    backgroundImage.clipsToBounds  = YES;
+    
+    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    
+    
+    UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
+    effectView.alpha = 1.0;
+    effectView.frame = backgroundImage.frame;
+    
+    [backgroundImage addSubview:effectView];
+    
+    UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
+    UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
+    transparentImage.image = image;
+    
+    
+    [self.view addSubview:backgroundImage];
+    [backgroundImage addSubview:transparentImage];
+    
+    
+    [self setupUI];
+    
+    [self moreChoice];
+    
+}
 - (void)viewDidDisappear:(BOOL)animated {
     
     [super viewDidDisappear:animated];
@@ -149,18 +181,22 @@ static id _instance;
     [self removeTimer];
 }
 
-
+- (void)changeBtnsState {
+    upVoteBtn.selected = NO;
+    collectionBtn.selected = NO;
+}
 #pragma mark -fetchMusicDetailData
 -(void)fetchPlayDataWithItemId:(long)musicItemId
 {
     
     self.requestType = YES;
     NSDictionary * dic;
-    if (self.geDanID!=0) {
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
+    if (JUserID) {
+//        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"uid":JUserID};
     }else{
-        
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from};
+//        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
     }
     NSString * str = [NSTool encrytWithDic:dic];
     url = [playMusicURL stringByAppendingString:str];
@@ -204,39 +240,7 @@ static id _instance;
     
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    //毛玻璃效果
-    backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    [backgroundImage setContentScaleFactor:[[UIScreen mainScreen] scale]];
-    backgroundImage.contentMode =  UIViewContentModeScaleAspectFill;
-    backgroundImage.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    backgroundImage.clipsToBounds  = YES;
-    
-    UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    
-    
-    UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
-    effectView.alpha = 1.0;
-    effectView.frame = backgroundImage.frame;
-    
-    [backgroundImage addSubview:effectView];
-    
-    UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
-    UIImage * image = [UIImage imageNamed:@"2.0_background_transparent"];
-    transparentImage.image = image;
-    
-    
-    [self.view addSubview:backgroundImage];
-    [backgroundImage addSubview:transparentImage];
-    
-    
-    [self setupUI];
-    
-    [self moreChoice];
-    
-}
+
 
 //播放音乐
 - (void)playMusicUrl:(NSString *)musicUrl {
@@ -1147,7 +1151,7 @@ static id _instance;
 - (void)dealloc {
     
     [self removeTimer];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
 }
 
 
@@ -1212,12 +1216,13 @@ static id _instance;
 - (void)handleShareAction:(UIButton *)sender {
     NSLog(@"%@",sender.currentTitle);
     WS(wSelf);
-    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeMusic url:self.musicDetail.playURL];
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:self.musicDetail.playURL];
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     switch (sender.tag) {
         case 250:
         {
             [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+            NSLog(@" 分享：%@",[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]);
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [wSelf.navigationController popToRootViewControllerAnimated:YES];

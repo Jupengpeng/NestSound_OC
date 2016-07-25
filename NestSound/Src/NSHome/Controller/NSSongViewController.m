@@ -23,14 +23,24 @@ UITableViewDelegate
     NSString * url;
     singListModel * singListDetail;
     NSMutableArray * songList;
+    UIImageView * playStatus;
 }
 
-
+@property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 @end
 
 
 @implementation NSSongViewController
-
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+        
+    }
+    
+    return _playSongsVC;
+}
 static NSString * cellId = @"SongCell";
 
 
@@ -49,16 +59,17 @@ static NSString * cellId = @"SongCell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self configureUIApperance];
-}
-
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     [self fetchSongListData];
-
 }
+
+
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//        [super viewDidAppear:animated];
+    //    [self fetchSongListData];
+//}
 #pragma mark -fetchSongListData
 -(void)fetchSongListData
 {
@@ -110,9 +121,7 @@ static NSString * cellId = @"SongCell";
                 songsTable.showsInfiniteScrolling = NO;
             }
             [songsTable reloadData];
-           
 
-            
         }
        
         
@@ -175,15 +184,19 @@ static NSString * cellId = @"SongCell";
 #pragma mark -playAllGedan
 -(void)playAll
 {
-    songModel * song = songAry[0];
-    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-    playVC.itemUid = song.itemId;
-    playVC.from = @"gedan";
-    playVC.geDanID = (int)songListId;
-    playVC.songAry = songList;
-    playVC.songID = 0;
-    [self.navigationController pushViewController:playVC animated:YES];
-                                          
+    if (songAry.count) {
+        songModel * song = songAry[0];
+        NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+        playVC.itemUid = song.itemId;
+        playVC.from = @"gedan";
+        playVC.geDanID = (int)songListId;
+        playVC.songAry = songList;
+        playVC.songID = 0;
+        [self.navigationController pushViewController:playVC animated:YES];
+    } else {
+        [[NSToastManager manager] showtoast:@""];
+    }
+    
 }
 
 #pragma mark tablView datasource
@@ -231,6 +244,7 @@ static NSString * cellId = @"SongCell";
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     songModel * song = songAry[indexPath.row];
     NSInteger row = indexPath.row;
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];

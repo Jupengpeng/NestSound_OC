@@ -10,7 +10,7 @@
 @property (nonatomic,assign) BOOL success;
 @property (nonatomic,copy) NSString *message;
 @property (nonatomic,assign) long code;
-
+@property (nonatomic, copy) NSString *data;
 - (NSDictionary *)modelKeyJSONKeyMapper;
 - (instancetype)initWithJSONDict:(NSDictionary *)dict;
 @end

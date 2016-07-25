@@ -734,75 +734,70 @@ extern NSString* path;
     if (titleText.text.length == 0) {
         [[NSToastManager manager] showtoast:@"歌词标题不能为空"];
     }else{
-        if (lyricView.lyricText.text.length == 0) {
-            [[NSToastManager manager] showtoast:@"歌词不能为空"];
+        
+        if (JUserID) {
             
-        }else{
+            self.next.enabled = NO;
             
-            if (JUserID) {
-                
-                self.next.enabled = NO;
-                
-                if (self.wavFilePath) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.wavFilePath) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [self.alertView show];
+                });
+                //后台执行mp3转换和上传
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
                         
-                        [self.alertView show];
-                    });
-                    //后台执行mp3转换和上传
-                    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                        [[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath FilePath:^(NSString *newfilePath) {
+                        NSData *data = [NSData dataWithContentsOfFile:newfilePath];
+                        
+                        wSelf.data = data;
+                        
+                        wSelf.mp3File = newfilePath;
+                        
+                        // 1.创建网络管理者
+                        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+                        //                            [[NSToastManager manager] showprogress];
+                        [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
                             
-                            NSData *data = [NSData dataWithContentsOfFile:newfilePath];
+                            [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
                             
-                            wSelf.data = data;
+                        } success:^void(NSURLSessionDataTask * task, id responseObject) {
                             
-                            wSelf.mp3File = newfilePath;
+                            NSDictionary *dict;
                             
-                            // 1.创建网络管理者
-                            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//                            [[NSToastManager manager] showprogress];
-                            [manager POST:[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL] parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+                            if ([responseObject isKindOfClass:[NSDictionary class]]) {
                                 
-                                [formData appendPartWithFileData:wSelf.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
+                                dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
                                 
-                            } success:^void(NSURLSessionDataTask * task, id responseObject) {
-                                
-                                NSDictionary *dict;
-                                
-                                if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                                    
-                                    dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
-                                    
-                                }
-                                
-                                [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
-                                
-                                self.wavFilePath = nil;
-                                
-                                //                            [[NSToastManager manager] hideprogress];
-                                
-                            } failure:^void(NSURLSessionDataTask * task, NSError * error) {
-                                // 请求失败
-                                [[NSToastManager manager] hideprogress];
-                                self.next.enabled = YES;
-                            }];
+                            }
                             
+                            [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+                            
+                            self.wavFilePath = nil;
+                            
+                            //                            [[NSToastManager manager] hideprogress];
+                            
+                        } failure:^void(NSURLSessionDataTask * task, NSError * error) {
+                            // 请求失败
+                            [[NSToastManager manager] hideprogress];
+                            self.next.enabled = YES;
                         }];
-                    });
-//                    [[NSToastManager manager] showprogress];
-                    
-                } else {
-                    
-                    NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
-                    [self.navigationController pushViewController:public animated:YES];
-                }
+                        
+                    }];
+                });
+                //                    [[NSToastManager manager] showprogress];
                 
             } else {
                 
-                NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-                
-                [self presentViewController:loginVC animated:YES completion:nil];
+                NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+                [self.navigationController pushViewController:public animated:YES];
             }
+            
+        } else {
+            
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
         }
     }
 }

@@ -255,13 +255,11 @@
         make.height.mas_equalTo(52);
     }];
     
-    
 }
 
 - (void)rightClick:(UIBarButtonItem *)right {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    
     
     if (titleTextFiled.text.length == 0) {
         [[NSToastManager manager] showtoast:@"歌词标题不能为空"];
@@ -284,7 +282,6 @@
             
         }
     }
-    
 }
 
 - (void)tapClick {

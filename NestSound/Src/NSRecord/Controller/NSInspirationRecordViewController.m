@@ -297,7 +297,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark -uploadAudio
 -(void)uploadAudioWithImageURL:(NSString *)Image
 {
-    [[NSToastManager manager] showprogress];
+    
     WS(wSelf);
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:self.audioPath]){
@@ -348,11 +348,13 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     
     if (isWrite) {
+        [[NSToastManager manager] showprogress];
         self.requestURL = publicInspirationURL;
     }else{
         NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:self.requestParams];
         [dic setObject:[NSNumber numberWithLong:itemID] forKey:@"itemid"];
         self.requestParams = dic;
+        [[NSToastManager manager] showprogress];
         self.requestURL = changeInspirationURL;
     }
     
@@ -408,7 +410,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         self.audioURL = [_inspritationModel.audio substringFromIndex:1];
     }
     
-    NSLog(@"杨雪的灵感纪录：%@",self.audioURL);
     if (![self.audio isEqualToString:_inspritationModel.audioDomain] || inspiration.lyricText.text.length != 0 || str != nil) {
         
         self.recordBtn.hidden = YES;
