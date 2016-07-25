@@ -253,8 +253,6 @@ static id _instance;
         
     }];
     
-    
-    
     CMTime duration = self.player.currentItem.asset.duration;
     
     CGFloat seconds = CMTimeGetSeconds(duration);
@@ -282,6 +280,8 @@ static id _instance;
         [self.player pause];
         
         self.player = nil;
+        
+        [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
         
         self.progressBar.value = 0;
         
@@ -892,7 +892,6 @@ static id _instance;
 //previous song
 - (void)previousBtnClick:(UIButton *)btn {
     
-    
     if (self.songAry.count != 0) {
         self.songID = self.songID - 1;
         if (self.songID == -1) {
@@ -901,11 +900,18 @@ static id _instance;
         }else{
             self.itemUid   = [self.songAry[self.songID] longValue];
         }
-        
         [self fetchPlayDataWithItemId:self.itemUid];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.itemUid]];
+            [NSPlayMusicViewController sharedPlayMusic].itemUid = self.itemUid;
+        }
     }else{
         self.itemUid = self.musicDetail.prevItemID;
         [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.musicDetail.nextItemID]];
+            
+        }
     }
     
 }
@@ -922,9 +928,15 @@ static id _instance;
             self.itemUid   = [self.songAry[self.songID] longValue];
         }
         [self fetchPlayDataWithItemId:self.itemUid];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.itemUid]];
+        }
     }else{
         self.itemUid = self.musicDetail.nextItemID;
         [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.musicDetail.nextItemID]];
+        }
     }
     
 }

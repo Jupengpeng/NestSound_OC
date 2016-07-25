@@ -35,7 +35,15 @@ UICollectionViewDelegateFlowLayout
 
 @implementation NSSongListViewController
  static NSString * cellId = @"SongListCell";
-
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+    }
+    
+    return _playSongsVC;
+}
 -(instancetype)initWithItemID:(NSString *)itemId_
 {
     if (self = [super init]) {
@@ -248,12 +256,10 @@ UICollectionViewDelegateFlowLayout
     
 }
 
-
-
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     
-    return UIEdgeInsetsMake(10, 15, 0,15);
+    return UIEdgeInsetsMake(10, 15, 10,15);
 }
 
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
