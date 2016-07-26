@@ -41,7 +41,6 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     if (activityAry.count == 0) {
         [activityColl setContentOffset:CGPointMake(0, -60) animated:YES];
         [activityColl performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
-//        [self fetchData];
     }
 }
 
@@ -72,10 +71,6 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
         }
         
     }];
-    //constaints
-//    [activityColl mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.right.bottom.equalTo(self.view);
-//    }];
     
 }
 
@@ -83,7 +78,6 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)fetchData
 {
     self.requestType = YES;
-    [activityColl.infiniteScrollingView startAnimating];
     NSDictionary * dic = @{@"page":@(1)};
     NSString * str = [NSTool encrytWithDic:dic];
     self.requestURL = [dicoverActivityURL stringByAppendingString:str];

@@ -364,11 +364,14 @@
     
     _lineView.x = scrollView.contentOffset.x / ScreenWidth * _lineView.width;
 //    if (scrollView.contentOffset.x/ScreenWidth == 1) {
+//        [self addChildViewController:music];
 //        [_scrollView addSubview:music.view];
 //    }
 //    else if(scrollView.contentOffset.x/ScreenWidth == 2){
+//        [self addChildViewController:lyric];
 //        [_scrollView addSubview:lyric.view];
 //    }else if(scrollView.contentOffset.x /ScreenWidth == 3){
+//        [self addChildViewController:list];
 //        [_scrollView addSubview:list.view];
 //    }
 }

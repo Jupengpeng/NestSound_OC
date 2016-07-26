@@ -70,7 +70,7 @@
                                                                                             error:nil];
                                                                     }
                                                                     failure:^(NSURLSessionDataTask *operation, NSError *requestErr) {
-                                                                        
+                                                                        [[NSToastManager manager] showtoast:@"网络开小差了，请检查您的网络!"];
                                                                         [wSelf actionFetchRequest:operation result:nil error:requestErr];
                                                                     }];
 

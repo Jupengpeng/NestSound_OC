@@ -79,7 +79,7 @@ UITableViewDataSource
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     
     self.navigationItem.rightBarButtonItem = item;
-    
+    [self configureUIAppearance];
 }
 #pragma mark -playMusic
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
@@ -95,15 +95,15 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    count ++;
+//    count ++;
     
     [super viewWillAppear:animated];
-    if (JUserID == nil&count == 2) {
+    if (JUserID == nil) {
         login = [[NSLoginViewController alloc] init];
         UINavigationController * loginNav = [[UINavigationController alloc] initWithRootViewController:login];
         loginNav.navigationBar.hidden = YES;
         [self presentViewController:loginNav animated:YES completion:nil];
-    }else if (count == 2){
+    }else {
         [self fetchData];
     }
     
@@ -162,7 +162,7 @@ UITableViewDataSource
         [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
         }
     }
-      [self configureUIAppearance];
+    [_messageTypeTab reloadData];
 }
 
 
@@ -249,13 +249,11 @@ UITableViewDataSource
 //        messageCell.backgroundColor = [UIColor whiteColor];
         UILabel * bage = [[UILabel alloc] init];
         bage.textAlignment = NSTextAlignmentCenter;
-        bage.backgroundColor = [UIColor redColor];
         bage.font = [UIFont systemFontOfSize:13];
         bage.tag = 100;
         bage.textColor = [UIColor whiteColor];
-        
+        bage.backgroundColor = [UIColor redColor];
         [messageCell.contentView addSubview:bage];
-        
         messageCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         //comstraints
         [bage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -269,10 +267,10 @@ UITableViewDataSource
     }
     UILabel * bage = (UILabel *)[messageCell.contentView viewWithTag:100];
     
-    
-    if ([bageAry[section] isEqualToString:@"0"]) {
+    if ([bageAry[section] isEqualToString:@"0"] || bageAry[section] == nil) {
         bage.hidden = YES;
     }else{
+        bage.hidden = NO;
         bage.text = bageAry[section];
     }
     messageCell.textLabel.text = titleAry[section];
@@ -313,8 +311,8 @@ UITableViewDataSource
         default:
             break;
     }
-    
     [self.navigationController pushViewController:messageListVC animated:YES];
+    
 }
 
 

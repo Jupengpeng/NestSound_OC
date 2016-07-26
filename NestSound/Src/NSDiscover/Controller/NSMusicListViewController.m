@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self fetchData];
     [self configureUIAppearance];
 }
 
@@ -65,7 +66,6 @@
         if (!wSelf) {
             return ;
         }else{
-            
             [wSelf fetchData];
         }
         
@@ -77,7 +77,7 @@
 -(void)fetchData
 {
     self.requestType = YES;
-    [_tableView.infiniteScrollingView startAnimating];
+    
     NSDictionary * dic = @{@"modelType":@"1"};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];

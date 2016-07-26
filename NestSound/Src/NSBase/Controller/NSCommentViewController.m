@@ -53,7 +53,7 @@
     commentTableView.dataSource = self;
     
     commentTableView.estimatedRowHeight = 80;
-    
+    [self.view addSubview:commentTableView];
     WS(wSelf);
     //refresh
     [commentTableView addDDPullToRefreshWithActionHandler:^{
@@ -73,7 +73,7 @@
         }
     }];
     commentTableView.showsInfiniteScrolling = NO;
-    [self.view addSubview:commentTableView];
+    
     
     [self bottomView];
     
@@ -133,7 +133,6 @@
             }else{
                 [commentAry addObjectsFromArray:commentList.commentList];
             }
-           
             
         }else if ([operation.urlTag isEqualToString:postCommentURL]){
             [[NSToastManager manager] showtoast:@"发表评论成功"];

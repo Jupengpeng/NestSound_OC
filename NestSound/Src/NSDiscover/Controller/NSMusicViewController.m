@@ -54,7 +54,6 @@ static NSString * const headerView = @"HeaderView";
     if (newSongList.count == 0 || newSongList == nil) {
         [_collection setContentOffset:CGPointMake(0, -60) animated:YES];
         [_collection performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.5];
-//        [self fetchData];
        
     }
 }
@@ -106,8 +105,6 @@ static NSString * const headerView = @"HeaderView";
 -(void)fetchData
 {
     self.requestType = YES;
-//    [_collection.]
-    [_collection.infiniteScrollingView startAnimating];
     NSDictionary * dic = @{@"name":@""};
     NSString * str =  [NSTool encrytWithDic:dic];
     if (isMusic) {
@@ -117,7 +114,6 @@ static NSString * const headerView = @"HeaderView";
        lyricURL = [dicoverLyricURL stringByAppendingString:str];
         self.requestURL = lyricURL;
     }
-   
     
 }
 
@@ -159,7 +155,6 @@ static NSString * const headerView = @"HeaderView";
         }
         [_collection.pullToRefreshView stopAnimating];
         [_collection reloadData];
-//    [self configureUIAppearance];
     
     }
 }

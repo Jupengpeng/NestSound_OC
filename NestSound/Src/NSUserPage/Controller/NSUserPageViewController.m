@@ -69,7 +69,7 @@ UITableViewDataSource>
     type = 1;
     page = 0;
     resetHeaderView = YES;
-    //注册刷新界面的通知
+    //register  notification of refresh userpage
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserPage) name:@"refreshUserPageNotific" object:nil];
     [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
 }
@@ -102,7 +102,7 @@ UITableViewDataSource>
         
     }
 }
-//接收通知刷新界面
+//receive notification to refresh userpage
 - (void)refreshUserPage {
     [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
 }
