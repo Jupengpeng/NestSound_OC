@@ -119,31 +119,33 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSMusicSayListMode * musicSaylist = (NSMusicSayListMode *)parserObject;
-            if (!operation.isLoadingMore) {
-                musicSayAry = [NSMutableArray arrayWithArray:musicSaylist.musicSayList];
-            }else
-            {
-                [musicSayAry addObjectsFromArray:musicSaylist.musicSayList];
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSMusicSayListMode * musicSaylist = (NSMusicSayListMode *)parserObject;
+                if (!operation.isLoadingMore) {
+                    musicSayAry = [NSMutableArray arrayWithArray:musicSaylist.musicSayList];
+                }else
+                {
+                    [musicSayAry addObjectsFromArray:musicSaylist.musicSayList];
+                }
+                
+                if (!operation.isLoadingMore) {
+                    [musicSayList.pullToRefreshView stopAnimating];
+                }else{
+                    [musicSayList.infiniteScrollingView stopAnimating];
+                }
+                
             }
+            [musicSayList reloadData];
+        }else{
             
-            if (!operation.isLoadingMore) {
-                [musicSayList.pullToRefreshView stopAnimating];
-            }else{
-                [musicSayList.infiniteScrollingView stopAnimating];
-            }
-            
+            [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
         }
-        [musicSayList reloadData];
-    }else{
-    
-        [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
+        
     }
-    
-    
 }
 
 

@@ -64,28 +64,31 @@ static NSString * const settingCellIditify = @"settingCell";
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSGetQiNiuModel *  qiniu = (NSGetQiNiuModel *)parserObject;
-            self.qiniuDetail = qiniu.qiNIuModel;
-        }else if([operation.urlTag isEqualToString:changeProfileURL]){
-            [[NSToastManager manager] showtoast:@"修改成功"];
-            NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
-            [changeDic setValue:JUserID forKey:@"userID"];
-            [changeDic setValue:LoginToken forKey:@"userLoginToken"];
-            [changeDic setValue:nickName forKey:@"userName"];
-            [changeDic setValue:self.titleImageUrl forKey:@"userIcon"];
-          
-            [changeDic setValue:[NSNumber numberWithInt:males] forKey:@"male"];
-            [changeDic setValue:birthday  forKey:@"birthday"];
-            [changeDic setValue:signature forKey:@"desc"];
-            [[NSUserDefaults standardUserDefaults ] removeObjectForKey:@"user"];
-            [[NSUserDefaults standardUserDefaults] setObject:changeDic forKey:@"user"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSGetQiNiuModel *  qiniu = (NSGetQiNiuModel *)parserObject;
+                self.qiniuDetail = qiniu.qiNIuModel;
+            }else if([operation.urlTag isEqualToString:changeProfileURL]){
+                [[NSToastManager manager] showtoast:@"修改成功"];
+                NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
+                [changeDic setValue:JUserID forKey:@"userID"];
+                [changeDic setValue:LoginToken forKey:@"userLoginToken"];
+                [changeDic setValue:nickName forKey:@"userName"];
+                [changeDic setValue:self.titleImageUrl forKey:@"userIcon"];
+                
+                [changeDic setValue:[NSNumber numberWithInt:males] forKey:@"male"];
+                [changeDic setValue:birthday  forKey:@"birthday"];
+                [changeDic setValue:signature forKey:@"desc"];
+                [[NSUserDefaults standardUserDefaults ] removeObjectForKey:@"user"];
+                [[NSUserDefaults standardUserDefaults] setObject:changeDic forKey:@"user"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+            
         }
-
     }
-    
 }
 #pragma mark -configureAppearance
 -(void)configureAppearance

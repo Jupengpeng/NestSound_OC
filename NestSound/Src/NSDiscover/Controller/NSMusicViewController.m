@@ -120,42 +120,45 @@ static NSString * const headerView = @"HeaderView";
 #pragma  mark override -actionFectionData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success){
+    if (requestErr) {
         
-        if ([operation.urlTag isEqualToString:musicURL]) {
+    } else {
+        if (!parserObject.success){
             
-            NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
-            if (musicListModel.HotList.hotList.count == 0) {
+            if ([operation.urlTag isEqualToString:musicURL]) {
+                
+                NSDiscoverMusicListModel * musicListModel = (NSDiscoverMusicListModel *)parserObject;
+                if (musicListModel.HotList.hotList.count == 0) {
+                    
+                }else{
+                    hotSongList = [NSMutableArray arrayWithArray:musicListModel.HotList.hotList];
+                }
+                if (musicListModel.SongList.songList.count == 0) {
+                    
+                }else{
+                    newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
+                }
+                
+            }else if ([operation.urlTag isEqualToString:lyricURL]){
+                
+                NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
+                if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
+                    
+                }else{
+                    hotSongList = [NSMutableArray arrayWithArray:lyricListModel.HotLyricList.hotLyricList];
+                }
+                if (lyricListModel.LyricList.lyricList.count == 0) {
+                    
+                }else{
+                    newSongList = [NSMutableArray arrayWithArray:lyricListModel.LyricList.lyricList];
+                }
                 
             }else{
-                hotSongList = [NSMutableArray arrayWithArray:musicListModel.HotList.hotList];
-            }
-            if (musicListModel.SongList.songList.count == 0) {
                 
-            }else{
-                newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
             }
-            
-        }else if ([operation.urlTag isEqualToString:lyricURL]){
-            
-            NSDicoverLyricListModel * lyricListModel = (NSDicoverLyricListModel *)parserObject;
-            if (lyricListModel.HotLyricList.hotLyricList.count == 0) {
-                
-            }else{
-                hotSongList = [NSMutableArray arrayWithArray:lyricListModel.HotLyricList.hotLyricList];
-            }
-            if (lyricListModel.LyricList.lyricList.count == 0) {
-                
-            }else{
-                newSongList = [NSMutableArray arrayWithArray:lyricListModel.LyricList.lyricList];
-            }
-            
-        }else{
-            
+            [_collection.pullToRefreshView stopAnimating];
+            [_collection reloadData];
         }
-        [_collection.pullToRefreshView stopAnimating];
-        [_collection reloadData];
-    
     }
 }
 #pragma mark <UICollectionViewDataSource>

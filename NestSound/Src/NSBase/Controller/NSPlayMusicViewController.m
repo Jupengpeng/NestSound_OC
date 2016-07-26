@@ -208,12 +208,14 @@ static id _instance;
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
-            self.musicDetail = musicModel.musicdDetail;
-        }else if ([operation.urlTag isEqualToString:upvoteURL]) {
+    if ( requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
+                self.musicDetail = musicModel.musicdDetail;
+            }else if ([operation.urlTag isEqualToString:upvoteURL]) {
                 if (upVoteBtn.selected == YES) {
                     self.musicDetail.zanNum = self.musicDetail.zanNum + 1;
                     upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
@@ -223,21 +225,21 @@ static id _instance;
                 }
                 [[NSToastManager manager] showtoast:@"操作成功"];
             }else if ([operation.urlTag isEqualToString:collectURL]){
-            if (collectionBtn.selected == YES) {
-                self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
-                collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
-                
-            }else{
-                self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
-                collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                if (collectionBtn.selected == YES) {
+                    self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
+                    collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                    
+                }else{
+                    self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
+                    collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                }
+                [[NSToastManager manager] showtoast:@"操作成功"];
             }
-            [[NSToastManager manager] showtoast:@"操作成功"];
+        }else{
+            
+            [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
         }
-    }else{
-        
-        [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
     }
-    
 }
 
 

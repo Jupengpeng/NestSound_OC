@@ -61,23 +61,21 @@
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
+    if (requestErr) {
         
-            [[NSToastManager manager] showtoast:@"验证码已发送，请注意查收"];
-        }else if ([operation.urlTag isEqualToString:registerURL]){
-            [[NSToastManager manager] showtoast:@"注册成功，请您登陆"];
-           [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-    
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                
+                [[NSToastManager manager] showtoast:@"验证码已发送，请注意查收"];
+            }else if ([operation.urlTag isEqualToString:registerURL]){
+                [[NSToastManager manager] showtoast:@"注册成功，请您登陆"];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
             
+        }
         
-    }else{
-        [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
-
     }
-
-
 }
 
 

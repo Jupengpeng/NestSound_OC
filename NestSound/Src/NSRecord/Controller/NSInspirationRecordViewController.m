@@ -363,31 +363,35 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    [[NSToastManager manager] hideprogress];
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:getQiniuImage]) {
-            getQiniuImageModel = (NSGetQiNiuModel *)parserObject;
-            
-        }else if ([operation.urlTag isEqualToString:getQiniuAudio]){
-            getQiniuAudioModel = (NSGetQiNiuModel *)parserObject;
-        }else if ([operation.urlTag isEqualToString:getInspiration]){
-            NSInspirtationModel * inspirtation = (NSInspirtationModel *)parserObject;
-            self.inspritationModel = inspirtation.inspirtationModel;
-        }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
+    if (requestErr) {
+        
+    } else {
+        [[NSToastManager manager] hideprogress];
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:getQiniuImage]) {
+                getQiniuImageModel = (NSGetQiNiuModel *)parserObject;
+                
+            }else if ([operation.urlTag isEqualToString:getQiniuAudio]){
+                getQiniuAudioModel = (NSGetQiNiuModel *)parserObject;
+            }else if ([operation.urlTag isEqualToString:getInspiration]){
+                NSInspirtationModel * inspirtation = (NSInspirtationModel *)parserObject;
+                self.inspritationModel = inspirtation.inspirtationModel;
+            }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
+                
+                NSFileManager *manager = [NSFileManager defaultManager];
+                
+                [manager removeItemAtPath:self.audioPath error:nil];
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            } else if ([operation.urlTag isEqualToString:changeInspirationURL]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
             
             NSFileManager *manager = [NSFileManager defaultManager];
             
-            [manager removeItemAtPath:self.audioPath error:nil];
-            
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
-        } else if ([operation.urlTag isEqualToString:changeInspirationURL]) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [manager removeItemAtPath:self.audioURL error:nil];
         }
-        
-        NSFileManager *manager = [NSFileManager defaultManager];
-        
-        [manager removeItemAtPath:self.audioURL error:nil];
     }
 }
 

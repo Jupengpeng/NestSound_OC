@@ -40,7 +40,7 @@
                                     configure:^(UIButton *btn) {
                                         
                                         [btn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
-
+                                        btn.titleLabel.font = [UIFont systemFontOfSize:15];
                                         [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
                                         [btn setTitle:@"导入歌词" forState:UIControlStateNormal];
                                         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -54,6 +54,7 @@
     _LyricesBtn = [UIButton buttonWithType:UIButtonTypeCustom
                                 configure:^(UIButton *btn) {
                                     [btn setImage:[UIImage imageNamed:@"2.0_lyricLibrary_btn"] forState:UIControlStateNormal];
+                                    btn.titleLabel.font = [UIFont systemFontOfSize:15];
                                     [btn setImageEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 10)];
                                     [btn setTitle:@"词库" forState:UIControlStateNormal];
                                     [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
@@ -67,6 +68,7 @@
     
     _cocachBtn = [UIButton buttonWithType:UIButtonTypeCustom
                                configure:^(UIButton *btn) {
+                                   btn.titleLabel.font = [UIFont systemFontOfSize:15];
                                    [btn setImage:[UIImage imageNamed:@"2.0_coach_btn"] forState:UIControlStateNormal];
                                    [btn setTitle:@"使用教程" forState:UIControlStateNormal];
                                    [btn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
@@ -339,13 +341,16 @@
 #pragma mark - overrider actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSLyricLibraryListModel * lyricLibrary = (NSLyricLibraryListModel *)parserObject;
-            lexiconView.lyricLibraryListModel = lyricLibrary;
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSLyricLibraryListModel * lyricLibrary = (NSLyricLibraryListModel *)parserObject;
+                lexiconView.lyricLibraryListModel = lyricLibrary;
+            }
         }
     }
-    
 }
 
 

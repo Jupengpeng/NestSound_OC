@@ -190,30 +190,32 @@ UICollectionViewDelegateFlowLayout
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
-    if ([operation.urlTag isEqualToString:url]) {
-    
-        if (!parserObject.success) {
-           NSSingListModel  * songListModel = (NSSingListModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                SongLists = [NSMutableArray  arrayWithArray:songListModel.singList];
-            }else{
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:url]) {
             
-                if (songListModel.singList.count == 0) {
-                    
+            if (!parserObject.success) {
+                NSSingListModel  * songListModel = (NSSingListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    SongLists = [NSMutableArray  arrayWithArray:songListModel.singList];
                 }else{
-                    [SongLists addObjectsFromArray:songListModel.singList];
+                    
+                    if (songListModel.singList.count == 0) {
+                        
+                    }else{
+                        [SongLists addObjectsFromArray:songListModel.singList];
+                    }
+                    
                 }
+                [SongListColl reloadData];
                 
+                if (!operation.isLoadingMore) {
+                    [SongListColl.pullToRefreshView stopAnimating];
+                }else{
+                    [SongListColl.infiniteScrollingView stopAnimating];
+                }
             }
-            [SongListColl reloadData];
-            
-            if (!operation.isLoadingMore) {
-                [SongListColl.pullToRefreshView stopAnimating];
-            }else{
-                [SongListColl.infiniteScrollingView stopAnimating];
-            }
-            
         }
     }
 }

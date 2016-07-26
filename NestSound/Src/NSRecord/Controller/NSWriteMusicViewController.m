@@ -823,24 +823,28 @@ extern NSString* path;
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-   [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
-//    [self.maskView removeFromSuperview];
-//    [ProgressView removeFromSuperview];
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:tunMusicURL]) {
-            NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
-            mp3URL = tunMusic.tunMusicModel.MusicPath;
-            
-            [self.dict setValue:titleText.text forKey:@"lyricName"];
-            
-            [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
-            
-            [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
-            [self.dict setValue:mp3URL forKey:@"mp3URL"];
-            [self.dict setValue:[NSNumber numberWithBool:isHeadset] forKey:@"isHeadSet"];
-            NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
-            public.mp3File = self.mp3File;
-            [self.navigationController pushViewController:public animated:YES];
+    [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
+    //    [self.maskView removeFromSuperview];
+    //    [ProgressView removeFromSuperview];
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:tunMusicURL]) {
+                NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
+                mp3URL = tunMusic.tunMusicModel.MusicPath;
+                
+                [self.dict setValue:titleText.text forKey:@"lyricName"];
+                
+                [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+                
+                [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
+                [self.dict setValue:mp3URL forKey:@"mp3URL"];
+                [self.dict setValue:[NSNumber numberWithBool:isHeadset] forKey:@"isHeadSet"];
+                NSPublicLyricViewController *public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+                public.mp3File = self.mp3File;
+                [self.navigationController pushViewController:public animated:YES];
+            }
         }
     }
 }

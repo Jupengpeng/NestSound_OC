@@ -148,41 +148,42 @@ UITableViewDataSource>
 #pragma mark -overrider action fetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSUserDataModel * userData = (NSUserDataModel *)parserObject;
-
-            if (!operation.isLoadingMore) {
-                [_tableView.pullToRefreshView stopAnimating];
-                myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
-                headerView.userModel = userData.userDataModel.userModel;
-                headerView.otherModel = userData.userOtherModel;
-            }else{
-                 [_tableView.infiniteScrollingView stopAnimating];
-                [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
-                
-            }
-            
-            dataAry = myMusicAry;
-            if (dataAry.count == 0) {
-                emptyImage.hidden = NO;
-            } else {
-                emptyImage.hidden = YES;
-            }
-            [_tableView reloadData];
-        }else if ([operation.urlTag isEqualToString:focusUserURL]){
-            [[NSToastManager manager] showtoast:@"关注成功"];
-        } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
-            [_tableView reloadData];
-        }
-//        if (operation.isLoadingMore) {
-//            _tableView.showsInfiniteScrolling = NO;
-//        }
+    if (requestErr) {
         
-    }else{
-        [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
+                
+                if (!operation.isLoadingMore) {
+                    [_tableView.pullToRefreshView stopAnimating];
+                    myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                    headerView.userModel = userData.userDataModel.userModel;
+                    headerView.otherModel = userData.userOtherModel;
+                }else{
+                    [_tableView.infiniteScrollingView stopAnimating];
+                    [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
+                    
+                }
+                
+                dataAry = myMusicAry;
+                if (dataAry.count == 0) {
+                    emptyImage.hidden = NO;
+                } else {
+                    emptyImage.hidden = YES;
+                }
+                [_tableView reloadData];
+            }else if ([operation.urlTag isEqualToString:focusUserURL]){
+                [[NSToastManager manager] showtoast:@"关注成功"];
+            } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
+                [_tableView reloadData];
+            }
+            //        if (operation.isLoadingMore) {
+            //            _tableView.showsInfiniteScrolling = NO;
+            //        }
+            
+        }
     }
-    
 }
 
 #pragma mark -setupUI

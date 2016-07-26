@@ -88,25 +88,27 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
-    if (!parserObject.success) {
+    if (requestErr) {
         
-        if ([operation.urlTag isEqualToString:url]) {
-            NSActivityListModel * activityListModel = (NSActivityListModel *)parserObject;
-            if (activityListModel.ActivityList.count) {
-                activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
-            } else {
+    } else {
+        if (!parserObject.success) {
+            
+            if ([operation.urlTag isEqualToString:url]) {
+                NSActivityListModel * activityListModel = (NSActivityListModel *)parserObject;
+                if (activityListModel.ActivityList.count) {
+                    activityAry = [NSMutableArray arrayWithArray:activityListModel.ActivityList];
+                } else {
+                    
+                }
                 
             }
+            [activityColl.pullToRefreshView stopAnimating];
+            [activityColl reloadData];
+            
+        } else {
             
         }
-       [activityColl.pullToRefreshView stopAnimating];
-        [activityColl reloadData];
-
-    } else {
-        
     }
-
 }
 
 #pragma mark collectionViewDataSource

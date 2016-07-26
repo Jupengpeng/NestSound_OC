@@ -87,12 +87,11 @@
     [titlePage setDDImageWithURLString:_activityModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     NSString * dateStr = [NSString stringWithFormat:@"%@ ~ %@",[date datetoMonthStringWithDate:_activityModel.beginDate],[date datetoMonthStringWithDate:_activityModel.endDate]];
     dateLabel.text = dateStr;
-
     if (_activityModel.status == 1) {
         stateLabel.text = @"正在进行中";
 //        NSLocalizedString(@"promot_activityIng", @"");
 //        LocalizedStr(@"promot_activityIng");
-        
+        dateLabel.hidden = NO;
     }else  if(_activityModel.status == 2){
         stateLabel.text = @"已结束";
 //        NSLocalizedString(@"promot_activityed", @"");
