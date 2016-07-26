@@ -96,27 +96,30 @@
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
-        if ([operation.urlTag isEqualToString:musicUrl]) {
-            if (bandListModel.BandMusicList.count) {
-                musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
-            } else {
-             
+    if (requestErr) {
+        
+    } else {
+        
+        if (!parserObject.success) {
+            NSDiscoverBandListModel * bandListModel = (NSDiscoverBandListModel *)parserObject;
+            if ([operation.urlTag isEqualToString:musicUrl]) {
+                if (bandListModel.BandMusicList.count) {
+                    musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
+                } else {
+                    
+                }
+            }else if ([operation.urlTag isEqualToString:lyricUrl]){
+                if (bandListModel.BandLyricList.count) {
+                    lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
+                } else {
+                    
+                }
             }
-        }else if ([operation.urlTag isEqualToString:lyricUrl]){
-            if (bandListModel.BandLyricList.count) {
-                lyricList = [NSMutableArray arrayWithArray:bandListModel.BandLyricList];
-            } else {
-               
-            }
+            [_tableView.pullToRefreshView stopAnimating];
+            [_tableView reloadData];
         }
-         [_tableView.pullToRefreshView stopAnimating];
-        [_tableView reloadData];
-    }else{
         
     }
-    
 }
 
 #pragma mark - UITableViewDataSource

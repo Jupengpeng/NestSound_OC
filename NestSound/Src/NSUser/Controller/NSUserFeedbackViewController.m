@@ -64,12 +64,15 @@ UITextFieldDelegate
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-
-    if (!parserObject.success) {
-        [[NSToastManager manager] showtoast:@"发布成功，我们运营会尽快解决您反馈的问题"];
-        [self.navigationController popViewControllerAnimated:YES];
+    if (requestErr) {
+        
+    } else {
+        
+        if (!parserObject.success) {
+            [[NSToastManager manager] showtoast:@"发布成功，我们运营会尽快解决您反馈的问题"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
-
 }
 
 #pragma mark configureUIAppearance

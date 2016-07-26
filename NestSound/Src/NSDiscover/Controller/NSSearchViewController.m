@@ -99,19 +99,22 @@
 #pragma mark - override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-          NSSearchUserListModel * searchUser = (NSSearchUserListModel *)parserObject;
-        if ([operation.urlTag isEqualToString:requestMusicURL]) {
-            
-            musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
-        }else if ([operation.urlTag isEqualToString:requestUserURL]){
-          
-            userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
-            
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            NSSearchUserListModel * searchUser = (NSSearchUserListModel *)parserObject;
+            if ([operation.urlTag isEqualToString:requestMusicURL]) {
+                
+                musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+            }else if ([operation.urlTag isEqualToString:requestUserURL]){
+                
+                userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
+                
+            }
+            [self setupContent];
         }
-        [self setupContent];
     }
-
 }
 
 

@@ -35,8 +35,6 @@
     [self setupUIAppearance];
     self.window.rootViewController = tabController;
     
-    
-
     //UMshare
     [UMSocialData setAppKey:umAppKey];
 

@@ -145,24 +145,25 @@ UITableViewDataSource
 #pragma mark override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
-    if ([operation.urlTag isEqualToString:url]) {
+    if (requestErr) {
         
-    
-    if (!parserObject.success) {
-        
-        NSMessageListModel * messageList = (NSMessageListModel *)parserObject;
-        
-        messageCountModel * mess = messageList.messageCount;
-        bageAry = [NSMutableArray array];
- 
-        [bageAry addObject:[NSString stringWithFormat:@"%d",mess.commentCount]];
-        [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
-        [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
-        [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
+    } else {
+        if ([operation.urlTag isEqualToString:url]) {
+            if (!parserObject.success) {
+                
+                NSMessageListModel * messageList = (NSMessageListModel *)parserObject;
+                
+                messageCountModel * mess = messageList.messageCount;
+                bageAry = [NSMutableArray array];
+                
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.commentCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
+            }
         }
+        [_messageTypeTab reloadData];
     }
-    [_messageTypeTab reloadData];
 }
 
 

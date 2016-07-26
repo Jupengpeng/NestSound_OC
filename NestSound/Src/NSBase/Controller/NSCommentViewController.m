@@ -125,29 +125,32 @@
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:commentUrl]) {
-            NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:commentUrl]) {
+                NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    commentAry = [NSMutableArray arrayWithArray:commentList.commentList];
+                }else{
+                    [commentAry addObjectsFromArray:commentList.commentList];
+                }
+                
+            }else if ([operation.urlTag isEqualToString:postCommentURL]){
+                [[NSToastManager manager] showtoast:@"发表评论成功"];
+            }else if ([operation.urlTag isEqualToString:deleteCommentURL]){
+                [[NSToastManager manager] showtoast:@"删除评论成功"];
+            }
+            [commentTableView reloadData];
             if (!operation.isLoadingMore) {
-                commentAry = [NSMutableArray arrayWithArray:commentList.commentList];
+                [commentTableView.pullToRefreshView stopAnimating];
             }else{
-                [commentAry addObjectsFromArray:commentList.commentList];
+                [commentTableView.infiniteScrollingView stopAnimating];
             }
             
-        }else if ([operation.urlTag isEqualToString:postCommentURL]){
-            [[NSToastManager manager] showtoast:@"发表评论成功"];
-        }else if ([operation.urlTag isEqualToString:deleteCommentURL]){
-            [[NSToastManager manager] showtoast:@"删除评论成功"];
         }
-        [commentTableView reloadData];
-        if (!operation.isLoadingMore) {
-            [commentTableView.pullToRefreshView stopAnimating];
-        }else{
-            [commentTableView.infiniteScrollingView stopAnimating];
-        }
-
-            }
-    
+    }
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {

@@ -68,29 +68,32 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 #pragma mark --override action fetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSMyLricListModel * myLyricList = (NSMyLricListModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                lyricesAry = [NSMutableArray arrayWithArray:myLyricList.myLyricList];
-            }else{
-                [lyricesAry addObject:myLyricList.myLyricList];
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSMyLricListModel * myLyricList = (NSMyLricListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    lyricesAry = [NSMutableArray arrayWithArray:myLyricList.myLyricList];
+                }else{
+                    [lyricesAry addObject:myLyricList.myLyricList];
+                }
             }
-        }
-        if (operation.isLoadingMore) {
-           [lyricCollecView reloadData];
-        }
-        if (!operation.isLoadingMore) {
+            if (operation.isLoadingMore) {
+                [lyricCollecView reloadData];
+            }
+            if (!operation.isLoadingMore) {
+                
+                [lyricCollecView.pullToRefreshView stopAnimating];
+                [lyricCollecView reloadData];
+            } else {
+                
+                [lyricCollecView.infiniteScrollingView stopAnimating];
+            }
             
-            [lyricCollecView.pullToRefreshView stopAnimating];
-            [lyricCollecView reloadData];
-        } else {
-            
-            [lyricCollecView.infiniteScrollingView stopAnimating];
         }
-
     }
-
 }
 
 #pragma mark -configureAppearance

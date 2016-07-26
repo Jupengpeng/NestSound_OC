@@ -350,7 +350,7 @@ static NSDateFormatter *dateFormatter;
     double d = date /1000;
     NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"MM月dd日"];
+    [formatter setDateFormat:@"YYYY.MM.dd"];
     NSString * dateString = [formatter stringFromDate:dat];
     return dateString;
 }
