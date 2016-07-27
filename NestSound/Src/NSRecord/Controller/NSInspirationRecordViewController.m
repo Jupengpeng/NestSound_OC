@@ -4,7 +4,8 @@
 //
 //  Created by Apple on 16/5/11.
 //  Copyright © 2016年 yinchao. All rights reserved.
-//
+//  edit by lonfy
+
 
 #import "NSInspirationRecordViewController.h"
 #import "NSLyricView.h"
