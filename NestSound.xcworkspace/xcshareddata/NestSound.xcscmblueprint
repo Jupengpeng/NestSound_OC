@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C86828FA18DBEA349CEE2CAD758268C104C0AEFA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "33FD1BE33CFD36E4C49D98B02E9411B18E3AF9B9" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C86828FA18DBEA349CEE2CAD758268C104C0AEFA" : 0,
+    "33FD1BE33CFD36E4C49D98B02E9411B18E3AF9B9" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7ED9A7A0-7B8C-4FCA-8EB9-EF0A45A5911A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C86828FA18DBEA349CEE2CAD758268C104C0AEFA" : "music-app-ios\/",
+    "33FD1BE33CFD36E4C49D98B02E9411B18E3AF9B9" : "NestSound\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "NestSound",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "NestSound.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/112.124.125.2",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "33FD1BE33CFD36E4C49D98B02E9411B18E3AF9B9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/yinchaomusic\/music-app-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C86828FA18DBEA349CEE2CAD758268C104C0AEFA"
+    }
+  ]
+}
