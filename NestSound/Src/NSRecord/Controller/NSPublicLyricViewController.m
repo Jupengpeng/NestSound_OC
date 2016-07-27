@@ -147,11 +147,10 @@
     
     
     publicSwitch = [[UISwitch alloc] init];
-    publicSwitch.on = NO;
+    publicSwitch.on = YES;
     publicSwitch.tintColor = [UIColor hexColorFloat:@"ffd111"];
     publicSwitch.onTintColor = [UIColor hexColorFloat:@"ffd111"];
     [backgroundView addSubview:publicSwitch];
-    
     
     if (isLyric) {
         
