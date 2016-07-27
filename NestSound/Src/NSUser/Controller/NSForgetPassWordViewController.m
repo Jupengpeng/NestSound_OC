@@ -474,13 +474,17 @@
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            [[NSToastManager manager] showtoast:@"验证码已发送，请注意查收"];
-        }else if ([operation.urlTag isEqualToString:reSetPasswordURL]){
-            [[NSToastManager manager ] showtoast:@"密码重置成功，请重新登录"];
-            [self.navigationController popToRootViewControllerAnimated:YES  ];
-           
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                [[NSToastManager manager] showtoast:@"验证码已发送，请注意查收"];
+            }else if ([operation.urlTag isEqualToString:reSetPasswordURL]){
+                [[NSToastManager manager ] showtoast:@"密码重置成功，请重新登录"];
+                [self.navigationController popToRootViewControllerAnimated:YES  ];
+                
+            }
         }
     }
 }

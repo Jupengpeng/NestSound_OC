@@ -116,43 +116,43 @@ static NSString * cellId = @"SongCell";
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSSongListModel * songListModel = (NSSongListModel *)parserObject;
-            singListDetail = songListModel.songListDetail.listDetail;
-            if (!operation.isLoadingMore) {
-                songAry = [NSMutableArray arrayWithArray:songListModel.SongList.songList];
-                for (songModel * model in songAry) {
-                    [songList addObject:@(model.itemId)];
-                }
-            }else{
-                [songAry addObjectsFromArray:songListModel.SongList.songList];
-            }
-            
-            if (!operation.isLoadingMore) {
-                [songsTable.pullToRefreshView stopAnimating];
-            }else{
-                [songsTable.infiniteScrollingView stopAnimating];
-                songsTable.showsInfiniteScrolling = NO;
-            }
-            if ([NSPlayMusicViewController sharedPlayMusic].itemUid) {
-                songModel *model1 = nil;
-                for (songModel * model in songAry) {
-                    if ([[NSString stringWithFormat:@"%ld",model.itemId] isEqualToString: [NSString stringWithFormat:@"%ld", [NSPlayMusicViewController sharedPlayMusic].itemUid]]) {
-                        model1 = model;
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSSongListModel * songListModel = (NSSongListModel *)parserObject;
+                singListDetail = songListModel.songListDetail.listDetail;
+                if (!operation.isLoadingMore) {
+                    songAry = [NSMutableArray arrayWithArray:songListModel.SongList.songList];
+                    for (songModel * model in songAry) {
+                        [songList addObject:@(model.itemId)];
                     }
+                }else{
+                    [songAry addObjectsFromArray:songListModel.SongList.songList];
                 }
-                selectRow = [songAry indexOfObject:model1] + 1;
+                
+                if (!operation.isLoadingMore) {
+                    [songsTable.pullToRefreshView stopAnimating];
+                }else{
+                    [songsTable.infiniteScrollingView stopAnimating];
+                    songsTable.showsInfiniteScrolling = NO;
+                }
+                if ([NSPlayMusicViewController sharedPlayMusic].itemUid) {
+                    songModel *model1 = nil;
+                    for (songModel * model in songAry) {
+                        if ([[NSString stringWithFormat:@"%ld",model.itemId] isEqualToString: [NSString stringWithFormat:@"%ld", [NSPlayMusicViewController sharedPlayMusic].itemUid]]) {
+                            model1 = model;
+                        }
+                    }
+                    selectRow = [songAry indexOfObject:model1] + 1;
+                }
+                [songsTable reloadData];
+                
             }
-            [songsTable reloadData];
             
         }
-       
-    }else{
-        
-        [[NSToastManager manager ] showtoast:@"亲，您网络飞出去玩了"];
     }
-    
 }
 
 #pragma mark -configureUIAppearance

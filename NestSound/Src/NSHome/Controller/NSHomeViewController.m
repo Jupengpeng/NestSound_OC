@@ -110,7 +110,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [self fetchIndexData];
     [self getAuthorToken];
-    
+     [self configureUIAppearance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -201,37 +201,35 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 #pragma mak -override FetchData;
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-
-    if (!parserObject.success) {
-
-        if ([operation.urlTag isEqualToString:index]) {
-            NSIndexModel * indexModel = (NSIndexModel *)parserObject;
-            bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
-            recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
-            recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
-            newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
-        musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
-        [self configureUIAppearance];
-        }else if([operation.urlTag isEqualToString:getToken]){
-            NSUserModel * userModels = (NSUserModel *)parserObject;
-            if (userModels) {
-                userModel * user = userModels.userDetail;
-                if (user) {
-                    NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
-                    NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
-                    [dic setObject:user.userName forKey:@"userName"];
-                    [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
-                    [dic setObject:user.headerURL forKey:@"userIcon"];
-                    [dic setObject:user.loginToken forKey:@"userLoginToken"];
-                    [userData removeObjectForKey:@"user"];
-                    [userData setObject:dic forKey:@"user"];
-                    [userData synchronize];
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:index]) {
+                NSIndexModel * indexModel = (NSIndexModel *)parserObject;
+                bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
+                recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
+                recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
+                newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
+                musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
+            }else if([operation.urlTag isEqualToString:getToken]){
+                NSUserModel * userModels = (NSUserModel *)parserObject;
+                if (userModels) {
+                    userModel * user = userModels.userDetail;
+                    if (user) {
+                        NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
+                        NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
+                        [dic setObject:user.userName forKey:@"userName"];
+                        [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
+                        [dic setObject:user.headerURL forKey:@"userIcon"];
+                        [dic setObject:user.loginToken forKey:@"userLoginToken"];
+                        [userData removeObjectForKey:@"user"];
+                        [userData setObject:dic forKey:@"user"];
+                        [userData synchronize];
+                    }
                 }
-                
             }
         }
-    }else{
-        [[NSToastManager manager] showtoast:@"网络异常"];
     }
 }
 

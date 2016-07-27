@@ -105,57 +105,58 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 #pragma mark - overrride FetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
-        if (!operation.isLoadingMore) {
-            
-            
-            
-            if ([operation.urlTag isEqualToString:hotUrl]) {
-                
-                hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
-            }else{
-                
-                newAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
-                
-            }
-            
-        }else{
-            if ([operation.urlTag isEqualToString:hotUrl]) {
-                if (listModel.accommpanyList.count == 0) {
-                    
-                }else{
-                    
-                    [hotAccompanyAry addObjectsFromArray:listModel.accommpanyList];
-                }
-                
-                
-            }else{
-                
-                if (listModel.accommpanyList.count == 0) {
-                    
-                }else{
-                    
-                    [newAccompanyAry addObjectsFromArray:listModel.accommpanyList];
-                    
-                }
-                
-            }
-        }
-        if (headerView.xinBtn.selected) {
-            dataAry = newAccompanyAry;
-        }else{
-            dataAry = hotAccompanyAry;
-        }
+    if (requestErr) {
         
-        if (!operation.isLoadingMore) {
-            [accompanyListTabelView.pullToRefreshView stopAnimating];
-        }else{
-            [accompanyListTabelView.infiniteScrollingView stopAnimating];
+    } else {
+        if (!parserObject.success) {
+            NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                
+                if ([operation.urlTag isEqualToString:hotUrl]) {
+                    
+                    hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+                }else{
+                    
+                    newAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+                    
+                }
+                
+            }else{
+                if ([operation.urlTag isEqualToString:hotUrl]) {
+                    if (listModel.accommpanyList.count == 0) {
+                        
+                    }else{
+                        
+                        [hotAccompanyAry addObjectsFromArray:listModel.accommpanyList];
+                    }
+                    
+                    
+                }else{
+                    
+                    if (listModel.accommpanyList.count == 0) {
+                        
+                    }else{
+                        
+                        [newAccompanyAry addObjectsFromArray:listModel.accommpanyList];
+                        
+                    }
+                    
+                }
+            }
+            if (headerView.xinBtn.selected) {
+                dataAry = newAccompanyAry;
+            }else{
+                dataAry = hotAccompanyAry;
+            }
+            
+            if (!operation.isLoadingMore) {
+                [accompanyListTabelView.pullToRefreshView stopAnimating];
+            }else{
+                [accompanyListTabelView.infiniteScrollingView stopAnimating];
+            }
+            [accompanyListTabelView reloadData];
         }
-        [accompanyListTabelView reloadData];
     }
-    
 }
 
 #pragma mark configureUIAppearance

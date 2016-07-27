@@ -184,23 +184,26 @@
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                DataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
-            }else{
-                [DataAry addObjectsFromArray:discoverMore.moreLyricList];
-            }
-            [_tableView reloadData];
-            if (!operation.isLoadingMore) {
-                [_tableView.pullToRefreshView stopAnimating];
-            }else{
-                [_tableView.infiniteScrollingView stopAnimating];
+    if ( requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    DataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
+                }else{
+                    [DataAry addObjectsFromArray:discoverMore.moreLyricList];
+                }
+                [_tableView reloadData];
+                if (!operation.isLoadingMore) {
+                    [_tableView.pullToRefreshView stopAnimating];
+                }else{
+                    [_tableView.infiniteScrollingView stopAnimating];
+                }
             }
         }
     }
-
 
 }
 

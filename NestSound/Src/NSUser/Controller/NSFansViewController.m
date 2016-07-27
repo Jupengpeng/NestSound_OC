@@ -106,44 +106,48 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 #pragma mark -overrider actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-     
-        if ([operation.urlTag isEqualToString:fansURL]||[operation.urlTag isEqualToString:otherFansURL]) {
-            btnTag = -2;
-            NSFansListModel * fansList = (NSFansListModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                fansAry = [NSMutableArray arrayWithArray:fansList.fansListModel];
-            }else{
-                if (fansList.fansListModel.count!=0) {
-                    [fansAry addObjectsFromArray:fansList.fansListModel];
+    if (requestErr) {
+        
+    } else {
+        
+        if (!parserObject.success) {
+            
+            if ([operation.urlTag isEqualToString:fansURL]||[operation.urlTag isEqualToString:otherFansURL]) {
+                btnTag = -2;
+                NSFansListModel * fansList = (NSFansListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    fansAry = [NSMutableArray arrayWithArray:fansList.fansListModel];
+                }else{
+                    if (fansList.fansListModel.count!=0) {
+                        [fansAry addObjectsFromArray:fansList.fansListModel];
+                    }
+                    
+                }
+            }else if ([operation.urlTag isEqualToString:focusUserURL]){
+                
+                if (isFans) {
+                    
+                    [self fetchFansListDataWithIsLoadingMore:NO];
+                } else {
+                    
+                    NSLog(@"关注");
                 }
                 
-            }
-        }else if ([operation.urlTag isEqualToString:focusUserURL]){
-            
-            if (isFans) {
                 
-                [self fetchFansListDataWithIsLoadingMore:NO];
-            } else {
+            }
+            if (fansAry.count == 0) {
+                emptyImageView.hidden = NO;
+            }
+            [fansTableView reloadData];
+            if (!operation.isLoadingMore) {
+                [fansTableView.pullToRefreshView stopAnimating];
                 
-                NSLog(@"关注");
+            }else{
+                [fansTableView.infiniteScrollingView stopAnimating];
             }
             
-        
         }
-        if (fansAry.count == 0) {
-            emptyImageView.hidden = NO;
-        }
-        [fansTableView reloadData];
-        if (!operation.isLoadingMore) {
-            [fansTableView.pullToRefreshView stopAnimating];
-            
-        }else{
-            [fansTableView.infiniteScrollingView stopAnimating];
-        }
-        
     }
-    
 }
 
 
