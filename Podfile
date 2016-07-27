@@ -6,7 +6,7 @@
 target 'NestSound' do
 pod 'Masonry'
 pod 'SDWebImage'
-pod 'AFNetworking'
+pod 'AFNetworking','~>2.6.3'
 pod 'MBProgressHUD','~> 1.0.0'
 pod 'SVPullToRefresh'
 pod 'Qiniu'
