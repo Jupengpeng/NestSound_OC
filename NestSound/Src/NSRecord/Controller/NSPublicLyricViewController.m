@@ -11,10 +11,6 @@
 #import "NSPublicLyricModel.h"
 #import "NSShareViewController.h"
 #import "NSPlayMusicTool.h"
-#import <AVFoundation/AVFoundation.h>
-#import "HudView.h"
-extern NSString *mp3PathTTest;
-extern Boolean plugedHeadset;
 
 @interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
@@ -24,10 +20,11 @@ extern Boolean plugedHeadset;
     UILabel * addTitlePageLabel;
     UILabel * publicStateLabel;
     UISwitch * publicSwitch;
-    NSDictionary * lyricDic;
+    NSMutableDictionary * lyricDic;
     NSString * description;
     UIActionSheet * chosePhotoLibrary;
     UIImagePickerController * picker;
+    BOOL isLyric;
     UILabel *placeholderLabel;
     NSString * titleImageURL;
     NSString * getQiNiuURL;
@@ -36,14 +33,11 @@ extern Boolean plugedHeadset;
     UILabel *auditionLabel;
     
     NSString *mp3URL;
-    NSString *oldMp3URL;
-
 }
 @property (nonatomic,copy) NSString * titleImage;
 @property (nonatomic, strong) AVPlayerItem *musicItem;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, weak) UIBarButtonItem *btn;
-//@property (nonatomic, strong)AVAudioPlayer* player2;
 @end
 
 @implementation NSPublicLyricViewController
@@ -53,7 +47,7 @@ extern Boolean plugedHeadset;
     if (self = [super init]) {
         lyricDic = [NSMutableDictionary dictionary];
         lyricDic = LyricDic_;
-        self.isLyric = isLyric_;
+        isLyric = isLyric_;
         mp3URL = lyricDic[@"mp3URL"];
     }
     return self;
@@ -66,26 +60,13 @@ extern Boolean plugedHeadset;
     [self configureUIAppearance];
     self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveDictionaryData:) name:NotitionDictionaryData object:nil];
-
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
-        
-}
-- (void)receiveDictionaryData:(NSNotification*)sender{
-    auditionBtn.enabled=YES;
-
-    NSDictionary* LyricDic_ = [sender userInfo];
     
-    lyricDic = [NSMutableDictionary dictionary];
-    lyricDic = LyricDic_;
-
-    mp3URL = lyricDic[@"mp3URL"];
-
-    
-
 }
+
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
     [descriptionText resignFirstResponder];
@@ -93,6 +74,7 @@ extern Boolean plugedHeadset;
 
 -(void)configureUIAppearance
 {
+    WS(wSelf);
     
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
@@ -170,8 +152,7 @@ extern Boolean plugedHeadset;
     publicSwitch.onTintColor = [UIColor hexColorFloat:@"ffd111"];
     [backgroundView addSubview:publicSwitch];
     
-    
-    if (self.isLyric) {
+    if (isLyric) {
         
         publicStateLabel = [[UILabel alloc] init];
         publicStateLabel.font = [UIFont systemFontOfSize:15];
@@ -207,25 +188,13 @@ extern Boolean plugedHeadset;
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_btn01"] forState:UIControlStateSelected];
             
-        } action:nil];
-        auditionBtn.enabled=NO;
-        /*^(UIButton *btn) {
+        } action:^(UIButton *btn) {
             
-            /*btn.selected = !btn.selected;
+            btn.selected = !btn.selected;
             
             if (btn.selected) {
-                NSString* url=nil;;
-                url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
                 
-
-                if (!plugedHeadset) {
-                    url = mp3PathTTest;
-                }
-                
-                NSLog(@"-------------url = %@",url);
-                NSLog(@"------------plugedHeadset = %d",plugedHeadset);
-                
-                wSelf.player = [NSPlayMusicTool playMusicWithUrl:url block:^(AVPlayerItem *item) {
+                wSelf.player = [NSPlayMusicTool playMusicWithUrl:[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL] block:^(AVPlayerItem *item) {
                     wSelf.musicItem = item;
                     
                 }];
@@ -236,8 +205,8 @@ extern Boolean plugedHeadset;
                 [wSelf.player pause];
             }
             
-        }];*/
-        [auditionBtn addTarget:self action:@selector(playRemoteMusic:) forControlEvents:UIControlEventTouchUpInside];
+        }];
+        
         [backgroundView addSubview:auditionBtn];
         
         
@@ -298,34 +267,6 @@ extern Boolean plugedHeadset;
         make.centerY.equalTo(backgroundView.mas_bottom).offset(-22);
     
     }];
-    
-    
-}
-
-- (void)playRemoteMusic:(UIButton*)btn{
-    
-
-    
-    btn.selected = !btn.selected;
-    NSLog(@"-------------btn.selected = %d",btn.selected);
-
-    if (btn.selected) {
-        
-        NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
-                NSLog(@"-------------url = %@",url);
-
-        
-        [self testMp3Online:url];
-        
-        
-        
-    } else {
-        [self.player pause];
-
-    }
-    
-
-
 }
 
 
@@ -333,15 +274,13 @@ extern Boolean plugedHeadset;
 - (void)endPlaying {
     
     auditionBtn.selected = NO;
-    self.musicItem = nil;
-    self.player =nil;
+    
+    [NSPlayMusicTool stopMusicWithName:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    self.musicItem=nil;
-    self.player=nil;
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]) {
@@ -352,44 +291,35 @@ extern Boolean plugedHeadset;
 #pragma mark -uploadPhoto
 -(void)uploadPhoto:(UIBarButtonItem *)btn
 {
-    [HudView showView:self.navigationController.view string:@"发布成功"];
-
-
     self.btn = btn;
     
     [self.player pause];
     
     btn.enabled = NO;
     
+    auditionBtn.selected = NO;
     
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
-        /*if (descriptionText.text.length == 0 && lyricDic[@"lyricDetail"]==NULL) {
-            [HudView showView:self.navigationController.view string:@"描述不能为空哦"];
-
-            btn.enabled = YES;
-        }else
-        */{
-            if (lyricDic[@"lyricImgUrl"] !=NULL) {
-                if (self.isLyric) {
-                    [self publicWithType:YES];
-                }else{
-                    [self publicWithType:NO];
-                }
-            } else {
-                if (self.isLyric) {
-                    
-                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
-                }else{
-                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
-                }
+        if (lyricDic[@"lyricImgUrl"] !=NULL) {
+            if (isLyric) {
+                [self publicWithType:YES];
+            }else{
+                [self publicWithType:NO];
+            }
+        } else {
+            if (isLyric) {
+                
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
+            }else{
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
             }
         }
         
     }else{
         btn.enabled = YES;
-        [HudView showView:self.navigationController.view string:@"封面不能为空哟"];
+        [[NSToastManager manager] showtoast:@"封面不能为空哟"];
     }
     
 }
@@ -397,39 +327,40 @@ extern Boolean plugedHeadset;
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        
-        if ([operation.urlTag isEqualToString:getQiNiuURL]) {
+    if (requestErr) {
+        self.btn.enabled = YES;
+    } else {
+        if (!parserObject.success) {
             
-            NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
-            qiNiu * data = GetqiNiuModel.qiNIuModel;
-            NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
- 
-            titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
+            if ([operation.urlTag isEqualToString:getQiNiuURL]) {
+                
+                NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
+                qiNiu * data = GetqiNiuModel.qiNIuModel;
+                NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+                
+                titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
+                
+            }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
+                
+                NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
+                NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
+                
+                [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
+                [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
+                [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
+                [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
+                [lyricDic setValue:mp3URL forKey:@"mp3Url"];
+                NSShareViewController * shareVC =[[NSShareViewController alloc] init];
+                shareVC.shareDataDic = lyricDic;
+                shareVC.lyricOrMusic = isLyric;
+                [self.navigationController pushViewController:shareVC animated:YES];
+                
+            }
             
-            
-        }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
-            
-            NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
-            NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
-            
-            [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
-            [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
-            [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
-            [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
-            [lyricDic setValue:mp3URL forKey:@"mp3Url"];
-            NSShareViewController * shareVC =[[NSShareViewController alloc] init];
-            shareVC.shareDataDic = lyricDic;
-            shareVC.lyricOrMusic = self.isLyric;
-            [self.navigationController pushViewController:shareVC animated:YES];
-            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            [manager removeItemAtPath:self.mp3File error:nil];
         }
-        
-        NSFileManager *manager = [NSFileManager defaultManager];
-        
-        [manager removeItemAtPath:self.mp3File error:nil];
     }
-    
 }
 #pragma mark -public
 -(void)publicWithType:(BOOL)type
@@ -458,10 +389,6 @@ extern Boolean plugedHeadset;
     
     [chosePhotoLibrary showInView:self.view];
 }
-
-
-
-
 
 #pragma mark -actionSheetDelegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -532,7 +459,7 @@ extern Boolean plugedHeadset;
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
-            if (self.isLyric) {
+            if (isLyric) {
                 [wSelf publicWithType:YES];
             }else{
                 [wSelf publicWithType:NO];
@@ -543,65 +470,6 @@ extern Boolean plugedHeadset;
     
     return file;
 }
-/*//for test
-
-- (void)testMp3:(NSString*)file{ //mp3PathTTest
-
-    
-    AVAudioSession* session = [AVAudioSession sharedInstance];
-    
-    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-    
-    [session setActive:YES error:nil];
-    
-    
-    
-    
-    NSURL *url = [NSURL fileURLWithPath:file];
-    NSError* err=nil;
-    self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
-    
-    
-    [self.player2 prepareToPlay];
-    
-    [self.player2 play];
-    
-    
-    
-}
-
-
-
-- (void)xxx:(UIButton*)sender{
-    //在线音乐
-    
-    //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
-    NSString* urlString =[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
-    NSLog(@"------------在线MP3音乐：%@",urlString);
-    //[self testMp3Online:urlString];
-    //本地音乐
-    NSLog(@"----------本地MP3音乐:mp3PathTTest = %@",mp3PathTTest);
-    [self testMp3:mp3PathTTest];
-}*/
-
-
-
-- (void)testMp3Online:(NSString*)file{
-    
-        NSURL* url = [NSURL URLWithString:file];
-
-    if (!self.musicItem||!self.player) {
-        self.musicItem = [AVPlayerItem playerItemWithURL:url];
-        self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
-    }
-
-    
-    [self.player play];
-
-    
-    
-}
-
 
 
 @end

@@ -10,6 +10,7 @@
 #import "NSUserProfileCell.h"
 #import "NSUserProfileViewController.h"
 #import "NSUserFeedbackViewController.h"
+#import "NSAboutUsViewController.h"
 @interface NSUserViewController ()
 <
 UITableViewDataSource,
@@ -89,23 +90,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section) {
-        case 0:
-            return 1;
-           
-        case 1:
-            
-            return 4;
-           
-        case 2:
-            
-            return 1;
-            
-            
-        default:
-            break;
-    }
-    return 0;
+    return section == 1 ? 3 : 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -188,13 +173,9 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             not.hidden = NO;
             
         }else if (row == 2){
-            settingCell.textLabel.text = @"去评分";
+            settingCell.textLabel.text = @"关于我们";
 //            LocalizedStr(@"prompt_rating");
         
-        }else if (row == 3){
-            settingCell.textLabel.text = @"用户反馈";
-//            LocalizedStr(@"prompt_userFeedback");
-
         }
         
         return settingCell;
@@ -235,10 +216,10 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             cacheSize.text = [Memory getCacheSize];
         }else if (row == 1){
             
-            
         }else if (row == 2){
-            
-        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1056101413"]];
+            NSAboutUsViewController *aboutUsVC = [[NSAboutUsViewController alloc] init];
+            [self.navigationController pushViewController:aboutUsVC animated:YES];
+//        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1056101413"]];
             
         }else if (row == 3){
         NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"feedBack"];
