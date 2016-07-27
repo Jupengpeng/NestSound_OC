@@ -1098,7 +1098,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }else{
         if (ImageArr.count) {
             if ([ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
-                [cell.image setDDImageWithURLString:[ NSString  stringWithFormat:@"%@%@", _inspritationModel.picDomain,ImageArr[indexPath.row]]placeHolderImage:nil];
+                [cell.image setDDImageWithURLString:[ NSString  stringWithFormat:@"%@%@", _inspritationModel.picDomain,ImageArr[indexPath.row]]placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
             }else{
                 cell.image.image = ImageArr.count ? ImageArr[indexPath.row] : anotherImgArr[indexPath.row];
             }

@@ -110,7 +110,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [self fetchIndexData];
     [self getAuthorToken];
-     [self configureUIAppearance];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -202,7 +202,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        
+        NSLog(@"首页请求失败");
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:index]) {
@@ -212,6 +212,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                 recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
                 newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
+//                [_collection reloadData];
+                [self configureUIAppearance];
             }else if([operation.urlTag isEqualToString:getToken]){
                 NSUserModel * userModels = (NSUserModel *)parserObject;
                 if (userModels) {
