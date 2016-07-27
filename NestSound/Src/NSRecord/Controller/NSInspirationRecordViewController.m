@@ -247,12 +247,12 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     
     WS(wSelf);
-//    || [[ImageArr lastObject] isKindOfClass:[NSString class]]
+    //    || [[ImageArr lastObject] isKindOfClass:[NSString class]]
     if (!anotherImgArr.count&&!ImageArr.count ) {
         [self uploadAudioWithImageURL:self.titleImageURL];
     }else{
         if (anotherImgArr.count != 0) {
-             NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
+            NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
             QNUploadManager * upManager = [[QNUploadManager alloc] init];
             for (int i = 0 ; i<anotherImgArr.count; i++) {
                 UIImage * image = anotherImgArr[i];
@@ -425,15 +425,15 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addedSound"] forState:UIControlStateNormal];
         
-//        self.navigationItem.rightBarButtonItem = nil;
+        //        self.navigationItem.rightBarButtonItem = nil;
         
-//        inspiration.lyricText.editable = NO;
+        //        inspiration.lyricText.editable = NO;
         
-//        pictureBtn.enabled = YES;
+        //        pictureBtn.enabled = YES;
         
         if ([self.audio isEqualToString:_inspritationModel.audioDomain]) {
             
-              [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addSound"] forState:UIControlStateNormal];
+            [self.soundBtn setImage:[UIImage imageNamed:@"2.0_addSound"] forState:UIControlStateNormal];
             
             self.promptLabel.text = @"点击录音";
             
@@ -877,7 +877,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         [btn setImage:[UIImage imageNamed:@"2.0_record_delete"] forState:UIControlStateNormal];
         
-//        btn.hidden = YES;
+        //        btn.hidden = YES;
         
     } action:^(UIButton *btn) {
         
@@ -1128,11 +1128,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         }
         self.titleImageURL = nil;
         for (int i = 0; i < images.count; i++) {
-             if (self.titleImageURL == nil || self.titleImageURL.length == 0) {
-                 self.titleImageURL = images[i];
-             } else {
-            self.titleImageURL = [NSString stringWithFormat:@"%@,%@",self.titleImageURL,images[i]];
-             }
+            if (self.titleImageURL == nil || self.titleImageURL.length == 0) {
+                self.titleImageURL = images[i];
+            } else {
+                self.titleImageURL = [NSString stringWithFormat:@"%@,%@",self.titleImageURL,images[i]];
+            }
         }
     }
     

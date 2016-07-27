@@ -92,7 +92,6 @@ static AVPlayerItem *musicItem;
 + (void)stopMusicWithName:(NSString *)name {
     
     if (player) {
-        
         player = nil;
     }
 }
