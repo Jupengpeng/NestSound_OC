@@ -1,4 +1,4 @@
-//
+    //
 //  XHSoundRecorder.m
 //  XHSoundRecorder
 //
@@ -121,7 +121,9 @@ NSString * path = nil;;
         
         [self.recorder record];
         
-        self.FinishRecording = FinishRecording;
+        //self.FinishRecording = FinishRecording;
+        FinishRecording(self.wavPath);
+
     }
     
 }
@@ -148,10 +150,17 @@ NSString * path = nil;;
 //播放
 - (void)playsound:(NSString *)filePath withFinishPlaying:(void (^)())FinishPlaying {
    
-    
-    //if (!self.player)
+    if (self.wavPath== nil && self.mp3Path==nil) {
+        return;
+    }
+    if (!self.player)
     {
+        AVAudioSession* session = [AVAudioSession sharedInstance];
         NSError *error = nil;
+
+        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+        [session setActive:YES error:nil];
+        
         
         if(error){
             
@@ -184,13 +193,11 @@ NSString * path = nil;;
             
             return;
         }
-        AVAudioSession* session = [AVAudioSession sharedInstance];
         
-        [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-        [session setActive:YES error:nil];
         
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
 
+        self.player.volume=1.0f;
         self.player.delegate = self;
         
     }
@@ -337,6 +344,7 @@ NSString * path = nil;;
 
 //转成mp3格式
 - (void)recorderFileToMp3WithType:(Type)type filePath:(NSString *)filePath FilePath:(void (^)(NSString *newfilePath))newFilePath {
+    
     
     NSString *wavFilePath;
     
