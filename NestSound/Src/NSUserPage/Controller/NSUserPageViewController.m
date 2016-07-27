@@ -96,9 +96,6 @@ UITableViewDataSource>
         [self.tabBarController setSelectedIndex:0];
         page = 0;
     }else{
-//        if (dataAry.count == 0) {
-        
-//        }
         
     }
 }
@@ -178,9 +175,13 @@ UITableViewDataSource>
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
                 [_tableView reloadData];
             }
-            //        if (operation.isLoadingMore) {
-            //            _tableView.showsInfiniteScrolling = NO;
-            //        }
+            if (!operation.isLoadingMore) {
+                [_tableView.pullToRefreshView stopAnimating];
+                NSLog(@"停止1");
+            }else{
+                [_tableView.infiniteScrollingView stopAnimating];
+                 NSLog(@"停止2");
+            }
             
         }
     }
@@ -236,15 +237,22 @@ UITableViewDataSource>
     _tableView.showsVerticalScrollIndicator = YES;
     WS(wSelf);
     [self.view addSubview:_tableView];
-
-    //loadingMore
-    [_tableView addDDInfiniteScrollingWithActionHandler:^{
+    
+    [_tableView addInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
             return ;
         }else{
             [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
         }
     }];
+    //loadingMore
+//    [_tableView addDDInfiniteScrollingWithActionHandler:^{
+//        if (!wSelf) {
+//            return ;
+//        }else{
+//            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
+//        }
+//    }];
 
     _tableView.showsInfiniteScrolling = YES;
     
@@ -253,6 +261,7 @@ UITableViewDataSource>
     emptyImage.centerX = ScreenWidth/2;
     emptyImage.y = 380;
     [_tableView addSubview:emptyImage];
+    
 }
 
 - (void)followBtnClick:(UIButton *)follow {

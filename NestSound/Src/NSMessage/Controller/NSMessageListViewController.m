@@ -247,14 +247,12 @@ static NSString * const systemCellID = @"SystemCellID";
         make.left.top.right.bottom.equalTo(self.view);
     }];
     
-    
 }
 
 
 #pragma mark tableview dataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"收藏个数：%d", messageArr.count);
     return messageArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

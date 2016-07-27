@@ -7,8 +7,9 @@
 //
 
 #import "NSAboutUsViewController.h"
+#import "NSUserFeedbackViewController.h"
 #define KColor_Background [UIColor colorWithRed:239.0 / 255.0 green:239.0 / 255.0 blue:244.0 / 255.0 alpha:1]
-@interface NSAboutUsViewController ()
+@interface NSAboutUsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
@@ -18,23 +19,36 @@
     [super viewDidLoad];
     self.title = @"关于";
 //    self.edgesForExtendedLayout = YES;
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = KColor_Background;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];
     UIImageView *logoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth/2 - 50, 40, 100, 100)];
     logoImgView.image = [UIImage imageNamed:@"LOGO"];
-    [self.view addSubview:logoImgView];
+    [headerView addSubview:logoImgView];
     
     UILabel *appName = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2 - 60, CGRectGetMaxY(logoImgView.frame) + 10, 120, 20)];
     appName.text = @"音巢音乐";
     appName.textAlignment = NSTextAlignmentCenter;
     appName.font = [UIFont systemFontOfSize:18];
-    [self.view addSubview:appName];
+    [headerView addSubview:appName];
     
     UILabel *edition = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2 - 60, CGRectGetMaxY(appName.frame), 120, 30)];
     edition.text = @"版本：2.0.2";
     edition.textAlignment = NSTextAlignmentCenter;
     edition.textColor = [UIColor hexColorFloat:@"ffd00b"];
     edition.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:edition];
+    [headerView addSubview:edition];
+    
+//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
+    
+    UITableView *aboutUsTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
+    aboutUsTab.delegate = self;
+    aboutUsTab.dataSource = self;
+    aboutUsTab.scrollEnabled = NO;
+    aboutUsTab.backgroundColor = KColor_Background;
+    [self.view addSubview:aboutUsTab];
+    aboutUsTab.tableHeaderView = headerView;
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    aboutUsTab.tableFooterView = noLineView;
     
     UILabel *weChatLabel = [[UILabel alloc] init];
     weChatLabel.font = [UIFont systemFontOfSize:13];
@@ -68,7 +82,7 @@
     [self.view addSubview:copyRight];
     [copyRight mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).with.offset(-20);
-        make.left.right.equalTo(self.view).with.offset(0);  
+        make.left.right.equalTo(self.view).with.offset(0);
     }];
     
     UILabel *company = [[UILabel alloc] init];
@@ -82,11 +96,46 @@
         make.left.right.equalTo(self.view).with.offset(0);
     }];
 }
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 2;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *titleArr = @[@"评分",@"意见反馈"];
+    static NSString * aboutUsCellIdenfity = @"aboutUsCell";
+    UITableViewCell * aboutUsCell = [tableView dequeueReusableCellWithIdentifier:aboutUsCellIdenfity];
+    //    NSInteger section= indexPath.section;
+    if (!aboutUsCell) {
+        aboutUsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:aboutUsCellIdenfity];
+        aboutUsCell.textLabel.text = titleArr[indexPath.row];
+        aboutUsCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        aboutUsCell.backgroundColor = KColor_Background;
+    }
+    return aboutUsCell;
+}
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1056101413"]];
+            break;
+        case 1:
+        {
+                NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"feedBack"];
+                [self.navigationController pushViewController:feedBackVC animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
 - (NSMutableAttributedString*)getMutableAttributedString:(NSString*)string textColor:(UIColor *)color length:(NSInteger)num {
     NSMutableAttributedString * aAttributedString = [[NSMutableAttributedString alloc] initWithString:string];
     [aAttributedString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, num)];
     return aAttributedString;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

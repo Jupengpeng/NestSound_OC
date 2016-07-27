@@ -11,7 +11,8 @@
 @interface NSUserFeedbackViewController ()
 <
 UITextViewDelegate,
-UITextFieldDelegate
+UITextFieldDelegate,
+UIScrollViewDelegate
 >
 {
     NSString * Type;
@@ -37,7 +38,6 @@ UITextFieldDelegate
 {
     [super viewDidLoad];
     
-   
 }
 
 -(void)feedBackWithContent:(NSString *)content_ andNumber:(NSString *)number
@@ -80,15 +80,12 @@ UITextFieldDelegate
 {
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
-    
-    
     //comment textView
     comment = [[UITextView alloc] init];
     comment.delegate = self;
     comment.selectedRange = NSMakeRange(0,15);
-    
     [self.view addSubview:comment];
-    
+
     //number textFiled
     cellNumber = [[UITextField alloc] init];
     cellNumber.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 10)];
@@ -96,7 +93,7 @@ UITextFieldDelegate
     cellNumber.delegate = self;
     cellNumber.placeholder = @"请输入你的邮箱或电话号码，我们会及时与您取得联系";
 //    LocalizedStr(@"number");
-    cellNumber.font = [UIFont systemFontOfSize:12];
+    cellNumber.font = [UIFont systemFontOfSize:13];
     cellNumber.backgroundColor = [UIColor hexColorFloat:@"ffffff"];
     
     [self.view addSubview:cellNumber];
@@ -105,7 +102,7 @@ UITextFieldDelegate
     
     //placeHolder
     placeHolderLabel = [[UILabel alloc] init];
-    placeHolderLabel.font = [UIFont systemFontOfSize:12];
+    placeHolderLabel.font = [UIFont systemFontOfSize:13];
     placeHolderLabel.textColor = [UIColor hexColorFloat:@"dfdfdf"];
     placeHolderLabel.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:placeHolderLabel];
@@ -128,8 +125,8 @@ UITextFieldDelegate
     
     //constraints
     [comment mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).with.offset(-1);
-        make.right.equalTo(self.view.mas_right).with.offset(1);
+        make.left.equalTo(self.view.mas_left).with.offset(10);
+        make.right.equalTo(self.view.mas_right).with.offset(-10);
         make.top.equalTo(self.view.mas_top);
         make.height.mas_equalTo(250);
         
@@ -150,24 +147,38 @@ UITextFieldDelegate
     
 }
 
-
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [comment resignFirstResponder];
     [cellNumber resignFirstResponder];
 }
-
-
-
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [comment resignFirstResponder];
+    [cellNumber resignFirstResponder];
+}
+#pragma mark - UITextFieldDelegate
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [cellNumber resignFirstResponder];
 }
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"\n"]) {
+        [textField resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
 #pragma mark textViewDelegate
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     placeHolderLabel.hidden = YES;
+    return YES;
+}
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
     return YES;
 }
 -(void)textViewDidChange:(UITextView *)textView

@@ -411,7 +411,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     self.audio = [NSString stringWithFormat:@"%@%@",_inspritationModel.audioDomain,_inspritationModel.audio];
     if (_inspritationModel.audio.length) {
-        NSArray *audioArr = [_inspritationModel.audio componentsSeparatedByString:@"/"];
         self.audioURL = [_inspritationModel.audio substringFromIndex:1];
     }
     

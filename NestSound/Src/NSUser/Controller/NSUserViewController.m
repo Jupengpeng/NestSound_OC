@@ -219,11 +219,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         }else if (row == 2){
             NSAboutUsViewController *aboutUsVC = [[NSAboutUsViewController alloc] init];
             [self.navigationController pushViewController:aboutUsVC animated:YES];
-//        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1056101413"]];
             
-        }else if (row == 3){
-        NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"feedBack"];
-        [self.navigationController pushViewController:feedBackVC animated:YES];
         }
     
     }else if(section == 2){
