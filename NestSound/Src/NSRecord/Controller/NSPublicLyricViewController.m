@@ -364,13 +364,13 @@ extern Boolean plugedHeadset;
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
         if (lyricDic[@"lyricImgUrl"] !=NULL) {
-            if (isLyric) {
+            if (self.isLyric) {
                 [self publicWithType:YES];
             }else{
                 [self publicWithType:NO];
             }
         } else {
-            if (isLyric) {
+            if (self.isLyric) {
                 
                 getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
             }else{

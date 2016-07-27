@@ -13,7 +13,6 @@ typedef void(^dicBlock)(NSDictionary*);
 @interface NSPublicLyricViewController : NSBaseViewController
 @property (nonatomic,assign) long lyricId;
 @property (nonatomic, copy) NSString *mp3File;
-@property (nonatomic, strong) NSDictionary* passDic;
 @property (nonatomic,assign)BOOL isLyric;
 
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_;
