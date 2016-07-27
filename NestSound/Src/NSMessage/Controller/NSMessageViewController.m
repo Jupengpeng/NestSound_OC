@@ -209,7 +209,8 @@ UITableViewDataSource
             [wSelf fetchData];
         }
     }];
-    
+    _messageTypeTab.showsPullToRefresh = NO;
+    _messageTypeTab.showsInfiniteScrolling = NO;
 }
 
 

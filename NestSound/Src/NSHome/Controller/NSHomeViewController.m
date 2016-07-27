@@ -80,10 +80,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [super viewDidLoad];
     
-
-    
    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
-
     playStatus.animationDuration = 0.8;
     playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
                                    [UIImage imageNamed:@"2.0_play_status_2"],
@@ -109,7 +106,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [playStatus addSubview:btn];
     [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
      UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
-    
     self.navigationItem.rightBarButtonItem = item;
     
     [self fetchIndexData];
@@ -152,7 +148,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];

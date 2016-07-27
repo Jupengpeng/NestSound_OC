@@ -55,10 +55,6 @@ static NSString * const settingCellIditify = @"settingCell";
     males = 0;
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

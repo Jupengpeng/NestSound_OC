@@ -85,13 +85,12 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     self.requestType = YES;
     
-//     [messageList.infiniteScrollingView startAnimating];
     if (!isLoadingMore) {
         
         currentPage = 1;
     } else {
         
-        ++ currentPage;
+       currentPage++;
     }
     self.requestParams = @{kIsLoadingMore:@(isLoadingMore)};
    
@@ -124,6 +123,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 
             }else{
                 if (upvoteMessage.upvoteMessageList.count == 0) {
+                    messageList.showsInfiniteScrolling = NO;
                     
                 }else{
                     
@@ -140,6 +140,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 
             }else{
                 if (collecMessage.upvoteMessageList.count == 0) {
+                    messageList.showsInfiniteScrolling = NO;
                     
                 }else{
                     [messageArr addObjectsFromArray:collecMessage.upvoteMessageList];
@@ -154,7 +155,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 messageArr = [NSMutableArray arrayWithArray:commentMessage.commentList];
             }else{
                 if (commentMessage.commentList.count == 0) {
-                    
+                    messageList.showsInfiniteScrolling = NO;
                 }else{
                     [messageArr addObjectsFromArray:commentMessage.commentList];
                 }
@@ -168,24 +169,26 @@ static NSString * const systemCellID = @"SystemCellID";
                 messageArr = [NSMutableArray arrayWithArray:systemMessage.systemMessageList];
             }else{
                 if (systemMessage.systemMessageList.count == 0) {
+                    messageList.showsInfiniteScrolling = NO;
                     
                 }else{
                     [messageArr addObjectsFromArray:systemMessage.systemMessageList];
                 }
                 
             }
-            emptyImage.image = [UIImage imageNamed:@"2.0_noMessage_Bk"];
+            emptyImage.image = [UIImage imageNamed:@"2.0_noMessageBk"];
         }
         
         if (messageArr.count == 0) {
             emptyImage.hidden = NO;
         }
+        messageList.showsPullToRefresh = YES;
         [messageList reloadData];
         if (!operation.isLoadingMore) {
             [messageList.pullToRefreshView stopAnimating];
+            messageList.showsInfiniteScrolling = YES;
         }else{
             [messageList.infiniteScrollingView stopAnimating];
-            messageList.showsInfiniteScrolling = NO;
         }
         
     }else{
@@ -199,15 +202,13 @@ static NSString * const systemCellID = @"SystemCellID";
     //nav
     self.title = self.messageListType;
     
-    
-    
     //messageList tableview
     messageList = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     messageList.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     messageList.delegate = self;
     messageList.dataSource = self;
     messageList.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
+    messageList.alwaysBounceVertical = YES;
     [self.view addSubview:messageList];
     
     [messageList mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -235,6 +236,7 @@ static NSString * const systemCellID = @"SystemCellID";
         }
     }];
     // hide infiniteView
+    messageList.showsPullToRefresh = NO;
   messageList.showsInfiniteScrolling = YES;
     
     emptyImage = [[UIImageView alloc] init];
@@ -252,6 +254,7 @@ static NSString * const systemCellID = @"SystemCellID";
 #pragma mark tableview dataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"收藏个数：%d", messageArr.count);
     return messageArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -298,7 +301,6 @@ static NSString * const systemCellID = @"SystemCellID";
         cell.isUpvote = YES;
         
         cell.upvoteMessage = messageArr[row];
-        
         return cell;
         
     }else if (messageType == CollectionMessageType){
@@ -314,7 +316,7 @@ static NSString * const systemCellID = @"SystemCellID";
         
     }else if (messageType == SystemMessageType){
         NSSystemMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
-         SystemMessageModel * sys = messageArr[row];
+        SystemMessageModel * sys = messageArr[row];
         if (!cell) {
             cell = [[NSSystemMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
