@@ -9,7 +9,7 @@
 #import "MBProgressHUD.h"
 #import "NSToastManager.h"
 
-#define minshowtime   .5
+#define minshowtime   .9
 #define progesswidth  5.
 #define rotationspeed 2
 #define customcenter  CGPointMake(22.5, 22.5)

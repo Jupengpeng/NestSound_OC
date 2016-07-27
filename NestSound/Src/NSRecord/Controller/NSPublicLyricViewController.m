@@ -12,7 +12,9 @@
 #import "NSShareViewController.h"
 #import "NSPlayMusicTool.h"
 #import <AVFoundation/AVFoundation.h>
+#import "HudView.h"
 extern NSString *mp3PathTTest;
+extern Boolean plugedHeadset;
 
 @interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 {
@@ -34,12 +36,14 @@ extern NSString *mp3PathTTest;
     UILabel *auditionLabel;
     
     NSString *mp3URL;
+    NSString *oldMp3URL;
+
 }
 @property (nonatomic,copy) NSString * titleImage;
 @property (nonatomic, strong) AVPlayerItem *musicItem;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, weak) UIBarButtonItem *btn;
-@property (nonatomic, strong)AVAudioPlayer* player2;
+//@property (nonatomic, strong)AVAudioPlayer* player2;
 @end
 
 @implementation NSPublicLyricViewController
@@ -67,9 +71,11 @@ extern NSString *mp3PathTTest;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
-    
+        
 }
 - (void)receiveDictionaryData:(NSNotification*)sender{
+    auditionBtn.enabled=YES;
+
     NSDictionary* LyricDic_ = [sender userInfo];
     
     lyricDic = [NSMutableDictionary dictionary];
@@ -87,7 +93,6 @@ extern NSString *mp3PathTTest;
 
 -(void)configureUIAppearance
 {
-    WS(wSelf);
     
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
@@ -160,7 +165,7 @@ extern NSString *mp3PathTTest;
     
     
     publicSwitch = [[UISwitch alloc] init];
-    publicSwitch.on = NO;
+    publicSwitch.on = YES;
     publicSwitch.tintColor = [UIColor hexColorFloat:@"ffd111"];
     publicSwitch.onTintColor = [UIColor hexColorFloat:@"ffd111"];
     [backgroundView addSubview:publicSwitch];
@@ -202,15 +207,24 @@ extern NSString *mp3PathTTest;
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_btn01"] forState:UIControlStateSelected];
             
-        } action:^(UIButton *btn) {
+        } action:nil];
+        auditionBtn.enabled=NO;
+        /*^(UIButton *btn) {
             
-            btn.selected = !btn.selected;
+            /*btn.selected = !btn.selected;
             
             if (btn.selected) {
-                NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
-                NSLog(@"url--------------%@",url);
-                //NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
+                NSString* url=nil;;
+                url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
+                
 
+                if (!plugedHeadset) {
+                    url = mp3PathTTest;
+                }
+                
+                NSLog(@"-------------url = %@",url);
+                NSLog(@"------------plugedHeadset = %d",plugedHeadset);
+                
                 wSelf.player = [NSPlayMusicTool playMusicWithUrl:url block:^(AVPlayerItem *item) {
                     wSelf.musicItem = item;
                     
@@ -222,8 +236,8 @@ extern NSString *mp3PathTTest;
                 [wSelf.player pause];
             }
             
-        }];
-        
+        }];*/
+        [auditionBtn addTarget:self action:@selector(playRemoteMusic:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:auditionBtn];
         
         
@@ -288,18 +302,46 @@ extern NSString *mp3PathTTest;
     
 }
 
+- (void)playRemoteMusic:(UIButton*)btn{
+    
+
+    
+    btn.selected = !btn.selected;
+    NSLog(@"-------------btn.selected = %d",btn.selected);
+
+    if (btn.selected) {
+        
+        NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
+                NSLog(@"-------------url = %@",url);
+
+        
+        [self testMp3Online:url];
+        
+        
+        
+    } else {
+        [self.player pause];
+
+    }
+    
+
+
+}
+
 
 #pragma mark -stopPlaying
 - (void)endPlaying {
     
     auditionBtn.selected = NO;
-    
-    [NSPlayMusicTool stopMusicWithName:nil];
+    self.musicItem = nil;
+    self.player =nil;
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    self.musicItem=nil;
+    self.player=nil;
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]) {
@@ -310,21 +352,25 @@ extern NSString *mp3PathTTest;
 #pragma mark -uploadPhoto
 -(void)uploadPhoto:(UIBarButtonItem *)btn
 {
+    [HudView showView:self.navigationController.view string:@"发布成功"];
+
+
     self.btn = btn;
     
     [self.player pause];
     
     btn.enabled = NO;
     
-    auditionBtn.selected = NO;
     
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
-        if (descriptionText.text.length == 0 && lyricDic[@"lyricDetail"]==NULL) {
-            [[NSToastManager manager ] showtoast:@"描述不能为空哦"];
+        /*if (descriptionText.text.length == 0 && lyricDic[@"lyricDetail"]==NULL) {
+            [HudView showView:self.navigationController.view string:@"描述不能为空哦"];
+
             btn.enabled = YES;
-        }else{
+        }else
+        */{
             if (lyricDic[@"lyricImgUrl"] !=NULL) {
                 if (self.isLyric) {
                     [self publicWithType:YES];
@@ -343,7 +389,7 @@ extern NSString *mp3PathTTest;
         
     }else{
         btn.enabled = YES;
-        [[NSToastManager manager] showtoast:@"封面不能为空哟"];
+        [HudView showView:self.navigationController.view string:@"封面不能为空哟"];
     }
     
 }
@@ -412,6 +458,10 @@ extern NSString *mp3PathTTest;
     
     [chosePhotoLibrary showInView:self.view];
 }
+
+
+
+
 
 #pragma mark -actionSheetDelegate
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -532,32 +582,25 @@ extern NSString *mp3PathTTest;
     //本地音乐
     NSLog(@"----------本地MP3音乐:mp3PathTTest = %@",mp3PathTTest);
     [self testMp3:mp3PathTTest];
-}
+}*/
 
 
 
 - (void)testMp3Online:(NSString*)file{
     
-    
-    AVAudioSession* session = [AVAudioSession sharedInstance];
-    
-    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-    
-    [session setActive:YES error:nil];
-    
-    
-    
-    
-   // NSURL *url = [NSURL URLWithString:file];
-    NSURL* url = [NSURL URLWithString:file];
-    self.musicItem = [AVPlayerItem playerItemWithURL:url];
-    self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
+        NSURL* url = [NSURL URLWithString:file];
+
+    if (!self.musicItem||!self.player) {
+        self.musicItem = [AVPlayerItem playerItemWithURL:url];
+        self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
+    }
+
     
     [self.player play];
+
     
     
-    
-}*/
+}
 
 
 

@@ -13,7 +13,7 @@
 
 @end
 static NSString *oldMusicUrl;
-static AVPlayer *player;
+static AVPlayer *player=nil;
 static AVPlayerItem *musicItem;
 @implementation NSPlayMusicTool
 
@@ -26,7 +26,11 @@ static AVPlayerItem *musicItem;
         [player pause];
         player = nil;
     }*/
-    
+    AVAudioSession *session= [AVAudioSession sharedInstance];
+    //[session setCategory:AVAudioSessionCategoryPlayback error:nil];
+
+    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [session setActive:YES error:nil];
     
     if (player == nil ) {
         

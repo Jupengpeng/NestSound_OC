@@ -159,6 +159,10 @@
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
 		94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */; };
+		B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864D1D47055200B22855 /* Foundation.framework */; };
+		B80C86501D47055F00B22855 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864F1D47055F00B22855 /* UIKit.framework */; };
+		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
+		B80C86551D47A75B00B22855 /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C86541D47A75B00B22855 /* HudView.m */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
@@ -483,6 +487,11 @@
 		94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownloadProgressView.h; sourceTree = "<group>"; };
 		94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownloadProgressView.m; sourceTree = "<group>"; };
 		B80C86491D42930C00B22855 /* record.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = record.h; sourceTree = "<group>"; };
+		B80C864D1D47055200B22855 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B80C864F1D47055F00B22855 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B80C86511D47056C00B22855 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B80C86531D47A75B00B22855 /* HudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudView.h; sourceTree = "<group>"; };
+		B80C86541D47A75B00B22855 /* HudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudView.m; sourceTree = "<group>"; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -494,6 +503,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */,
+				B80C86501D47055F00B22855 /* UIKit.framework in Frameworks */,
+				B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */,
 				2AB516BB1CFE933D00583D00 /* libiconv.tbd in Frameworks */,
 				B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */,
 				2AB516B91CFE932100583D00 /* libsqlite3.tbd in Frameworks */,
@@ -1033,6 +1045,8 @@
 				2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */,
 				2A3CC9EA1D261C7E0072B801 /* UINavigationController+NSPlayView.h */,
 				2A3CC9EB1D261C7E0072B801 /* UINavigationController+NSPlayView.m */,
+				B80C86531D47A75B00B22855 /* HudView.h */,
+				B80C86541D47A75B00B22855 /* HudView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1130,6 +1144,9 @@
 		B6FF3AC9C475214C526BE9EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B80C86511D47056C00B22855 /* CoreGraphics.framework */,
+				B80C864F1D47055F00B22855 /* UIKit.framework */,
+				B80C864D1D47055200B22855 /* Foundation.framework */,
 				2AB516BA1CFE933D00583D00 /* libiconv.tbd */,
 				2AB516B81CFE932100583D00 /* libsqlite3.tbd */,
 				18FFE8351CF1809F0012880E /* AVFoundation.framework */,
@@ -2411,6 +2428,7 @@
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
 				2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */,
 				94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */,
+				B80C86551D47A75B00B22855 /* HudView.m in Sources */,
 				2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */,
 				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
 				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,

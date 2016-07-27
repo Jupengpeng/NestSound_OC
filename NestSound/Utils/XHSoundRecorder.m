@@ -9,7 +9,6 @@
 #import "XHSoundRecorder.h"
 #import <AVFoundation/AVFoundation.h>
 #import "lame.h"
-NSString *mp3PathTTest=nil;;
 @interface XHSoundRecorder () <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
 
@@ -30,15 +29,25 @@ NSString *mp3PathTTest=nil;;
 @property (nonatomic, copy) void (^FinishRecording)(NSString *);
 @property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, strong) AVAudioPlayer *player2;
+//@property (nonatomic, strong) AVPlayer *avPlayer;
+//@property (nonatomic, strong) AVPlayerItem* avPlayerItem;
+
+@property (nonatomic, strong) NSMutableArray* audioPlayers;
 
 
 @end
 
 static id _instance;
-NSString * path = nil;;
-NSString * pathMp3 = nil;;
+
 
 @implementation XHSoundRecorder
+
+-(NSMutableArray *)audioPlayers{
+    if (!_audioPlayers){
+        _audioPlayers = [[NSMutableArray alloc] init];
+    }
+    return _audioPlayers;
+}
 
 + (instancetype)sharedSoundRecorder {
     
@@ -64,6 +73,9 @@ NSString * pathMp3 = nil;;
 
 - (AVAudioRecorder *)recorder {
     
+    NSMutableDictionary *settings = [NSMutableDictionary dictionary];
+    [settings setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];//音乐采样率
+
     if (!_recorder) {
         
         NSDate *date = [NSDate date];
@@ -78,10 +90,9 @@ NSString * pathMp3 = nil;;
         
         NSString *wavPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
         
-        wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.wav",currentTimeString]];
+        wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf",currentTimeString]];
         
         self.wavPath = wavPath;
-        path=self.wavPath;
         NSURL *url = [NSURL URLWithString:wavPath];
         NSError *error = nil;
 
@@ -97,7 +108,6 @@ NSString * pathMp3 = nil;;
         }
         
         
-        NSDictionary *settings = [NSDictionary dictionary];
         
         _recorder = [[AVAudioRecorder alloc] initWithURL:url settings:settings error:nil];
         
@@ -108,21 +118,23 @@ NSString * pathMp3 = nil;;
     
     return _recorder;
 }
-
+/////
 //开始、继续 录音
 - (void)startRecorder:(void (^)(NSString *filePath))FinishRecording {
     
     
-    if (![self.recorder isRecording]) {
+    if (![self.recorder isRecording])
+    {
         [self.recorder averagePowerForChannel:0];
 
         [self.recorder prepareToRecord];
         
         [self.recorder record];
+        //self.wavPath = wavPath;
+
         NSFileManager* f = [NSFileManager defaultManager];
         long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
         NSLog(@"录制---------%@,%lld",self.wavPath,l);
-        
         //self.FinishRecording = FinishRecording;
         FinishRecording(self.wavPath);
 
@@ -153,11 +165,17 @@ NSString * pathMp3 = nil;;
 
 //播放
 - (void)playsound:(NSString *)filePath withFinishPlaying:(void (^)())FinishPlaying {
+    NSError* error=nil;
+
+    /*NSString *wavPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
     
-        AVAudioSession* session = [AVAudioSession sharedInstance];
+    wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf",self.fileName]];
+    
+    self.wavPath = wavPath;*/
+        /*AVAudioSession* session = [AVAudioSession sharedInstance];
         
         [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-        [session setActive:YES error:nil];
+        [session setActive:YES error:nil];*/
         
         
                 
@@ -166,11 +184,12 @@ NSString * pathMp3 = nil;;
         if (filePath == nil) {
             
             if (self.wavPath) {
-                
-                url = [NSURL fileURLWithPath:self.wavPath];
                 NSFileManager* f = [NSFileManager defaultManager];
                 long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
                 NSLog(@"回放----------%@,%lld",self.wavPath,l);
+                
+                url = [NSURL fileURLWithPath:self.wavPath];
+                
             } else if (self.mp3Path) {
                 
                 url = [NSURL fileURLWithPath:self.mp3Path];
@@ -183,11 +202,34 @@ NSString * pathMp3 = nil;;
             
             url = [NSURL fileURLWithPath:filePath];;
         }
-        
+    
+    
+   /* url = [NSURL fileURLWithPath:self.wavPath];
+    
+    self.avPlayerItem = [AVPlayerItem playerItemWithURL:url];
+    self.avPlayer = [AVPlayer playerWithPlayerItem:self.avPlayerItem];
+    [self.avPlayer play];*/
+    
+////////////
+    /*AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    if (audioPlayer){
+        [audioPlayer setDelegate:self];
+        [audioPlayer prepareToPlay];
+        [audioPlayer play];
+        [self.audioPlayers addObject:audioPlayer];
+    }*/
+    /////////
+
+
+
     //if (!self.player)
-    {
-        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+   {
         
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        NSLog(@"---------%@",self.player);
+        //self.player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+
+        NSLog(@"-----------error = %@",error);
         self.player.delegate = self;
         
         [self.player prepareToPlay];
@@ -201,17 +243,17 @@ NSString * pathMp3 = nil;;
 }
 
 //暂停播放
-- (void)pausePlaysound {
+- (void)pausePlaysound:(AVAudioPlayer*)player {
     
-    [self.player pause];
+    [player pause];
 }
 
 //停止播放
-- (void)stopPlaysound {
+- (void)stopPlaysound:(AVAudioPlayer*)player{
     
-    if (self.player) {
-        [self.player stop];
-        self.player = nil;
+    if (player) {
+        [player stop];
+        player = nil;
     }
     
 }
@@ -244,29 +286,32 @@ NSString * pathMp3 = nil;;
 //分贝数
 - (CGFloat)decibels {
     
-    
-    CGFloat decibels = [self.recorder averagePowerForChannel:0];
     [self.recorder updateMeters];
 
+    CGFloat decibels = [self.recorder peakPowerForChannel:0];
+
+    //decibels = pow(10, (0.05*(decibels)));
     return decibels;
 }
 
 
 //播放结束的代理方法
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
+    [self.audioPlayers removeObject:player];
+
+    [self stopPlaysound];
+
     if (self.FinishPlaying) {
         
         self.FinishPlaying();
     }
     
-    self.player = nil;
 }
 
 //播放被打断时
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
     
-    [self stopPlaysound];
+    [self pausePlaysound];
 }
 
 
@@ -373,8 +418,6 @@ NSString * pathMp3 = nil;;
     @finally {
         NSLog(@"转换完毕");
         self.mp3Path = mp3FilePath;
-        pathMp3 =mp3FilePath;
-        mp3PathTTest=mp3FilePath;
         NSFileManager *manager = [NSFileManager defaultManager];
         long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
         long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
