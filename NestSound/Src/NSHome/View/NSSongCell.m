@@ -10,7 +10,7 @@
 #import "NSSongListModel.h"
 @interface NSSongCell (){
 
-    UILabel * numberLab;
+    
     UILabel * workNameLab;
     UILabel * aurthorLab;
     
@@ -27,14 +27,19 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         //configure UI
-        self.backgroundColor = [UIColor whiteColor];
+//        self.backgroundColor = [UIColor whiteColor];
         
         //listNumber
-        numberLab = [[UILabel alloc] init];
-        numberLab.font = [UIFont systemFontOfSize:12];
-        numberLab.textAlignment = NSTextAlignmentCenter;
-        numberLab.textColor = [UIColor hexColorFloat:@"666666"];
-        [self.contentView addSubview:numberLab];
+        self.numberLab = [[UILabel alloc] init];
+        _numberLab.font = [UIFont systemFontOfSize:12];
+        _numberLab.textAlignment = NSTextAlignmentCenter;
+        _numberLab.textColor = [UIColor hexColorFloat:@"666666"];
+        [self.contentView addSubview:_numberLab];
+        
+        self.playImg = [[UIImageView alloc] init];
+        _playImg.hidden = YES;
+        _playImg.image = [UIImage imageNamed:@"2.0_writeMusic_play_no"];
+        [self.contentView addSubview:_playImg];
         
         //worknameLab
         workNameLab  = [[UILabel alloc] init];
@@ -59,14 +64,20 @@
 {
 
     //constrains
-    [numberLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.numberLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.contentView.mas_left).with.offset(5);
-        make.width.mas_equalTo(15);
+        make.width.mas_offset(20);
+    }];
+    
+    [self.playImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.left.equalTo(self.contentView.mas_left).with.offset(5);
+        make.size.mas_equalTo(15);
     }];
     
     [workNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(numberLab.mas_right).with.offset(10);
+        make.left.equalTo(_numberLab.mas_right).with.offset(10);
         make.top.equalTo(self.contentView.mas_top).with.offset(10);
         make.right.equalTo(self.contentView.mas_right).with.offset(-15);
         make.height.mas_equalTo(14);
@@ -85,7 +96,7 @@
 -(void)setNumber:(NSInteger) number
 {
     _number = number;
-    numberLab.text = [NSString stringWithFormat:@"%ld",(long)_number];
+    _numberLab.text = [NSString stringWithFormat:@"%ld",(long)_number];
 }
 
 -(void)setSongModel:(songModel *)songModel
@@ -96,9 +107,6 @@
     workNameLab.text = _songModel.workName;
 
     aurthorLab.text = _songModel.author;
-
-
-    
 
 }
 

@@ -254,6 +254,14 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 UIImage * image = ImageArr[i];
                 NSData * imageData = UIImageJPEGRepresentation(image, 0.5);
                 NSLog(@"时间戳%@",timeSp);
+            for (int i = 0 ; i<anotherImgArr.count; i++) {
+                UIImage * image = anotherImgArr[i];
+                NSData * imageData;
+                if (UIImagePNGRepresentation(image) == nil) {
+                    imageData = UIImageJPEGRepresentation(image, 1.0);
+                }else{
+                    imageData = UIImagePNGRepresentation(image);
+                }
                 [upManager putData:imageData key:[NSString stringWithFormat:@"%@%d.png",timeSp,i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                     NSLog(@" 图片key：%@",[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]]);
                     
@@ -283,6 +291,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark -uploadAudio
 -(void)uploadAudioWithImageURL:(NSString *)Image
 {
+    
     WS(wSelf);
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:self.audioPath]){
@@ -301,7 +310,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
     }else{
         
-        [self publicWithType:NO andAudioURL:nil andImageURL:Image];
+        [self publicWithType:NO andAudioURL:self.audioURL andImageURL:Image];
     }
 }
 
@@ -336,11 +345,13 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     
     if (isWrite) {
+        [[NSToastManager manager] showprogress];
         self.requestURL = publicInspirationURL;
     }else{
         NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:self.requestParams];
         [dic setObject:[NSNumber numberWithLong:itemID] forKey:@"itemid"];
         self.requestParams = dic;
+        [[NSToastManager manager] showprogress];
         self.requestURL = changeInspirationURL;
     }
     
@@ -365,11 +376,36 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [manager removeItemAtPath:self.audioPath error:nil];
             
             [self.navigationController popToRootViewControllerAnimated:YES];
+    if (requestErr) {
+        
+    } else {
+        [[NSToastManager manager] hideprogress];
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:getQiniuImage]) {
+                getQiniuImageModel = (NSGetQiNiuModel *)parserObject;
+                
+            }else if ([operation.urlTag isEqualToString:getQiniuAudio]){
+                getQiniuAudioModel = (NSGetQiNiuModel *)parserObject;
+            }else if ([operation.urlTag isEqualToString:getInspiration]){
+                NSInspirtationModel * inspirtation = (NSInspirtationModel *)parserObject;
+                self.inspritationModel = inspirtation.inspirtationModel;
+            }else if ([operation.urlTag isEqualToString:publicInspirationURL]){
+                
+                NSFileManager *manager = [NSFileManager defaultManager];
+                
+                [manager removeItemAtPath:self.audioPath error:nil];
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            } else if ([operation.urlTag isEqualToString:changeInspirationURL]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            
+            [manager removeItemAtPath:self.audioURL error:nil];
+>>>>>>> 53c19b281b3dbd6df0f1616e0dddedab7245dd7b
         }
-        
-        NSFileManager *manager = [NSFileManager defaultManager];
-        
-        [manager removeItemAtPath:self.audioURL error:nil];
     }
 }
 
@@ -387,6 +423,10 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     ImageArr = [NSMutableArray arrayWithArray:arr];
     
     self.audio = [NSString stringWithFormat:@"%@%@",_inspritationModel.audioDomain,_inspritationModel.audio];
+    if (_inspritationModel.audio.length) {
+        NSArray *audioArr = [_inspritationModel.audio componentsSeparatedByString:@"/"];
+        self.audioURL = [_inspritationModel.audio substringFromIndex:1];
+    }
     
     if (![self.audio isEqualToString:_inspritationModel.audioDomain] || inspiration.lyricText.text.length != 0 || str != nil) {
         
@@ -893,9 +933,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         NSLog(@"点击了添加照片");
         
-        
         [wSelf presentViewController:ImagePicker animated:YES completion:nil];
-        
         
     }];
     
@@ -1069,6 +1107,43 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [cell.image setDDImageWithURLString:ImageArr[indexPath.row] placeHolderImage:nil];
         }else{
             cell.image.image = ImageArr[indexPath.row];
+        if (ImageArr.count) {
+            if ([ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
+                [cell.image setDDImageWithURLString:[ NSString  stringWithFormat:@"%@%@", _inspritationModel.picDomain,ImageArr[indexPath.row]]placeHolderImage:nil];
+            }else{
+                cell.image.image = ImageArr.count ? ImageArr[indexPath.row] : anotherImgArr[indexPath.row];
+            }
+        }
+    }
+    return cell;
+}
+- (void)deleteImage:(UIButton *)sender {
+    NSImageCell *cell = (NSImageCell *)[sender superview].superview;
+    NSIndexPath *indexPath = [_collection indexPathForCell:cell];
+    if (isWrite) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:anotherImgArr[indexPath.row]];
+        [anotherImgArr removeObjectAtIndex:indexPath.item];
+    } else {
+        
+        NSMutableArray *images = [NSMutableArray arrayWithArray:[self.titleImageURL componentsSeparatedByString:@","]];
+        if (indexPath.row < images.count) {
+            [images removeObjectAtIndex:indexPath.row];
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:ImageArr[indexPath.row]];
+        }
+        [ImageArr removeObjectAtIndex:indexPath.row];
+        
+        if (!ImageArr.count) {
+            [anotherImgArr removeAllObjects];
+        }
+        self.titleImageURL = nil;
+        for (int i = 0; i < images.count; i++) {
+             if (self.titleImageURL == nil || self.titleImageURL.length == 0) {
+                 self.titleImageURL = images[i];
+             } else {
+            self.titleImageURL = [NSString stringWithFormat:@"%@,%@",self.titleImageURL,images[i]];
+             }
+>>>>>>> 53c19b281b3dbd6df0f1616e0dddedab7245dd7b
         }
     }
     
@@ -1100,6 +1175,16 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 {
     ImageArr = [NSMutableArray arrayWithArray:images];
     NSLog(@"图片个数：%d",ImageArr.count);
+    [anotherImgArr removeAllObjects];
+    anotherImgArr = [NSMutableArray arrayWithArray:images];
+    for (int i = 0; i < images.count; i++) {
+        if ([ImageArr containsObject:images[i]]) {
+            
+        } else {
+            [ImageArr addObject:images[i]];
+        }
+        
+    }
     [_collection reloadData];
     
 }

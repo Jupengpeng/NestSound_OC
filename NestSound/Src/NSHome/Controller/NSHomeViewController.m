@@ -80,10 +80,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [super viewDidLoad];
     
-
-    
    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
-
     playStatus.animationDuration = 0.8;
     playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
                                    [UIImage imageNamed:@"2.0_play_status_2"],
@@ -109,12 +106,11 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [playStatus addSubview:btn];
     [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
      UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
-    
     self.navigationItem.rightBarButtonItem = item;
     
     [self fetchIndexData];
     [self getAuthorToken];
-    
+     [self configureUIAppearance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -152,7 +148,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     _collection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -206,37 +201,35 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 #pragma mak -override FetchData;
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-
-    if (!parserObject.success) {
-
-        if ([operation.urlTag isEqualToString:index]) {
-            NSIndexModel * indexModel = (NSIndexModel *)parserObject;
-            bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
-            recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
-            recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
-            newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
-        musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
-        [self configureUIAppearance];
-        }else if([operation.urlTag isEqualToString:getToken]){
-            NSUserModel * userModels = (NSUserModel *)parserObject;
-            if (userModels) {
-                userModel * user = userModels.userDetail;
-                if (user) {
-                    NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
-                    NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
-                    [dic setObject:user.userName forKey:@"userName"];
-                    [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
-                    [dic setObject:user.headerURL forKey:@"userIcon"];
-                    [dic setObject:user.loginToken forKey:@"userLoginToken"];
-                    [userData removeObjectForKey:@"user"];
-                    [userData setObject:dic forKey:@"user"];
-                    [userData synchronize];
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:index]) {
+                NSIndexModel * indexModel = (NSIndexModel *)parserObject;
+                bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
+                recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
+                recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
+                newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
+                musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
+            }else if([operation.urlTag isEqualToString:getToken]){
+                NSUserModel * userModels = (NSUserModel *)parserObject;
+                if (userModels) {
+                    userModel * user = userModels.userDetail;
+                    if (user) {
+                        NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
+                        NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
+                        [dic setObject:user.userName forKey:@"userName"];
+                        [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
+                        [dic setObject:user.headerURL forKey:@"userIcon"];
+                        [dic setObject:user.loginToken forKey:@"userLoginToken"];
+                        [userData removeObjectForKey:@"user"];
+                        [userData setObject:dic forKey:@"user"];
+                        [userData synchronize];
+                    }
                 }
-                
             }
         }
-    }else{
-        [[NSToastManager manager] showtoast:@"网络异常"];
     }
 }
 

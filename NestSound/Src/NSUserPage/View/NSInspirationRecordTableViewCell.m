@@ -187,7 +187,7 @@
 -(void)setMyInspirationModel:(NSMyMusicModel *)myInspirationModel
 {
     _myInspirationModel = myInspirationModel;
-    NSArray * arr = [_myInspirationModel.titleImageUrls componentsSeparatedByString:@","];
+    NSArray * arr = [NSArray arrayWithArray:[_myInspirationModel.titleImageUrls componentsSeparatedByString:@","]];
     if (arr.count) {
         NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:arr[0]]];
         UIImage * image = [[UIImage alloc] initWithData:imageData];

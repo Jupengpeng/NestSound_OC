@@ -45,6 +45,7 @@ UITableViewDataSource>
     int page;
     UIImageView * emptyImage;
      int currentPage;
+    BOOL resetHeaderView;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -67,14 +68,14 @@ UITableViewDataSource>
     [self setupUI];
     type = 1;
     page = 0;
+    resetHeaderView = YES;
+    //register  notification of refresh userpage
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserPage) name:@"refreshUserPageNotific" object:nil];
     [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
 }
 
-
-
 -(void)viewWillAppear:(BOOL)animated
 {
-
     [super viewWillAppear: animated];
     ++page;
     if (JUserID == nil&&page ==1) {
@@ -101,10 +102,14 @@ UITableViewDataSource>
         
     }
 }
-
+//receive notification to refresh userpage
+- (void)refreshUserPage {
+    [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+}
 #pragma mark -fetchMemberData
 -(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
+//    [_tableView.infiniteScrollingView startAnimating];
     self.requestType = YES;
    
     NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
@@ -143,42 +148,42 @@ UITableViewDataSource>
 #pragma mark -overrider action fetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
+                
+                if (!operation.isLoadingMore) {
+                    [_tableView.pullToRefreshView stopAnimating];
+                    myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                    headerView.userModel = userData.userDataModel.userModel;
+                    headerView.otherModel = userData.userOtherModel;
+                }else{
+                    [_tableView.infiniteScrollingView stopAnimating];
+                    [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
+                    
+                }
+                
+                dataAry = myMusicAry;
+                if (dataAry.count == 0) {
+                    emptyImage.hidden = NO;
+                } else {
+                    emptyImage.hidden = YES;
+                }
+                [_tableView reloadData];
+            }else if ([operation.urlTag isEqualToString:focusUserURL]){
+                [[NSToastManager manager] showtoast:@"关注成功"];
+            } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
+                [_tableView reloadData];
+            }
+            //        if (operation.isLoadingMore) {
+            //            _tableView.showsInfiniteScrolling = NO;
+            //        }
             
-            NSUserDataModel * userData = (NSUserDataModel *)parserObject;
-            headerView.userModel = userData.userDataModel.userModel;
-            headerView.otherModel = userData.userOtherModel;
-            if (!operation.isLoadingMore) {
-                
-                myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
-                
-            }else{
-                [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
-                
-            }
-            if (!operation.isLoadingMore) {
-                [_tableView.pullToRefreshView stopAnimating];
-            }else{
-                [_tableView.infiniteScrollingView stopAnimating];
-            }
-            
-            dataAry = myMusicAry;
-            if (dataAry.count == 0) {
-                emptyImage.hidden = NO;
-            } else {
-                emptyImage.hidden = YES;
-            }
-            [_tableView reloadData];
-        }else if ([operation.urlTag isEqualToString:focusUserURL]){
-            [[NSToastManager manager] showtoast:@"关注成功"];
-        } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
-            [_tableView reloadData];
         }
-    }else{
-        [[NSToastManager manager] showtoast:@"亲，您网路飞外国去啦"];
     }
-    
 }
 
 #pragma mark -setupUI
@@ -228,22 +233,22 @@ UITableViewDataSource>
     
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    _tableView.showsVerticalScrollIndicator = YES;
     WS(wSelf);
-    _tableView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:_tableView];
+
     //loadingMore
-     [_tableView addDDInfiniteScrollingWithActionHandler:^{
-         if (!wSelf) {
-             return ;
-         }else{
-             [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
-         }
-         
-     }];
-    
-    
+    [_tableView addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
+        }
+    }];
+
     _tableView.showsInfiniteScrolling = YES;
     
-    [self.view addSubview:_tableView];
+    
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
     emptyImage.centerX = ScreenWidth/2;
     emptyImage.y = 380;
@@ -369,7 +374,7 @@ UITableViewDataSource>
         
     } else if (self.btnTag == 2) {
         
-        static NSString *ID = @"cell0";
+        static NSString * ID = @"cell0";
         
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
@@ -392,9 +397,9 @@ UITableViewDataSource>
         
     } else {
         
-        static NSString *ID = @"cell3";
+        static NSString *ID= @"cell3";
         
-        NSInspirationRecordTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        NSInspirationRecordTableViewCell *cell =(NSInspirationRecordTableViewCell *) [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             
@@ -427,7 +432,10 @@ UITableViewDataSource>
     
     return 60;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     NSArray *array;
@@ -601,9 +609,12 @@ UITableViewDataSource>
             self.btnTag = toolbarBtn.tag;
             type = 4;
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+           
 //            [_tableView reloadData];
+            
             if (dataAry.count != 0) {
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
+                
             }
             
             break;
@@ -656,10 +667,7 @@ UITableViewDataSource>
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
-//        [tableView reloadData];
-        
-        NSLog(@"点击了删除");
-        
+        [tableView reloadData];
         
     }
 }

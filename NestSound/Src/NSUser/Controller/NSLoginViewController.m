@@ -46,35 +46,36 @@
 #pragma  mark - override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:loginURl]) {
-            NSUserModel * userModels = (NSUserModel *)parserObject;
-            userModel * user = userModels.userDetail;
+    if (requestErr) {
         
-            if (user.userName.length ==0) {
-                
-            }else{
-            
-            NSDictionary * userDic = @{@"userName":user.userName,
-                                    @"userID":[NSString stringWithFormat:@"%ld",user.userID],
-                                    @"userIcon":user.headerURL,
-                                    @"userLoginToken":user.loginToken,
-                                    @"birthday":user.birthday,
-                                    @"male":[NSNumber numberWithInt:user.male],
-                                       @"desc":user.desc
-                                       };
-            [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
-            [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:loginURl]) {
+                NSUserModel * userModels = (NSUserModel *)parserObject;
+                userModel * user = userModels.userDetail;
+                if (user.userName.length ==0) {
+                }else{
+                    NSDictionary * userDic = @{@"userName":user.userName,
+                                               @"userID":[NSString stringWithFormat:@"%ld",user.userID],
+                                               @"userIcon":user.headerURL,
+                                               @"userLoginToken":user.loginToken,
+                                               @"birthday":user.birthday,
+                                               @"male":[NSNumber numberWithInt:user.male],
+                                               @"desc":user.desc
+                                               };
+                    [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
+                    [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
             }
+            
+        }else{
+            [[NSToastManager manager] showtoast:requestErr.description];
+            
         }
-        
-    }else{
-        [[NSToastManager manager] showtoast:requestErr.description];
-        
     }
-    
 }
 
 

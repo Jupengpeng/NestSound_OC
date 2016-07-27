@@ -11,6 +11,9 @@
 @interface NSSongCell : UITableViewCell
 
 @property (nonatomic,assign) NSInteger  number;
+@property (nonatomic, strong) UIImageView *playImg;
+@property (nonatomic, strong) UILabel * numberLab;
+@property (nonatomic, assign) BOOL index;
 @property (nonatomic,strong) songModel * songModel;
 
 @end

@@ -263,17 +263,21 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:loginOutURL]) {
-            NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
-            [user removeObjectForKey:@"user"];
-            [MobClick profileSignOff];
-            [user synchronize];
-            [self.navigationController popViewControllerAnimated:YES];
-            
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:loginOutURL]) {
+                NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+                [user removeObjectForKey:@"user"];
+                [MobClick profileSignOff];
+                [user synchronize];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"changeBtnsState" object:nil];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            }
         }
     }
-
 }
 
 @end

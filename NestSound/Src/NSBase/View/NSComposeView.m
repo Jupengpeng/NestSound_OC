@@ -66,7 +66,7 @@
     
     NSArray *iconArray = @[@"2.0_plus_lyric", @"2.0_plus_song", @"2.0_plus_record"];
     
-    NSArray *titleArray = @[@"歌词", @"歌曲", @"灵感记录"];
+    NSArray *titleArray = @[@"作词", @"作曲", @"灵感记录"];
     
     CGFloat margin = 30;
     

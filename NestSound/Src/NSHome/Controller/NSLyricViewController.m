@@ -49,6 +49,7 @@
     long workAuthorId;
     NSString * shareURl;
     NSString * URl;
+    NSArray *array;
 }
 
 @property (nonatomic,strong) LyricDetailModel * lyricDetail;
@@ -74,7 +75,7 @@
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_moreChoice"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonClick:)];
-
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
     
     [self fetchData];
     
@@ -101,7 +102,10 @@
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
 }
-
+- (void)changeBtnsState {
+    upVoteBtn.selected = NO;
+    collectionBtn.selected = NO;
+}
 #pragma mark -fetchData
 -(void)fetchData
 {
@@ -119,24 +123,24 @@
 #pragma mark -actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
-    if ([operation.urlTag isEqualToString:upvoteURL] || [operation.urlTag isEqualToString:collectURL]) {
-        if (!parserObject.success) {
-            [[NSToastManager manager] showtoast:@"操作成功"];
-        }
-    }else if([operation.urlTag isEqualToString:URl]) {
-        if (!parserObject.success) {
-            NSLyricDetailModel * lyric = (NSLyricDetailModel *)parserObject;
-            [self setupBottomView];
-            
-            [self setupLyricView];
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:upvoteURL] || [operation.urlTag isEqualToString:collectURL]) {
+            if (!parserObject.success) {
+                [[NSToastManager manager] showtoast:@"操作成功"];
+            }
+        }else if([operation.urlTag isEqualToString:URl]) {
+            if (!parserObject.success) {
+                NSLyricDetailModel * lyric = (NSLyricDetailModel *)parserObject;
+                [self setupBottomView];
+                [self setupLyricView];
 
-            
-            self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
-            [self moreChoice];
-                   }
+                self.lyricDetail = (LyricDetailModel *)lyric.lryicDetailModel;
+                [self moreChoice];
+            }
+        }
     }
-    
 }
 
 - (void)setupBottomView {
@@ -416,7 +420,7 @@
     [_maskView addGestureRecognizer:tap];
     
     
-    NSArray *array = [[NSArray alloc] init];
+    array = [[NSArray alloc] init];
     
     CGFloat moreChoiceViewH;
     
@@ -704,6 +708,9 @@
         default:
             break;
     }
+}
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
 }
 @end
 

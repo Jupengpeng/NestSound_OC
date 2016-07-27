@@ -303,23 +303,18 @@
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
-        if (descriptionText.text.length == 0 && lyricDic[@"lyricDetail"]==NULL) {
-            [[NSToastManager manager ] showtoast:@"描述不能为空哦"];
-            btn.enabled = YES;
-        }else{
-            if (lyricDic[@"lyricImgUrl"] !=NULL) {
-                if (isLyric) {
-                    [self publicWithType:YES];
-                }else{
-                    [self publicWithType:NO];
-                }
-            } else {
-                if (isLyric) {
-                    
-                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
-                }else{
-                    getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
-                }
+        if (lyricDic[@"lyricImgUrl"] !=NULL) {
+            if (isLyric) {
+                [self publicWithType:YES];
+            }else{
+                [self publicWithType:NO];
+            }
+        } else {
+            if (isLyric) {
+                
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
+            }else{
+                getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
             }
         }
         
@@ -333,39 +328,40 @@
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        
-        if ([operation.urlTag isEqualToString:getQiNiuURL]) {
+    if (requestErr) {
+        self.btn.enabled = YES;
+    } else {
+        if (!parserObject.success) {
             
-            NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
-            qiNiu * data = GetqiNiuModel.qiNIuModel;
-            NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
- 
-            titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
+            if ([operation.urlTag isEqualToString:getQiNiuURL]) {
+                
+                NSGetQiNiuModel * GetqiNiuModel = (NSGetQiNiuModel *)parserObject;
+                qiNiu * data = GetqiNiuModel.qiNIuModel;
+                NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
+                
+                titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
+                
+            }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
+                
+                NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
+                NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
+                
+                [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
+                [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
+                [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
+                [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
+                [lyricDic setValue:mp3URL forKey:@"mp3Url"];
+                NSShareViewController * shareVC =[[NSShareViewController alloc] init];
+                shareVC.shareDataDic = lyricDic;
+                shareVC.lyricOrMusic = isLyric;
+                [self.navigationController pushViewController:shareVC animated:YES];
+                
+            }
             
-            
-        }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
-            
-            NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
-            NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
-            
-            [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
-            [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
-            [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
-            [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
-            [lyricDic setValue:mp3URL forKey:@"mp3Url"];
-            NSShareViewController * shareVC =[[NSShareViewController alloc] init];
-            shareVC.shareDataDic = lyricDic;
-            shareVC.lyricOrMusic = isLyric;
-            [self.navigationController pushViewController:shareVC animated:YES];
-            
+            NSFileManager *manager = [NSFileManager defaultManager];
+            [manager removeItemAtPath:self.mp3File error:nil];
         }
-        
-        NSFileManager *manager = [NSFileManager defaultManager];
-        
-        [manager removeItemAtPath:self.mp3File error:nil];
     }
-    
 }
 #pragma mark -public
 -(void)publicWithType:(BOOL)type

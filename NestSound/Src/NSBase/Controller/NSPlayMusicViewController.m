@@ -141,72 +141,9 @@ static id _instance;
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
 }
-
-- (void)viewDidDisappear:(BOOL)animated {
-    
-    [super viewDidDisappear:animated];
-    
-    [self removeTimer];
-}
-
-
-#pragma mark -fetchMusicDetailData
--(void)fetchPlayDataWithItemId:(long)musicItemId
-{
-    
-    self.requestType = YES;
-    NSDictionary * dic;
-    if (self.geDanID!=0) {
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
-    }else{
-        
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from};
-    }
-    NSString * str = [NSTool encrytWithDic:dic];
-    url = [playMusicURL stringByAppendingString:str];
-    self.requestURL = url;
-    
-}
-
-
-#pragma mark -overriderActionFetchData
--(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
-{
-    
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:url]) {
-            NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
-            self.musicDetail = musicModel.musicdDetail;
-        }else if ([operation.urlTag isEqualToString:upvoteURL]) {
-                if (upVoteBtn.selected == YES) {
-                    self.musicDetail.zanNum = self.musicDetail.zanNum + 1;
-                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
-                }else{
-                    self.musicDetail.zanNum = self.musicDetail.zanNum - 1;
-                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
-                }
-                [[NSToastManager manager] showtoast:@"操作成功"];
-            }else if ([operation.urlTag isEqualToString:collectURL]){
-            if (collectionBtn.selected == YES) {
-                self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
-                collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
-                
-            }else{
-                self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
-                collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
-            }
-            [[NSToastManager manager] showtoast:@"操作成功"];
-        }
-    }else{
-        
-        [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
-    }
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
     //毛玻璃效果
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [backgroundImage setContentScaleFactor:[[UIScreen mainScreen] scale]];
@@ -237,6 +174,75 @@ static id _instance;
     [self moreChoice];
     
 }
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    
+    [self removeTimer];
+}
+
+- (void)changeBtnsState {
+    upVoteBtn.selected = NO;
+    collectionBtn.selected = NO;
+}
+#pragma mark -fetchMusicDetailData
+-(void)fetchPlayDataWithItemId:(long)musicItemId
+{
+    
+    self.requestType = YES;
+    NSDictionary * dic;
+    if (JUserID) {
+//        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"uid":JUserID};
+    }else{
+//        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from};
+        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
+    }
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [playMusicURL stringByAppendingString:str];
+    self.requestURL = url;
+    
+}
+
+
+#pragma mark -overriderActionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if ( requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
+                self.musicDetail = musicModel.musicdDetail;
+            }else if ([operation.urlTag isEqualToString:upvoteURL]) {
+                if (upVoteBtn.selected == YES) {
+                    self.musicDetail.zanNum = self.musicDetail.zanNum + 1;
+                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
+                }else{
+                    self.musicDetail.zanNum = self.musicDetail.zanNum - 1;
+                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
+                }
+                [[NSToastManager manager] showtoast:@"操作成功"];
+            }else if ([operation.urlTag isEqualToString:collectURL]){
+                if (collectionBtn.selected == YES) {
+                    self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
+                    collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                    
+                }else{
+                    self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
+                    collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                }
+                [[NSToastManager manager] showtoast:@"操作成功"];
+            }
+        }else{
+            
+            [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
+        }
+    }
+}
+
+
 
 //播放音乐
 - (void)playMusicUrl:(NSString *)musicUrl {
@@ -248,8 +254,6 @@ static id _instance;
         wSelf.musicItem = musicItem;
         
     }];
-    
-    
     
     CMTime duration = self.player.currentItem.asset.duration;
     
@@ -278,6 +282,8 @@ static id _instance;
         [self.player pause];
         
         self.player = nil;
+        
+        [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
         
         self.progressBar.value = 0;
         
@@ -888,7 +894,6 @@ static id _instance;
 //previous song
 - (void)previousBtnClick:(UIButton *)btn {
     
-    
     if (self.songAry.count != 0) {
         self.songID = self.songID - 1;
         if (self.songID == -1) {
@@ -897,11 +902,18 @@ static id _instance;
         }else{
             self.itemUid   = [self.songAry[self.songID] longValue];
         }
-        
         [self fetchPlayDataWithItemId:self.itemUid];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.itemUid]];
+            [NSPlayMusicViewController sharedPlayMusic].itemUid = self.itemUid;
+        }
     }else{
         self.itemUid = self.musicDetail.prevItemID;
         [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.musicDetail.nextItemID]];
+            
+        }
     }
     
 }
@@ -918,9 +930,15 @@ static id _instance;
             self.itemUid   = [self.songAry[self.songID] longValue];
         }
         [self fetchPlayDataWithItemId:self.itemUid];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.itemUid]];
+        }
     }else{
         self.itemUid = self.musicDetail.nextItemID;
         [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
+        if ([self.from isEqualToString:@"gedan"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.musicDetail.nextItemID]];
+        }
     }
     
 }
@@ -1147,7 +1165,7 @@ static id _instance;
 - (void)dealloc {
     
     [self removeTimer];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
 }
 
 
@@ -1212,12 +1230,13 @@ static id _instance;
 - (void)handleShareAction:(UIButton *)sender {
     NSLog(@"%@",sender.currentTitle);
     WS(wSelf);
-    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeMusic url:self.musicDetail.playURL];
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:self.musicDetail.playURL];
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     switch (sender.tag) {
         case 250:
         {
             [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+            NSLog(@" 分享：%@",[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]);
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [wSelf.navigationController popToRootViewControllerAnimated:YES];

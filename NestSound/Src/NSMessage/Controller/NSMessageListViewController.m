@@ -85,13 +85,12 @@ static NSString * const systemCellID = @"SystemCellID";
 {
     self.requestType = YES;
     
-//     [messageList.infiniteScrollingView startAnimating];
     if (!isLoadingMore) {
         
         currentPage = 1;
     } else {
         
-        ++ currentPage;
+       currentPage++;
     }
     self.requestParams = @{kIsLoadingMore:@(isLoadingMore)};
    
@@ -115,82 +114,86 @@ static NSString * const systemCellID = @"SystemCellID";
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    if (!parserObject.success) {
-        if ([operation.urlTag isEqualToString:upvoteUrl]) {
-            NSUpvoteMessageListModel * upvoteMessage = (NSUpvoteMessageListModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                messageArr = [NSMutableArray arrayWithArray:upvoteMessage.upvoteMessageList];
-                
-                
-            }else{
-                if (upvoteMessage.upvoteMessageList.count == 0) {
-                    
-                }else{
-                    
-                    [messageArr addObjectsFromArray:upvoteMessage.upvoteMessageList];
-                }
-            }
-            
-            emptyImage.image = [UIImage imageNamed:@"2.0_noUpvote_bk"];
-        }else if ([operation.urlTag isEqualToString:collectUrl]){
-            NSUpvoteMessageListModel * collecMessage = (NSUpvoteMessageListModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                messageArr = [NSMutableArray arrayWithArray:collecMessage.upvoteMessageList];
-                
-                
-            }else{
-                if (collecMessage.upvoteMessageList.count == 0) {
-                    
-                }else{
-                    [messageArr addObjectsFromArray:collecMessage.upvoteMessageList];
-                }
-                
-            }
-            emptyImage.image = [UIImage imageNamed:@"2.0_nocollection_bk"];
-            
-        }else if ([operation.urlTag isEqualToString:commentUrl]){
-            NSCommentListModel * commentMessage = (NSCommentListModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                messageArr = [NSMutableArray arrayWithArray:commentMessage.commentList];
-            }else{
-                if (commentMessage.commentList.count == 0) {
-                    
-                }else{
-                    [messageArr addObjectsFromArray:commentMessage.commentList];
-                }
-                
-            }
-            emptyImage.image = [UIImage imageNamed:@"2.0_noComment_bk"];
-            
-        }else if ([operation.urlTag isEqualToString:systemUrl]){
-            NSSystemMessageListModel * systemMessage = (NSSystemMessageListModel *)parserObject;
-            if (!operation.isLoadingMore) {
-                messageArr = [NSMutableArray arrayWithArray:systemMessage.systemMessageList];
-            }else{
-                if (systemMessage.systemMessageList.count == 0) {
-                    
-                }else{
-                    [messageArr addObjectsFromArray:systemMessage.systemMessageList];
-                }
-                
-            }
-            emptyImage.image = [UIImage imageNamed:@"2.0_noMessage_Bk"];
-        }
+    if (requestErr) {
         
-        if (messageArr.count == 0) {
-            emptyImage.hidden = NO;
-        }
-        [messageList reloadData];
-        if (!operation.isLoadingMore) {
-            [messageList.pullToRefreshView stopAnimating];
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:upvoteUrl]) {
+                NSUpvoteMessageListModel * upvoteMessage = (NSUpvoteMessageListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    messageArr = [NSMutableArray arrayWithArray:upvoteMessage.upvoteMessageList];
+                }else{
+                    if (upvoteMessage.upvoteMessageList.count == 0) {
+                        messageList.showsInfiniteScrolling = NO;
+                        
+                    }else{
+                        [messageArr addObjectsFromArray:upvoteMessage.upvoteMessageList];
+                    }
+                }
+                
+                emptyImage.image = [UIImage imageNamed:@"2.0_noUpvote_bk"];
+            }else if ([operation.urlTag isEqualToString:collectUrl]){
+                NSUpvoteMessageListModel * collecMessage = (NSUpvoteMessageListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    messageArr = [NSMutableArray arrayWithArray:collecMessage.upvoteMessageList];
+                    
+                    
+                }else{
+                    if (collecMessage.upvoteMessageList.count == 0) {
+                        messageList.showsInfiniteScrolling = NO;
+                        
+                    }else{
+                        [messageArr addObjectsFromArray:collecMessage.upvoteMessageList];
+                    }
+                    
+                }
+                emptyImage.image = [UIImage imageNamed:@"2.0_nocollection_bk"];
+                
+            }else if ([operation.urlTag isEqualToString:commentUrl]){
+                NSCommentListModel * commentMessage = (NSCommentListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    messageArr = [NSMutableArray arrayWithArray:commentMessage.commentList];
+                }else{
+                    if (commentMessage.commentList.count == 0) {
+                        messageList.showsInfiniteScrolling = NO;
+                    }else{
+                        [messageArr addObjectsFromArray:commentMessage.commentList];
+                    }
+                    
+                }
+                emptyImage.image = [UIImage imageNamed:@"2.0_noComment_bk"];
+                
+            }else if ([operation.urlTag isEqualToString:systemUrl]){
+                NSSystemMessageListModel * systemMessage = (NSSystemMessageListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    messageArr = [NSMutableArray arrayWithArray:systemMessage.systemMessageList];
+                }else{
+                    if (systemMessage.systemMessageList.count == 0) {
+                        messageList.showsInfiniteScrolling = NO;
+                        
+                    }else{
+                        [messageArr addObjectsFromArray:systemMessage.systemMessageList];
+                    }
+                    
+                }
+                emptyImage.image = [UIImage imageNamed:@"2.0_noMessageBk"];
+            }
+            
+            if (messageArr.count == 0) {
+                emptyImage.hidden = NO;
+            }
+            messageList.showsPullToRefresh = YES;
+            [messageList reloadData];
+            if (!operation.isLoadingMore) {
+                [messageList.pullToRefreshView stopAnimating];
+                messageList.showsInfiniteScrolling = YES;
+            }else{
+                [messageList.infiniteScrollingView stopAnimating];
+            }
+            
         }else{
-            [messageList.infiniteScrollingView stopAnimating];
-            messageList.showsInfiniteScrolling = NO;
         }
-        
-    }else{
     }
-    
 }
 
 #pragma mark configureUIAppearance
@@ -199,15 +202,13 @@ static NSString * const systemCellID = @"SystemCellID";
     //nav
     self.title = self.messageListType;
     
-    
-    
     //messageList tableview
     messageList = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     messageList.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     messageList.delegate = self;
     messageList.dataSource = self;
     messageList.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
+    messageList.alwaysBounceVertical = YES;
     [self.view addSubview:messageList];
     
     [messageList mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -235,6 +236,7 @@ static NSString * const systemCellID = @"SystemCellID";
         }
     }];
     // hide infiniteView
+    messageList.showsPullToRefresh = NO;
   messageList.showsInfiniteScrolling = YES;
     
     emptyImage = [[UIImageView alloc] init];
@@ -252,6 +254,7 @@ static NSString * const systemCellID = @"SystemCellID";
 #pragma mark tableview dataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"收藏个数：%d", messageArr.count);
     return messageArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -298,7 +301,6 @@ static NSString * const systemCellID = @"SystemCellID";
         cell.isUpvote = YES;
         
         cell.upvoteMessage = messageArr[row];
-        
         return cell;
         
     }else if (messageType == CollectionMessageType){
@@ -314,7 +316,7 @@ static NSString * const systemCellID = @"SystemCellID";
         
     }else if (messageType == SystemMessageType){
         NSSystemMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
-         SystemMessageModel * sys = messageArr[row];
+        SystemMessageModel * sys = messageArr[row];
         if (!cell) {
             cell = [[NSSystemMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
