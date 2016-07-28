@@ -20,15 +20,15 @@ static AVPlayerItem *musicItem;
 //播放音乐
 + (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
     
-    /*if (![oldMusicUrl isEqualToString:musicUrl])
+    if (![oldMusicUrl isEqualToString:musicUrl])
     {
         
         [player pause];
         player = nil;
-    }*/
+    }
     AVAudioSession *session= [AVAudioSession sharedInstance];
     //[session setCategory:AVAudioSessionCategoryPlayback error:nil];
-
+    
     [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [session setActive:YES error:nil];
     

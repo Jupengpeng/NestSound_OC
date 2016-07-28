@@ -181,6 +181,7 @@
         playMusicVC.itemUid = cell.musicModel.itemId;
         playMusicVC.from = @"red";
         playMusicVC.geDanID = 0;
+        playMusicVC.songID = indexPath.row;
         playMusicVC.songAry = self.songList;
         [self.navigationController pushViewController:playMusicVC animated:YES];
         

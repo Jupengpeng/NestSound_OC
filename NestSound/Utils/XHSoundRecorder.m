@@ -60,7 +60,7 @@ static id _instance;
     return _instance;
 }
 
-/*+ (instancetype)alloc {
++ (instancetype)alloc {
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -69,7 +69,7 @@ static id _instance;
     });
     
     return _instance;
-}*/
+}
 
 - (AVAudioRecorder *)recorder {
     
@@ -243,17 +243,20 @@ static id _instance;
 }
 
 //暂停播放
-- (void)pausePlaysound:(AVAudioPlayer*)player {
+- (void)pausePlaysound{
     
-    [player pause];
+    [self.player pause];
+    
 }
 
+
+
 //停止播放
-- (void)stopPlaysound:(AVAudioPlayer*)player{
+- (void)stopPlaysound{
     
-    if (player) {
-        [player stop];
-        player = nil;
+    if (_player) {
+        [_player stop];
+        _player = nil;
     }
     
 }
@@ -308,10 +311,13 @@ static id _instance;
     
 }
 
+
+
 //播放被打断时
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
     
     [self pausePlaysound];
+    
 }
 
 

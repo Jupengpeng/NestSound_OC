@@ -193,7 +193,7 @@ static NSString *identifier = @"identifier";
         urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:titleImageURl];
     } else {
         contentShare = _shareDataDic[@"author"];
-        urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeMusic url:[NSString stringWithFormat:@"http://audio.yinchao.cn%@",_shareDataDic[@"mp3Url"]]];
+        urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:[NSString stringWithFormat:@"http://audio.yinchao.cn%@",_shareDataDic[@"mp3Url"]]];
     }
     if (titleImageURl.length != 0) {
         imageShare = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:titleImageURl]]];

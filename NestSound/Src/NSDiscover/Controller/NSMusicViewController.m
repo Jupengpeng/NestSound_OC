@@ -257,6 +257,7 @@ static NSString * const headerView = @"HeaderView";
         playVC.itemUid = music.itemId;
         playVC.from = @"red";
         playVC.geDanID = 0;
+        playVC.songID = row;
         playVC.songAry = self.hotItemIdList;
     }else{
        
@@ -264,6 +265,7 @@ static NSString * const headerView = @"HeaderView";
         playVC.itemUid = music.itemId;
         playVC.from = @"news";
         playVC.geDanID = 0;
+        playVC.songID = row;
         playVC.songAry = self.latestItemIdList;
     }
    long itemId = music.itemId;

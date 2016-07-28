@@ -35,7 +35,7 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *itemIDArray;
-
+@property (nonatomic, strong) NSMutableArray *itemIDArr;
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
 @end
@@ -58,7 +58,12 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     return _itemIDArray;
 }
-
+- (NSMutableArray *)itemIDArr {
+    if (!_itemIDArr) {
+        self.itemIDArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _itemIDArr;
+}
 - (NSPlayMusicViewController *)playSongsVC {
     
     if (!_playSongsVC) {
@@ -209,8 +214,14 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                 NSIndexModel * indexModel = (NSIndexModel *)parserObject;
                 bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
                 recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
+                for (NSRecommend *model in recommendAry) {
+                    [self.itemIDArray addObject:@(model.itemId)];
+                }
                 recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
                 newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
+                for (NSNew *model in newListAry) {
+                    [self.itemIDArr addObject:@(model.itemId)];
+                }
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
 //                [_collection reloadData];
                 [self configureUIAppearance];
@@ -348,8 +359,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = recomm.itemId;
             playVC.from = @"tuijian";
             playVC.geDanID = 0;
-#warning  songListArr
-//            playVC.songAry =
+            playVC.songID = indexPath.item;
+            playVC.songAry = self.itemIDArray;
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
             NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
@@ -364,21 +375,19 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         [self.navigationController pushViewController:songVC animated:YES];
     }else if (section == 2){
         NSNew * newModel = (NSNew *)newListAry[row];
-        
         //newModel type == 1 is music type == 2 is lyric
-        long item = newModel.itemId;
         if (newModel.type == 1) {
             NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
-            playVC.itemUid = item;
+            playVC.itemUid = newModel.itemId;
             playVC.from = @"news";
             playVC.geDanID = 0;
-#warning  songListArr
-//            playVC.songAry =
+            playVC.songID = indexPath.item;
+            playVC.songAry = self.itemIDArr;
             [self.navigationController pushViewController:playVC animated:YES];
             
         }else{
             
-            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:item];
+            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:newModel.itemId];
             [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
@@ -443,7 +452,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     if (indexPath.section == 0) {
         
         reusable.bannerAry = bannerAry;
-        
         
         reusable.titleLable.text = @"推荐作品";
 //        NSLocalizedString(@"promot_recommendWorks", @"");

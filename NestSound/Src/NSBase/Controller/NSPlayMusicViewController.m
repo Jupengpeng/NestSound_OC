@@ -21,6 +21,7 @@
 #import "NSShareView.h"
 #import "NSIndexModel.h"
 #import "NSSongListModel.h"
+#import "STScrollBar.h"
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -45,7 +46,7 @@
 @property (nonatomic, weak) UIImage *coverImage;
 
 //歌名
-@property (nonatomic, weak) UILabel *songName;
+@property (nonatomic, weak) STScrollBar *songName;
 
 //评论数
 @property (nonatomic, assign) long commentNum;
@@ -153,7 +154,6 @@ static id _instance;
     
     UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     
-    NSLog(@"音巢音巢音巢：%@", self.songAry);
     UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectView.alpha = 1.0;
     effectView.frame = backgroundImage.frame;
@@ -348,27 +348,8 @@ static id _instance;
         
         make.top.equalTo(self.view.mas_top).offset(32);
         
-        make.width.mas_equalTo(50);
+        make.width.mas_equalTo(30);
     }];
-    
-
-    
-    //歌名
-    UILabel *songName = [[UILabel alloc] init];
-    
-    songName.textColor = [UIColor whiteColor];
-    
-    self.songName = songName;
-    
-    [self.view addSubview:songName];
-    
-    [songName mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(self.view.mas_top).offset(32);
-        
-        make.centerX.equalTo(self.view.mas_centerX);
-    }];
-    
     
     //分享
     UIButton *shareBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
@@ -377,11 +358,11 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-         _maskView.hidden = NO;
+        _maskView.hidden = NO;
         [UIView animateWithDuration:0.4 animations:^{
             shareView.y = ScreenHeight - shareView.height;
         }];
-
+        
     }];
     
     [self.view addSubview:shareBtn];
@@ -392,7 +373,33 @@ static id _instance;
         
         make.top.equalTo(self.view.mas_top).offset(32);
         
+        make.width.mas_equalTo(30);
     }];
+
+    
+    //歌名
+    
+    self.songName = [[STScrollBar alloc] init];
+    
+//    songName.textColor = [UIColor whiteColor];
+//    
+//    songName.textAlignment = NSTextAlignmentCenter;
+//    
+//    songName.font = [UIFont systemFontOfSize:15];
+//    
+//    self.songName = songName;
+    
+    [self.view addSubview:_songName];
+    
+    [self.songName mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.view.mas_top).offset(32);
+        
+        make.left.equalTo(popBtn.mas_right).with.offset(10);
+        
+        make.right.equalTo(shareBtn.mas_left).with.offset(-10);
+    }];
+    
     
     //播放暂停按钮
     UIButton *playOrPauseBtn = [[UIButton alloc] init];
@@ -1175,6 +1182,9 @@ static id _instance;
     if (musicDetail.playURL != nil && ![musicDetail.playURL isEqualToString:self.ifUrl]) {
         
         _musicDetail = musicDetail;
+        if (self.musicDetail.title.length > 15) {
+            
+        }
         _songName.text = self.musicDetail.title;
         
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];

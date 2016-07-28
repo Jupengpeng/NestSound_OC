@@ -32,7 +32,7 @@
     [headerView addSubview:appName];
     
     UILabel *edition = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2 - 60, CGRectGetMaxY(appName.frame), 120, 30)];
-    edition.text = @"版本：2.0.2";
+    edition.text = [NSString stringWithFormat:@"版本:%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     edition.textAlignment = NSTextAlignmentCenter;
     edition.textColor = [UIColor hexColorFloat:@"ffd00b"];
     edition.font = [UIFont systemFontOfSize:12];
