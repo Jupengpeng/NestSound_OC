@@ -348,6 +348,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = recomm.itemId;
             playVC.from = @"tuijian";
             playVC.geDanID = 0;
+#warning  songListArr
+//            playVC.songAry =
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
             NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
@@ -370,6 +372,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = item;
             playVC.from = @"news";
             playVC.geDanID = 0;
+#warning  songListArr
+//            playVC.songAry =
             [self.navigationController pushViewController:playVC animated:YES];
             
         }else{
@@ -386,6 +390,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = musicSay.itemID;
             playVC.from = @"yueshuo";
             playVC.geDanID = 0;
+#warning  songListArr
+//            playVC.songAry =
             [self.navigationController pushViewController:playVC animated:YES];
             
             

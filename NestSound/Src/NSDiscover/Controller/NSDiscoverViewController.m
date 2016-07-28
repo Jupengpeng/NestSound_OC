@@ -399,7 +399,8 @@
     playMusicVC.itemUid = itemID;
     playMusicVC.from = @"homepage";
     playMusicVC.geDanID = 0;
-    
+#warning  songListArr
+//    playMusicVC.songAry = 
     [self.navigationController pushViewController:playMusicVC animated:YES];
     
     NSLog(@"歌曲");

@@ -20,13 +20,19 @@
     NSMutableArray * musicList;
     NSString * musicUrl;
     NSString * lyricUrl;
+    
 }
-
+@property (nonatomic, strong) NSMutableArray *songList;
 
 @end
 
 @implementation NSMusicListViewController
-
+- (NSMutableArray *)songList {
+    if (!_songList) {
+        self.songList = [NSMutableArray array];
+    }
+    return _songList;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self fetchData];
@@ -105,6 +111,9 @@
             if ([operation.urlTag isEqualToString:musicUrl]) {
                 if (bandListModel.BandMusicList.count) {
                     musicList = [NSMutableArray arrayWithArray:bandListModel.BandMusicList];
+                    for (NSBandMusic * model in musicList) {
+                        [self.songList addObject:@(model.itemId)];
+                    }
                 } else {
                     
                 }
@@ -172,6 +181,7 @@
         playMusicVC.itemUid = cell.musicModel.itemId;
         playMusicVC.from = @"red";
         playMusicVC.geDanID = 0;
+        playMusicVC.songAry = self.songList;
         [self.navigationController pushViewController:playMusicVC animated:YES];
         
         

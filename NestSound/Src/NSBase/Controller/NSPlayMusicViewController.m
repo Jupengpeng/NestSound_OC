@@ -153,7 +153,7 @@ static id _instance;
     
     UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     
-    
+    NSLog(@"音巢音巢音巢：%@", self.songAry);
     UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectView.alpha = 1.0;
     effectView.frame = backgroundImage.frame;

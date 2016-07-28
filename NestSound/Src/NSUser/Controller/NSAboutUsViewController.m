@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"关于";
+    self.title = @"关于我们";
 //    self.edgesForExtendedLayout = YES;
     self.view.backgroundColor = KColor_Background;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 200)];

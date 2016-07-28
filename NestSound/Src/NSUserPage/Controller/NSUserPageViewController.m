@@ -177,10 +177,8 @@ UITableViewDataSource>
             }
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
-                NSLog(@"停止1");
             }else{
                 [_tableView.infiniteScrollingView stopAnimating];
-                 NSLog(@"停止2");
             }
             
         }

@@ -377,7 +377,8 @@ static NSString * const systemCellID = @"SystemCellID";
             NSPlayMusicViewController *playMusic = [NSPlayMusicViewController sharedPlayMusic];
             playMusic.itemUid = comment.itemID;
             playMusic.from = @"";
-            
+#warning  songListArr
+//            playMusic.songAry =
             [self.navigationController pushViewController:playMusic animated:YES];
         } else {
             

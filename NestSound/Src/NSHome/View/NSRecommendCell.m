@@ -118,7 +118,7 @@
     [workNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(titlePage.mas_bottom).with.offset(8);
         make.left.equalTo(self.contentView.mas_left).with.offset(7);
-        make.right.equalTo(self.contentView.mas_right).with.offset(7);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-7);
     }];
 
     [authorNameLab mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -98,8 +98,6 @@ UIScrollViewDelegate
     
     [self.view addSubview:cellNumber];
     
-    
-    
     //placeHolder
     placeHolderLabel = [[UILabel alloc] init];
     placeHolderLabel.font = [UIFont systemFontOfSize:13];

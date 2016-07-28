@@ -24,14 +24,26 @@
     NSString * musicURL;
 }
 
-
+@property (nonatomic, strong) NSMutableArray *hotItemIdList;
+@property (nonatomic, strong) NSMutableArray *latestItemIdList;
 @end
 
 static NSString * const RecommendCell = @"RecommendCell";
 static NSString * const headerView = @"HeaderView";
 
 @implementation NSMusicViewController
-
+- (NSMutableArray *)hotItemIdList {
+    if (!_hotItemIdList) {
+        self.hotItemIdList = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _hotItemIdList;
+}
+- (NSMutableArray *)latestItemIdList {
+    if (!_latestItemIdList) {
+        self.latestItemIdList = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _latestItemIdList;
+}
 -(instancetype)initWithIsMusic:(BOOL)isMusic_
 {
     if (self = [super init]) {
@@ -132,11 +144,17 @@ static NSString * const headerView = @"HeaderView";
                     
                 }else{
                     hotSongList = [NSMutableArray arrayWithArray:musicListModel.HotList.hotList];
+                    for (NSRecommend *model in hotSongList) {
+                        [self.hotItemIdList addObject:@(model.itemId)];
+                    }
                 }
                 if (musicListModel.SongList.songList.count == 0) {
                     
                 }else{
                     newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
+                    for (NSRecommend *model in newSongList) {
+                        [self.latestItemIdList addObject:@(model.itemId)];
+                    }
                 }
                 
             }else if ([operation.urlTag isEqualToString:lyricURL]){
@@ -239,12 +257,14 @@ static NSString * const headerView = @"HeaderView";
         playVC.itemUid = music.itemId;
         playVC.from = @"red";
         playVC.geDanID = 0;
+        playVC.songAry = self.hotItemIdList;
     }else{
        
         music = newSongList[row];
         playVC.itemUid = music.itemId;
         playVC.from = @"news";
         playVC.geDanID = 0;
+        playVC.songAry = self.latestItemIdList;
     }
    long itemId = music.itemId;
     if (isMusic) {

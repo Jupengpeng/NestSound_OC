@@ -186,6 +186,8 @@ static NSString * const musicSayCellId = @"musicSayCellId";
         playVC.itemUid = itemId;
         playVC.geDanID = 0;
         playVC.from = @"yueshuo";
+#warning  songListArr
+//        playVC.songAry =
         [self.navigationController pushViewController: playVC animated:YES];
     }else{
         NSH5ViewController * eventVC =[[NSH5ViewController alloc] init];
