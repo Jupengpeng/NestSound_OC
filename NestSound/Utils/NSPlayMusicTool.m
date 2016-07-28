@@ -13,19 +13,24 @@
 
 @end
 static NSString *oldMusicUrl;
-static AVPlayer *player;
+static AVPlayer *player=nil;
 static AVPlayerItem *musicItem;
 @implementation NSPlayMusicTool
 
 //播放音乐
 + (AVPlayer *)playMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
     
-    if (![oldMusicUrl isEqualToString:musicUrl]) {
+    /*if (![oldMusicUrl isEqualToString:musicUrl])
+    {
         
         [player pause];
         player = nil;
-    }
-    
+    }*/
+    AVAudioSession *session= [AVAudioSession sharedInstance];
+    //[session setCategory:AVAudioSessionCategoryPlayback error:nil];
+
+    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [session setActive:YES error:nil];
     
     if (player == nil ) {
         
@@ -50,6 +55,7 @@ static AVPlayerItem *musicItem;
 
 + (AVPlayer *)playIdenticalMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
     
+    NSLog(@"musicUrl----------%@",musicUrl);
 //    if (![oldMusicUrl isEqualToString:musicUrl]) {
 //        
 //        [player pause];

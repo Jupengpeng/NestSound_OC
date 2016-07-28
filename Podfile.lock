@@ -20,11 +20,11 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - HappyDNS (0.3.5)
+  - HappyDNS (0.3.9)
   - HUPhotoPicker (1.0.1)
-  - JPush (2.1.7)
+  - JPush (2.1.8)
   - Masonry (1.0.1)
-  - MBProgressHUD (0.9.2)
+  - MBProgressHUD (1.0.0)
   - pop (1.0.9)
   - Qiniu (7.0.20):
     - AFNetworking (~> 2.0)
@@ -40,11 +40,11 @@ PODS:
   - UMengSocialCOM (5.2.1)
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking (~> 2.6.3)
   - HUPhotoPicker (~> 1.0.1)
   - JPush
   - Masonry
-  - MBProgressHUD
+  - MBProgressHUD (~> 1.0.0)
   - pop
   - Qiniu
   - RSAEncryptor
@@ -57,11 +57,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  HappyDNS: 6f8cf46fa7c0b98a6591fe8ecb2e08d9907a6e8b
+  HappyDNS: 17be04178df2dd09f0ee6ac33628589b7f9910e8
   HUPhotoPicker: 4e4edc30caa26ed6cb01d2517113e2af1450b8d5
-  JPush: d37320eba856bf91f2c73989df4abf1e8846db2c
+  JPush: 2d1286494eae216433f6d7709b2721565b4babc9
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
@@ -72,6 +72,6 @@ SPEC CHECKSUMS:
   UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
 
-PODFILE CHECKSUM: 098d3786d69c60cf36a5b09f9dd54527ee527a33
+PODFILE CHECKSUM: f824e884a3a3c1f33bc3806e4caf328d5095463d
 
 COCOAPODS: 1.0.1

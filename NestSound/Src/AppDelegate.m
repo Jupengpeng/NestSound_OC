@@ -55,8 +55,25 @@
     
     [MobClick setLogEnabled: YES];
     
-    //audioSeesion
-//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    //addObserver for UserHeadset
+    self.session = [AVAudioSession sharedInstance];
+    
+    [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [self.session setActive:YES error:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
+                                                 name:AVAudioSessionRouteChangeNotification
+                                               object:nil];
+    
+    AVAudioSessionRouteDescription * route = [[AVAudioSession sharedInstance] currentRoute];
+    for (AVAudioSessionPortDescription * desc in [route outputs]) {
+        if([[desc portType] isEqualToString:AVAudioSessionPortHeadphones]){
+            self.isHeadset=YES;
+        }else{
+            self.isHeadset=NO;
+        }
+    }
 
     //JPush
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
@@ -73,6 +90,7 @@
     [self.window makeKeyAndVisible];
     
     
+    NSLog(@"------------启动：self.isHeadset = %d",self.isHeadset);
     return YES;
 }
 
@@ -128,4 +146,37 @@
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
+
+#pragma mark -userHeadSet
+- (void)audioRouteChangeListenerCallback:(NSNotification*)notification
+{
+    NSDictionary *interuptionDict = notification.userInfo;
+    
+    
+    NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
+    
+    switch (routeChangeReason) {
+            
+        case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
+            
+            NSLog(@"Headphone/Line plugged in");
+            
+            self.isHeadset=YES;
+            break;
+            
+        case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
+            NSLog(@"Headphone/Line was pulled. Stopping player....");
+            //[self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+            self.isHeadset=NO;
+
+            break;
+            
+        case AVAudioSessionRouteChangeReasonCategoryChange:
+            // called at start - also when other audio wants to play
+            NSLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
+            break;
+    }
+}
+
+
 @end

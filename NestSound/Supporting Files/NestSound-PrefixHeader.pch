@@ -153,4 +153,7 @@ extern NSString *port;
 
 #define requestData @"data"
 
+#define NotitionDictionaryData @"kNotitionDictionaryData"
+
+
 #endif /* NestSound_PrefixHeader_pch */
