@@ -7,6 +7,7 @@
 //
 
 #import "NSBaseViewController.h"
+
 @class NSAccommpanyModel;
 
 @interface NSWriteMusicViewController : NSBaseViewController

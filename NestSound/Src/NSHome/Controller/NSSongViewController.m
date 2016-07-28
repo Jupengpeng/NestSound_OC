@@ -288,6 +288,7 @@ static NSString * cellId = @"SongCell";
     playVC.songAry = songList;
     playVC.songID = row;
     [tableView reloadData];
+    [[NSNotificationCenter defaultCenter]postNotificationName:SongMenuStopNotition object:nil];
     [self.navigationController pushViewController:playVC animated:YES];
 }
 //- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {

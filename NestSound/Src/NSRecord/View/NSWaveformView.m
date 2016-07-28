@@ -203,10 +203,13 @@
                 
                 [path setLineWidth:1];
                 
-                [[UIColor hexColorFloat:@"ff833f"] setStroke];
+                //[[UIColor hexColorFloat:@"ff833f"] setStroke];
                 
-                [[UIColor hexColorFloat:@"ff833f"] setFill];
+                //[[UIColor hexColorFloat:@"ff833f"] setFill];
                 
+                [[UIColor hexColorFloat:@"ffd33f"] setStroke];
+                
+                [[UIColor hexColorFloat:@"ffd33f"] setFill];
                 [path stroke];
                 
                 UIBezierPath * path1 = [UIBezierPath bezierPath];
@@ -217,10 +220,12 @@
                 
                 [path1 setLineWidth:1];
                 
-                [[UIColor hexColorFloat:@"ffbd99"] setStroke];
+                //[[UIColor hexColorFloat:@"ffbd99"] setStroke];
                 
-                [[UIColor hexColorFloat:@"ffbd99"] setFill];
+                //[[UIColor hexColorFloat:@"ffbd99"] setFill];
+                [[UIColor hexColorFloat:@"ffd33f"] setStroke];
                 
+                [[UIColor hexColorFloat:@"ffd33f"] setFill];
                 [path1 stroke];
                 
                 UIBezierPath * centerPath = [UIBezierPath bezierPath];
@@ -229,11 +234,14 @@
                 
                 [centerPath addLineToPoint:CGPointMake(self.width * 0.5 - 2 * i, self.height * 0.5)];
                 
-                [centerPath setLineWidth:1];
+                [centerPath setLineWidth:0.2];
                 
-                [[UIColor hexColorFloat:@"ff833f"] setStroke];
+                //[[UIColor hexColorFloat:@"ff833f"] setStroke];
                 
-                [[UIColor hexColorFloat:@"ff833f"] setFill];
+                //[[UIColor hexColorFloat:@"ff833f"] setFill];
+                [[UIColor hexColorFloat:@"ffd33f"] setStroke];
+                
+                [[UIColor hexColorFloat:@"ffd33f"] setFill];
                 
                 [centerPath stroke];
                 

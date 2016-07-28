@@ -209,35 +209,7 @@ extern Boolean plugedHeadset;
             
         } action:nil];
         auditionBtn.enabled=NO;
-        /*^(UIButton *btn) {
-            
-            /*btn.selected = !btn.selected;
-            
-            if (btn.selected) {
-                NSString* url=nil;;
-                url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
-                
-
-                if (!plugedHeadset) {
-                    url = mp3PathTTest;
-                }
-                
-                NSLog(@"-------------url = %@",url);
-                NSLog(@"------------plugedHeadset = %d",plugedHeadset);
-                
-                wSelf.player = [NSPlayMusicTool playMusicWithUrl:url block:^(AVPlayerItem *item) {
-                    wSelf.musicItem = item;
-                    
-                }];
-                
-                
-            } else {
-                
-                [wSelf.player pause];
-            }
-            
-        }];*/
-        [auditionBtn addTarget:self action:@selector(playRemoteMusic:) forControlEvents:UIControlEventTouchUpInside];
+                [auditionBtn addTarget:self action:@selector(playRemoteMusic:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:auditionBtn];
         
         
@@ -307,7 +279,6 @@ extern Boolean plugedHeadset;
 
     
     btn.selected = !btn.selected;
-    NSLog(@"-------------btn.selected = %d",btn.selected);
 
     if (btn.selected) {
         
@@ -315,7 +286,7 @@ extern Boolean plugedHeadset;
                 NSLog(@"-------------url = %@",url);
 
         
-        [self testMp3Online:url];
+        [self listenMp3Online:url];
         
         
         
@@ -535,51 +506,11 @@ extern Boolean plugedHeadset;
     
     return file;
 }
-/*//for test
-
-- (void)testMp3:(NSString*)file{ //mp3PathTTest
-
-    
-    AVAudioSession* session = [AVAudioSession sharedInstance];
-    
-    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-    
-    [session setActive:YES error:nil];
-    
-    
-    
-    
-    NSURL *url = [NSURL fileURLWithPath:file];
-    NSError* err=nil;
-    self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
-    
-    
-    [self.player2 prepareToPlay];
-    
-    [self.player2 play];
-    
-    
-    
-}
 
 
-
-- (void)xxx:(UIButton*)sender{
-    //在线音乐
-    
+- (void)listenMp3Online:(NSString*)file{
     //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
-    NSString* urlString =[NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
-    NSLog(@"------------在线MP3音乐：%@",urlString);
-    //[self testMp3Online:urlString];
-    //本地音乐
-    NSLog(@"----------本地MP3音乐:mp3PathTTest = %@",mp3PathTTest);
-    [self testMp3:mp3PathTTest];
-}*/
 
-
-
-- (void)testMp3Online:(NSString*)file{
-    
         NSURL* url = [NSURL URLWithString:file];
 
     if (!self.musicItem||!self.player) {

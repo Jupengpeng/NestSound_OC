@@ -8,7 +8,7 @@
 
 
 #import "NSPlayMusicViewController.h"
-#import "NSPlayMusicTool.h"
+//#import "NSPlayMusicTool.h"
 #import "NSMusicListViewController.h"
 #import "NSLyricView.h"
 #import "NSCommentViewController.h"
@@ -144,7 +144,13 @@ static id _instance;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:IndexPlayerStopNotition object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:SongMenuStopNotition object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
+  
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:NewSongStopNotition object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:MusicStopNotition object:nil];
     //毛玻璃效果
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [backgroundImage setContentScaleFactor:[[UIScreen mainScreen] scale]];
@@ -172,6 +178,7 @@ static id _instance;
     [self setupUI];
     
     [self moreChoice];
+    
     
 }
 - (void)viewDidDisappear:(BOOL)animated {
@@ -247,13 +254,14 @@ static id _instance;
 //播放音乐
 - (void)playMusicUrl:(NSString *)musicUrl {
     
-    WS(wSelf);
+    NSLog(@"--------musicUrl = %@",musicUrl);
     
-    self.player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
+    /*self.player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
         
         wSelf.musicItem = musicItem;
         
-    }];
+    }];*/
+    [self playMusicWithUrl:musicUrl];
     
     CMTime duration = self.player.currentItem.asset.duration;
     
@@ -291,8 +299,9 @@ static id _instance;
         
         self.playOrPauseBtn.selected = NO;
         
-        [NSPlayMusicTool stopMusicWithName:nil];
-        
+        //[NSPlayMusicTool stopMusicWithName:nil];
+        [self stopMusic];
+
         [self playMusicUrl:self.musicDetail.playURL];
     } else {
         
@@ -316,7 +325,9 @@ static id _instance;
             
             self.playOrPauseBtn.selected = NO;
             
-            [NSPlayMusicTool stopMusicWithName:nil];
+            //[NSPlayMusicTool stopMusicWithName:nil];
+            [self stopMusic];
+
         }
     }
     
@@ -335,6 +346,7 @@ static id _instance;
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_pop"] forState:UIControlStateNormal];
         
     } action:^(UIButton *btn) {
+        
         
         [wSelf.navigationController popViewControllerAnimated:YES];
         
@@ -1304,6 +1316,38 @@ static id _instance;
     //            [shareView removeFromSuperview];
     //            _moreChoiceView.y = ScreenHeight;
     //        }];
+}
+
+//播放器
+//播放音乐
+- (void)playMusicWithUrl:(NSString *)musicUrl{
+
+    
+    if (!self.player) {
+        
+        self.musicItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:musicUrl]];
+        
+        self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
+        
+    }
+    
+    [self.player play];
+    
+}
+
+//停止音乐
+- (void)stopMusic {
+    
+    if (self.player||self.musicItem) {
+        self.musicItem = nil;
+        self.player = nil;
+    }
+}
+
+- (void)changeMusic:(NSNotification*)userInfo{
+    NSLog(@"-------------666");
+    [self stopMusic];
+
 }
 
 

@@ -155,5 +155,12 @@ extern NSString *port;
 
 #define NotitionDictionaryData @"kNotitionDictionaryData"
 
+#define IndexPlayerStopNotition @"kIndexPlayerStopNotition"
+#define SongMenuStopNotition @"kSongMenuStopNotition"
+#define NewSongStopNotition @"kNewSongStopNotition"
+#define MusicStopNotition @"kMusicStopNotition"
+
+
+
 
 #endif /* NestSound_PrefixHeader_pch */

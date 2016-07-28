@@ -161,6 +161,7 @@
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
 		94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */; };
+		B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */ = {isa = PBXBuildFile; fileRef = B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */; };
 		B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864D1D47055200B22855 /* Foundation.framework */; };
 		B80C86501D47055F00B22855 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864F1D47055F00B22855 /* UIKit.framework */; };
 		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
@@ -492,6 +493,8 @@
 		945708E41D2F92AD0074C331 /* UIView+RGSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RGSize.m"; sourceTree = "<group>"; };
 		94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownloadProgressView.h; sourceTree = "<group>"; };
 		94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownloadProgressView.m; sourceTree = "<group>"; };
+		B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMusicWave.h; sourceTree = "<group>"; };
+		B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceMusicWave.m; sourceTree = "<group>"; };
 		B80C86491D42930C00B22855 /* record.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = record.h; sourceTree = "<group>"; };
 		B80C864D1D47055200B22855 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B80C864F1D47055F00B22855 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -999,6 +1002,8 @@
 		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */,
+				B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */,
 				B899FA481D41B9AE001E79F3 /* lame.h */,
 				B899FA491D41B9AE001E79F3 /* libmp3lame.a */,
 				2DFB67531CC1EC4000DA24DA /* NSTool.h */,
@@ -2478,6 +2483,7 @@
 				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				187016671D21268B0041B5D7 /* NSArray+Log.m in Sources */,
+				B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,

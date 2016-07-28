@@ -14,6 +14,7 @@
 #import "XHSoundRecorder.h"
 #import "NSAccommpanyListModel.h"
 #import "NSPlayMusicTool.h"
+#import "DeviceMusicWave.h"
 #import <AVFoundation/AVFoundation.h>
 #import "NSPublicLyricViewController.h"
 #import "NSTunMusicModel.h"
@@ -26,11 +27,10 @@
 #import "HudView.h"
 
 
-static CGFloat timerNum=0;
-static CGFloat timerNum_temp=0;
+CGFloat count;
 
-static CGFloat count =0;
 Boolean plugedHeadset;
+static CGFloat timerNum=0;
 
 @interface CenterLine : UIView
 
@@ -62,7 +62,12 @@ Boolean plugedHeadset;
 @interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric, AVAudioPlayerDelegate,UIAlertViewDelegate, AVAudioRecorderDelegate> {
     
     UILabel *totalTimeLabel;
-    
+    float timerNumRecorder;
+    float timerNumRecorder_temp;
+    float timerNumPlay;
+    float timerNumPlay_temp;
+    int clickValue;
+
     UITextField *titleText;
     UIImageView * listenBk;
     UIImageView * recordBk;
@@ -78,16 +83,17 @@ Boolean plugedHeadset;
     NSTimeInterval curtime3;
 
     NSDownloadProgressView *ProgressView;
+    
 }
 
 @property (nonatomic, strong) UIImageView *slideBarImage;
 
 @property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) DeviceMusicWave* DeviceMusicWaveView;
 
 @property (nonatomic, strong)  CADisplayLink *link;
-@property (nonatomic, strong)  CADisplayLink *link2;
 
-@property (nonatomic, assign) CGFloat count2;
+@property (nonatomic, assign) int clickedValue;
 
 
 @property (nonatomic, strong) NSMutableArray *btns;
@@ -129,8 +135,14 @@ Boolean plugedHeadset;
 
 - (AVAudioRecorder *)newRecorder {
     
-    NSMutableDictionary *settings = [NSMutableDictionary dictionary];
-    [settings setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];//音乐采样率
+    NSDictionary *settings = @{AVSampleRateKey : @(44100.0), AVNumberOfChannelsKey : @(1)};
+    
+    /*NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                            [NSNumber numberWithFloat: 44100.0],                 AVSampleRateKey,
+                                                            [NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey,
+                                                           [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
+                                                            [NSNumber numberWithInt: AVAudioQualityMax],         AVEncoderAudioQualityKey,
+                                                           nil];*/
     
     if (!_recorder) {
         
@@ -156,6 +168,7 @@ Boolean plugedHeadset;
         AVAudioSession* session = [AVAudioSession sharedInstance];
         
         [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+        
         [session setActive:YES error:nil];
         
         if(error){
@@ -177,6 +190,7 @@ Boolean plugedHeadset;
 /////
 //开始、继续 录音
 - (void)startRecorder{
+    
     self.recorder = [self newRecorder];
     
     if (![self.recorder isRecording])
@@ -219,7 +233,7 @@ Boolean plugedHeadset;
 }
 
 //播放
-- (void)playsound:(NSString*)audioPath{
+- (void)playsound:(NSString*)audioPath time:(NSTimeInterval)curTime{
     NSError* error=nil;
     
     NSURL *url=nil;;
@@ -227,7 +241,7 @@ Boolean plugedHeadset;
         if (audioPath) {
             NSFileManager* f = [NSFileManager defaultManager];
             long long l = [[f attributesOfItemAtPath:audioPath error:nil] fileSize];
-            NSLog(@"回放----------%@,%lld",audioPath,l);
+            NSLog(@"回放----------%@,文件大小：%lld",audioPath,l);
             if (l == 0) {
                 [self.link setPaused:YES];
                 [HudView showView:self.navigationController.view string:@"文件大小为0，无法播放"];
@@ -240,16 +254,13 @@ Boolean plugedHeadset;
         }
     
     
-    
-    if (!self.player3) {
         self.player3 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        self.player.meteringEnabled=YES;
-        
+        self.player3.meteringEnabled=YES;
         self.player3.delegate = self;
-        
+    
+        [self.player3 setCurrentTime:curTime];
+    
         [self.player3 prepareToPlay];
-
-    }
     
         [self.player3 play];
     
@@ -291,6 +302,7 @@ Boolean plugedHeadset;
     }
     
     [self stopAllDevides];
+
 }
 
 - (void)stopAllDevides {
@@ -319,16 +331,17 @@ Boolean plugedHeadset;
     
     [self.recorder updateMeters];
     
+   // CGFloat decibels = [self.recorder peakPowerForChannel:0];
     CGFloat decibels = [self.recorder averagePowerForChannel:0];
-    
-    return decibels;
+
+    return  decibels;//   [self updateMeters];
 }
 
 - (CGFloat)playerDecibels:(AVAudioPlayer*)player {
     
     [player updateMeters];
     
-    CGFloat decibels = [player averagePowerForChannel:0];
+    CGFloat decibels = [player peakPowerForChannel:0];
     
     return decibels;
 }
@@ -346,50 +359,38 @@ Boolean plugedHeadset;
 
 //伴奏播放完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    NSLog(@"-------传入player=%@",player);
-
-    NSLog(@"-------self.player=%@",self.player);
-    NSLog(@"-------self.player2=%@",self.player2);
-    NSLog(@"-------self.player3=%@",self.player3);
-
+   
+    timerNum=0;
 
     UIButton* btn = self.btns[1];
-    if (player == self.player2) {
+    if (player == self.player) {
         btn.selected = NO;
         [self.link setPaused:YES];
-        timerNum=0;
+        timerNumRecorder=0;
+        timerNumRecorder_temp=0;
+
         [self stopPlaysound:player];
         
     }
-    if (player == self.player3) {
+    if (player == self.player3 || (player == self.player2)) {
         btn.selected = NO;
 
-        timerNum =0;
-        timerNum_temp=0;
+        timerNumPlay_temp=0;
+        timerNumPlay=0;
+        curtime3=0;
+        curtime2=0;
         [self stopPlaysound:self.player3];
         [self stopPlaysound:self.player2];
+        [self.waveform removeAllPath];
 
         [self.link setPaused:YES];
         
     }
-
-    NSLog(@"----------92");
-
-    /*[[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
-    [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
-    [self.player stop];
-    self.next.enabled = YES;
-    UIButton *btn2 = self.btns[2];
-    UIButton *btn1 = self.btns[1];
-    btn2.enabled = NO;
-    btn2.selected = NO;
-    btn1.enabled = YES;*/
     
 }
 
 //播放被打断时
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
-    NSLog(@"---/播放被打断时-----");
     //[self pausePlaysound];
 }
 
@@ -480,7 +481,6 @@ Boolean plugedHeadset;
         NSLog(@"%@",[exception description]);
     }
     @finally {
-        NSLog(@"转换完毕");
         self.mp3Path = mp3FilePath;
         long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
         long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
@@ -563,9 +563,13 @@ Boolean plugedHeadset;
 
     self.wavFilePath = nil;
     self.mp3Path=nil;
+
     timerNum=0;
-    count=0;
-    timerNum_temp=0;
+
+     timerNumRecorder=0;
+     timerNumRecorder_temp=0;
+     timerNumPlay=0;
+     timerNumPlay_temp=0;
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
@@ -608,11 +612,13 @@ Boolean plugedHeadset;
     
     
 
-    WS(wSelf);
     [super viewWillAppear:animated];
-    timerNum=0;
-    count=0;
-    timerNum_temp=0;
+
+    timerNumRecorder=0;
+    timerNumRecorder_temp=0;
+    timerNumPlay=0;
+    timerNumPlay_temp=0;
+    
     mp3URL=nil;
    /* if (self.wavFilePath || self.mp3File) {
         
@@ -620,6 +626,7 @@ Boolean plugedHeadset;
     }*/
     
     //stop the music
+    self.clickedValue = 0;
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     
     playVC.playOrPauseBtn.selected = NO;
@@ -677,23 +684,19 @@ Boolean plugedHeadset;
 - (void)leftBackClick:(UIBarButtonItem *)back {
     
     WS(wSelf);
-    
-    [self removeLink];
-    
-    [self stopPlaysound:self.player];
-    [self stopPlaysound:self.player2];
-    [self stopPlaysound:self.player3];
-    [self stopRecorder];
-
-    
-    
- 
+  
     UIButton *btn =  self.btns[2];
     if (self.wavFilePath || self.mp3Path || btn.selected) {
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定放弃?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请确认操作" message:@"是否放弃当前录音？" preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [wSelf removeLink];
+            [wSelf stopPlaysound:self.player];
+            [wSelf stopPlaysound:self.player2];
+            [wSelf stopPlaysound:self.player3];
+            [wSelf stopRecorder];
             
             NSFileManager *manager = [NSFileManager defaultManager];
             
@@ -771,8 +774,6 @@ Boolean plugedHeadset;
         }
         
         if (i == 1) {
-            //btn.selected=YES;
-            //btn.enabled = NO;
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_btn01"] forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_play"] forState:UIControlStateNormal];
@@ -782,7 +783,6 @@ Boolean plugedHeadset;
         
         if (i == 2) {
             
-           // btn.enabled = NO;
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_recording"] forState:UIControlStateSelected];
         }
@@ -802,6 +802,10 @@ Boolean plugedHeadset;
     self.waveform.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.waveform];
+    
+    /*self.DeviceMusicWaveView = [[DeviceMusicWave alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
+    self.DeviceMusicWaveView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.DeviceMusicWaveView];*/
     
     
     self.slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
@@ -888,14 +892,7 @@ Boolean plugedHeadset;
     
     
     [self.view addSubview:lyricView];
-    
-    
-    UIButton* btn = [[UIButton alloc]initWithFrame:CGRectMake(10, 100, 100, 50)];
-    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(xxx:) forControlEvents:UIControlEventTouchUpInside];
-    //[self.view addSubview:btn];
-    
-    
+
  
     
 }
@@ -903,15 +900,26 @@ Boolean plugedHeadset;
 
 
 - (void)btnClick:(UIButton *)btn {
+    
+    
     self.appDelete = [UIApplication sharedApplication].delegate;
-    NSLog(@"---------------点击按钮了%ld,%d",btn.tag,btn.selected);
+    
+     clickValue = [self buttonClickedValue:btn];
+
     if (btn.tag == 2) {
+        
+        if ([self.player3 isPlaying] || [self.player2 isPlaying]) {
+            [HudView showView:self.navigationController.view string:@"先暂停试听"];
+            return;
+        }
         btn.selected = !btn.selected;
         
         if (btn.selected) {
             [HudView showView:self.navigationController.view string:@"开始录音"];
 
             self.isPlay = NO;
+            timerNumRecorder =timerNumRecorder_temp;
+            timerNum=   timerNumRecorder;
             [self.link setPaused:NO];
             
             
@@ -929,7 +937,7 @@ Boolean plugedHeadset;
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             if (!self.player) {
                 self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-                //self.player.delegate = self;
+                self.player.delegate = self;
                 totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
                 self.player.meteringEnabled=YES;
                 [self.player prepareToPlay];
@@ -940,22 +948,18 @@ Boolean plugedHeadset;
             
             
         } else {
-            timerNum=0;
-            btn.enabled=NO;
-            [self stopPlaysound:self.player];
-            [self stopRecorder];
+            timerNumRecorder_temp = self.player.currentTime;
+            [self pauseRecorder];
+            [self pausePlaysound:self.player];
             [self.link setPaused:YES];
             
-            //timerNum_temp =timerNum;
             
         }
     }
     
     
     if (btn.tag ==1) {
-        //[self.session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-
-        //[self.session setActive:YES error:nil];
+        
         if ([self.player isPlaying]) {
             [HudView showView:self.navigationController.view string:@"请先停止录音"];
             return;
@@ -971,16 +975,16 @@ Boolean plugedHeadset;
             [HudView showView:self.navigationController.view string:@"开始试听"];
 
             [self.waveform removeAllPath];
-            timerNum = timerNum_temp;
+            timerNumPlay = timerNumPlay_temp;
 
+            timerNum = timerNumPlay;
             [self.link setPaused:NO];
             
-            self.isPlay2 = NO; //YES
+            self.isPlay = NO; //YES
             
             
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             
-            NSLog(@"-----------plugedHeadset = %d",plugedHeadset);
             if (plugedHeadset)
             {
                 
@@ -995,27 +999,22 @@ Boolean plugedHeadset;
 
                 }else{
                     [self.player2 setCurrentTime:curtime2];
-                    [self.player3 setCurrentTime:curtime2];
+                    [self.player3 setCurrentTime:curtime3];
 
                 }
 
                 
             }
-            [self playsound:self.wavFilePath];
+            [self playsound:self.wavFilePath time:curtime3];
             
         }else{//没回听
-            timerNum_temp = timerNum;
-            [self.player2 stop];
-
-            [self.player3 stop];
-            //[self.session setActive:NO error:nil];
+            timerNumPlay_temp=self.player3.currentTime;
             curtime2=   self.player2.currentTime;
             curtime3=   self.player3.currentTime;
-
-            //[self pausePlaysound:self.player2];
-
-            NSLog(@"----------2");
+            [self pausePlaysound:self.player2];
+            [self pausePlaysound:self.player3];
             
+            NSLog(@"-----------curtime2 = %f,curtime3 = %f",curtime2,curtime3);
             [self.link setPaused:YES];
             
         }
@@ -1025,12 +1024,17 @@ Boolean plugedHeadset;
     
     if (btn.tag == 3) {//
         
-        NSLog(@"----------self.wavPath:=%@",self.wavFilePath);
         if ([self.player isPlaying]) {
             [HudView showView:self.navigationController.view string:@"先停止录音"];
 
             return;
 
+        }
+        if ([self.player2 isPlaying]||[self.player3 isPlaying]) {
+            [HudView showView:self.navigationController.view string:@"先停止试听"];
+            
+            return;
+            
         }
 
         if (self.wavFilePath == nil) {
@@ -1058,15 +1062,17 @@ Boolean plugedHeadset;
 }
 - (void)clear{
   
-    UIButton* btn =   self.btns[2];
-    btn.enabled=YES;
+    //UIButton* btn =   self.btns[2];
+    //btn.enabled=YES;
+    
     self.timeLabel.text = @"00:00";
-
-    
-    
-    /*timerNum = 0;
-    timerNum_temp=0;
-    count=0;*/
+    timerNum=0;
+    timerNumRecorder=0;
+    timerNumRecorder_temp=0;
+    timerNumPlay=0;
+    timerNumPlay_temp=0;
+    curtime2=0;
+    curtime3=0;
     self.wavFilePath = nil;
     [self.link setPaused:YES];
     [self stopPlaysound:self.player];
@@ -1087,26 +1093,26 @@ Boolean plugedHeadset;
     importLyric.delegate = self;
     [self.navigationController pushViewController:importLyric animated:YES];
     
-    NSLog(@"点击了导入歌词");
 }
 
 
 - (void)nextClick:(UIBarButtonItem *)next {
+    if ([self.player isPlaying]) {
+        [HudView showView:self.navigationController.view  string:@"请先停止录音"];
+        return;
+    }
 
     if (self.wavFilePath == nil) {
         [HudView showView:self.navigationController.view  string:@"还未开始录音"];
         return;
     }
     
-    [self.link setPaused:YES];
-    [self stopAllDevides];
+    
+    
+    
     if (titleText.text.length == 0) {
         [HudView showView:self.navigationController.view string:@"歌词标题不能为空"];
-    }/*else if (lyricView.lyricText.text.length == 0)
-    {
-        [HudView showView:self.navigationController.view string:@"歌词不能为空"];
-        
-    }*/else{
+    }else{
         
         if (JUserID) {
             
@@ -1127,12 +1133,10 @@ Boolean plugedHeadset;
                 });
             });
             
-            NSLog(@"2-------- writeVC mp3URL ===== %@",mp3URL);
-
-            
              self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
             self.public.isLyric=NO;
-
+            [self.link setPaused:YES];
+            [self stopAllDevides];
              [self.navigationController pushViewController:self.public animated:YES];
             
              
@@ -1157,7 +1161,6 @@ Boolean plugedHeadset;
     if (userHeadSet ) {
         headSet = 1;
     }
-    NSLog(@"----------------tuningMusicWithCreateType = %d",headSet);
     self.requestParams = @{@"hotid":[NSNumber numberWithLong:hotId_],
                            @"uid":JUserID,
                            @"token":LoginToken,
@@ -1186,7 +1189,6 @@ Boolean plugedHeadset;
             
             [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
             [self.dict setValue:mp3URL forKey:@"mp3URL"];
-            NSLog(@"-------- writeVC mp3URL ===== %@",mp3URL);
             [self.dict setValue:[NSNumber numberWithBool:self.appDelete.isHeadset] forKey:@"isHeadSet"];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:NotitionDictionaryData object:self userInfo:self.dict];
@@ -1235,16 +1237,27 @@ Boolean plugedHeadset;
 
 }
 
+- (float)updateMeters{
+    
+    if ([self.recorder averagePowerForChannel:0] < -20) {
+        return -45.0;
+    }
+    float f = [self.recorder averagePowerForChannel:0];
+    NSLog(@"-----------实际音量波:%f",f);
+    return f;
+}
+
+
+
 /**
  *  定时器执行
  */
 - (void)actionTiming {
     
-    //计时数
     timerNum += 1/60.0;
-    //NSLog(@"-----------timerNum = %f",timerNum);
     //分贝数
-    
+   // count = [self decibels];
+
     if (!self.isPlay) {
         if ([self.recorder isRecording]) {
             count = [self decibels];
@@ -1262,7 +1275,6 @@ Boolean plugedHeadset;
 
         }
         //NSLog(@"-----------count = %f",count);
-
         self.lineNum++;
             
         if (self.lineNum % 3 == 0) { //3
@@ -1278,9 +1290,7 @@ Boolean plugedHeadset;
         }
     }
     
-
-    //计时显示
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum / 60, (NSInteger)timerNum % 60];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     
 }
 
@@ -1320,7 +1330,6 @@ Boolean plugedHeadset;
             [formData appendPartWithFileData:self.data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
             
         } success:^void(NSURLSessionDataTask * task, id responseObject) {
-            NSLog(@"------------MP3音频正在上传！");
             
             NSDictionary *dict;
             
@@ -1340,7 +1349,6 @@ Boolean plugedHeadset;
             
         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
             // 请求失败
-            NSLog(@"------------MP3音频上传失败！");
             
             [[NSToastManager manager] hideprogress];
             //self.next.enabled = YES;
@@ -1358,10 +1366,7 @@ Boolean plugedHeadset;
     static int i=0;
     while (1) {
         ++i;
-        NSLog(@"----------mp3URL-%@,i = %d",mp3URL,i);
         if (mp3URL || (i == 8000)) {
-            NSLog(@"----------mp3URL-%@",mp3URL);
-
             break;
         }
 
@@ -1506,6 +1511,18 @@ Boolean plugedHeadset;
 
 ///////测试代码end
  */
+
+- (int)buttonClickedValue:(UIButton*)btn{
+    if (btn == self.btns[1]) {
+        return 1;
+    }else if(btn == self.btns[2]){
+        return 2;
+    }else if(btn == self.btns[3]){
+        return 3;
+    }
+    return -1;
+}
+
 
 
 @end
