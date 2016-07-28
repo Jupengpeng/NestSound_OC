@@ -156,8 +156,7 @@
 		2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */; };
 		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
 		3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */; };
-		944815451D49EABD00C94D9A /* STScrollBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 944815421D49EABD00C94D9A /* STScrollBar.m */; };
-		944815461D49EABD00C94D9A /* UIView+ST.m in Sources */ = {isa = PBXBuildFile; fileRef = 944815441D49EABD00C94D9A /* UIView+ST.m */; };
+		944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944FA04B1D4A057000B22EE4 /* NSRollView.m */; };
 		945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */; };
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
@@ -483,10 +482,8 @@
 		4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A1B50989E881DC33A50036C /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
 		7822CA4949F2D37B6D5242E6 /* Pods-NestSound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.release.xcconfig"; sourceTree = "<group>"; };
-		944815411D49EABD00C94D9A /* STScrollBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STScrollBar.h; sourceTree = "<group>"; };
-		944815421D49EABD00C94D9A /* STScrollBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STScrollBar.m; sourceTree = "<group>"; };
-		944815431D49EABD00C94D9A /* UIView+ST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ST.h"; sourceTree = "<group>"; };
-		944815441D49EABD00C94D9A /* UIView+ST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ST.m"; sourceTree = "<group>"; };
+		944FA04A1D4A057000B22EE4 /* NSRollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRollView.h; sourceTree = "<group>"; };
+		944FA04B1D4A057000B22EE4 /* NSRollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRollView.m; sourceTree = "<group>"; };
 		945073C11D484F77008B0DF9 /* NSAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAboutUsViewController.h; sourceTree = "<group>"; };
 		945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAboutUsViewController.m; sourceTree = "<group>"; };
 		945708E01D2F41A90074C331 /* NSShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSShareView.h; sourceTree = "<group>"; };
@@ -1002,7 +999,6 @@
 		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				944815401D49EABD00C94D9A /* STScrollBar */,
 				B899FA481D41B9AE001E79F3 /* lame.h */,
 				B899FA491D41B9AE001E79F3 /* libmp3lame.a */,
 				2DFB67531CC1EC4000DA24DA /* NSTool.h */,
@@ -1059,6 +1055,8 @@
 				2A3CC9EB1D261C7E0072B801 /* UINavigationController+NSPlayView.m */,
 				B80C86531D47A75B00B22855 /* HudView.h */,
 				B80C86541D47A75B00B22855 /* HudView.m */,
+				944FA04A1D4A057000B22EE4 /* NSRollView.h */,
+				944FA04B1D4A057000B22EE4 /* NSRollView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1151,17 +1149,6 @@
 				2DFB67441CC1E92E00DA24DA /* NSBaseModelProperty.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		944815401D49EABD00C94D9A /* STScrollBar */ = {
-			isa = PBXGroup;
-			children = (
-				944815411D49EABD00C94D9A /* STScrollBar.h */,
-				944815421D49EABD00C94D9A /* STScrollBar.m */,
-				944815431D49EABD00C94D9A /* UIView+ST.h */,
-				944815441D49EABD00C94D9A /* UIView+ST.m */,
-			);
-			path = STScrollBar;
 			sourceTree = "<group>";
 		};
 		B6FF3AC9C475214C526BE9EE /* Frameworks */ = {
@@ -2405,7 +2392,6 @@
 				2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */,
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
 				2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */,
-				944815461D49EABD00C94D9A /* UIView+ST.m in Sources */,
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
 				18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
@@ -2503,6 +2489,7 @@
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
 				2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
+				944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */,
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
 				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
 				2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */,
@@ -2521,7 +2508,6 @@
 				2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
-				944815451D49EABD00C94D9A /* STScrollBar.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
 				2AB3006D1D165B0200938F1C /* NSInspirtationModel.m in Sources */,
 				2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */,

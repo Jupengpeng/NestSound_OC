@@ -21,7 +21,7 @@
 #import "NSShareView.h"
 #import "NSIndexModel.h"
 #import "NSSongListModel.h"
-#import "STScrollBar.h"
+#import "NSRollView.h"
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -46,7 +46,7 @@
 @property (nonatomic, weak) UIImage *coverImage;
 
 //歌名
-@property (nonatomic, weak) STScrollBar *songName;
+@property (nonatomic, strong) NSRollView *songName;
 
 //评论数
 @property (nonatomic, assign) long commentNum;
@@ -379,8 +379,13 @@ static id _instance;
     
     //歌名
     
-    self.songName = [[STScrollBar alloc] init];
     
+    
+//    [self.songName mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(popBtn.mas_left).with.offset(6);
+//        make.right.equalTo(shareBtn.mas_right).with.offset(-6);
+//        make.top.equalTo(self.view.mas_top).with.offset(32);
+//    }];
 //    songName.textColor = [UIColor whiteColor];
 //    
 //    songName.textAlignment = NSTextAlignmentCenter;
@@ -389,16 +394,6 @@ static id _instance;
 //    
 //    self.songName = songName;
     
-    [self.view addSubview:_songName];
-    
-    [self.songName mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(self.view.mas_top).offset(32);
-        
-        make.left.equalTo(popBtn.mas_right).with.offset(10);
-        
-        make.right.equalTo(shareBtn.mas_left).with.offset(-10);
-    }];
     
     
     //播放暂停按钮
@@ -1180,12 +1175,11 @@ static id _instance;
 {
     
     if (musicDetail.playURL != nil && ![musicDetail.playURL isEqualToString:self.ifUrl]) {
-        
         _musicDetail = musicDetail;
-        if (self.musicDetail.title.length > 15) {
-            
-        }
-        _songName.text = self.musicDetail.title;
+        [self.songName removeFromSuperview];
+        self.songName = [[NSRollView alloc] initWithFrame:CGRectMake(50, 32, ScreenWidth-100, 30)];
+        _songName.text = [NSString stringWithFormat:@"%@    ",self.musicDetail.title];
+        [self.view addSubview:_songName];
         
         NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc ] init];
         paragraphStyle.lineSpacing = 10;

@@ -106,16 +106,16 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     [playStatus stopAnimating];
     playStatus.userInteractionEnabled = YES;
-        playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
+    playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
     UIButton * btn = [[UIButton alloc] initWithFrame:playStatus.frame ];
     [playStatus addSubview:btn];
     [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
      UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     self.navigationItem.rightBarButtonItem = item;
-    
+     
     [self fetchIndexData];
     [self getAuthorToken];
-    
+    [self configureUIAppearance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -223,8 +223,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                     [self.itemIDArr addObject:@(model.itemId)];
                 }
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
-//                [_collection reloadData];
-                [self configureUIAppearance];
+                [_collection reloadData];
+                
             }else if([operation.urlTag isEqualToString:getToken]){
                 NSUserModel * userModels = (NSUserModel *)parserObject;
                 if (userModels) {

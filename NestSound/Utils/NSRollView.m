@@ -1,15 +1,15 @@
 //
-//  STScrollBar.m
-//  STScrollBarDemo
+//  NSRollView.m
+//  NestSound
 //
-//  Created by https://github.com/STShenZhaoliang/STScrollBar on 16/4/27.
-//  Copyright © 2016年 沈兆良. All rights reserved.
+//  Created by 李龙飞 on 16/7/28.
+//  Copyright © 2016年 yinchao. All rights reserved.
 //
 
-#import "STScrollBar.h"
-#import "UIView+ST.h"
+#import "NSRollView.h"
+
 NS_ASSUME_NONNULL_BEGIN
-@interface STScrollBar()
+@interface NSRollView()
 /** 1.前面的文本框 */
 @property (nonatomic, strong) UILabel *labelFront;
 /** 2.后面的文本框 */
@@ -19,8 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 NS_ASSUME_NONNULL_END
 
-@implementation STScrollBar
-
+@implementation NSRollView
 #pragma mark - --- init 视图初始化 ---
 
 - (instancetype)init
@@ -56,7 +55,7 @@ NS_ASSUME_NONNULL_END
     _colorText = [UIColor whiteColor];
     _start = YES;
     _text = @"";
-    self.backgroundColor = [UIColor blackColor];
+    //    self.backgroundColor = [UIColor blackColor];
     self.clipsToBounds = YES;
     [self addSubview:self.labelFront];
     [self addSubview:self.labelBack];
@@ -66,11 +65,14 @@ NS_ASSUME_NONNULL_END
 {
     self.labelFront.text = self.text;
     self.labelBack.text = self.text;
-    self.time = self.text.length / 5;
+    self.labelFront.textAlignment = NSTextAlignmentCenter;
+    self.time = self.text.length/2;
     self.widthContent = [self.labelFront sizeThatFits:CGSizeZero].width;
-    self.labelFront.frame = CGRectMake(0, 0, self.widthContent, self.height);
     if (self.widthContent > self.width) {
+        self.labelFront.frame = CGRectMake(0, 0, self.widthContent, self.height);
         self.labelBack.frame = CGRectMake(self.widthContent, 0, self.widthContent, self.height);
+    } else {
+        self.labelFront.frame = CGRectMake(0, 0, self.width, self.height);
     }
 }
 #pragma mark - --- delegate 视图委托 ---
@@ -80,7 +82,7 @@ NS_ASSUME_NONNULL_END
     if (self.width > self.widthContent) {
         return;
     }
-
+    
     if (self.start) {
         [UIView transitionWithView:self
                           duration:self.time
@@ -106,7 +108,11 @@ NS_ASSUME_NONNULL_END
     self.labelBack.font = font;
     self.labelFront.font = font;
 }
-
+- (void)setTextAlignment:(NSTextAlignment)textAlignment {
+    _textAlignment = textAlignment;
+    self.labelFront.textAlignment = textAlignment;
+    self.labelBack.textAlignment = textAlignment;
+}
 - (void)setColorText:(UIColor *)colorText
 {
     _colorText = colorText;
@@ -140,6 +146,7 @@ NS_ASSUME_NONNULL_END
     if (!_labelFront) {
         _labelFront = [[UILabel alloc]init];
         _labelFront.textColor = self.colorText;
+        _labelFront.textAlignment = NSTextAlignmentCenter;
         _labelFront.font = self.font;
     }
     return _labelFront;
@@ -150,9 +157,11 @@ NS_ASSUME_NONNULL_END
     if (!_labelBack) {
         _labelBack = [[UILabel alloc]init];
         _labelBack.textColor = self.colorText;
+        _labelBack.textAlignment = NSTextAlignmentCenter;
         _labelBack.font = self.font;
     }
     return _labelBack;
 }
+
 
 @end
