@@ -36,12 +36,9 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *itemIDArray;
-<<<<<<< Updated upstream
 @property (nonatomic, strong) NSMutableArray *itemIDArr;
-=======
 @property (nonatomic,assign) long  itemId;
 
->>>>>>> Stashed changes
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
 @end
