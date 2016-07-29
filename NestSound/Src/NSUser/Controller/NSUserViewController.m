@@ -31,7 +31,12 @@ static NSString * const SettingCellIdefity = @"SettingCell";
 static NSString * const LoginOutIdefity = @"LoginOutCell";
 
 @implementation NSUserViewController
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSUserProfileCell *cell = (NSUserProfileCell *)[settingPageTable viewWithTag:125];
+    NSMutableDictionary * userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    [cell.userIcon setDDImageWithURLString:userInfo[@"userIcon"] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+}
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -106,7 +111,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     if (section == 0) {
         if (!userProfileCell ) {
             userProfileCell = [[NSUserProfileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserProfileCellIdefity];
-            
+            userProfileCell.tag = 125;
         }
         NSMutableDictionary * userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
         [userProfileCell.userIcon setDDImageWithURLString:userInfo[@"userIcon"] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
@@ -115,7 +120,6 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         }else{
             userProfileCell.nickName = @"";
         }
-        
         
         if (userInfo[@"desc"]) {
             userProfileCell.number = userInfo[@"desc"];

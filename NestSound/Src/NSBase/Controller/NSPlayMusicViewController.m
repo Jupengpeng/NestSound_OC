@@ -8,7 +8,7 @@
 
 
 #import "NSPlayMusicViewController.h"
-//#import "NSPlayMusicTool.h"
+#import "NSPlayMusicTool.h"
 #import "NSMusicListViewController.h"
 #import "NSLyricView.h"
 #import "NSCommentViewController.h"
@@ -255,12 +255,12 @@ static id _instance;
 - (void)playMusicUrl:(NSString *)musicUrl {
     
     NSLog(@"--------musicUrl = %@",musicUrl);
-    
-    /*self.player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
+    WS(wSelf);
+    self.player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
         
         wSelf.musicItem = musicItem;
         
-    }];*/
+    }];
     [self playMusicWithUrl:musicUrl];
     
     CMTime duration = self.player.currentItem.asset.duration;
@@ -882,8 +882,6 @@ static id _instance;
     btn.selected = !btn.selected;
     
     if (btn.selected) {
-        
-        
         
         if (self.musicDetail.playURL != nil) {
             

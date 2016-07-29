@@ -197,6 +197,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 #pragma  mark -fetchIndexData
 -(void)fetchIndexData
 {
+    [_collection.pullToRefreshView startAnimating];
     self.requestType = YES;
     NSDictionary * dic = @{@"1":@"2"};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:1];
@@ -215,6 +216,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:index]) {
                 NSIndexModel * indexModel = (NSIndexModel *)parserObject;
+                [bannerAry removeAllObjects];
                 bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
                 recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
                 for (NSRecommend *model in recommendAry) {
@@ -227,7 +229,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                 }
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
                 [_collection reloadData];
-                
+                [_collection.pullToRefreshView stopAnimating];
             }else if([operation.urlTag isEqualToString:getToken]){
                 NSUserModel * userModels = (NSUserModel *)parserObject;
                 if (userModels) {
@@ -237,7 +239,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                         NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
                         [dic setObject:user.userName forKey:@"userName"];
                         [dic setObject:[NSString stringWithFormat:@"%ld",user.userID] forKey:@"userID"];
-                        [dic setObject:user.headerURL forKey:@"userIcon"];
                         [dic setObject:user.loginToken forKey:@"userLoginToken"];
                         [userData removeObjectForKey:@"user"];
                         [userData setObject:dic forKey:@"user"];
@@ -367,7 +368,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArray;
-
 
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
