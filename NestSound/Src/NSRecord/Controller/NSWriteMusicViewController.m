@@ -82,7 +82,7 @@ static CGFloat timerNum=0;
     NSTimeInterval curtime2;
     NSTimeInterval curtime3;
 
-    NSDownloadProgressView *ProgressView;
+    NSDownloadProgressView *ProgressView;//BoxDismiss
     
 }
 
@@ -381,7 +381,7 @@ static CGFloat timerNum=0;
         curtime2=0;
         [self stopPlaysound:self.player3];
         [self stopPlaysound:self.player2];
-        [self.waveform removeAllPath];
+        //[self.waveform removeAllPath];
 
         [self.link setPaused:YES];
         
@@ -972,7 +972,7 @@ static CGFloat timerNum=0;
         if (btn.selected) { //回听
             [HudView showView:self.navigationController.view string:@"开始试听"];
 
-            [self.waveform removeAllPath];
+            //[self.waveform removeAllPath];
             timerNumPlay = timerNumPlay_temp;
 
             timerNum = timerNumPlay;
@@ -1125,12 +1125,18 @@ static CGFloat timerNum=0;
             
             
             [self uploadMusic];
+            
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             
-            // Set the label text.
+            // Set the annular determinate mode to show task progress.
+            hud.mode = MBProgressHUDModeText;
             hud.label.text = NSLocalizedString(@"歌曲正在美化，请稍后...", @"HUD loading title");
-            // You can also adjust other label properties if needed.
-            // hud.label.font = [UIFont italicSystemFontOfSize:16.f];
+            // Move to bottm center.
+            hud.offset = CGPointMake(0.f, 10);//MBProgressMaxOffset);
+            
+            //[hud hideAnimated:YES afterDelay:2.f];
+            
+           
             
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                 [self doSomeWork];

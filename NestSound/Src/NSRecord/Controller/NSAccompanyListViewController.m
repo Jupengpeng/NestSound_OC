@@ -282,6 +282,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     
     writeMusicVC.accompanyModel = accompany;
     
+    [self.player pause];
     [NSPlayMusicTool stopMusicWithName:nil];
     
     [self.navigationController pushViewController:writeMusicVC animated:YES];
