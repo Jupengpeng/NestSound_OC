@@ -368,7 +368,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArray;
 
-            //[[NSNotificationCenter defaultCenter] postNotificationName:IndexPlayerStopNotition object:nil];
 
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
@@ -392,7 +391,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.geDanID = 0;
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArr;
-           // [[NSNotificationCenter defaultCenter] postNotificationName:NewSongStopNotition object:nil];
 
             [self.navigationController pushViewController:playVC animated:YES];
             
@@ -410,12 +408,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = musicSay.itemID;
             playVC.from = @"yueshuo";
             playVC.geDanID = 0;
-#warning  songListArr
-//            playVC.songAry =
-            //[[NSNotificationCenter defaultCenter] postNotificationName:MusicStopNotition object:nil];
 
             [self.navigationController pushViewController:playVC animated:YES];
-            
             
         }else{
             NSH5ViewController * h5VC = [[NSH5ViewController alloc] init];
