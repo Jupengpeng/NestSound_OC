@@ -618,12 +618,9 @@ static CGFloat timerNum=0;
     timerNumRecorder_temp=0;
     timerNumPlay=0;
     timerNumPlay_temp=0;
-    
+
     mp3URL=nil;
-   /* if (self.wavFilePath || self.mp3File) {
-        
-        self.next.enabled = YES;
-    }*/
+ 
     
     //stop the music
     self.clickedValue = 0;
@@ -632,7 +629,8 @@ static CGFloat timerNum=0;
     playVC.playOrPauseBtn.selected = NO;
     
     [playVC.player pause];
-    
+    [self resetButton];
+
     NSString * fileURL = hotMp3Url;
     NSFileManager * fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:LocalAccompanyPath]) {
@@ -985,21 +983,23 @@ static CGFloat timerNum=0;
             
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             
+            NSLog(@"------------plugedHeadset = %d",plugedHeadset);
             if (plugedHeadset)
             {
-                
-                if (!self.player2)
+                NSLog(@"------------self.player2 = %@,url=%@",self.player2,url);
+
+                //if (!self.player2)
                 {
                     self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+                    [self.player2 setCurrentTime:curtime2];
+
                     [self.player2 prepareToPlay];
                     self.player2.meteringEnabled=YES;
 
                     self.player2.delegate =self;
                     [self.player2 play];
 
-                }else{
-                    [self.player2 setCurrentTime:curtime2];
-                    [self.player3 setCurrentTime:curtime3];
+                //}else{
 
                 }
 
@@ -1053,6 +1053,13 @@ static CGFloat timerNum=0;
 
 }
 
+- (void)resetButton{
+    UIButton* btn1 =   self.btns[1];
+    UIButton* btn2 =   self.btns[2];
+    
+    btn1.selected=NO;;
+    btn2.selected=NO;;
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
@@ -1062,9 +1069,8 @@ static CGFloat timerNum=0;
 }
 - (void)clear{
   
-    //UIButton* btn =   self.btns[2];
-    //btn.enabled=YES;
-    
+    [self resetButton];
+
     self.timeLabel.text = @"00:00";
     timerNum=0;
     timerNumRecorder=0;
