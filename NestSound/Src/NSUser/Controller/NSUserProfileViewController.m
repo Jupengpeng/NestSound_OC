@@ -37,6 +37,7 @@ UINavigationControllerDelegate
     NSString * userIconUrl;
     NSMutableDictionary * userInfo;
     int males ;
+    int count;
     
     
 }
@@ -53,7 +54,10 @@ static NSString * const settingCellIditify = @"settingCell";
     // Do any additional setup after loading the view.
     [self configureAppearance];
     males = 0;
+    count = 0;
+    
 }
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -73,11 +77,12 @@ static NSString * const settingCellIditify = @"settingCell";
                 self.qiniuDetail = qiniu.qiNIuModel;
             }else if([operation.urlTag isEqualToString:changeProfileURL]){
                 [[NSToastManager manager] showtoast:@"修改成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
                 NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
                 [changeDic setValue:JUserID forKey:@"userID"];
                 [changeDic setValue:LoginToken forKey:@"userLoginToken"];
                 [changeDic setValue:nickName forKey:@"userName"];
-                [changeDic setValue:self.titleImageUrl forKey:@"userIcon"];
+                [changeDic setValue:[NSString stringWithFormat:@"http://pic.yinchao.cn/%@",self.titleImageUrl] forKey:@"userIcon"];
                 
                 [changeDic setValue:[NSNumber numberWithInt:males] forKey:@"male"];
                 [changeDic setValue:birthday  forKey:@"birthday"];
@@ -140,7 +145,10 @@ static NSString * const settingCellIditify = @"settingCell";
 
 -(void)getBack
 {
-    url = [self getQiniuDetailWithType:2 andFixx:@"headport"];
+    count ++;
+    if (count == 1) {
+        url = [self getQiniuDetailWithType:1 andFixx:@"headport"];
+    }
     [self.navigationController popViewControllerAnimated:YES];
 
 }
@@ -276,6 +284,7 @@ static NSString * const settingCellIditify = @"settingCell";
 #pragma mark -UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    count = 1;
     NSUInteger row = indexPath.row;
     if (row == 0) {
         [photoActionSheet showInView:self.view];
@@ -363,15 +372,13 @@ static NSString * const settingCellIditify = @"settingCell";
 #pragma mark -ImagePickerDelegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    UIImage * userIconImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage * userIconImage = [info objectForKey:UIImagePickerControllerEditedImage];
     [NSTool saveImage:userIconImage withName:@"userIcon.png"];
     UITableViewCell * settingCell = [settingTableView cellForRowAtIndexPath:cellIndex];
    
     UIImageView * userIcon = (UIImageView *)[settingCell viewWithTag:101];
 //    userIcon.layer.cornerRadius = 21;
     userIcon.image = userIconImage;
-    
-   
     
     [self dismissViewControllerAnimated:YES completion:^{
     }];
@@ -389,7 +396,7 @@ static NSString * const settingCellIditify = @"settingCell";
     if ([fileManager fileExistsAtPath:photoPath]) {
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
-        [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        [upManager putData:imageData key:[[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImageUrl = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
             [self changeProfile];
         } option:nil];
@@ -405,9 +412,8 @@ static NSString * const settingCellIditify = @"settingCell";
 {
     _qiniuDetail = qiniuDetail;
     
-    
-    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"userIcon.png"];
-    [self uploadPhotoWith:fullPath type:NO token:_qiniuDetail.token url:_qiniuDetail.qiNIuDomain];
+//    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"userIcon.png"];
+    [self uploadPhotoWith:nil type:NO token:_qiniuDetail.token url:_qiniuDetail.qiNIuDomain];
 
 }
 
@@ -445,5 +451,14 @@ static NSString * const settingCellIditify = @"settingCell";
     self.requestURL = changeProfileURL;
 
 }
-
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    [self.navigationController.interactivePopGestureRecognizer addTarget:self action:@selector(getBack)];
+//    if ([self  respondsToSelector:@selector(popViewControllerAnimated:)]) {
+//
+//    }
+    
+    
+}
 @end

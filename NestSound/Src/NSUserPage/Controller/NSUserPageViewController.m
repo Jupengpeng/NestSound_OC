@@ -49,11 +49,16 @@ UITableViewDataSource>
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
-
+@property (nonatomic, strong) NSMutableArray *itemIdArr;
 @end
 
 @implementation NSUserPageViewController
-
+- (NSMutableArray *)itemIdArr {
+    if (!_itemIdArr) {
+        self.itemIdArr  = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _itemIdArr;
+}
 
 -(instancetype)initWithUserID:(NSString *)userID_
 {
@@ -155,8 +160,14 @@ UITableViewDataSource>
                 if (!operation.isLoadingMore) {
                     [_tableView.pullToRefreshView stopAnimating];
                     myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
-                    headerView.userModel = userData.userDataModel.userModel;
+                    for (NSMyMusicModel *model in myMusicAry) {
+                        [self.itemIdArr addObject:@(model.itemId)];
+                    }
+                    if (self.who == Myself) {
+                        headerView.userModel = userData.userDataModel.userModel;
+                    } else {
                     headerView.otherModel = userData.userOtherModel;
+                    }
                 }else{
                     [_tableView.infiniteScrollingView stopAnimating];
                     [myMusicAry addObjectsFromArray:userData.myMusicList.musicList];
@@ -511,6 +522,8 @@ UITableViewDataSource>
         playVC.itemUid = myMusic.itemId;
         playVC.from = @"homepage";
         playVC.geDanID = 0;
+        playVC.songID = indexPath.row;
+        playVC.songAry = self.itemIdArr;
         BOOL isH = false;
         for (id vc in self.navigationController.childViewControllers) {
             if ([vc isKindOfClass:[NSPlayMusicViewController class]]) {
