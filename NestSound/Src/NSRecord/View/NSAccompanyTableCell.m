@@ -115,8 +115,8 @@
     [self.btn mas_makeConstraints:^(MASConstraintMaker *make) {
         
 //        make.centerX.centerY.equalTo(titlePage);
-        make.right.equalTo(titlePage.mas_right).with.offset(-10);
-        make.bottom.equalTo(titlePage.mas_bottom).with.offset(-10);
+        make.right.equalTo(titlePage.mas_right).with.offset(-5);
+        make.bottom.equalTo(titlePage.mas_bottom).with.offset(-5);
         make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
 

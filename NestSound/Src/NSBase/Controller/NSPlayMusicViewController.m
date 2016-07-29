@@ -151,6 +151,7 @@ static id _instance;
   
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:NewSongStopNotition object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:MusicStopNotition object:nil];
+    
     //毛玻璃效果
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
     [backgroundImage setContentScaleFactor:[[UIScreen mainScreen] scale]];

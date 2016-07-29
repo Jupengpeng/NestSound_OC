@@ -481,7 +481,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 }
 
 
-
 -(void)keyboardWillBeHidden:(NSNotification*)aNotification {
     
     NSDictionary *userInfo = [aNotification userInfo];
@@ -508,7 +507,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             _bottomView.y = wSelf.recordView.y - _bottomView.height;
         }
-        
         
     }];
     

@@ -302,7 +302,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
             
             self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
             
-            self.btn.selected = NO;
+//            self.btn.selected = NO;
             tages = cell.btn.tag;
         } else {
             
@@ -313,6 +313,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     } else {
         
         [NSPlayMusicTool pauseMusicWithName:nil];
+//        self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
         tages = 200;
     }
     
