@@ -118,7 +118,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
      
     [self fetchIndexData];
     [self getAuthorToken];
-    [self configureUIAppearance];
+   
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -228,7 +228,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                     [self.itemIDArr addObject:@(model.itemId)];
                 }
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
-                [_collection reloadData];
+                 [self configureUIAppearance];
+//                [_collection reloadData];
                 [_collection.pullToRefreshView stopAnimating];
             }else if([operation.urlTag isEqualToString:getToken]){
                 NSUserModel * userModels = (NSUserModel *)parserObject;
@@ -455,7 +456,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     
     reusable.delegate = self;
     
-    
     if (indexPath.section == 0) {
         
         reusable.bannerAry = bannerAry;
@@ -473,8 +473,6 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         UIButton *songMenuBtn = [reusable loadMore];
         
         [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-
         
         reusable.titleLable.text = @"推荐歌单";
 //        LocalizedStr(@"promot_recommendSongList");

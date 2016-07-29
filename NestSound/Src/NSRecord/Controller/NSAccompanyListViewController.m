@@ -34,7 +34,7 @@
 
 @property (nonatomic, strong) AVPlayer *player;
 
-@property (nonatomic, strong) UIButton *btn;
+@property (nonatomic, strong) UIButton *button;
 
 @end
 
@@ -51,7 +51,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    tages = 200;
+//    tages = 200;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     [self fetchAccompanyData];
 }
@@ -266,9 +266,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     accompanyCell.btn.tag = indexPath.section;
     accompanyCell.btn.selected = NO;
     
-    if (tages == accompanyCell.btn.tag) {
-        accompanyCell.btn.selected = YES;
-    }
+//    if (tages == accompanyCell.btn.tag) {
+//        accompanyCell.btn.selected = YES;
+//    }
         accompanyCell.accompanyModel = dataAry[section];
     return accompanyCell;
     
@@ -282,7 +282,6 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     
     writeMusicVC.accompanyModel = accompany;
     
-    
     [NSPlayMusicTool stopMusicWithName:nil];
     
     [self.navigationController pushViewController:writeMusicVC animated:YES];
@@ -291,7 +290,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 - (void)playerClick:(UIButton *)btn {
     
     btn.selected = !btn.selected;
-    
+    if (btn == self.button) {
+        
+    } else {
+        self.button.selected = NO;
+    }
     NSAccompanyTableCell * cell = (NSAccompanyTableCell *)btn.superview.superview;
     
     if (btn.selected) {
@@ -302,22 +305,21 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
             
             self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
             
-//            self.btn.selected = NO;
-            tages = cell.btn.tag;
+//            tages = cell.btn.tag;
         } else {
             
             self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
-            tages = cell.btn.tag;
+//            tages = cell.btn.tag;
         }
         
     } else {
         
         [NSPlayMusicTool pauseMusicWithName:nil];
 //        self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
-        tages = 200;
+//        tages = 200;
     }
     
-    self.btn = btn;
+    self.button = btn;
 }
 
 

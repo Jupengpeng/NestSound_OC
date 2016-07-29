@@ -161,19 +161,19 @@ static NSHttpClient *client;
 #ifdef DEBUG
                                              NSLog(@"RESPONSE JSON:%@", responseObject);
 #endif
-                           
+                                             
                                              if (!success) {
                                                  return ;
                                              }
                                              
                                              if ([responseObject isKindOfClass:[NSDictionary class]]) {
                                                  NSBaseModel *model = [NSModelFactory modelWithURL:url
-                                                                    responseJson:[self encryptWithDictionary:responseObject isEncrypt:NO]];
+                                                                                      responseJson:[self encryptWithDictionary:responseObject isEncrypt:NO]];
                                                  
                                                  success(task,model);
                                                  
                                                  long resultCode = [responseObject[@"code"] longValue];
-                                                
+                                                 
                                                  if (resultCode == 200) {
                                                      
                                                      model.success = YES;
@@ -188,11 +188,11 @@ static NSHttpClient *client;
                                              if (!wSelf) {
                                                  return ;
                                              }
-                           
+                                             
                                              [wSelf responseObject:responseObject withOperation:task];
-                           
+                                             
                                          } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-                           
+                                             
                                              if (showLoading) {
                                                  [[NSToastManager manager] hideprogress];
                                              }

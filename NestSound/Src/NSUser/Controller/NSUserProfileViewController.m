@@ -76,6 +76,7 @@ static NSString * const settingCellIditify = @"settingCell";
                 NSGetQiNiuModel *  qiniu = (NSGetQiNiuModel *)parserObject;
                 self.qiniuDetail = qiniu.qiNIuModel;
             }else if([operation.urlTag isEqualToString:changeProfileURL]){
+                [self.navigationController popViewControllerAnimated:YES];
                 [[NSToastManager manager] showtoast:@"修改成功"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
                 NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
@@ -149,7 +150,7 @@ static NSString * const settingCellIditify = @"settingCell";
     if (count == 1) {
         url = [self getQiniuDetailWithType:1 andFixx:@"headport"];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    
 
 }
 
@@ -284,7 +285,6 @@ static NSString * const settingCellIditify = @"settingCell";
 #pragma mark -UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    count = 1;
     NSUInteger row = indexPath.row;
     if (row == 0) {
         [photoActionSheet showInView:self.view];
@@ -451,14 +451,23 @@ static NSString * const settingCellIditify = @"settingCell";
     self.requestURL = changeProfileURL;
 
 }
-- (void)viewWillDisappear:(BOOL)animated {
+//- (void)viewWillDisappear:(BOOL)animated {
+//    
+//    [super viewWillDisappear:animated];
+////    [self.navigationController.interactivePopGestureRecognizer addTarget:self action:@selector(getBack)];
+////    if ([self  respondsToSelector:@selector(popViewControllerAnimated:)]) {
+////
+////    }
+//    
+//    
+//}
+
+-(void)dealloc
+{
     
-    [super viewWillDisappear:animated];
-    [self.navigationController.interactivePopGestureRecognizer addTarget:self action:@selector(getBack)];
-//    if ([self  respondsToSelector:@selector(popViewControllerAnimated:)]) {
-//
-//    }
+    NSLog(@"ttttt");
     
     
 }
+
 @end

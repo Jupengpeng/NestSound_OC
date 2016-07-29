@@ -36,6 +36,8 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     NSUserProfileCell *cell = (NSUserProfileCell *)[settingPageTable viewWithTag:125];
     NSMutableDictionary * userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     [cell.userIcon setDDImageWithURLString:userInfo[@"userIcon"] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    cell.nickName = userInfo[@"userName"];
+    cell.number = userInfo[@"desc"];
 }
 -(void)viewDidLoad
 {
