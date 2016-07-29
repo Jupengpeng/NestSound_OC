@@ -367,13 +367,12 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = recomm.itemId;
             playVC.from = @"tuijian";
             playVC.geDanID = 0;
-<<<<<<< Updated upstream
+
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArray;
-=======
-            [[NSNotificationCenter defaultCenter] postNotificationName:IndexPlayerStopNotition object:nil];
 
->>>>>>> Stashed changes
+            //[[NSNotificationCenter defaultCenter] postNotificationName:IndexPlayerStopNotition object:nil];
+
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
             NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
@@ -394,13 +393,10 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = newModel.itemId;
             playVC.from = @"news";
             playVC.geDanID = 0;
-<<<<<<< Updated upstream
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArr;
-=======
-            [[NSNotificationCenter defaultCenter] postNotificationName:NewSongStopNotition object:nil];
+           // [[NSNotificationCenter defaultCenter] postNotificationName:NewSongStopNotition object:nil];
 
->>>>>>> Stashed changes
             [self.navigationController pushViewController:playVC animated:YES];
             
         }else{
@@ -417,13 +413,10 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             playVC.itemUid = musicSay.itemID;
             playVC.from = @"yueshuo";
             playVC.geDanID = 0;
-<<<<<<< Updated upstream
 #warning  songListArr
 //            playVC.songAry =
-=======
-            [[NSNotificationCenter defaultCenter] postNotificationName:MusicStopNotition object:nil];
+            //[[NSNotificationCenter defaultCenter] postNotificationName:MusicStopNotition object:nil];
 
->>>>>>> Stashed changes
             [self.navigationController pushViewController:playVC animated:YES];
             
             
