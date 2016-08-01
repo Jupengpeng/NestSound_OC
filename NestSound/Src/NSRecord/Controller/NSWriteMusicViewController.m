@@ -75,7 +75,6 @@ static CGFloat timerNum=0;
     UIImageView * reRecordBk;
     NSLyricView *lyricView;
     NSString  * hotMp3Url;
-    UIAlertView*  alertView;
     long hotId;
     long musicTime;
     NSString * mp3URL;

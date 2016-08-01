@@ -160,6 +160,19 @@
 		945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */; };
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
+		946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04121D4EEC8A00529DBA /* HUAlbum.m */; };
+		946B04261D4EEC8A00529DBA /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04141D4EEC8A00529DBA /* HUAlbumCell.m */; };
+		946B04271D4EEC8A00529DBA /* HUAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946B04151D4EEC8A00529DBA /* HUAlbumCell.xib */; };
+		946B04281D4EEC8A00529DBA /* HUAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04171D4EEC8A00529DBA /* HUAlbumsViewController.m */; };
+		946B04291D4EEC8A00529DBA /* HUImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04191D4EEC8A00529DBA /* HUImagePickerCell.m */; };
+		946B042A1D4EEC8A00529DBA /* HUImagePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946B041A1D4EEC8A00529DBA /* HUImagePickerCell.xib */; };
+		946B042B1D4EEC8A00529DBA /* HUImagePickerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B041C1D4EEC8A00529DBA /* HUImagePickerRootViewController.m */; };
+		946B042C1D4EEC8A00529DBA /* HUImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B041E1D4EEC8A00529DBA /* HUImagePickerViewController.m */; };
+		946B042D1D4EEC8A00529DBA /* HUPhotoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04201D4EEC8A00529DBA /* HUPhotoHelper.m */; };
+		946B042E1D4EEC8A00529DBA /* pick_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 946B04211D4EEC8A00529DBA /* pick_checked@2x.png */; };
+		946B042F1D4EEC8A00529DBA /* pick_checked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 946B04221D4EEC8A00529DBA /* pick_checked@3x.png */; };
+		946B04301D4EEC8A00529DBA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 946B04231D4EEC8A00529DBA /* LICENSE */; };
+		946B04311D4EEC8A00529DBA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 946B04241D4EEC8A00529DBA /* README.md */; };
 		94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */; };
 		B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */ = {isa = PBXBuildFile; fileRef = B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */; };
 		B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864D1D47055200B22855 /* Foundation.framework */; };
@@ -491,6 +504,26 @@
 		945708E11D2F41A90074C331 /* NSShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSShareView.m; sourceTree = "<group>"; };
 		945708E31D2F92AD0074C331 /* UIView+RGSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RGSize.h"; sourceTree = "<group>"; };
 		945708E41D2F92AD0074C331 /* UIView+RGSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RGSize.m"; sourceTree = "<group>"; };
+		946B04111D4EEC8A00529DBA /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
+		946B04121D4EEC8A00529DBA /* HUAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbum.m; sourceTree = "<group>"; };
+		946B04131D4EEC8A00529DBA /* HUAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumCell.h; sourceTree = "<group>"; };
+		946B04141D4EEC8A00529DBA /* HUAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumCell.m; sourceTree = "<group>"; };
+		946B04151D4EEC8A00529DBA /* HUAlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUAlbumCell.xib; sourceTree = "<group>"; };
+		946B04161D4EEC8A00529DBA /* HUAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumsViewController.h; sourceTree = "<group>"; };
+		946B04171D4EEC8A00529DBA /* HUAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumsViewController.m; sourceTree = "<group>"; };
+		946B04181D4EEC8A00529DBA /* HUImagePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerCell.h; sourceTree = "<group>"; };
+		946B04191D4EEC8A00529DBA /* HUImagePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerCell.m; sourceTree = "<group>"; };
+		946B041A1D4EEC8A00529DBA /* HUImagePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUImagePickerCell.xib; sourceTree = "<group>"; };
+		946B041B1D4EEC8A00529DBA /* HUImagePickerRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerRootViewController.h; sourceTree = "<group>"; };
+		946B041C1D4EEC8A00529DBA /* HUImagePickerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerRootViewController.m; sourceTree = "<group>"; };
+		946B041D1D4EEC8A00529DBA /* HUImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerViewController.h; sourceTree = "<group>"; };
+		946B041E1D4EEC8A00529DBA /* HUImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerViewController.m; sourceTree = "<group>"; };
+		946B041F1D4EEC8A00529DBA /* HUPhotoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoHelper.h; sourceTree = "<group>"; };
+		946B04201D4EEC8A00529DBA /* HUPhotoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoHelper.m; sourceTree = "<group>"; };
+		946B04211D4EEC8A00529DBA /* pick_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@2x.png"; sourceTree = "<group>"; };
+		946B04221D4EEC8A00529DBA /* pick_checked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@3x.png"; sourceTree = "<group>"; };
+		946B04231D4EEC8A00529DBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		946B04241D4EEC8A00529DBA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownloadProgressView.h; sourceTree = "<group>"; };
 		94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownloadProgressView.m; sourceTree = "<group>"; };
 		B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMusicWave.h; sourceTree = "<group>"; };
@@ -1069,6 +1102,7 @@
 		2DFB67261CC1E75900DA24DA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				946B040F1D4EEC8A00529DBA /* HUPhotoPicker */,
 				2DFB672F1CC1E88F00DA24DA /* Http */,
 				2DFB67321CC1E88F00DA24DA /* Model */,
 			);
@@ -1154,6 +1188,41 @@
 				2DFB67441CC1E92E00DA24DA /* NSBaseModelProperty.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		946B040F1D4EEC8A00529DBA /* HUPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				946B04101D4EEC8A00529DBA /* HUPhotoPicker */,
+				946B04231D4EEC8A00529DBA /* LICENSE */,
+				946B04241D4EEC8A00529DBA /* README.md */,
+			);
+			path = HUPhotoPicker;
+			sourceTree = "<group>";
+		};
+		946B04101D4EEC8A00529DBA /* HUPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				946B04111D4EEC8A00529DBA /* HUAlbum.h */,
+				946B04121D4EEC8A00529DBA /* HUAlbum.m */,
+				946B04131D4EEC8A00529DBA /* HUAlbumCell.h */,
+				946B04141D4EEC8A00529DBA /* HUAlbumCell.m */,
+				946B04151D4EEC8A00529DBA /* HUAlbumCell.xib */,
+				946B04161D4EEC8A00529DBA /* HUAlbumsViewController.h */,
+				946B04171D4EEC8A00529DBA /* HUAlbumsViewController.m */,
+				946B04181D4EEC8A00529DBA /* HUImagePickerCell.h */,
+				946B04191D4EEC8A00529DBA /* HUImagePickerCell.m */,
+				946B041A1D4EEC8A00529DBA /* HUImagePickerCell.xib */,
+				946B041B1D4EEC8A00529DBA /* HUImagePickerRootViewController.h */,
+				946B041C1D4EEC8A00529DBA /* HUImagePickerRootViewController.m */,
+				946B041D1D4EEC8A00529DBA /* HUImagePickerViewController.h */,
+				946B041E1D4EEC8A00529DBA /* HUImagePickerViewController.m */,
+				946B041F1D4EEC8A00529DBA /* HUPhotoHelper.h */,
+				946B04201D4EEC8A00529DBA /* HUPhotoHelper.m */,
+				946B04211D4EEC8A00529DBA /* pick_checked@2x.png */,
+				946B04221D4EEC8A00529DBA /* pick_checked@3x.png */,
+			);
+			path = HUPhotoPicker;
 			sourceTree = "<group>";
 		};
 		B6FF3AC9C475214C526BE9EE /* Frameworks */ = {
@@ -1348,7 +1417,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				946B042E1D4EEC8A00529DBA /* pick_checked@2x.png in Resources */,
+				946B042A1D4EEC8A00529DBA /* HUImagePickerCell.xib in Resources */,
+				946B042F1D4EEC8A00529DBA /* pick_checked@3x.png in Resources */,
+				946B04301D4EEC8A00529DBA /* LICENSE in Resources */,
 				182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */,
+				946B04271D4EEC8A00529DBA /* HUAlbumCell.xib in Resources */,
 				2A0058071D11C4080028D4D2 /*  Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2404,6 +2478,7 @@
 				2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */,
 				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
+				946B04291D4EEC8A00529DBA /* HUImagePickerCell.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */,
 				2AC3D1131CF84BB700D9FE53 /* NSMyInspirationListModel.m in Sources */,
@@ -2436,6 +2511,7 @@
 				2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */,
 				2AAE01BE1CFC0F7F008D3145 /* NSMyLricListModel.m in Sources */,
 				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
+				946B04261D4EEC8A00529DBA /* HUAlbumCell.m in Sources */,
 				183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */,
 				2ADE8F621CFE7715006CD840 /* NSShareModulView.m in Sources */,
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
@@ -2452,6 +2528,7 @@
 				18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */,
 				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
 				18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */,
+				946B042B1D4EEC8A00529DBA /* HUImagePickerRootViewController.m in Sources */,
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
@@ -2480,6 +2557,8 @@
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
 				2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */,
 				2AAE01CA1CFC209E008D3145 /* NSForgetPassWordViewController.m in Sources */,
+				946B042D1D4EEC8A00529DBA /* HUPhotoHelper.m in Sources */,
+				946B042C1D4EEC8A00529DBA /* HUImagePickerViewController.m in Sources */,
 				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */,
 				187016671D21268B0041B5D7 /* NSArray+Log.m in Sources */,
@@ -2493,6 +2572,7 @@
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
+				946B04311D4EEC8A00529DBA /* README.md in Sources */,
 				2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
 				944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */,
@@ -2515,6 +2595,7 @@
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
+				946B04281D4EEC8A00529DBA /* HUAlbumsViewController.m in Sources */,
 				2AB3006D1D165B0200938F1C /* NSInspirtationModel.m in Sources */,
 				2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */,
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
@@ -2537,6 +2618,7 @@
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
 				2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */,
 				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
+				946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */,
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,

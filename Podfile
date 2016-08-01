@@ -17,7 +17,6 @@ pod 'RSAEncryptor'
 pod 'pop'
 pod'TTTAttributedLabel'
 pod 'UMengSocialCOM'
-pod 'HUPhotoPicker' ,  '~>1.0.1'
 end
 
 target 'NestSoundTests' do

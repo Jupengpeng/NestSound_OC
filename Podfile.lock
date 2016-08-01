@@ -20,8 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - HappyDNS (0.3.9)
-  - HUPhotoPicker (1.0.1)
+  - HappyDNS (0.3.10)
   - JPush (2.1.8)
   - Masonry (1.0.1)
   - MBProgressHUD (1.0.0)
@@ -41,7 +40,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
-  - HUPhotoPicker (~> 1.0.1)
   - JPush
   - Masonry
   - MBProgressHUD (~> 1.0.0)
@@ -57,8 +55,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
-  HappyDNS: 17be04178df2dd09f0ee6ac33628589b7f9910e8
-  HUPhotoPicker: 4e4edc30caa26ed6cb01d2517113e2af1450b8d5
+  HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   JPush: 2d1286494eae216433f6d7709b2721565b4babc9
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -72,6 +69,6 @@ SPEC CHECKSUMS:
   UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
 
-PODFILE CHECKSUM: f824e884a3a3c1f33bc3806e4caf328d5095463d
+PODFILE CHECKSUM: 83ab74caa928d82ab9b6b792f946d08634094a62
 
 COCOAPODS: 1.0.1
