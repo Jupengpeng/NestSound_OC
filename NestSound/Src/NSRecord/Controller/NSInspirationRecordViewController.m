@@ -24,8 +24,6 @@ static  CGFloat timeNum =0;
     UICollectionView *_collection;
     
     UIView *_bottomView;
-    NSMutableArray * ImageArr;
-    NSMutableArray *anotherImgArr;
     HUImagePickerViewController * ImagePicker;
     NSString * getQiniuImage;
     NSString * getQiniuAudio;
@@ -37,6 +35,7 @@ static  CGFloat timeNum =0;
     long itemID;
     BOOL isWrite;
 }
+@property (nonatomic, strong) NSMutableArray  * ImageArr, *anotherImgArr;
 
 @property (nonatomic, strong) UILabel *placeholderLabel;
 
@@ -84,17 +83,17 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     return  self;
 }
 - (NSMutableArray *)anotherImgArr {
-    if (!anotherImgArr) {
-        anotherImgArr = [NSMutableArray arrayWithCapacity:1];
+    if (!_anotherImgArr) {
+        self.anotherImgArr = [NSMutableArray arrayWithCapacity:1];
     }
-    return anotherImgArr;
+    return _anotherImgArr;
 }
 -(NSMutableArray *)ImageArr{
-    if (!ImageArr) {
-        ImageArr = [NSMutableArray arrayWithCapacity:9];
+    if (!_ImageArr) {
+        self.ImageArr = [NSMutableArray arrayWithCapacity:9];
     }
     
-    return ImageArr;
+    return _ImageArr;
 }
 
 - (void)viewDidLoad {
@@ -176,7 +175,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         [[XHSoundRecorder sharedSoundRecorder] stopPlaysound];
         [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
         
-        if (self.audioPath || inspiration.lyricText.text.length > 0 || ImageArr.count > 0) {
+        if (self.audioPath || inspiration.lyricText.text.length > 0 || self.ImageArr.count > 0) {
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请确认操作" message:@"是否放弃当前灵感记录？" preferredStyle:UIAlertControllerStyleAlert];
             
@@ -248,20 +247,22 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     
     WS(wSelf);
     //    || [[ImageArr lastObject] isKindOfClass:[NSString class]]
-    if (!anotherImgArr.count&&!ImageArr.count ) {
+    if (!self.anotherImgArr.count&&!self.ImageArr.count ) {
+        [[NSToastManager manager] showprogress];
         [self uploadAudioWithImageURL:self.titleImageURL];
     }else{
-        if (anotherImgArr.count != 0) {
+        if (self.anotherImgArr.count != 0) {
             NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[[NSDate date] timeIntervalSince1970]];
             QNUploadManager * upManager = [[QNUploadManager alloc] init];
-            for (int i = 0 ; i<anotherImgArr.count; i++) {
-                UIImage * image = anotherImgArr[i];
+            for (int i = 0 ; i<self.anotherImgArr.count; i++) {
+                UIImage * image = self.anotherImgArr[i];
                 NSData * imageData;
                 if (UIImagePNGRepresentation(image) == nil) {
                     imageData = UIImageJPEGRepresentation(image, 1.0);
                 }else{
                     imageData = UIImagePNGRepresentation(image);
                 }
+                [[NSToastManager manager] showprogress];
                 [upManager putData:imageData key:[NSString stringWithFormat:@"%@%d.png",timeSp,i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                     
                     NSLog(@" 图片key：%@",[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]]);
@@ -274,13 +275,13 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                         wSelf.titleImageURL =[NSString stringWithFormat:@"%@,%@",wSelf.titleImageURL,[resp objectForKey:@"key"]];
                         
                     }
-                    if (ImageArr.count) {
-                        if ([wSelf.titleImageURL componentsSeparatedByString:@","].count == ImageArr.count) {
+                    if (self.ImageArr.count) {
+                        if ([wSelf.titleImageURL componentsSeparatedByString:@","].count == self.ImageArr.count) {
                             
                             [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
                         }
                     } else {
-                        if ([wSelf.titleImageURL componentsSeparatedByString:@","].count == anotherImgArr.count) {
+                        if ([wSelf.titleImageURL componentsSeparatedByString:@","].count == self.anotherImgArr.count) {
                             
                             [wSelf uploadAudioWithImageURL:wSelf.titleImageURL];
                         }
@@ -312,7 +313,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             [wSelf publicWithType:YES andAudioURL:wSelf.audioURL andImageURL:Image];
             
         } option:nil];
-        
         
     }else{
         
@@ -349,13 +349,11 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     }
     
     if (isWrite) {
-        [[NSToastManager manager] showprogress];
         self.requestURL = publicInspirationURL;
     }else{
         NSMutableDictionary * dic = [[NSMutableDictionary alloc] initWithDictionary:self.requestParams];
         [dic setObject:[NSNumber numberWithLong:itemID] forKey:@"itemid"];
         self.requestParams = dic;
-        [[NSToastManager manager] showprogress];
         self.requestURL = changeInspirationURL;
     }
     
@@ -403,7 +401,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     self.titleImageURL = _inspritationModel.pics;
     NSString * str = [NSString stringWithFormat:@"%@",_inspritationModel.pics];
     if (str.length) {
-        ImageArr =[NSMutableArray arrayWithArray:[str componentsSeparatedByString:@","]];
+        self.ImageArr =[NSMutableArray arrayWithArray:[str componentsSeparatedByString:@","]];
     }
     self.title = [date datetoLongStringWithDate:_inspritationModel.createDate];
     inspiration.lyricText.text = _inspritationModel.spireContent;
@@ -1081,9 +1079,9 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark -collectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if (isWrite) {
-        return anotherImgArr.count;
+        return self.anotherImgArr.count;
     }
-    return ImageArr.count ? ImageArr.count : anotherImgArr.count;
+    return self.ImageArr.count ? self.ImageArr.count : self.anotherImgArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1091,14 +1089,14 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     NSImageCell *cell = (NSImageCell *)[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     [cell.deleteBtn addTarget:self action:@selector(deleteImage:) forControlEvents:UIControlEventTouchUpInside];
     if (isWrite) {
-        cell.image.image = anotherImgArr[indexPath.row];
+        cell.image.image = self.anotherImgArr[indexPath.row];
         
     }else{
-        if (ImageArr.count) {
-            if ([ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
-                [cell.image setDDImageWithURLString:[ NSString  stringWithFormat:@"%@%@", _inspritationModel.picDomain,ImageArr[indexPath.row]]placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+        if (self.ImageArr.count) {
+            if ([self.ImageArr[indexPath.row] isKindOfClass:[NSString class] ]) {
+                [cell.image setDDImageWithURLString:[ NSString  stringWithFormat:@"%@%@", _inspritationModel.picDomain,self.ImageArr[indexPath.row]]placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
             }else{
-                cell.image.image = ImageArr.count ? ImageArr[indexPath.row] : anotherImgArr[indexPath.row];
+                cell.image.image = self.ImageArr.count ? self.ImageArr[indexPath.row] : self.anotherImgArr[indexPath.row];
             }
         }
     }
@@ -1108,20 +1106,20 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     NSImageCell *cell = (NSImageCell *)[sender superview].superview;
     NSIndexPath *indexPath = [_collection indexPathForCell:cell];
     if (isWrite) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:anotherImgArr[indexPath.row]];
-        [anotherImgArr removeObjectAtIndex:indexPath.item];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:self.anotherImgArr[indexPath.row]];
+        [self.anotherImgArr removeObjectAtIndex:indexPath.item];
     } else {
         
         NSMutableArray *images = [NSMutableArray arrayWithArray:[self.titleImageURL componentsSeparatedByString:@","]];
         if (indexPath.row < images.count) {
             [images removeObjectAtIndex:indexPath.row];
         } else {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:ImageArr[indexPath.row]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DeleteImageNotification" object:self.ImageArr[indexPath.row]];
         }
-        [ImageArr removeObjectAtIndex:indexPath.row];
+        [self.ImageArr removeObjectAtIndex:indexPath.row];
         
-        if (!ImageArr.count) {
-            [anotherImgArr removeAllObjects];
+        if (!self.ImageArr.count) {
+            [self.anotherImgArr removeAllObjects];
         }
         self.titleImageURL = nil;
         for (int i = 0; i < images.count; i++) {
@@ -1163,13 +1161,13 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 #pragma mark - imagePickerDelegate
 -(void)imagePickerController:(HUImagePickerViewController *)picker didFinishPickingImages:(NSArray *)images
 {
-    [anotherImgArr removeAllObjects];
-    anotherImgArr = [NSMutableArray arrayWithArray:images];
+    [self.anotherImgArr removeAllObjects];
+    self.anotherImgArr = [NSMutableArray arrayWithArray:images];
     for (int i = 0; i < images.count; i++) {
-        if ([ImageArr containsObject:images[i]]) {
+        if ([self.ImageArr containsObject:images[i]]) {
             
         } else {
-            [ImageArr addObject:images[i]];
+            [self.ImageArr addObject:images[i]];
         }
         
     }
