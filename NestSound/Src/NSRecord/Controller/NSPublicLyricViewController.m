@@ -401,8 +401,7 @@ extern Boolean plugedHeadset;
         self.shareVC.shareDataDic = lyricDic;
         self.shareVC.lyricOrMusic = self.isLyric;
         
-        [self.alertView dismissViewControllerAnimated:YES completion:nil];
-        [self.navigationController pushViewController:self.shareVC animated:YES];
+        
         
         NSFileManager *manager = [NSFileManager defaultManager];
         
