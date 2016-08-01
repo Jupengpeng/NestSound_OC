@@ -326,6 +326,7 @@ extern Boolean plugedHeadset;
 -(void)uploadPhoto:(UIBarButtonItem *)btn
 {
     
+<<<<<<< HEAD
     self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"正在发布中，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -339,7 +340,7 @@ extern Boolean plugedHeadset;
     [self presentViewController:self.alertView animated:YES completion:nil];
     ////////////////
     ////////////////
-    
+
     self.btn = btn;
     
     [self.player pause];
@@ -351,6 +352,10 @@ extern Boolean plugedHeadset;
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"lyricTitlePage.png"];
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
+        
+        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"正在发布中，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:self.alertView animated:YES completion:nil];
+        
         if (lyricDic[@"lyricImgUrl"] !=NULL) {
             if (self.isLyric) {
                 [self publicWithType:YES];
@@ -365,6 +370,9 @@ extern Boolean plugedHeadset;
                 getQiNiuURL = [self getQiniuDetailWithType:1 andFixx:@"muscover"];
             }
         }
+        
+        
+        
         
     }else{
         btn.enabled = YES;
