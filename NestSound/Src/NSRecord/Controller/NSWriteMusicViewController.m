@@ -328,6 +328,17 @@ static CGFloat timerNum=0;
 
 }
 
+- (void)pauseDevides {
+    if (self.player) {
+        [self.player pause];
+    }
+    if (self.recorder) {
+        [self.recorder pause];
+    }
+    
+    
+}
+
 //分贝数
 - (CGFloat)decibels {
     
@@ -614,8 +625,8 @@ static CGFloat timerNum=0;
 
     [super viewWillAppear:animated];
 
-    timerNumRecorder=0;
-    timerNumRecorder_temp=0;
+    //timerNumRecorder=0;
+    //timerNumRecorder_temp=0;
     timerNumPlay=0;
     timerNumPlay_temp=0;
     listenCount=0;
@@ -1136,14 +1147,7 @@ static CGFloat timerNum=0;
         
         
         self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在美化，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-       // self.alertView.view.height=10;
-        /*UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            NSLog(@"点击取消了");
-            
-        }];*/
-        
-        //[self.alertView addAction:defaultAction];
+      
         
         [self presentViewController:self.alertView animated:YES completion:nil];
         
@@ -1156,7 +1160,7 @@ static CGFloat timerNum=0;
              self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
             self.public.isLyric=NO;
             [self.link setPaused:YES];
-            [self stopAllDevides];
+            [self pauseDevides];
              
              } else
              {

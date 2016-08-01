@@ -24,7 +24,7 @@ extern Boolean plugedHeadset;
     UILabel * addTitlePageLabel;
     UILabel * publicStateLabel;
     UISwitch * publicSwitch;
-    NSDictionary * lyricDic;
+    NSMutableDictionary * lyricDic;
     NSString * description;
     UIActionSheet * chosePhotoLibrary;
     UIImagePickerController * picker;
@@ -44,6 +44,7 @@ extern Boolean plugedHeadset;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, weak) UIBarButtonItem *btn;
 @property (nonatomic, strong)UIAlertController* alertView;
+@property (nonatomic, strong)NSShareViewController * shareVC;
 @end
 
 @implementation NSPublicLyricViewController
@@ -325,20 +326,6 @@ extern Boolean plugedHeadset;
 #pragma mark -uploadPhoto
 -(void)uploadPhoto:(UIBarButtonItem *)btn
 {
-    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"正在发布中，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        NSLog(@"点击取消");
-        
-    }];
-    
-    [self.alertView addAction:defaultAction];
-    
-    [self presentViewController:self.alertView animated:YES completion:nil];
-    ////////////////
-    ////////////////
-
     self.btn = btn;
     
     [self.player pause];
@@ -407,14 +394,15 @@ extern Boolean plugedHeadset;
             [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
             [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
             [lyricDic setValue:mp3URL forKey:@"mp3Url"];
-            NSShareViewController * shareVC =[[NSShareViewController alloc] init];
-            shareVC.shareDataDic = lyricDic;
-            shareVC.lyricOrMusic = self.isLyric;
-            [self.alertView dismissViewControllerAnimated:YES completion:nil];
-            [self.navigationController pushViewController:shareVC animated:YES];
+            
             
         }
+         self.shareVC =[[NSShareViewController alloc] init];
+        self.shareVC.shareDataDic = lyricDic;
+        self.shareVC.lyricOrMusic = self.isLyric;
         
+        [self.alertView dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController pushViewController:self.shareVC animated:YES];
         
         NSFileManager *manager = [NSFileManager defaultManager];
         
@@ -441,6 +429,11 @@ extern Boolean plugedHeadset;
         self.requestURL = publicMusicURL;
    
     }
+    
+    
+    
+    [self.alertView dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController pushViewController:self.shareVC animated:YES];
     
 }
 
@@ -530,6 +523,7 @@ extern Boolean plugedHeadset;
             }else{
                 [wSelf publicWithType:NO];
             }
+    
             
         } option:nil];
     }
