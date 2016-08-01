@@ -64,7 +64,6 @@ extern Boolean plugedHeadset;
     [super viewDidLoad];
     NSLog(@"----------self.mp3File = %@",self.mp3File);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publicWorks:) name:PublicNotification object:nil];
     [self configureUIAppearance];
     self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
    
@@ -283,8 +282,6 @@ extern Boolean plugedHeadset;
 
 - (void)playRemoteMusic:(UIButton*)btn{
     
-
-    
     btn.selected = !btn.selected;
 
     if (btn.selected) {
@@ -302,8 +299,6 @@ extern Boolean plugedHeadset;
 
     }
     
-
-
 }
 
 
@@ -330,9 +325,20 @@ extern Boolean plugedHeadset;
 #pragma mark -uploadPhoto
 -(void)uploadPhoto:(UIBarButtonItem *)btn
 {
+    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"正在发布中，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
     
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSLog(@"点击取消");
+        
+    }];
+    
+    [self.alertView addAction:defaultAction];
+    
+    [self presentViewController:self.alertView animated:YES completion:nil];
+    ////////////////
+    ////////////////
 
-    
     self.btn = btn;
     
     [self.player pause];
@@ -379,6 +385,7 @@ extern Boolean plugedHeadset;
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
+    
     if (!parserObject.success) {
         
         if ([operation.urlTag isEqualToString:getQiNiuURL]) {
@@ -403,11 +410,11 @@ extern Boolean plugedHeadset;
             NSShareViewController * shareVC =[[NSShareViewController alloc] init];
             shareVC.shareDataDic = lyricDic;
             shareVC.lyricOrMusic = self.isLyric;
+            [self.alertView dismissViewControllerAnimated:YES completion:nil];
             [self.navigationController pushViewController:shareVC animated:YES];
             
         }
         
-        [[NSNotificationCenter defaultCenter]postNotificationName:PublicNotification object:nil];
         
         NSFileManager *manager = [NSFileManager defaultManager];
         
@@ -546,11 +553,6 @@ extern Boolean plugedHeadset;
 
     
     
-}
-- (void)publicWorks:(NSNotification*)userInfo{
-    [self.alertView dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController pushViewController:self.public animated:YES];
-
 }
 
 
