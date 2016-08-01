@@ -28,6 +28,7 @@
 
 
 CGFloat count;
+int listenCount=0;
 
 Boolean plugedHeadset;
 static CGFloat timerNum=0;
@@ -383,8 +384,8 @@ static CGFloat timerNum=0;
         curtime2=0;
         [self stopPlaysound:self.player3];
         [self stopPlaysound:self.player2];
-        [self.waveform removeAllPath];
-
+        //[self.waveform removeAllPath];
+        listenCount=0;
         [self.link setPaused:YES];
         
     }
@@ -566,7 +567,6 @@ static CGFloat timerNum=0;
     self.mp3Path=nil;
 
     timerNum=0;
-
      timerNumRecorder=0;
      timerNumRecorder_temp=0;
      timerNumPlay=0;
@@ -619,7 +619,7 @@ static CGFloat timerNum=0;
     timerNumRecorder_temp=0;
     timerNumPlay=0;
     timerNumPlay_temp=0;
-
+    listenCount=0;
     mp3URL=nil;
     
     //stop the music
@@ -972,7 +972,11 @@ static CGFloat timerNum=0;
         if (btn.selected) { //回听
             [HudView showView:self.navigationController.view string:@"开始试听"];
 
-            //[self.waveform removeAllPath];
+            if (listenCount == 0) {
+                [self.waveform removeAllPath];
+
+            }
+            listenCount++;
             timerNumPlay = timerNumPlay_temp;
 
             timerNum = timerNumPlay;
@@ -1133,14 +1137,14 @@ static CGFloat timerNum=0;
         
         
         self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在美化，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       // self.alertView.view.height=10;
+        /*UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             NSLog(@"点击取消了");
             
-        }];
+        }];*/
         
-        [self.alertView addAction:defaultAction];
+        //[self.alertView addAction:defaultAction];
         
         [self presentViewController:self.alertView animated:YES completion:nil];
         
