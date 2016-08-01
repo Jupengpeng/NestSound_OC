@@ -58,10 +58,8 @@
     
     //addObserver for UserHeadset
     self.session = [AVAudioSession sharedInstance];
-    
     [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [self.session setActive:YES error:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
                                                  name:AVAudioSessionRouteChangeNotification
                                                object:nil];
@@ -152,7 +150,6 @@
 {
     NSDictionary *interuptionDict = notification.userInfo;
     
-    
     NSInteger routeChangeReason = [[interuptionDict valueForKey:AVAudioSessionRouteChangeReasonKey] integerValue];
     
     switch (routeChangeReason) {
@@ -168,7 +165,7 @@
             NSLog(@"Headphone/Line was pulled. Stopping player....");
             //[self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
             self.isHeadset=NO;
-
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"pausePlayer" object:nil];
             break;
             
         case AVAudioSessionRouteChangeReasonCategoryChange:

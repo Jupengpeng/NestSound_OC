@@ -125,7 +125,9 @@ static id _instance;
     
     AVAudioSession * session =[ AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
+                                                 name:@"pausePlayer"
+                                               object:nil];
     
     if (self.playOrPauseBtn.selected) {
         
@@ -144,7 +146,9 @@ static id _instance;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    //耳机线控
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:IndexPlayerStopNotition object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:SongMenuStopNotition object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
@@ -1175,13 +1179,6 @@ static id _instance;
 }
 
 
-- (void)dealloc {
-    
-    [self removeTimer];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
-}
-
-
 -(void)setMusicDetail:(NSPlayMusicDetail *)musicDetail
 {
     
@@ -1342,13 +1339,39 @@ static id _instance;
         self.player = nil;
     }
 }
-
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+    if (event.type == UIEventTypeRemoteControl) {
+        switch (event.subtype) {
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                NSLog(@" 暂停");
+                [self playOrPauseBtnClick:self.playOrPauseBtn];
+                break;
+            case  UIEventSubtypeRemoteControlNextTrack:
+                NSLog(@"下一首");
+                [self nextBtnClick:nil];
+                break;
+            default:
+                break;
+        }
+    }
+}
+- (void)pausePlayer {
+    [self removeTimer];
+    [self.player pause];
+    self.playOrPauseBtn.selected = NO;
+}
 - (void)changeMusic:(NSNotification*)userInfo{
     NSLog(@"-------------666");
     [self stopMusic];
 
 }
-
+- (void)dealloc {
+    
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
+    [self removeTimer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
+}
 
 @end
 

@@ -45,6 +45,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
+                                                 name:@"pausePlayer"
+                                               object:nil];
     [self configureUIAppearance];
 }
 
@@ -322,6 +325,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     
     self.button = btn;
 }
-
+- (void)pausePlayer {
+    [NSPlayMusicTool pauseMusicWithName:nil];
+    self.button.selected = NO;
+}
 
 @end

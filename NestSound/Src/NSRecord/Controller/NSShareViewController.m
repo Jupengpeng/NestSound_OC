@@ -102,12 +102,12 @@ static NSString *identifier = @"identifier";
     
     
     [shareCollection registerClass:[NSShareCollectionViewCell class] forCellWithReuseIdentifier:identifier];
-    
-    
-    
+        
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
-        [btn setImage:[UIImage imageNamed:@"2.0_back"] forState:UIControlStateNormal];
+        btn.tintColor = [UIColor blackColor];
+        
+        [btn setImage:[UIImage imageNamed:@"2.0_dismiss_btn"] forState:UIControlStateNormal];
         
         btn.frame = CGRectMake(15, 32, 30, 30);
         
