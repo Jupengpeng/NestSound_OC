@@ -74,6 +74,7 @@ static CGFloat timerNum=0;
     UIImageView * reRecordBk;
     NSLyricView *lyricView;
     NSString  * hotMp3Url;
+    UIAlertView*  alertView;
     long hotId;
     long musicTime;
     NSString * mp3URL;
@@ -81,6 +82,7 @@ static CGFloat timerNum=0;
 
     NSTimeInterval curtime2;
     NSTimeInterval curtime3;
+    Boolean receivedData;
 
     NSDownloadProgressView *ProgressView;//BoxDismiss
     
@@ -124,7 +126,7 @@ static CGFloat timerNum=0;
 
 @property (nonatomic, strong) AVAudioSession *session;
 
-@property (nonatomic,strong) UIAlertView *alertView;
+@property (nonatomic,strong) UIAlertController *alertView;
 
 @property (nonatomic, strong) UIView *maskView;
 @end
@@ -381,7 +383,7 @@ static CGFloat timerNum=0;
         curtime2=0;
         [self stopPlaysound:self.player3];
         [self stopPlaysound:self.player2];
-        //[self.waveform removeAllPath];
+        [self.waveform removeAllPath];
 
         [self.link setPaused:YES];
         
@@ -539,12 +541,7 @@ static CGFloat timerNum=0;
     
     return _dict;
 }
-- (UIAlertView *)alertView {
-    if (!_alertView) {
-        self.alertView =[ [UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在美化，请稍候..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-    }
-    return _alertView;
-}
+
 
 -(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime_ andHotMp3:(NSString *)hotMp3
 {
@@ -554,6 +551,10 @@ static CGFloat timerNum=0;
         musicTime = musicTime_;
     }
     return self;
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:NextStep object:nil];
 }
 
 - (void)viewDidLoad {
@@ -570,7 +571,7 @@ static CGFloat timerNum=0;
      timerNumRecorder_temp=0;
      timerNumPlay=0;
      timerNumPlay_temp=0;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextStep:) name:NextStep object:nil];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
         
@@ -620,7 +621,6 @@ static CGFloat timerNum=0;
     timerNumPlay_temp=0;
 
     mp3URL=nil;
- 
     
     //stop the music
     self.clickedValue = 0;
@@ -1079,6 +1079,7 @@ static CGFloat timerNum=0;
     timerNumPlay_temp=0;
     curtime2=0;
     curtime3=0;
+
     self.wavFilePath = nil;
     [self.link setPaused:YES];
     [self stopPlaysound:self.player];
@@ -1101,8 +1102,18 @@ static CGFloat timerNum=0;
     
 }
 
+- (void)showPromptView{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    // Set the annular determinate mode to show task progress.
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"歌曲正在美化，请稍后...", @"HUD loading title");
+    // Move to bottm center.
+    hud.offset = CGPointMake(0.f, 10);//MBProgressMaxOffset);
 
+}
 - (void)nextClick:(UIBarButtonItem *)next {
+    
     if ([self.player isPlaying]) {
         [HudView showView:self.navigationController.view  string:@"请先停止录音"];
         return;
@@ -1120,37 +1131,29 @@ static CGFloat timerNum=0;
         [HudView showView:self.navigationController.view string:@"歌词标题不能为空"];
     }else{
         
+        
+        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在美化，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            NSLog(@"点击取消了");
+            
+        }];
+        
+        [self.alertView addAction:defaultAction];
+        
+        [self presentViewController:self.alertView animated:YES completion:nil];
+        
         if (JUserID) {
             
             
             
             [self uploadMusic];
             
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-            
-            // Set the annular determinate mode to show task progress.
-            hud.mode = MBProgressHUDModeText;
-            hud.label.text = NSLocalizedString(@"歌曲正在美化，请稍后...", @"HUD loading title");
-            // Move to bottm center.
-            hud.offset = CGPointMake(0.f, 10);//MBProgressMaxOffset);
-            
-            //[hud hideAnimated:YES afterDelay:2.f];
-            
-           
-            
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-                [self doSomeWork];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [hud hideAnimated:YES];
-                });
-            });
-            
              self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
             self.public.isLyric=NO;
             [self.link setPaused:YES];
             [self stopAllDevides];
-             [self.navigationController pushViewController:self.public animated:YES];
-            
              
              } else
              {
@@ -1186,7 +1189,6 @@ static CGFloat timerNum=0;
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-   [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
 //    [self.maskView removeFromSuperview];
 //    [ProgressView removeFromSuperview];
     if (!parserObject.success) {
@@ -1202,9 +1204,11 @@ static CGFloat timerNum=0;
             [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
             [self.dict setValue:mp3URL forKey:@"mp3URL"];
             [self.dict setValue:[NSNumber numberWithBool:self.appDelete.isHeadset] forKey:@"isHeadSet"];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotitionDictionaryData object:self userInfo:self.dict];
+            NSLog(@"--------开始，mp3URL =%@",mp3URL);
+            [self.public initWithLyricDic:self.dict withType:NO];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NextStep object:self userInfo:nil];
             self.public.isLyric=NO;
+
             self.public.mp3File = self.mp3Path;
         }
     }
@@ -1386,143 +1390,6 @@ static CGFloat timerNum=0;
     //sleep(7.);
 }
 
-////////////////////////////////////////////////////测试代码begin,后期稳定了可删除
-/*
-- (void)cafToMp3:(NSString *)filePath{
-    
-    NSString *wavFilePath;
-    
-    if (filePath == nil) {
-        NSLog(@"没有要转的文件");
-        
-    } else {
-        
-        wavFilePath = filePath;
-    }
-    
-    NSDate *date = [NSDate date];
-    
-    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-    
-    [formatter setDateFormat:@"YYYYMMddHHmmss"];
-    
-    NSString * currentTimeString = [formatter stringFromDate:date];
-    
-    
-    NSString *mp3FilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
-    
-    mp3FilePath = [mp3FilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp3",currentTimeString]];
-    
-    @try {
-        int write,read;
-        const int PCM_SIZE = 8192;
-        const int MP3_SIZE = 8192;
-        short int pcm_buffer[PCM_SIZE*2];
-        unsigned char mp3_buffer[MP3_SIZE];
-        
-        //source 被转换的音频文件位置
-        FILE *pcm = fopen([filePath cStringUsingEncoding:1], "rb");
-        //output 输出生成的Mp3文件位置
-        FILE *mp3 = fopen([mp3FilePath cStringUsingEncoding:1], "wb");
-        
-        fseek(pcm, 4*1024, SEEK_CUR);
-        NSLog(@"caf:%@",filePath);
-        NSLog(@"mp3:%@",mp3FilePath);
-        
-        lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, 11025.0);
-        lame_set_VBR(lame, vbr_default);
-        lame_init_params(lame);
-        
-        do {
-            read = (int)fread(pcm_buffer, 2*sizeof(short int), PCM_SIZE, pcm);
-            if (read == 0)
-                write = lame_encode_flush(lame, mp3_buffer, MP3_SIZE);
-            else
-                write = lame_encode_buffer_interleaved(lame, pcm_buffer, read, mp3_buffer, MP3_SIZE);
-            
-            fwrite(mp3_buffer, write, 1, mp3);
-            
-        } while (read != 0);
-        
-        lame_close(lame);
-        fclose(mp3);
-        fclose(pcm);
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@",[exception description]);
-    }
-    @finally {
-        NSLog(@"MP3生成成功: %@",mp3FilePath);
-        
-        NSFileManager *f = [NSFileManager defaultManager];
-        
-        long long l = [[f attributesOfItemAtPath:filePath error:nil] fileSize];
-        long long l2 = [[f attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
-        
-        NSLog(@"-----------转化前caf = %lld",l);
-        NSLog(@"-----------转化后mp3 = %lld",l2);
-        //[self testMp3:filePath];
-
-        [self testMp3:mp3FilePath];
-        
-    }
-    
-    
-}
-
-- (void)testMp3:(NSString*)file{
-    
-    AVAudioSession* session = [AVAudioSession sharedInstance];
-    
-    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-
-    [session setActive:YES error:nil];
-    
-    
-    
-    
-    NSURL *url = [NSURL fileURLWithPath:file];
-    NSError* err=nil;
-    self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
-    
-    
-    self.player2.delegate = self;
-    
-    [self.player2 prepareToPlay];
-    
-    [self.player2 play];
-    
-    
-    
-}*/
-/*
-- (void)xxx:(UIButton*)sended{
-    NSLog(@"123 = %@",path);
-    
-    NSFileManager* f = [NSFileManager defaultManager];
-    long long l = [[f attributesOfItemAtPath:path error:nil] fileSize];
-    NSLog(@"回放----------%@,%lld",path,l);
-    
-    NSURL* url = [NSURL fileURLWithPath:path];
-    
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    
-    
-    [self.player prepareToPlay];
-    [self.player play];
-    
-    //[self cafToMp3:path toMp3Path:<#(NSString *)#>];
-    //[self toMp3:TrueMachine filePath:path];
-    //[self testMp3:path];
-    //[self cafToMp3:path];
-    //[[XHSoundRecorder sharedSoundRecorder] recorderFileToMp3WithType:TrueMachine filePath:path FilePath:nil];
-
-
-}
-
-///////测试代码end
- */
 
 - (int)buttonClickedValue:(UIButton*)btn{
     if (btn == self.btns[1]) {
@@ -1535,6 +1402,12 @@ static CGFloat timerNum=0;
     return -1;
 }
 
+- (void)nextStep:(NSNotification*)userInfo{
+    [self.alertView dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController pushViewController:self.public animated:YES];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:NotitionDictionaryData object:self userInfo:self.dict];
 
+    
+}
 
 @end

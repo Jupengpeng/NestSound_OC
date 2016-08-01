@@ -43,7 +43,7 @@ extern Boolean plugedHeadset;
 @property (nonatomic, strong) AVPlayerItem *musicItem;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, weak) UIBarButtonItem *btn;
-//@property (nonatomic, strong)AVAudioPlayer* player2;
+@property (nonatomic, strong)UIAlertController* alertView;
 @end
 
 @implementation NSPublicLyricViewController
@@ -62,16 +62,23 @@ extern Boolean plugedHeadset;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSLog(@"----------self.mp3File = %@",self.mp3File);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publicWorks:) name:PublicNotification object:nil];
     [self configureUIAppearance];
     self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveDictionaryData:) name:NotitionDictionaryData object:nil];
+   
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
         
+}
+- (void)dealloc{
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:NotitionDictionaryData object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+
+
 }
 - (void)receiveDictionaryData:(NSNotification*)sender{
     auditionBtn.enabled=YES;
@@ -208,7 +215,7 @@ extern Boolean plugedHeadset;
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_btn01"] forState:UIControlStateSelected];
             
         } action:nil];
-        auditionBtn.enabled=NO;
+       // auditionBtn.enabled=NO;
                 [auditionBtn addTarget:self action:@selector(playRemoteMusic:) forControlEvents:UIControlEventTouchUpInside];
         [backgroundView addSubview:auditionBtn];
         
@@ -323,6 +330,22 @@ extern Boolean plugedHeadset;
 #pragma mark -uploadPhoto
 -(void)uploadPhoto:(UIBarButtonItem *)btn
 {
+    
+    
+    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"正在发布中，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        NSLog(@"点击取消");
+        
+    }];
+    
+    [self.alertView addAction:defaultAction];
+    
+    [self presentViewController:self.alertView animated:YES completion:nil];
+    ////////////////
+    ////////////////
+    
     self.btn = btn;
     
     [self.player pause];
@@ -353,6 +376,8 @@ extern Boolean plugedHeadset;
         btn.enabled = YES;
         [[NSToastManager manager] showtoast:@"封面不能为空哟"];
     }
+    
+    
     
 }
 
@@ -388,10 +413,14 @@ extern Boolean plugedHeadset;
             
         }
         
+        [[NSNotificationCenter defaultCenter]postNotificationName:PublicNotification object:nil];
+        
         NSFileManager *manager = [NSFileManager defaultManager];
         
         [manager removeItemAtPath:self.mp3File error:nil];
     }
+    
+    
     
 }
 #pragma mark -public
@@ -524,7 +553,11 @@ extern Boolean plugedHeadset;
     
     
 }
+- (void)publicWorks:(NSNotification*)userInfo{
+    [self.alertView dismissViewControllerAnimated:YES completion:nil];
+    //[self.navigationController pushViewController:self.public animated:YES];
 
+}
 
 
 @end
