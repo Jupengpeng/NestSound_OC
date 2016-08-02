@@ -260,7 +260,7 @@ static CGFloat timerNum=0;
         self.player3.meteringEnabled=YES;
         self.player3.delegate = self;
     
-        [self.player3 setCurrentTime:curTime];
+        //[self.player3 setCurrentTime:curTime];
     
         [self.player3 prepareToPlay];
     
@@ -981,12 +981,13 @@ static CGFloat timerNum=0;
         btn.selected = !btn.selected;//－－no
         if (btn.selected) { //回听
             [HudView showView:self.navigationController.view string:@"开始试听"];
+            [self.waveform removeAllPath];
 
             if (listenCount == 0) {
-                [self.waveform removeAllPath];
+               // [self.waveform removeAllPath];
 
             }
-            listenCount++;
+            //listenCount++;
             timerNumPlay = timerNumPlay_temp;
 
             timerNum = timerNumPlay;
@@ -1005,7 +1006,7 @@ static CGFloat timerNum=0;
                 //if (!self.player2)
                 {
                     self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-                    [self.player2 setCurrentTime:curtime2];
+                    //[self.player2 setCurrentTime:curtime2];
 
                     [self.player2 prepareToPlay];
                     self.player2.meteringEnabled=YES;
