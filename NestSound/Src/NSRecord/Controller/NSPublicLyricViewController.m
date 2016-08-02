@@ -75,7 +75,6 @@ extern Boolean plugedHeadset;
         
 }
 - (void)dealloc{
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:NotitionDictionaryData object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 
 
