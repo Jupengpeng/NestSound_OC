@@ -1193,7 +1193,8 @@ static CGFloat timerNum=0;
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-//    [self.maskView removeFromSuperview];
+    WS(wSelf);
+    //    [self.maskView removeFromSuperview];
 //    [ProgressView removeFromSuperview];
     if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
@@ -1210,10 +1211,16 @@ static CGFloat timerNum=0;
             [self.dict setValue:[NSNumber numberWithBool:self.appDelete.isHeadset] forKey:@"isHeadSet"];
             NSLog(@"--------开始，mp3URL =%@",mp3URL);
             [self.public initWithLyricDic:self.dict withType:NO];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NextStep object:self userInfo:nil];
+            
+            //[[NSNotificationCenter defaultCenter] postNotificationName:NextStep object:self userInfo:nil];
+            [self.alertView dismissViewControllerAnimated:YES completion:^{
+                [wSelf.navigationController pushViewController:wSelf.public animated:YES];
+            }];
+
             self.public.isLyric=NO;
 
             self.public.mp3File = self.mp3Path;
+            
         }
     }
 }
@@ -1407,7 +1414,7 @@ static CGFloat timerNum=0;
 }
 
 - (void)nextStep:(NSNotification*)userInfo{
-    [self.alertView dismissViewControllerAnimated:YES completion:nil];
+    [self.alertView dismissViewControllerAnimated:NO completion:nil];
     [self.navigationController pushViewController:self.public animated:YES];
 
     
