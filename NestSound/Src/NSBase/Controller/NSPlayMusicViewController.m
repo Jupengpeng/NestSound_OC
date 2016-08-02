@@ -149,12 +149,10 @@ static id _instance;
     //耳机线控
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:IndexPlayerStopNotition object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:SongMenuStopNotition object:nil];
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
   
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:NewSongStopNotition object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:MusicStopNotition object:nil];
     
     //毛玻璃效果
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -288,13 +286,13 @@ static id _instance;
 
 - (void)endPlaying {
     
+    self.playOrPauseBtn.selected = NO;
+    
     if (self.loopBtn.selected) {
         
         [self removeTimer];
         
         [self.player pause];
-        
-        self.player = nil;
         
         [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
         
@@ -302,17 +300,16 @@ static id _instance;
         
         self.playtime.text = @"00:00";
         
-        self.playOrPauseBtn.selected = NO;
-        
-        //[NSPlayMusicTool stopMusicWithName:nil];
+        [NSPlayMusicTool stopMusicWithName:nil];
         [self stopMusic];
 
         [self playMusicUrl:self.musicDetail.playURL];
     } else {
         
-        [self removeTimer];
-        
-        if (self.songAry.count != 0) {
+        if (self.songAry.count > 1) {
+            self.progressBar.value = 0;
+            
+            self.playtime.text = @"00:00";
             
             [self nextBtnClick:nil];
             
@@ -322,16 +319,16 @@ static id _instance;
             
             [self.player pause];
             
-//            self.player = nil;
+            [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
             
             self.progressBar.value = 0;
             
             self.playtime.text = @"00:00";
             
-            self.playOrPauseBtn.selected = NO;
-            
-            //[NSPlayMusicTool stopMusicWithName:nil];
+            [NSPlayMusicTool stopMusicWithName:nil];
             [self stopMusic];
+            
+            [self playMusicUrl:self.musicDetail.playURL];
 
         }
     }
@@ -1216,8 +1213,7 @@ static id _instance;
         [self playMusicUrl:self.musicDetail.playURL];
         
         self.ifUrl = musicDetail.playURL;
-    } else if(![musicDetail.playURL isEqualToString:self.ifUrl] && musicDetail.playURL != nil) {
-        
+    }  else {
         self.progressBar.value = 0;
         
         [self removeTimer];
@@ -1225,7 +1221,6 @@ static id _instance;
         self.playtime.text = @"00:00";
         
         self.playOrPauseBtn.selected = NO;
-        
     }
     
     
@@ -1306,12 +1301,6 @@ static id _instance;
             break;
     }
     
-    //        _maskView.hidden = YES;
-    //        [UIView animateWithDuration:0.25 animations:^{
-    //            shareView.y = ScreenHeight;
-    //            [shareView removeFromSuperview];
-    //            _moreChoiceView.y = ScreenHeight;
-    //        }];
 }
 
 //播放器
@@ -1360,16 +1349,16 @@ static id _instance;
     [self.player pause];
     self.playOrPauseBtn.selected = NO;
 }
-- (void)changeMusic:(NSNotification*)userInfo{
-    NSLog(@"-------------666");
-    [self stopMusic];
 
-}
+//- (void)changeMusic:(NSNotification*)userInfo{
+//    NSLog(@"-------------666");
+//    [self stopMusic];
+//
+//}
 - (void)dealloc {
     
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
-    [self removeTimer];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
 }
 

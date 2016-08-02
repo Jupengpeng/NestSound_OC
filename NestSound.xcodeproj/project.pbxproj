@@ -160,6 +160,7 @@
 		945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */; };
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
+		94626B351D5035350002CA02 /* NSModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94626B341D5035350002CA02 /* NSModifyPwdViewController.m */; };
 		946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04121D4EEC8A00529DBA /* HUAlbum.m */; };
 		946B04261D4EEC8A00529DBA /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04141D4EEC8A00529DBA /* HUAlbumCell.m */; };
 		946B04271D4EEC8A00529DBA /* HUAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946B04151D4EEC8A00529DBA /* HUAlbumCell.xib */; };
@@ -504,6 +505,8 @@
 		945708E11D2F41A90074C331 /* NSShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSShareView.m; sourceTree = "<group>"; };
 		945708E31D2F92AD0074C331 /* UIView+RGSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RGSize.h"; sourceTree = "<group>"; };
 		945708E41D2F92AD0074C331 /* UIView+RGSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RGSize.m"; sourceTree = "<group>"; };
+		94626B331D5035350002CA02 /* NSModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSModifyPwdViewController.h; sourceTree = "<group>"; };
+		94626B341D5035350002CA02 /* NSModifyPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSModifyPwdViewController.m; sourceTree = "<group>"; };
 		946B04111D4EEC8A00529DBA /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
 		946B04121D4EEC8A00529DBA /* HUAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbum.m; sourceTree = "<group>"; };
 		946B04131D4EEC8A00529DBA /* HUAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumCell.h; sourceTree = "<group>"; };
@@ -873,6 +876,8 @@
 				2AAE01C91CFC209E008D3145 /* NSForgetPassWordViewController.m */,
 				945073C11D484F77008B0DF9 /* NSAboutUsViewController.h */,
 				945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */,
+				94626B331D5035350002CA02 /* NSModifyPwdViewController.h */,
+				94626B341D5035350002CA02 /* NSModifyPwdViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2620,6 +2625,7 @@
 				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
 				946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */,
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
+				94626B351D5035350002CA02 /* NSModifyPwdViewController.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,
 			);

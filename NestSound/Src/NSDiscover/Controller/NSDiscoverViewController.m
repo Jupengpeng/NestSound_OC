@@ -393,14 +393,12 @@
 //    [self searchBarCancelButtonClicked:_search];
     self.maskAlpha = YES;
     self.maskView.alpha = 0;
-    
-    
     NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic] ;
     playMusicVC.itemUid = itemID;
     playMusicVC.from = @"homepage";
     playMusicVC.geDanID = 0;
-#warning  songListArr
-//    playMusicVC.songAry = 
+    playMusicVC.songID = 0;
+    playMusicVC.songAry = [NSMutableArray arrayWithArray:@[@(itemID)]];
     [self.navigationController pushViewController:playMusicVC animated:YES];
     
     NSLog(@"歌曲");

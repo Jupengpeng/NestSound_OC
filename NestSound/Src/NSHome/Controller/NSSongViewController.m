@@ -215,6 +215,8 @@ static NSString * cellId = @"SongCell";
         playVC.geDanID = (int)songListId;
         playVC.songAry = songList;
         playVC.songID = 0;
+        selectRow = 1;
+        [songsTable reloadData];
         [self.navigationController pushViewController:playVC animated:YES];
     } else {
         [[NSToastManager manager] showtoast:@""];
@@ -274,10 +276,7 @@ static NSString * cellId = @"SongCell";
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-//    NSSongCell *cell = (NSSongCell *)[tableView cellForRowAtIndexPath:indexPath];
-//    cell.playImg.hidden = NO;
-//    cell.numberLab.hidden = YES;
+
     selectRow = indexPath.row + 1;
     songModel * song = songAry[indexPath.row];
     NSInteger row = indexPath.row;
@@ -288,7 +287,6 @@ static NSString * cellId = @"SongCell";
     playVC.songAry = songList;
     playVC.songID = row;
     [tableView reloadData];
-    [[NSNotificationCenter defaultCenter]postNotificationName:SongMenuStopNotition object:nil];
     [self.navigationController pushViewController:playVC animated:YES];
 }
 //- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -38,7 +38,7 @@
         
         self.playImg = [[UIImageView alloc] init];
         _playImg.hidden = YES;
-        _playImg.image = [UIImage imageNamed:@"2.0_writeMusic_play_no"];
+        _playImg.image = [UIImage imageNamed:@"2.0_trumpet"];
         [self.contentView addSubview:_playImg];
         
         //worknameLab

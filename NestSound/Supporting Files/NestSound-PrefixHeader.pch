@@ -155,10 +155,6 @@ extern NSString *port;
 
 #define NotitionDictionaryData @"kNotitionDictionaryData"
 
-#define IndexPlayerStopNotition @"kIndexPlayerStopNotition"
-#define SongMenuStopNotition @"kSongMenuStopNotition"
-#define NewSongStopNotition @"kNewSongStopNotition"
-#define MusicStopNotition @"kMusicStopNotition"
 #define BoxDismiss @"kBoxDismiss"
 #define NextStep @"kNextStep"
 #define PublicNotification @"kPublicNotification"
