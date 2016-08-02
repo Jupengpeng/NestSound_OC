@@ -22,6 +22,7 @@
     UIImageView * playStatus;
 }
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
+@property (nonatomic, strong) NSMutableArray *itemIdList;
 @end
 
 @implementation NSNewMusicViewController
@@ -35,7 +36,12 @@
     
     return _playSongsVC;
 }
-
+- (NSMutableArray *)itemIdList {
+    if (!_itemIdList) {
+        self.itemIdList = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _itemIdList;
+}
 -(instancetype)initWithType:(NSString *)type andIsLyric:(BOOL)isLyric_
 {
     self = [super init];
@@ -191,9 +197,18 @@
             if ([operation.urlTag isEqualToString:url]) {
                 NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
+                    
                     DataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
+                    
+                    for (NSMyMusicModel *model in DataAry) {
+                        [self.itemIdList addObject:@(model.itemId)];
+                    }
                 }else{
+                    
                     [DataAry addObjectsFromArray:discoverMore.moreLyricList];
+                    for (NSMyMusicModel *model in DataAry) {
+                        [self.itemIdList addObject:@(model.itemId)];
+                    }
                 }
                 [_tableView reloadData];
                 if (!operation.isLoadingMore) {
@@ -266,6 +281,8 @@
         }
         playVC.itemUid = itemID;
         playVC.geDanID = 0;
+        playVC.songID = indexPath.row;
+        playVC.songAry = self.itemIdList;
         [self.navigationController pushViewController:playVC animated:YES];
     }
     
