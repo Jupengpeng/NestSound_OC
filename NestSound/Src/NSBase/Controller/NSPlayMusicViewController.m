@@ -1214,13 +1214,7 @@ static id _instance;
         
         self.ifUrl = musicDetail.playURL;
     }  else {
-        self.progressBar.value = 0;
         
-        [self removeTimer];
-        
-        self.playtime.text = @"00:00";
-        
-        self.playOrPauseBtn.selected = NO;
     }
     
     
