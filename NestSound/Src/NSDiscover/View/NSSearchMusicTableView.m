@@ -62,10 +62,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMyMusicModel *model = _DataAry[indexPath.row];
     if (tableView.tag == 1) {
-//        - (void)searchMusicTableView:(NSSearchMusicTableView *)tableView;
-//        
-//        - (void)searchLyricTableView:(NSSearchMusicTableView *)tableView;
-        
+
         NSMyMusicModel *model = _DataAry[indexPath.row];
         
         if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:withItemId:)]) {

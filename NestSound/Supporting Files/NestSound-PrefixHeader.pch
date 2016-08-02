@@ -159,6 +159,7 @@ extern NSString *port;
 
 #define SongMenuStopNotition @"kSongMenuStopNotition"
 #define NewSongStopNotition @"kNewSongStopNotition"
+#define BoxDismiss @"kBoxDismiss"
 #define NextStep @"kNextStep"
 
 
