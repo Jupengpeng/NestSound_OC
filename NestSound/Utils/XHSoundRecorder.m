@@ -133,8 +133,8 @@ static id _instance;
         //self.wavPath = wavPath;
 
         NSFileManager* f = [NSFileManager defaultManager];
-        long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
-        NSLog(@"录制---------%@,%lld",self.wavPath,l);
+        //long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
+        //NSLog(@"录制---------%@,%lld",self.wavPath,l);
         //self.FinishRecording = FinishRecording;
         FinishRecording(self.wavPath);
 
@@ -226,10 +226,10 @@ static id _instance;
    {
         
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        NSLog(@"---------%@",self.player);
+        //NSLog(@"---------%@",self.player);
         //self.player = [[AVAudioPlayer alloc] initWithData:data error:&error];
 
-        NSLog(@"-----------error = %@",error);
+        //NSLog(@"-----------error = %@",error);
         self.player.delegate = self;
         
         [self.player prepareToPlay];
@@ -360,7 +360,7 @@ static id _instance;
         
         if (self.wavPath == nil) {
             
-            NSLog(@"没有要转的文件");
+            //NSLog(@"没有要转的文件");
             
             return;
         }
@@ -422,13 +422,13 @@ static id _instance;
         NSLog(@"%@",[exception description]);
     }
     @finally {
-        NSLog(@"转换完毕");
+        //NSLog(@"转换完毕");
         self.mp3Path = mp3FilePath;
         NSFileManager *manager = [NSFileManager defaultManager];
         long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
         long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
 
-        NSLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
+       // NSLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
         
         
        /* [manager removeItemAtPath:self.wavPath error:nil];

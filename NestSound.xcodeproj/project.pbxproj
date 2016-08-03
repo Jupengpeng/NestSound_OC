@@ -2792,9 +2792,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/NestSound/Utils",
 				);
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
+				PROVISIONING_PROFILE = "af0f75f7-30de-42c8-a2ef-8d3e70b9285f";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2821,7 +2822,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cd796357-f7b0-4ada-968b-b83f95743860";
+				PROVISIONING_PROFILE = "34a14ef6-bf8b-40f8-981e-793962e33c85";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

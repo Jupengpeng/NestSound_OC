@@ -47,10 +47,13 @@
 extern BOOL debugMode;
 extern NSString *host;
 extern NSString *port;
-#define debugHost     @"http://api.yinchao.cn"
-#define debugPort     @""
-#define releaseHost   @"http://112.124.125.2"
+//#define debugHost     @"http://api.yinchao.cn"
+//#define debugPort     @""
+//#define releaseHost   @"http://112.124.125.2"
+//#define releasePort   @""
+#define releaseHost   @"http://api.yinchao.cn"
 #define releasePort   @""
+
 #define customHostKey @"customHostKey"
 #define customPortKey @"customPortKey"
 #define indexURL @"java/common/index/app?"
@@ -153,11 +156,11 @@ extern NSString *port;
 
 #define requestData @"data"
 
-#define NotitionDictionaryData @"kNotitionDictionaryData"
 
+#define SongMenuStopNotition @"kSongMenuStopNotition"
+#define NewSongStopNotition @"kNewSongStopNotition"
 #define BoxDismiss @"kBoxDismiss"
 #define NextStep @"kNextStep"
-#define PublicNotification @"kPublicNotification"
 
 
 

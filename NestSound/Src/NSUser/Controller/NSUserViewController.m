@@ -98,7 +98,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 1 ? 4 : 1;
+    return section == 1 ? 3: 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -180,13 +180,18 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             not.hidden = NO;
             
         } else if (row == 2) {
-            settingCell.textLabel.text = @"修改密码";
+            settingCell.textLabel.text = @"关于我们";
+             LocalizedStr(@"prompt_rating");
+
+            //            LocalizedStr(@"prompt_rating");
+
+            //settingCell.textLabel.text = @"修改密码";
             
-        } else if (row == 3){
+        } /*else if (row == 3){
             settingCell.textLabel.text = @"关于我们";
 //            LocalizedStr(@"prompt_rating");
         
-        }
+        }*/
         
         return settingCell;
         
@@ -224,14 +229,14 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             UITableViewCell * settingCell = [settingPageTable cellForRowAtIndexPath:indexPath];
             UILabel * cacheSize = (UILabel *)[settingCell viewWithTag:100];
             cacheSize.text = [Memory getCacheSize];
-        }else if (row == 2){
+        }/*else if (row == 2){
             
             NSModifyPwdViewController *modifyPwdVC = [[NSModifyPwdViewController alloc] init];
             [self.navigationController pushViewController:modifyPwdVC animated:YES];
-        }else if (row == 3){
+        }*/else if (row == 2){
             NSAboutUsViewController *aboutUsVC = [[NSAboutUsViewController alloc] init];
             [self.navigationController pushViewController:aboutUsVC animated:YES];
-        } else {
+        }else {
             
         }
     

@@ -88,7 +88,7 @@
     [self.window makeKeyAndVisible];
     
     
-    NSLog(@"------------启动：self.isHeadset = %d",self.isHeadset);
+    //NSLog(@"------------启动：self.isHeadset = %d",self.isHeadset);
     return YES;
 }
 
@@ -156,13 +156,13 @@
             
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
             
-            NSLog(@"Headphone/Line plugged in");
+           // NSLog(@"Headphone/Line plugged in");
             
             self.isHeadset=YES;
             break;
             
         case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-            NSLog(@"Headphone/Line was pulled. Stopping player....");
+            //NSLog(@"Headphone/Line was pulled. Stopping player....");
             //[self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
             self.isHeadset=NO;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"pausePlayer" object:nil];
@@ -170,7 +170,7 @@
             
         case AVAudioSessionRouteChangeReasonCategoryChange:
             // called at start - also when other audio wants to play
-            NSLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
+            //NSLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
             break;
     }
 }
