@@ -1229,71 +1229,51 @@ static id _instance;
 }
 //分享
 - (void)handleShareAction:(UIButton *)sender {
-    NSLog(@"%@",sender.currentTitle);
     WS(wSelf);
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:self.musicDetail.playURL];
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
-    switch (sender.tag) {
-        case 250:
-        {
-            [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-            NSLog(@" 分享：%@",[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]);
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                }
-            }];
-        }
-            break;
-        case 251:
-        {
-            [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                }
-            }];
-        }
-            break;
-        case 252:
-        {
-            [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:[NSString stringWithFormat:@"%@%@",[_musicDetail.author substringToIndex:139],[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]] image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                }
-            }];
-        }
-            break;
-        case 253:
-        {
-            [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                }
-            }];
-        }
-            break;
-        case 254:
-        {
-            [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:_musicDetail.author image:_musicDetail.titleImageURL  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-                if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-                }
-            }];
-        }
-            break;
-        case 255:
-        {
-            [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.prevItemID];
-            [[NSToastManager manager] showtoast:@"复制成功"];
-        }
-            break;
-        default:
-            break;
+    if ([sender.currentImage isEqual:[UIImage imageNamed:@"2.0_weChat"]]) {
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_friends"]]) {
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_sina"]]) {
+        [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:[NSString stringWithFormat:@"%@%@",[_musicDetail.author substringToIndex:139],[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]] image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_qq"]]) {
+        [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_qZone"]]) {
+        [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:_musicDetail.author image:_musicDetail.titleImageURL  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                [wSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
+        }];
+    } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_copy"]]) {
+        [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.prevItemID];
+        [[NSToastManager manager] showtoast:@"复制成功"];
+    } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_lyricPoster"]]) {
+        NSLog(@"制作歌词海报");
     }
+    
     
 }
 

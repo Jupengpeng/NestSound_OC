@@ -11,6 +11,10 @@
 #import "NSForgetPassWordViewController.h"
 #import "NSRegisterViewController.h"
 #import "NSUserModel.h"
+#import "NSLoginView.h"
+#import "NSRegisterView.h"
+#import "NSH5ViewController.h"
+#define KColor_Background [UIColor colorWithRed:239.0 / 255.0 green:239.0 / 255.0 blue:244.0 / 255.0 alpha:1]
 @interface NSLoginViewController () {
     
     UIScrollView *scrollView;
@@ -18,6 +22,20 @@
     UITextField *phoneText;
     
     UITextField *passwordText;
+    
+    UIImageView *leftImgView;
+    
+    UIImageView *rightImgView;
+    
+    NSLoginView *loginView;
+    
+    NSRegisterView *registerView;
+    
+    UIButton *loginButton;
+    
+    UIButton *registerButton;
+    
+    UIView *protocolView;
 }
 
 @end
@@ -27,13 +45,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
     self.isHidden = YES;
-    [self setupUI];
+    [self setupNewUI];
+//    [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -80,12 +96,240 @@
 
 
 #pragma mark - setupUI
+- (void)setupNewUI {
+    
+    WS(wSelf);
+    
+    scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    if ([[NSTool getMachine] isEqualToString:IPHONE4] || [[NSTool getMachine] isEqualToString:IPHONE4S]) {
+        scrollView.contentSize = CGSizeMake(self.view.width, self.view.height + 50);
+    }else{
+        scrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight);
+    }
+    scrollView.autoAdaptKeyboard = YES;
+    scrollView.alwaysBounceVertical = YES;
+    
+    [self.view addSubview:scrollView];
+    
+    //返回按钮
+    UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setImage:[UIImage imageNamed:@"2.0_cancel_btn"] forState:UIControlStateNormal];
+        
+        btn.x = 15;
+        
+        btn.y = 32;
+        
+        [btn sizeToFit];
+        
+    } action:^(UIButton *btn) {
+        
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+        
+        [wSelf dismissViewControllerAnimated:YES completion:nil];
+        
+        self.isHidden = NO;
+    }];
+    
+    [self.view addSubview:dismissBtn];
+    
+    //轻拍手势
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    [self.view addGestureRecognizer:tap];
+    
+    //登录背景图片
+    UIImageView *backImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_login_topbackImg"]];
+    
+    backImgView.y = 20 ;
+    
+    backImgView.centerX = self.view.centerX;
+    
+    [scrollView addSubview:backImgView];
+    
+    //logo
+    UIImageView *logoImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LOGO"]];
+    
+    logoImage.y = 80;
+    
+    logoImage.centerX = scrollView.centerX;
+    
+    [scrollView addSubview:logoImage];
+    
+    //登录
+    UIButton *loginBnt = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    loginBnt.frame = CGRectMake(ScreenWidth/4-30, CGRectGetMaxY(backImgView.frame) + 10, 60, 30);
+    
+    [loginBnt setTitle:@"登录" forState:UIControlStateNormal];
+    
+    [loginBnt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    [loginBnt addTarget:self action:@selector(loginEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [scrollView addSubview:loginBnt];
+    
+     leftImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_rectangle_left"]];
+    
+    leftImgView.y = CGRectGetMaxY(loginBnt.frame);
+    
+    leftImgView.centerX = scrollView.centerX;
+    
+    [scrollView addSubview:leftImgView];
+    
+    loginView = [[NSLoginView alloc] initWithFrame:leftImgView.frame];
+    
+    [scrollView addSubview:loginView];
+    
+    loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    loginButton.frame = CGRectMake(40, CGRectGetMaxY(loginView.frame) + 30, ScreenWidth - 80, 40);
+    
+    loginButton.layer.cornerRadius = 20;
+    
+    loginButton.layer.masksToBounds = YES;
+    
+    loginButton.backgroundColor = KColor_Background;
+    
+    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    
+    [loginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    
+    [scrollView addSubview:loginButton];
+    
+    //注册
+    UIButton *registerBnt = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    registerBnt.frame = CGRectMake(3*ScreenWidth/4-30, CGRectGetMaxY(backImgView.frame) + 10, 60, 30);
+    
+    [registerBnt setTitle:@"注册" forState:UIControlStateNormal];
+    
+    [registerBnt setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    
+    [registerBnt addTarget:self action:@selector(registerEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [scrollView addSubview:registerBnt];
+    
+    rightImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_rectange_right"]];
+    
+    rightImgView.y = CGRectGetMaxY(registerBnt.frame);
+    
+    rightImgView.centerX = scrollView.centerX;
+    
+    registerView = [[NSRegisterView alloc] initWithFrame:rightImgView.frame];
+    
+    //协议
+    protocolView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(rightImgView.frame) + 10, ScreenWidth, 20)];
+    
+    UIImageView *protocolImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_yes_icon"]];
+    
+    [protocolView addSubview:protocolImage];
+    
+    [protocolImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(protocolView.mas_left).offset(15);
+        
+        make.centerY.equalTo(protocolView.mas_centerY);
+    }];
+    
+    UILabel *protocolLabel = [[UILabel alloc] init];
+    
+    protocolLabel.textColor = [UIColor darkGrayColor];
+    
+    protocolLabel.text = @"我已阅读并同意";
+    
+    protocolLabel.font = [UIFont systemFontOfSize:12];
+    
+    [protocolView addSubview:protocolLabel];
+    
+    [protocolLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(protocolImage.mas_right).offset(10);
+        
+        make.centerY.equalTo(protocolView.mas_centerY);
+    }];
+    
+    UIButton *protocolBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        
+        [btn setTitle:@"《音巢APP用户使用协议》" forState:UIControlStateNormal];
+        
+        btn.titleLabel.font = [UIFont systemFontOfSize:12];
+        
+        [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        
+    } action:^(UIButton *btn) {
+        
+        NSH5ViewController * protocolVC =[[NSH5ViewController alloc] init];
+        
+        protocolVC.h5Url = @"http://www.yinchao.cn/html/xieyi.html";
+        
+        [self.navigationController pushViewController:protocolVC animated:YES];
+        
+        
+    }];
+    
+    [protocolView addSubview:protocolBtn];
+    
+    [protocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(protocolLabel.mas_right);
+        
+        make.centerY.equalTo(protocolView.mas_centerY);
+    }];
+    
+    registerButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    registerButton.frame = CGRectMake(40, CGRectGetMaxY(protocolView.frame) + 30, ScreenWidth - 80, 40);
+    
+    registerButton.layer.cornerRadius = 20;
+    
+    registerButton.layer.masksToBounds = YES;
+    
+    registerButton.backgroundColor = KColor_Background;
+    
+    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    
+    [registerButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    
+}
+- (void)loginEvent:(UIButton *)sender {
+    
+    [rightImgView removeFromSuperview];
+    
+    [leftImgView removeFromSuperview];
+    
+    [registerView removeFromSuperview];
+    
+    [protocolView removeFromSuperview];
+    
+    [registerButton removeFromSuperview];
+    
+    [scrollView addSubview:leftImgView];
+    
+    [scrollView addSubview:loginView];
+    
+    [scrollView addSubview:loginButton];
+}
+- (void)registerEvent:(UIButton *)sender {
+    
+    [loginButton removeFromSuperview];
+    
+    [leftImgView removeFromSuperview];
+    
+    [rightImgView removeFromSuperview];
+    
+    [scrollView addSubview:rightImgView];
+    
+    [scrollView addSubview:registerView];
+    
+    [scrollView addSubview:protocolView];
+    
+    [scrollView addSubview:registerButton];
+}
 - (void)setupUI {
     
     WS(wSelf);
     
     scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    NSLog(@"this is machine%@",[NSTool getMachine]);
     if ([[NSTool getMachine] isEqualToString:IPHONE4] || [[NSTool getMachine] isEqualToString:IPHONE4S]) {
          scrollView.contentSize = CGSizeMake(self.view.width, self.view.height + 50);
     }else{

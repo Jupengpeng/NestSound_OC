@@ -109,7 +109,6 @@
         aboutUsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:aboutUsCellIdenfity];
         aboutUsCell.textLabel.text = titleArr[indexPath.row];
         aboutUsCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//        aboutUsCell.backgroundColor = KColor_Background;
     }
     return aboutUsCell;
 }

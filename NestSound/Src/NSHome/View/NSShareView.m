@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSDictionary *QQDict;
 @property (nonatomic, strong) NSDictionary *QzoneDict;
 @property (nonatomic, strong) NSDictionary *fuzhiDic;
+@property (nonatomic, strong) NSDictionary *lyricPoster;
 @end
 
 @implementation NSShareView
@@ -34,6 +35,7 @@
     self.QQDict             = @{@"icon": @"2.0_qq", @"name": @"QQ"};
     self.QzoneDict          = @{@"icon": @"2.0_qZone", @"name": @"QQ空间"};
     self.fuzhiDic         =  @{@"icon":@"2.0_copy",@"name":@"复制链接"};
+    self.lyricPoster      = @{@"icon":@"2.0_lyricPoster",@"name":@"歌词海报"};
     NSMutableArray *shareArr = [NSMutableArray arrayWithCapacity:1];
     
     if ([Share shareAvailableWeiXin]) {
@@ -47,8 +49,9 @@
         [shareArr addObject:_QQDict];
         [shareArr addObject:_QzoneDict];
     }
-    
     [shareArr addObject:_fuzhiDic];
+    [shareArr addObject:_lyricPoster];
+    
     for (int i = 0; i < 2; i ++) {
         for (int j = 0; j < 5; j++) {
             if (i*5+j < shareArr.count) {
@@ -57,13 +60,10 @@
                 shareBtn.tag = 250 + i * 5 + j;
                 shareBtn.titleLabel.font = kBtnFont;
                 shareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//                shareBtn.titleLabel.contentMode = UIViewContentModeCenter;
                 [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:shareArr[i*5+j][@"icon"]] forState:UIControlStateNormal];
-//                [shareBtn setTitle:titarray[i*5+j] forState:UIControlStateNormal];
-//                shareBtn.titleEdgeInsets=UIEdgeInsetsMake(0, -shareBtn.imageView.frame.size.width-5 , -shareBtn.imageView.frame.size.width-5, 0);
-//                shareBtn.imageEdgeInsets=UIEdgeInsetsMake(-shareBtn.titleLabel.frame.size.height, 5, 0, 0);
                 [self addSubview:shareBtn];
+                
                 UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(j *((ScreenWidth-20)/5)+10, 85*i+65, (ScreenWidth-20)/5, 20)];
                 shareLabel.font = [UIFont systemFontOfSize:15];
                 shareLabel.textAlignment = NSTextAlignmentCenter;
