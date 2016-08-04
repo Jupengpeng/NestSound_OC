@@ -28,7 +28,6 @@
 
 
 CGFloat count;
-int listenCount=0;
 
 Boolean plugedHeadset;
 static CGFloat timerNum=0;
@@ -260,7 +259,7 @@ static CGFloat timerNum=0;
         self.player3.meteringEnabled=YES;
         self.player3.delegate = self;
     
-        //[self.player3 setCurrentTime:curTime];
+        [self.player3 setCurrentTime:curTime];
     
         [self.player3 prepareToPlay];
     
@@ -395,7 +394,6 @@ static CGFloat timerNum=0;
         [self stopPlaysound:self.player3];
         [self stopPlaysound:self.player2];
         //[self.waveform removeAllPath];
-        listenCount=0;
         [self.link setPaused:YES];
         
     }
@@ -629,7 +627,6 @@ static CGFloat timerNum=0;
     //timerNumRecorder_temp=0;
     timerNumPlay=0;
     timerNumPlay_temp=0;
-    listenCount=0;
     mp3URL=nil;
     
     //stop the music
@@ -958,11 +955,15 @@ static CGFloat timerNum=0;
         } else {
             timerNumRecorder_temp = self.player.currentTime;
             [self pauseRecorder];
+           
             [self pausePlaysound:self.player];
             [self.link setPaused:YES];
             
             
         }
+         curtime3=0;
+         curtime2=0;
+         timerNumPlay_temp=0;
     }
     
     
@@ -983,11 +984,7 @@ static CGFloat timerNum=0;
             [HudView showView:self.navigationController.view string:@"开始试听"];
             [self.waveform removeAllPath];
 
-            if (listenCount == 0) {
-               // [self.waveform removeAllPath];
-
-            }
-            //listenCount++;
+           
             timerNumPlay = timerNumPlay_temp;
 
             timerNum = timerNumPlay;
@@ -998,15 +995,15 @@ static CGFloat timerNum=0;
             
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             
-            NSLog(@"------------plugedHeadset = %d",plugedHeadset);
+            //NSLog(@"------------plugedHeadset = %d",plugedHeadset);
             if (plugedHeadset)
             {
-                NSLog(@"------------self.player2 = %@,url=%@",self.player2,url);
+                //NSLog(@"------------self.player2 = %@,url=%@",self.player2,url);
 
                 //if (!self.player2)
                 {
                     self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-                    //[self.player2 setCurrentTime:curtime2];
+                    [self.player2 setCurrentTime:curtime2];
 
                     [self.player2 prepareToPlay];
                     self.player2.meteringEnabled=YES;
@@ -1028,8 +1025,7 @@ static CGFloat timerNum=0;
             curtime3=   self.player3.currentTime;
             [self pausePlaysound:self.player2];
             [self pausePlaysound:self.player3];
-            
-            NSLog(@"-----------curtime2 = %f,curtime3 = %f",curtime2,curtime3);
+           // NSLog(@"-----------curtime2 = %f,curtime3 = %f",curtime2,curtime3);
             [self.link setPaused:YES];
             
         }
@@ -1197,7 +1193,8 @@ static CGFloat timerNum=0;
 #pragma mark -overriderActionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-//    [self.maskView removeFromSuperview];
+    WS(wSelf);
+    //    [self.maskView removeFromSuperview];
 //    [ProgressView removeFromSuperview];
     if (!parserObject.success) {
         if ([operation.urlTag isEqualToString:tunMusicURL]) {
@@ -1214,10 +1211,16 @@ static CGFloat timerNum=0;
             [self.dict setValue:[NSNumber numberWithBool:self.appDelete.isHeadset] forKey:@"isHeadSet"];
             NSLog(@"--------开始，mp3URL =%@",mp3URL);
             [self.public initWithLyricDic:self.dict withType:NO];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NextStep object:self userInfo:nil];
+            
+            //[[NSNotificationCenter defaultCenter] postNotificationName:NextStep object:self userInfo:nil];
+            [self.alertView dismissViewControllerAnimated:YES completion:^{
+                [wSelf.navigationController pushViewController:wSelf.public animated:YES];
+            }];
+
             self.public.isLyric=NO;
 
             self.public.mp3File = self.mp3Path;
+            
         }
     }
 }
@@ -1411,9 +1414,8 @@ static CGFloat timerNum=0;
 }
 
 - (void)nextStep:(NSNotification*)userInfo{
-    [self.alertView dismissViewControllerAnimated:YES completion:nil];
+    [self.alertView dismissViewControllerAnimated:NO completion:nil];
     [self.navigationController pushViewController:self.public animated:YES];
-    //[[NSNotificationCenter defaultCenter] postNotificationName:NotitionDictionaryData object:self userInfo:self.dict];
 
     
 }

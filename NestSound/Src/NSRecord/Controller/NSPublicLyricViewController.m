@@ -75,7 +75,6 @@ extern Boolean plugedHeadset;
         
 }
 - (void)dealloc{
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:NotitionDictionaryData object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 
 
@@ -372,7 +371,7 @@ extern Boolean plugedHeadset;
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
-    
+    WS(wSelf);
     if (!parserObject.success) {
         
         if ([operation.urlTag isEqualToString:getQiNiuURL]) {
@@ -395,12 +394,17 @@ extern Boolean plugedHeadset;
             [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
             [lyricDic setValue:mp3URL forKey:@"mp3Url"];
             
+
+            self.shareVC =[[NSShareViewController alloc] init];
+            self.shareVC.shareDataDic = lyricDic;
+            self.shareVC.lyricOrMusic = self.isLyric;
+            [self.alertView dismissViewControllerAnimated:YES completion:^{
+                [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
+                
+            }];
+
             
         }
-         self.shareVC =[[NSShareViewController alloc] init];
-        self.shareVC.shareDataDic = lyricDic;
-        self.shareVC.lyricOrMusic = self.isLyric;
-        
         
         
         NSFileManager *manager = [NSFileManager defaultManager];
@@ -431,8 +435,7 @@ extern Boolean plugedHeadset;
     
     
     
-    [self.alertView dismissViewControllerAnimated:YES completion:nil];
-    [self.navigationController pushViewController:self.shareVC animated:YES];
+   
     
 }
 

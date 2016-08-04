@@ -149,10 +149,13 @@ static id _instance;
     //耳机线控
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
-    
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:SongMenuStopNotition object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
   
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:NewSongStopNotition object:nil];
+    
+    
+ 
     
     //毛玻璃效果
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -298,8 +301,11 @@ static id _instance;
         
         self.playtime.text = @"00:00";
         
+        self.playOrPauseBtn.selected = NO;
+        
         [NSPlayMusicTool stopMusicWithName:nil];
-        [self stopMusic];
+        //[self stopMusic];
+
 
         [self playMusicUrl:self.musicDetail.playURL];
     } else {
@@ -323,8 +329,11 @@ static id _instance;
             
             self.playtime.text = @"00:00";
             
+            self.playOrPauseBtn.selected = NO;
+            
             [NSPlayMusicTool stopMusicWithName:nil];
-            [self stopMusic];
+            //[self stopMusic];
+
             
             [self playMusicUrl:self.musicDetail.playURL];
 
@@ -1329,9 +1338,15 @@ static id _instance;
 //}
 - (void)dealloc {
     
+    //
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pausePlayer" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SongMenuStopNotition object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NewSongStopNotition object:nil];
+
+
 }
 
 @end

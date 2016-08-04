@@ -76,7 +76,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
         }
         
     } failureBlock:^(NSError *error) {
-        NSLog(@"Group not found!");
+        //NSLog(@"Group not found!");
     }];
     return nil;
 }
@@ -129,7 +129,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
             });
             
         } failureBlock:^(NSError *error) {
-            NSLog(@"Group not found!");
+           // NSLog(@"Group not found!");
         }];
 
         
