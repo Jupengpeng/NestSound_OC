@@ -45,11 +45,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
     self.isHidden = YES;
-    [self setupNewUI];
-//    [self setupUI];
+//    [self setupNewUI];
+    [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -292,6 +292,9 @@
     
 }
 - (void)loginEvent:(UIButton *)sender {
+    [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    
     
     [rightImgView removeFromSuperview];
     
@@ -310,6 +313,8 @@
     [scrollView addSubview:loginButton];
 }
 - (void)registerEvent:(UIButton *)sender {
+    
+    [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [loginButton removeFromSuperview];
     

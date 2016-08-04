@@ -189,9 +189,15 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             
         } /*else if (row == 3){
             settingCell.textLabel.text = @"关于我们";
+//            settingCell.textLabel.text = @"修改密码";
+            
+        }
+//        else if (row == 3){
+//            settingCell.textLabel.text = @"关于我们";
 //            LocalizedStr(@"prompt_rating");
         
         }*/
+//        }
         
         return settingCell;
         

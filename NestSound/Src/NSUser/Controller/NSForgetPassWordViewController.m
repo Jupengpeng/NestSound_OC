@@ -8,8 +8,9 @@
 
 #import "NSForgetPassWordViewController.h"
 #import "NSRegisterViewController.h"
-
-@interface NSForgetPassWordViewController () {
+#import "NSTextField.h"
+#define KColor_Background [UIColor colorWithRed:239.0 / 255.0 green:239.0 / 255.0 blue:244.0 / 255.0 alpha:1]
+@interface NSForgetPassWordViewController ()<UITextFieldDelegate> {
     
     UIScrollView *scrollView;
     
@@ -24,6 +25,12 @@
     NSTimer * timer;
     int num;
     UIButton *captchaBtn;
+    NSTextField *phoneTF;
+    NSTextField *codeTF;
+    NSTextField *oldPwdTF;
+    NSTextField *newPwdTF;
+    NSTextField *ensurePwdTF;
+    UIButton *ensureBtn;
 }
 
 @end
@@ -37,15 +44,87 @@
 
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
     num = 60;
+//    [self setupNewUI];
     [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBar.hidden = YES;
 }
-
+- (void)setupNewUI {
+    self.title = @"修改密码";
+    //手机号
+    UIImage *phoneImg = [UIImage imageNamed:@"2.0_password_gray"];
+    UIImageView *phoneImgView = [[UIImageView alloc] initWithImage:phoneImg];
+    phoneImgView.frame = CGRectMake(0, 0, 12, 15);
+    phoneTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, 20, ScreenWidth -30, 40) drawingLeft:phoneImgView];
+    phoneTF.delegate = self;
+    phoneTF.secureTextEntry = YES;
+    phoneTF.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
+    phoneTF.font = [UIFont systemFontOfSize:15];
+    phoneTF.placeholder = @" 输入手机号码";
+//    [phoneTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.view addSubview:phoneTF];
+    //验证码
+    UIImage *codeImg = [UIImage imageNamed:@"2.0_password_gray"];
+    UIImageView *codeImgView = [[UIImageView alloc] initWithImage:codeImg];
+    codeImgView.frame = CGRectMake(0, 0, 12, 15);
+    codeTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(phoneTF.frame)+10, ScreenWidth -30, 40) drawingLeft:codeImgView];
+    codeTF.delegate = self;
+    codeTF.secureTextEntry = YES;
+    codeTF.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
+    codeTF.font = [UIFont systemFontOfSize:15];
+    codeTF.placeholder = @" 验证码";
+//    [codeTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.view addSubview:codeTF];
+    
+    //获取验证码
+    UIButton *codeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    codeBtn.frame = CGRectMake(CGRectGetMaxX(codeTF.frame) - 100 , 0, 80, 40);
+    codeBtn.userInteractionEnabled = NO;
+    [codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [codeBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [codeBtn addTarget:self action:@selector(forgetThePassword) forControlEvents:UIControlEventTouchUpInside];
+    [codeTF addSubview:codeBtn];
+    
+    //密码
+    UIImage *newPwdImg = [UIImage imageNamed:@"2.0_repassword_gray"];
+    UIImageView *newPwdImgView = [[UIImageView alloc] initWithImage:newPwdImg];
+    newPwdImgView.frame = CGRectMake(0, 0, 12, 15);
+    newPwdTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(codeTF.frame) + 10, ScreenWidth - 30, 40) drawingLeft:newPwdImgView];
+    newPwdTF.delegate = self;
+    newPwdTF.secureTextEntry = YES;
+    newPwdTF.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
+    newPwdTF.font = [UIFont systemFontOfSize:15];
+    newPwdTF.placeholder = @" 输入密码";
+//    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.view addSubview:newPwdTF];
+    
+    //确认密码
+    UIImage *ensurePwdImg = [UIImage imageNamed:@"2.0_ensurepassword_gray"];
+    UIImageView *ensurePwdImgView = [[UIImageView alloc] initWithImage:ensurePwdImg];
+    ensurePwdImgView.frame = CGRectMake(0, 0, 12, 15);
+    ensurePwdTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(newPwdTF.frame) + 10, ScreenWidth - 30, 40) drawingLeft:ensurePwdImgView];
+    ensurePwdTF.delegate = self;
+    ensurePwdTF.secureTextEntry = YES;
+    ensurePwdTF.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
+    ensurePwdTF.font = [UIFont systemFontOfSize:15];
+    ensurePwdTF.placeholder = @" 再次输入密码";
+//    [ensurePwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.view addSubview:ensurePwdTF];
+    
+    ensureBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    ensureBtn.frame = CGRectMake(30, CGRectGetMaxY(ensurePwdTF.frame) + 30, ScreenWidth - 60, 40);
+    ensureBtn.layer.cornerRadius = 20;
+    ensureBtn.backgroundColor = KColor_Background;
+    ensureBtn.userInteractionEnabled = NO;
+    [ensureBtn setTitle:@"确定重置密码" forState:UIControlStateNormal];
+    [ensureBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//    [ensureBtn addTarget:self action:@selector(changeThePassword) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:ensureBtn];
+}
 - (void)setupUI {
     
     WS(wSelf);

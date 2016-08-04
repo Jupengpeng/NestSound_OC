@@ -29,13 +29,13 @@
     return self;
 }
 - (void)setupShareView {
-    self.weixinDict         = @{@"icon": @"2.0_weChat", @"name": @"微信"};
+    self.weixinDict                = @{@"icon": @"2.0_weChat", @"name": @"微信"};
     self.pengyouquanDict    = @{@"icon": @"2.0_friends", @"name": @"朋友圈"};
-    self.weiboDict          = @{@"icon": @"2.0_sina", @"name": @"微博"};
-    self.QQDict             = @{@"icon": @"2.0_qq", @"name": @"QQ"};
-    self.QzoneDict          = @{@"icon": @"2.0_qZone", @"name": @"QQ空间"};
-    self.fuzhiDic         =  @{@"icon":@"2.0_copy",@"name":@"复制链接"};
-    self.lyricPoster      = @{@"icon":@"2.0_lyricPoster",@"name":@"歌词海报"};
+    self.weiboDict               = @{@"icon": @"2.0_sina", @"name": @"微博"};
+    self.QQDict                 = @{@"icon": @"2.0_qq", @"name": @"QQ"};
+    self.QzoneDict           = @{@"icon": @"2.0_qZone", @"name": @"QQ空间"};
+    self.fuzhiDic                =  @{@"icon":@"2.0_copy",@"name":@"复制链接"};
+    self.lyricPoster            = @{@"icon":@"2.0_lyricPoster",@"name":@"歌词海报"};
     NSMutableArray *shareArr = [NSMutableArray arrayWithCapacity:1];
     
     if ([Share shareAvailableWeiXin]) {
@@ -50,7 +50,7 @@
         [shareArr addObject:_QzoneDict];
     }
     [shareArr addObject:_fuzhiDic];
-    [shareArr addObject:_lyricPoster];
+//    [shareArr addObject:_lyricPoster];
     
     for (int i = 0; i < 2; i ++) {
         for (int j = 0; j < 5; j++) {

@@ -82,6 +82,7 @@ UITableViewDataSource>
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
+    
     ++page;
     if (JUserID == nil&&page ==1) {
         login = [[NSLoginViewController alloc] init];
@@ -93,7 +94,13 @@ UITableViewDataSource>
     self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
     self.navigationController.navigationBar.hidden = NO;
 }
-
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (!JUserID) {
+        [self.tabBarController setSelectedIndex:0];
+        page = 0;
+    }
+}
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -130,7 +137,6 @@ UITableViewDataSource>
             NSString * str = [NSTool encrytWithDic:dic];
             url = [userCenterURL stringByAppendingString:str];
           
-        
         }else{
         
             NSDictionary * dic = @{@"otherid":userId,@"uid":JUserID,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
@@ -166,7 +172,8 @@ UITableViewDataSource>
                     if (self.who == Myself) {
                         headerView.userModel = userData.userDataModel.userModel;
                     } else {
-                    headerView.otherModel = userData.userOtherModel;
+                        headerView.userModel = userData.userDataModel.userModel;
+                        headerView.otherModel = userData.userOtherModel;
                     }
                 }else{
                     [_tableView.infiniteScrollingView stopAnimating];

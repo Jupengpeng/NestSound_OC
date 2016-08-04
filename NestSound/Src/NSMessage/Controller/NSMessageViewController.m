@@ -48,7 +48,7 @@ UITableViewDataSource
 {
     [super viewDidLoad];
     
-    count = 1;
+    count = 0;
     
     playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
     
@@ -79,7 +79,9 @@ UITableViewDataSource
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     
     self.navigationItem.rightBarButtonItem = item;
+    
     [self configureUIAppearance];
+    
 }
 #pragma mark -playMusic
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
@@ -95,27 +97,46 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated
 {
-//    count ++;
-    
     [super viewWillAppear:animated];
-    if (JUserID == nil) {
+    count ++;
+    if (JUserID == nil && count ==1) {
         login = [[NSLoginViewController alloc] init];
         UINavigationController * loginNav = [[UINavigationController alloc] initWithRootViewController:login];
         loginNav.navigationBar.hidden = YES;
+//        [self.tabBarController setSelectedIndex:0];
+//        count = 0;
         [self presentViewController:loginNav animated:YES completion:nil];
-    }else {
+        
+    } else {
+//        if (self.playSongsVC.player == nil) {
+//            
+//        } else {
+//            
+//            if (self.playSongsVC.player.rate != 0.0) {
+//                [playStatus startAnimating];
+//            }else{
+//                [playStatus stopAnimating];
+//            }
+//        }
         [self fetchData];
     }
     
     self.navigationController.navigationBar.hidden = NO;
 }
-
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (!JUserID) {
+        [self.tabBarController setSelectedIndex:0];
+        count = 0;
+    }
+}
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
+        count = 0;
     }else{
         
         if (self.playSongsVC.player == nil) {
@@ -134,10 +155,15 @@ UITableViewDataSource
 -(void)fetchData
 {
     self.requestType = YES;
-    NSDictionary * dic =@{@"uid":JUserID,@"token":LoginToken,@"timeStamp": [NSNumber  numberWithDouble:[date getTimeStamp]]};
-    NSString * str = [NSTool encrytWithDic:dic];
-    url = [messageURL stringByAppendingString:str];
-     self.requestURL = url;
+    
+    NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    
+    if (userDic) {
+        NSDictionary * dic =@{@"uid":JUserID,@"token":LoginToken,@"timeStamp": [NSNumber  numberWithDouble:[date getTimeStamp]]};
+        NSString * str = [NSTool encrytWithDic:dic];
+        url = [messageURL stringByAppendingString:str];
+        self.requestURL = url;
+    }
     
 }
 

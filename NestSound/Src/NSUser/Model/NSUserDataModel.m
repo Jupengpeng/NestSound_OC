@@ -13,7 +13,8 @@
 @implementation UserOtherModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    return @{@"fansNum":@"fansnum",@"focusNum":@"gznum"};
+    return @{@"fansNum":@"fansnum",
+             @"focusNum":@"gznum"};
 }
 @end
 

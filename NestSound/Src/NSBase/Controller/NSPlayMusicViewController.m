@@ -165,11 +165,9 @@ static id _instance;
     backgroundImage.clipsToBounds  = YES;
     
     UIBlurEffect * blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    
     UIVisualEffectView * effectView = [[UIVisualEffectView alloc] initWithEffect:blur];
     effectView.alpha = 1.0;
     effectView.frame = backgroundImage.frame;
-    
     [backgroundImage addSubview:effectView];
     
     UIImageView *transparentImage = [[UIImageView alloc] initWithFrame:backgroundImage.frame];
