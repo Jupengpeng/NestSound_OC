@@ -61,7 +61,7 @@
     codeBtn.userInteractionEnabled = NO;
     [codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [codeBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [codeBtn addTarget:self action:@selector(forgetThePassword) forControlEvents:UIControlEventTouchUpInside];
+//    [codeBtn addTarget:self action:@selector(getTheCode) forControlEvents:UIControlEventTouchUpInside];
     [codeTF addSubview:codeBtn];
     
     //输入密码
@@ -72,7 +72,7 @@
     passwordTF.secureTextEntry = YES;
     passwordTF.layer.borderColor = [[UIColor clearColor] CGColor];
     passwordTF.font = [UIFont systemFontOfSize:15];
-    passwordTF.placeholder = @"  输入密码";
+    passwordTF.placeholder = @" 输入密码";
     //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:passwordTF];
     
@@ -84,7 +84,7 @@
     repasswordTF.secureTextEntry = YES;
     repasswordTF.layer.borderColor = [[UIColor clearColor] CGColor];
     repasswordTF.font = [UIFont systemFontOfSize:15];
-    repasswordTF.placeholder = @"  再次输入密码";
+    repasswordTF.placeholder = @" 再次输入密码";
     //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:repasswordTF];
 }

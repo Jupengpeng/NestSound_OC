@@ -98,7 +98,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 1 ? 4 : 1;
+    return section == 1 ? 3: 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -180,13 +180,15 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             not.hidden = NO;
             
         } else if (row == 2) {
-            settingCell.textLabel.text = @"修改密码";
-            
-        } else if (row == 3){
             settingCell.textLabel.text = @"关于我们";
+//            settingCell.textLabel.text = @"修改密码";
+            
+        }
+//        else if (row == 3){
+//            settingCell.textLabel.text = @"关于我们";
 //            LocalizedStr(@"prompt_rating");
         
-        }
+//        }
         
         return settingCell;
         
