@@ -23,6 +23,7 @@
 #import "NSURLSessionTask+NSAdditionals.h"
 #import "UIButton+NSAdditions.h"
 #import "UIImage+ImageEffects.h"
+#import "UIAlertView+NSAdditions.h"
 #import "UIImageView+NSAdditions.h"
 #import "NSHttpClient+EncrypteData.h"
 #import "UIScrollView+NSPullToRefresh.h"
@@ -43,6 +44,7 @@
 #import "WXApi.h"
 #import "JPUSHService.h"
 #import "AFNetworking.h"
+#import "NSCheckUpgradeUtil.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;

@@ -83,7 +83,7 @@
     }
     [JPUSHService setupWithOption:launchOptions appKey:JPushAPPKey channel:@"AppStore" apsForProduction:YES advertisingIdentifier:nil];
     
-    
+    [NSCheckUpgradeUtil checkUpgrade];
     
     [self.window makeKeyAndVisible];
     

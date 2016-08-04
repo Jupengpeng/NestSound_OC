@@ -156,6 +156,7 @@
 		2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */; };
 		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
 		3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */; };
+		9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */; };
 		94456D4E1D5185A60088385F /* NSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D4D1D5185A60088385F /* NSTextField.m */; };
 		94456D511D51C1390088385F /* NSLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D501D51C1390088385F /* NSLoginView.m */; };
 		94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D531D51EA7E0088385F /* NSRegisterView.m */; };
@@ -500,6 +501,8 @@
 		4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A1B50989E881DC33A50036C /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
 		7822CA4949F2D37B6D5242E6 /* Pods-NestSound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.release.xcconfig"; sourceTree = "<group>"; };
+		941854491D533FCD00227FA4 /* NSCheckUpgradeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCheckUpgradeUtil.h; sourceTree = "<group>"; };
+		9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCheckUpgradeUtil.m; sourceTree = "<group>"; };
 		94456D4C1D5185A60088385F /* NSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextField.h; sourceTree = "<group>"; };
 		94456D4D1D5185A60088385F /* NSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextField.m; sourceTree = "<group>"; };
 		94456D4F1D51C1390088385F /* NSLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLoginView.h; sourceTree = "<group>"; };
@@ -1115,6 +1118,8 @@
 				944FA04B1D4A057000B22EE4 /* NSRollView.m */,
 				94456D4C1D5185A60088385F /* NSTextField.h */,
 				94456D4D1D5185A60088385F /* NSTextField.m */,
+				941854491D533FCD00227FA4 /* NSCheckUpgradeUtil.h */,
+				9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2596,6 +2601,7 @@
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
 				946B04311D4EEC8A00529DBA /* README.md in Sources */,
 				2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */,
+				9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
 				944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */,
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
