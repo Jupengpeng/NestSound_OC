@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "2.0_my_normal.png",
+      "filename" : "tab_wode_hui.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "2.0_my_normal@2x.png",
+      "filename" : "tab_wode_hui@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "2.0_my_normal@3x.png",
+      "filename" : "tab_wode_hui@3x.png",
       "scale" : "3x"
     }
   ],

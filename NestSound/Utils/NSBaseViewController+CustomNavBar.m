@@ -50,13 +50,21 @@
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
     }
     
-    if ([self isKindOfClass:[NSHomeViewController class]] || [self isKindOfClass:[NSDiscoverViewController class]] || [self isKindOfClass:[NSMessageViewController class]] || [self isKindOfClass:[NSUserPageViewController class]]) {
+    if ([self isKindOfClass:[NSHomeViewController class]] || [self isKindOfClass:[NSDiscoverViewController class]] || [self isKindOfClass:[NSMessageViewController class]]) {
         
         self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
     }
-    
+    if ([self isKindOfClass:[NSUserPageViewController class]]) {
+        self.edgesForExtendedLayout = UIRectEdgeTop;
+        
+        //给导航条设置空的背景图
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        
+        //去除导航条变空后导航条留下的黑线
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    }
     
     if ([self isKindOfClass:[NSAccompanyListViewController class]] || [self isKindOfClass:[NSWriteMusicViewController class]] || [self isKindOfClass:[NSWriteLyricViewController class]] || [self isKindOfClass:[NSInspirationRecordViewController class]] || [self isKindOfClass:[NSH5ViewController class]]) {
         

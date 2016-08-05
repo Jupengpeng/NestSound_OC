@@ -178,6 +178,7 @@
 		946B042F1D4EEC8A00529DBA /* pick_checked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 946B04221D4EEC8A00529DBA /* pick_checked@3x.png */; };
 		946B04301D4EEC8A00529DBA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 946B04231D4EEC8A00529DBA /* LICENSE */; };
 		946B04311D4EEC8A00529DBA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 946B04241D4EEC8A00529DBA /* README.md */; };
+		94F196761D5479320029C923 /* NSTopLBottomLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F196751D5479320029C923 /* NSTopLBottomLView.m */; };
 		94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */; };
 		B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */ = {isa = PBXBuildFile; fileRef = B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */; };
 		B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864D1D47055200B22855 /* Foundation.framework */; };
@@ -539,6 +540,8 @@
 		946B04221D4EEC8A00529DBA /* pick_checked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@3x.png"; sourceTree = "<group>"; };
 		946B04231D4EEC8A00529DBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		946B04241D4EEC8A00529DBA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		94F196741D5479320029C923 /* NSTopLBottomLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTopLBottomLView.h; sourceTree = "<group>"; };
+		94F196751D5479320029C923 /* NSTopLBottomLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTopLBottomLView.m; sourceTree = "<group>"; };
 		94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownloadProgressView.h; sourceTree = "<group>"; };
 		94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownloadProgressView.m; sourceTree = "<group>"; };
 		B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMusicWave.h; sourceTree = "<group>"; };
@@ -969,6 +972,8 @@
 				18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */,
 				188D12071CED9F170009FD5B /* NSInspirationRecordTableViewCell.h */,
 				188D12081CED9F170009FD5B /* NSInspirationRecordTableViewCell.m */,
+				94F196741D5479320029C923 /* NSTopLBottomLView.h */,
+				94F196751D5479320029C923 /* NSTopLBottomLView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2651,6 +2656,7 @@
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				94626B351D5035350002CA02 /* NSModifyPwdViewController.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
+				94F196761D5479320029C923 /* NSTopLBottomLView.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
