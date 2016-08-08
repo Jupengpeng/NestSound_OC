@@ -22,7 +22,7 @@
 #import "NSInspirationRecordViewController.h"
 #import "NSMyMusicModel.h"
 #import "NSTopLBottomLView.h"
-#define kHeadImageHeight 260
+#define kHeadImageHeight 200
 @interface NSUserPageViewController ()
 <
 UITableViewDelegate,
@@ -37,6 +37,7 @@ UITableViewDataSource>
     NSMutableArray * myLyricAry;
     NSMutableArray * myCollectionAry;
     NSMutableArray * dataAry;
+    NSArray *toolBarArr;
     NSLoginViewController *login;
     NSString * myUrl;
     NSString * otherUrl;
@@ -45,9 +46,17 @@ UITableViewDataSource>
     NSTableHeaderView *headerView ;
     int page;
     UIImageView * emptyImage;
-     int currentPage;
+    int currentPage;
     UIImageView *headImgView;
     UIView *topView;
+    UIView *backgoundView;
+    CGFloat alpha;
+    UIImageView *headView;
+    UILabel *userNameLable;
+    UILabel *signatureLabel;
+    UIBarButtonItem *followItem;
+    NSTopLBottomLView *focusLLView;
+    NSTopLBottomLView *fansLLView;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -72,7 +81,7 @@ UITableViewDataSource>
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self setupUI];
+    //    [self setupUI];
     [self setupNewUI];
     type = 1;
     page = 0;
@@ -93,9 +102,11 @@ UITableViewDataSource>
         nav.navigationBar.hidden = YES;
         [self presentViewController:nav animated:YES completion:nil];
     }
-    
-//    self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
-//    self.navigationController.navigationBar.hidden = NO;
+    UIImage *image1 = [self imageByApplyingAlpha:alpha image:[UIImage imageNamed:@"2.0_backgroundImage"]];
+    [self.navigationController.navigationBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
+
+    //    self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
+    //    self.navigationController.navigationBar.hidden = NO;
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -121,9 +132,9 @@ UITableViewDataSource>
 #pragma mark -fetchMemberData
 -(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
-//    [_tableView.infiniteScrollingView startAnimating];
+    //    [_tableView.infiniteScrollingView startAnimating];
     self.requestType = YES;
-   
+    
     NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     if (!isLoadingMore) {
         self.requestParams = @{kIsLoadingMore:@(NO)};
@@ -139,15 +150,15 @@ UITableViewDataSource>
             NSDictionary * dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSString * str = [NSTool encrytWithDic:dic];
             url = [userCenterURL stringByAppendingString:str];
-          
+            
         }else{
-        
+            
             NSDictionary * dic = @{@"otherid":userId,@"uid":JUserID,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             url = [otherCenterURL stringByAppendingString:str];
             
-            }
+        }
         self.requestURL = url;
     }
     
@@ -172,11 +183,45 @@ UITableViewDataSource>
                     for (NSMyMusicModel *model in myMusicAry) {
                         [self.itemIdArr addObject:@(model.itemId)];
                     }
-                    if (self.who == Myself) {
-//                        headerView.userModel = userData.userDataModel.userModel;
-                    } else {
-//                        headerView.userModel = userData.userDataModel.userModel;
-//                        headerView.otherModel = userData.userOtherModel;
+                    [headView setDDImageWithURLString:userData.userDataModel.userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+                    userNameLable.text = userData.userDataModel.userModel.nickName;
+                    signatureLabel.text = userData.userDataModel.userModel.signature;
+                    focusLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.focusNum];
+                    fansLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.fansNum];
+                    for (int i = 0; i < toolBarArr.count; i++) {
+                        UILabel *aLabel = [backgoundView viewWithTag:159 + i];
+                        switch (i) {
+                            case 0:
+                                aLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.workNum];
+                                break;
+                            case 1:
+                                aLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.lyricsNum];
+                                break;
+                            case 2:
+                                aLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.collectionNum];
+                                break;
+                            case 3:
+                                aLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.inspireNum];
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    
+                    if (self.who == Other) {
+                        switch (userData.userOtherModel.isFocus) {
+                            case 0:
+                                followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
+                                break;
+                            case 1:
+                                followItem.image = [UIImage imageNamed:@"2.0_focused_icon"];
+                                break;
+                            case 2:
+                                followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }else{
                     [_tableView.infiniteScrollingView stopAnimating];
@@ -192,7 +237,14 @@ UITableViewDataSource>
                 }
                 [_tableView reloadData];
             }else if ([operation.urlTag isEqualToString:focusUserURL]){
-                [[NSToastManager manager] showtoast:@"关注成功"];
+                [[NSToastManager manager] showtoast:parserObject.data];
+                if ([parserObject.data isEqualToString:@"{mp3URL = 取消关注成功}"]) {
+                    followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
+                } else if ([parserObject.data isEqualToString:@"{mp3URL = 关注成功}"]){
+                    followItem.image = [UIImage imageNamed:@"2.0_focused_icon"];
+                } else {
+                    followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
+                }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
                 [_tableView reloadData];
             }
@@ -201,7 +253,6 @@ UITableViewDataSource>
             }else{
                 [_tableView.infiniteScrollingView stopAnimating];
             }
-            
         }
     }
 }
@@ -209,10 +260,13 @@ UITableViewDataSource>
 #pragma mark -setupUI
 - (void)setupNewUI {
     
+    //给导航条设置空的背景图
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    
     //头像
     UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     
-    UIImageView *headView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LOGO"]];
+    headView = [UIImageView new];
     
     headView.frame = CGRectMake(5, 7, 30, 30);
     
@@ -223,43 +277,45 @@ UITableViewDataSource>
     [navigationView addSubview:headView];
     
     //昵称
-    UILabel *userNameLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(headView.frame) + 6, 7, ScreenWidth/2, 30)];
+    userNameLable = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(headView.frame) + 6, 7, ScreenWidth/2, 30)];
     
     userNameLable.font = [UIFont systemFontOfSize:15];
-    
-    userNameLable.text = @"杭州音淘网络科技有限公司";
     
     userNameLable.textColor = [UIColor whiteColor];
     
     [navigationView addSubview:userNameLable];
     
+    
     if (self.who == Myself) {
-        
-        //        NSMutableArray *array = [NSMutableArray array];
-        
         UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         
-        settingBtn.frame = CGRectMake(ScreenWidth-50, 7, 40, 30);
-        
-        [settingBtn setTitle:@"设置" forState:UIControlStateNormal];
+         [settingBtn setTitle:@"设置" forState:UIControlStateNormal];
         
         [settingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
-        [settingBtn addTarget:self action:@selector(settingClick:) forControlEvents:UIControlEventTouchUpInside];
+        [settingBtn addTarget:self action:@selector(settingOrFocusClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         [navigationView addSubview:settingBtn];
+        
+        [settingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(navigationView).with.offset(-5);
+            
+            make.centerY.equalTo(navigationView.mas_centerY);
+            
+        }];
         
     } else {
         
-        UIBarButtonItem *follow = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_follow"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
+        followItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_addFocus_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
         
-        self.navigationItem.rightBarButtonItem = follow;
+        self.navigationItem.rightBarButtonItem = followItem;
         
     }
     
     self.navigationItem.titleView = navigationView;
     
     //添加TableView
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-self.tabBarController.tabBar.size.height) style:UITableViewStylePlain];
     
@@ -271,7 +327,7 @@ UITableViewDataSource>
     
     _tableView.backgroundColor = [UIColor whiteColor];
     
-    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    //    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     _tableView.showsVerticalScrollIndicator = YES;
     
@@ -300,7 +356,7 @@ UITableViewDataSource>
     
     emptyImage.centerX = ScreenWidth/2;
     
-    emptyImage.y = 380;
+    emptyImage.y = 100;
     
     [_tableView addSubview:emptyImage];
     
@@ -310,11 +366,7 @@ UITableViewDataSource>
     
     headImgView = [[UIImageView alloc]init];
     
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, headImgView.frame.size.width,headImgView.frame.size.height)];
-    
-    toolbar.barStyle = UIBarStyleBlackTranslucent;
-    
-    [headImgView addSubview:toolbar];
+    headImgView.userInteractionEnabled = YES;
     
     //设置图片的模式
     headImgView.contentMode = UIViewContentModeScaleAspectFill;
@@ -322,13 +374,17 @@ UITableViewDataSource>
     //解决设置UIViewContentModeScaleAspectFill图片超出边框的问题
     headImgView.clipsToBounds = YES;
     
-    headImgView.frame = CGRectMake(0, -kHeadImageHeight, ScreenWidth, kHeadImageHeight);
+    headImgView.frame = CGRectMake(0, -kHeadImageHeight-60, ScreenWidth, kHeadImageHeight);
+    
+    //    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, headImgView.frame.size.width,headImgView.frame.size.height)];
+    //
+    //    toolbar.barStyle = UIBarStyleBlackTranslucent;
+    //
+    //    [headImgView addSubview:toolbar];
     
     headImgView.image = [UIImage imageNamed:@"2.0_backgroundImage"];
     
-    UILabel *signatureLabel = [[UILabel alloc] init];
-    
-    signatureLabel.text = @"春有百花秋有月，夏有凉风冬有雪,春有百花秋有月，夏有凉风冬有雪";
+    signatureLabel = [[UILabel alloc] init];
     
     signatureLabel.font = [UIFont systemFontOfSize:13];
     
@@ -347,9 +403,9 @@ UITableViewDataSource>
         make.bottom.equalTo(headImgView.mas_bottom).with.offset(-10);
     }];
     
-    NSTopLBottomLView *focusLLView = [[NSTopLBottomLView alloc] init];
+    //关注
     
-    focusLLView.topLabel.text = @"2500";
+    focusLLView = [[NSTopLBottomLView alloc] init];
     
     focusLLView.bottomLabel.text = @"关注";
     
@@ -359,9 +415,9 @@ UITableViewDataSource>
         
         make.bottom.equalTo(headImgView.mas_bottom).with.offset(-5);
         
-        make.right.equalTo(headImgView).with.offset(-5);
+        make.right.equalTo(headImgView).with.offset(-10);
         
-        make.height.mas_equalTo(35);
+        make.height.mas_equalTo(32);
         
     }];
     
@@ -383,13 +439,13 @@ UITableViewDataSource>
         
         make.width.mas_equalTo(0.6);
         
-        make.height.mas_equalTo(35);
+        make.height.mas_equalTo(30);
         
     }];
     
-    NSTopLBottomLView *fansLLView = [[NSTopLBottomLView alloc] init];
+    //粉丝
     
-    fansLLView.topLabel.text = @"1205012";
+    fansLLView = [[NSTopLBottomLView alloc] init];
     
     fansLLView.bottomLabel.text = @"粉丝";
     
@@ -401,7 +457,7 @@ UITableViewDataSource>
         
         make.right.equalTo(focusLLView.mas_left).with.offset(-10);
         
-        make.height.mas_equalTo(35);
+        make.height.mas_equalTo(32);
         
     }];
     
@@ -411,15 +467,14 @@ UITableViewDataSource>
     
     [_tableView addSubview:headImgView];
     
-    NSArray *array;
     
     if (self.who == Myself) {
-        array = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
+        toolBarArr = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
     }else{
-        array = @[@"歌曲",@"歌词",@"收藏"];
+        toolBarArr = @[@"歌曲",@"歌词",@"收藏"];
     }
     
-    UIView *backgoundView = [[UIView alloc] initWithFrame:CGRectMake(0, -60, ScreenWidth, 60)];
+    backgoundView = [[UIView alloc] initWithFrame:CGRectMake(0, -60, ScreenWidth, 60)];
     
     backgoundView.backgroundColor = [UIColor whiteColor];
     
@@ -435,9 +490,9 @@ UITableViewDataSource>
     
     [backgoundView addSubview:line2];
     
-    CGFloat W = ScreenWidth / array.count;
+    CGFloat W = ScreenWidth / toolBarArr.count;
     
-    for (int i = 0; i < array.count; i++) {
+    for (int i = 0; i < toolBarArr.count; i++) {
         
         if (i != 0) {
             
@@ -447,12 +502,25 @@ UITableViewDataSource>
             
             [backgoundView addSubview:line];
         }
+        UILabel  *toolbarLabel = [[UILabel alloc] initWithFrame:CGRectMake(W*i, 10, W, 20)];
+        
+        toolbarLabel.textColor = [UIColor hexColorFloat:@"666666"];
+        
+        toolbarLabel.textAlignment = NSTextAlignmentCenter;
+        
+        toolbarLabel.font = [UIFont systemFontOfSize:12];
+        
+        toolbarLabel.tag = 159 + i;
+        
+        [backgoundView addSubview:toolbarLabel];
         
         NSToolbarButton *toolbarBtn = [[NSToolbarButton alloc] initWithFrame:CGRectMake(W * i, 0, W, 60)];
         
-        [toolbarBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"2.0_toolbarBtn%02d",i]] forState:UIControlStateNormal];
+        toolbarBtn.backgroundColor = [UIColor clearColor];
         
-        [toolbarBtn setTitle:array[i] forState:UIControlStateNormal];
+//        [toolbarBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"2.0_toolbarBtn%02d",i]] forState:UIControlStateNormal];
+//        
+        [toolbarBtn setTitle:toolBarArr[i] forState:UIControlStateNormal];
         
         toolbarBtn.tag = i;
         
@@ -463,37 +531,55 @@ UITableViewDataSource>
     }
     [_tableView addSubview:backgoundView];
     
-    _tableView.contentInset = UIEdgeInsetsMake(kHeadImageHeight, 0, 0, 0);
+    _tableView.contentInset = UIEdgeInsetsMake(kHeadImageHeight + 60, 0, 0, 0);
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
+    //    NSLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
     
     CGFloat offSet_Y = _tableView.contentOffset.y;
     
-    if (offSet_Y<-kHeadImageHeight) {
+    if (offSet_Y<-kHeadImageHeight-60) {
         //获取imageView的原始frame
         CGRect frame = headImgView.frame;
+        //        NSLog(@"旧的frame%f",frame.size.height);
         //修改y
         frame.origin.y = offSet_Y;
+        //        NSLog(@"offset.y %f",offSet_Y);
         //修改height
-        frame.size.height = -offSet_Y;
+        frame.size.height = -offSet_Y - 60;
         //重新赋值
         headImgView.frame = frame;
         
+        //        NSLog(@"新的frame%f",frame.size.height);
+        
     }
     //tableView相对于图片的偏移量
-    CGFloat reoffSet = offSet_Y + kHeadImageHeight ;
+    CGFloat reoffSet = offSet_Y + kHeadImageHeight + 60;
     
-    NSLog(@"%f",reoffSet);
+    //    NSLog(@"%f",reoffSet);
     //kHeadImageHeight-64是为了向上拉倒导航栏底部时alpha = 1
-    CGFloat alpha = reoffSet/(kHeadImageHeight-64);
+    alpha = reoffSet/(kHeadImageHeight -64);
     
-    NSLog(@"%f",alpha);
+//    NSLog(@"%f",alpha);
     
     if (alpha>=1) {
         alpha = 0.99;
+        CGRect frame = backgoundView.frame;
         
+        frame.origin.y = 64;
+        
+        backgoundView.frame = frame;
+        
+        [self.view addSubview:backgoundView];
+    } else {
+        CGRect frame = backgoundView.frame;
+        
+        frame.origin.y = -60;
+        
+        backgoundView.frame = frame;
+        
+        [_tableView addSubview:backgoundView];
     }
     
     UIImage *image1 = [self imageByApplyingAlpha:alpha image:[UIImage imageNamed:@"2.0_backgroundImage"]];
@@ -505,7 +591,7 @@ UITableViewDataSource>
     
 }
 //改变图片透明度
-- (UIImage *)imageByApplyingAlpha:(CGFloat)alpha  image:(UIImage*)image
+- (UIImage *)imageByApplyingAlpha:(CGFloat)alp  image:(UIImage*)image
 {
     UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
     
@@ -517,7 +603,7 @@ UITableViewDataSource>
     
     CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
     
-    CGContextSetAlpha(ctx, alpha);
+    CGContextSetAlpha(ctx, alp);
     
     CGContextDrawImage(ctx, area, image.CGImage);
     
@@ -529,18 +615,18 @@ UITableViewDataSource>
 }
 - (void)setupUI {
     
-        headerView = [[NSTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 290)];
+    headerView = [[NSTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 290)];
     
     if (self.who == Myself) {
         
-//        NSMutableArray *array = [NSMutableArray array];
+        //        NSMutableArray *array = [NSMutableArray array];
         
         UIBarButtonItem *setting = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_setting"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick:)];
         
-//        [array addObject:setting];
+        //        [array addObject:setting];
         
         self.navigationItem.rightBarButtonItem = setting;
-
+        
     }
     
     if (self.who == Other) {
@@ -552,9 +638,9 @@ UITableViewDataSource>
     }
     
     
-//    [headerView.followBtn addTarget:self action:@selector(followBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [headerView.fansBtn addTarget:self action:@selector(fansBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    [headerView.followBtn addTarget:self action:@selector(followBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    //
+    //    [headerView.fansBtn addTarget:self action:@selector(fansBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
     _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
@@ -565,7 +651,7 @@ UITableViewDataSource>
     
     _tableView.dataSource = self;
     
-//    _tableView.tableHeaderView = headerView;
+    //    _tableView.tableHeaderView = headerView;
     
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -581,14 +667,14 @@ UITableViewDataSource>
         }
     }];
     //loadingMore
-//    [_tableView addDDInfiniteScrollingWithActionHandler:^{
-//        if (!wSelf) {
-//            return ;
-//        }else{
-//            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
-//        }
-//    }];
-
+    //    [_tableView addDDInfiniteScrollingWithActionHandler:^{
+    //        if (!wSelf) {
+    //            return ;
+    //        }else{
+    //            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
+    //        }
+    //    }];
+    
     _tableView.showsInfiniteScrolling = YES;
     
     
@@ -628,10 +714,11 @@ UITableViewDataSource>
 
 
 
-- (void)settingClick:(UIButton *)editing {
+- (void)settingOrFocusClick:(UIButton *)sender {
     
-    NSUserViewController * userSettingVC = [[NSUserViewController alloc] init];
-    [self.navigationController pushViewController:userSettingVC animated:YES];
+        NSUserViewController * userSettingVC = [[NSUserViewController alloc] init];
+        [self.navigationController pushViewController:userSettingVC animated:YES];
+        
 }
 
 
@@ -646,7 +733,7 @@ UITableViewDataSource>
 - (void)followClick:(UIBarButtonItem *)follow {
     
     [self focusUserWithUserId:userId];
-  
+    
 }
 
 
@@ -655,7 +742,7 @@ UITableViewDataSource>
     self.requestType = NO;
     self.requestParams =@{@"userid":userId_,@"fansid":JUserID,@"token":LoginToken};
     self.requestURL = focusUserURL;
-
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -690,7 +777,7 @@ UITableViewDataSource>
         cell.numLabel.hidden = YES;
         cell.myMusicModel = dataAry[indexPath.row];
         return cell;
-
+        
         
     } else if (self.btnTag == 1) {
         
@@ -714,7 +801,7 @@ UITableViewDataSource>
         cell.numLabel.hidden = YES;
         
         return cell;
-
+        
         
     } else if (self.btnTag == 2) {
         
@@ -772,67 +859,67 @@ UITableViewDataSource>
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//
+//    return 60;
+//}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
     return 0.1;
 }
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    return 0.1;
-//}
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    
+//
 //    NSArray *array;
-//    
+//
 //    if (self.who == Myself) {
 //       array = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
 //    }else{
 //        array = @[@"歌曲",@"歌词",@"收藏"];
 //    }
-//    
+//
 //    UIView *backgoundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 60)];
-//    
+//
 //    backgoundView.backgroundColor = [UIColor whiteColor];
-//    
+//
 //    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 1)];
-//    
+//
 //    line1.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
-//    
+//
 //    [backgoundView addSubview:line1];
-//    
+//
 //    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 60, ScreenWidth, 1)];
-//    
+//
 //    line2.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
-//    
+//
 //    [backgoundView addSubview:line2];
-//    
+//
 //    CGFloat W = ScreenWidth / array.count;
-//    
+//
 //    for (int i = 0; i < array.count; i++) {
-//        
+//
 //        if (i != 0) {
-//            
+//
 //            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(W * i, 0, 1, 60)];
-//            
+//
 //            line.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
-//            
+//
 //            [backgoundView addSubview:line];
 //        }
-//        
+//
 //        NSToolbarButton *toolbarBtn = [[NSToolbarButton alloc] initWithFrame:CGRectMake(W * i, 0, W, 60)];
-//        
+//
 //        [toolbarBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"2.0_toolbarBtn%02d",i]] forState:UIControlStateNormal];
-//        
+//
 //        [toolbarBtn setTitle:array[i] forState:UIControlStateNormal];
-//        
+//
 //        toolbarBtn.tag = i;
-//        
+//
 //        [toolbarBtn addTarget:self action:@selector(toolbarBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//        
+//
 //        [backgoundView addSubview:toolbarBtn];
-//        
+//
 //    }
-//    
+//
 //    return backgoundView;
 //}
 
@@ -870,7 +957,7 @@ UITableViewDataSource>
         
         [self.navigationController pushViewController:lyricVC animated:YES];
     }else if (type == 3){
-    
+        
         if (myMusic.type == 1) {
             NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
             playVC.itemUid = myMusic.itemId;
@@ -888,11 +975,11 @@ UITableViewDataSource>
                 [self.navigationController pushViewController:playVC animated:YES];
             }
             
-
+            
         }else{
             NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
             [self.navigationController pushViewController:lyricVC animated:YES];
-
+            
         }
         
     }else if (type == 4){
@@ -900,20 +987,19 @@ UITableViewDataSource>
         NSInspirationRecordViewController * inspirationVC = [[NSInspirationRecordViewController alloc] initWithItemId:myMusic.itemId andType:NO];
         [self.navigationController pushViewController:inspirationVC animated:YES];
     }
-
+    
 }
 
 - (void)toolbarBtnClick:(UIButton *)toolbarBtn {
     
-    
     switch (toolbarBtn.tag) {
-        
+            
         case 0: {
             
             self.btnTag = toolbarBtn.tag;
             type = 1 ;
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-//            [_tableView reloadData];
+            //            [_tableView reloadData];
             if (dataAry.count != 0) {
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
             }
@@ -927,7 +1013,7 @@ UITableViewDataSource>
             
             type = 2;
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-//            [_tableView reloadData];
+            //            [_tableView reloadData];
             
             if (dataAry.count != 0) {
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
@@ -941,7 +1027,7 @@ UITableViewDataSource>
             self.btnTag = toolbarBtn.tag;
             type = 3;
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-//            [_tableView reloadData];
+            //            [_tableView reloadData];
             
             if (dataAry.count != 0) {
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
@@ -954,8 +1040,8 @@ UITableViewDataSource>
             self.btnTag = toolbarBtn.tag;
             type = 4;
             [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-           
-//            [_tableView reloadData];
+            
+            //            [_tableView reloadData];
             
             if (dataAry.count != 0) {
                 [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
@@ -965,8 +1051,8 @@ UITableViewDataSource>
             break;
         }
         default:
-
-        
+            
+            
             break;
     }
 }
@@ -1020,19 +1106,19 @@ UITableViewDataSource>
 
 #pragma mark - UIScrollViewDelegate
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    
+//
 //    scrollView.contentInset = UIEdgeInsetsMake((scrollView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
-//    
+//
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
-//    
+//
 //    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:scrollView.contentOffset.y / 64];
-//    
+//
 //}
 //
 //- (void)viewWillAppear:(BOOL)animated {
-//    
+//
 ////    _tableView.contentInset = UIEdgeInsetsMake((_tableView.contentOffset.y >= 210? 64 :0), 0, 0, 0);
-//    
+//
 //    [super viewWillAppear:animated];
 //
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor colorWithRed:255 / 255.0 green:211 / 255.0 blue:0 alpha:_tableView.contentOffset.y / 64] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
@@ -1045,7 +1131,7 @@ UITableViewDataSource>
 -(void)setWho:(Who)who
 {
     _who = who;
-//    [self setupUI];
+    //    [self setupUI];
 }
 
 @end

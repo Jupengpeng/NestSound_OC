@@ -9,7 +9,7 @@
 #import "NSForgetPassWordViewController.h"
 #import "NSRegisterViewController.h"
 #import "NSTextField.h"
-#define KColor_Background [UIColor colorWithRed:239.0 / 255.0 green:239.0 / 255.0 blue:244.0 / 255.0 alpha:1]
+#define KColor_Background [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1]
 @interface NSForgetPassWordViewController ()<UITextFieldDelegate> {
     
     UIScrollView *scrollView;
@@ -27,10 +27,10 @@
     UIButton *captchaBtn;
     NSTextField *phoneTF;
     NSTextField *codeTF;
-    NSTextField *oldPwdTF;
     NSTextField *newPwdTF;
     NSTextField *ensurePwdTF;
     UIButton *ensureBtn;
+    UIButton *codeBtn;
 }
 
 @end
@@ -39,13 +39,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.userInteractionEnabled = YES;
+//    self.navigationController.navigationBar.hidden = YES;
 
-    self.navigationController.navigationBar.hidden = YES;
-
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
     num = 60;
-//    [self setupNewUI];
-    [self setupUI];
+    [self setupNewUI];
+//    [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,41 +56,42 @@
 - (void)setupNewUI {
     self.title = @"修改密码";
     //手机号
-    UIImage *phoneImg = [UIImage imageNamed:@"2.0_password_gray"];
+    UIImage *phoneImg = [UIImage imageNamed:@"2.0_phonenumber_icon"];
     UIImageView *phoneImgView = [[UIImageView alloc] initWithImage:phoneImg];
-    phoneImgView.frame = CGRectMake(0, 0, 12, 15);
+    phoneImgView.frame = CGRectMake(0, 0, 12, 20);
     phoneTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, 20, ScreenWidth -30, 40) drawingLeft:phoneImgView];
     phoneTF.delegate = self;
-    phoneTF.secureTextEntry = YES;
     phoneTF.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
     phoneTF.font = [UIFont systemFontOfSize:15];
     phoneTF.placeholder = @" 输入手机号码";
 //    [phoneTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:phoneTF];
     //验证码
-    UIImage *codeImg = [UIImage imageNamed:@"2.0_password_gray"];
+    UIImage *codeImg = [UIImage imageNamed:@"2.0_checkCode"];
     UIImageView *codeImgView = [[UIImageView alloc] initWithImage:codeImg];
     codeImgView.frame = CGRectMake(0, 0, 12, 15);
     codeTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(phoneTF.frame)+10, ScreenWidth -30, 40) drawingLeft:codeImgView];
     codeTF.delegate = self;
-    codeTF.secureTextEntry = YES;
     codeTF.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
     codeTF.font = [UIFont systemFontOfSize:15];
     codeTF.placeholder = @" 验证码";
 //    [codeTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:codeTF];
+    UIView *yellowView = [[UIView alloc] initWithFrame:CGRectMake(ScreenWidth - 110, CGRectGetMinY(codeTF.frame) + 10, 2, 20)];
     
+    yellowView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+    
+    [self.view addSubview:yellowView];
     //获取验证码
-    UIButton *codeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    codeBtn.frame = CGRectMake(CGRectGetMaxX(codeTF.frame) - 100 , 0, 80, 40);
-    codeBtn.userInteractionEnabled = NO;
+    codeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    codeBtn.frame = CGRectMake(ScreenWidth - 108 , CGRectGetMaxY(phoneTF.frame) + 10, 90, 40);
     [codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [codeBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [codeBtn addTarget:self action:@selector(forgetThePassword) forControlEvents:UIControlEventTouchUpInside];
-    [codeTF addSubview:codeBtn];
+    [codeBtn addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:codeBtn];
     
     //密码
-    UIImage *newPwdImg = [UIImage imageNamed:@"2.0_repassword_gray"];
+    UIImage *newPwdImg = [UIImage imageNamed:@"2.0_password_gray"];
     UIImageView *newPwdImgView = [[UIImageView alloc] initWithImage:newPwdImg];
     newPwdImgView.frame = CGRectMake(0, 0, 12, 15);
     newPwdTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(codeTF.frame) + 10, ScreenWidth - 30, 40) drawingLeft:newPwdImgView];
@@ -103,7 +104,7 @@
     [self.view addSubview:newPwdTF];
     
     //确认密码
-    UIImage *ensurePwdImg = [UIImage imageNamed:@"2.0_ensurepassword_gray"];
+    UIImage *ensurePwdImg = [UIImage imageNamed:@"2.0_repassword_gray"];
     UIImageView *ensurePwdImgView = [[UIImageView alloc] initWithImage:ensurePwdImg];
     ensurePwdImgView.frame = CGRectMake(0, 0, 12, 15);
     ensurePwdTF = [[NSTextField alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(newPwdTF.frame) + 10, ScreenWidth - 30, 40) drawingLeft:ensurePwdImgView];
@@ -119,10 +120,9 @@
     ensureBtn.frame = CGRectMake(30, CGRectGetMaxY(ensurePwdTF.frame) + 30, ScreenWidth - 60, 40);
     ensureBtn.layer.cornerRadius = 20;
     ensureBtn.backgroundColor = KColor_Background;
-    ensureBtn.userInteractionEnabled = NO;
     [ensureBtn setTitle:@"确定重置密码" forState:UIControlStateNormal];
     [ensureBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-//    [ensureBtn addTarget:self action:@selector(changeThePassword) forControlEvents:UIControlEventTouchUpInside];
+    [ensureBtn addTarget:self action:@selector(resetPassword) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:ensureBtn];
 }
 - (void)setupUI {
@@ -260,7 +260,7 @@
             
             btn.titleLabel.font = [UIFont systemFontOfSize:12];
             
-            [btn setTitle:@"(60s)重新获取" forState:UIControlStateDisabled];
+            [btn setTitle:@"60s后重新获取" forState:UIControlStateDisabled];
             
             [wSelf addTimer];
             
@@ -494,15 +494,19 @@
     
     num--;
     
-    [captchaBtn setTitle:[NSString stringWithFormat:@"(%ds)重新获取",num] forState:UIControlStateDisabled];
+    codeBtn.titleLabel.text = [NSString stringWithFormat:@"%ds后重新获取",num];
+    
+    [codeBtn setTitle:[NSString stringWithFormat:@"%ds后重新获取",num] forState:UIControlStateDisabled];
     
     if (num == 0) {
         
-        captchaBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [codeBtn setTitle:@"重新获取" forState:UIControlStateDisabled];
+        
+        codeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         
         num = 60;
         
-        captchaBtn.enabled = YES;
+        codeBtn.enabled = YES;
         
         [self removeTimer];
     }
@@ -512,18 +516,41 @@
     
     [self removeTimer];
 }
-
+- (void)getCode {
+    if ([NSTool isValidateMobile:phoneTF.text]) {
+        
+        self.requestType = YES;
+        NSDictionary * dic = @{@"mobile":phoneTF.text,@"type":@"2"};
+        
+        NSString * str = [NSTool encrytWithDic:dic];
+        
+        self.requestURL = [sendCodeURL stringByAppendingString:str];
+        
+        url = self.requestURL;
+        
+        codeBtn.enabled = NO;;
+        
+        codeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        
+        [codeBtn setTitle:@"60s后重新获取" forState:UIControlStateDisabled];
+        
+        [self addTimer];
+        
+    }else{
+        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
+    }
+}
 #pragma mark -resetPassWord
 -(void)resetPassword
 {
-    if (phoneText.text.length!=0) {
-        if ([NSTool isValidateMobile:phoneText.text]) {
-            if (passwordText.text.length!=0) {
-                if (captchaText.text.length!=0) {
-                    if (repasswordText.text.length!=0 || passwordText.text.length != 0) {
-                        if ([repasswordText.text isEqualToString:passwordText.text]) {
+    if (phoneTF.text.length!=0) {
+        if ([NSTool isValidateMobile:phoneTF.text]) {
+            if (newPwdTF.text.length!=0) {
+                if (codeTF.text.length!=0) {
+                    if (newPwdTF.text.length!=0 || ensurePwdTF.text.length != 0) {
+                        if ([newPwdTF.text isEqualToString:ensurePwdTF.text]) {
                             self.requestType = NO;
-                            self.requestParams = @{@"mobile":phoneText.text,@"code":captchaText.text,@"password":[passwordText.text stringToMD5] };
+                            self.requestParams = @{@"mobile":phoneTF.text,@"code":codeTF.text,@"password":[newPwdTF.text stringToMD5] };
                             self.requestURL = reSetPasswordURL;
                             
                         }else{

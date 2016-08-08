@@ -20,6 +20,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
         
         self.delegate = self;
         

@@ -15,6 +15,8 @@
     
     if (self) {
         
+        self.backgroundColor = [UIColor clearColor];
+        
         [self setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
         
         self.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -36,7 +38,7 @@
     
     self.titleLabel.centerX = self.width * 0.5;
     
-    self.titleLabel.y = maxY + 5;
+    self.titleLabel.y = maxY + 10;
     
     
 }
