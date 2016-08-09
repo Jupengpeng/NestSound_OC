@@ -50,13 +50,20 @@
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
     }
     
-    if ([self isKindOfClass:[NSHomeViewController class]] || [self isKindOfClass:[NSDiscoverViewController class]] || [self isKindOfClass:[NSMessageViewController class]] || [self isKindOfClass:[NSUserPageViewController class]]) {
+    if ([self isKindOfClass:[NSHomeViewController class]] || [self isKindOfClass:[NSDiscoverViewController class]] || [self isKindOfClass:[NSMessageViewController class]]) {
         
         self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
     }
-    
+    if ([self isKindOfClass:[NSUserPageViewController class]]) {
+        //去除导航条变空后导航条留下的黑线
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+        self.extendedLayoutIncludesOpaqueBars = YES;
+        self.modalPresentationCapturesStatusBarAppearance = YES;
+        self.edgesForExtendedLayout = UIRectEdgeTop;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     
     if ([self isKindOfClass:[NSAccompanyListViewController class]] || [self isKindOfClass:[NSWriteMusicViewController class]] || [self isKindOfClass:[NSWriteLyricViewController class]] || [self isKindOfClass:[NSInspirationRecordViewController class]] || [self isKindOfClass:[NSH5ViewController class]]) {
         
@@ -73,10 +80,12 @@
     self.navigationController.navigationBar.hidden = NO;
     if ([self isKindOfClass:[NSPlayMusicViewController class]]) {
         if (self.navigationController.childViewControllers.count <= 1) {
+            
             self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
             [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
             [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
         } else {
+            
              self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
             [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
             [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];

@@ -154,7 +154,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 #pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
-    
+    self.navigationItem.title = @"音巢音乐";
     self.view.backgroundColor = [UIColor whiteColor];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

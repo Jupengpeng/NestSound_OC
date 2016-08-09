@@ -112,7 +112,6 @@
                 userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
                 
             }
-            [self setupContent];
         }
     }
 }
@@ -200,7 +199,6 @@
     
     [self.contentScrollView addSubview:searchLyric];
     
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     layout.minimumLineSpacing = 10;
@@ -219,9 +217,6 @@
     [self.contentScrollView addSubview:searchUser];
     
 }
-
-
-
 
 - (void)titleBtnClick:(UIButton *)titleBtn {
     

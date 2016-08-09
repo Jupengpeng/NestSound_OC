@@ -26,12 +26,9 @@
 #pragma -mark -stopPlayAnimation
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
-    
-  
-    if (self.childViewControllers.count >= 1) {
+        if (self.childViewControllers.count >= 1) {
         
         self.navigationBar.barTintColor = [UIColor whiteColor];
-        
         
         [self.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
         

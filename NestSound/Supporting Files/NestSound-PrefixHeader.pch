@@ -23,6 +23,7 @@
 #import "NSURLSessionTask+NSAdditionals.h"
 #import "UIButton+NSAdditions.h"
 #import "UIImage+ImageEffects.h"
+#import "UIAlertView+NSAdditions.h"
 #import "UIImageView+NSAdditions.h"
 #import "NSHttpClient+EncrypteData.h"
 #import "UIScrollView+NSPullToRefresh.h"
@@ -43,16 +44,17 @@
 #import "WXApi.h"
 #import "JPUSHService.h"
 #import "AFNetworking.h"
+#import "NSCheckUpgradeUtil.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;
 extern NSString *port;
-//#define debugHost     @"http://api.yinchao.cn"
-//#define debugPort     @""
-//#define releaseHost   @"http://112.124.125.2"
-//#define releasePort   @""
+#define debugHost     @"http://112.124.125.2"
+#define debugPort     @""
 #define releaseHost   @"http://api.yinchao.cn"
 #define releasePort   @""
+//#define releaseHost   @"http://api.yinchao.cn"
+//#define releasePort   @""
 
 #define customHostKey @"customHostKey"
 #define customPortKey @"customPortKey"

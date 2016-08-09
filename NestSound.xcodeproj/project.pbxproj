@@ -156,6 +156,7 @@
 		2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */; };
 		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
 		3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */; };
+		9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */; };
 		94456D4E1D5185A60088385F /* NSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D4D1D5185A60088385F /* NSTextField.m */; };
 		94456D511D51C1390088385F /* NSLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D501D51C1390088385F /* NSLoginView.m */; };
 		94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D531D51EA7E0088385F /* NSRegisterView.m */; };
@@ -177,6 +178,7 @@
 		946B042F1D4EEC8A00529DBA /* pick_checked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 946B04221D4EEC8A00529DBA /* pick_checked@3x.png */; };
 		946B04301D4EEC8A00529DBA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 946B04231D4EEC8A00529DBA /* LICENSE */; };
 		946B04311D4EEC8A00529DBA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 946B04241D4EEC8A00529DBA /* README.md */; };
+		94F196761D5479320029C923 /* NSTopLBottomLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94F196751D5479320029C923 /* NSTopLBottomLView.m */; };
 		94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */; };
 		B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */ = {isa = PBXBuildFile; fileRef = B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */; };
 		B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864D1D47055200B22855 /* Foundation.framework */; };
@@ -501,6 +503,8 @@
 		4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A1B50989E881DC33A50036C /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
 		7822CA4949F2D37B6D5242E6 /* Pods-NestSound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.release.xcconfig"; sourceTree = "<group>"; };
+		941854491D533FCD00227FA4 /* NSCheckUpgradeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCheckUpgradeUtil.h; sourceTree = "<group>"; };
+		9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCheckUpgradeUtil.m; sourceTree = "<group>"; };
 		94456D4C1D5185A60088385F /* NSTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTextField.h; sourceTree = "<group>"; };
 		94456D4D1D5185A60088385F /* NSTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTextField.m; sourceTree = "<group>"; };
 		94456D4F1D51C1390088385F /* NSLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLoginView.h; sourceTree = "<group>"; };
@@ -537,6 +541,8 @@
 		946B04221D4EEC8A00529DBA /* pick_checked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@3x.png"; sourceTree = "<group>"; };
 		946B04231D4EEC8A00529DBA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		946B04241D4EEC8A00529DBA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		94F196741D5479320029C923 /* NSTopLBottomLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTopLBottomLView.h; sourceTree = "<group>"; };
+		94F196751D5479320029C923 /* NSTopLBottomLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTopLBottomLView.m; sourceTree = "<group>"; };
 		94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownloadProgressView.h; sourceTree = "<group>"; };
 		94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownloadProgressView.m; sourceTree = "<group>"; };
 		B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMusicWave.h; sourceTree = "<group>"; };
@@ -971,6 +977,8 @@
 				18E4028B1CE7115400B36002 /* NSDraftBoxTableViewCell.m */,
 				188D12071CED9F170009FD5B /* NSInspirationRecordTableViewCell.h */,
 				188D12081CED9F170009FD5B /* NSInspirationRecordTableViewCell.m */,
+				94F196741D5479320029C923 /* NSTopLBottomLView.h */,
+				94F196751D5479320029C923 /* NSTopLBottomLView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1120,6 +1128,8 @@
 				944FA04B1D4A057000B22EE4 /* NSRollView.m */,
 				94456D4C1D5185A60088385F /* NSTextField.h */,
 				94456D4D1D5185A60088385F /* NSTextField.m */,
+				941854491D533FCD00227FA4 /* NSCheckUpgradeUtil.h */,
+				9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2602,6 +2612,7 @@
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
 				946B04311D4EEC8A00529DBA /* README.md in Sources */,
 				2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */,
+				9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
 				944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */,
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
@@ -2651,6 +2662,7 @@
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				94626B351D5035350002CA02 /* NSModifyPwdViewController.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
+				94F196761D5479320029C923 /* NSTopLBottomLView.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2801,7 +2813,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "af0f75f7-30de-42c8-a2ef-8d3e70b9285f";
+				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2829,6 +2841,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
+				PROVISIONING_PROFILE = "cd796357-f7b0-4ada-968b-b83f95743860";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

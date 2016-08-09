@@ -273,7 +273,7 @@
             
             btn.titleLabel.font = [UIFont systemFontOfSize:12];
             
-            [btn setTitle:@"(60s)重新获取" forState:UIControlStateDisabled];
+            [btn setTitle:@"60s后重新获取" forState:UIControlStateDisabled];
             
             [wSelf addTimer];
             
@@ -619,7 +619,7 @@
     
     num--;
     
-    [captchaBtn setTitle:[NSString stringWithFormat:@"(%ds)重新获取",num] forState:UIControlStateDisabled];
+    [captchaBtn setTitle:[NSString stringWithFormat:@"%ds后重新获取",num] forState:UIControlStateDisabled];
     
     if (num == 0) {
         

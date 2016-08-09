@@ -14,7 +14,12 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"fansNum":@"fansnum",
-             @"focusNum":@"gznum"};
+             @"focusNum":@"gznum",
+             @"lyricsNum":@"lyricsnum",
+             @"workNum":@"worknum",
+             @"inspireNum":@"inspirenum",
+             @"collectionNum":@"fovnum",
+             @"isFocus":@"isFocus"};
 }
 @end
 

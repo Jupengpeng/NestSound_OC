@@ -14,7 +14,7 @@
 #import "NSLoginView.h"
 #import "NSRegisterView.h"
 #import "NSH5ViewController.h"
-#define KColor_Background [UIColor colorWithRed:239.0 / 255.0 green:239.0 / 255.0 blue:244.0 / 255.0 alpha:1]
+#define KColor_Background [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1]
 @interface NSLoginViewController () {
     
     UIScrollView *scrollView;
@@ -36,6 +36,12 @@
     UIButton *registerButton;
     
     UIView *protocolView;
+    
+    NSTimer *timer;
+    
+    NSString * url;
+    
+    int num;
 }
 
 @end
@@ -44,12 +50,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
+    num = 60;
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
     self.isHidden = YES;
-//    [self setupNewUI];
-    [self setupUI];
+   [self setupNewUI];
+  //  [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,6 +68,7 @@
 #pragma  mark - override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
+    [[NSToastManager manager] hideprogress];
     if (requestErr) {
         
     } else {
@@ -70,7 +77,8 @@
                 NSUserModel * userModels = (NSUserModel *)parserObject;
                 userModel * user = userModels.userDetail;
                 if (user.userName.length ==0) {
-                }else{
+                    
+                } else {
                     NSDictionary * userDic = @{@"userName":user.userName,
                                                @"userID":[NSString stringWithFormat:@"%ld",user.userID],
                                                @"userIcon":user.headerURL,
@@ -85,6 +93,25 @@
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
+            } else if ([operation.urlTag isEqualToString:url]) {
+                if (parserObject.code == 200) {
+                    registerView.codeBtn.enabled = NO;;
+                    
+                    registerView.codeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+                    
+                    [self addTimer];
+                } else {
+                    
+                [[NSToastManager manager] showtoast:parserObject.message];
+                    
+                }
+                
+            }else if ([operation.urlTag isEqualToString:registerURL]){
+                
+                [[NSToastManager manager] showtoast:@"注册成功，请您登陆"];
+                
+                [self loginEvent:nil];
+                
             }
             
         }else{
@@ -168,15 +195,17 @@
     
     [scrollView addSubview:loginBnt];
     
-     leftImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_rectangle_left"]];
+     leftImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_triangle_icon"]];
     
     leftImgView.y = CGRectGetMaxY(loginBnt.frame);
     
-    leftImgView.centerX = scrollView.centerX;
+    leftImgView.centerX = loginBnt.centerX;
     
     [scrollView addSubview:leftImgView];
     
-    loginView = [[NSLoginView alloc] initWithFrame:leftImgView.frame];
+    loginView = [[NSLoginView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(leftImgView.frame)-0.5, ScreenWidth, 80)];
+    
+    [loginView.forgetBtn addTarget:self action:@selector(forgetPassword:) forControlEvents:UIControlEventTouchUpInside];
     
     [scrollView addSubview:loginView];
     
@@ -194,6 +223,8 @@
     
     [loginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     
+    [loginButton addTarget:self action:@selector(loagin) forControlEvents:UIControlEventTouchUpInside];
+    
     [scrollView addSubview:loginButton];
     
     //注册
@@ -209,16 +240,18 @@
     
     [scrollView addSubview:registerBnt];
     
-    rightImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_rectange_right"]];
+    rightImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_triangle_icon"]];
     
     rightImgView.y = CGRectGetMaxY(registerBnt.frame);
     
-    rightImgView.centerX = scrollView.centerX;
+    rightImgView.centerX = registerBnt.centerX;
     
-    registerView = [[NSRegisterView alloc] initWithFrame:rightImgView.frame];
+    registerView = [[NSRegisterView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(rightImgView.frame)-0.5, ScreenWidth, 200)];
+    
+    [registerView.codeBtn addTarget:self action:@selector(getCode) forControlEvents:UIControlEventTouchUpInside];
     
     //协议
-    protocolView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(rightImgView.frame) + 10, ScreenWidth, 20)];
+    protocolView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(registerView.frame) + 10, ScreenWidth, 20)];
     
     UIImageView *protocolImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_yes_icon"]];
     
@@ -264,7 +297,6 @@
         
         [self.navigationController pushViewController:protocolVC animated:YES];
         
-        
     }];
     
     [protocolView addSubview:protocolBtn];
@@ -288,13 +320,13 @@
     
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     
+    [registerButton addTarget:self action:@selector(registerNumber) forControlEvents:UIControlEventTouchUpInside];
+    
     [registerButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     
 }
 - (void)loginEvent:(UIButton *)sender {
     [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    
     
     [rightImgView removeFromSuperview];
     
@@ -548,35 +580,132 @@
     [scrollView addSubview:registerBtn];
 
     
-    
 }
-
+//忘记密码
+- (void)forgetPassword:(UIButton *)sender {
+    NSForgetPassWordViewController *forgetPassword = [[NSForgetPassWordViewController alloc] init];
+    
+    [self.navigationController pushViewController:forgetPassword animated:YES];
+}
 -(void)registerUser:(UIButton *)btn
 {
     NSRegisterViewController * registerVC = [[NSRegisterViewController alloc] init];
     [self.navigationController pushViewController:registerVC animated:YES];
 }
-
+//获取验证码
+- (void)getCode {
+    if ([NSTool isValidateMobile:registerView.phoneTF.text]) {
+        
+        self.requestType = YES;
+        NSDictionary * dic = @{@"mobile":registerView.phoneTF.text,@"type":@"1"};
+        
+        NSString * str = [NSTool encrytWithDic:dic];
+        
+        self.requestURL = [sendCodeURL stringByAppendingString:str];
+        
+        url = self.requestURL;
+        
+    }else{
+        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
+    }
+    
+}
+//登录
 -(void)loagin
 {
-        
-    if (passwordText.text.length == 0 || phoneText.text.length == 0) {
+    [[NSToastManager manager] showprogress];
+    if (loginView.phoneTF.text.length == 0 || loginView.PwdTF.text.length == 0) {
         [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
-    }else if ([NSTool isStringEmpty:phoneText.text]) {
+    }else if ([NSTool isStringEmpty:loginView.phoneTF.text]) {
      
         [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
         
     } else {
         
         self.requestType = NO;
-        self.requestParams = @{@"mobile":phoneText.text,
-                               @"password":[passwordText.text stringToMD5]};
+        self.requestParams = @{@"mobile":loginView.phoneTF.text,
+                               @"password":[loginView.PwdTF.text stringToMD5]};
         self.requestURL = loginURl;
         
     }
     
 }
+//注册
+-(void)registerNumber
+{
+    self.requestType = NO;
+    if (registerView.userNameTF.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"昵称不能为空"];
+    } else if (registerView.passwordTF.text.length == 0 || registerView.phoneTF.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
+    } else if (![NSTool isValidateMobile:registerView.phoneTF.text]) {
+        
+        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
+        
+    } else if (registerView.codeTF.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"请输入验证码"];
+    } else if (![registerView.passwordTF.text isEqualToString:registerView.repasswordTF.text]) {
+        
+        [[NSToastManager manager] showtoast:@"亲，两次输入密码不一致哦"];
+        
+    }else{
+        
+        NSString * password = [registerView.passwordTF.text stringToMD5];
+        NSString * rePassword = [registerView.repasswordTF.text stringToMD5];
+        self.requestParams = @{@"name":registerView.userNameTF.text,
+                               @"phone":registerView.phoneTF.text,
+                               @"password":password,
+                               @"repassword":rePassword,
+                               @"code":registerView.codeTF.text,
+                               kIsLoadingMore:@(NO),@"type":@(NO)};
+        self.requestURL = registerURL;
+        
+    }
+    
+}
+- (void)addTimer {
+    
+    timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
 
+- (void)removeTimer {
+    
+    [timer invalidate];
+    
+    timer = nil;
+}
+
+- (void)timerAction {
+    
+    num--;
+    
+    registerView.codeBtn.titleLabel.text = [NSString stringWithFormat:@"%ds后重新获取",num];
+    
+    [registerView.codeBtn setTitle:[NSString stringWithFormat:@"%ds后重新获取",num] forState:UIControlStateDisabled];
+    
+    if (num == 0) {
+        
+        [registerView.codeBtn setTitle:@"重新获取" forState:UIControlStateDisabled];
+        
+        registerView.codeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        
+        num = 60;
+        
+        registerView.codeBtn.enabled = YES;
+        
+        [self removeTimer];
+    }
+}
+
+- (void)dealloc {
+    
+    [self removeTimer];
+}
 - (void)tap:(UIGestureRecognizer *)tap {
     
     [phoneText resignFirstResponder];

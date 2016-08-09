@@ -18,5 +18,10 @@
                 cancelBtnTitle:(NSString *)cancelBtnTitle
                          click:(void(^)(NSString *clickBtnTitle))clickBlock
                 otherBtnTitles:(NSString *)otherBtnTitles,...NS_REQUIRES_NIL_TERMINATION;
-
++ (void) displayAlertWithTitle:(NSString *)title
+                       message:(NSString *)message
+               leftButtonTitle:(NSString *)leftButtonTitle
+              leftButtonAction:(void (^)(void))leftButtonAction
+              rightButtonTitle:(NSString*)rightButtonTitle
+             rightButtonAction:(void (^)(void))rightButtonAction;
 @end

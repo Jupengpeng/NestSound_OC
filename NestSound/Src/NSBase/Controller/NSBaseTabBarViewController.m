@@ -53,14 +53,14 @@
     //首页
     NSHomeViewController *homeVc = [[NSHomeViewController alloc] init];
     
-    [self addChildViewController:homeVc imageName:@"2.0_home_normal" selectedImageName:@"2.0_home_selected" title:@"音巢音乐"];
+    [self addChildViewController:homeVc imageName:@"2.0_home_normal" selectedImageName:@"2.0_home_selected" title:@"首页"];
     
     
     
     //发现
     NSDiscoverViewController *recommendVc = [[NSDiscoverViewController alloc] init];
     
-    [self addChildViewController:recommendVc imageName:@"2.0_discovery_normal" selectedImageName:@"2.0_discovery_selected" title:nil];;
+    [self addChildViewController:recommendVc imageName:@"2.0_discovery_normal" selectedImageName:@"2.0_discovery_selected" title:@"发现"];;
     
     
     //消息
@@ -86,11 +86,11 @@
     
     childCtrl.title = title;
     
-    childCtrl.tabBarItem = [[UITabBarItem alloc] initWithTitle:LocalizedStr(@"")
+    childCtrl.tabBarItem = [[UITabBarItem alloc] initWithTitle:title
                                                       image:[unSelectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                               selectedImage:[selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    
-    childCtrl.tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    [childCtrl.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor hexColorFloat:@"ffd00b"]} forState:UIControlStateSelected];
+    childCtrl.tabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
     NSBaseNavigationController *nav = [[NSBaseNavigationController alloc] initWithRootViewController:childCtrl];
     

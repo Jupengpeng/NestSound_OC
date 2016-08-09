@@ -12,6 +12,11 @@
 @interface UserOtherModel : NSBaseModel
 @property (nonatomic,assign) long fansNum;
 @property (nonatomic,assign) long focusNum;
+@property (nonatomic,assign) int isFocus;
+@property (nonatomic,assign) long lyricsNum;
+@property (nonatomic,assign) long workNum;
+@property (nonatomic,assign) long inspireNum;
+@property (nonatomic,assign) long collectionNum;
 @end
 
 @interface UserModel : NSBaseModel
@@ -22,7 +27,6 @@
 @end
 
 @interface UserDataModel : NSBaseModel
-
 @property (nonatomic,strong) UserModel * userModel;
 @end
 @interface MyMusicList : NSBaseModel
