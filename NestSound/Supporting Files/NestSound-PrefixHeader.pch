@@ -163,6 +163,12 @@ extern NSString *port;
 
 #define BoxDismiss @"kBoxDismiss"
 #define NextStep @"kNextStep"
+#define GRIDNUM 20
+#define TIMELINENUM 64
+//second
+#define TIME_LONG 600  //3000
+#define SECOND_LONG 10  //3000
+
 
 
 

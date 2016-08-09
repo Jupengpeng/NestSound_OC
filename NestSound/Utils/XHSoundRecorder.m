@@ -186,7 +186,6 @@ static id _instance;
             if (self.wavPath) {
                 NSFileManager* f = [NSFileManager defaultManager];
                 long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
-                NSLog(@"回放----------%@,%lld",self.wavPath,l);
                 
                 url = [NSURL fileURLWithPath:self.wavPath];
                 
