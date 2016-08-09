@@ -24,7 +24,7 @@
     [self setupUI];
 }
 - (void)setupUI {
-    self.lyricsArray = [self.lyrics componentsSeparatedByString:@"\n"];
+    self.lyricsArray = [self.lyrics componentsSeparatedByString:@"\r\n"];
     
     WS(wSelf);
     self.view.userInteractionEnabled = YES;
@@ -115,32 +115,29 @@
     
     if (!lyricCell) {
         lyricCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:lyricCellIdenfity];
-        
-        UILabel *lyricLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, ScreenWidth, 0)];
-        lyricLabel.text = self.lyricsArray[indexPath.row];
-        lyricLabel.font = [UIFont systemFontOfSize:15];
-        lyricLabel.numberOfLines = 0;
-        lyricLabel.textColor = [UIColor whiteColor];
-        lyricLabel.textAlignment = NSTextAlignmentCenter;
-        lyricLabel.backgroundColor = [UIColor clearColor];
-        [lyricCell addSubview:lyricLabel];
-        NSDictionary *fontDic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
-        CGFloat height = [self.lyricsArray[indexPath.row] boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size.height;
-        CGRect frame = lyricLabel.frame;
-        frame.size.height = height;
-        lyricLabel.frame = frame;
+        lyricCell.textLabel.text = self.lyricsArray[indexPath.row];
+        lyricCell.textLabel.font = [UIFont systemFontOfSize:15];
+        lyricCell.textLabel.numberOfLines = 0;
+        lyricCell.textLabel.textColor = [UIColor colorWithRed:];
+        lyricCell.textLabel.backgroundColor = [UIColor clearColor];
+        lyricCell.textLabel.textAlignment = NSTextAlignmentCenter;
         lyricCell.backgroundColor = [UIColor clearColor];
     }
     return lyricCell;
 }
+#pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDictionary *fontDic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
     CGFloat height = [self.lyricsArray[indexPath.row] boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size.height;
     
-    return height + 10;
+    return height + 20;
 }
-#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    cell.textLabel.textColor = [UIColor hexColorFloat:@"#fff"];
+//    cell.backgroundColor = [UIColor hexColorFloat:@"#6a6055"];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
