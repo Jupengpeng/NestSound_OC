@@ -213,7 +213,6 @@ static CGFloat timerNum=0;
         
         NSFileManager* f = [NSFileManager defaultManager];
         long long l = [[f attributesOfItemAtPath:self.wavFilePath error:nil] fileSize];
-      //  NSLog(@"录制---------%@,%lld",self.wavFilePath ,l);
         
     }
     
@@ -949,7 +948,13 @@ static CGFloat timerNum=0;
     
 }
 
-
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    timerNum=scrollView.contentOffset.x/speed;
+    timerNumPlay_temp = timerNum;
+    curtime3 =timerNum;
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+    
+}
 
 - (void)btnClick:(UIButton *)btn {
 
@@ -1065,7 +1070,6 @@ static CGFloat timerNum=0;
             [[NSToastManager manager ] showtoast:@"开始试听"];
 
             timerNumPlay = timerNumPlay_temp;
-
             timerNum = timerNumPlay;
             [self.link setPaused:NO];
             
@@ -1477,7 +1481,6 @@ static CGFloat timerNum=0;
          self.waveform.waveView.desibelNum =i;
      
      }
-     //NSLog(@"-----------count = %lf,desibelNum = %ld",count,self.waveform.waveView.desibelNum);
 
      [self.waveform.waveView drawLine];
      
@@ -1486,14 +1489,6 @@ static CGFloat timerNum=0;
 
      }
 
-     /*if (drawCount%2 == 0 && self.player.currentTime>0 && ![self.player3 isPlaying]) {
-         [self.waveform.waveView setNeedsDisplay];
-
-     }*/
-
-     
-     
-     
  
  }
  
@@ -1631,6 +1626,8 @@ static CGFloat timerNum=0;
         
     }else{
         timerNum=scrollView.contentOffset.x/speed;
+        timerNumPlay_temp = timerNum;
+        curtime3 =timerNum;
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
 
     }
@@ -1638,11 +1635,7 @@ static CGFloat timerNum=0;
 
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    timerNum=scrollView.contentOffset.x/speed;
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
 
-}
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
 
 }
