@@ -17,6 +17,7 @@
 @property (nonatomic,assign) long itemId;
 @property (nonatomic,assign) long lookNum;
 @property (nonatomic,assign) long upvoteNum;
+@property (nonatomic,assign) long isShow;
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * titleImageUrl;
 @property (nonatomic,copy) NSString * titleImageUrls;

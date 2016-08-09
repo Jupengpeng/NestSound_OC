@@ -13,6 +13,7 @@
 {
     return @{@"createDate":@"createdate",
              @"fovNum":@"fovnum",
+             @"isShow":@"is_issue",
              @"itemId":@"itemid",
              @"lookNum":@"looknum",
              @"upvoteNum":@"zannum",
