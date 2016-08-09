@@ -7,12 +7,15 @@
 //
 
 #import "NSBaseViewController.h"
-
 @class NSAccommpanyModel;
 
-@interface NSWriteMusicViewController : NSBaseViewController
+@interface NSWriteMusicViewController : NSBaseViewController<UIScrollViewDelegate>
 
 @property (nonatomic,strong) NSAccommpanyModel * accompanyModel;
+@property (nonatomic,strong) NSTimer * timer;
+@property (nonatomic,strong) NSArray * descibelArray;
+
+@property (nonatomic,strong) NSMutableDictionary * descibelDictionary;
 
 -(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;;
 

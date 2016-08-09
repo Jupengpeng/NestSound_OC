@@ -184,6 +184,7 @@
 		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
 		B80C86551D47A75B00B22855 /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C86541D47A75B00B22855 /* HudView.m */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
+		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
 
@@ -548,6 +549,8 @@
 		B80C86541D47A75B00B22855 /* HudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudView.m; sourceTree = "<group>"; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		B8C17E011D545DBE0021CDA3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
+		B8C17E021D545DBE0021CDA3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F632447B70FFF967631B2741 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -848,6 +851,8 @@
 				2A8E49EF1D13C33A00F94144 /* NSImageCell.m */,
 				18EA3AD81D1A2A5500A98CC5 /* NSWaveformView.h */,
 				18EA3AD91D1A2A5500A98CC5 /* NSWaveformView.m */,
+				B8C17E011D545DBE0021CDA3 /* WaveView.h */,
+				B8C17E021D545DBE0021CDA3 /* WaveView.m */,
 				94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */,
 				94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */,
 			);
@@ -2549,6 +2554,7 @@
 				18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */,
 				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
 				18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */,
+				B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */,
 				946B042B1D4EEC8A00529DBA /* HUImagePickerRootViewController.m in Sources */,
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
@@ -2822,7 +2828,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "34a14ef6-bf8b-40f8-981e-793962e33c85";
+				PROVISIONING_PROFILE = "68eeedda-98d2-46eb-a7f6-c54a810ca76e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

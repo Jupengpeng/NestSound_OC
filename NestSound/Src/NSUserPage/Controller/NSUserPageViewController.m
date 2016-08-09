@@ -171,6 +171,7 @@ UITableViewDataSource>
                     }
                     if (self.who == Myself) {
                         headerView.userModel = userData.userDataModel.userModel;
+                        headerView.otherModel = userData.userOtherModel;
                     } else {
                         headerView.userModel = userData.userDataModel.userModel;
                         headerView.otherModel = userData.userOtherModel;

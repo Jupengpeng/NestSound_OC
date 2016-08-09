@@ -67,6 +67,8 @@ static CGFloat timerNum=0;
     float timerNumPlay;
     float timerNumPlay_temp;
     int clickValue;
+    CGFloat timerNumTemp;
+    CGFloat speed;
 
     UITextField *titleText;
     UIImageView * listenBk;
@@ -83,17 +85,22 @@ static CGFloat timerNum=0;
     NSTimeInterval curtime3;
     Boolean receivedData;
 
+    CGFloat distantKeyPath;
+    NSUInteger drawCount;
+    BOOL stopScroll;
     NSDownloadProgressView *ProgressView;//BoxDismiss
     
 }
 
 @property (nonatomic, strong) UIImageView *slideBarImage;
+@property (nonatomic, assign)CGFloat distantKeyPathTemp;
 
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) DeviceMusicWave* DeviceMusicWaveView;
 
 @property (nonatomic, strong)  CADisplayLink *link;
-
+@property (nonatomic, strong)  CADisplayLink *waveLink;
+;
 @property (nonatomic, assign) int clickedValue;
 
 
@@ -116,9 +123,11 @@ static CGFloat timerNum=0;
 @property (nonatomic, copy) NSString *wavFilePath;
 @property (nonatomic, strong)NSPublicLyricViewController* public;
 @property (nonatomic, strong) NSWaveformView *waveform;
+
 @property (nonatomic, strong)AppDelegate* appDelete;
 @property (nonatomic, assign) int lineNum;
 @property (nonatomic, assign) int lineNum2;
+@property (nonatomic, assign) NSTimeInterval playerTime;
 
 @property (nonatomic, assign) BOOL isPlay;
 @property (nonatomic, assign) BOOL isPlay2;
@@ -204,7 +213,7 @@ static CGFloat timerNum=0;
         
         NSFileManager* f = [NSFileManager defaultManager];
         long long l = [[f attributesOfItemAtPath:self.wavFilePath error:nil] fileSize];
-        NSLog(@"录制---------%@,%lld",self.wavFilePath ,l);
+      //  NSLog(@"录制---------%@,%lld",self.wavFilePath ,l);
         
     }
     
@@ -242,7 +251,6 @@ static CGFloat timerNum=0;
         if (audioPath) {
             NSFileManager* f = [NSFileManager defaultManager];
             long long l = [[f attributesOfItemAtPath:audioPath error:nil] fileSize];
-            NSLog(@"回放----------%@,文件大小：%lld",audioPath,l);
             if (l == 0) {
                 [self.link setPaused:YES];
                 [HudView showView:self.navigationController.view string:@"文件大小为0，无法播放"];
@@ -256,6 +264,8 @@ static CGFloat timerNum=0;
     
     
         self.player3 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+        self.player3.enableRate = YES;
+        self.player3.rate = 1.0;
         self.player3.meteringEnabled=YES;
         self.player3.delegate = self;
     
@@ -371,7 +381,6 @@ static CGFloat timerNum=0;
 
 //伴奏播放完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-   
     timerNum=0;
 
     UIButton* btn = self.btns[1];
@@ -380,8 +389,10 @@ static CGFloat timerNum=0;
         [self.link setPaused:YES];
         timerNumRecorder=0;
         timerNumRecorder_temp=0;
-
         [self stopPlaysound:player];
+        [self.waveLink setPaused:YES];
+
+
         
     }
     if (player == self.player3 || (player == self.player2)) {
@@ -391,20 +402,37 @@ static CGFloat timerNum=0;
         timerNumPlay=0;
         curtime3=0;
         curtime2=0;
+        [self.waveLink setPaused:YES];
+        [self.link setPaused:YES];
+        self.waveform.timeScrollView.userInteractionEnabled=YES;
+
+        
         [self stopPlaysound:self.player3];
         [self stopPlaysound:self.player2];
-        //[self.waveform removeAllPath];
-        [self.link setPaused:YES];
+        
         
     }
+    
+   [self.waveform.timeScrollView setContentOffset:CGPointMake(timerNumTemp*speed, 0) animated:NO];
     
 }
 
 //播放被打断时
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
-    //[self pausePlaysound];
 }
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    
+    if ([self.player isPlaying]||[self.player2 isPlaying]||[self.player3 isPlaying]) {
+        return;
+    }
 
+    CGFloat distant = [[change objectForKey:@"new"] floatValue];
+
+    if (distant> distantKeyPath) {
+        [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNumTemp, 0) animated:NO];
+        
+    }
+}
 
 //播放被打断结束时
 - (void)audioPlayerEndInterruption:(AVAudioPlayer *)player withOptions:(NSUInteger)flags {
@@ -564,21 +592,26 @@ static CGFloat timerNum=0;
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self name:NextStep object:nil];
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    [self removeObserver:self forKeyPath:@"distantKeyPathTemp" context:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.appDelete = [[UIApplication sharedApplication] delegate];
     self.session = [AVAudioSession sharedInstance];
-
     self.wavFilePath = nil;
     self.mp3Path=nil;
-
     timerNum=0;
+    drawCount=0;
+    stopScroll=NO;
      timerNumRecorder=0;
      timerNumRecorder_temp=0;
      timerNumPlay=0;
      timerNumPlay_temp=0;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextStep:) name:NextStep object:nil];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
@@ -607,7 +640,20 @@ static CGFloat timerNum=0;
     [self addLink];
     [self.link setPaused:YES];
     
+    [self addWaveLink];
+    [self.waveLink setPaused:YES];
+
+    self.waveform.timeScrollView.delegate =self;
+  
+    
+    [self initMusicWave];
+
+    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    speed = self.waveform.rect.size.width/SECOND_LONG;
+
 }
+
+
 
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
@@ -813,11 +859,11 @@ static CGFloat timerNum=0;
     [self.view addSubview:self.DeviceMusicWaveView];*/
     
     
-    self.slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
+   /* self.slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
     
     self.slideBarImage.frame = CGRectMake(self.view.width * 0.5 - 3, self.waveform.y - 2, 6, 69);
     
-    [self.view addSubview:self.slideBarImage];
+    [self.view addSubview:self.slideBarImage];*/
     
     
     totalTimeLabel = [[UILabel alloc] init];
@@ -825,14 +871,15 @@ static CGFloat timerNum=0;
     totalTimeLabel.font = [UIFont systemFontOfSize:10];
     
     totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:musicTime]];
-    
+    [totalTimeLabel setTextColor:[UIColor lightGrayColor]];
+
     [self.view addSubview:totalTimeLabel];
     
     [totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.view.mas_right).offset(-15);
+        make.right.equalTo(self.view.mas_right).offset(-5);
         
-        make.bottom.equalTo(bottomView.mas_top).offset(-10);
+        make.bottom.equalTo(bottomView.mas_top).offset(-5);
         
     }];
     
@@ -842,14 +889,14 @@ static CGFloat timerNum=0;
     self.timeLabel.font = [UIFont systemFontOfSize:10];
     
     self.timeLabel.text = [NSString stringWithFormat:@"00:00"];
-    
+    [self.timeLabel setTextColor:[UIColor lightGrayColor]];
     [self.view addSubview:self.timeLabel];
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(totalTimeLabel.mas_left);
         
-        make.bottom.equalTo(bottomView.mas_top).offset(-10);
+        make.bottom.equalTo(bottomView.mas_top).offset(-5);
         
     }];
     
@@ -905,26 +952,40 @@ static CGFloat timerNum=0;
 
 
 - (void)btnClick:(UIButton *)btn {
-    
-    
+
     self.appDelete = [UIApplication sharedApplication].delegate;
     
      clickValue = [self buttonClickedValue:btn];
 
     if (btn.tag == 2) {
         
+        self.waveform.timeScrollView.userInteractionEnabled=NO;
+
+        if (self.player.currentTime == 0) {
+            [self.waveform.waveView removeAllPath];
+        }
+        
+       
+        [self.waveLink setPaused:NO];
+
         if ([self.player3 isPlaying] || [self.player2 isPlaying]) {
-            [HudView showView:self.navigationController.view string:@"先暂停试听"];
+            [[NSToastManager manager ] showtoast:@"先暂停试听"];
+
+            //[HudView showView:self.navigationController.view string:@"先暂停试听"];
             return;
         }
         btn.selected = !btn.selected;
         
         if (btn.selected) {
-            [HudView showView:self.navigationController.view string:@"开始录音"];
+
+            //[HudView showView:self.navigationController.view string:@"开始录音"];
+            [[NSToastManager manager ] showtoast:@"开始录音"];
 
             self.isPlay = NO;
+
             timerNumRecorder =timerNumRecorder_temp;
             timerNum=   timerNumRecorder;
+
             [self.link setPaused:NO];
             
             
@@ -942,6 +1003,8 @@ static CGFloat timerNum=0;
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             if (!self.player) {
                 self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+                self.player.enableRate = YES;
+                self.player.rate = 1.0;
                 self.player.delegate = self;
                 totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
                 self.player.meteringEnabled=YES;
@@ -953,14 +1016,21 @@ static CGFloat timerNum=0;
             
             
         } else {
+
+            self.waveform.timeScrollView.userInteractionEnabled=YES;
+
+
+            [self.waveLink setPaused:YES];
+
             timerNumRecorder_temp = self.player.currentTime;
             [self pauseRecorder];
            
             [self pausePlaysound:self.player];
             [self.link setPaused:YES];
-            
+            timerNumTemp=timerNum;
             
         }
+        
          curtime3=0;
          curtime2=0;
          timerNumPlay_temp=0;
@@ -968,23 +1038,32 @@ static CGFloat timerNum=0;
     
     
     if (btn.tag ==1) {
-        
+
+        self.waveform.timeScrollView.userInteractionEnabled=NO;
+
         if ([self.player isPlaying]) {
-            [HudView showView:self.navigationController.view string:@"请先停止录音"];
+            //[HudView showView:self.navigationController.view string:@"请先停止录音"];
+            [[NSToastManager manager ] showtoast:@"请先停止录音"];
+
             return;
         }
         if (self.wavFilePath == nil) {
-            [HudView showView:self.navigationController.view string:@"还未开始录音"];
+            //[HudView showView:self.navigationController.view string:@"还未开始录音"];
+            [[NSToastManager manager ] showtoast:@"还未开始录音"];
 
             return;
             
         }
+
+        
         btn.selected = !btn.selected;//－－no
         if (btn.selected) { //回听
-            [HudView showView:self.navigationController.view string:@"开始试听"];
-            [self.waveform removeAllPath];
 
-           
+            [self.waveLink setPaused:NO];
+            
+            //[HudView showView:self.navigationController.view string:@"开始试听"];
+            [[NSToastManager manager ] showtoast:@"开始试听"];
+
             timerNumPlay = timerNumPlay_temp;
 
             timerNum = timerNumPlay;
@@ -992,17 +1071,17 @@ static CGFloat timerNum=0;
             
             self.isPlay = NO; //YES
             
-            
+
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             
-            //NSLog(@"------------plugedHeadset = %d",plugedHeadset);
             if (plugedHeadset)
             {
-                //NSLog(@"------------self.player2 = %@,url=%@",self.player2,url);
 
                 //if (!self.player2)
                 {
                     self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+                    self.player2.enableRate = YES;
+                    self.player2.rate = 1.0;
                     [self.player2 setCurrentTime:curtime2];
 
                     [self.player2 prepareToPlay];
@@ -1011,22 +1090,27 @@ static CGFloat timerNum=0;
                     self.player2.delegate =self;
                     [self.player2 play];
 
-                //}else{
 
                 }
 
                 
             }
+
             [self playsound:self.wavFilePath time:curtime3];
-            
+
         }else{//没回听
-            timerNumPlay_temp=self.player3.currentTime;
+            self.waveform.timeScrollView.userInteractionEnabled=YES;
+
             curtime2=   self.player2.currentTime;
             curtime3=   self.player3.currentTime;
+            timerNumPlay_temp=curtime3;
+            
             [self pausePlaysound:self.player2];
             [self pausePlaysound:self.player3];
-           // NSLog(@"-----------curtime2 = %f,curtime3 = %f",curtime2,curtime3);
             [self.link setPaused:YES];
+            [self.waveLink setPaused:YES];
+
+
             
         }
         
@@ -1036,20 +1120,23 @@ static CGFloat timerNum=0;
     if (btn.tag == 3) {//
         
         if ([self.player isPlaying]) {
-            [HudView showView:self.navigationController.view string:@"先停止录音"];
+          //  [HudView showView:self.navigationController.view string:@"先停止录音"];
+            [[NSToastManager manager ] showtoast:@"先停止录音"];
 
             return;
 
         }
         if ([self.player2 isPlaying]||[self.player3 isPlaying]) {
-            [HudView showView:self.navigationController.view string:@"先停止试听"];
-            
+            //[HudView showView:self.navigationController.view string:@"先停止试听"];
+            [[NSToastManager manager ] showtoast:@"先停止试听"];
+
             return;
             
         }
 
         if (self.wavFilePath == nil) {
-            [HudView showView:self.navigationController.view string:@"还未开始录音"];
+           // [HudView showView:self.navigationController.view string:@"还未开始录音"];
+            [[NSToastManager manager ] showtoast:@"还未开始录音"];
 
 
         }else{
@@ -1091,6 +1178,8 @@ static CGFloat timerNum=0;
     curtime2=0;
     curtime3=0;
 
+    [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+    self.waveform.waveView.waveDistance=0;
     self.wavFilePath = nil;
     [self.link setPaused:YES];
     [self stopPlaysound:self.player];
@@ -1098,7 +1187,8 @@ static CGFloat timerNum=0;
     [self stopPlaysound:self.player3];
     [self stopRecorder];
 
-    [self.waveform removeAllPath];
+    self.waveform.waveView.desibelNum=0;
+    [self.waveform.waveView removeAllPath];
     
     [self removeSoundRecorder];
     
@@ -1235,13 +1325,23 @@ static CGFloat timerNum=0;
     {
         
         self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
-        //self.link.frameInterval=2;
+        //self.link.frameInterval=3;
 
         [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
 }
 
-
+- (void)addWaveLink {
+    
+    if (!self.waveLink)
+    {
+        
+        self.waveLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(scrollTimeView)];
+        
+        self.waveLink.frameInterval=6;
+        [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+}
 
 
 /**
@@ -1256,7 +1356,15 @@ static CGFloat timerNum=0;
     
     
 }
-
+- (void)removeWaveLink {
+    
+    if (self.waveLink) {
+        [self.waveLink invalidate];
+        self.waveLink = nil;
+    }
+    
+    
+}
 
 
 - (void)stopLink{
@@ -1270,16 +1378,16 @@ static CGFloat timerNum=0;
         return -45.0;
     }
     float f = [self.recorder averagePowerForChannel:0];
-    NSLog(@"-----------实际音量波:%f",f);
     return f;
 }
 
 
 
-/**
+/**            self.waveform.num = fabs(count)*11/40;
+
  *  定时器执行
  */
-- (void)actionTiming {
+/*- (void)actionTiming {
     
     timerNum += 1/60.0;
     //分贝数
@@ -1301,12 +1409,13 @@ static CGFloat timerNum=0;
             }
 
         }
-        //NSLog(@"-----------count = %f",count);
+        NSLog(@"-----------count = %f",count);
         self.lineNum++;
             
         if (self.lineNum % 3 == 0) { //3
             
-            self.waveform.num = count * 0.5 + 20;
+            //self.waveform.num = count * 0.5 + 20;
+            self.waveform.num = fabs(count)*11/40;
             
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.waveform drawLine];
@@ -1319,7 +1428,79 @@ static CGFloat timerNum=0;
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     
+}*/
+- (void)initMusicWave{
+    NSMutableArray* arr = [NSMutableArray arrayWithCapacity:161];
+    NSMutableArray* arrWave = [NSMutableArray arrayWithCapacity:161];
+    self.descibelArray = [NSArray array];
+    
+    for (NSUInteger i=0; i<161; i++) {
+        [arr addObject:[NSNumber numberWithInteger:i]];
+        CGFloat j = i*20/160;
+        [arrWave addObject:[NSNumber numberWithFloat:j]];
+    }
+    self.descibelArray = [[arr reverseObjectEnumerator] allObjects];
+    self.descibelDictionary = [NSMutableDictionary dictionaryWithCapacity:161];
+    
+    for (int i=0; i<161; ++i) {
+        NSUInteger key =[[self.descibelArray objectAtIndex:i] integerValue];
+        [self.descibelDictionary  setValue:[arrWave objectAtIndex:i] forKey:[NSString stringWithFormat:@"%ld",key]];
+
+
+    }
+    
 }
+
+- (void)disPlayTimeLabel{
+    
+}
+- (void)actionTiming {
+    
+   // drawCount++;
+    timerNum += 1/60.0;
+    
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+    count = [self decibels];
+
+ if (!self.isPlay) {
+
+     int keyValue = (int)count;
+
+     NSString* keyStr = [NSString stringWithFormat:@"%d",(int)abs(keyValue)];
+     NSInteger i = [[self.descibelDictionary valueForKey:keyStr] integerValue];
+     //(fabs(count))*11/40;//(fabs(count)*2)/5;
+
+     if (count<-10) {
+         self.waveform.waveView.desibelNum =(fabs(count))*11/50;
+
+     }else{
+         self.waveform.waveView.desibelNum =i;
+     
+     }
+     //NSLog(@"-----------count = %lf,desibelNum = %ld",count,self.waveform.waveView.desibelNum);
+
+     [self.waveform.waveView drawLine];
+     
+     if (![self.player3 isPlaying] && self.player.currentTime>0) {
+         [self.waveform.waveView setNeedsDisplay];
+
+     }
+
+     /*if (drawCount%2 == 0 && self.player.currentTime>0 && ![self.player3 isPlaying]) {
+         [self.waveform.waveView setNeedsDisplay];
+
+     }*/
+
+     
+     
+     
+ 
+ }
+ 
+    
+ 
+ }
+
 
 
 
@@ -1366,7 +1547,6 @@ static CGFloat timerNum=0;
                 
             }
             
-            NSLog(@"---------hotId = %ld,isHeadset = %d,dict[@\"data\"][@\"mp3URL\"] = %@",hotId,self.appDelete.isHeadset,dict[@"data"][@"mp3URL"]);
             [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:self.appDelete.isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
             
             //self.wavFilePath = nil;
@@ -1413,11 +1593,58 @@ static CGFloat timerNum=0;
     return -1;
 }
 
+
+
 - (void)nextStep:(NSNotification*)userInfo{
     [self.alertView dismissViewControllerAnimated:NO completion:nil];
     [self.navigationController pushViewController:self.public animated:YES];
 
     
+}
+
+- (void)scrollTimeView{
+    
+        self.waveform.waveView.waveDistance =speed*timerNum;
+    CGFloat distantKeyPathi=self.waveform.timeScrollView.contentOffset.x;
+    if ([self.player isPlaying]) {
+        distantKeyPath=self.waveform.timeScrollView.contentOffset.x;
+    }
+        [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.waveView.waveDistance, 0) animated:NO];
+
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    self.distantKeyPathTemp = scrollView.contentOffset.x;
+
+
+}
+
+
+
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+
+    if (decelerate) {
+        
+    }else{
+        timerNum=scrollView.contentOffset.x/speed;
+        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+
+    }
+
+
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    timerNum=scrollView.contentOffset.x/speed;
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+
+}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+
 }
 
 @end
