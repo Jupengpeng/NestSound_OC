@@ -24,5 +24,5 @@
 @property (nonatomic,assign) int geDanID;
 @property (nonatomic,strong) NSMutableArray * songAry;
 @property (nonatomic,assign) NSInteger songID;
-
+@property (nonatomic,assign) int isShow;
 @end

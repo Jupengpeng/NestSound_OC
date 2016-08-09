@@ -165,6 +165,7 @@
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
 		945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E41D2F92AD0074C331 /* UIView+RGSize.m */; };
 		94626B351D5035350002CA02 /* NSModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94626B341D5035350002CA02 /* NSModifyPwdViewController.m */; };
+		946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946A53EB1D59C311002B187D /* NSSelectLyricsViewController.m */; };
 		946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04121D4EEC8A00529DBA /* HUAlbum.m */; };
 		946B04261D4EEC8A00529DBA /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 946B04141D4EEC8A00529DBA /* HUAlbumCell.m */; };
 		946B04271D4EEC8A00529DBA /* HUAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946B04151D4EEC8A00529DBA /* HUAlbumCell.xib */; };
@@ -520,6 +521,8 @@
 		945708E41D2F92AD0074C331 /* UIView+RGSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RGSize.m"; sourceTree = "<group>"; };
 		94626B331D5035350002CA02 /* NSModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSModifyPwdViewController.h; sourceTree = "<group>"; };
 		94626B341D5035350002CA02 /* NSModifyPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSModifyPwdViewController.m; sourceTree = "<group>"; };
+		946A53EA1D59C311002B187D /* NSSelectLyricsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSelectLyricsViewController.h; sourceTree = "<group>"; };
+		946A53EB1D59C311002B187D /* NSSelectLyricsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSelectLyricsViewController.m; sourceTree = "<group>"; };
 		946B04111D4EEC8A00529DBA /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
 		946B04121D4EEC8A00529DBA /* HUAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbum.m; sourceTree = "<group>"; };
 		946B04131D4EEC8A00529DBA /* HUAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumCell.h; sourceTree = "<group>"; };
@@ -725,6 +728,8 @@
 				2AD10A8C1CD9E04E0044D821 /* NSSongViewController.m */,
 				2A0B722E1CFF51B7003957E3 /* NSMusicSayViewController.h */,
 				2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */,
+				946A53EA1D59C311002B187D /* NSSelectLyricsViewController.h */,
+				946A53EB1D59C311002B187D /* NSSelectLyricsViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2636,6 +2641,7 @@
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
+				946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */,
 				2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,

@@ -19,6 +19,7 @@
 #import "NSAccompanyListViewController.h"
 #import "NSMessageViewController.h"
 #import "NSUserPageViewController.h"
+#import "NSSelectLyricsViewController.h"
 @implementation NSBaseViewController (CustomNavBar)
 
 + (void)load {
@@ -34,7 +35,7 @@
 - (void)setNavBar:(BOOL)animated {
     [self setNavBar:animated];
     
-    if ([self isKindOfClass:[NSPlayMusicViewController class]]) {
+    if ([self isKindOfClass:[NSPlayMusicViewController class]] ||[self isKindOfClass:[NSSelectLyricsViewController class]]) {
         self.navigationController.navigationBar.hidden = YES;
         self.edgesForExtendedLayout = UIRectEdgeTop;
         self.automaticallyAdjustsScrollViewInsets = NO;

@@ -101,24 +101,24 @@ static NSHttpClient *client;
                           //hide toast
                           if (showLoading) {
                               
-//                              [[NSToastManager manager] hideprogress];
+                              //                              [[NSToastManager manager] hideprogress];
                           }
 #ifdef DEBUG
                           NSLog(@"RESPONSE JSON:%@", responseObject);
 #endif
                           
-//                          if (!success) {
-//                              return ;
-//                          }
+                          //                          if (!success) {
+                          //                              return ;
+                          //                          }
                           
                           if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                             
-                           NSDictionary * dic =  [self encryptWithDictionary:responseObject isEncrypt:NO];
-                             
+                              
+                              NSDictionary * dic =  [self encryptWithDictionary:responseObject isEncrypt:NO];
+                              
                               NSInteger i = [url rangeOfString:@"data="].location;
-
+                              
                               NSString * str = [url substringWithRange:NSMakeRange(0, i)];
-                             
+                              
                               NSBaseModel *model = [NSModelFactory modelWithURL:str
                                                                    responseJson:dic];
                               success(task,model);
@@ -147,60 +147,58 @@ static NSHttpClient *client;
                       }];
         
     }else{
-    
-    
-    operation = [self POST:requestURL
-                parameters:[self encryptWithDictionary:@{@"data":parasDict} isEncrypt:YES]
-                                         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
+        
+        operation = [self POST:requestURL
+                    parameters:[self encryptWithDictionary:@{@"data":parasDict} isEncrypt:YES]
+                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
                            
-                                             //hide toast
-                                             if (showLoading) {
-                                                 
-                                                 [[NSToastManager manager] hideprogress];
-                                             }
+                           //hide toast
+                           if (showLoading) {
+                               
+                               [[NSToastManager manager] hideprogress];
+                           }
 #ifdef DEBUG
-                                             NSLog(@"RESPONSE JSON:%@", responseObject);
+                           NSLog(@"RESPONSE JSON:%@", responseObject);
 #endif
-                                             
-                                             if (!success) {
-                                                 return ;
-                                             }
-                                             
-                                             if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                                                 NSBaseModel *model = [NSModelFactory modelWithURL:url
-                                                                                      responseJson:[self encryptWithDictionary:responseObject isEncrypt:NO]];
-                                                 
-                                                 success(task,model);
-                                                 
-                                                 long resultCode = [responseObject[@"code"] longValue];
-                                                 
-                                                 if (resultCode == 200) {
-                                                     
-                                                     model.success = YES;
-                                                 }
-                                                 
-                                                 if (!model.success) {
-                                                     [[NSToastManager manager] showtoast:[responseObject objectForKey:@"message"]];
-                                                 }
-                                             } else {
-                                                 success(task,responseObject);
-                                             }
-                                             if (!wSelf) {
-                                                 return ;
-                                             }
-                                             
-                                             [wSelf responseObject:responseObject withOperation:task];
-                                             
-                                         } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-                                             
-                                             if (showLoading) {
-                                                 [[NSToastManager manager] hideprogress];
-                                             }
-                                             if (!failure) {
-                                                 return ;
-                                             }
-                                             failure(task,error);
-                                         }];
+                           if (!success) {
+                               return ;
+                           }
+                           
+                           if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                               NSBaseModel *model = [NSModelFactory modelWithURL:url
+                                                                    responseJson:[self encryptWithDictionary:responseObject isEncrypt:NO]];
+                               
+                               success(task,model);
+                               
+                               long resultCode = [responseObject[@"code"] longValue];
+                               
+                               if (resultCode == 200) {
+                                   
+                                   model.success = YES;
+                               }
+                               
+                               if (!model.success) {
+                                   [[NSToastManager manager] showtoast:[responseObject objectForKey:@"message"]];
+                               }
+                           } else {
+                               success(task,responseObject);
+                           }
+                           if (!wSelf) {
+                               return ;
+                           }
+                           
+                           [wSelf responseObject:responseObject withOperation:task];
+                           
+                       } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+                           
+                           if (showLoading) {
+                               [[NSToastManager manager] hideprogress];
+                           }
+                           if (!failure) {
+                               return ;
+                           }
+                           failure(task,error);
+                       }];
     }
     operation.urlTag = url;
     operation.isLoadingMore = isLoadingMore;
@@ -217,7 +215,7 @@ static NSHttpClient *client;
 //    [[self downloadTaskWithRequest:request progress:nil destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
 //        NSString * filePath = [LocalAccompanyPath stringByAppendingPathComponent:response.suggestedFilename];
 //        NSURL * url = [NSURL fileURLWithPath:filePath];
-//        
+//
 //        return url;
 //    }completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
 //        NSLog(@"%@",error.localizedDescription);

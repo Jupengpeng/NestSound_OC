@@ -42,6 +42,7 @@ UITableViewDataSource>
     NSString * myUrl;
     NSString * otherUrl;
     NSString * url;
+    NSString *headerUrl;
     int type;
     NSTableHeaderView *headerView ;
     int page;
@@ -183,11 +184,15 @@ UITableViewDataSource>
                     for (NSMyMusicModel *model in myMusicAry) {
                         [self.itemIdArr addObject:@(model.itemId)];
                     }
-                    [headView setDDImageWithURLString:userData.userDataModel.userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
-                    userNameLable.text = userData.userDataModel.userModel.nickName;
-                    signatureLabel.text = userData.userDataModel.userModel.signature;
-                    focusLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.focusNum];
-                    fansLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.fansNum];
+                    
+                    if (!headerUrl.length) {
+                        [headView setDDImageWithURLString:userData.userDataModel.userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+                        userNameLable.text = userData.userDataModel.userModel.nickName;
+                        signatureLabel.text = userData.userDataModel.userModel.signature;
+                        focusLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.focusNum];
+                        fansLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.fansNum];
+                    }
+                    headerUrl = userData.userDataModel.userModel.headerUrl;
                     for (int i = 0; i < toolBarArr.count; i++) {
                         UILabel *aLabel = [backgoundView viewWithTag:159 + i];
                         switch (i) {
@@ -246,6 +251,7 @@ UITableViewDataSource>
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
+                
                 [_tableView reloadData];
             }
             if (!operation.isLoadingMore) {
@@ -934,6 +940,7 @@ UITableViewDataSource>
         playVC.itemUid = myMusic.itemId;
         playVC.from = @"homepage";
         playVC.geDanID = 0;
+        playVC.isShow = myMusic.isShow;
         playVC.songID = indexPath.row;
         playVC.songAry = self.itemIdArr;
         BOOL isH = false;
@@ -1097,8 +1104,6 @@ UITableViewDataSource>
         [dataAry removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        
-        [tableView reloadData];
         
     }
 }

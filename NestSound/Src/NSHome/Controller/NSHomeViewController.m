@@ -125,7 +125,9 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
     self.navigationController.navigationBar.hidden = NO;
-    
+    if (bannerAry.count == 0) {
+        [self fetchIndexData];
+    }
     if (self.playSongsVC.player == nil) {
        
     } else {
@@ -183,7 +185,11 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     WS(wSelf);
     //reloading
     [_collection addDDPullToRefreshWithActionHandler:^{
-        [wSelf fetchIndexData];
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchIndexData];
+        }
     }];
 }
 

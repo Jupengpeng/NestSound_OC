@@ -395,7 +395,7 @@
     self.maskView.alpha = 0;
     NSPlayMusicViewController *playMusicVC = [NSPlayMusicViewController sharedPlayMusic] ;
     playMusicVC.itemUid = itemID;
-    playMusicVC.from = @"homepage";
+//    playMusicVC.from = @"homepage";
     playMusicVC.geDanID = 0;
     playMusicVC.songID = 0;
     playMusicVC.songAry = [NSMutableArray arrayWithArray:@[@(itemID)]];

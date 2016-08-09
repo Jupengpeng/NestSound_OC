@@ -20,6 +20,7 @@
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"commentNum":@"commentnum",
+             @"isShow":@"is_issue",
              @"fovNum":@"fovnum",
              @"hotId":@"hotid",
              @"hotMp3Times":@"hotmp3times",

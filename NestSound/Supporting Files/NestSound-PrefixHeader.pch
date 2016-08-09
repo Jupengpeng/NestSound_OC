@@ -107,6 +107,8 @@ extern NSString *port;
 #define tunMusicURL @"java/musiopt/tuningMusic"
 #define otherFFURL @"java/fanfocus/otherfanslist?"
 #define changeInspirationURL @"java/inspire/update"
+#define changeMusicStatus @"java/musiopt/updateMusic"
+#define changeLyricStatus @"java/musiopt/updateLyrics"
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG
@@ -159,8 +161,6 @@ extern NSString *port;
 #define requestData @"data"
 
 
-#define SongMenuStopNotition @"kSongMenuStopNotition"
-#define NewSongStopNotition @"kNewSongStopNotition"
 #define BoxDismiss @"kBoxDismiss"
 #define NextStep @"kNextStep"
 

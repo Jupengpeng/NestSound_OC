@@ -107,7 +107,7 @@ static NSString *identifier = @"identifier";
         
         btn.tintColor = [UIColor blackColor];
         
-        [btn setImage:[UIImage imageNamed:@"2.0_dismiss_btn"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"2.0_cancel_btn"] forState:UIControlStateNormal];
         
         btn.frame = CGRectMake(15, 32, 30, 30);
         

@@ -50,7 +50,7 @@
         [shareArr addObject:_QzoneDict];
     }
     [shareArr addObject:_fuzhiDic];
-//    [shareArr addObject:_lyricPoster];
+    [shareArr addObject:_lyricPoster];
     
     for (int i = 0; i < 2; i ++) {
         for (int j = 0; j < 5; j++) {
@@ -65,7 +65,7 @@
                 [self addSubview:shareBtn];
                 
                 UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(j *((ScreenWidth-20)/5)+10, 85*i+65, (ScreenWidth-20)/5, 20)];
-                shareLabel.font = [UIFont systemFontOfSize:15];
+                shareLabel.font = [UIFont systemFontOfSize:14];
                 shareLabel.textAlignment = NSTextAlignmentCenter;
                 shareLabel.textColor = [UIColor blackColor];
                 shareLabel.text = shareArr[i*5+j][@"name"];

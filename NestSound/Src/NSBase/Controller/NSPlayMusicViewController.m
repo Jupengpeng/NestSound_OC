@@ -17,6 +17,7 @@
 #import "NSUserFeedbackViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSWriteMusicViewController.h"
+#import "NSSelectLyricsViewController.h"
 #import "NSLoginViewController.h"
 #import "NSShareView.h"
 #import "NSIndexModel.h"
@@ -32,6 +33,8 @@
     UIImageView *backgroundImage;
     UIButton *collectionBtn;
     UIButton *upVoteBtn;
+    UIButton *reportBtn;
+    UIButton *personalBtn;
     UILabel * upvoteNumLabel;
     UILabel * collecNumLabel;
     UILabel * commentNumLabel;
@@ -109,16 +112,6 @@ static id _instance;
     return _instance;
 }
 
-//- (UIView *)maskView{
-//    if (!_maskView) {
-//        self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-//        self.maskView.backgroundColor = [UIColor blackColor];
-//        self.maskView.alpha = 0;
-//        [self.maskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHideSharegroundView)]];
-//    }
-//    return _maskView;
-//}
-
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -139,6 +132,8 @@ static id _instance;
     
     [self fetchPlayDataWithItemId:self.itemUid];
     
+    [self moreChoice];
+    
     self.scrollV.contentOffset = CGPointMake(0, 0);
     
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -149,13 +144,7 @@ static id _instance;
     //耳机线控
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:SongMenuStopNotition object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeBtnsState) name:@"changeBtnsState" object:nil];
-  
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeMusic:) name:NewSongStopNotition object:nil];
-    
-    
- 
     
     //毛玻璃效果
     backgroundImage = [[UIImageView alloc] initWithFrame:self.view.bounds];
@@ -181,13 +170,13 @@ static id _instance;
     
     [self setupUI];
     
-    [self moreChoice];
-    
     
 }
 - (void)viewDidDisappear:(BOOL)animated {
     
     [super viewDidDisappear:animated];
+    
+    [self tapClick:nil];
     
     [self removeTimer];
 }
@@ -225,7 +214,19 @@ static id _instance;
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:url]) {
                 NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
+                if ([[NSString stringWithFormat:@"%zd",musicModel.musicdDetail.userID] isEqualToString: JUserID]) {
+                    if (self.isShow == 0) {
+                        [reportBtn setTitle:@"将作品设为公开" forState:UIControlStateNormal];
+                    } else {
+                        [reportBtn setTitle:@"将作品设为私密" forState:UIControlStateNormal];
+                    }
+                    [personalBtn setTitle:@"取消" forState:UIControlStateNormal];
+                } else {
+                    [reportBtn setTitle:@"举报" forState:UIControlStateNormal];
+                    [personalBtn setTitle:@"进入个人主页" forState:UIControlStateNormal];
+                }
                 self.musicDetail = musicModel.musicdDetail;
+                
             }else if ([operation.urlTag isEqualToString:upvoteURL]) {
                 if (upVoteBtn.selected == YES) {
                     self.musicDetail.zanNum = self.musicDetail.zanNum + 1;
@@ -245,6 +246,8 @@ static id _instance;
                     collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
                 }
                 [[NSToastManager manager] showtoast:@"操作成功"];
+            } else if ([operation.urlTag isEqualToString:changeMusicStatus]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
             }
         }else{
             
@@ -397,25 +400,6 @@ static id _instance;
         make.width.mas_equalTo(30);
     }];
 
-    
-    //歌名
-    
-    
-    
-//    [self.songName mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(popBtn.mas_left).with.offset(6);
-//        make.right.equalTo(shareBtn.mas_right).with.offset(-6);
-//        make.top.equalTo(self.view.mas_top).with.offset(32);
-//    }];
-//    songName.textColor = [UIColor whiteColor];
-//    
-//    songName.textAlignment = NSTextAlignmentCenter;
-//    
-//    songName.font = [UIFont systemFontOfSize:15];
-//    
-//    self.songName = songName;
-    
-    
     
     //播放暂停按钮
     UIButton *playOrPauseBtn = [[UIButton alloc] init];
@@ -984,7 +968,7 @@ static id _instance;
     
     shareView.backgroundColor = [UIColor whiteColor];
     
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 7; i++) {
         UIButton *shareBtn = (UIButton *)[shareView viewWithTag:250+i];
         [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -996,34 +980,13 @@ static id _instance;
     
     [self.view addSubview:_moreChoiceView];
     
-    WS(wSelf);
-    UIButton *reportBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        [btn setTitle:@"举报" forState:UIControlStateNormal];
-        
-        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
-    } action:^(UIButton *btn) {
-        
-        if (JUserID) {
-            
-            _maskView.hidden = YES;
-            
-            [UIView animateWithDuration:0.25 animations:^{
-                
-                _moreChoiceView.y = ScreenHeight;
-            }];
-            
-            NSUserFeedbackViewController * reportVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
-            [wSelf.navigationController pushViewController:reportVC animated:YES];
-
-        } else {
-            
-            [[NSToastManager manager] showtoast:@"请登录后再举报"];
-        }
-    }];
+    reportBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    
+    reportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    
+    [reportBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    [reportBtn addTarget:self action:@selector(handleReportBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     
     [_moreChoiceView addSubview:reportBtn];
     
@@ -1035,38 +998,13 @@ static id _instance;
         
     }];
     
+    personalBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    UIButton *personalBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        [btn setTitle:@"进入个人主页" forState:UIControlStateNormal];
-        
-        btn.titleLabel.font = [UIFont systemFontOfSize:14];
-        
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
-    } action:^(UIButton *btn) {
-        
-        if (JUserID) {
-            
-            NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.musicDetail.userID]];
-            userVC.who = Other;
-            [self.navigationController pushViewController:userVC animated:YES];
-        } else {
-            
-            _maskView.hidden = YES;
-            
-            [UIView animateWithDuration:0.25 animations:^{
-                
-                _moreChoiceView.y = ScreenHeight;
-                
-            }];
-            
-            
-            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-            
-            [self presentViewController:loginVC animated:YES completion:nil];
-        }
-    }];
+    personalBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    
+    [personalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    [personalBtn addTarget:self action:@selector(handlePersonalBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     
     [_moreChoiceView addSubview:personalBtn];
     
@@ -1078,8 +1016,7 @@ static id _instance;
         
         make.height.equalTo(reportBtn.mas_height);
         
-    }];
-    
+    }];    
     
     UIView *line = [[UIView alloc] init];
     
@@ -1099,7 +1036,67 @@ static id _instance;
     
 }
 
+- (void)handleReportBtnEvent:(UIButton *)sender {
+    NSLog(@"sender title%@",sender.currentTitle);
+    if ([sender.currentTitle isEqualToString:@"举报"]) {
+        if (JUserID) {
+            
+            _maskView.hidden = YES;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _moreChoiceView.y = ScreenHeight;
+            }];
+            
+            NSUserFeedbackViewController * reportVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
+            [self.navigationController pushViewController:reportVC animated:YES];
+            
+        } else {
+            
+            [[NSToastManager manager] showtoast:@"请登录后再举报"];
+        }
+    } else if ([sender.currentTitle isEqualToString:@"将作品设为公开"]) {
+        
+        self.requestType = NO;
+        self.requestParams = @{@"id":[NSNumber numberWithLong:self.musicDetail.itemID],@"is_issue":[NSNumber numberWithInt:1],@"token":LoginToken};
+        self.requestURL = changeMusicStatus;
+        [sender setTitle:@"将作品设为私密" forState:UIControlStateNormal];
+    } else if ([sender.currentTitle isEqualToString:@"将作品设为私密"]) {
+        
+        self.requestType = NO;
+        self.requestParams = @{@"id":[NSNumber numberWithLong:self.musicDetail.itemID],@"is_issue":[NSNumber numberWithInt:0],@"token":LoginToken};
+        self.requestURL = changeMusicStatus;
+        [sender setTitle:@"将作品设为公开" forState:UIControlStateNormal];
+    }
+}
+- (void)handlePersonalBtnEvent:(UIButton *)sender {
 
+    if ([sender.currentTitle isEqualToString:@"取消"]) {
+        [self tapClick:nil];
+    } else if ([sender.currentTitle isEqualToString:@"进入个人主页"]) {
+        
+        _maskView.hidden = YES;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _moreChoiceView.y = ScreenHeight;
+            
+        }];
+        if (JUserID) {
+            
+            NSUserPageViewController * userVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",self.musicDetail.userID]];
+            
+            userVC.who = Other;
+            [self.navigationController pushViewController:userVC animated:YES];
+            
+        } else {
+            
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
+    }
+}
 #pragma mark -OverrideUpvote
 -(void)upvoteItemId:(long)itemId_ _targetUID:(long)targetUID_ _type:(long)type_ _isUpvote:(BOOL)isUpvote
 {
@@ -1227,7 +1224,6 @@ static id _instance;
     
     //评论数
     [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateNormal];
-    
     [self.commentBtn setImage:[UIImage imageNamed:@"2.0_noComment"] forState:UIControlStateHighlighted];
     commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
     upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
@@ -1278,9 +1274,13 @@ static id _instance;
         [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.prevItemID];
         [[NSToastManager manager] showtoast:@"复制成功"];
     } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_lyricPoster"]]) {
+        
         NSLog(@"制作歌词海报");
+        NSSelectLyricsViewController *selectLyricVC = [[NSSelectLyricsViewController alloc] init];
+        selectLyricVC.lyrics = self.musicDetail.lyrics;
+        selectLyricVC.lyricTitle = self.musicDetail.title;
+        [self.navigationController pushViewController:selectLyricVC animated:YES];
     }
-    
     
 }
 
@@ -1331,20 +1331,13 @@ static id _instance;
     self.playOrPauseBtn.selected = NO;
 }
 
-//- (void)changeMusic:(NSNotification*)userInfo{
-//    NSLog(@"-------------666");
-//    [self stopMusic];
-//
-//}
+
 - (void)dealloc {
     
-    //
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pausePlayer" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SongMenuStopNotition object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NewSongStopNotition object:nil];
 
 
 }

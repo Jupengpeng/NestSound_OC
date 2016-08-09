@@ -21,6 +21,7 @@
 @property (nonatomic,assign) long prevItemID;
 @property (nonatomic,assign) long userID;
 @property (nonatomic,assign) long zanNum;
+@property (nonatomic,assign) long isShow;
 @property (nonatomic,copy) NSString * author;
 @property (nonatomic,copy) NSString * headURL;
 @property (nonatomic,copy) NSString * hotTitle;
