@@ -105,9 +105,7 @@ UITableViewDataSource>
     }
     UIImage *image1 = [self imageByApplyingAlpha:alpha image:[UIImage imageNamed:@"2.0_backgroundImage"]];
     [self.navigationController.navigationBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
-
-    //    self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
-    //    self.navigationController.navigationBar.hidden = NO;
+        self.navigationController.navigationBar.hidden = NO;
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];

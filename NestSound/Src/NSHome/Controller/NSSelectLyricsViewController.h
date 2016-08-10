@@ -11,4 +11,6 @@
 @interface NSSelectLyricsViewController : NSBaseViewController
 @property (nonatomic, strong) NSString *lyrics;
 @property (nonatomic, strong) NSString *lyricTitle;
+@property (nonatomic, strong) NSString *author;
+@property (nonatomic, strong) NSString *themeImg;
 @end

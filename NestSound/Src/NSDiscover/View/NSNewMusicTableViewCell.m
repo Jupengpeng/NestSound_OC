@@ -258,8 +258,6 @@
     
     self.collectionLabel = [[UILabel alloc] init];
     
-    
-    
     self.collectionLabel.font = [UIFont systemFontOfSize:10];
     
     self.collectionLabel.textColor = [UIColor hexColorFloat:@"999999"];
@@ -277,7 +275,7 @@
     //点赞
     self.upVoteIcon = [[UIImageView alloc] init];
     
-    self.upVoteIcon.image = [UIImage imageNamed:@"2.0_upvote"];
+    self.upVoteIcon.image = [UIImage imageNamed:@"2.0_upVote"];
     
     [self.background addSubview:self.upVoteIcon];
     
@@ -290,8 +288,6 @@
     }];
     
     self.upVoteLabel = [[UILabel alloc] init];
-    
-    
     
     self.upVoteLabel.font = [UIFont systemFontOfSize:10];
     

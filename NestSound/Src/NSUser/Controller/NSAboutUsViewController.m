@@ -8,7 +8,7 @@
 
 #import "NSAboutUsViewController.h"
 #import "NSUserFeedbackViewController.h"
-#define KColor_Background [UIColor colorWithRed:239.0 / 255.0 green:239.0 / 255.0 blue:244.0 / 255.0 alpha:1]
+#define KColor_Background [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1]
 @interface NSAboutUsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end

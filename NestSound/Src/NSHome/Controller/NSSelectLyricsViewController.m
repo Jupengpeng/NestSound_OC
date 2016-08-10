@@ -7,17 +7,33 @@
 //
 
 #import "NSSelectLyricsViewController.h"
+#import "NSLyricTableViewCell.h"
+#import "NSLyricPosterViewController.h"
 #import "NSRollView.h"
 @interface NSSelectLyricsViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    UITableViewCell *cell;
+    NSInteger index;
+}
 @property (nonatomic, strong) NSArray *lyricsArray;
+@property (nonatomic, strong) NSMutableArray *lyricPosterArr;
 @end
 
+static NSString *lyricCellIdenfity = @"lyricCell";
+
 @implementation NSSelectLyricsViewController
+
 - (NSArray *)lyricsArray {
     if (!_lyricsArray) {
         self.lyricsArray = [NSArray array];
     }
     return _lyricsArray;
+}
+- (NSMutableArray *)lyricPosterArr {
+    if (!_lyricPosterArr) {
+        self.lyricPosterArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _lyricPosterArr;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,6 +86,17 @@
         
     } action:^(UIButton *btn) {
         
+        NSLyricPosterViewController *lyricPosterVC = [[NSLyricPosterViewController alloc] init];
+        
+        lyricPosterVC.lyricsArr = self.lyricPosterArr;
+        
+        lyricPosterVC.lyricTitle  = self.lyricTitle;
+        
+        lyricPosterVC.lyricAuthor = self.author;
+        
+        lyricPosterVC.posterImg = self.themeImg;
+        
+        [wSelf.navigationController pushViewController:lyricPosterVC animated:YES];
         
     }];
     
@@ -81,8 +108,6 @@
         
         make.centerY.equalTo(popBtn.mas_centerY);
         
-        //        make.top.equalTo(self.view.mas_top).offset(32);
-        
         make.width.mas_equalTo(55);
     }];
     
@@ -92,9 +117,13 @@
     
     lyricTab.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    lyricTab.allowsMultipleSelection = YES;
+    
     lyricTab.delegate = self;
     
     lyricTab.dataSource = self;
+    
+    [lyricTab registerClass:[NSLyricTableViewCell class] forCellReuseIdentifier:lyricCellIdenfity];
     
     [self.view addSubview:lyricTab];
     
@@ -104,39 +133,66 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.lyricsArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *lyricCellIdenfity = @"lyricCell";
+    NSLyricTableViewCell *lyricCell = [tableView dequeueReusableCellWithIdentifier:lyricCellIdenfity forIndexPath:indexPath];
     
-    UITableViewCell * lyricCell = [tableView dequeueReusableCellWithIdentifier:lyricCellIdenfity];
+    lyricCell.rightLabel.text = self.lyricsArray[indexPath.row];
     
-    if (!lyricCell) {
-        lyricCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:lyricCellIdenfity];
-        lyricCell.textLabel.text = self.lyricsArray[indexPath.row];
-        lyricCell.textLabel.font = [UIFont systemFontOfSize:15];
-        lyricCell.textLabel.numberOfLines = 0;
-        lyricCell.textLabel.textColor = [UIColor colorWithRed:];
-        lyricCell.textLabel.backgroundColor = [UIColor clearColor];
-        lyricCell.textLabel.textAlignment = NSTextAlignmentCenter;
-        lyricCell.backgroundColor = [UIColor clearColor];
-    }
+    NSDictionary *fontDic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
+    //
+    CGFloat height = [self.lyricsArray[indexPath.row] boundingRectWithSize:CGSizeMake(ScreenWidth-70, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size.height;
+    
+//    NSLog(@"lable height %.f",height);
+    
+    CGRect frame = lyricCell.rightLabel.frame;
+    
+    frame.size.height = height;
+    
+    lyricCell.rightLabel.frame = frame;
+    
+//    NSLog(@"lable new height %.f",lyricCell.rightLabel.height);
+    
+    lyricCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    lyricCell.backgroundColor = [UIColor clearColor];
+        
     return lyricCell;
 }
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSDictionary *fontDic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
-    CGFloat height = [self.lyricsArray[indexPath.row] boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size.height;
+    
+    CGFloat height = [self.lyricsArray[indexPath.row] boundingRectWithSize:CGSizeMake(ScreenWidth-70, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size.height;
     
     return height + 20;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    cell.textLabel.textColor = [UIColor hexColorFloat:@"#fff"];
-//    cell.backgroundColor = [UIColor hexColorFloat:@"#6a6055"];
+    
+    NSLyricTableViewCell *lyricCell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    lyricCell.backgroundColor = [UIColor colorWithRed:106.0/255 green:96.0/255 blue:84.0/255 alpha:1.0];
+    
+    lyricCell.leftImgView.hidden = NO;
+    
+    lyricCell.rightLabel.textColor = [UIColor whiteColor];
+    
+    [self.lyricPosterArr addObject:[NSString stringWithFormat:@"%@\n",self.lyricsArray[indexPath.row]]];
+}
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLyricTableViewCell *lyricCell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    lyricCell.rightLabel.textColor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1.0];
+    
+    lyricCell.leftImgView.hidden = YES;
+    
+    lyricCell.backgroundColor = [UIColor clearColor];
+    
+    [self.lyricPosterArr removeObject:[NSString stringWithFormat:@"%@\n",self.lyricsArray[indexPath.row]]];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

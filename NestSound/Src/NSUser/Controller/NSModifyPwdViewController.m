@@ -9,6 +9,7 @@
 #import "NSModifyPwdViewController.h"
 #import "NSTextField.h"
 #define KColor_Background [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1]
+
 @interface NSModifyPwdViewController ()<UITextFieldDelegate>
 {
     NSTextField *oldPwdTF;
@@ -37,7 +38,7 @@
 }
 - (void)configureUIAppearance {
     self.title = @"修改密码";
-    
+    self.view.backgroundColor = KColor_Background;
     //旧密码
     UIImage *oldPwdImg = [UIImage imageNamed:@"2.0_password_gray"];
     UIImageView *oldPwdImgView = [[UIImageView alloc] initWithImage:oldPwdImg];
@@ -80,7 +81,7 @@
     ensureBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     ensureBtn.frame = CGRectMake(30, 200, ScreenWidth - 60, 40);
     ensureBtn.layer.cornerRadius = 20;
-    ensureBtn.backgroundColor = KColor_Background;
+    ensureBtn.backgroundColor = [UIColor colorWithRed:235.0/255 green:235.0/255 blue:235.0/255 alpha:1.0];
     ensureBtn.userInteractionEnabled = NO;
     [ensureBtn setTitle:@"确定重置密码" forState:UIControlStateNormal];
     [ensureBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -94,7 +95,7 @@
         ensureBtn.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     } else {
         ensureBtn.userInteractionEnabled = NO;
-        ensureBtn.backgroundColor = KColor_Background;
+        ensureBtn.backgroundColor = [UIColor colorWithRed:240.0/255 green:240.0/255 blue:240.0/255 alpha:1.0];
         [ensureBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     }
 }
