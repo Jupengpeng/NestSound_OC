@@ -160,6 +160,8 @@
 		94456D4E1D5185A60088385F /* NSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D4D1D5185A60088385F /* NSTextField.m */; };
 		94456D511D51C1390088385F /* NSLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D501D51C1390088385F /* NSLoginView.m */; };
 		94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D531D51EA7E0088385F /* NSRegisterView.m */; };
+		944785D11D5AC939004FFB75 /* NSLyricTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 944785D01D5AC939004FFB75 /* NSLyricTableViewCell.m */; };
+		944785D41D5B0040004FFB75 /* NSLyricPosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944785D31D5B0040004FFB75 /* NSLyricPosterViewController.m */; };
 		944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 944FA04B1D4A057000B22EE4 /* NSRollView.m */; };
 		945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */; };
 		945708E21D2F41A90074C331 /* NSShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945708E11D2F41A90074C331 /* NSShareView.m */; };
@@ -512,6 +514,10 @@
 		94456D501D51C1390088385F /* NSLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLoginView.m; sourceTree = "<group>"; };
 		94456D521D51EA7E0088385F /* NSRegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRegisterView.h; sourceTree = "<group>"; };
 		94456D531D51EA7E0088385F /* NSRegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRegisterView.m; sourceTree = "<group>"; };
+		944785CF1D5AC939004FFB75 /* NSLyricTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricTableViewCell.h; sourceTree = "<group>"; };
+		944785D01D5AC939004FFB75 /* NSLyricTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricTableViewCell.m; sourceTree = "<group>"; };
+		944785D21D5B0040004FFB75 /* NSLyricPosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricPosterViewController.h; sourceTree = "<group>"; };
+		944785D31D5B0040004FFB75 /* NSLyricPosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricPosterViewController.m; sourceTree = "<group>"; };
 		944FA04A1D4A057000B22EE4 /* NSRollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRollView.h; sourceTree = "<group>"; };
 		944FA04B1D4A057000B22EE4 /* NSRollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRollView.m; sourceTree = "<group>"; };
 		945073C11D484F77008B0DF9 /* NSAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAboutUsViewController.h; sourceTree = "<group>"; };
@@ -733,6 +739,8 @@
 				2A0B722F1CFF51B7003957E3 /* NSMusicSayViewController.m */,
 				946A53EA1D59C311002B187D /* NSSelectLyricsViewController.h */,
 				946A53EB1D59C311002B187D /* NSSelectLyricsViewController.m */,
+				944785D21D5B0040004FFB75 /* NSLyricPosterViewController.h */,
+				944785D31D5B0040004FFB75 /* NSLyricPosterViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -777,6 +785,8 @@
 				2A3E7C641CDAE2A7006C8519 /* NSSongCell.m */,
 				945708E01D2F41A90074C331 /* NSShareView.h */,
 				945708E11D2F41A90074C331 /* NSShareView.m */,
+				944785CF1D5AC939004FFB75 /* NSLyricTableViewCell.h */,
+				944785D01D5AC939004FFB75 /* NSLyricTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2616,6 +2626,7 @@
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
 				946B04311D4EEC8A00529DBA /* README.md in Sources */,
+				944785D41D5B0040004FFB75 /* NSLyricPosterViewController.m in Sources */,
 				2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */,
 				9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
@@ -2658,6 +2669,7 @@
 				18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */,
 				18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */,
 				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
+				944785D11D5AC939004FFB75 /* NSLyricTableViewCell.m in Sources */,
 				2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */,
 				18EA3ADA1D1A2A5500A98CC5 /* NSWaveformView.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,

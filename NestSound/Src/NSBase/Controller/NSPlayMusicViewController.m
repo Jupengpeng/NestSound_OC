@@ -135,7 +135,6 @@ static id _instance;
     [self moreChoice];
     
     self.scrollV.contentOffset = CGPointMake(0, 0);
-    
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
 }
@@ -1279,6 +1278,8 @@ static id _instance;
         NSSelectLyricsViewController *selectLyricVC = [[NSSelectLyricsViewController alloc] init];
         selectLyricVC.lyrics = self.musicDetail.lyrics;
         selectLyricVC.lyricTitle = self.musicDetail.title;
+        selectLyricVC.author = self.musicDetail.author;
+        selectLyricVC.themeImg = self.musicDetail.titleImageURL;
         [self.navigationController pushViewController:selectLyricVC animated:YES];
     }
     
