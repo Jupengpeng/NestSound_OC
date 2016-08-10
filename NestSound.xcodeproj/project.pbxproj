@@ -2847,6 +2847,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "cd796357-f7b0-4ada-968b-b83f95743860";
+
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

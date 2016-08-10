@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) NSMutableArray *waveArray;
 @property (nonatomic, assign) NSInteger desibelNum;
+@property (nonatomic, assign) NSInteger count;
+
 @property (nonatomic, assign) CGFloat waveDistance;
 @property (nonatomic, strong)UIView* realTimeView;
 @property(assign,nonatomic)CGFloat distantKeyPath;

@@ -87,6 +87,8 @@ static CGFloat timerNum=0;
 
     CGFloat distantKeyPath;
     NSUInteger drawCount;
+    NSUInteger drawNum;
+
     BOOL stopScroll;
     NSDownloadProgressView *ProgressView;//BoxDismiss
     
@@ -430,6 +432,13 @@ static CGFloat timerNum=0;
     if (distant> distantKeyPath) {
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNumTemp, 0) animated:NO];
         
+    }
+    
+    [self changeScrollViewColor];
+
+   
+    if ([self.waveform.timeScrollView isDragging]) {
+        [self changeScrollViewColor];
     }
 }
 
@@ -952,6 +961,8 @@ static CGFloat timerNum=0;
     timerNum=scrollView.contentOffset.x/speed;
     timerNumPlay_temp = timerNum;
     curtime3 =timerNum;
+    curtime2 =timerNum;
+
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     
 }
@@ -1483,7 +1494,7 @@ static CGFloat timerNum=0;
      }
 
      [self.waveform.waveView drawLine];
-     
+
      if (![self.player3 isPlaying] && self.player.currentTime>0) {
          [self.waveform.waveView setNeedsDisplay];
 
@@ -1598,15 +1609,16 @@ static CGFloat timerNum=0;
 }
 
 - (void)scrollTimeView{
-    
-        self.waveform.waveView.waveDistance =speed*timerNum;
-    CGFloat distantKeyPathi=self.waveform.timeScrollView.contentOffset.x;
+
+    self.waveform.waveView.waveDistance =speed*timerNum;
     if ([self.player isPlaying]) {
         distantKeyPath=self.waveform.timeScrollView.contentOffset.x;
     }
         [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.waveView.waveDistance, 0) animated:NO];
-
+    drawNum++;
     
+    [self changeScrollViewColor];
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -1628,7 +1640,10 @@ static CGFloat timerNum=0;
         timerNum=scrollView.contentOffset.x/speed;
         timerNumPlay_temp = timerNum;
         curtime3 =timerNum;
+        curtime2 =timerNum;
+
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+        
 
     }
 
@@ -1636,8 +1651,29 @@ static CGFloat timerNum=0;
 }
 
 
+
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
 
+}
+
+
+- (void)changeScrollViewColor{
+    
+    if (self.waveform.waveView.waveArray.count == 0) {
+        return;
+    }
+    UIView* view = (UIView*)self.waveform.waveView.waveArray[0];
+    CGFloat f=  self.waveform.timeScrollView.contentOffset.x+view.frame.origin.x;
+    for (UIView* view in self.waveform.waveView.waveArray) {
+        if (view.frame.origin.x<f) {
+            view.backgroundColor = [UIColor hexColorFloat:@"ffd33f"];
+        }
+        else{
+            view.backgroundColor = [UIColor lightGrayColor];
+
+        }
+    }
+    
 }
 
 @end

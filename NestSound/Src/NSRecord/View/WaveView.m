@@ -7,7 +7,6 @@
 //
 
 #import "WaveView.h"
-NSUInteger ii=0;
 @implementation WaveView
 
 
@@ -26,7 +25,6 @@ NSUInteger ii=0;
 
 - (void)drawLine {
     
-    [self.waveArray addObject:@(self.desibelNum)];
     
 }
 
@@ -35,10 +33,12 @@ NSUInteger ii=0;
     if (self.desibelNum==0) {
         return;
     }
-    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 21-self.desibelNum, 1.f,self.desibelNum)];
+    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 21-self.desibelNum/2, 1.f,self.desibelNum)];//21
     
     self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd33f"];
+    [self.waveArray addObject:self.realTimeView];
 
+    self.count++;
 
     [self addSubview:self.realTimeView];
    
