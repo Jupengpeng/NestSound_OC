@@ -35,7 +35,7 @@ PODS:
   - SVPullToRefresh (0.4.1)
   - TheAmazingAudioEngine (1.5.6)
   - TTTAttributedLabel (2.0.0)
-  - UMengAnalytics-NO-IDFA (4.0.5)
+  - UMengAnalytics-NO-IDFA (4.1.1)
   - UMengSocialCOM (5.2.1)
 
 DEPENDENCIES:
@@ -66,7 +66,7 @@ SPEC CHECKSUMS:
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
-  UMengAnalytics-NO-IDFA: 965a219b05475ff2a4c09a164139a27bbaa0e25b
+  UMengAnalytics-NO-IDFA: 1064992c1b7aaa22823179c0b33a664813fd7a85
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
 
 PODFILE CHECKSUM: 83ab74caa928d82ab9b6b792f946d08634094a62

@@ -32,7 +32,7 @@ static  NSString * const lyricTypeID = @"lyricType";
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-       
+       [self configreUIAppearance];
     }
     return self;
 }
@@ -91,7 +91,8 @@ static  NSString * const lyricTypeID = @"lyricType";
     NSTypeLyricListModel * typeList =lyricTypeAry[0];
     lyricsAry = [NSMutableArray arrayWithArray:typeList.lyricLibaryList];
     dataAry = lyricsAry;
-    [self configreUIAppearance];
+    [lyricTypeColl reloadData];
+//    [self configreUIAppearance];
     
 }
 #pragma mark collectionViewDataSource

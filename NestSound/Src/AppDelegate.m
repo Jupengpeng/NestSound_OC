@@ -87,7 +87,24 @@
     
     [self.window makeKeyAndVisible];
     
+    UIApplication *app = [UIApplication sharedApplication];
     
+    __block UIBackgroundTaskIdentifier taskId;
+    
+    taskId = [app beginBackgroundTaskWithExpirationHandler:^{
+        
+        NSLog(@"后台任务超时被退出");
+        [app endBackgroundTask:taskId];
+        taskId = UIBackgroundTaskInvalid;
+    }];
+    
+    if(taskId == UIBackgroundTaskInvalid)
+        
+    {
+        NSLog(@"开启后台任务失败");
+    }
+    
+    NSLog(@"remining seconde %f",[app backgroundTimeRemaining]);
     //NSLog(@"------------启动：self.isHeadset = %d",self.isHeadset);
     return YES;
 }

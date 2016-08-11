@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
+		0C4ECBFF1D5C90F4003CAAF9 /* NSLyricModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -204,6 +206,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRhymeViewController.h; sourceTree = "<group>"; };
+		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
+		0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricModelViewController.h; sourceTree = "<group>"; };
+		0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricModelViewController.m; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -822,6 +828,10 @@
 				18BCA2631CE3113D00891C95 /* NSInspirationRecordViewController.m */,
 				2ADE8F5D1CFE7679006CD840 /* NSShareViewController.h */,
 				2ADE8F5E1CFE7679006CD840 /* NSShareViewController.m */,
+				0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */,
+				0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */,
+				0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */,
+				0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2593,6 +2603,7 @@
 				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
 				2A9429B91CF42E880099A6DB /* NSSongListModel.m in Sources */,
+				0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */,
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
 				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
@@ -2658,6 +2669,7 @@
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
+				0C4ECBFF1D5C90F4003CAAF9 /* NSLyricModelViewController.m in Sources */,
 				946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */,
 				2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
@@ -2858,8 +2870,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cd796357-f7b0-4ada-968b-b83f95743860";
-
+				PROVISIONING_PROFILE = "5a7f3e3f-8cae-4670-bdaa-e3d63965d278";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

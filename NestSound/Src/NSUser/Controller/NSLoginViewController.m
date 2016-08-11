@@ -108,7 +108,7 @@
                 
             }else if ([operation.urlTag isEqualToString:registerURL]){
                 
-                [[NSToastManager manager] showtoast:@"注册成功，请您登陆"];
+                [[NSToastManager manager] showtoast:@"注册成功，请您登录"];
                 
                 [self loginEvent:nil];
                 
