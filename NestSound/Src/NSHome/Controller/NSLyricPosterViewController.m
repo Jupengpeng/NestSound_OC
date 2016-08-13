@@ -186,8 +186,9 @@
 {
     //获得一个位图图形上下文
     CGSize size=CGSizeMake(ScreenWidth, ScreenHeight - 104 + height);//画布大小
-    
-    UIGraphicsBeginImageContext(size);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 2.0);
+//    UIGraphicsBeginImageContextWithOptions(CGSizeMake(ScreenWidth, ScreenHeight - 104 + height), NO,[UIScreen mainScreen].scale);//换一下这句就行了。
+//    UIGraphicsBeginImageContext(size);
     
     [img drawInRect:CGRectMake(0, 0, ScreenWidth, ScreenHeight/2)];//注意绘图的位置是相对于画布顶点而言，不是屏幕
     //添加水印

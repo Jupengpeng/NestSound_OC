@@ -122,13 +122,13 @@
 
 }
 
--(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
+-(void)setAccompanyModel:(NSSimpleCategoryModel *)accompanyModel
 {
     _accompanyModel = accompanyModel;
     
-    workNameLabel.text = _accompanyModel.title;
+    workNameLabel.text = _accompanyModel.categoryName;
 //    authorNameLabel.text = _accompanyModel.author;
-    [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [titlePage setDDImageWithURLString:_accompanyModel.categoryPic placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 }
 
 @end

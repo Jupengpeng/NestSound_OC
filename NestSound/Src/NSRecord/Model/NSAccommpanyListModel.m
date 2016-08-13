@@ -26,9 +26,55 @@
 @implementation NSAccommpanyListModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    return @{@"accommpanyList":@"data"};
+    return @{@"accommpanyList":@"data",
+             @"simpleList":@"data",
+             @"simpleCategoryList":@"data"};
 
 }
 
 
 @end
+
+@implementation NSSimpleListModel
+
+- (NSDictionary *)modelKeyJSONKeyMapper
+{
+    return @{@"simpleSingList":@"simplesing"};
+}
+
+@end
+
+
+@implementation NSSimpleSingModel
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"itemID":@"id",
+             @"author":@"author",
+             @"playUrl":@"mp3",
+             @"title":@"title",
+             @"titleImageUrl":@"pic",
+             @"playTimes":@"mp3times"};
+}
+
+@end
+
+
+@implementation NSSimpleCategoryListModel
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"simpleCategory":@"list"};
+}
+
+@end
+
+@implementation NSSimpleCategoryModel
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"categoryName":@"categoryname",
+             @"categoryId":@"id",
+             @"categoryPic":@"categorypic"};
+}
+
+@end
+
+

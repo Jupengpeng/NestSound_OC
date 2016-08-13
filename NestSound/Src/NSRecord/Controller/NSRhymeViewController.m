@@ -8,12 +8,21 @@
 
 #import "NSRhymeViewController.h"
 
-@interface NSRhymeViewController ()
+@interface NSRhymeViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong) NSArray *textArr;
 @end
 
 @implementation NSRhymeViewController
 
+static NSString *cellIdentifier = @"rhymeCell";
+
+- (NSArray *)textArr {
+    if (!_textArr) {
+        self.textArr = [NSArray array];
+    }
+    return _textArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -22,7 +31,67 @@
 }
 - (void)setupRhymeViewUI {
     
+    NSString *text = [NSString stringWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"韵脚" ofType:@"txt"] encoding: NSUTF8StringEncoding error: NULL];
+    
+    self.textArr = [text componentsSeparatedByString:@"\n\n"];
+    
     self.title = @"韵脚";
+    
+    UITableView *rhymeTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-64) style:UITableViewStyleGrouped];
+    
+    rhymeTableView.delegate = self;
+    
+    rhymeTableView.dataSource = self;
+    
+    [rhymeTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
+    
+    rhymeTableView.backgroundColor = [UIColor colorWithRed:250.0/255 green:250.0/255 blue:250.0/255 alpha:1.0];
+    
+    [self.view addSubview:rhymeTableView];
+    
+    
+}
+#pragma mark - UITableViewDataSource
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    
+    return self.textArr.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    UITableViewCell *rhymeCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    rhymeCell.textLabel.numberOfLines = 0;
+    rhymeCell.textLabel.font = [UIFont systemFontOfSize:15];
+    rhymeCell.textLabel.text = self.textArr[indexPath.section];
+    
+    return rhymeCell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
+    
+    CGFloat height = [self.textArr[indexPath.section] boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
+    NSLog(@"行高%.f",height);
+    if (height >= 150) {
+       return height + 40;
+    } else {
+        return height + 20;
+    }
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.01;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

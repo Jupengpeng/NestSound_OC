@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
 		0C4ECBFF1D5C90F4003CAAF9 /* NSLyricModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */; };
+		0CCE5C6C1D5D74B200E97998 /* NSLyricDraftsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */; };
+		0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -210,6 +212,9 @@
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
 		0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricModelViewController.h; sourceTree = "<group>"; };
 		0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricModelViewController.m; sourceTree = "<group>"; };
+		0CCE5C6A1D5D74B200E97998 /* NSLyricDraftsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricDraftsViewController.h; sourceTree = "<group>"; };
+		0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricDraftsViewController.m; sourceTree = "<group>"; };
+		0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "韵脚.txt"; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -832,6 +837,8 @@
 				0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */,
 				0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */,
 				0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */,
+				0CCE5C6A1D5D74B200E97998 /* NSLyricDraftsViewController.h */,
+				0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1054,6 +1061,7 @@
 		2DFB67191CC1E6DE00DA24DA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */,
 				2A0058051D11C4080028D4D2 /*  Localizable.strings */,
 				182F33531CDC41AF006AB047 /* Assets.xcassets */,
 			);
@@ -1480,6 +1488,7 @@
 				946B042E1D4EEC8A00529DBA /* pick_checked@2x.png in Resources */,
 				946B042A1D4EEC8A00529DBA /* HUImagePickerCell.xib in Resources */,
 				946B042F1D4EEC8A00529DBA /* pick_checked@3x.png in Resources */,
+				0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */,
 				946B04301D4EEC8A00529DBA /* LICENSE in Resources */,
 				182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */,
 				946B04271D4EEC8A00529DBA /* HUAlbumCell.xib in Resources */,
@@ -2602,6 +2611,7 @@
 				2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */,
 				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
+				0CCE5C6C1D5D74B200E97998 /* NSLyricDraftsViewController.m in Sources */,
 				2A9429B91CF42E880099A6DB /* NSSongListModel.m in Sources */,
 				0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */,
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,

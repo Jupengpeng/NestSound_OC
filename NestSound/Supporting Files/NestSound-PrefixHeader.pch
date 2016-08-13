@@ -77,7 +77,7 @@ extern NSString *port;
 #define otherCenterURL @"java/common/otherCenter/index?"
 #define messageURL @"java/message/center?"
 #define upvoteMessageURL @"java/message/zanCenterList?"
-#define accompanyListURL @"java/common/accompaniment/list?"
+#define accompanyListURL @"java/common/accompanimentcategory/list?"
 #define collectMessageURL @"java/message/fovMyCenterList?"
 #define commentMessageURL @"java/message/commentCenterList?"
 #define systemMessageURL @"java/message/sysNoteList?"

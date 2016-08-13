@@ -165,6 +165,8 @@
 {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     
+    self.view.backgroundColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
+    
     lexiconView.delegate = self;
     
     titleTextFiled = [[UITextField alloc] init];
@@ -420,6 +422,8 @@
 
 - (void)selectedlrcString:(NSString *)lrcString_ {
     
+    lyricView.lyricText.delegate = self;
+    
     lyricView.lyricText.text = [lyricView.lyricText.text stringByAppendingString:[NSString stringWithFormat:@"%@\n",lrcString_]];
 }
 
@@ -429,5 +433,29 @@
     
     lyricView.lyricText.text = lyrics;
 }
+#pragma mark - UITextViewDelegate
+-(void)textViewDidChange:(UITextView *)textView
 
+{
+    //    textview 改变字体的行间距
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    paragraphStyle.lineSpacing = 26;
+    
+    //    paragraphStyle.
+    
+    NSDictionary *attributes = @{
+                                 
+                                 NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                 
+                                 NSParagraphStyleAttributeName:paragraphStyle
+                                 
+                                 };
+    
+    textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+    
+}
 @end

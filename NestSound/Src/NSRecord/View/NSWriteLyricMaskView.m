@@ -57,10 +57,10 @@ static  NSString * const lyricTypeID = @"lyricType";
     layout.itemSize = CGSizeMake(self.width / 5 - 1, 33);
     
     
-    lyricTypeColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 10, self.size.width, 35) collectionViewLayout:layout];
+    lyricTypeColl = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.size.width, 35) collectionViewLayout:layout];
     lyricTypeColl.delegate = self;
     lyricTypeColl.dataSource = self;
-    lyricTypeColl.backgroundColor = [UIColor lightGrayColor];
+    lyricTypeColl.backgroundColor = [UIColor whiteColor];
     [bottomView addSubview:lyricTypeColl];
     
     [lyricTypeColl registerClass:[NSLexiconCollectionViewCell class] forCellWithReuseIdentifier:lyricTypeID];
@@ -91,7 +91,10 @@ static  NSString * const lyricTypeID = @"lyricType";
     NSTypeLyricListModel * typeList =lyricTypeAry[0];
     lyricsAry = [NSMutableArray arrayWithArray:typeList.lyricLibaryList];
     dataAry = lyricsAry;
+    lyricTypeColl.backgroundColor = [UIColor lightGrayColor];
     [lyricTypeColl reloadData];
+    [lyricTableView reloadData];
+    [lyricTableView setContentOffset:CGPointMake(0,0) animated:NO];
 //    [self configreUIAppearance];
     
 }

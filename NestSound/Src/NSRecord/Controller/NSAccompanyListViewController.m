@@ -17,10 +17,13 @@
 @interface NSAccompanyListViewController ()
 <
     UITableViewDataSource,
-    UITableViewDelegate
+    UITableViewDelegate,
+UICollectionViewDataSource,
+UICollectionViewDelegate
 >
 {
     UITableView * accompanyListTabelView;
+    UICollectionView *accompanyCollection;
     NSAccompanyListHeaderView * headerView;
     NSMutableArray * hotAccompanyAry;
     NSMutableArray * newAccompanyAry;
@@ -93,14 +96,14 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     self.requestType = YES;
     NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
     NSString * str = [NSTool encrytWithDic:dic];
-    if (headerView.xinBtn.selected) {
+//    if (headerView.xinBtn.selected) {
         newUrl = [accompanyListURL stringByAppendingString:str];
         self.requestURL = newUrl;
    
-    }else{
-        hotUrl = [accompanyListURL stringByAppendingString:str];
-        self.requestURL = hotUrl;
-    }
+//    }else{
+//        hotUrl = [accompanyListURL stringByAppendingString:str];
+//        self.requestURL = hotUrl;
+//    }
     
 }
 
@@ -117,34 +120,34 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                 
                 if ([operation.urlTag isEqualToString:hotUrl]) {
                     
-                    hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+                    hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
                 }else{
                     
-                    newAccompanyAry = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+                    newAccompanyAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
                     
                 }
                 
             }else{
-                if ([operation.urlTag isEqualToString:hotUrl]) {
-                    if (listModel.accommpanyList.count == 0) {
-                        
-                    }else{
-                        
-                        [hotAccompanyAry addObjectsFromArray:listModel.accommpanyList];
-                    }
-                    
-                    
-                }else{
-                    
-                    if (listModel.accommpanyList.count == 0) {
-                        
-                    }else{
-                        
-                        [newAccompanyAry addObjectsFromArray:listModel.accommpanyList];
-                        
-                    }
-                    
-                }
+//                if ([operation.urlTag isEqualToString:hotUrl]) {
+//                    if (listModel.accommpanyList.count == 0) {
+//                        
+//                    }else{
+//                        
+//                        [hotAccompanyAry addObjectsFromArray:listModel.simpleCategoryList];
+//                    }
+//                    
+//                    
+//                }else{
+//                    
+//                    if (listModel.accommpanyList.count == 0) {
+//                        
+//                    }else{
+//                        
+//                        [newAccompanyAry addObjectsFromArray:listModel.simpleCategoryList];
+//                        
+//                    }
+//                    
+//                }
             }
             if (headerView.xinBtn.selected) {
                 dataAry = newAccompanyAry;
@@ -167,6 +170,19 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 {
     //nav
     self.title = @"原唱伴奏";
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    accompanyCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    
+    accompanyCollection.delegate = self;
+    
+    accompanyCollection.dataSource = self;
+    
+    accompanyCollection.showsVerticalScrollIndicator = NO;
+    accompanyCollection.alwaysBounceVertical = YES;
+    accompanyCollection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+
+    [self.view addSubview:accompanyCollection];
     
     //accompanyListTableView
     accompanyListTabelView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -235,7 +251,16 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [self.navigationController pushViewController:writeMusicVC animated:YES];
 
 }
-
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return dataAry.count;
+}
+//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//}
 #pragma mark -TableDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -307,12 +332,12 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
             
             [NSPlayMusicTool pauseMusicWithName:nil];
             
-            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+//            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
             
 //            tages = cell.btn.tag;
         } else {
             
-            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+//            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
 //            tages = cell.btn.tag;
         }
         

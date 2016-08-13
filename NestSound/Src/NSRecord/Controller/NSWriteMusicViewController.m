@@ -673,10 +673,9 @@ static CGFloat timerNum=0;
 -(void)viewWillAppear:(BOOL)animated
 {
     
-    
 
     [super viewWillAppear:animated];
-
+    self.navigationController.navigationBar.hidden = NO;
     //timerNumRecorder=0;
     //timerNumRecorder_temp=0;
     timerNumPlay=0;
