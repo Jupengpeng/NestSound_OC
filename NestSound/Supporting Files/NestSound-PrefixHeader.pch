@@ -53,8 +53,15 @@ extern NSString *port;
 #define debugPort     @""
 #define releaseHost   @"http://api.yinchao.cn"
 #define releasePort   @""
-//#define releaseHost   @"http://api.yinchao.cn"
-//#define releasePort   @""
+
+#ifdef Debug // 调试
+#define CHLog(...) NSLog(__VA_ARGS__)
+#define DDLog() NSLog(@"%d,%s",__LINE__,__FUNCTION__)
+#else // 发布
+#define CHLog(...)
+#define DDLog()
+#endif
+
 
 #define customHostKey @"customHostKey"
 #define customPortKey @"customPortKey"
@@ -78,6 +85,7 @@ extern NSString *port;
 #define messageURL @"java/message/center?"
 #define upvoteMessageURL @"java/message/zanCenterList?"
 #define accompanyListURL @"java/common/accompanimentcategory/list?"
+#define accompanyCategoryListUrl @"java/common/accompaniment/list21?"
 #define collectMessageURL @"java/message/fovMyCenterList?"
 #define commentMessageURL @"java/message/commentCenterList?"
 #define systemMessageURL @"java/message/sysNoteList?"

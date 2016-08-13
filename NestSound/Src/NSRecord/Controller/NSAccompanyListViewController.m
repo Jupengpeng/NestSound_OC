@@ -12,26 +12,21 @@
 #import "NSAccommpanyListModel.h"
 #import "NSWriteMusicViewController.h"
 #import "NSPlayMusicTool.h"
+#import "NSAccompanyCategoryCell.h"
+#import "NSAccompanyCategoryViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
 @interface NSAccompanyListViewController ()
 <
-    UITableViewDataSource,
-    UITableViewDelegate,
 UICollectionViewDataSource,
 UICollectionViewDelegate
 >
 {
-    UITableView * accompanyListTabelView;
+    
     UICollectionView *accompanyCollection;
-    NSAccompanyListHeaderView * headerView;
-    NSMutableArray * hotAccompanyAry;
-    NSMutableArray * newAccompanyAry;
-    NSMutableArray * dataAry;
     int currentPage;
     NSString * newUrl;
     NSString * hotUrl;
-    NSInteger tages;
     
 }
 
@@ -39,25 +34,25 @@ UICollectionViewDelegate
 
 @property (nonatomic, strong) UIButton *button;
 
+@property (nonatomic, strong) NSMutableArray * simpleSingAry;
+
+@property (nonatomic, strong) NSMutableArray * accompanyCategoryAry;
 @end
 
-static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 
+static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 @implementation NSAccompanyListViewController
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
-                                                 name:@"pausePlayer"
-                                               object:nil];
+    
     [self configureUIAppearance];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    tages = 200;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     [self fetchAccompanyData];
 }
@@ -75,9 +70,10 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 #pragma mark -fetchData
 -(void)fetchAccompanyData
 {
-    if (dataAry.count == 0) {
-        [accompanyListTabelView setContentOffset:CGPointMake(0, -60) animated:YES];
-        [accompanyListTabelView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    if (self.accompanyCategoryAry.count == 0) {
+
+        [accompanyCollection setContentOffset:CGPointMake(0, -60) animated:YES];
+        [accompanyCollection performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
     }
     
 }
@@ -96,15 +92,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     self.requestType = YES;
     NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
     NSString * str = [NSTool encrytWithDic:dic];
-//    if (headerView.xinBtn.selected) {
         newUrl = [accompanyListURL stringByAppendingString:str];
         self.requestURL = newUrl;
    
-//    }else{
-//        hotUrl = [accompanyListURL stringByAppendingString:str];
-//        self.requestURL = hotUrl;
-//    }
-    
 }
 
 
@@ -115,17 +105,14 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
     } else {
         if (!parserObject.success) {
+            
             NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 
-                if ([operation.urlTag isEqualToString:hotUrl]) {
-                    
-                    hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                }else{
-                    
-                    newAccompanyAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                    
-                }
+                self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
+                [self.simpleSingAry removeAllObjects];
+                [self.simpleSingAry addObject: listModel.simpleList.simpleSingList];
+//                
                 
             }else{
 //                if ([operation.urlTag isEqualToString:hotUrl]) {
@@ -149,18 +136,13 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 //                    
 //                }
             }
-            if (headerView.xinBtn.selected) {
-                dataAry = newAccompanyAry;
-            }else{
-                dataAry = hotAccompanyAry;
-            }
             
             if (!operation.isLoadingMore) {
-                [accompanyListTabelView.pullToRefreshView stopAnimating];
+                [accompanyCollection.pullToRefreshView stopAnimating];
             }else{
-                [accompanyListTabelView.infiniteScrollingView stopAnimating];
+                [accompanyCollection.infiniteScrollingView stopAnimating];
             }
-            [accompanyListTabelView reloadData];
+            [accompanyCollection reloadData];
         }
     }
 }
@@ -172,46 +154,27 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     self.title = @"原唱伴奏";
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    accompanyCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    accompanyCollection = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) collectionViewLayout:layout];
     
     accompanyCollection.delegate = self;
     
     accompanyCollection.dataSource = self;
     
     accompanyCollection.showsVerticalScrollIndicator = NO;
+    
     accompanyCollection.alwaysBounceVertical = YES;
+    
+    [accompanyCollection registerClass:[NSAccompanyCategoryCell class] forCellWithReuseIdentifier:accompanyCellIditify];
+    
     accompanyCollection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-
+    
     [self.view addSubview:accompanyCollection];
     
-    //accompanyListTableView
-    accompanyListTabelView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    accompanyListTabelView.dataSource = self;
-    accompanyListTabelView.delegate = self;
-//    accompanyListTabelView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
-    headerView = [[NSAccompanyListHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 180)];
-    //set tableView headerView
-    headerView.xinBtn.selected = YES;
-    [headerView.xinBtn addTarget:self action:@selector(doNew) forControlEvents:UIControlEventTouchUpInside];
-    [headerView.hotBtn addTarget:self action:@selector(doHot) forControlEvents:UIControlEventTouchUpInside];
-    [headerView.singBtn addTarget:self action:@selector(doSingNoAccompany) forControlEvents:UIControlEventTouchUpInside];
-    
-    accompanyListTabelView.tableHeaderView = headerView;
-    [accompanyListTabelView registerClass:[NSAccompanyTableCell class] forCellReuseIdentifier:accompanyCellIditify];
-    
-    [self.view addSubview:accompanyListTabelView];
-    //constraints
-    [accompanyListTabelView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).with.offset(15);
-        make.right.equalTo(self.view.mas_right).with.offset(-15);
-        make.top.equalTo(self.view.mas_top);
-        make.bottom.equalTo(self.view.mas_bottom);
-    }];
     
     WS(Wself);
     //refresh
-    [accompanyListTabelView addDDPullToRefreshWithActionHandler:^{
+    [accompanyCollection addDDPullToRefreshWithActionHandler:^{
         if (!Wself) {
             return ;
         }else{
@@ -219,30 +182,17 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         }
     }];
     //loadingMore
-    [accompanyListTabelView addDDInfiniteScrollingWithActionHandler:^{
+    [accompanyCollection addDDInfiniteScrollingWithActionHandler:^{
         if (!Wself) {
             return ;
         }
         [Wself fetchAccompanyListDataWithIsLoadingMore:YES];
     }];
-    accompanyListTabelView.showsInfiniteScrolling = YES;
+//    accompanyCollection.showsInfiniteScrolling = YES;
+    
 }
-#pragma mark -newAccompany
--(void)doNew
-{
-    headerView.xinBtn.selected = YES;
-    headerView.hotBtn.selected = NO;
-    [self fetchAccompanyListDataWithIsLoadingMore:NO];
 
-}
-#pragma mark -hotAccompany
--(void)doHot
-{
-    headerView.hotBtn.selected = YES;
-    headerView.xinBtn.selected = NO;
-    [self fetchAccompanyListDataWithIsLoadingMore:NO];
 
-}
 
 #pragma mark - sing no accompany
 -(void)doSingNoAccompany
@@ -253,106 +203,80 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 }
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return 2;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return dataAry.count;
+    return section ? self.accompanyCategoryAry.count : self.simpleSingAry.count;
 }
-//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
-#pragma mark -TableDataSource
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSAccompanyCategoryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:accompanyCellIditify forIndexPath:indexPath];
+    
+    if (indexPath.section == 0) {
+        
+        cell.simpleSing = self.simpleSingAry[indexPath.row];
+    } else {
+        cell.accompanyCategory = self.accompanyCategoryAry[indexPath.row];
+    }
+    
+    return cell;
+}
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section) {
+        NSSimpleCategoryModel * accompany = self.accompanyCategoryAry[indexPath.item];
+        NSAccompanyCategoryViewController *accompanyCategoryListVC = [[NSAccompanyCategoryViewController alloc] initWithCategoryId:accompany.categoryId andCategoryName:accompany.categoryName];
+        [self.navigationController pushViewController:accompanyCategoryListVC animated:YES];
+    } else {
+        NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.item];
+        NSAccompanyCategoryViewController *accompanyCategoryListVC = [[NSAccompanyCategoryViewController alloc] initWithCategoryId:simpleSing.itemID andCategoryName:simpleSing.title];
+        [self.navigationController pushViewController:accompanyCategoryListVC animated:YES];
+    }
+    
+}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        
+        return CGSizeMake(ScreenWidth - 30, 180);
+        
+    } else {
+        
+        CGFloat W = (ScreenWidth - 50) / 3;
+        return CGSizeMake(W, W);
+        
+    }
+    
+}
+#pragma mark -collectionView LayOut
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if (section == 0) {
+        return UIEdgeInsetsMake(10, 15, 10, 15);
+    }
+    return UIEdgeInsetsMake(0, 15, 0, 15);
+}
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return dataAry.count;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return  0.1;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    
     return 10;
 }
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 3*ScreenHeight/25;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSInteger section = indexPath.section;
-    NSAccompanyTableCell * accompanyCell = [tableView dequeueReusableCellWithIdentifier:accompanyCellIditify];
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     
-    [accompanyCell.btn addTarget:self action:@selector(playerClick:) forControlEvents:UIControlEventTouchUpInside];
-    accompanyCell.btn.tag = indexPath.section;
-    accompanyCell.btn.selected = NO;
+    return 10;
     
-//    if (tages == accompanyCell.btn.tag) {
-//        accompanyCell.btn.selected = YES;
-//    }
-        accompanyCell.accompanyModel = dataAry[section];
-    return accompanyCell;
-    
-}
-#pragma mark -UITableViewDelegate
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //downLoading accompany and push to recordVC
-    NSAccommpanyModel * accompany = dataAry[indexPath.section];
-    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
-    
-    writeMusicVC.accompanyModel = accompany;
-    
-    [self.player pause];
-    [NSPlayMusicTool stopMusicWithName:nil];
-    
-    [self.navigationController pushViewController:writeMusicVC animated:YES];
 }
 
-- (void)playerClick:(UIButton *)btn {
-    
-    btn.selected = !btn.selected;
-    if (btn == self.button) {
-        
-    } else {
-        self.button.selected = NO;
-    }
-    NSAccompanyTableCell * cell = (NSAccompanyTableCell *)btn.superview.superview;
-    
-    if (btn.selected) {
-        
-        if (self.player) {
-            
-            [NSPlayMusicTool pauseMusicWithName:nil];
-            
-//            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
-            
-//            tages = cell.btn.tag;
-        } else {
-            
-//            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
-//            tages = cell.btn.tag;
-        }
-        
-    } else {
-        
-        [NSPlayMusicTool pauseMusicWithName:nil];
-//        self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
-//        tages = 200;
-    }
-    
-    self.button = btn;
-}
-- (void)pausePlayer {
-    [NSPlayMusicTool pauseMusicWithName:nil];
-    self.button.selected = NO;
-}
 
+- (NSMutableArray *)simpleSingAry {
+    if (!_simpleSingAry) {
+        self.simpleSingAry = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _simpleSingAry;
+}
+- (NSMutableArray *)accompanyCategoryAry {
+    if (!_accompanyCategoryAry) {
+        self.accompanyCategoryAry = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _accompanyCategoryAry;
+}
 @end

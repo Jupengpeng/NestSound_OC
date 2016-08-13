@@ -24,6 +24,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
        
+        
         [self configureUIAppearance];
 
     }
@@ -117,18 +118,18 @@
 //        make.centerX.centerY.equalTo(titlePage);
         make.right.equalTo(titlePage.mas_right).with.offset(-5);
         make.bottom.equalTo(titlePage.mas_bottom).with.offset(-5);
-        make.size.mas_equalTo(CGSizeMake(30, 30));
+        make.size.mas_equalTo(CGSizeMake(25, 25));
     }];
 
 }
 
--(void)setAccompanyModel:(NSSimpleCategoryModel *)accompanyModel
+-(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
 {
     _accompanyModel = accompanyModel;
     
-    workNameLabel.text = _accompanyModel.categoryName;
+    workNameLabel.text = _accompanyModel.title;
 //    authorNameLabel.text = _accompanyModel.author;
-    [titlePage setDDImageWithURLString:_accompanyModel.categoryPic placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 }
 
 @end

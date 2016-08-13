@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
 		0C4ECBFF1D5C90F4003CAAF9 /* NSLyricModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */; };
+		0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */; };
+		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
 		0CCE5C6C1D5D74B200E97998 /* NSLyricDraftsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */; };
 		0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
@@ -212,6 +214,10 @@
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
 		0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricModelViewController.h; sourceTree = "<group>"; };
 		0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricModelViewController.m; sourceTree = "<group>"; };
+		0CCCDC891D5EC83000AE0BD3 /* NSAccompanyCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryCell.h; sourceTree = "<group>"; };
+		0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryCell.m; sourceTree = "<group>"; };
+		0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryViewController.h; sourceTree = "<group>"; };
+		0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryViewController.m; sourceTree = "<group>"; };
 		0CCE5C6A1D5D74B200E97998 /* NSLyricDraftsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricDraftsViewController.h; sourceTree = "<group>"; };
 		0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricDraftsViewController.m; sourceTree = "<group>"; };
 		0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "韵脚.txt"; sourceTree = "<group>"; };
@@ -818,6 +824,8 @@
 			children = (
 				2AE3C2351CDF04B700790BFA /* NSAccompanyListViewController.h */,
 				2AE3C2361CDF04B700790BFA /* NSAccompanyListViewController.m */,
+				0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */,
+				0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */,
 				18FA5E391CFC395D0027D534 /* NSWriteMusicViewController.h */,
 				18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */,
 				1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */,
@@ -870,6 +878,8 @@
 			children = (
 				2AE3C2381CDF04FE00790BFA /* NSAccompanyTableCell.h */,
 				2AE3C2391CDF04FE00790BFA /* NSAccompanyTableCell.m */,
+				0CCCDC891D5EC83000AE0BD3 /* NSAccompanyCategoryCell.h */,
+				0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */,
 				2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */,
 				2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */,
 				18BCA2651CE335AE00891C95 /* NSPictureCollectionView.h */,
@@ -2645,6 +2655,7 @@
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
+				0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
 				2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */,
@@ -2687,6 +2698,7 @@
 				2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */,
 				2AAE01D31CFC5A40008D3145 /* NSDrawLineView.m in Sources */,
 				2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */,
+				0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,

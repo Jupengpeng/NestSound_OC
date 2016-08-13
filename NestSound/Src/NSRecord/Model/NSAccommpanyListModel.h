@@ -28,7 +28,7 @@
 @end
 @interface NSSimpleListModel : NSBaseModel
 
-@property (nonatomic,strong) NSArray<NSSimpleSingModel> * simpleSingList;
+@property (nonatomic,strong) NSSimpleSingModel * simpleSingList;
 @end
 
 
@@ -74,7 +74,8 @@
 @interface NSAccommpanyListModel : NSBaseModel
 
 @property (nonatomic,assign) int totalCount;
-@property (nonatomic,strong) NSAccommpanyModel * accommpanyList;
+@property (nonatomic,strong) NSArray<NSAccommpanyModel> * accommpanyList;
+//@property (nonatomic,strong) NSAccommpanyModel * accommpanyList;
 @property (nonatomic,strong) NSSimpleListModel * simpleList;
 @property (nonatomic,strong) NSSimpleCategoryListModel * simpleCategoryList;
 @end

@@ -34,7 +34,7 @@
 #import "NSInspirtationModel.h"
 #import "NSTunMusicModel.h"
 #import "NSLyricLibraryListModel.h"
-
+//#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
@@ -73,7 +73,7 @@
         return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:messageURL]){
         return [[NSMessageListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:accompanyListURL]){
+    }else if ([url isEqualToString:accompanyListURL] || [url isEqualToString:accompanyCategoryListUrl]){
         return [[NSAccommpanyListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:myLyricListURL]){
         return [[NSMyLricListModel alloc] initWithJSONDict:jsonDict];

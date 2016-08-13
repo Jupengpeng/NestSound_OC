@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class NSSimpleCategoryModel;
+@class NSAccommpanyModel;
 
 @interface NSAccompanyTableCell : UITableViewCell
 
-@property (nonatomic,strong) NSSimpleCategoryModel * accompanyModel;
+@property (nonatomic,strong) NSAccommpanyModel * accompanyModel;
 
 @property (nonatomic, weak) UIButton *btn;
 

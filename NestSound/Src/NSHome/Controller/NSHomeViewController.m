@@ -195,9 +195,10 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 - (void)viewDidLayoutSubviews {
     
+    [super viewDidLayoutSubviews];
+    
     _collection.frame = CGRectMake(0, 0, ScreenWidth, self.view.height);
     
-    [super viewDidLayoutSubviews];
 }
 
 #pragma  mark -fetchIndexData
@@ -234,8 +235,10 @@ static NSString * const NewWorkCell = @"NewWorkCell";
                     [self.itemIDArr addObject:@(model.itemId)];
                 }
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
-                 [self configureUIAppearance];
-//                [_collection reloadData];
+                
+                [_collection removeFromSuperview];
+                [self configureUIAppearance];
+                
                 [_collection.pullToRefreshView stopAnimating];
             }else if([operation.urlTag isEqualToString:getToken]){
                 NSUserModel * userModels = (NSUserModel *)parserObject;

@@ -17,6 +17,6 @@
 
 @property (nonatomic,strong) NSMutableDictionary * descibelDictionary;
 
--(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;;
+-(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;
 
 @end

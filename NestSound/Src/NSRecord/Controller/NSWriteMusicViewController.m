@@ -598,13 +598,7 @@ static CGFloat timerNum=0;
     return self;
 }
 
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:NextStep object:nil];
-    [self.timer invalidate];
-    self.timer = nil;
-    
-    [self removeObserver:self forKeyPath:@"distantKeyPathTemp" context:nil];
-}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -794,7 +788,6 @@ static CGFloat timerNum=0;
     //listenBk
     listenBk = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_listen_bk"]];
     
-    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
     
     lineView.backgroundColor = [UIColor lightGrayColor];
@@ -906,8 +899,6 @@ static CGFloat timerNum=0;
         make.bottom.equalTo(bottomView.mas_top).offset(-5);
         
     }];
-    
-    
     
     
     titleText = [[UITextField alloc] init];
@@ -1674,5 +1665,11 @@ static CGFloat timerNum=0;
     }
     
 }
-
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:NextStep object:nil];
+    [self.timer invalidate];
+    self.timer = nil;
+    
+    [self removeObserver:self forKeyPath:@"distantKeyPathTemp" context:nil];
+}
 @end
