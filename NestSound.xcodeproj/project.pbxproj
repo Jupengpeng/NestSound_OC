@@ -614,7 +614,8 @@
 				183E039B1CDDC5E90071FEE5 /* Model */,
 				183E039A1CDDC5E90071FEE5 /* Controller */,
 			);
-			path = NSDiscover;
+			name = NSDiscover;
+			path = ../Src/NSDiscover;
 			sourceTree = "<group>";
 		};
 		183E039A1CDDC5E90071FEE5 /* Controller */ = {
@@ -1078,7 +1079,6 @@
 				2DFB67271CC1E82700DA24DA /* NSBase */,
 				2D8608D21CCC87720027F147 /* NSUser */,
 				2D8608C61CCC87720027F147 /* NSHome */,
-				183E03991CDDC5E90071FEE5 /* NSDiscover */,
 				2D8608CE1CCC87720027F147 /* NSRecord */,
 				2A9DC10C1CDDC6B9004470ED /* NSMessage */,
 				2D8608D61CCC87720027F147 /* NSUserPage */,
@@ -1099,6 +1099,7 @@
 		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				183E03991CDDC5E90071FEE5 /* NSDiscover */,
 				B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */,
 				B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */,
 				B899FA481D41B9AE001E79F3 /* lame.h */,
@@ -1181,7 +1182,6 @@
 			isa = PBXGroup;
 			children = (
 				2DFB672A1CC1E82700DA24DA /* View */,
-				2DFB67291CC1E82700DA24DA /* Model */,
 				2DFB67281CC1E82700DA24DA /* Controller */,
 			);
 			path = NSBase;
@@ -1214,7 +1214,8 @@
 				2ADDECA11D101B2F00030D5A /* NSQiniuModel.h */,
 				2ADDECA21D101B2F00030D5A /* NSQiniuModel.m */,
 			);
-			path = Model;
+			name = Model;
+			path = ../Model;
 			sourceTree = "<group>";
 		};
 		2DFB672A1CC1E82700DA24DA /* View */ = {
@@ -1230,6 +1231,7 @@
 				18453A8D1CF6D20E004EE0E6 /* NSCommentTableViewCell.m */,
 				2AAE01D11CFC5A40008D3145 /* NSDrawLineView.h */,
 				2AAE01D21CFC5A40008D3145 /* NSDrawLineView.m */,
+				2DFB67291CC1E82700DA24DA /* Model */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1371,6 +1373,7 @@
 				EDAABA4E9A49B3B688F48E54 /* [CP] Copy Pods Resources */,
 				8C0A763796F9A8D0B2C01387 /* 📦 Embed Pods Frameworks */,
 				E8301068291CE40135658275 /* 📦 Copy Pods Resources */,
+				87EA339FE58390F4AA1C5CCA /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2089,6 +2092,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		87EA339FE58390F4AA1C5CCA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NestSound/Pods-NestSound-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		891A7BB98EF9E812C05983EE /* [CP] Check Pods Manifest.lock */ = {
