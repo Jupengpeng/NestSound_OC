@@ -46,6 +46,10 @@
     
     imageView.image = [UIImage imageNamed:@"img_03"];
     
+    [imageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    imageView.contentMode =  UIViewContentModeScaleAspectFill;
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    imageView.clipsToBounds  = YES;
     //描述Label
     describeLabel = [[UILabel alloc] init];
     
@@ -110,6 +114,15 @@
     [imageView setDDImageWithURLString:musicSay.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 //    describeLabel.text = musicSay.detail;
 //    songNameLabel.text = musicSay.workName;
+    
+}
+
+- (void)setPicUrlStr:(NSString *)picUrlStr{
+    
+    imageView.image = [UIImage imageNamed:@"MusicDesign"];
+    
+//    [imageView setDDImageWithURLString:picUrlStr placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    
     
 }
 

@@ -28,12 +28,14 @@
 
 @implementation NSIndexCollectionReusableView
 
+
+
 - (instancetype)initWithFrame:(CGRect)frame {
     
     if (self = [super initWithFrame:frame]) {
         
         UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_vertical"]];
-        
+        icon.tag = 150 ;
         icon.layer.cornerRadius = icon.width * 0.5;
         
         icon.clipsToBounds = YES;
@@ -62,7 +64,6 @@
             
         }];
         
-        
 
 
         [self addTimer];
@@ -71,6 +72,8 @@
     
     return self;
 }
+
+
 
 - (UIButton *)loadMore {
     
@@ -266,6 +269,7 @@
 #pragma mark - setter && getter
 -(void)setBannerAry:(NSMutableArray *)bannerAry
 {
+    _bannerAry = bannerAry;
      NSMutableArray * bannerAry1 = [NSMutableArray array];
     for (id obj in bannerAry) {
         NSBanner * banner = (NSBanner *)obj;

@@ -23,6 +23,8 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(NSString *)encrytWithDic:(NSDictionary *)dic;
 +(NSString *)stringFormatWithTimeLong:(long)times;
 +(NSString *)getMachine;
++(CGFloat)getWidthWithContent:(NSString *)contentStr font:(UIFont *)font;
++(CGFloat)getHeightWithContent:(NSString *)contentStr width:(CGFloat)width font:(UIFont *)font lineOffset:(CGFloat)lineOffset;
 @end
 
 //cache include ：accompany，record file

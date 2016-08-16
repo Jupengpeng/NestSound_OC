@@ -19,6 +19,11 @@
 #import "NSSongListViewController.h"
 #import "NSMusicSayViewController.h"
 #import "NSUserModel.h"
+#import "NSTopicCarryOnCell.h"
+/**
+ *  专题活动
+  */
+#import "NSThemeActivityController.h"
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
     UICollectionView *_collection;
@@ -38,7 +43,6 @@
 @property (nonatomic, strong) NSMutableArray *itemIDArray;
 @property (nonatomic, strong) NSMutableArray *itemIDArr;
 @property (nonatomic,assign) long  itemId;
-
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
 @end
@@ -48,7 +52,10 @@ static NSString * const MusicSayCell = @"MusicSayCell";
 static NSString * const SongMenuCell = @"SongMenuCell";
 static NSString * const headerView = @"HeaderView";
 static NSString * const NewWorkCell = @"NewWorkCell";
-
+/**
+ *  话题进行时
+ */
+static NSString * const TopCarringCell = @"TopCarringCell";
 @implementation NSHomeViewController
 
 
@@ -115,7 +122,9 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
      UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     self.navigationItem.rightBarButtonItem = item;
-     
+    
+    [self configureUIAppearance];
+
     [self fetchIndexData];
     [self getAuthorToken];
    
@@ -125,6 +134,19 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
     self.navigationController.navigationBar.hidden = NO;
+    
+    /**
+     *  重新设置刷新样式，需要更好地解决方案
+     */
+    WS(wSelf);
+    [_collection addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchIndexData];
+        }
+    }];
+    
     if (bannerAry.count == 0) {
         [self fetchIndexData];
     }
@@ -177,7 +199,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     [_collection registerClass:[NSRecommendCell class] forCellWithReuseIdentifier:NewWorkCell];
     
     [_collection registerClass:[NSMusicSayCollectionViewCell class] forCellWithReuseIdentifier:MusicSayCell];
-    
+    [_collection registerClass:[NSTopicCarryOnCell class] forCellWithReuseIdentifier:TopCarringCell];
+
     [_collection registerClass:[NSIndexCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView];
     
     [self.view addSubview:_collection];
@@ -264,7 +287,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    return 4;
+    return 6;
 }
 
 
@@ -274,19 +297,25 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         return recommendAry.count;
         
-    } else if (section == 1) {
+    } else if (section == 1){
+        
+        return 1;
+    } else if (section == 2) {
         
         return recommendSongAry.count;
         
-    } else if (section == 2){
+    } else if (section == 3){
+        
+        return 1;
+        
+    } else if (section == 4){
         
         return newListAry.count;
-        
     } else {
         
         return musicSayAry.count;
     }
-    
+
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -302,8 +331,15 @@ static NSString * const NewWorkCell = @"NewWorkCell";
 
         return cell;
         
+    } else if (indexPath.section == 1){
+    
+        NSMusicSayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MusicSayCell forIndexPath:indexPath];
         
-    } else if (indexPath.section == 1) {
+        cell.picUrlStr = @"MusicDesign";
+        
+        return cell;
+    
+    } else if (indexPath.section == 2) {
         
         NSSongMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SongMenuCell forIndexPath:indexPath];
         
@@ -312,7 +348,23 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         
         return cell;
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3){
+        
+        NSTopicCarryOnCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TopCarringCell forIndexPath:indexPath];
+        
+        [cell setupDataWithTopicArray:[NSMutableArray array]];
+        
+        cell.topicClickBlock = ^(NSInteger clickIndex){
+          
+            NSLog(@"click -- %ld", clickIndex);
+            NSThemeActivityController *themeController = [[NSThemeActivityController alloc] init];
+            [self.navigationController pushViewController:themeController animated:YES];
+            
+        };
+        
+        return cell;
+        
+    } else if (indexPath.section == 4) {
         
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NewWorkCell forIndexPath:indexPath];
         NSNew * newModel = (NSNew *)[newListAry objectAtIndex:indexPath.row];
@@ -342,12 +394,22 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         CGFloat W = (ScreenWidth - 50) / 3;
         return CGSizeMake(W, W + W * 0.38);
         
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == 1){
+        CGFloat W = ScreenWidth - 30;
+        CGFloat picRatio = 90 / 345.0f;
+        return CGSizeMake(W, W * picRatio);
+    } else if (indexPath.section == 2) {
         
         CGFloat W = (ScreenWidth - 40) * 0.5;
         return CGSizeMake(W, 135);
         
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3){
+        
+        CGFloat W = (ScreenWidth);
+        
+        return CGSizeMake(W, 145.0f);
+        
+    } else if (indexPath.section == 4) {
         
         CGFloat W = (ScreenWidth - 50) / 3;
         return CGSizeMake(W, W + W * 0.38);
@@ -355,7 +417,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     } else {
         
         CGFloat W = (ScreenWidth - 30);
-        return CGSizeMake(W, 200);
+//        CGFloat picRatio = 250 / 345.0 ;
+        return CGSizeMake(W,200);
     }
     
 }
@@ -386,12 +449,18 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
-    }else if (section == 1){
+    } else if (section == 1){
+        
+    
+    } else if (section == 2){
         
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
         NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:recommendSongModel.itemID];
         [self.navigationController pushViewController:songVC animated:YES];
-    }else if (section == 2){
+    } else if (section == 3){
+        
+        
+    } else if (section == 4){
         NSNew * newModel = (NSNew *)newListAry[row];
         //newModel type == 1 is music type == 2 is lyric
         if (newModel.type == 1) {
@@ -410,7 +479,7 @@ static NSString * const NewWorkCell = @"NewWorkCell";
             [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
-    }else if (section == 3){
+    }else if (section == 5){
         NSMusicSay * musicSay = (NSMusicSay *)musicSayAry[row];
         //type == 1 is music ,type == 2 is web
         if (musicSay.type == 1) {
@@ -454,6 +523,8 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     if (section == 0) {
         
         return CGSizeMake(ScreenWidth, 190);
+    } else if(section == 1 || section == 3){
+        return CGSizeMake(ScreenWidth, 10);
     }
     return CGSizeMake(ScreenWidth, 35);
     
@@ -464,17 +535,22 @@ static NSString * const NewWorkCell = @"NewWorkCell";
     NSIndexCollectionReusableView *reusable = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView forIndexPath:indexPath];
     
     reusable.delegate = self;
-    
+    reusable.clipsToBounds = YES;
     if (indexPath.section == 0) {
+        
         
         reusable.bannerAry = bannerAry;
         
         reusable.titleLable.text = @"推荐作品";
+
 //        NSLocalizedString(@"promot_recommendWorks", @"");
 //        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
         
-    } else if (indexPath.section == 1) {
-        
+    }  else if (indexPath.section == 1 || indexPath.section == 3 ){
+        [[reusable viewWithTag:100] removeFromSuperview];
+        [[reusable viewWithTag:200] removeFromSuperview];
+    } else if (indexPath.section == 2) {
+
         [[reusable viewWithTag:100] removeFromSuperview];
         
         [[reusable viewWithTag:200] removeFromSuperview];
@@ -482,20 +558,21 @@ static NSString * const NewWorkCell = @"NewWorkCell";
         UIButton *songMenuBtn = [reusable loadMore];
         
         [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
         reusable.titleLable.text = @"推荐歌单";
+
 //        LocalizedStr(@"promot_recommendSongList");
 
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 4) {
+
         [[reusable viewWithTag:100] removeFromSuperview];
         
         [[reusable viewWithTag:200] removeFromSuperview];
-        
+
         reusable.titleLable.text = @"最新作品";
 //        LocalizedStr(@"promot_newWorks");
         
-    } else {
-        
+    } else if (indexPath.section == 5){
+
         UIButton *songSayBtn = [reusable loadMore];
         
         [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];

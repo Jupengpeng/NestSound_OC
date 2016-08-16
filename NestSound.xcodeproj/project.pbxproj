@@ -162,6 +162,13 @@
 		2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */; };
 		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
 		3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */; };
+		692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */; };
+		695619011D61C35500102BC7 /* MainTouchTableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695618FE1D61C35500102BC7 /* MainTouchTableTableView.m */; };
+		695619021D61C35500102BC7 /* MYSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619001D61C35500102BC7 /* MYSegmentView.m */; };
+		695619051D61C8C500102BC7 /* NSThemeTopicTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */; };
+		695845131D63039D00F93827 /* NSThemeTopicCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */; };
+		6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */; };
+		69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */; };
 		9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */; };
 		94456D4E1D5185A60088385F /* NSTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D4D1D5185A60088385F /* NSTextField.m */; };
 		94456D511D51C1390088385F /* NSLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94456D501D51C1390088385F /* NSLoginView.m */; };
@@ -522,6 +529,20 @@
 		3A1FBBD3CAB484E50C3E89B7 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
 		4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A1B50989E881DC33A50036C /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
+		692A934E1D616F7C004823C8 /* NSTopicCarryOnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTopicCarryOnCell.h; sourceTree = "<group>"; };
+		692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTopicCarryOnCell.m; sourceTree = "<group>"; };
+		695618FD1D61C35500102BC7 /* MainTouchTableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTouchTableTableView.h; sourceTree = "<group>"; };
+		695618FE1D61C35500102BC7 /* MainTouchTableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTouchTableTableView.m; sourceTree = "<group>"; };
+		695618FF1D61C35500102BC7 /* MYSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYSegmentView.h; sourceTree = "<group>"; };
+		695619001D61C35500102BC7 /* MYSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYSegmentView.m; sourceTree = "<group>"; };
+		695619031D61C8C500102BC7 /* NSThemeTopicTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeTopicTopView.h; sourceTree = "<group>"; };
+		695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeTopicTopView.m; sourceTree = "<group>"; };
+		695845111D63039D00F93827 /* NSThemeTopicCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeTopicCommentCell.h; sourceTree = "<group>"; };
+		695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeTopicCommentCell.m; sourceTree = "<group>"; };
+		6995A7831D61A3F700DAF325 /* NSThemeActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeActivityController.h; sourceTree = "<group>"; };
+		6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeActivityController.m; sourceTree = "<group>"; };
+		69BC453F1D62BD3A009C9171 /* NSThemeCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeCommentController.h; sourceTree = "<group>"; };
+		69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeCommentController.m; sourceTree = "<group>"; };
 		7822CA4949F2D37B6D5242E6 /* Pods-NestSound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.release.xcconfig"; sourceTree = "<group>"; };
 		941854491D533FCD00227FA4 /* NSCheckUpgradeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCheckUpgradeUtil.h; sourceTree = "<group>"; };
 		9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCheckUpgradeUtil.m; sourceTree = "<group>"; };
@@ -759,6 +780,10 @@
 				946A53EB1D59C311002B187D /* NSSelectLyricsViewController.m */,
 				944785D21D5B0040004FFB75 /* NSLyricPosterViewController.h */,
 				944785D31D5B0040004FFB75 /* NSLyricPosterViewController.m */,
+				6995A7831D61A3F700DAF325 /* NSThemeActivityController.h */,
+				6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */,
+				69BC453F1D62BD3A009C9171 /* NSThemeCommentController.h */,
+				69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -791,6 +816,8 @@
 				2AD69B391CD30DFA00BCA19C /* NSRecommendCell.m */,
 				18C914901CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.h */,
 				18C914911CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m */,
+				692A934E1D616F7C004823C8 /* NSTopicCarryOnCell.h */,
+				692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */,
 				18C914931CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.h */,
 				18C914941CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m */,
 				1892F0331CD74AF000B47503 /* NSIndexCollectionReusableView.h */,
@@ -805,6 +832,10 @@
 				945708E11D2F41A90074C331 /* NSShareView.m */,
 				944785CF1D5AC939004FFB75 /* NSLyricTableViewCell.h */,
 				944785D01D5AC939004FFB75 /* NSLyricTableViewCell.m */,
+				695619031D61C8C500102BC7 /* NSThemeTopicTopView.h */,
+				695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */,
+				695845111D63039D00F93827 /* NSThemeTopicCommentCell.h */,
+				695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1181,6 +1212,7 @@
 		2DFB67261CC1E75900DA24DA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				695618FC1D61C35500102BC7 /* MainViewController */,
 				946B040F1D4EEC8A00529DBA /* HUPhotoPicker */,
 				2DFB672F1CC1E88F00DA24DA /* Http */,
 				2DFB67321CC1E88F00DA24DA /* Model */,
@@ -1268,6 +1300,17 @@
 				2DFB67441CC1E92E00DA24DA /* NSBaseModelProperty.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		695618FC1D61C35500102BC7 /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				695618FD1D61C35500102BC7 /* MainTouchTableTableView.h */,
+				695618FE1D61C35500102BC7 /* MainTouchTableTableView.m */,
+				695618FF1D61C35500102BC7 /* MYSegmentView.h */,
+				695619001D61C35500102BC7 /* MYSegmentView.m */,
+			);
+			path = MainViewController;
 			sourceTree = "<group>";
 		};
 		946B040F1D4EEC8A00529DBA /* HUPhotoPicker */ = {
@@ -2576,13 +2619,16 @@
 				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				946B04291D4EEC8A00529DBA /* HUImagePickerCell.m in Sources */,
+				692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */,
 				2AC3D1131CF84BB700D9FE53 /* NSMyInspirationListModel.m in Sources */,
 				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
 				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
 				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
+				695845131D63039D00F93827 /* NSThemeTopicCommentCell.m in Sources */,
 				18453A951CF73596004EE0E6 /* NSString+SizeFont.m in Sources */,
+				695619051D61C8C500102BC7 /* NSThemeTopicTopView.m in Sources */,
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
@@ -2597,6 +2643,7 @@
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
 				2AAE01C71CFC2077008D3145 /* NSLoginViewController.m in Sources */,
+				6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
@@ -2615,6 +2662,7 @@
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
+				695619021D61C35500102BC7 /* MYSegmentView.m in Sources */,
 				2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */,
 				94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */,
 				B80C86551D47A75B00B22855 /* HudView.m in Sources */,
@@ -2669,6 +2717,7 @@
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
+				69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */,
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
 				2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */,
 				1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */,
@@ -2726,6 +2775,7 @@
 				18EA3ADA1D1A2A5500A98CC5 /* NSWaveformView.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
+				695619011D61C35500102BC7 /* MainTouchTableTableView.m in Sources */,
 				2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */,
 				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
 				946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */,

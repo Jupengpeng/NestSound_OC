@@ -11,4 +11,9 @@
 
 @interface NSMusicSayCollectionViewCell : UICollectionViewCell
 @property (nonatomic,strong) NSMusicSay * musicSay;
+/**
+ *  定制未来
+ */
+@property (nonatomic,strong) NSString *picUrlStr;
+
 @end
