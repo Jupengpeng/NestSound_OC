@@ -2667,11 +2667,8 @@
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
-<<<<<<< HEAD
 				0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */,
-=======
 				695619021D61C35500102BC7 /* MYSegmentView.m in Sources */,
->>>>>>> JuPeng
 				2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */,
 				94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */,
 				B80C86551D47A75B00B22855 /* HudView.m in Sources */,
