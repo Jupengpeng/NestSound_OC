@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "2.0_writeMusic_edit.png",
+      "filename" : "导入歌词.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "2.0_writeMusic_edit@2x.png",
+      "filename" : "导入歌词@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "2.0_writeMusic_edit@3x.png",
+      "filename" : "导入歌词@3x.png",
       "scale" : "3x"
     }
   ],

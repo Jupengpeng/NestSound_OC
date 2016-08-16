@@ -14,7 +14,8 @@
 @property (nonatomic,strong) NSAccommpanyModel * accompanyModel;
 @property (nonatomic,strong) NSTimer * timer;
 @property (nonatomic,strong) NSArray * descibelArray;
-
+@property (nonatomic,strong) NSArray *urlStrArr;
+@property (nonatomic,assign) NSInteger accompanyId;
 @property (nonatomic,strong) NSMutableDictionary * descibelDictionary;
 
 -(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;

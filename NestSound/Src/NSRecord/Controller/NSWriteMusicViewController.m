@@ -22,6 +22,8 @@
 #import "NSWaveformView.h"
 #import "NSPlayMusicViewController.h"
 #import "NSDownloadProgressView.h"
+#import "NSLoginViewController.h"
+#import "AFHTTPSessionManager.h"
 #import "lame.h"
 #import "MBProgressHUD.h"
 #import "HudView.h"
@@ -351,22 +353,79 @@ static CGFloat timerNum=0;
 
 //分贝数
 - (CGFloat)decibels {
-    
+    /*
     [self.recorder updateMeters];
     
-   // CGFloat decibels = [self.recorder peakPowerForChannel:0];
+    self.recorder.meteringEnabled = YES;
+//    CGFloat decibels = [self.recorder peakPowerForChannel:0];
     CGFloat decibels = [self.recorder averagePowerForChannel:0];
 
-    return  decibels;//   [self updateMeters];
+    return  decibels;
+    */
+    [self.recorder updateMeters];
+    float   level;                // The linear 0.0 .. 1.0 value we need.
+    float   minDecibels = -60.0f; // Or use -60dB, which I measured in a silent room.
+    float   decibels    = [self.recorder averagePowerForChannel:0];
+    
+    if (decibels < minDecibels)
+    {
+        level = -0.0f;
+        
+        NSLog(@"AAAAAA%f",decibels);
+    }
+    else if (decibels >= 0.0f)
+    {
+        level = 1.0f;
+        
+        NSLog(@"BBBBBB%f",decibels);
+    }
+    else
+    {
+        float   root            = 2.0f;
+        float   minAmp          = powf(10.0f, 0.05f * minDecibels);
+        float   inverseAmpRange = 1.0f / (1.0f - minAmp);
+        float   amp             = powf(10.0f, 0.05f * decibels);
+        float   adjAmp          = (amp - minAmp) * inverseAmpRange;
+        NSLog(@"CCCCCCCCC%f",decibels);
+        level = powf(adjAmp, 1.0f / root);
+    }
+    return level * 60;
 }
 
 - (CGFloat)playerDecibels:(AVAudioPlayer*)player {
-    
+    /*
     [player updateMeters];
+    
+    self.recorder.meteringEnabled = YES;
     
     CGFloat decibels = [player peakPowerForChannel:0];
     
     return decibels;
+     */
+    [player updateMeters];
+    float   level;                // The linear 0.0 .. 1.0 value we need.
+    float   minDecibels = -60.0f; // Or use -60dB, which I measured in a silent room.
+    float   decibels    = [player peakPowerForChannel:0];
+    
+    if (decibels < minDecibels)
+    {
+        level = -0.0f;
+    }
+    else if (decibels >= 0.0f)
+    {
+        level = 1.0f;
+    }
+    else
+    {
+        float   root            = 2.0f;
+        float   minAmp          = powf(10.0f, 0.05f * minDecibels);
+        float   inverseAmpRange = 1.0f / (1.0f - minAmp);
+        float   amp             = powf(10.0f, 0.05f * decibels);
+        float   adjAmp          = (amp - minAmp) * inverseAmpRange;
+        
+        level = powf(adjAmp, 1.0f / root);
+    }
+    return level * 60;
 }
 
 
@@ -617,18 +676,17 @@ static CGFloat timerNum=0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nextStep:) name:NextStep object:nil];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
-        
+    
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     
+    self.navigationItem.rightBarButtonItem = next;
     
     
-    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
+//    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
     
-    NSArray *array = @[next, importLyric];
-#import "NSLoginViewController.h"
-#import "AFHTTPSessionManager.h"
+//    NSArray *array = @[next, importLyric];
     
-    self.navigationItem.rightBarButtonItems = array;
+//    self.navigationItem.rightBarButtonItems = array;
     
     [self setupUI];
     
@@ -684,13 +742,16 @@ static CGFloat timerNum=0;
     
     [playVC.player pause];
     [self resetButton];
-
-    NSString * fileURL = hotMp3Url;
+    
+    [self downloadAccompanyWithUrl:hotMp3Url];
+}
+- (void)downloadAccompanyWithUrl:(NSString *)urlStr {
+    
     NSFileManager * fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:LocalAccompanyPath]) {
         [fm createDirectoryAtPath:LocalAccompanyPath withIntermediateDirectories:YES attributes:nil error:nil];
     }else{
-        if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[fileURL lastPathComponent]]]) {
+        if (![fm fileExistsAtPath:[LocalAccompanyPath stringByAppendingPathComponent:[urlStr lastPathComponent]]]) {
             //下载进度条
             self.maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
             
@@ -708,25 +769,17 @@ static CGFloat timerNum=0;
             
             [self.navigationController.view addSubview:ProgressView];
             
-            [[NSHttpClient client] downLoadWithFileURL:fileURL completionHandler:^{
+            [[NSHttpClient client] downLoadWithFileURL:urlStr completionHandler:^{
                 
                 [self removeProgressView];
                 
-                //UIButton *btn2 = wSelf.btns[2];
-                
-                //btn2.enabled = YES;
             }];
         } else {
             
-            //UIButton *btn2 = wSelf.btns[2];
             
-            //btn2.enabled = YES;
         }
     }
-    
-    
 }
-//移除进度条
 - (void)removeProgressView {
     
     [self.maskView removeFromSuperview];
@@ -785,8 +838,11 @@ static CGFloat timerNum=0;
 #pragma mark - setupUI
 - (void)setupUI {
     
+    //nextAccompany
+    
+    
     //listenBk
-    listenBk = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_listen_bk"]];
+//    listenBk = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_listen_bk"]];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 1)];
     
@@ -813,22 +869,22 @@ static CGFloat timerNum=0;
     for (int i = 0; i < num; i++) {
         
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnW * i, 0, btnW, btnW)];
+        
         btn.selected=NO;
 
         NSString *imageStr = [NSString stringWithFormat:@"2.0_writeMusic_btn%02d",i];
         
         [btn setImage:[UIImage imageNamed:imageStr] forState:UIControlStateNormal];
         
-        if (i == 0 || i == 4) {
-            
-            btn.hidden = YES;
-        }
+//        if (i == 0 || i == 4) {
+//            
+//            btn.hidden = YES;
+//        }
         
         if (i == 1) {
             
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_btn01"] forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_play"] forState:UIControlStateNormal];
-
             
         }
         
@@ -848,7 +904,7 @@ static CGFloat timerNum=0;
     }
     
     
-    self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
+    self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 220, ScreenWidth, 84)];
     
     self.waveform.backgroundColor = [UIColor whiteColor];
     
@@ -934,7 +990,7 @@ static CGFloat timerNum=0;
     }];
     
     
-    lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 50, self.view.width, self.view.height - 260)];
+    lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 50, self.view.width, self.view.height - 280)];
     
     lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
     
@@ -962,8 +1018,26 @@ static CGFloat timerNum=0;
     self.appDelete = [UIApplication sharedApplication].delegate;
     
      clickValue = [self buttonClickedValue:btn];
-
-    if (btn.tag == 2) {
+    if (btn.tag == 0) {
+        
+        //next song
+        if (self.urlStrArr.count != 0) {
+            if (self.accompanyId == self.urlStrArr.count - 1) {
+                hotMp3Url  = [self.urlStrArr firstObject];
+                self.accompanyId = 0;
+            }else{
+                self.accompanyId = self.accompanyId + 1;
+                hotMp3Url   = self.urlStrArr[self.accompanyId];
+            }
+            [self downloadAccompanyWithUrl:hotMp3Url];
+            
+        }else{
+            
+            
+        }
+        
+        
+    } else if (btn.tag == 2) {
         
         self.waveform.timeScrollView.userInteractionEnabled=NO;
 
@@ -993,8 +1067,6 @@ static CGFloat timerNum=0;
             timerNum=   timerNumRecorder;
 
             [self.link setPaused:NO];
-            
-            
             
             if (self.appDelete.isHeadset) {
                 plugedHeadset=YES;
@@ -1040,10 +1112,7 @@ static CGFloat timerNum=0;
          curtime3=0;
          curtime2=0;
          timerNumPlay_temp=0;
-    }
-    
-    
-    if (btn.tag ==1) {
+    } else if (btn.tag ==1) {
 
         self.waveform.timeScrollView.userInteractionEnabled=NO;
 
@@ -1120,9 +1189,7 @@ static CGFloat timerNum=0;
         }
         
         
-    }
-    
-    if (btn.tag == 3) {//
+    } else if (btn.tag == 3) {//
         
         if ([self.player isPlaying]) {
           //  [HudView showView:self.navigationController.view string:@"先停止录音"];
@@ -1151,6 +1218,9 @@ static CGFloat timerNum=0;
         }
         
         
+    } else if (btn.tag == 4) {
+        
+        [self importLyricClick:nil];
     }
     
 
@@ -1330,7 +1400,7 @@ static CGFloat timerNum=0;
     {
         
         self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
-        //self.link.frameInterval=3;
+        self.link.frameInterval=4;
 
         [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
@@ -1343,8 +1413,8 @@ static CGFloat timerNum=0;
         
         self.waveLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(scrollTimeView)];
         
-        self.waveLink.frameInterval=6;
-        [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        self.waveLink.frameInterval=4;
+        [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
 }
 
@@ -1388,15 +1458,11 @@ static CGFloat timerNum=0;
 
 
 
-/**            self.waveform.num = fabs(count)*11/40;
 
- *  定时器执行
- */
-/*- (void)actionTiming {
+- (void)actionTiming {
     
-    timerNum += 1/60.0;
+    timerNum += 1/15.0;
     //分贝数
-   // count = [self decibels];
 
     if (!self.isPlay) {
         if ([self.recorder isRecording]) {
@@ -1405,35 +1471,34 @@ static CGFloat timerNum=0;
             if ([self.player isPlaying]) {
                 count = [self playerDecibels:self.player];
 
-            }else if([self.player2 isPlaying]) {
-                count = [self playerDecibels:self.player2];
-                
-            }else if([self.player3 isPlaying]) {
+            }
+//            else if([self.player2 isPlaying]) {
+//                count = [self playerDecibels:self.player2];
+//                
+//            }
+            else if([self.player3 isPlaying]) {
                 count = [self playerDecibels:self.player3];
                 
             }
 
         }
-        NSLog(@"-----------count = %f",count);
-        self.lineNum++;
+//        self.lineNum++;
+        
+//        if (self.lineNum % 3 == 0) { //3
+            self.waveform.waveView.desibelNum =(fabs(count));
+            dispatch_async(dispatch_get_main_queue(), ^{
+//
+                [self.waveform.waveView drawLine];
+                
+                [self.waveform.waveView setNeedsDisplay];
+            });
             
-        if (self.lineNum % 3 == 0) { //3
-            
-            //self.waveform.num = count * 0.5 + 20;
-            self.waveform.num = fabs(count)*11/40;
-            
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.waveform drawLine];
-            [self.waveform setNeedsDisplay];
-
-        });
-            
-        }
+//        }
     }
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     
-}*/
+}
 - (void)initMusicWave{
     NSMutableArray* arr = [NSMutableArray arrayWithCapacity:161];
     NSMutableArray* arrWave = [NSMutableArray arrayWithCapacity:161];
@@ -1459,43 +1524,60 @@ static CGFloat timerNum=0;
 - (void)disPlayTimeLabel{
     
 }
-- (void)actionTiming {
-    
-   // drawCount++;
-    timerNum += 1/60.0;
-    
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
-    count = [self decibels];
-
- if (!self.isPlay) {
-
-     int keyValue = (int)count;
-
-     NSString* keyStr = [NSString stringWithFormat:@"%d",(int)abs(keyValue)];
-     NSInteger i = [[self.descibelDictionary valueForKey:keyStr] integerValue];
-     //(fabs(count))*11/40;//(fabs(count)*2)/5;
-
-     if (count<-10) {
-         self.waveform.waveView.desibelNum =(fabs(count))*11/50;
-
-     }else{
-         self.waveform.waveView.desibelNum =i;
-     
-     }
-
-     [self.waveform.waveView drawLine];
-
-     if (![self.player3 isPlaying] && self.player.currentTime>0) {
-         [self.waveform.waveView setNeedsDisplay];
-
-     }
-
- 
- }
- 
-    
- 
- }
+//- (void)actionTiming {
+//    
+//    // drawCount++;
+//    timerNum += 1/60.0;
+//    
+////    count = [self decibels];
+//    
+//    if (!self.isPlay) {
+//        if ([self.recorder isRecording]) {
+//            count = [self decibels];
+//        }else{
+//            if ([self.player isPlaying]) {
+//                count = [self playerDecibels:self.player];
+//                
+//            }else if([self.player2 isPlaying]) {
+//                count = [self playerDecibels:self.player2];
+//                
+//            }else if([self.player3 isPlaying]) {
+//                count = [self playerDecibels:self.player3];
+//                
+//            }
+//            
+//        }
+////        int keyValue = (int)count;
+//        
+////        NSString* keyStr = [NSString stringWithFormat:@"%d",(int)abs(keyValue)];
+////        NSInteger i = [[self.descibelDictionary valueForKey:keyStr] integerValue];
+//        //(fabs(count))*11/40;//(fabs(count)*2)/5;
+//        
+////        if (count<-10) {
+//            self.waveform.waveView.desibelNum =(fabs(count))*11/40;
+//            
+////        }else{
+////            self.waveform.waveView.desibelNum =i;
+////            
+////        }
+//        
+////        if (![self.player3 isPlaying] && self.player.currentTime>0) {
+//        
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                
+//                [self.waveform.waveView drawLine];
+//                
+//                [self.waveform.waveView setNeedsDisplay];
+//            });
+//            
+////        }
+//        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+//        
+//    }
+// 
+//    
+// 
+// }
 
 
 

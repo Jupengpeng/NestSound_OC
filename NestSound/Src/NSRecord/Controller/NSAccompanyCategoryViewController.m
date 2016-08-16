@@ -218,7 +218,12 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     //downLoading accompany and push to recordVC
     NSAccommpanyModel * accompany = self.categoryAryList[indexPath.section];
     NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
-    
+    for (NSAccommpanyModel *model in self.categoryAryList) {
+        NSMutableArray *array = [NSMutableArray array];
+        [array addObject:model.mp3URL];
+        writeMusicVC.urlStrArr = array;
+    }
+    writeMusicVC.accompanyId = indexPath.row;
     writeMusicVC.accompanyModel = accompany;
     
     [self.player pause];

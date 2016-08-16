@@ -12,7 +12,7 @@
 
 //@property (nonatomic, strong) NSMutableArray* paths;
 
-@property (nonatomic, strong) NSMutableArray *nums;
+//@property (nonatomic, strong) NSMutableArray *nums;
 
 @property (nonatomic, assign, getter=isPlayer) BOOL player;
 
@@ -21,15 +21,15 @@
 @implementation NSWaveformView
 
 
-- (NSMutableArray *)nums {
-    
-    if (!_nums) {
-        
-        _nums = [NSMutableArray array];
-    }
-    
-    return _nums;
-}
+//- (NSMutableArray *)nums {
+//    
+//    if (!_nums) {
+//        
+//        _nums = [NSMutableArray array];
+//    }
+//    
+//    return _nums;
+//}
 
 
 
@@ -47,9 +47,6 @@
         
         [self addSubview:upLine];
         
-        
-        
-        
         self.timeImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.rect.size.width/GRIDNUM, 20)];
         self.timeScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 1, self.rect.size.width, TIMELINENUM)];
         
@@ -65,15 +62,15 @@
         self.timeScrollView.contentSize = CGSizeMake(self.rect.size.width*500, 0);
         [self addSubview:self.timeScrollView];
         [self.timeScrollView addSubview:self.timeImageView];
+//        UIView* middleLine1 = [[UIView alloc]initWithFrame:CGRectMake(0, 20, self.rect.size.width*500, 0.3)];
+//        middleLine1.backgroundColor = [UIColor lightGrayColor];
+//        [self addSubview:middleLine1];
         
-        
-        self.waveView = [[WaveView alloc]initWithFrame:CGRectMake(0, 20, self.rect.size.width*20, 40)];
+        self.waveView = [[WaveView alloc]initWithFrame:CGRectMake(0, 30, self.rect.size.width*20, 60)];
         [self.timeScrollView addSubview:self.waveView];
         
         
-        
-        
-        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, 42, self.rect.size.width*500, 0.5)];
+        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, 52, self.rect.size.width*500, 0.3)];
         middleLine.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:middleLine];
         
@@ -104,7 +101,7 @@
             UILabel* label=nil;
             @autoreleasepool {
                 label = [[UILabel alloc]initWithFrame:CGRectMake(0+self.rect.size.width/10*i, 3, self.rect.size.width/10, 10)];//此处最终要除以10,不是11
-                upLine2 = [[UIView alloc]initWithFrame:CGRectMake(0+self.frame.size.width/GRIDNUM*i, 18, self.frame.size.width/GRIDNUM, 0.5)];
+                upLine2 = [[UIView alloc]initWithFrame:CGRectMake(0+self.frame.size.width/GRIDNUM*i, 20, self.frame.size.width/GRIDNUM, 0.3)];
                 upLine2.backgroundColor = [UIColor lightGrayColor];
                 x = self.rect.size.width/20*i;
                 if (i%2 ==0) {
@@ -162,7 +159,7 @@
 
 - (void)drawLine {
     
-    [self.nums addObject:@(self.num)];
+//    [self.nums addObject:@(self.num)];
     
 }
 

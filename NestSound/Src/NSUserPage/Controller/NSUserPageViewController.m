@@ -126,6 +126,7 @@ UITableViewDataSource>
 }
 //receive notification to refresh userpage
 - (void)refreshUserPage {
+    headerUrl = @"";
     [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
 }
 #pragma mark -fetchMemberData
