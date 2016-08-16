@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
 		0C4ECBFF1D5C90F4003CAAF9 /* NSLyricModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */; };
+		0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */; };
 		0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */; };
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
 		0CCE5C6C1D5D74B200E97998 /* NSLyricDraftsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */; };
@@ -214,6 +215,8 @@
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
 		0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricModelViewController.h; sourceTree = "<group>"; };
 		0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricModelViewController.m; sourceTree = "<group>"; };
+		0CCC190C1D62EEF0009E9478 /* NSSoundEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSoundEffectViewController.h; sourceTree = "<group>"; };
+		0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSoundEffectViewController.m; sourceTree = "<group>"; };
 		0CCCDC891D5EC83000AE0BD3 /* NSAccompanyCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryCell.h; sourceTree = "<group>"; };
 		0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryCell.m; sourceTree = "<group>"; };
 		0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryViewController.h; sourceTree = "<group>"; };
@@ -828,6 +831,8 @@
 				0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */,
 				18FA5E391CFC395D0027D534 /* NSWriteMusicViewController.h */,
 				18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */,
+				0CCC190C1D62EEF0009E9478 /* NSSoundEffectViewController.h */,
+				0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */,
 				1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */,
 				1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */,
 				2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */,
@@ -2615,6 +2620,7 @@
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
+				0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */,
 				2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */,
 				94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */,
 				B80C86551D47A75B00B22855 /* HudView.m in Sources */,
@@ -2874,7 +2880,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2901,7 +2907,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

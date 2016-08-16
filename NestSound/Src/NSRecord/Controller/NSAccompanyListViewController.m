@@ -188,7 +188,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
         }
         [Wself fetchAccompanyListDataWithIsLoadingMore:YES];
     }];
-//    accompanyCollection.showsInfiniteScrolling = YES;
+    accompanyCollection.showsInfiniteScrolling = NO;
     
 }
 

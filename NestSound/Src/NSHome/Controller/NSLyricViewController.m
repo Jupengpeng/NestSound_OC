@@ -653,7 +653,8 @@
             [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+//                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSToastManager manager] showtoast:@"分享成功"];
                 }
             }];
         }
@@ -663,7 +664,8 @@
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+//                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSToastManager manager] showtoast:@"分享成功"];
                 }
             }];
         }
@@ -673,7 +675,8 @@
             [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+//                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSToastManager manager] showtoast:@"分享成功"];
                 }
             }];
         }
@@ -683,7 +686,8 @@
             [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+//                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSToastManager manager] showtoast:@"分享成功"];
                 }
             }];
         }
@@ -693,7 +697,8 @@
             [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
             [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:contentShare image:imageShare  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
-                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+//                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSToastManager manager] showtoast:@"分享成功"];
                 }
             }];
         }

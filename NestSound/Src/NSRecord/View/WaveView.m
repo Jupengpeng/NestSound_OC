@@ -33,7 +33,7 @@
     if (self.desibelNum==0) {
         return;
     }
-    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 21-self.desibelNum/2, 1.0f,self.desibelNum)];//21  [UIColor hexColorFloat:@"ffd00b"]
+    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 29.4 - self.desibelNum/2, 1.2f,self.desibelNum)];//21
     self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     [self.waveArray addObject:self.realTimeView];
 

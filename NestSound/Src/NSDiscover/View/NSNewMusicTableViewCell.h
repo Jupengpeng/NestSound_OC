@@ -15,6 +15,9 @@
 //排行数字
 @property (nonatomic, strong) UILabel *numLabel;
 
+//是否公开
+@property (nonatomic, strong) UIImageView *secretImgView;
+
 @property (nonatomic,assign) long itemId;
 
 //日期

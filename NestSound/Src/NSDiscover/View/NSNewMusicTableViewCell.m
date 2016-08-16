@@ -67,13 +67,11 @@
     //日期
     self.dateLabel = [[UILabel alloc] init];
     
-    self.dateLabel.textColor = [UIColor hexColorFloat:@"a0a0a0"];
+    _dateLabel.textColor = [UIColor hexColorFloat:@"a0a0a0"];
     
-    self.dateLabel.font = [UIFont systemFontOfSize:10];
+    _dateLabel.font = [UIFont systemFontOfSize:10];
     
-    self.dateLabel.textAlignment = NSTextAlignmentRight;
-    
-    
+    _dateLabel.textAlignment = NSTextAlignmentRight;
     
     [self.background addSubview:self.dateLabel];
     
@@ -163,7 +161,23 @@
         make.width.mas_equalTo(70);
         
     }];
+    //是否公开
+    self.secretImgView = [UIImageView new];
     
+    _secretImgView.hidden = YES;
+    
+    _secretImgView.image = [UIImage imageNamed:@"2.0_password_icon"];
+    
+    [self.background addSubview:self.secretImgView];
+    
+    [self.secretImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.background.mas_top).offset(10);
+        
+        make.right.equalTo(self.background.mas_right).offset(-10);
+        
+        make.size.mas_equalTo(CGSizeMake(10, 10));
+    }];
     
     //歌名
     self.musicName = [[UILabel alloc] init];
@@ -333,6 +347,11 @@
 {
     _myMusicModel = myMusicModel;
    
+    if (myMusicModel.isShow) {
+        self.secretImgView.hidden = YES;
+    } else {
+        self.secretImgView.hidden = NO;
+    }
     self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
     [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.musicName.text = _myMusicModel.title;

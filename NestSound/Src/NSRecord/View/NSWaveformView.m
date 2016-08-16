@@ -40,7 +40,6 @@
         
         self.rect = frame;
         
-        
         self.backgroundColor = [UIColor whiteColor];
         UIView* upLine = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, 0.5)];
         upLine.backgroundColor = [UIColor hexColorFloat:@"ffd507"];
@@ -62,19 +61,14 @@
         self.timeScrollView.contentSize = CGSizeMake(self.rect.size.width*500, 0);
         [self addSubview:self.timeScrollView];
         [self.timeScrollView addSubview:self.timeImageView];
-//        UIView* middleLine1 = [[UIView alloc]initWithFrame:CGRectMake(0, 20, self.rect.size.width*500, 0.3)];
-//        middleLine1.backgroundColor = [UIColor lightGrayColor];
-//        [self addSubview:middleLine1];
         
-        self.waveView = [[WaveView alloc]initWithFrame:CGRectMake(0, 30, self.rect.size.width*20, 60)];
+        self.waveView = [[WaveView alloc]initWithFrame:CGRectMake(0, 20.4, self.rect.size.width*20, 60)];
         [self.timeScrollView addSubview:self.waveView];
         
         
-        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, 52, self.rect.size.width*500, 0.3)];
+        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, 50.7, self.rect.size.width, 0.4)];
         middleLine.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:middleLine];
-        
-        
         
         
         UIView* downLine = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, 0.5)];
@@ -83,7 +77,7 @@
         [self addSubview:downLine];
         
         
-        UIView* middleLineV = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width/2, 5*4, 0.5,self.rect.size.height-20)];
+        UIView* middleLineV = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width/2, 20.5, 0.5,self.rect.size.height-20.3)];
         middleLineV.backgroundColor = [UIColor redColor];
         [self addSubview:middleLineV];
         
@@ -100,10 +94,10 @@
             
             UILabel* label=nil;
             @autoreleasepool {
-                label = [[UILabel alloc]initWithFrame:CGRectMake(0+self.rect.size.width/10*i, 3, self.rect.size.width/10, 10)];//此处最终要除以10,不是11
-                upLine2 = [[UIView alloc]initWithFrame:CGRectMake(0+self.frame.size.width/GRIDNUM*i, 20, self.frame.size.width/GRIDNUM, 0.3)];
+                label = [[UILabel alloc]initWithFrame:CGRectMake(0+ScreenWidth/10*i, 3, ScreenWidth/10, 10)];//此处最终要除以10,不是11
+                upLine2 = [[UIView alloc]initWithFrame:CGRectMake(0+ScreenWidth/GRIDNUM*i, 20, ScreenWidth/GRIDNUM, 0.3)];
                 upLine2.backgroundColor = [UIColor lightGrayColor];
-                x = self.rect.size.width/20*i;
+                x = ScreenWidth/20*i;
                 if (i%2 ==0) {
                     upLine3 = [[UIView alloc]initWithFrame:CGRectMake(x, 10, 0.5, 9)];
                     
@@ -111,7 +105,6 @@
                     upLine3 = [[UIView alloc]initWithFrame:CGRectMake(x, 17, 0.5, 2)];
                     
                 }
-                
                 
                 if (i<5) {
                     str = [NSString stringWithFormat:@"-%02d:%02d",j,k];
@@ -168,9 +161,6 @@
 /*- (void)drawRect:(CGRect)rect {
  
  NSArray *numArray = [[self.nums reverseObjectEnumerator] allObjects];
- 
- 
- 
  
  if (self.player) {
  /*for (int i = 0; i < numArray.count; i++) {

@@ -173,7 +173,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         }
         [Wself fetchAccompanyListDataWithIsLoadingMore:YES];
     }];
-    accompanyListTabelView.showsInfiniteScrolling = YES;
+    accompanyListTabelView.showsInfiniteScrolling = NO;
 }
 #pragma mark -TableDataSource
 

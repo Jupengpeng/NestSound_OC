@@ -181,7 +181,7 @@ extern Boolean plugedHeadset;
         
         publicStateLabel = [[UILabel alloc] init];
         publicStateLabel.font = [UIFont systemFontOfSize:15];
-        publicStateLabel.text = @"是否发布";
+        publicStateLabel.text = @"公开";
         publicStateLabel.textAlignment = NSTextAlignmentLeft;
         //    LocalizedStr(@"prompt_publicState");
         [backgroundView addSubview:publicStateLabel];
@@ -196,7 +196,7 @@ extern Boolean plugedHeadset;
         
         publicStateLabel = [[UILabel alloc] init];
         publicStateLabel.font = [UIFont systemFontOfSize:15];
-        publicStateLabel.text = @"是否发布";
+        publicStateLabel.text = @"公开";
         publicStateLabel.textAlignment = NSTextAlignmentRight;
         //    LocalizedStr(@"prompt_publicState");
         [backgroundView addSubview:publicStateLabel];
@@ -537,7 +537,7 @@ extern Boolean plugedHeadset;
 - (void)listenMp3Online:(NSString*)file{
     //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
 
-        NSURL* url = [NSURL URLWithString:file];
+    NSURL* url = [NSURL URLWithString:file];
 
     if (!self.musicItem||!self.player) {
         self.musicItem = [AVPlayerItem playerItemWithURL:url];

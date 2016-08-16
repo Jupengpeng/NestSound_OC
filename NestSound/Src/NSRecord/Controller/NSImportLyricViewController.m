@@ -99,7 +99,7 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 #pragma mark -configureAppearance
 -(void)configureUIAppearance
 {
-    self.title = @"草稿箱";
+    self.title = @"歌词";
      self.view.backgroundColor = [UIColor whiteColor];
     
     //lyricCollecView
