@@ -263,6 +263,21 @@ static NSDateFormatter *dateFormatter;
     return machine;
 }
 
++(CGFloat)getWidthWithContent:(NSString *)contentStr font:(UIFont *)font {
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+    CGSize size = [contentStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 0.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
+    return size.width;
+}
+
++(CGFloat)getHeightWithContent:(NSString *)contentStr width:(CGFloat)width font:(UIFont *)font lineOffset:(CGFloat)lineOffset{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+    [dic setValue:@(lineOffset) forKey:NSBaselineOffsetAttributeName];
+    CGSize size = [contentStr boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
+
+    return size.height
+;
+}
+
 
 @end
 

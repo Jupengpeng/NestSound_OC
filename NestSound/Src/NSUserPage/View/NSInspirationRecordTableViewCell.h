@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
-@property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) TTTAttributedLabel *descriptionLabel;
 
 @property (nonatomic, strong) UIImageView *frequencyImageView;
 
