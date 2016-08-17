@@ -14,6 +14,7 @@
 #import "MYSegmentView.h"
 #import "NSThemeTopicTopView.h"
 #import "NSThemeCommentController.h"
+#import "NSStarMusicianListController.h"
 @interface NSThemeActivityController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,TTTAttributedLabelDelegate>
 {
     CGFloat _topViewHeight;
@@ -24,10 +25,12 @@
 
 @property (nonatomic, strong) MYSegmentView * RCSegView;
 
+@property (nonatomic,strong) UIButton *wantJoinInButton;
+
 @property (nonatomic, assign) BOOL canScroll;
 @property (nonatomic, assign) BOOL isTopIsCanNotMoveTabView;
 /**
- *  上一个 tableView 是否可移动状态
+ *   tableView的上一个 是否可移动状态
  */
 @property (nonatomic, assign) BOOL isTopIsCanNotMoveTabViewPre;
 @end
@@ -45,8 +48,48 @@
 
     self.title = @"专题活动";
     [self.mainTableView addSubview:self.topView];
+    
+    
+   
+    WS(weakSelf);
+    self.topView.headerClickBlock = ^(NSInteger index, id obj){
+        switch (index) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            {
+                
+                
+            }
+                break;
+            case 7:
+            {
+                NSStarMusicianListController *joinerController = [[NSStarMusicianListController alloc] init];
+                [weakSelf.navigationController pushViewController:joinerController animated:YES];
+            }
+                break;
+                
+                
+            default:
+                break;
+        }
+    };
+    
     [self.view addSubview: self.mainTableView];
     
+    [self.view addSubview:self.wantJoinInButton];
+    [self.view bringSubviewToFront:self.wantJoinInButton];
+    
+    [self.wantJoinInButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-10);
+        make.height.mas_equalTo(40);
+        make.width.mas_equalTo(130);
+    }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"leaveTop" object:nil];
 }
@@ -69,9 +112,20 @@
     
     _topViewHeight = height + 270 - 32 ;
     
-    _mainTableView.contentInset = UIEdgeInsetsMake(_topViewHeight,0, 0, 0);
-    _topView.topView.height = 150 - 32 + height;
+    [_topView updateTopViewWithHeight:(150 - 32 + height)];
+//    _topView.topView.height = 150 - 32 + height;
     _topView.height = _topViewHeight;
+
+    
+    _mainTableView.contentInset = UIEdgeInsetsMake(_topViewHeight,0, 0, 0);
+    
+    /**
+     第一步 强制偏移，是 inset生效 
+     第二部 偏离正确距离 使界面正常布局
+*/
+    _mainTableView.contentOffset = CGPointMake(0, -ScreenHeight);
+    _mainTableView.contentOffset = CGPointMake(0, -_topViewHeight);
+
 
 }
 
@@ -216,6 +270,24 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIButton *)wantJoinInButton{
+    if (!_wantJoinInButton) {
+        _wantJoinInButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.backgroundColor = [UIColor hexColorFloat:@"ffd507"];
+            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [btn setTitle:@"➕ 我要参加" forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+            btn.clipsToBounds= YES;
+            btn.layer.cornerRadius = 20.0f;
+//            [btn setImage:[UIImage imageNamed:] forState:<#(UIControlState)#>]
+        } action:^(UIButton *btn) {
+            
+        }];
+    }
+    
+    return _wantJoinInButton;
 }
 
 

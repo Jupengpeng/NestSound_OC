@@ -70,10 +70,12 @@
     self.topView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mas_top).offset(1);
+//        make.top.equalTo(self.mas_top).offset(1);
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.bottom.mas_equalTo(self.bottomView.mas_top).offset(-10.0f);
+        make.bottom.equalTo(self.bottomView.mas_top).offset(-10.0f);
+        make.height.mas_equalTo(150);
+
     }];
     /**
      封面
@@ -211,7 +213,7 @@
  
 }
 
-- (void)setupDataWithData:(id)data descriptionIsFoldOn:(BOOL)isFoldOn{
+- (void)setupDataWithData:(id)data descriptionIsFoldOn:(BOOL)isFoldOn {
     _isFoldOn = isFoldOn;
     [self.activityCover setDDImageWithURLString:@"" placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 
@@ -294,9 +296,19 @@
 
     }
     
-    
+
 }
 
+- (void)updateTopViewWithHeight:(CGFloat)height{
+
+    [self.topView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.bottom.equalTo(self.bottomView.mas_top).offset(-10.0f);
+        make.height.mas_equalTo(height);
+    }];
+    
+}
 - (void)layoutSubviews{
     [super layoutSubviews];
 }

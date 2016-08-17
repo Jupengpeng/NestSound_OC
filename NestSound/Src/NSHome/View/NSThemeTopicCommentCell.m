@@ -210,7 +210,7 @@
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -10);
     } action:^(UIButton *btn) {
-        
+        [self launchCommentClick:btn];
     }];
     
     [self addSubview:self.commentButton];
@@ -223,10 +223,33 @@
     
 //    [self addSubview:self.tableView];
     
+    /**
+     *  更多评论点击
+     *  @return <#return value description#>
+     */
     self.moreCommentButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
+        [btn setTitleColor:[UIColor hexColorFloat:@"808080"] forState:UIControlStateNormal];
+        [btn setTitle:@"更多129条评>>" forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     } action:^(UIButton *btn) {
-        
+        [self moreCommentClick:btn];
+    }];
+    [self addSubview:self.moreCommentButton];
+    [self.moreCommentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(15.0f);
+        make.right.equalTo(self.mas_right).offset(15.0f);
+        make.bottom.equalTo(self.commentButton.mas_top).offset(-5.0f);
+        make.height.mas_equalTo(20.0f);
+    }];
+    
+    [self addSubview:self.tableView];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.top.equalTo(self.songCoverButton.mas_bottom).offset(5.0f);
+        make.height.mas_equalTo(20 * 3);
     }];
 }
 
@@ -265,11 +288,24 @@
     }
     
     cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
-    
+    cell.textLabel.textColor = [UIColor hexColorFloat:@"878787"];
     cell.textLabel.text = @"韦礼安：我的惶恐我的哀愁全部成空";
     return cell;
 }
 
+#pragma mark button's actions
+
+- (void)moreCommentClick:(UIButton *)button{
+    if (self.moreCommentClick) {
+        self.moreCommentClick(0,nil);
+    }
+}
+
+- (void)launchCommentClick:(UIButton *)button{
+    if (self.launchCommentClick) {
+        self.launchCommentClick(0,nil);
+    }
+}
 
 
 #pragma mark lazy init
