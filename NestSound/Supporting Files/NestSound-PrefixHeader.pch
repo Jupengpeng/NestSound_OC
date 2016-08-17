@@ -177,7 +177,7 @@ extern NSString *port;
 #define TIME_LONG 600  //3000
 #define SECOND_LONG 10  //3000
 
-
+#define LineRgbValue @"f4f4f4"
 
 
 

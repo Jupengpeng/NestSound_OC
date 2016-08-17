@@ -28,5 +28,6 @@ typedef void(^NSThemeTopicTopViewHeaderClickBlock)(NSInteger index, id);
 
 
 - (void)setupDataWithData:(id)data descriptionIsFoldOn:(BOOL)isFoldOn;
+- (void)updateTopViewWithHeight:(CGFloat)height;
 
 @end

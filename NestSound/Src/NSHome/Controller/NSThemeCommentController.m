@@ -11,6 +11,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
 #import "NSThemeCommentController.h"
 #import "NSThemeTopicCommentCell.h"
+#import "NSCommentViewController.h"
 @interface NSThemeCommentController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -127,6 +128,27 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     NSThemeTopicCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSThemeTopicCommentCellID];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
+    WS(wSelf);
+
+    cell.launchCommentClick = ^(NSInteger clickIndex,id dog){
+        
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: 10 andType:2];
+        
+        commentVC.musicName = @"假的";
+        
+        [self.navigationController pushViewController:commentVC animated:YES];
+
+    };
+    
+    cell.moreCommentClick = ^(NSInteger clickIndex,id dog){
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: 11 andType:2];
+//        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: wSelf.lyricDetail.itemId andType:2];
+
+        commentVC.musicName = @"假的";
+        
+        [self.navigationController pushViewController:commentVC animated:YES];
+
+    };
     [cell updateUIWith];
     
     return cell;
