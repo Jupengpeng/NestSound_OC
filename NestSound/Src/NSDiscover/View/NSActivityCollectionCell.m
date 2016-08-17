@@ -98,8 +98,9 @@
 //        LocalizedStr(@"promot_activityed");
         dateLabel.hidden = YES;
     
-    }else{
-    
+    }else if (_activityModel.status == 3){
+        stateLabel.text = @"未开始";
+        dateLabel.hidden = YES;
     }
 }
 @end

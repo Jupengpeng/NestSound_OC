@@ -16,7 +16,8 @@
 #import "NSLyricLibraryListModel.h"
 #import "NSPublicLyricViewController.h"
 #import "NSRhymeViewController.h"
-#import "NSLyricModelViewController.h"
+#import "NSTemplateViewController.h"
+#import "NSDraftListViewController.h"
 @interface WriteLyricBottomView : UIView
 @property (nonatomic,strong) UIButton * importLyricBtn;
 @property (nonatomic,strong) UIButton * LyricesBtn;
@@ -117,7 +118,7 @@
 
 
 @interface NSWriteLyricViewController ()<
-    UITextFieldDelegate,UITextViewDelegate,lyricsDelegate,ImportLyric,lyricsDelegate
+    UITextFieldDelegate,UITextViewDelegate,lyricsDelegate,ImportLyric,lyricsDelegate,UIAlertViewDelegate, NSDraftListViewControllerDelegate
 >
 {
 
@@ -145,13 +146,45 @@
     [super viewDidLoad];
     [self configureUIAppearance];
     
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
     
 }
 
+
+- (void)leftBackClick {
+    
+    if (titleTextFiled.text.length || lyricView.lyricText.text.length) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"是否保存到草稿箱" delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"保存", nil];
+        [alert show];
+    } else {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+        case 1:
+        {
+//            self.requestParams = @{kIsLoadingMore:@(NO)};
+            self.requestType = NO;
+            self.requestParams = @{@"title":titleTextFiled.text,@"draftdesc":@"",@"content":lyricView.lyricText.text,@"uid":@([JUserID integerValue]),@"token":LoginToken};
+            NSString * str = [NSTool encrytWithDic:self.requestParams];
+            self.requestURL = [saveDraftUrl stringByAppendingString:str];
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
     [lyricView.lyricText resignFirstResponder];
@@ -163,6 +196,8 @@
 #pragma mark -configureUIAppearance
 -(void)configureUIAppearance
 {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBackClick)];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     
     self.view.backgroundColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
@@ -187,7 +222,8 @@
 
     //lyricView
     lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 45, ScreenWidth, ScreenHeight - 162)];
-    lyricView.backgroundColor = [UIColor whiteColor];
+    lyricView.backgroundColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
+    lyricView.lyricText.backgroundColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
     if (self.lyricText.length) {
         lyricView.lyricText.text = self.lyricText;
     } else {
@@ -260,7 +296,7 @@
     
     [bottomView.importLyricBtn addTarget:self action:@selector(imporLyric) forControlEvents:UIControlEventTouchUpInside];
     
-    [bottomView.LyricesBtn addTarget:self action:@selector(lyricModel) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView.LyricesBtn addTarget:self action:@selector(lyricTemplate) forControlEvents:UIControlEventTouchUpInside];
     [bottomView.toolBtn addTarget:self action:@selector(toolBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     
     //constraints
@@ -336,20 +372,26 @@
 }
 - (void)hiddenRhymeAndLibraryView {
     [UIView animateWithDuration:0.2 animations:^{
-        maskView.hidden = YES;
         maskView.backgroundColor = [UIColor lightGrayColor];
+        maskView.hidden = YES;
         rhymeAndLibraryView.y = maskView.height;
     }];
 }
 #pragma mark -push to my lyric list page
 -(void)imporLyric
 {
-    importLyricVC = [[NSImportLyricViewController alloc] init];
+    NSDraftListViewController *draftListVC = [[NSDraftListViewController alloc] init];
     
-    importLyricVC.delegate = self;
+    draftListVC.delegate = self;
     
-    [self.navigationController pushViewController:importLyricVC animated:YES];
-    importLyricVC.delegate = self;
+    [self.navigationController pushViewController:draftListVC animated:YES];
+    
+//    importLyricVC = [[NSImportLyricViewController alloc] init];
+//    
+//    importLyricVC.delegate = self;
+//    
+//    [self.navigationController pushViewController:importLyricVC animated:YES];
+//    importLyricVC.delegate = self;
 }
 
 #pragma mrak -view the lyricLibary view
@@ -378,10 +420,11 @@
     
 }
 #pragma mark - push to NSLyricModelViewController
-- (void)lyricModel {
-    NSLyricModelViewController *lyricModelVC = [[NSLyricModelViewController alloc] init];
+- (void)lyricTemplate {
     
-    [self.navigationController pushViewController:lyricModelVC animated:YES];
+    NSTemplateViewController *templateVC = [[NSTemplateViewController alloc] init];
+    
+    [self.navigationController pushViewController:templateVC animated:YES];
 }
 #pragma mark - overrider actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
@@ -393,6 +436,9 @@
             if ([operation.urlTag isEqualToString:url]) {
                 NSLyricLibraryListModel * lyricLibrary = (NSLyricLibraryListModel *)parserObject;
                 lexiconView.lyricLibraryListModel = lyricLibrary;
+            } else {
+                [[NSToastManager manager] showtoast:@"保存成功"];
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }
     }
@@ -408,8 +454,8 @@
         [self hiddenRhymeAndLibraryView];
     } else {
         [UIView animateWithDuration:0.2 animations:^{
-            maskView.hidden = NO;
             maskView.backgroundColor = [UIColor clearColor];
+            maskView.hidden = NO;
             rhymeAndLibraryView.y = ScreenHeight - rhymeAndLibraryView.height - 52;
         }];
     }
@@ -419,14 +465,33 @@
 //    [self presentViewController:lyricCoachVC animated:YES completion:nil];
     
 }
-
+#pragma mark ImportLyric
 - (void)selectedlrcString:(NSString *)lrcString_ {
     
-    lyricView.lyricText.delegate = self;
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
-    lyricView.lyricText.text = [lyricView.lyricText.text stringByAppendingString:[NSString stringWithFormat:@"%@\n",lrcString_]];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    paragraphStyle.lineSpacing = 4;
+    
+    NSDictionary *attributes = @{
+                                 
+                                 NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                 
+                                 NSParagraphStyleAttributeName:paragraphStyle
+                                 
+                                 };
+    
+    lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:[lyricView.lyricText.text stringByAppendingString:[NSString stringWithFormat:@"%@\n",lrcString_]] attributes:attributes];
+    
 }
-
+#pragma mark -  NSDraftListViewControllerDelegate
+-(void)selectDraft:(NSString *)draft withDraftTitle:(NSString *)draftTitle {
+    
+    titleTextFiled.text = draftTitle;
+    
+    lyricView.lyricText.text = draft;
+}
 - (void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName {
     
     titleTextFiled.text = musicName;
@@ -434,18 +499,15 @@
     lyricView.lyricText.text = lyrics;
 }
 #pragma mark - UITextViewDelegate
--(void)textViewDidChange:(UITextView *)textView
-
-{
-    //    textview 改变字体的行间距
-    
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    if (textView.text.length < 1) {
+        textView.text = @"间距";
+    }
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
-    paragraphStyle.lineSpacing = 26;
-    
-    //    paragraphStyle.
+    paragraphStyle.lineSpacing = 4;// 字体的行间距
     
     NSDictionary *attributes = @{
                                  
@@ -456,6 +518,53 @@
                                  };
     
     textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
-    
+    if ([textView.text isEqualToString:@"间距"]) {           //之所以加这个判断是因为再次编辑的时候还会进入这个代理方法，如果不加，会把你之前输入的内容清空。你也可以取消看看效果。
+        textView.attributedText = [[NSAttributedString alloc] initWithString:@"" attributes:attributes];//主要是把“间距”两个字给去了。
+    }
+    return YES;
 }
+- (void)textViewDidChange:(UITextView *)textView {
+//    NSString *string = [NSString stringWithFormat:@"%@\n%@\n%@\n", _messageModel.title, _messageModel.date, _messageModel.content];
+//    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:textView.text];
+    
+    //设置字体
+//    [attributedString addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:15], NSForegroundColorAttributeName:UIColorFromRGB(0x333333)} range:NSMakeRange(0, _messageModel.title.length + 1)];
+//    [attributedString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13], NSForegroundColorAttributeName:UIColorFromRGB(0x999999)} range:NSMakeRange(_messageModel.title.length + 1, _messageModel.date.length + 1)];
+    //设置段落格式
+//    NSMutableParagraphStyle *paragraphStyle1 = [[NSMutableParagraphStyle alloc] init];
+//    [paragraphStyle1 setAlignment:NSTextAlignmentCenter];
+//    [paragraphStyle1 setParagraphSpacing:8];
+//    [attributedString addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle1} range:NSMakeRange(0, _messageModel.title.length + _messageModel.date.length + 2)];
+    
+    //设置字体
+//    [attributedString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} range:NSMakeRange(_messageModel.title.length + _messageModel.date.length + 2, _messageModel.content.length + 1)];
+    //设置段落格式
+//    NSMutableParagraphStyle *paragraphStyle2 = [[NSMutableParagraphStyle alloc] init];
+//    [paragraphStyle2 setLineSpacing:6];
+//    [paragraphStyle2 setFirstLineHeadIndent:20];
+//    [attributedString addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle2} range:NSMakeRange(_messageModel.title.length + _messageModel.date.length + 2, _messageModel.content.length + 1)];
+    
+//    self.textView.attributedText = attributedString;
+}
+//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//    if ([text isEqualToString:@"\n"]) {
+//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//        
+//        paragraphStyle.alignment = NSTextAlignmentCenter;
+//        
+//        paragraphStyle.lineSpacing = 12;// 字体的行间距
+//        
+//        NSDictionary *attributes = @{
+//                                     
+//                                     NSFontAttributeName:[UIFont systemFontOfSize:15],
+//                                     
+//                                     NSParagraphStyleAttributeName:paragraphStyle
+//                                     
+//                                     };
+//        
+//        textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+//    }
+//    return YES;
+//}
+
 @end

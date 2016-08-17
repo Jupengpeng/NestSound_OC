@@ -41,9 +41,11 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [lyricCollecView setContentOffset:CGPointMake(0, -60) animated:YES];
-    [lyricCollecView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    if (!lyricesAry.count) {
+        
+        [lyricCollecView setContentOffset:CGPointMake(0, -60) animated:YES];
+        [lyricCollecView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    }
 
 }
 

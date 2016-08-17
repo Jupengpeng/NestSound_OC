@@ -106,6 +106,10 @@ extern NSString *port;
 #define getToken @"java/common/login/tokenCheck?"
 #define changeProfileURL @"java/userCenter/updateuserinfo"
 #define publicLyricURL @"java/lyricsopt/optLyrics"
+#define saveDraftUrl @"java/draft/save?"
+#define draftListUrl @"java/draft/list?"
+#define deleteDraftUrl @"java/draft/delete?"
+#define templateListUrl @"java/lyricstemplate/list?"
 #define uploadMp3URL  @"java/common/uploadcallback/uploadmp3"
 #define deleteWorkURL  @"java/userCenter/deleteWork"
 #define searchURL @"java/common/search/search?"
@@ -177,7 +181,7 @@ extern NSString *port;
 #define TIME_LONG 600  //3000
 #define SECOND_LONG 10  //3000
 
-
+#define KBackgroundColor [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0]
 
 
 

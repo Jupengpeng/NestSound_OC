@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
-		0C4ECBFF1D5C90F4003CAAF9 /* NSLyricModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */; };
 		0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */; };
+		0CCC19111D642D6A009E9478 /* NSDraftListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19101D642D6A009E9478 /* NSDraftListViewController.m */; };
+		0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19161D643392009E9478 /* NSDraftListModel.m */; };
+		0CCC191A1D6452A1009E9478 /* NSTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19191D6452A1009E9478 /* NSTemplateViewController.m */; };
+		0CCC191D1D645D08009E9478 /* NSTemplateListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC191C1D645D08009E9478 /* NSTemplateListModel.m */; };
+		0CCC19201D646579009E9478 /* NSEditTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC191F1D646579009E9478 /* NSEditTemplateViewController.m */; };
+		0CCC19231D647A9A009E9478 /* NSTemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */; };
 		0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */; };
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
-		0CCE5C6C1D5D74B200E97998 /* NSLyricDraftsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */; };
 		0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
@@ -213,16 +217,24 @@
 /* Begin PBXFileReference section */
 		0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRhymeViewController.h; sourceTree = "<group>"; };
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
-		0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricModelViewController.h; sourceTree = "<group>"; };
-		0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricModelViewController.m; sourceTree = "<group>"; };
 		0CCC190C1D62EEF0009E9478 /* NSSoundEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSoundEffectViewController.h; sourceTree = "<group>"; };
 		0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSoundEffectViewController.m; sourceTree = "<group>"; };
+		0CCC190F1D642D6A009E9478 /* NSDraftListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftListViewController.h; sourceTree = "<group>"; };
+		0CCC19101D642D6A009E9478 /* NSDraftListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftListViewController.m; sourceTree = "<group>"; };
+		0CCC19151D643392009E9478 /* NSDraftListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftListModel.h; sourceTree = "<group>"; };
+		0CCC19161D643392009E9478 /* NSDraftListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftListModel.m; sourceTree = "<group>"; };
+		0CCC19181D6452A1009E9478 /* NSTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTemplateViewController.h; sourceTree = "<group>"; };
+		0CCC19191D6452A1009E9478 /* NSTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTemplateViewController.m; sourceTree = "<group>"; };
+		0CCC191B1D645D08009E9478 /* NSTemplateListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTemplateListModel.h; sourceTree = "<group>"; };
+		0CCC191C1D645D08009E9478 /* NSTemplateListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTemplateListModel.m; sourceTree = "<group>"; };
+		0CCC191E1D646579009E9478 /* NSEditTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSEditTemplateViewController.h; sourceTree = "<group>"; };
+		0CCC191F1D646579009E9478 /* NSEditTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEditTemplateViewController.m; sourceTree = "<group>"; };
+		0CCC19211D647A9A009E9478 /* NSTemplateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTemplateTableViewCell.h; sourceTree = "<group>"; };
+		0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTemplateTableViewCell.m; sourceTree = "<group>"; };
 		0CCCDC891D5EC83000AE0BD3 /* NSAccompanyCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryCell.h; sourceTree = "<group>"; };
 		0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryCell.m; sourceTree = "<group>"; };
 		0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryViewController.h; sourceTree = "<group>"; };
 		0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryViewController.m; sourceTree = "<group>"; };
-		0CCE5C6A1D5D74B200E97998 /* NSLyricDraftsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricDraftsViewController.h; sourceTree = "<group>"; };
-		0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricDraftsViewController.m; sourceTree = "<group>"; };
 		0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "韵脚.txt"; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
@@ -623,8 +635,7 @@
 				183E039B1CDDC5E90071FEE5 /* Model */,
 				183E039A1CDDC5E90071FEE5 /* Controller */,
 			);
-			name = NSDiscover;
-			path = ../Src/NSDiscover;
+			path = NSDiscover;
 			sourceTree = "<group>";
 		};
 		183E039A1CDDC5E90071FEE5 /* Controller */ = {
@@ -849,10 +860,12 @@
 				2ADE8F5E1CFE7679006CD840 /* NSShareViewController.m */,
 				0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */,
 				0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */,
-				0C4ECBFD1D5C90F4003CAAF9 /* NSLyricModelViewController.h */,
-				0C4ECBFE1D5C90F4003CAAF9 /* NSLyricModelViewController.m */,
-				0CCE5C6A1D5D74B200E97998 /* NSLyricDraftsViewController.h */,
-				0CCE5C6B1D5D74B200E97998 /* NSLyricDraftsViewController.m */,
+				0CCC190F1D642D6A009E9478 /* NSDraftListViewController.h */,
+				0CCC19101D642D6A009E9478 /* NSDraftListViewController.m */,
+				0CCC19181D6452A1009E9478 /* NSTemplateViewController.h */,
+				0CCC19191D6452A1009E9478 /* NSTemplateViewController.m */,
+				0CCC191E1D646579009E9478 /* NSEditTemplateViewController.h */,
+				0CCC191F1D646579009E9478 /* NSEditTemplateViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -874,6 +887,10 @@
 				2AB3006C1D165B0200938F1C /* NSInspirtationModel.m */,
 				2AB3006E1D1699ED00938F1C /* NSTunMusicModel.h */,
 				2AB3006F1D1699ED00938F1C /* NSTunMusicModel.m */,
+				0CCC19151D643392009E9478 /* NSDraftListModel.h */,
+				0CCC19161D643392009E9478 /* NSDraftListModel.m */,
+				0CCC191B1D645D08009E9478 /* NSTemplateListModel.h */,
+				0CCC191C1D645D08009E9478 /* NSTemplateListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -909,6 +926,8 @@
 				B8C17E021D545DBE0021CDA3 /* WaveView.m */,
 				94FADBF21D360AD7006D436D /* NSDownloadProgressView.h */,
 				94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */,
+				0CCC19211D647A9A009E9478 /* NSTemplateTableViewCell.h */,
+				0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1092,6 +1111,7 @@
 				2D8608C31CCC86BA0027F147 /* AppDelegate+configureUIAppearance.h */,
 				2D8608C41CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m */,
 				2DFB67271CC1E82700DA24DA /* NSBase */,
+				183E03991CDDC5E90071FEE5 /* NSDiscover */,
 				2D8608D21CCC87720027F147 /* NSUser */,
 				2D8608C61CCC87720027F147 /* NSHome */,
 				2D8608CE1CCC87720027F147 /* NSRecord */,
@@ -1114,7 +1134,6 @@
 		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				183E03991CDDC5E90071FEE5 /* NSDiscover */,
 				B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */,
 				B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */,
 				B899FA481D41B9AE001E79F3 /* lame.h */,
@@ -2602,12 +2621,14 @@
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
 				2AAE01C71CFC2077008D3145 /* NSLoginViewController.m in Sources */,
+				0CCC19201D646579009E9478 /* NSEditTemplateViewController.m in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
 				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
 				2A4564191D05533500D4DB5F /* NSCommentListModel.m in Sources */,
 				188D12061CECDE1F0009FD5B /* NSComposeButton.m in Sources */,
+				0CCC191D1D645D08009E9478 /* NSTemplateListModel.m in Sources */,
 				18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */,
 				2A8E49F01D13C33A00F94144 /* NSImageCell.m in Sources */,
 				1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */,
@@ -2617,6 +2638,7 @@
 				946B04261D4EEC8A00529DBA /* HUAlbumCell.m in Sources */,
 				183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */,
 				2ADE8F621CFE7715006CD840 /* NSShareModulView.m in Sources */,
+				0CCC19111D642D6A009E9478 /* NSDraftListViewController.m in Sources */,
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
@@ -2645,11 +2667,11 @@
 				2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */,
 				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
-				0CCE5C6C1D5D74B200E97998 /* NSLyricDraftsViewController.m in Sources */,
 				2A9429B91CF42E880099A6DB /* NSSongListModel.m in Sources */,
 				0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */,
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
 				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
+				0CCC19231D647A9A009E9478 /* NSTemplateTableViewCell.m in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
 				2A3CC9EC1D261C7E0072B801 /* UINavigationController+NSPlayView.m in Sources */,
 				2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */,
@@ -2658,6 +2680,7 @@
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */,
+				0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
@@ -2678,6 +2701,7 @@
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
 				2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */,
 				1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */,
+				0CCC191A1D6452A1009E9478 /* NSTemplateViewController.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
@@ -2715,7 +2739,6 @@
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
-				0C4ECBFF1D5C90F4003CAAF9 /* NSLyricModelViewController.m in Sources */,
 				946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */,
 				2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
