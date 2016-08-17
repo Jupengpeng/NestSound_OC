@@ -82,7 +82,6 @@ static NSString *cellIdentifier = @"rhymeCell";
     NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
     
     CGFloat height = [self.textArr[indexPath.section] boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
-    NSLog(@"行高%.f",height);
     if (height >= 150) {
        return height + 40;
     } else {

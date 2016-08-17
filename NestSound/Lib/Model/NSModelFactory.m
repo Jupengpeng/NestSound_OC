@@ -34,13 +34,15 @@
 #import "NSInspirtationModel.h"
 #import "NSTunMusicModel.h"
 #import "NSLyricLibraryListModel.h"
+#import "NSDraftListModel.h"
+#import "NSTemplateListModel.h"
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     
   
     if ([url isEqualToString:indexURL]) {
-        NSLog(@"jsonDict%@",jsonDict);
+//        NSLog(@"jsonDict%@",jsonDict);
         return [[NSIndexModel alloc] initWithJSONDict:jsonDict];
         
     }else if ([url isEqualToString:dicoverActivityURL]){
@@ -117,6 +119,10 @@
         return [[NSLyricLibraryListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:publicMusicURL]){
         return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
+    } else if ([url isEqualToString:draftListUrl]) {
+        return [[NSDraftListModel alloc] initWithJSONDict:jsonDict];
+    } else if ([url isEqualToString:templateListUrl]) {
+        return [[NSTemplateListModel alloc] initWithJSONDict:jsonDict];
     }
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     
