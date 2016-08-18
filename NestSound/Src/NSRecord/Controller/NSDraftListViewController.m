@@ -26,12 +26,15 @@ static NSString  * const draftCellIdifity = @"draftCell";
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!self.draftListArr.count) {
+        
+        [draftListTab setContentOffset:CGPointMake(0, -60) animated:YES];
+        [draftListTab performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    }
     
-    [draftListTab setContentOffset:CGPointMake(0, -60) animated:YES];
-    [draftListTab performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
     
 }
-#pragma mark -fectData
+#pragma mark -fetchData
 -(void)fetchDraftListDataIsLoadingMore:(BOOL)isLoadingMore
 {
     if (!isLoadingMore) {
@@ -81,7 +84,7 @@ static NSString  * const draftCellIdifity = @"draftCell";
 #pragma mark -configureAppearance
 -(void)configureUIAppearance
 {
-    self.title = @"歌词";
+    self.title = @"草稿箱";
     self.view.backgroundColor = KBackgroundColor;
     
     //draftListTableView

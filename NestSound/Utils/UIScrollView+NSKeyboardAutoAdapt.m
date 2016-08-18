@@ -49,7 +49,7 @@ static char *autoAdaptKey;
                              [self scrollRectToVisible:convertRect animated:NO];
                          } else {
                              [self scrollRectToVisible:convertRect animated:NO];
-                             self.contentInset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(endFrame)+20, 0);
+                             self.contentInset = UIEdgeInsetsMake(0, 0, CGRectGetHeight(endFrame)+10, 0);
                          }
                      } completion:NULL];
 }

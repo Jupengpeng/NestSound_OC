@@ -796,8 +796,8 @@
 		2D8608C71CCC87720027F147 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */,
 				2D8608DD1CCC87B10027F147 /* NSHomeViewController.h */,
+				2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */,
 				18C914871CDAE66700C255C4 /* NSLyricViewController.h */,
 				18C914881CDAE66700C255C4 /* NSLyricViewController.m */,
 				2AD10A851CD9C96E0044D821 /* NSRecommendSongList.h */,

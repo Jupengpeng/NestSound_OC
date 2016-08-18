@@ -15,6 +15,7 @@ UITextFieldDelegate
 {
     UITextField * nameText;
     NSString * Type;
+    UIBarButtonItem * complete;
 }
 @end
 
@@ -43,27 +44,28 @@ UITextFieldDelegate
     }else{
         self.title = @"修改描述";
     }
-    
-    UIBarButtonItem * complete = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(completeChange)];
+    self.view.backgroundColor = KBackgroundColor;
+    complete = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(completeChange)];
     self.navigationItem.rightBarButtonItem = complete;
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    nameText = [[UITextField alloc] init];
+    nameText = [[UITextField alloc] initWithFrame:CGRectMake(0, 10, ScreenWidth, 45)];
     nameText.font = [UIFont systemFontOfSize:15];
     nameText.textColor = [UIColor hexColorFloat:@"181818"];
     nameText.backgroundColor = [UIColor whiteColor];
-    nameText.textAlignment = NSTextAlignmentLeft;
+    [nameText addTarget:self action:@selector(calculateTextLength:) forControlEvents:UIControlEventEditingChanged];
     nameText.delegate = self;
     [self.view addSubview:nameText];
     
-    //constraints
-    [nameText mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.height.mas_equalTo(45);
-    }];
-    
 }
-
+- (void)calculateTextLength:(UITextField *)textField {
+    
+    if (textField.text.length > 30) {
+        complete.enabled = NO;
+        [[NSToastManager manager] showtoast:@"请限制在30字以内哦"];
+    } else {
+        complete.enabled = YES;
+    }
+}
 -(void)completeChange
 {
     self.returnNameBlock(nameText.text);

@@ -62,7 +62,7 @@ extern NSString *port;
 #define DDLog()
 #endif
 
-
+//POST:不带问号 GET:带问号
 #define customHostKey @"customHostKey"
 #define customPortKey @"customPortKey"
 #define indexURL @"java/common/index/app?"

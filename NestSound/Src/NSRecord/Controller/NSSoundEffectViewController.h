@@ -14,4 +14,5 @@
 @property (nonatomic,assign) long lyricId;
 @property (nonatomic, copy) NSString *mp3File;
 @property (nonatomic,assign)BOOL isLyric;
+@property (nonatomic, strong) NSString *mp3URL;
 @end

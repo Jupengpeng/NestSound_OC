@@ -14,7 +14,7 @@ typedef void(^dicBlock)(NSDictionary*);
 @property (nonatomic,assign) long lyricId;
 @property (nonatomic, copy) NSString *mp3File;
 @property (nonatomic,assign)BOOL isLyric;
-
+@property (nonatomic, copy) NSString *mp3URL;
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_;
 
 @end

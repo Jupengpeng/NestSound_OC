@@ -35,7 +35,7 @@ extern Boolean plugedHeadset;
     UIButton *auditionBtn;
     UILabel *auditionLabel;
     
-    NSString *mp3URL;
+    
     NSString *oldMp3URL;
 
 }
@@ -55,7 +55,7 @@ extern Boolean plugedHeadset;
         lyricDic = [NSMutableDictionary dictionary];
         lyricDic = LyricDic_;
         self.isLyric = isLyric_;
-        mp3URL = lyricDic[@"mp3URL"];
+//        mp3URL = lyricDic[@"mp3URL"];
     }
     return self;
 }
@@ -87,7 +87,7 @@ extern Boolean plugedHeadset;
     lyricDic = [NSMutableDictionary dictionary];
     lyricDic = LyricDic_;
 
-    mp3URL = lyricDic[@"mp3URL"];
+//    mp3URL = lyricDic[@"mp3URL"];
 
     
 
@@ -283,16 +283,23 @@ extern Boolean plugedHeadset;
 - (void)playRemoteMusic:(UIButton*)btn{
     
     btn.selected = !btn.selected;
-
+    NSString *host;
+    
+#ifdef DEBUG
+    
+    host = debugHost;
+    
+#else
+    
+    host = releaseHost;
+    
+#endif
     if (btn.selected) {
         
-        NSString* url = [NSString stringWithFormat:@"http://api.yinchao.cn%@",mp3URL];
+        NSString* url = [NSString stringWithFormat:@"%@%@",host,self.mp3URL];
                 NSLog(@"-------------url = %@",url);
 
-        
         [self listenMp3Online:url];
-        
-        
         
     } else {
         [self.player pause];
@@ -300,7 +307,6 @@ extern Boolean plugedHeadset;
     }
     
 }
-
 
 #pragma mark -stopPlaying
 - (void)endPlaying {
@@ -392,7 +398,7 @@ extern Boolean plugedHeadset;
             [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
             [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
             [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
-            [lyricDic setValue:mp3URL forKey:@"mp3Url"];
+            [lyricDic setValue:self.mp3URL forKey:@"mp3Url"];
             
 
             self.shareVC =[[NSShareViewController alloc] init];
@@ -428,7 +434,7 @@ extern Boolean plugedHeadset;
         }
         self.requestURL = publicLyricURL;
     }else{
-        self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
+        self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":self.mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
         self.requestURL = publicMusicURL;
    
     }
@@ -446,8 +452,6 @@ extern Boolean plugedHeadset;
     
     [chosePhotoLibrary showInView:self.view];
 }
-
-
 
 
 
@@ -546,8 +550,6 @@ extern Boolean plugedHeadset;
 
     
     [self.player play];
-
-    
     
 }
 

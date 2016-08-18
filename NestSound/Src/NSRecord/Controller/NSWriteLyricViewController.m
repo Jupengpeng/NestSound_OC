@@ -132,6 +132,8 @@
     NSString * url;
     UIView *rhymeAndLibraryView;
     BOOL isTap;
+    NSString *draftText;
+    NSString *drafttitle;
 }
 @property (nonatomic,strong) UIButton * rhymeBtn;
 @property (nonatomic,strong) UIButton * lyicLibrary;
@@ -156,7 +158,10 @@
 - (void)leftBackClick {
     
     if (titleTextFiled.text.length || lyricView.lyricText.text.length) {
-        
+        if ([lyricView.lyricText.text isEqualToString:draftText] && [titleTextFiled.text isEqualToString:drafttitle]) {
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+        }
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"是否保存到草稿箱" delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"保存", nil];
         [alert show];
     } else {
@@ -229,6 +234,8 @@
     } else {
         
     }
+    lyricView.lyricText.autoAdaptKeyboard = YES;
+    lyricView.lyricText.alwaysBounceVertical = YES;
     lyricView.lyricText.delegate = self;
     lyricView.lyricText.editable = YES;
     lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
@@ -491,6 +498,10 @@
     titleTextFiled.text = draftTitle;
     
     lyricView.lyricText.text = draft;
+    
+    draftText = draft;
+    
+    drafttitle = draftTitle;
 }
 - (void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName {
     
@@ -507,7 +518,8 @@
     
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
-    paragraphStyle.lineSpacing = 4;// 字体的行间距
+    paragraphStyle.paragraphSpacing = 8;
+//    paragraphStyle.lineSpacing = 4;// 字体的行间距
     
     NSDictionary *attributes = @{
                                  
@@ -523,7 +535,7 @@
     }
     return YES;
 }
-- (void)textViewDidChange:(UITextView *)textView {
+//- (void)textViewDidChange:(UITextView *)textView {
 //    NSString *string = [NSString stringWithFormat:@"%@\n%@\n%@\n", _messageModel.title, _messageModel.date, _messageModel.content];
 //    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:textView.text];
     
@@ -545,27 +557,27 @@
 //    [attributedString addAttributes:@{NSParagraphStyleAttributeName:paragraphStyle2} range:NSMakeRange(_messageModel.title.length + _messageModel.date.length + 2, _messageModel.content.length + 1)];
     
 //    self.textView.attributedText = attributedString;
-}
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-//    if ([text isEqualToString:@"\n"]) {
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        
-        paragraphStyle.alignment = NSTextAlignmentCenter;
-        
-//        paragraphStyle.lineSpacing = 2;// 字体的行间距
-    paragraphStyle.paragraphSpacing = 8;
-    
-        NSDictionary *attributes = @{
-                                     
-                                     NSFontAttributeName:[UIFont systemFontOfSize:15],
-                                     
-                                     NSParagraphStyleAttributeName:paragraphStyle
-                                     
-                                     };
-        
-        textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
-//    }
-    return YES;
-}
+//}
+//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+////    if ([text isEqualToString:@"\n"]) {
+//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//        
+//        paragraphStyle.alignment = NSTextAlignmentCenter;
+//        
+////        paragraphStyle.lineSpacing = 2;// 字体的行间距
+//    paragraphStyle.paragraphSpacing = 8;
+//    
+//        NSDictionary *attributes = @{
+//                                     
+//                                     NSFontAttributeName:[UIFont systemFontOfSize:15],
+//                                     
+//                                     NSParagraphStyleAttributeName:paragraphStyle
+//                                     
+//                                     };
+//        
+//        textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+////    }
+//    return YES;
+//}
 
 @end

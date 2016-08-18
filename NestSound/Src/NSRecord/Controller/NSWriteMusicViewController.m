@@ -324,10 +324,10 @@ static CGFloat timerNum=0;
         [self.player stop];
         self.player = nil;
     }
-    if (self.player2) {
-        [self.player2 stop];
-        self.player2 = nil;
-    }
+//    if (self.player2) {
+//        [self.player2 stop];
+//        self.player2 = nil;
+//    }
     if (self.player3) {
         [self.player3 stop];
         self.player3 = nil;
@@ -456,20 +456,20 @@ static CGFloat timerNum=0;
         [self.waveLink setPaused:YES];
 
     }
-    if (player == self.player3 || (player == self.player2)) {
+    if (player == self.player3) {
         UIButton* btn = self.btns[1];
         btn.selected = NO;
         timerNumPlay_temp=0;
         timerNumPlay=0;
         curtime3=0;
-        curtime2=0;
+//        curtime2=0;
         [self.waveLink setPaused:YES];
         [self.link setPaused:YES];
         self.waveform.timeScrollView.userInteractionEnabled=YES;
 
         [self stopPlaysound:self.player3];
         
-        [self stopPlaysound:self.player2];
+//        [self stopPlaysound:self.player2];
         
 //        [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     }
@@ -483,7 +483,7 @@ static CGFloat timerNum=0;
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     
-    if ([self.player isPlaying]||[self.player2 isPlaying]||[self.player3 isPlaying]) {
+    if ([self.player isPlaying]||[self.player3 isPlaying]) {
         return;
     }
 
@@ -597,7 +597,7 @@ static CGFloat timerNum=0;
     }
     
 }
-
+/*
 - (void)testMp3:(NSString*)file{
     
     AVAudioSession* session = [AVAudioSession sharedInstance];
@@ -605,8 +605,6 @@ static CGFloat timerNum=0;
     [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     
     [session setActive:YES error:nil];
-    
-    
     
     
     NSURL *url = [NSURL fileURLWithPath:file];
@@ -619,10 +617,9 @@ static CGFloat timerNum=0;
     [self.player2 prepareToPlay];
     
     [self.player2 play];
-    
-    
-    
+ 
 }
+ */
 ////////以上为录音end///
 
 
@@ -798,7 +795,7 @@ static CGFloat timerNum=0;
             
             [wSelf removeLink];
             [wSelf stopPlaysound:self.player];
-            [wSelf stopPlaysound:self.player2];
+//            [wSelf stopPlaysound:self.player2];
             [wSelf stopPlaysound:self.player3];
             [wSelf stopRecorder];
             
@@ -1044,7 +1041,7 @@ static CGFloat timerNum=0;
        
         [self.waveLink setPaused:NO];
 
-        if ([self.player3 isPlaying] || [self.player2 isPlaying]) {
+        if ([self.player3 isPlaying] ) {
             [[NSToastManager manager ] showtoast:@"先暂停试听"];
 
             //[HudView showView:self.navigationController.view string:@"先暂停试听"];
@@ -1063,8 +1060,11 @@ static CGFloat timerNum=0;
             [self.link setPaused:NO];
             
             if (self.appDelete.isHeadset) {
+                
                 plugedHeadset=YES;
+                
             }else if(!self.appDelete.isHeadset){
+                
                 plugedHeadset=NO;
                 
             }
@@ -1159,11 +1159,11 @@ static CGFloat timerNum=0;
         }else{//没回听
             self.waveform.timeScrollView.userInteractionEnabled=YES;
             
-            curtime2=   self.player2.currentTime;
+//            curtime2=   self.player2.currentTime;
             curtime3=   self.player3.currentTime;
             timerNumPlay_temp=curtime3;
             
-            [self pausePlaysound:self.player2];
+//            [self pausePlaysound:self.player2];
             [self pausePlaysound:self.player3];
             [self.link setPaused:YES];
             [self.waveLink setPaused:YES];
@@ -1180,7 +1180,7 @@ static CGFloat timerNum=0;
             return;
 
         }
-        if ([self.player2 isPlaying]||[self.player3 isPlaying]) {
+        if ([self.player3 isPlaying]) {
             //[HudView showView:self.navigationController.view string:@"先停止试听"];
             [[NSToastManager manager ] showtoast:@"先停止试听"];
 
@@ -1242,7 +1242,7 @@ static CGFloat timerNum=0;
     self.wavFilePath = nil;
     [self.link setPaused:YES];
     [self stopPlaysound:self.player];
-    [self stopPlaysound:self.player2];
+//    [self stopPlaysound:self.player2];
     [self stopPlaysound:self.player3];
     [self stopRecorder];
 
@@ -1263,13 +1263,13 @@ static CGFloat timerNum=0;
 }
 
 - (void)showPromptView{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    // Set the annular determinate mode to show task progress.
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = NSLocalizedString(@"歌曲正在美化，请稍后...", @"HUD loading title");
-    // Move to bottm center.
-    hud.offset = CGPointMake(0.f, 10);//MBProgressMaxOffset);
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    
+//    // Set the annular determinate mode to show task progress.
+//    hud.mode = MBProgressHUDModeText;
+//    hud.label.text = NSLocalizedString(@"歌曲正在上传，请稍后...", @"HUD loading title");
+//    // Move to bottm center.
+//    hud.offset = CGPointMake(0.f, 10);//MBProgressMaxOffset);
 
 }
 - (void)nextClick:(UIBarButtonItem *)next {
@@ -1283,32 +1283,32 @@ static CGFloat timerNum=0;
         [HudView showView:self.navigationController.view  string:@"还未开始录音"];
         return;
     }
-    
-    
-    
+    if ([self.player3 isPlaying]) {
+        [self.player3 pause];
+        return;
+    }
     
     if (titleText.text.length == 0) {
         [HudView showView:self.navigationController.view string:@"歌词标题不能为空"];
     }else{
         
         
-        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在美化，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
       
         
         [self presentViewController:self.alertView animated:YES completion:nil];
         
         if (JUserID) {
             
-            
+            [self.link setPaused:YES];
+            [self pauseDevides];
             [self uploadMusic];
             
 //             self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
 //            self.public.isLyric=NO;
-            [self.link setPaused:YES];
-            [self pauseDevides];
+            
              
-             } else
-             {
+             } else {
              
                  NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
              
@@ -1333,7 +1333,8 @@ static CGFloat timerNum=0;
                            @"token":LoginToken,
                            @"useheadset":[NSNumber numberWithInt:headSet],
                            @"createtype":@"hot",
-                           @"musicurl":musicURl};
+                           @"musicurl":musicURl,
+                           @"effect":@(0)};
     self.requestURL = tunMusicURL;
 
 }
@@ -1349,25 +1350,23 @@ static CGFloat timerNum=0;
             NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
             mp3URL = tunMusic.tunMusicModel.MusicPath;
             
-            
             [self.dict setValue:titleText.text forKey:@"lyricName"];
             
             [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
             
             [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
             [self.dict setValue:mp3URL forKey:@"mp3URL"];
-            [self.dict setValue:[NSNumber numberWithBool:self.appDelete.isHeadset] forKey:@"isHeadSet"];
-            NSLog(@"--------开始，mp3URL =%@",mp3URL);
-//            [self.public initWithLyricDic:self.dict withType:NO];
-//            self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+            [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
+            self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+            self.public.mp3URL = mp3URL;
             [self.alertView dismissViewControllerAnimated:YES completion:^{
-//                [wSelf.navigationController pushViewController:wSelf.public animated:YES];
-                NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
-                soundEffectVC.parameterDic = self.dict;
-                soundEffectVC.musicTime = self.timeLabel.text;
-                soundEffectVC.isLyric = NO;
-                soundEffectVC.mp3File = self.mp3Path;
-                [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
+                [wSelf.navigationController pushViewController:wSelf.public animated:YES];
+//                NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
+//                soundEffectVC.parameterDic = self.dict;
+//                soundEffectVC.musicTime = self.timeLabel.text;
+//                soundEffectVC.isLyric = NO;
+//                soundEffectVC.mp3File = self.mp3Path;
+//                [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
             }];
 
 //            self.public.isLyric=NO;
@@ -1570,7 +1569,7 @@ static CGFloat timerNum=0;
 }
 
 - (void)uploadMusic{
-
+    WS(wSelf);
     //后台执行mp3转换和上传
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
@@ -1578,7 +1577,7 @@ static CGFloat timerNum=0;
         NSData *data = [NSData dataWithContentsOfFile:self.mp3Path];
         self.data=data;
         
-        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
+//        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
         // 1.创建网络管理者
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         NSString* url =[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL];
@@ -1596,17 +1595,44 @@ static CGFloat timerNum=0;
                 
             }
             
-            [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:self.appDelete.isHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+            if (!plugedHeadset) {
+                [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:plugedHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+            } else {
+                
+                [self.alertView dismissViewControllerAnimated:YES completion:^{
+                    NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
+                    
+                    mp3URL = dict[@"data"][@"mp3URL"];
+                    
+                    [self.dict setValue:titleText.text forKey:@"lyricName"];
+                    
+                    [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+                    
+                    [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
+                    //                [self.dict setValue:mp3URL forKey:@"mp3URL"];
+                    [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
+                    
+                    soundEffectVC.parameterDic = self.dict;
+                    
+                    soundEffectVC.musicTime = self.timeLabel.text;
+                    soundEffectVC.isLyric = NO;
+                    soundEffectVC.mp3URL = dict[@"data"][@"mp3URL"];
+                    soundEffectVC.mp3File = self.mp3Path;
+                    
+                    
+                    [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
+                }];
+                
+            }
             
             //self.wavFilePath = nil;
             
             
-            
-            
         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
             // 请求失败
+            [self.alertView dismissViewControllerAnimated:YES completion:^{
+            }];
             
-            [[NSToastManager manager] hideprogress];
             //self.next.enabled = YES;
         }];
         
@@ -1683,7 +1709,7 @@ static CGFloat timerNum=0;
         timerNum=scrollView.contentOffset.x/speed;
         timerNumPlay_temp = timerNum;
         curtime3 =timerNum;
-        curtime2 =timerNum;
+//        curtime2 =timerNum;
 
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         

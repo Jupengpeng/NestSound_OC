@@ -8,6 +8,7 @@
 
 #import "NSEditTemplateViewController.h"
 #import "NSTemplateTableViewCell.h"
+#import "NSPublicLyricViewController.h"
 @interface NSEditTemplateViewController ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 {
     NSString *templateTitle;
@@ -39,15 +40,31 @@ static NSString  * const templateCellIdifity = @"templateCell";
     [self setupEditTemplateUI];
 }
 -(void)saveTemplate {
+    NSString *title,*content;
+    NSMutableArray *contentArr = [NSMutableArray arrayWithCapacity:templateArr.count];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    for (int i = 0; i < templateArr.count; i++) {
+        NSTemplateTableViewCell *cell = (NSTemplateTableViewCell *)[templateTableView viewWithTag:i + 100];
+        if (i == 0) {
+            title = cell.bottomTF.text;
+        } else {
+            [contentArr addObject:[NSString stringWithFormat:@"%@\n",cell.bottomTF.text]];
+        }
+    }
+    content = [contentArr componentsJoinedByString:@","];
+    [dict setValue:title forKey:@"lyricName"];
     
+    [dict setValue:content forKey:@"lyric"];
     
-    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:1] animated:YES];
+    NSPublicLyricViewController *publicLyricVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
+    
+    [self.navigationController pushViewController:publicLyricVC animated:YES];
 }
 #pragma mark - setupUI
 - (void)setupEditTemplateUI {
     self.title = @"模版";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveTemplate)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(saveTemplate)];
     
     self.view.backgroundColor = KBackgroundColor;
     
@@ -79,6 +96,8 @@ static NSString  * const templateCellIdifity = @"templateCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSTemplateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:templateCellIdifity forIndexPath:indexPath];
+    
+    cell.tag = indexPath.row + 100;
     
     cell.bottomTF.delegate = self;
     
