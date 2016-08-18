@@ -55,7 +55,10 @@
 - (void)setRequestURL:(NSString *)url {
     requestURL = url;
     __weak typeof(self) wSelf = self;
-        
+    /**
+     *  type 为真  get
+     *
+     */
     NSURLSessionDataTask *operation =[[NSHttpClient client] requestWithURL:url type:self.requestType                                          paras:self.requestParams
                                                                     success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
                                                                         

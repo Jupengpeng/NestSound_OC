@@ -36,6 +36,7 @@
 #import "NSLyricLibraryListModel.h"
 #import "NSDraftListModel.h"
 #import "NSTemplateListModel.h"
+#import "NSActivityDetailModel.h"
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
@@ -123,6 +124,9 @@
         return [[NSDraftListModel alloc] initWithJSONDict:jsonDict];
     } else if ([url isEqualToString:templateListUrl]) {
         return [[NSTemplateListModel alloc] initWithJSONDict:jsonDict];
+    }
+    else if([url isEqualToString:activityDetailUrl]){
+        return [[NSActivityDetailModel alloc] initWithJSONDict:jsonDict];
     }
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

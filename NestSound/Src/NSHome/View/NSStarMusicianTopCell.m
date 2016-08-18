@@ -8,6 +8,7 @@
 
 #import "NSStarMusicianTopCell.h"
 #import "NSStarMusicianModel.h"
+#import "NSBiaoqianView.h"
 #import "NSTool.h"
 @interface NSStarMusicianTopCell ()
 
@@ -102,6 +103,18 @@
     [self.descriptionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(contentHeight);
     }];
+    
+    NSArray *bilities = @[@"作词",@"作曲",@"编曲",@"德玛西亚"];
+    CGFloat currentOriginX = 100;
+    for (NSInteger i = 0 ; i < 4; i ++) {
+        NSBiaoqianView *biaoqianView = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
+        biaoqianView.title = bilities[i];
+        biaoqianView.origin = CGPointMake(currentOriginX, 65);
+        
+        currentOriginX += biaoqianView.width + 5 ;
+        
+        [self addSubview:biaoqianView];
+    }
 }
 
 

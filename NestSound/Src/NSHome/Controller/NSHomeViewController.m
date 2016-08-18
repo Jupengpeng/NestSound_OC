@@ -24,6 +24,7 @@
  *  专题活动
   */
 #import "NSThemeActivityController.h"
+#import "NSCustomMusicController.h"
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
     UICollectionView *_collection;
@@ -450,7 +451,8 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         }
         
     } else if (section == 1){
-        
+        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
+        [self.navigationController pushViewController:customMusicController animated:YES];
     
     } else if (section == 2){
         

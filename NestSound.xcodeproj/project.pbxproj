@@ -167,12 +167,18 @@
 		2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67751CC1F0ED00DA24DA /* UIView+NSAdditions.m */; };
 		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
 		3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */; };
+		690E09021D65D75700C21750 /* NSActivityDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E09011D65D75700C21750 /* NSActivityDetailModel.m */; };
+		691F11A91D64BC5F00BACEEA /* NSBiaoqianView.m in Sources */ = {isa = PBXBuildFile; fileRef = 691F11A81D64BC5F00BACEEA /* NSBiaoqianView.m */; };
+		69219FCB1D658A9200B55B9E /* NSActivityOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69219FCA1D658A9200B55B9E /* NSActivityOverViewController.m */; };
 		692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */; };
 		69366BF81D647F3C00414323 /* NSStarMusicianBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69366BF71D647F3C00414323 /* NSStarMusicianBottomCell.m */; };
 		695619011D61C35500102BC7 /* MainTouchTableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695618FE1D61C35500102BC7 /* MainTouchTableTableView.m */; };
 		695619021D61C35500102BC7 /* MYSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619001D61C35500102BC7 /* MYSegmentView.m */; };
 		695619051D61C8C500102BC7 /* NSThemeTopicTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */; };
 		695845131D63039D00F93827 /* NSThemeTopicCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */; };
+		697368211D6576CE001D2A34 /* NSCustomMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697368201D6576CE001D2A34 /* NSCustomMusicController.m */; };
+		697F7F281D6558AA00F7EBCC /* NSActivityJoinerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697F7F271D6558AA00F7EBCC /* NSActivityJoinerListController.m */; };
+		697F7F2B1D655CB400F7EBCC /* NSActivityJoinerListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 697F7F2A1D655CB400F7EBCC /* NSActivityJoinerListCell.m */; };
 		6984FC151D642306002EA0F5 /* NSStarMusicianListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6984FC141D642306002EA0F5 /* NSStarMusicianListController.m */; };
 		6984FC181D6432B5002EA0F5 /* NSStarMusicianListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6984FC171D6432B5002EA0F5 /* NSStarMusicianListCell.m */; };
 		6990E6B51D6457BB005F344F /* NSStarMusicianDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6990E6B41D6457BB005F344F /* NSStarMusicianDetailController.m */; };
@@ -550,6 +556,12 @@
 		3A1FBBD3CAB484E50C3E89B7 /* Pods-NestSoundTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.release.xcconfig"; sourceTree = "<group>"; };
 		4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSoundTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSoundTests/Pods-NestSoundTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A1B50989E881DC33A50036C /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
+		690E09001D65D75700C21750 /* NSActivityDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityDetailModel.h; sourceTree = "<group>"; };
+		690E09011D65D75700C21750 /* NSActivityDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityDetailModel.m; sourceTree = "<group>"; };
+		691F11A71D64BC5F00BACEEA /* NSBiaoqianView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBiaoqianView.h; sourceTree = "<group>"; };
+		691F11A81D64BC5F00BACEEA /* NSBiaoqianView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBiaoqianView.m; sourceTree = "<group>"; };
+		69219FC91D658A9200B55B9E /* NSActivityOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityOverViewController.h; sourceTree = "<group>"; };
+		69219FCA1D658A9200B55B9E /* NSActivityOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityOverViewController.m; sourceTree = "<group>"; };
 		692A934E1D616F7C004823C8 /* NSTopicCarryOnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTopicCarryOnCell.h; sourceTree = "<group>"; };
 		692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTopicCarryOnCell.m; sourceTree = "<group>"; };
 		69366BF61D647F3C00414323 /* NSStarMusicianBottomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStarMusicianBottomCell.h; sourceTree = "<group>"; };
@@ -562,6 +574,12 @@
 		695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeTopicTopView.m; sourceTree = "<group>"; };
 		695845111D63039D00F93827 /* NSThemeTopicCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeTopicCommentCell.h; sourceTree = "<group>"; };
 		695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeTopicCommentCell.m; sourceTree = "<group>"; };
+		6973681F1D6576CE001D2A34 /* NSCustomMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCustomMusicController.h; sourceTree = "<group>"; };
+		697368201D6576CE001D2A34 /* NSCustomMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCustomMusicController.m; sourceTree = "<group>"; };
+		697F7F261D6558AA00F7EBCC /* NSActivityJoinerListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityJoinerListController.h; sourceTree = "<group>"; };
+		697F7F271D6558AA00F7EBCC /* NSActivityJoinerListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityJoinerListController.m; sourceTree = "<group>"; };
+		697F7F291D655CB400F7EBCC /* NSActivityJoinerListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityJoinerListCell.h; sourceTree = "<group>"; };
+		697F7F2A1D655CB400F7EBCC /* NSActivityJoinerListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityJoinerListCell.m; sourceTree = "<group>"; };
 		6984FC131D642306002EA0F5 /* NSStarMusicianListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStarMusicianListController.h; sourceTree = "<group>"; };
 		6984FC141D642306002EA0F5 /* NSStarMusicianListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStarMusicianListController.m; sourceTree = "<group>"; };
 		6984FC161D6432B5002EA0F5 /* NSStarMusicianListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStarMusicianListCell.h; sourceTree = "<group>"; };
@@ -796,8 +814,8 @@
 		2D8608C71CCC87720027F147 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */,
 				2D8608DD1CCC87B10027F147 /* NSHomeViewController.h */,
+				2D8608DE1CCC87B10027F147 /* NSHomeViewController.m */,
 				18C914871CDAE66700C255C4 /* NSLyricViewController.h */,
 				18C914881CDAE66700C255C4 /* NSLyricViewController.m */,
 				2AD10A851CD9C96E0044D821 /* NSRecommendSongList.h */,
@@ -820,6 +838,12 @@
 				6984FC141D642306002EA0F5 /* NSStarMusicianListController.m */,
 				6990E6B31D6457BB005F344F /* NSStarMusicianDetailController.h */,
 				6990E6B41D6457BB005F344F /* NSStarMusicianDetailController.m */,
+				697F7F261D6558AA00F7EBCC /* NSActivityJoinerListController.h */,
+				697F7F271D6558AA00F7EBCC /* NSActivityJoinerListController.m */,
+				6973681F1D6576CE001D2A34 /* NSCustomMusicController.h */,
+				697368201D6576CE001D2A34 /* NSCustomMusicController.m */,
+				69219FC91D658A9200B55B9E /* NSActivityOverViewController.h */,
+				69219FCA1D658A9200B55B9E /* NSActivityOverViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -843,6 +867,8 @@
 				2A0B72321CFF54F9003957E3 /* NSMusicSayListMode.m */,
 				69DA38A01D64695B002246E0 /* NSStarMusicianModel.h */,
 				69DA38A11D64695B002246E0 /* NSStarMusicianModel.m */,
+				690E09001D65D75700C21750 /* NSActivityDetailModel.h */,
+				690E09011D65D75700C21750 /* NSActivityDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -880,6 +906,8 @@
 				69DA389E1D6461AB002246E0 /* NSStarMusicianTopCell.m */,
 				69366BF61D647F3C00414323 /* NSStarMusicianBottomCell.h */,
 				69366BF71D647F3C00414323 /* NSStarMusicianBottomCell.m */,
+				697F7F291D655CB400F7EBCC /* NSActivityJoinerListCell.h */,
+				697F7F2A1D655CB400F7EBCC /* NSActivityJoinerListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1195,6 +1223,8 @@
 		2DFB67211CC1E6DE00DA24DA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				691F11A71D64BC5F00BACEEA /* NSBiaoqianView.h */,
+				691F11A81D64BC5F00BACEEA /* NSBiaoqianView.m */,
 				B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */,
 				B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */,
 				B899FA481D41B9AE001E79F3 /* lame.h */,
@@ -2668,11 +2698,13 @@
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
 				18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
+				69219FCB1D658A9200B55B9E /* NSActivityOverViewController.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
 				2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */,
 				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				946B04291D4EEC8A00529DBA /* HUImagePickerCell.m in Sources */,
+				697F7F281D6558AA00F7EBCC /* NSActivityJoinerListController.m in Sources */,
 				692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */,
@@ -2761,6 +2793,7 @@
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */,
+				697F7F2B1D655CB400F7EBCC /* NSActivityJoinerListCell.m in Sources */,
 				0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
@@ -2778,6 +2811,7 @@
 				B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */,
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */,
+				690E09021D65D75700C21750 /* NSActivityDetailModel.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
 				69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */,
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
@@ -2795,8 +2829,10 @@
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
 				944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */,
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
+				697368211D6576CE001D2A34 /* NSCustomMusicController.m in Sources */,
 				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
 				2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */,
+				691F11A91D64BC5F00BACEEA /* NSBiaoqianView.m in Sources */,
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
 				94456D511D51C1390088385F /* NSLoginView.m in Sources */,
 				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
