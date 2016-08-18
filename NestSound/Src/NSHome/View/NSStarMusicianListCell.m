@@ -8,6 +8,7 @@
 
 #import "NSStarMusicianListCell.h"
 #import "NSTool.h"
+#import "NSBiaoqianView.h"
 
 @interface NSStarMusicianListCell ()
 
@@ -15,8 +16,12 @@
 
 @property (nonatomic,strong) UILabel *nameLabel;
 
-@property (nonatomic,strong) UIButton *tag1Button;
-@property (nonatomic,strong) UIButton *tag2button;
+@property (nonatomic,strong) NSBiaoqianView *tag1View;
+
+@property (nonatomic,strong) NSBiaoqianView *tag2View;
+
+//@property (nonatomic,strong) UIButton *tag1Button;
+//@property (nonatomic,strong) UIButton *tag2button;
 
 @end
 
@@ -59,43 +64,18 @@
     
     [self addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       
         make.left.equalTo(self.headerImageView.mas_right).offset(18);
         make.height.mas_equalTo(11.0f);
         make.width.mas_equalTo(100);
         make.centerY.equalTo(self.mas_centerY);
     }];
     
-    self.tag1Button = [UIButton  buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-       
-        btn.titleLabel.font = [UIFont systemFontOfSize:9.0f];
-        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 5);
 
-    } action:^(UIButton *btn) {
-        
-    }];
+    self.tag1View = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
+    [self addSubview:self.tag1View];
     
-    [self addSubview:self.tag1Button];
-    self.tag1Button.height = 11.0f;
-    self.tag1Button.centerY = 45;
-
-    
-    
-    self.tag2button = [UIButton  buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        
-        btn.titleLabel.font = [UIFont systemFontOfSize:9.0f];
-        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 5);
-    } action:^(UIButton *btn) {
-        
-    }];
-    
-    [self addSubview:self.tag2button];
-    self.tag2button.height = 11.0f;
-    self.tag2button.centerY = 45;
-
-    
+    self.tag2View = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
+    [self addSubview:self.tag2View];
 }
 
 - (void)updateUIWithData{
@@ -107,28 +87,23 @@
     
     NSString *tag1Str= @"编曲";
 
-    [self.tag1Button setTitle:tag1Str forState:UIControlStateNormal];
-    self.tag1Button.width = [NSTool getWidthWithContent:tag1Str font:[UIFont systemFontOfSize:10.0f]]  + 12;
-    self.tag1Button.x = ScreenWidth - 10 - self.tag1Button.width;
-    [self.tag1Button setBackgroundImage:[self setupBGImageStretchWithImage:[UIImage imageNamed:@"biaoqian"]] forState:UIControlStateNormal];
+    self.tag1View.title = tag1Str;
+    self.tag1View.x = ScreenWidth - 10 - self.tag1View.width;
 
     
     NSString *tag2Str = @"玛德智障";
-    [self.tag2button setTitle:tag2Str forState:UIControlStateNormal];
+    self.tag2View.title = tag2Str;
+    self.tag2View.x = CGRectGetMinX(self.tag1View.frame) - self.tag2View.width - 5;
 
-    self.tag2button.width = [NSTool getWidthWithContent:tag2Str font:[UIFont systemFontOfSize:10.0f] ] + 12 ;
-    self.tag2button.x = CGRectGetMinX(self.tag1Button.frame) - self.tag2button.width - 5;
-    
-
-    [self.tag2button setBackgroundImage:[self setupBGImageStretchWithImage:[UIImage imageNamed:@"biaoqian"]] forState:UIControlStateNormal];
-
+    self.tag1View.centerY = 45;
+    self.tag2View.centerY = 45;
     
 }
 
 - (UIImage *)setupBGImageStretchWithImage:(UIImage *)bgImage {
     // 设置端盖的值
-    CGFloat top = bgImage.size.height * 0.5;
-    CGFloat left = bgImage.size.width * 0.5;
+    CGFloat top = bgImage.size.height * 0.5 - 1;
+    CGFloat left = bgImage.size.width * 0.5 - 1;
     CGFloat bottom = bgImage.size.height * 0.5;
     CGFloat right = bgImage.size.width * 0.5;
     
@@ -139,9 +114,9 @@
     
     // 拉伸图片
     UIImage *newImage = [bgImage resizableImageWithCapInsets:edgeInsets resizingMode:mode];
-    
-//    // 设置按钮的背景图片
-//    [btn setBackgroundImage:newImage forState:UIControlStateNormal];
+
+        // 设置按钮的背景图片
+
     return newImage;
 }
 

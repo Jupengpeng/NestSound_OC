@@ -15,9 +15,12 @@
 #import "NSThemeTopicTopView.h"
 #import "NSThemeCommentController.h"
 #import "NSStarMusicianListController.h"
+#import "NSActivityJoinerListController.h"
+#import "NSUserPageViewController.h"
 @interface NSThemeActivityController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,TTTAttributedLabelDelegate>
 {
     CGFloat _topViewHeight;
+    CGFloat _refreshOriginY;
 }
 @property (nonatomic,strong) MainTouchTableTableView *mainTableView;
 
@@ -42,6 +45,53 @@
 
     
     [self setupUI];
+
+    [self fetchIndexData];
+    
+}
+
+
+- (void)fetchIndexData{
+    
+    self.mainTableView.pullToRefreshView.y = _refreshOriginY - _topViewHeight;
+    double delayInSeconds = 5.0;
+    
+    
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_mainTableView.pullToRefreshView stopAnimating];
+
+       
+    
+    });
+    self.requestType = NO;
+    self.requestParams = @{@"aid":self.aid,
+                                 @"uid":JUserID
+                                 };
+
+    self.requestURL =  activityDetailUrl;
+
+    
+}
+
+#pragma mark -overrider action fetchData
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
+    
+    
+    WS(wSelf);
+    
+    [_mainTableView addDDPullToRefreshWithActionHandler:^{
+        
+        
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchIndexData];
+        }
+    }];
+
+    
 }
 
 - (void)setupUI{
@@ -62,14 +112,16 @@
             case 5:
             case 6:
             {
-                
+                NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%@",@"123"]];
+                pageVC.who = Other;
+                [weakSelf.navigationController pushViewController:pageVC animated:YES];
                 
             }
                 break;
             case 7:
             {
-                NSStarMusicianListController *joinerController = [[NSStarMusicianListController alloc] init];
-                [weakSelf.navigationController pushViewController:joinerController animated:YES];
+                NSActivityJoinerListController *joinerListController = [[NSActivityJoinerListController alloc] init];
+                [weakSelf.navigationController pushViewController:joinerListController animated:YES];
             }
                 break;
                 
@@ -91,6 +143,23 @@
         make.width.mas_equalTo(130);
     }];
     
+    
+    WS(wSelf);
+
+    [_mainTableView addDDPullToRefreshWithActionHandler:^{
+
+        
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchIndexData];
+        }
+    }];
+    _refreshOriginY = weakSelf.mainTableView.pullToRefreshView.y;
+
+    self.mainTableView.pullToRefreshView.y = _refreshOriginY - _topViewHeight;
+        [_mainTableView.pullToRefreshView startAnimating];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"leaveTop" object:nil];
 }
 
@@ -126,6 +195,11 @@
     _mainTableView.contentOffset = CGPointMake(0, -ScreenHeight);
     _mainTableView.contentOffset = CGPointMake(0, -_topViewHeight);
 
+    /**
+     *  调整刷新条
+ 
+     */
+    self.mainTableView.pullToRefreshView.y = _refreshOriginY - _topViewHeight;
 
 }
 
@@ -277,7 +351,8 @@
         _wantJoinInButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             btn.backgroundColor = [UIColor hexColorFloat:@"ffd507"];
             [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [btn setTitle:@"➕ 我要参加" forState:UIControlStateNormal];
+//            [btn setTitle:@"➕ 我要参加" forState:UIControlStateNormal];
+            [btn setBackgroundImage:[UIImage imageNamed:@"ic_woyaocanjia"] forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
             btn.clipsToBounds= YES;
             btn.layer.cornerRadius = 20.0f;

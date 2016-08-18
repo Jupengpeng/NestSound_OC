@@ -14,5 +14,15 @@
 
 @interface NSThemeActivityController : NSBaseViewController
 
+/**
+ *  活动id
+ */
+@property (nonatomic,copy) NSString *aid;
+
+/**
+ *  类型  0 -> 歌曲 1 -> 歌词
+ */
+@property (nonatomic,copy) NSString *type;
+
 
 @end

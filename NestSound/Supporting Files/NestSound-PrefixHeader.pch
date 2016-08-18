@@ -121,6 +121,31 @@ extern NSString *port;
 #define changeInspirationURL @"java/inspire/update"
 #define changeMusicStatus @"java/musiopt/updateMusic"
 #define changeLyricStatus @"java/musiopt/updateLyrics"
+
+/**
+ *  2016年8月18号添加
+ *
+ */
+
+/**
+ 
+ 定制活动模块
+ 
+ */
+
+
+//活动详情
+#define activityDetailUrl @"java/common/activity/actdetail"
+
+//参与用户列表
+#define joinedUserListUrl @"java/common/activity/userlist"
+
+//参赛作品详情列表
+#define joinedWorksDetailUrl @"java/common/activity/worklist"
+
+//参赛提交
+#define joinMatchSubmitUrl @"java/activity/attend"
+
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG
@@ -184,7 +209,11 @@ extern NSString *port;
 #define KBackgroundColor [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0]
 #define LineRgbValue @"f4f4f4"
 
+/**
+ *  音乐定制
+ */
 
+#define kCustomMusicUrl @"http://html.yinchao.cn/app-customization-index.html"
 
 
 
