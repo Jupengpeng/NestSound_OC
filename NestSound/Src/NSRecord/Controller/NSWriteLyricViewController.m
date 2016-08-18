@@ -472,8 +472,8 @@
     
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
-    paragraphStyle.lineSpacing = 4;
-    
+//    paragraphStyle.lineSpacing = 4;
+    paragraphStyle.paragraphSpacing = 8;
     NSDictionary *attributes = @{
                                  
                                  NSFontAttributeName:[UIFont systemFontOfSize:15],
@@ -546,25 +546,26 @@
     
 //    self.textView.attributedText = attributedString;
 }
-//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
 //    if ([text isEqualToString:@"\n"]) {
-//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-//        
-//        paragraphStyle.alignment = NSTextAlignmentCenter;
-//        
-//        paragraphStyle.lineSpacing = 12;// 字体的行间距
-//        
-//        NSDictionary *attributes = @{
-//                                     
-//                                     NSFontAttributeName:[UIFont systemFontOfSize:15],
-//                                     
-//                                     NSParagraphStyleAttributeName:paragraphStyle
-//                                     
-//                                     };
-//        
-//        textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        
+//        paragraphStyle.lineSpacing = 2;// 字体的行间距
+    paragraphStyle.paragraphSpacing = 8;
+    
+        NSDictionary *attributes = @{
+                                     
+                                     NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                     
+                                     NSParagraphStyleAttributeName:paragraphStyle
+                                     
+                                     };
+        
+        textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
 //    }
-//    return YES;
-//}
+    return YES;
+}
 
 @end
