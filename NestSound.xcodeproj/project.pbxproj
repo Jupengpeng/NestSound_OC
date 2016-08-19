@@ -185,6 +185,8 @@
 		6990E6B51D6457BB005F344F /* NSStarMusicianDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6990E6B41D6457BB005F344F /* NSStarMusicianDetailController.m */; };
 		6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */; };
 		69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */; };
+		69D5425A1D66F81600B26021 /* NSJoinedWorkListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D542591D66F81600B26021 /* NSJoinedWorkListModel.m */; };
+		69D582FC1D66B4A30078D5AE /* NSActivityJoinerListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D582FB1D66B4A30078D5AE /* NSActivityJoinerListModel.m */; };
 		69DA389F1D6461AB002246E0 /* NSStarMusicianTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DA389E1D6461AB002246E0 /* NSStarMusicianTopCell.m */; };
 		69DA38A21D64695B002246E0 /* NSStarMusicianModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DA38A11D64695B002246E0 /* NSStarMusicianModel.m */; };
 		9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */; };
@@ -593,6 +595,10 @@
 		6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeActivityController.m; sourceTree = "<group>"; };
 		69BC453F1D62BD3A009C9171 /* NSThemeCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeCommentController.h; sourceTree = "<group>"; };
 		69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeCommentController.m; sourceTree = "<group>"; };
+		69D542581D66F81600B26021 /* NSJoinedWorkListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSJoinedWorkListModel.h; sourceTree = "<group>"; };
+		69D542591D66F81600B26021 /* NSJoinedWorkListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSJoinedWorkListModel.m; sourceTree = "<group>"; };
+		69D582FA1D66B4A30078D5AE /* NSActivityJoinerListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityJoinerListModel.h; sourceTree = "<group>"; };
+		69D582FB1D66B4A30078D5AE /* NSActivityJoinerListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityJoinerListModel.m; sourceTree = "<group>"; };
 		69DA389D1D6461AB002246E0 /* NSStarMusicianTopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStarMusicianTopCell.h; sourceTree = "<group>"; };
 		69DA389E1D6461AB002246E0 /* NSStarMusicianTopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStarMusicianTopCell.m; sourceTree = "<group>"; };
 		69DA38A01D64695B002246E0 /* NSStarMusicianModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStarMusicianModel.h; sourceTree = "<group>"; };
@@ -872,6 +878,10 @@
 				69DA38A11D64695B002246E0 /* NSStarMusicianModel.m */,
 				690E09001D65D75700C21750 /* NSActivityDetailModel.h */,
 				690E09011D65D75700C21750 /* NSActivityDetailModel.m */,
+				69D582FA1D66B4A30078D5AE /* NSActivityJoinerListModel.h */,
+				69D582FB1D66B4A30078D5AE /* NSActivityJoinerListModel.m */,
+				69D542581D66F81600B26021 /* NSJoinedWorkListModel.h */,
+				69D542591D66F81600B26021 /* NSJoinedWorkListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2703,6 +2713,7 @@
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
 				18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
+				69D5425A1D66F81600B26021 /* NSJoinedWorkListModel.m in Sources */,
 				69219FCB1D658A9200B55B9E /* NSActivityOverViewController.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
 				2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */,
@@ -2791,6 +2802,7 @@
 				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
 				0CCC19231D647A9A009E9478 /* NSTemplateTableViewCell.m in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
+				69D582FC1D66B4A30078D5AE /* NSActivityJoinerListModel.m in Sources */,
 				2A3CC9EC1D261C7E0072B801 /* UINavigationController+NSPlayView.m in Sources */,
 				2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */,
 				94456D4E1D5185A60088385F /* NSTextField.m in Sources */,

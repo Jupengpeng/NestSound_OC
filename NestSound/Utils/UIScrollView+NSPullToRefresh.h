@@ -10,6 +10,10 @@
 
 extern NSString *const ShouldRestartAnimationNotification;
 
+@interface YDAnimatingView : UIImageView
+
+@end
+
 @interface UIScrollView (DDPullToRefresh)
 - (void)addDDPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
 - (void)addDDInfiniteScrollingWithActionHandler:(void (^)(void))actionHandler;

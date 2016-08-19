@@ -7,9 +7,11 @@
 //
 
 #import "NSThemeTopicCommentCell.h"
-
+#import "NSJoinedWorkListModel.h"
+#import "UIButton+WebCache.h"
+#import "NSTool.h"
 @interface NSThemeTopicCommentCell ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic,strong) UIImageView *headerIcon;
+@property (nonatomic,strong) UIButton *headerIcon;
 @property (nonatomic,strong) UILabel *releaserLabel;
 @property (nonatomic,strong) UILabel *releaseTimeLabel;
 @property (nonatomic,strong) UILabel *songName;
@@ -50,10 +52,12 @@
 
 - (void)initUI{
     
+    self.clipsToBounds = YES;
+    
     /**
      *  头像
      */
-    self.headerIcon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
+    self.headerIcon = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
     self.headerIcon.clipsToBounds = YES;
     self.headerIcon.layer.cornerRadius = self.headerIcon.width/2.0f;
     [self addSubview:self.headerIcon];
@@ -230,11 +234,12 @@
     self.moreCommentButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setTitleColor:[UIColor hexColorFloat:@"808080"] forState:UIControlStateNormal];
-        [btn setTitle:@"更多129条评>>" forState:UIControlStateNormal];
+        [btn setTitle:[NSString stringWithFormat:@"更多%ld条评>>",self.workDetailModel.commentnum] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     } action:^(UIButton *btn) {
         [self moreCommentClick:btn];
     }];
+    self.moreCommentButton.clipsToBounds = YES;
     [self addSubview:self.moreCommentButton];
     [self.moreCommentButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(15.0f);
@@ -253,16 +258,51 @@
     }];
 }
 
-- (void)updateUIWith{
-    self.headerIcon.image = [UIImage imageNamed:@"2.0_placeHolder_long"];
-    self.releaserLabel.text = @"王宝强";
-    self.releaseTimeLabel.text =@"19分钟前";
-    self.songName.text = [NSString stringWithFormat:@"歌曲名：%@",@"Boom Shakalaka"];
-    self.authorLabel.text = [NSString stringWithFormat:@"作者：%s","BiBang"];
-    self.watchedCount.text = [NSString stringWithFormat:@"%d",1321];
-    self.favourateCount.text = [NSString stringWithFormat:@"%d",1555];
-    self.collectedCount.text = [NSString stringWithFormat:@"%d",1666];
+
+
+- (void)setWorkDetailModel:(NSJoinedWorkDetailModel *)workDetailModel{
+//    self.headerIcon.image = [UIImage imageNamed:@"2.0_placeHolder_long"];
+
+    [self.headerIcon sd_setImageWithURL:[NSURL URLWithString:workDetailModel.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] ];
+    [self.songCoverButton sd_setImageWithURL:[NSURL URLWithString:workDetailModel.pic] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    self.releaserLabel.text = workDetailModel.nickname;
+    self.releaseTimeLabel.text = [NSTool updateTimeForRow:workDetailModel.jointime];
+    self.songName.text = [NSString stringWithFormat:@"歌曲名：%@",workDetailModel.title];
+    self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",workDetailModel.author];
+    self.watchedCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.looknum];
+    self.favourateCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.zannum];
+    self.collectedCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.fovnum];
+    
+    /**
+     *  设置评论
+
+     */
+
+    if (workDetailModel.commentnum > 3) {
+        
+        self.tableView.height = 20 * 3;
+        [self.moreCommentButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(20);
+        }];
+        
+    }else{
+        
+        
+       
+        [self.moreCommentButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(0);
+        }];
+
+    
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(20 * workDetailModel.commentnum);
+    }];
+    }
+    
+    [self.tableView reloadData];
 }
+
+
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 
@@ -271,7 +311,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.workDetailModel.commentnum;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

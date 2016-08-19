@@ -11,6 +11,9 @@
 @property (nonatomic,copy) NSString *message;
 @property (nonatomic,assign) long code;
 @property (nonatomic, copy) NSString *data;
+
+@property (nonatomic,copy) NSString *jsonStr;
+
 - (NSDictionary *)modelKeyJSONKeyMapper;
 - (instancetype)initWithJSONDict:(NSDictionary *)dict;
 @end

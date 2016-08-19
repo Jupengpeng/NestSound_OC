@@ -9,6 +9,9 @@
 typedef void(^NSThemeTopicCommentCellMoreCommentClick)(NSInteger clickIndex,id);
 typedef void(^NSThemeTopicCommentCellLaunchCommentClick)(NSInteger clickIndex,id);
 
+
+@class NSJoinedWorkDetailModel;
+
 #import <UIKit/UIKit.h>
 
 @interface NSThemeTopicCommentCell : UITableViewCell
@@ -19,6 +22,7 @@ typedef void(^NSThemeTopicCommentCellLaunchCommentClick)(NSInteger clickIndex,id
 @property (nonatomic,copy) NSThemeTopicCommentCellLaunchCommentClick launchCommentClick;
 
 
-- (void)updateUIWith;
+
+@property (nonatomic,strong) NSJoinedWorkDetailModel *workDetailModel;
 
 @end

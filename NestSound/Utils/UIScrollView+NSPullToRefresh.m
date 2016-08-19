@@ -11,9 +11,7 @@
 
 NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNotification";
 
-@interface YDAnimatingView : UIImageView
 
-@end
 
 @implementation YDAnimatingView
 

@@ -12,9 +12,12 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 #import "NSThemeCommentController.h"
 #import "NSThemeTopicCommentCell.h"
 #import "NSCommentViewController.h"
+#import "NSJoinedWorkListModel.h"
 @interface NSThemeCommentController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 
 @property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic,strong) NSMutableArray *dataArray;
 
 @end
 
@@ -28,6 +31,38 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"leaveTop" object:nil];
     
     [self.view addSubview:self.tableView];
+
+    [self fetchData];
+}
+
+- (void)fetchData{
+    self.requestType = NO;
+    self.page = 1;
+    self.requestParams = @{@"aid":(self.aid.length ? self.aid: @"5"),
+                           @"type":(self.type.length ? self.type:@"1"),
+                           @"sort":[NSString stringWithFormat:@"%d",self.sort],
+                           @"page":[NSString stringWithFormat:@"%d",self.page]};
+    self.requestURL = joinedWorksDetailUrl;
+}
+
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
+    if (requestErr) {
+        
+    }
+    else{
+        if ([operation.urlTag isEqualToString:joinedWorksDetailUrl]) {
+            NSJoinedWorkListModel *workListModel = (NSJoinedWorkListModel *)parserObject;
+
+            if (self.dataArray.count) {
+                [self.dataArray removeAllObjects];
+            }
+            
+            [self.dataArray addObjectsFromArray:workListModel.joinWorkList];
+        
+        }
+        
+        [self.tableView reloadData];
+    }
 }
 
 -(void)acceptMsg : (NSNotification *)notification{
@@ -93,7 +128,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 #pragma mark UITableViewDelegate,UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10 ;
+    return self.dataArray.count ;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -101,7 +136,15 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 280;
+    
+    NSJoinedWorkDetailModel *workListModel = self.dataArray[indexPath.section];
+
+    if (workListModel.commentnum > 3) {
+        return 280;
+    }else{
+        return (190 + workListModel.commentnum * 20.0f);
+    }
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -128,6 +171,10 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     NSThemeTopicCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:NSThemeTopicCommentCellID];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
+    
+    NSJoinedWorkDetailModel *workListModel = self.dataArray[indexPath.section];
+    cell.workDetailModel = workListModel;
+
     WS(wSelf);
 
     cell.launchCommentClick = ^(NSInteger clickIndex,id dog){
@@ -136,7 +183,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         
         commentVC.musicName = @"假的";
         
-        [self.navigationController pushViewController:commentVC animated:YES];
+        [wSelf.navigationController pushViewController:commentVC animated:YES];
 
     };
     
@@ -149,7 +196,6 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         [self.navigationController pushViewController:commentVC animated:YES];
 
     };
-    [cell updateUIWith];
     
     return cell;
 }
@@ -164,10 +210,19 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor hexColorFloat:@"f6f6f6"];
+        UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 60)];
+        footerView.backgroundColor = [UIColor clearColor];
+        _tableView.tableFooterView = footerView;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
 
+- (NSMutableArray *)dataArray{
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray array];
+    }
+    return _dataArray;
+}
 
 @end
