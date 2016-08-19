@@ -5,7 +5,7 @@
 //  Created by yandi on 15/3/19.
 //  Copyright (c) 2015年 yinchao. All rights reserved.
 //
-
+#import "NSTool.h"
 #import "NSModelFactory.h"
 #import "NSIndexModel.h"
 #import "NSDiscoverMusicListModel.h"
@@ -37,11 +37,13 @@
 #import "NSDraftListModel.h"
 #import "NSTemplateListModel.h"
 #import "NSActivityDetailModel.h"
+#import "NSActivityJoinerListModel.h"
+#import "NSJoinedWorkListModel.h"
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
+    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
     
-  
     if ([url isEqualToString:indexURL]) {
 //        NSLog(@"jsonDict%@",jsonDict);
         return [[NSIndexModel alloc] initWithJSONDict:jsonDict];
@@ -127,6 +129,11 @@
     }
     else if([url isEqualToString:activityDetailUrl]){
         return [[NSActivityDetailModel alloc] initWithJSONDict:jsonDict];
+    }
+    else if ([url isEqualToString:joinedUserListUrl]){
+        return [[NSActivityJoinerListModel alloc] initWithJSONDict:jsonDict];
+    }else if([url isEqualToString:joinedWorksDetailUrl]){
+        return [[NSJoinedWorkListModel alloc] initWithJSONDict:jsonDict];
     }
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

@@ -278,6 +278,65 @@ static NSDateFormatter *dateFormatter;
 ;
 }
 
+// data to jsonString
++ (NSString*)transformTOjsonStringWithObject:(id)object
+{
+    if (object == nil) {
+        return @"";
+    }
+    NSString *jsonString = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:&error];
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
+
+
+// calculate numberoflines
+
++ (CGFloat)numberOfTextIn:(UILabel *)label{
+    // 获取单行时候的内容的size
+    CGSize singleSize = [label.text sizeWithAttributes:@{NSFontAttributeName:label.font}];
+    // 获取多行时候,文字的size
+    CGSize textSize = [label.text boundingRectWithSize:CGSizeMake(label.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:label.font} context:nil].size;
+    // 返回计算的行数
+    return ceil( textSize.height / singleSize.height);
+}
+
+/** 通过行数, 返回更新时间 */
++ (NSString *)updateTimeForRow:(NSInteger)createTimeIntrval {
+    // 获取当前时时间戳 1466386762.345715 十位整数 6位小数
+    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+    // 创建歌曲时间戳(后台返回的时间 一般是13位数字)
+    NSTimeInterval createTime = createTimeIntrval/1000;
+    // 时间差
+    NSTimeInterval time = currentTime - createTime;
+    
+    // 秒转小时
+    NSInteger hours = time/3600;
+    if (hours<24) {
+        return [NSString stringWithFormat:@"%ld小时前",hours];
+    }
+    //秒转天数
+    NSInteger days = time/3600/24;
+    if (days < 30) {
+        return [NSString stringWithFormat:@"%ld天前",days];
+    }
+    //秒转月
+    NSInteger months = time/3600/24/30;
+    if (months < 12) {
+        return [NSString stringWithFormat:@"%ld月前",months];
+    }
+    //秒转年
+    NSInteger years = time/3600/24/30/12;
+    return [NSString stringWithFormat:@"%ld年前",years];
+}
 
 @end
 
@@ -369,6 +428,9 @@ static NSDateFormatter *dateFormatter;
     NSString * dateString = [formatter stringFromDate:dat];
     return dateString;
 }
+
+
+
 
 //get the time stamp
 +(NSTimeInterval )getTimeStamp

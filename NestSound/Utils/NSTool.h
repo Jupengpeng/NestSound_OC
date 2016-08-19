@@ -25,6 +25,15 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(NSString *)getMachine;
 +(CGFloat)getWidthWithContent:(NSString *)contentStr font:(UIFont *)font;
 +(CGFloat)getHeightWithContent:(NSString *)contentStr width:(CGFloat)width font:(UIFont *)font lineOffset:(CGFloat)lineOffset;
+
+// data to jsonString
++ (NSString*)transformTOjsonStringWithObject:(id)object;
+
+
++ (CGFloat)numberOfTextIn:(UILabel *)label;
++ (NSString *)updateTimeForRow:(NSInteger)createTimeIntrval;
+
+
 @end
 
 //cache include ：accompany，record file

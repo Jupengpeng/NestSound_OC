@@ -9,6 +9,8 @@
 #import "NSThemeTopicTopView.h"
 #import "NSTool.h"
 #import "UIButton+WebCache.h"
+#import "NSActivityDetailModel.h"
+#import "NSActivityJoinerListModel.h"
 @interface NSThemeTopicTopView ()
 
 
@@ -147,7 +149,7 @@
     [self.topView addSubview:watchedNumberIcon];
     [watchedNumberIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.workNumberLabel.mas_right).offset(35);
-        make.top.equalTo(self.durationLabel.mas_bottom).offset(16);
+        make.top.equalTo(self.durationLabel.mas_bottom).offset(18);
         
     }];
     
@@ -213,25 +215,48 @@
  
 }
 
-- (void)setupDataWithData:(id)data descriptionIsFoldOn:(BOOL)isFoldOn {
+- (void)setupDataWithData:(id)data joinerArray:(NSArray *)joinerArr descriptionIsFoldOn:(BOOL)isFoldOn {
+    
+    if (!data) {
+        return;
+    }
+    
+    ActivityDetailModel *detailModel = ((NSActivityDataModel *)data).activityDetailModel;
+    
     _isFoldOn = isFoldOn;
-    [self.activityCover setDDImageWithURLString:@"" placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+ 
+    
+    
+    [self.activityCover setDDImageWithURLString:detailModel.pic placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 
+    self.titleLabel.text = detailModel.title;
+    NSString * dateStr = [NSString stringWithFormat:@"%@ ~ %@",[date datetoMonthStringWithDate:detailModel.begindate],[date datetoMonthStringWithDate:detailModel.enddate]];
+
+    self.durationLabel.text = dateStr;
     
-    [self.activityCover setDDImageWithURLString:@"" placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
-    self.titleLabel.text = @"金窝牛作词大赛";
-    self.durationLabel.text = @"2016.06.18~2016.6.28";
+    self.workNumberLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",detailModel.worknum] font:[UIFont systemFontOfSize:11.0f]], 10);
+    self.workNumberLabel.text =[NSString stringWithFormat:@"%ld",detailModel.worknum];
     
-    self.workNumberLabel.size =CGSizeMake([NSTool getWidthWithContent:@"312312" font:[UIFont systemFontOfSize:11.0f]], 10);
-    self.workNumberLabel.text = @"312312";
+    self.watchedLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",detailModel.looknum] font:[UIFont systemFontOfSize:11.0f]], 10);
+    self.watchedLabel.text = [NSString stringWithFormat:@"%ld",detailModel.looknum];
     
-    self.watchedLabel.size =CGSizeMake([NSTool getWidthWithContent:@"121212" font:[UIFont systemFontOfSize:11.0f]], 10);
-    self.watchedLabel.text = @"121212";
-    
-    NSString *string = @"我们有最棒的音乐，但还不够，我们希望有更多的高手加入，为我们增添一抹靓丽的磨彩。为此，我们准备了230万原创音乐基金作为奖励，支持优胜者参赛，并提供亚洲最大的音乐为我们增添一抹亮丽的墨彩";
+    NSString *string = detailModel.actDesc;
+//    @"我们有最棒的音乐，但还不够，我们希望有更多的高手加入，为我们增添一抹靓丽的磨彩。为此，我们准备了230万原创音乐基金作为奖励，支持优胜者参赛，并提供亚洲最大的音乐为我们增添一抹亮丽的墨彩";
     NSString *string2 = @"展开";
     NSString *string3 = @"收起";
     
+    NSString *testLineStr = [NSString stringWithFormat:@"%@... %@",string,string2];
+
+    self.descriptionLabel.text = testLineStr;
+    
+    NSInteger numOflines = [NSTool numberOfTextIn:self.descriptionLabel];
+    
+    if (numOflines <= 2) {
+        
+        self.descriptionLabel.text = string;
+        
+    }
+    else{
     /**
      *  未展开
      */
@@ -250,51 +275,59 @@
         NSRange range = NSMakeRange(totalString.length - string3.length, string3.length);
         [self.descriptionLabel addLinkToURL:nil withRange:range];
     }
+    }
  
-    self.joinCountLabel.font = [UIFont systemFontOfSize:14.0f];
-    self.joinCountLabel.text = [NSString stringWithFormat:@"参加人数%d人",1224];
-    CGFloat padding = 9.0f;
-    CGFloat headerWidth = (ScreenWidth - padding * 9)/8.0f;
-    
-    NSArray *pickArray = @[@"",@"",@"",@"",@"",@"",@"",@"",@""];
-    
-    
-    NSInteger headerCount ;
-    if (pickArray.count <= 8) {
-        headerCount = pickArray.count;
-    }else{
-        headerCount = 8 ;
-    }
-    
-    for (NSInteger i = 0; i < headerCount; i ++) {
+    if (joinerArr.count) {
         
-        UIButton *headButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-            
+        
+        
+        self.joinCountLabel.font = [UIFont systemFontOfSize:14.0f];
+        self.joinCountLabel.text = [NSString stringWithFormat:@"参加人数%ld人",joinerArr.count];
+        CGFloat padding = 9.0f;
+        CGFloat headerWidth = (ScreenWidth - padding * 9)/8.0f;
+        
+        NSMutableArray *pickArray = [NSMutableArray array];
 
-            btn.frame = CGRectMake(padding + (headerWidth + padding) * i, 43, headerWidth, headerWidth);
-            btn.clipsToBounds = YES;
-            btn.layer.cornerRadius = headerWidth/2.0f;
-            if (pickArray.count > 8 && i == 7) {
+        for (NSActivityJoinerDetailModel *joinerDetailModel in joinerArr) {
+            [pickArray addObject:joinerDetailModel.headurl];
+        }
+        
+        
+        
+        NSInteger headerCount ;
+        if (pickArray.count <= 8) {
+            headerCount = pickArray.count;
+        }else{
+            headerCount = 8 ;
+        }
+        
+        for (NSInteger i = 0; i < headerCount; i ++) {
+            NSActivityJoinerDetailModel *joinerDetailModel = joinerArr[i];
+            UIButton *headButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
                 
-                [btn setImage:[UIImage imageNamed:@"ic_sandian"] forState:UIControlStateNormal];
-            }else{
-                [btn sd_setImageWithURL:[NSURL URLWithString:pickArray[i]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
-
-            }
-            
-            
-        } action:^(UIButton *btn) {
-            
-            if (self.headerClickBlock) {
-                self.headerClickBlock(i,nil);
-            }
-            
-        }];
-        headButton.centerY = 67;
-
-        [self.bottomView addSubview:headButton];
-
+                
+                btn.frame = CGRectMake(padding + (headerWidth + padding) * i, 43, headerWidth, headerWidth);
+                btn.clipsToBounds = YES;
+                btn.layer.cornerRadius = headerWidth/2.0f;
+                if (pickArray.count > 8 && i == 7) {
+                    
+                    [btn setImage:[UIImage imageNamed:@"ic_sandian"] forState:UIControlStateNormal];
+                }else{
+                    [btn sd_setImageWithURL:[NSURL URLWithString:pickArray[i]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+                }
+            } action:^(UIButton *btn) {
+                
+                if (self.headerClickBlock) {
+                    self.headerClickBlock(i,joinerDetailModel);
+                }
+            }];
+            headButton.centerY = 67;
+            [self.bottomView addSubview:headButton];
+        }
+        
     }
+    
+  
     
 
 }

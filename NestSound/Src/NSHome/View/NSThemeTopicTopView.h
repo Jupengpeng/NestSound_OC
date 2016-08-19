@@ -27,7 +27,7 @@ typedef void(^NSThemeTopicTopViewHeaderClickBlock)(NSInteger index, id);
 @property (nonatomic,copy) NSThemeTopicTopViewHeaderClickBlock headerClickBlock;
 
 
-- (void)setupDataWithData:(id)data descriptionIsFoldOn:(BOOL)isFoldOn;
+- (void)setupDataWithData:(id)data joinerArray:(NSArray *)joinerArr descriptionIsFoldOn:(BOOL)isFoldOn ;
 - (void)updateTopViewWithHeight:(CGFloat)height;
 
 @end
