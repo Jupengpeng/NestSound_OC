@@ -78,7 +78,7 @@
 #pragma mark - resetNavBar
 - (void)reSetNavBar:(BOOL)animated {
     [self reSetNavBar:animated];
-//    self.navigationController.navigationBar.hidden = NO;
+    
     if ([self isKindOfClass:[NSPlayMusicViewController class]]) {
         
         if (self.navigationController.childViewControllers.count <= 1) {
@@ -86,7 +86,7 @@
             [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
             [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
         } else {
-            
+            self.navigationController.navigationBar.hidden = NO;
              self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
             [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
             [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];

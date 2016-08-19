@@ -59,6 +59,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 
 - (void)leftClick:(UIBarButtonItem *)barButtonItem {
     
+    [NSSingleTon viewFrom].viewTag = @"";
+    
     [NSPlayMusicTool pauseMusicWithName:nil];
     
     [NSPlayMusicTool stopMusicWithName:nil];
@@ -227,9 +229,19 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
         NSAccompanyCategoryViewController *accompanyCategoryListVC = [[NSAccompanyCategoryViewController alloc] initWithCategoryId:accompany.categoryId andCategoryName:accompany.categoryName];
         [self.navigationController pushViewController:accompanyCategoryListVC animated:YES];
     } else {
-        NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.item];
-        NSAccompanyCategoryViewController *accompanyCategoryListVC = [[NSAccompanyCategoryViewController alloc] initWithCategoryId:simpleSing.itemID andCategoryName:simpleSing.title];
-        [self.navigationController pushViewController:accompanyCategoryListVC animated:YES];
+        NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.section];
+        if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
+            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":@(simpleSing.playTimes),@"accompanyUrl":simpleSing.playUrl}];
+        } else {
+            
+            NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:simpleSing.itemID andMusicTime:simpleSing.playTimes andHotMp3:simpleSing.playUrl];
+            [NSSingleTon viewFrom].controllersNum = 2;
+            
+            [self.navigationController pushViewController:writeMusicVC animated:YES];
+        
+        }
+        
     }
     
 }
@@ -237,7 +249,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
     
     if (indexPath.section == 0) {
         
-        return CGSizeMake(ScreenWidth - 30, 180);
+        return CGSizeMake(ScreenWidth - 30, ScreenHeight/4);
         
     } else {
         

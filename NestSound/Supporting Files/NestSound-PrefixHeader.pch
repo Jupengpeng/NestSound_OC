@@ -12,6 +12,7 @@
 // Header
 #import "NSTool.h"
 #import "Masonry.h"
+#import "NSSingleTon.h"
 #import <objc/runtime.h>
 #import "UIView+Extension.h"
 #import "UIView+RGSize.h"

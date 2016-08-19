@@ -18,7 +18,7 @@ typedef enum {
 
 @end
 @interface NSHttpClient : AFHTTPSessionManager;
-
+@property (nonatomic, strong) AFURLSessionManager *downloadManager;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, assign) id<NSHttpClientDelegate>delegate;
 + (instancetype)client;
@@ -30,4 +30,5 @@ typedef enum {
                                  failure:(void(^)(NSURLSessionDataTask *operation,NSError *requestErr))failure;
 
 -(void)downLoadWithFileURL:(NSString *)fileURL completionHandler:(void(^)())completion;
+- (void)cancelDownload;
 @end

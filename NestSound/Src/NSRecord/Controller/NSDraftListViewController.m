@@ -60,20 +60,17 @@ static NSString  * const draftCellIdifity = @"draftCell";
             if ([operation.urlTag isEqualToString:draftListUrl]) {
                 NSDraftListModel * draftList = (NSDraftListModel *)parserObject;
                 if (!operation.isLoadingMore) {
+                    [draftListTab.pullToRefreshView stopAnimating];
+                    
                     self.draftListArr = [NSMutableArray arrayWithArray:draftList.draftList];
                 }else{
+                    [draftListTab.infiniteScrollingView stopAnimating];
+                    
                     for (NSDraftModel *model in draftList.draftList) {
                         [self.draftListArr addObject:model];
                     }
                 }
-                    if (!operation.isLoadingMore) {
-                    
-                    [draftListTab.pullToRefreshView stopAnimating];
-                    
-                } else {
-                    
-                    [draftListTab.infiniteScrollingView stopAnimating];
-                }
+                
                 [draftListTab reloadData];
             } else if ([operation.urlTag isEqualToString:deleteDraftUrl]) {
                 [[NSToastManager manager] showtoast:@"操作成功"];

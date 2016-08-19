@@ -92,52 +92,20 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
             NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 
+                [accompanyListTabelView.pullToRefreshView stopAnimating];
+                
                 self.categoryAryList = [NSMutableArray arrayWithArray:listModel.accommpanyList];
                 
-                //                if ([operation.urlTag isEqualToString:hotUrl]) {
-                
-                //                    hotAccompanyAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                //                }else{
-                
-                //                    newAccompanyAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                
-                //                }
-                
             }else{
-                //                if ([operation.urlTag isEqualToString:hotUrl]) {
-                //                    if (listModel.accommpanyList.count == 0) {
-                //
-                //                    }else{
-                //
-                //                        [hotAccompanyAry addObjectsFromArray:listModel.simpleCategoryList];
-                //                    }
-                //
-                //
-                //                }else{
-                //
-                //                    if (listModel.accommpanyList.count == 0) {
-                //
-                //                    }else{
-                //
-                //                        [newAccompanyAry addObjectsFromArray:listModel.simpleCategoryList];
-                //
-                //                    }
-                //
-                //                }
-            }
-            //            if (headerView.xinBtn.selected) {
-            //                dataAry = newAccompanyAry;
-            //            }else{
-            //                dataAry = hotAccompanyAry;
-            //            }
-            
-            if (!operation.isLoadingMore) {
-                [accompanyListTabelView.pullToRefreshView stopAnimating];
-                //                [accompanyListTabelView.pullToRefreshView stopAnimating];
-            }else{
+               
                 [accompanyListTabelView.infiniteScrollingView stopAnimating];
-                //                [accompanyListTabelView.infiniteScrollingView stopAnimating];
+                
+                for (NSAccommpanyModel *model in listModel.accommpanyList) {
+                    
+                    [self.categoryAryList addObject:model];
+                }
             }
+            
             [accompanyListTabelView reloadData];
         }
     }
@@ -150,7 +118,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     accompanyListTabelView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth-20, ScreenHeight) style:UITableViewStyleGrouped];
     accompanyListTabelView.dataSource = self;
     accompanyListTabelView.delegate = self;
-    accompanyListTabelView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    accompanyListTabelView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     [accompanyListTabelView registerClass:[NSAccompanyTableCell class] forCellReuseIdentifier:accompanyCellIditify];
     
@@ -173,7 +141,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         }
         [Wself fetchAccompanyListDataWithIsLoadingMore:YES];
     }];
-    accompanyListTabelView.showsInfiniteScrolling = NO;
+//    accompanyListTabelView.showsInfiniteScrolling = NO;
 }
 #pragma mark -TableDataSource
 
@@ -215,21 +183,21 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 #pragma mark -UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //downLoading accompany and push to recordVC
     NSAccommpanyModel * accompany = self.categoryAryList[indexPath.section];
-    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
-    for (NSAccommpanyModel *model in self.categoryAryList) {
-        NSMutableArray *array = [NSMutableArray array];
-        [array addObject:model.mp3URL];
-        writeMusicVC.urlStrArr = array;
+    //downLoading accompany and push to recordVC
+    if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":@(accompany.mp3Times),@"accompanyUrl":accompany.mp3URL}];
+        
+    } else {
+        
+        NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
+        [NSSingleTon viewFrom].controllersNum = 3;
+        [self.player pause];
+        [NSPlayMusicTool stopMusicWithName:nil];
+        
+        [self.navigationController pushViewController:writeMusicVC animated:YES];
     }
-    writeMusicVC.accompanyId = indexPath.row;
-    writeMusicVC.accompanyModel = accompany;
-    
-    [self.player pause];
-    [NSPlayMusicTool stopMusicWithName:nil];
-    
-    [self.navigationController pushViewController:writeMusicVC animated:YES];
 }
 
 - (void)playerClick:(UIButton *)btn {

@@ -137,7 +137,7 @@
     
     [self.view addSubview:auditionLabel];
     
-    NSArray *titles = @[@"原声",@"唱将",@"卡拉OK",@"魔音",@"剧场"];
+    NSArray *titles = @[@"原声",@"唱将",@"卡拉OK",@"魔音",@"专业"];
     
     CGFloat btnW = ScreenWidth / 4;
     

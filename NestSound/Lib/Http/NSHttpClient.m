@@ -210,13 +210,12 @@ static NSHttpClient *client;
 #pragma  mark -downLoadWithFIleURL
 -(void)downLoadWithFileURL:(NSString *)fileURL completionHandler:(void(^)())completion
 {
-
     NSURLSessionConfiguration*sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc]initWithSessionConfiguration:sessionConfiguration];
+    self.downloadManager = [[AFURLSessionManager alloc]initWithSessionConfiguration:sessionConfiguration];
     
     NSURLRequest*request = [NSURLRequest requestWithURL:[NSURL URLWithString:fileURL]];
     NSProgress *kProgress = nil;
-    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:&kProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+    NSURLSessionDownloadTask *downloadTask = [self.downloadManager downloadTaskWithRequest:request progress:&kProgress destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response){
         
         NSString * filePath = [LocalAccompanyPath stringByAppendingPathComponent:response.suggestedFilename];
         NSURL * url = [NSURL fileURLWithPath:filePath];
@@ -227,7 +226,7 @@ static NSHttpClient *client;
         [kProgress removeObserver:self forKeyPath:@"fractionComplete"];
         
     }];
-    [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+    [self.downloadManager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
         self.progress = (CGFloat)kProgress.completedUnitCount/kProgress.totalUnitCount;
         if ([self.delegate respondsToSelector:@selector(passProgressValue:)]) {
             [self.delegate passProgressValue:[NSHttpClient client]];
@@ -239,13 +238,15 @@ static NSHttpClient *client;
         }
 //        NSLog(@"总大小：%lld,当前大小:%lld",kProgress.totalUnitCount,kProgress.completedUnitCount);
     }];
-    
     [kProgress addObserver:self
                 forKeyPath:@"fractionComplete"
                    options:NSKeyValueObservingOptionNew
                    context:NULL];
     [downloadTask resume];
-    
 }
-
+- (void)cancelDownload {
+//    [AFHTTPSessionManager manager]
+    [self.downloadManager invalidateSessionCancelingTasks:YES];
+//    [self.downloadManager.operationQueue cancelAllOperations];
+}
 @end

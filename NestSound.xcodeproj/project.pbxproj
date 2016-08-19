@@ -15,6 +15,7 @@
 		0CCC191D1D645D08009E9478 /* NSTemplateListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC191C1D645D08009E9478 /* NSTemplateListModel.m */; };
 		0CCC19201D646579009E9478 /* NSEditTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC191F1D646579009E9478 /* NSEditTemplateViewController.m */; };
 		0CCC19231D647A9A009E9478 /* NSTemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */; };
+		0CCC19261D66CFE2009E9478 /* NSSingleTon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19251D66CFE2009E9478 /* NSSingleTon.m */; };
 		0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */; };
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
 		0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */; };
@@ -250,6 +251,8 @@
 		0CCC191F1D646579009E9478 /* NSEditTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSEditTemplateViewController.m; sourceTree = "<group>"; };
 		0CCC19211D647A9A009E9478 /* NSTemplateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTemplateTableViewCell.h; sourceTree = "<group>"; };
 		0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTemplateTableViewCell.m; sourceTree = "<group>"; };
+		0CCC19241D66CFE2009E9478 /* NSSingleTon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSingleTon.h; sourceTree = "<group>"; };
+		0CCC19251D66CFE2009E9478 /* NSSingleTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSingleTon.m; sourceTree = "<group>"; };
 		0CCCDC891D5EC83000AE0BD3 /* NSAccompanyCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryCell.h; sourceTree = "<group>"; };
 		0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryCell.m; sourceTree = "<group>"; };
 		0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryViewController.h; sourceTree = "<group>"; };
@@ -1227,6 +1230,8 @@
 				691F11A81D64BC5F00BACEEA /* NSBiaoqianView.m */,
 				B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */,
 				B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */,
+				0CCC19241D66CFE2009E9478 /* NSSingleTon.h */,
+				0CCC19251D66CFE2009E9478 /* NSSingleTon.m */,
 				B899FA481D41B9AE001E79F3 /* lame.h */,
 				B899FA491D41B9AE001E79F3 /* libmp3lame.a */,
 				2DFB67531CC1EC4000DA24DA /* NSTool.h */,
@@ -2866,6 +2871,7 @@
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,
 				181897261D02DFF90009B145 /* NSShareCollectionViewCell.m in Sources */,
 				18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */,
+				0CCC19261D66CFE2009E9478 /* NSSingleTon.m in Sources */,
 				2AE2E5071CE56BF800FD2DC3 /* NSUserProfileCell.m in Sources */,
 				18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */,
 				18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */,

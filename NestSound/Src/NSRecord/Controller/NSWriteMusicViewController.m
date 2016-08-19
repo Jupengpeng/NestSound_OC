@@ -7,6 +7,7 @@
 //
 #import <AVFoundation/AVFoundation.h>
 #import "NSWriteMusicViewController.h"
+#import "NSAccompanyListViewController.h"
 #import "NSDrawLineView.h"
 #import "NSLyricView.h"
 #import "NSOptimizeMusicViewController.h"
@@ -91,7 +92,7 @@ static CGFloat timerNum=0;
     CGFloat distantKeyPath;
     NSUInteger drawCount;
     NSUInteger drawNum;
-
+    BOOL downloadFinish;
     BOOL stopScroll;
     NSDownloadProgressView *ProgressView;//BoxDismiss
     
@@ -666,11 +667,11 @@ static CGFloat timerNum=0;
     timerNum=0;
     drawCount=0;
     stopScroll=NO;
-     timerNumRecorder=0;
-     timerNumRecorder_temp=0;
-     timerNumPlay=0;
-     timerNumPlay_temp=0;
-
+    timerNumRecorder=0;
+    timerNumRecorder_temp=0;
+    timerNumPlay=0;
+    timerNumPlay_temp=0;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveClearRecord:) name:@"clearRecordNotification" object:nil];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
@@ -708,7 +709,13 @@ static CGFloat timerNum=0;
     speed = self.waveform.rect.size.width/SECOND_LONG;
 
 }
-
+- (void)receiveClearRecord:(NSNotification *)notiInfo {
+    [self clearRecord];
+    hotId = (long)notiInfo.userInfo[@"accompanyId"];
+    hotMp3Url = notiInfo.userInfo[@"accompanyUrl"];
+    musicTime = (long)notiInfo.userInfo[@"accompanyTime"];
+    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:musicTime]];
+}
 
 
 - (void)tapClick:(UIGestureRecognizer *)tap {
@@ -720,7 +727,6 @@ static CGFloat timerNum=0;
     
 -(void)viewWillAppear:(BOOL)animated
 {
-    
 
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
@@ -730,16 +736,25 @@ static CGFloat timerNum=0;
     timerNumPlay_temp=0;
     mp3URL=nil;
     
+    titleText.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"recordTitle"];
+    lyricView.lyricText.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"recordLyric"];
+    
     //stop the music
     self.clickedValue = 0;
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     
     playVC.playOrPauseBtn.selected = NO;
-    
+    downloadFinish = NO;
     [playVC.player pause];
     [self resetButton];
     
     [self downloadAccompanyWithUrl:hotMp3Url];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    
+    [[NSHttpClient client] cancelDownload];
 }
 - (void)downloadAccompanyWithUrl:(NSString *)urlStr {
     
@@ -766,12 +781,13 @@ static CGFloat timerNum=0;
             [self.navigationController.view addSubview:ProgressView];
             
             [[NSHttpClient client] downLoadWithFileURL:urlStr completionHandler:^{
-                
+                downloadFinish = YES;
                 [self removeProgressView];
                 
             }];
         } else {
             
+            downloadFinish = YES;
             
         }
     }
@@ -783,7 +799,7 @@ static CGFloat timerNum=0;
     [ProgressView removeFromSuperview];
 }
 - (void)leftBackClick:(UIBarButtonItem *)back {
-    
+    [NSSingleTon viewFrom].viewTag = @"";
     WS(wSelf);
   
     UIButton *btn =  self.btns[2];
@@ -1012,22 +1028,13 @@ static CGFloat timerNum=0;
             
             return;
         }
-        //next song
-        if (self.urlStrArr.count != 0) {
-            if (self.accompanyId == self.urlStrArr.count - 1) {
-                hotMp3Url  = [self.urlStrArr firstObject];
-                self.accompanyId = 0;
-            }else{
-                self.accompanyId = self.accompanyId + 1;
-                hotMp3Url   = self.urlStrArr[self.accompanyId];
-            }
-            [self clear];
-            [self downloadAccompanyWithUrl:hotMp3Url];
-            
-        }else{
-            
-            
-        }
+        NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
+        [NSSingleTon viewFrom].viewTag = @"writeView";
+        NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+        [recordText setObject:lyricView.lyricText.text forKey:@"recordTitle"];
+        [recordText setObject:titleText.text forKey:@"recordLyric"];
+        [recordText synchronize];
+        [self.navigationController pushViewController:accompanyList animated:YES];
         
         
     } else if (btn.tag == 2) {
@@ -1051,38 +1058,48 @@ static CGFloat timerNum=0;
         if (!btn.selected) {
 
             //[HudView showView:self.navigationController.view string:@"开始录音"];
-            [[NSToastManager manager ] showtoast:@"开始录音"];
-            self.isPlay = NO;
-
-            timerNumRecorder =timerNumRecorder_temp;
-            timerNum=   timerNumRecorder;
-
-            [self.link setPaused:NO];
             
-            if (self.appDelete.isHeadset) {
-                
-                plugedHeadset=YES;
-                
-            }else if(!self.appDelete.isHeadset){
-                
-                plugedHeadset=NO;
-                
-            }
-            [self startRecorder];
             
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
-            if (!self.player) {
-                self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-                self.player.enableRate = YES;
-                self.player.rate = 1.0;
-                self.player.delegate = self;
-                totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
-//                self.player.meteringEnabled=YES;
-                [self.player prepareToPlay];
+            if (downloadFinish) {
                 
+                if (!self.player) {
+                    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+                    self.player.enableRate = YES;
+                    self.player.rate = 1.0;
+                    self.player.delegate = self;
+                    totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
+                    //                self.player.meteringEnabled=YES;
+                    [self.player prepareToPlay];
+                    
+                }
+                
+                [self.player play];
+                
+                [[NSToastManager manager ] showtoast:@"开始录音"];
+                self.isPlay = NO;
+                
+                timerNumRecorder =timerNumRecorder_temp;
+                timerNum=   timerNumRecorder;
+                
+                [self.link setPaused:NO];
+                
+                if (self.appDelete.isHeadset) {
+                    
+                    plugedHeadset=YES;
+                    
+                }else if(!self.appDelete.isHeadset){
+                    
+                    plugedHeadset=NO;
+                    
+                }
+                [self startRecorder];
+                
+                btn.selected = !btn.selected;
+            } else {
+                
+                [[NSToastManager manager] showtoast:@"正在初始化..."];
             }
-            
-            [self.player play];
             
         } else {
 
@@ -1096,14 +1113,14 @@ static CGFloat timerNum=0;
             [self pausePlaysound:self.player];
             [self.link setPaused:YES];
             timerNumTemp=timerNum;
-            
+            btn.selected = !btn.selected;
         }
         
          curtime3=0;
          curtime2=0;
          timerNumPlay_temp=0;
         
-        btn.selected = !btn.selected;
+        
     } else if (btn.tag ==1) {
 
         self.waveform.timeScrollView.userInteractionEnabled=NO;
@@ -1205,7 +1222,6 @@ static CGFloat timerNum=0;
         [self importLyricClick:nil];
     }
     
-
 }
 
 - (void)resetButton{
@@ -1218,16 +1234,14 @@ static CGFloat timerNum=0;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        [self clear];
+        [self clearRecord];
         UIButton* btn = self.btns[2];
         btn.userInteractionEnabled = YES;
     }
 
 }
-- (void)clear{
-  
+- (void)clearRecord{
     [self resetButton];
-
     self.timeLabel.text = @"00:00";
     timerNum=0;
     timerNumRecorder=0;
@@ -1549,17 +1563,12 @@ static CGFloat timerNum=0;
 // 
 // }
 
-
-
-
-
-
 #pragma mark -setter && getter
--(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
-{
-    _accompanyModel = accompanyModel;
-
-}
+//-(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
+//{
+//    _accompanyModel = accompanyModel;
+//
+//}
 
 - (void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName {
     
@@ -1747,7 +1756,7 @@ static CGFloat timerNum=0;
 - (void)dealloc{
     [self.timer invalidate];
     self.timer = nil;
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"clearRecordNotification"];
     [self removeObserver:self forKeyPath:@"distantKeyPathTemp" context:nil];
 }
 @end
