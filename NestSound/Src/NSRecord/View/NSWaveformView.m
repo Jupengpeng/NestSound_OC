@@ -66,7 +66,7 @@
         [self.timeScrollView addSubview:self.waveView];
         
         
-        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, 50.7, self.rect.size.width, 0.4)];
+        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMidY(self.waveView.frame), self.rect.size.width, 0.4)];
         middleLine.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:middleLine];
         
@@ -76,10 +76,10 @@
         
         [self addSubview:downLine];
         
-        
-        UIView* middleLineV = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width/2, 20.5, 0.5,self.rect.size.height-20.3)];
-        middleLineV.backgroundColor = [UIColor redColor];
-        [self addSubview:middleLineV];
+        int a = 5*self.rect.size.width/ScreenWidth;
+        self.middleLineV = [[UIView alloc]initWithFrame:CGRectMake(ScreenWidth/10 * a, 20.5, 0.5,self.rect.size.height-20.3)];
+        _middleLineV.backgroundColor = [UIColor redColor];
+        [self addSubview:_middleLineV];
         
         
         //self.labelArray = [NSMutableArray arrayWithCapacity:10];
@@ -88,8 +88,9 @@
         UIView* upLine2=nil;
         UIView* upLine3=nil;
         
-        int j=0,k=5,x=0;
-        
+        int j=0,k,x=0,y;
+        y = 5*self.rect.size.width/ScreenWidth;
+        k = 5*self.rect.size.width/ScreenWidth;
         for (int i = 0; i<TIME_LONG; ++i) {
             
             UILabel* label=nil;
@@ -106,18 +107,18 @@
                     
                 }
                 
-                if (i<5) {
+                if (i<y) {
                     str = [NSString stringWithFormat:@"-%02d:%02d",j,k];
                     k--;
                     
                 }else{
                     //正规
                     
-                    if ((i-5)%60 == 0 && (i-5)!=0) {
+                    if ((i-y)%60 == 0 && (i-y)!=0) {
                         ++j;
                     }
                     
-                    str = [NSString stringWithFormat:@"%02d:%02d",j,(i-5)%60];
+                    str = [NSString stringWithFormat:@"%02d:%02d",j,(i-y)%60];
                     
                     
                     

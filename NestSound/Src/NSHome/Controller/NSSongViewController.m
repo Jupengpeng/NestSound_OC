@@ -77,13 +77,10 @@ static NSString * cellId = @"SongCell";
            model1 = model;
        }
    }
-//    NSInteger index = [songAry indexOfObject:model1];
     selectRow = [songAry indexOfObject:model1] + 1;
+//    NSInteger index = [songAry indexOfObject:model1];
 //    NSSongCell *cell = (NSSongCell *)[songsTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
 //    cell.index = YES;
-//    cell.playImg.hidden = NO;
-//    cell.numberLab.hidden = YES;
-//    [songsTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
     [songsTable reloadData];
 }
 #pragma mark -fetchSongListData

@@ -31,4 +31,5 @@ typedef enum {
 
 -(void)downLoadWithFileURL:(NSString *)fileURL completionHandler:(void(^)())completion;
 - (void)cancelDownload;
+- (void)cancelRequest;
 @end

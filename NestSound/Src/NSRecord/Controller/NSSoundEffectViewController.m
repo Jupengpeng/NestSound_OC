@@ -8,38 +8,55 @@
 
 #import "NSSoundEffectViewController.h"
 #import "NSPublicLyricViewController.h"
-#import "NSWaveformView.h"
+//#import "NSWaveformView.h"
 #import "NSTunMusicModel.h"
 #import <AVFoundation/AVFoundation.h>
-@interface NSSoundEffectViewController ()
+@interface NSSoundEffectViewController ()<UIAlertViewDelegate>
 {
     UILabel *totalTimeLabel;
     
     UIButton *auditionBtn;
     
     NSString *playerUrl;
+    
+    NSString *tuningUrl0;
+    
+    NSString *tuningUrl1;
+    
+    NSString *tuningUrl2;
+    
+    NSString *tuningUrl3;
+    
+    NSString *tuningUrl4;
+    
+    long effectId;
 }
-@property (nonatomic, strong) NSWaveformView *waveform;
+//@property (nonatomic, strong) NSWaveformView *waveform;
 @property (nonatomic, strong) NSMutableArray *btns;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) AVPlayerItem *musicItem;
 @property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) UIAlertView *alertView;
 @end
 
 @implementation NSSoundEffectViewController
-
+- (UIAlertView *)alertView {
+    if (!_alertView) {
+        self.alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在美化,请稍后..." delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    }
+    return _alertView;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
-    
+    effectId = 0;
     [self setupSoundEffectUI];
 }
 #pragma mark -fetchData
-- (void)fectTuningMusic {
-    
+- (void)fetchTuningMusic {
+    [self.alertView show];
     self.requestType = NO;
-    
-    self.requestParams = @{@"createtype":@"HOT",@"hotid":self.parameterDic[@"hotID"],@"uid":JUserID,@"recordingsize":@(1),@"bgmsize":@(1),@"useheadset":@(1),@"musicurl":self.mp3URL,@"effect":@(0),@"token":LoginToken};
+    self.requestParams = @{@"createtype":@"HOT",@"hotid":self.parameterDic[@"hotID"],@"uid":JUserID,@"recordingsize":@(1),@"bgmsize":@(1),@"useheadset":@(1),@"musicurl":self.mp3URL,@"effect":@(effectId),@"token":LoginToken};
     self.requestURL = tunMusicURL;
     
 }
@@ -47,18 +64,50 @@
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        
+        [[NSToastManager manager] showtoast:@"系统繁忙"];
     } else {
         if (!parserObject.success) {
+            [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
             if ([operation.urlTag isEqualToString:tunMusicURL]) {
                 NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
                 playerUrl = tunMusic.tunMusicModel.MusicPath;
                 
+                switch (effectId) {
+                    case 0:
+                        tuningUrl0 = tunMusic.tunMusicModel.MusicPath;
+                        break;
+                    case 1:
+                        tuningUrl1 = tunMusic.tunMusicModel.MusicPath;
+                        break;
+                    case 2:
+                        tuningUrl2 = tunMusic.tunMusicModel.MusicPath;
+                        break;
+                    case 3:
+                        tuningUrl3 = tunMusic.tunMusicModel.MusicPath;
+                        break;
+                    case 4:
+                        tuningUrl4 = tunMusic.tunMusicModel.MusicPath;;
+                    default:
+                        break;
+                }
             }
             
         }
     }
 }
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+//            [[NSHttpClient client] cancelRequest];
+//            [[NSToastManager manager] showtoast:@"美化失败"];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)setupSoundEffectUI {
     
     self.title = @"音效";
@@ -71,7 +120,7 @@
     
     auditionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    auditionBtn.frame = CGRectMake(10, 20, 84, 84);
+    auditionBtn.frame = CGRectMake(15, 20, 84, 84);
     
     auditionBtn.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     
@@ -83,16 +132,27 @@
     
     [self.view addSubview:auditionBtn];
     
-    self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(94, 20, ScreenWidth-104, 84)];
+    NSWaveformView *waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(auditionBtn.frame), 20, ScreenWidth-114, 84)];
     
-    self.waveform.layer.borderWidth = 0.5;
+    waveform.timeScrollView.scrollEnabled = NO;
     
-    self.waveform.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
+    waveform.layer.borderWidth = 1;
     
-    self.waveform.backgroundColor = [UIColor whiteColor];
+    waveform.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
     
-    [self.view addSubview:self.waveform];
+    waveform.backgroundColor = [UIColor whiteColor];
     
+    [self.view addSubview:waveform];
+    for (int i = 0; i < self.waveArray.count; i++) {
+        UIView *waveView = [UIView new];
+        UIView *view = self.waveArray[i];
+        waveView.backgroundColor = [UIColor lightGrayColor];
+        waveView.x = waveform.middleLineV.x + i*2.4;
+        waveView.y = waveform.waveView.centerY -view.size.height/2;
+        waveView.height = view.size.height;
+        waveView.width = 1.2;
+        [waveform.timeScrollView addSubview:waveView];
+    }
     totalTimeLabel = [[UILabel alloc] init];
     
     totalTimeLabel.font = [UIFont systemFontOfSize:10];
@@ -104,9 +164,9 @@
     
     [totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.waveform.mas_right).offset(-5);
+        make.right.equalTo(waveform.mas_right).offset(-5);
         
-        make.bottom.equalTo(self.waveform.mas_bottom).offset(-5);
+        make.bottom.equalTo(waveform.mas_bottom).offset(-5);
         
     }];
     
@@ -123,11 +183,11 @@
         
         make.right.equalTo(totalTimeLabel.mas_left);
         
-        make.bottom.equalTo(self.waveform.mas_bottom).offset(-5);
+        make.bottom.equalTo(waveform.mas_bottom).offset(-5);
         
     }];
     
-    UILabel *auditionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 130, ScreenWidth, 20)];
+    UILabel *auditionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(waveform.frame) + 20, ScreenWidth, 20)];
     
     auditionLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -137,7 +197,7 @@
     
     [self.view addSubview:auditionLabel];
     
-    NSArray *titles = @[@"原声",@"唱将",@"卡拉OK",@"魔音",@"专业"];
+    NSArray *titles = @[@"原声",@"专业",@"唱将",@"魔音",@"卡拉OK"];
     
     CGFloat btnW = ScreenWidth / 4;
     
@@ -147,7 +207,7 @@
            
             if (i * 4 + j < 5) {
                 
-                UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnW * j, 160 + btnW * i, btnW, btnW)];
+                UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnW * j, CGRectGetMaxY(auditionLabel.frame) + 10 + (btnW + 20) * i, btnW, btnW)];
                 
                 NSString *imageStr = [NSString stringWithFormat:@"2.0_audition_btn%d",i * 4 + j];
                 NSString *imgStrSelect = [NSString stringWithFormat:@"2.0_audition_btn%d_select",i * 4 + j];
@@ -163,7 +223,7 @@
                 
                 [self.view addSubview:btn];
                 
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(btnW * j, 150 + btnW * (i + 1), btnW, 20)];
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(btnW * j, CGRectGetMaxY(btn.frame)-10, btnW, 20)];
                 
                 label.text = titles[i * 4 + j];
                 
@@ -178,42 +238,54 @@
     
 }
 - (void)auditionBtn:(UIButton *)sender {
+    
+    [self endPlaying];
+    
     for (int i = 0; i < 5; i++) {
         UIButton *btn = self.btns[i];
         if (sender.tag - 170 == i) {
-            
-            sender.selected = !sender.selected;
+            sender.selected = YES;
         } else {
             
             btn.selected = NO;
         }
     }
-    
+    effectId = sender.tag - 170;
     switch (sender.tag) {
         case 170:
-        {
-            
-        }
+            if (!tuningUrl0.length) {
+                [self fetchTuningMusic];
+            } else {
+                playerUrl = tuningUrl0;
+            }
             break;
          case 171:
-        {
-            
-        }
+            if (!tuningUrl1.length) {
+                [self fetchTuningMusic];
+            } else {
+                playerUrl = tuningUrl1;
+            }
             break;
-            case 172:
-        {
-            
-        }
+        case 172:
+            if (!tuningUrl2.length) {
+                [self fetchTuningMusic];
+            } else {
+                playerUrl = tuningUrl2;
+            }
             break;
-            case 173:
-        {
-            
-        }
+        case 173:
+            if (!tuningUrl3.length) {
+                [self fetchTuningMusic];
+            } else {
+                playerUrl = tuningUrl3;
+            }
             break;
-            case 174:
-        {
-            
-        }
+        case 174:
+            if (!tuningUrl4.length) {
+                [self fetchTuningMusic];
+            } else {
+                playerUrl = tuningUrl4;
+            }
             break;
         default:
             break;
@@ -222,8 +294,6 @@
 }
 - (void)playAudition:(UIButton *)sender {
     
-    
-    sender.selected = !sender.selected;
     NSString *host;
     
 #ifdef DEBUG
@@ -235,17 +305,18 @@
     host = releaseHost;
     
 #endif
-    
-    if (sender.selected) {
+    if (!sender.selected) {
         if (playerUrl.length) {
             
             NSString* url = [NSString stringWithFormat:@"%@%@",host,playerUrl];
             
             [self listenMp3Online:url];
+            
         } else {
             
-            [self fectTuningMusic];
-            [[NSToastManager manager] showtoast:@"歌曲正在合成,请稍后..."];
+            [self fetchTuningMusic];
+            return;
+            
         }
         
     } else {
@@ -253,7 +324,7 @@
         [self.player pause];
         
     }
-    
+    sender.selected = !sender.selected;
 }
 - (void)listenMp3Online:(NSString*)mp3Url{
     //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
@@ -287,7 +358,7 @@
         
     } else {
         
-        [self fectTuningMusic];
+        [self fetchTuningMusic];
     }
     
 }

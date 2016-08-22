@@ -245,8 +245,17 @@ static NSHttpClient *client;
     [downloadTask resume];
 }
 - (void)cancelDownload {
-//    [AFHTTPSessionManager manager]
+    
     [self.downloadManager invalidateSessionCancelingTasks:YES];
-//    [self.downloadManager.operationQueue cancelAllOperations];
+}
+- (void)cancelRequest {
+    [self invalidateSessionCancelingTasks:YES];
+//    [self.operationQueue cancelAllOperations];
+    
+}
+- (void)requestCallBackWithTask:(id)currentTask target:(id)target withBackCall:(NSString*)call
+{
+    SEL selector = NSSelectorFromString(call);
+    ((void (*)(id, SEL,id))[target methodForSelector:selector])(target, selector,currentTask);
 }
 @end

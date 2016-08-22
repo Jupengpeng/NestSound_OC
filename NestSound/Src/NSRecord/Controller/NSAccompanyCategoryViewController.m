@@ -193,11 +193,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
         NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
         [NSSingleTon viewFrom].controllersNum = 3;
-        [self.player pause];
-        [NSPlayMusicTool stopMusicWithName:nil];
         if (self.aid.length) {
             writeMusicVC.aid = self.aid;
         }
+
+        [self pausePlayer];
         [self.navigationController pushViewController:writeMusicVC animated:YES];
     }
 }
@@ -205,9 +205,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 - (void)playerClick:(UIButton *)btn {
     
     btn.selected = !btn.selected;
+    
     if (btn == self.button) {
         
     } else {
+        
         self.button.selected = NO;
     }
     NSAccompanyTableCell * cell = (NSAccompanyTableCell *)btn.superview.superview;
@@ -228,14 +230,17 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     } else {
         
         [NSPlayMusicTool pauseMusicWithName:nil];
-//        self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
     }
     
     self.button = btn;
 }
-
+//播放结束代理
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    [self pausePlayer];
+    
+}
 - (void)pausePlayer {
-    [NSPlayMusicTool pauseMusicWithName:nil];
+    [NSPlayMusicTool stopMusicWithName:nil];
     self.button.selected = NO;
 }
 - (void)leftClick:(UIBarButtonItem *)barButtonItem {
