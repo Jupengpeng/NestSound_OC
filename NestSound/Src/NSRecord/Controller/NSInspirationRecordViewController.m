@@ -258,7 +258,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 UIImage * image = self.anotherImgArr[i];
                 NSData * imageData;
                 if (UIImagePNGRepresentation(image) == nil) {
-                    imageData = UIImageJPEGRepresentation(image, 1.0);
+                    imageData = UIImageJPEGRepresentation(image, 0.6);
                 }else{
                     imageData = UIImagePNGRepresentation(image);
                 }
@@ -916,8 +916,6 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         [btn setImage:[UIImage imageNamed:@"2.0_addPicture"] forState:UIControlStateNormal];
         
     } action:^(UIButton *btn) {
-        
-        NSLog(@"点击了添加照片");
         
         [wSelf presentViewController:ImagePicker animated:YES completion:nil];
         

@@ -64,7 +64,62 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
-
+//登录
+-(void)loagin
+{
+    [[NSToastManager manager] showprogress];
+    if (loginView.phoneTF.text.length == 0 || loginView.PwdTF.text.length == 0) {
+        [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
+    }else if ([NSTool isStringEmpty:loginView.phoneTF.text]) {
+        
+        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
+        
+    } else {
+        
+        self.requestType = NO;
+        self.requestParams = @{@"mobile":loginView.phoneTF.text,
+                               @"password":[loginView.PwdTF.text stringToMD5]};
+        self.requestURL = loginURl;
+        
+    }
+    
+}
+//注册
+-(void)registerNumber
+{
+    self.requestType = NO;
+    if (registerView.userNameTF.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"昵称不能为空"];
+    } else if (registerView.passwordTF.text.length == 0 || registerView.phoneTF.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
+    } else if (![NSTool isValidateMobile:registerView.phoneTF.text]) {
+        
+        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
+        
+    } else if (registerView.codeTF.text.length == 0) {
+        
+        [[NSToastManager manager] showtoast:@"请输入验证码"];
+    } else if (![registerView.passwordTF.text isEqualToString:registerView.repasswordTF.text]) {
+        
+        [[NSToastManager manager] showtoast:@"亲，两次输入密码不一致哦"];
+        
+    }else{
+        
+        NSString * password = [registerView.passwordTF.text stringToMD5];
+        NSString * rePassword = [registerView.repasswordTF.text stringToMD5];
+        self.requestParams = @{@"name":registerView.userNameTF.text,
+                               @"phone":registerView.phoneTF.text,
+                               @"password":password,
+                               @"repassword":rePassword,
+                               @"code":registerView.codeTF.text,
+                               kIsLoadingMore:@(NO),@"type":@(NO)};
+        self.requestURL = registerURL;
+        
+    }
+    
+}
 #pragma  mark - override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
@@ -85,7 +140,7 @@
                                                @"userLoginToken":user.loginToken,
                                                @"birthday":user.birthday,
                                                @"male":[NSNumber numberWithInt:user.male],
-                                               @"desc":user.desc
+                                               @"desc":user.desc,
                                                };
                     [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
                     [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
@@ -610,62 +665,7 @@
     }
     
 }
-//登录
--(void)loagin
-{
-    [[NSToastManager manager] showprogress];
-    if (loginView.phoneTF.text.length == 0 || loginView.PwdTF.text.length == 0) {
-        [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
-    }else if ([NSTool isStringEmpty:loginView.phoneTF.text]) {
-     
-        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
-        
-    } else {
-        
-        self.requestType = NO;
-        self.requestParams = @{@"mobile":loginView.phoneTF.text,
-                               @"password":[loginView.PwdTF.text stringToMD5]};
-        self.requestURL = loginURl;
-        
-    }
-    
-}
-//注册
--(void)registerNumber
-{
-    self.requestType = NO;
-    if (registerView.userNameTF.text.length == 0) {
-        
-        [[NSToastManager manager] showtoast:@"昵称不能为空"];
-    } else if (registerView.passwordTF.text.length == 0 || registerView.phoneTF.text.length == 0) {
-        
-        [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
-    } else if (![NSTool isValidateMobile:registerView.phoneTF.text]) {
-        
-        [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
-        
-    } else if (registerView.codeTF.text.length == 0) {
-        
-        [[NSToastManager manager] showtoast:@"请输入验证码"];
-    } else if (![registerView.passwordTF.text isEqualToString:registerView.repasswordTF.text]) {
-        
-        [[NSToastManager manager] showtoast:@"亲，两次输入密码不一致哦"];
-        
-    }else{
-        
-        NSString * password = [registerView.passwordTF.text stringToMD5];
-        NSString * rePassword = [registerView.repasswordTF.text stringToMD5];
-        self.requestParams = @{@"name":registerView.userNameTF.text,
-                               @"phone":registerView.phoneTF.text,
-                               @"password":password,
-                               @"repassword":rePassword,
-                               @"code":registerView.codeTF.text,
-                               kIsLoadingMore:@(NO),@"type":@(NO)};
-        self.requestURL = registerURL;
-        
-    }
-    
-}
+
 - (void)addTimer {
     
     timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];

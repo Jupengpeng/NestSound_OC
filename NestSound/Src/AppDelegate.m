@@ -55,10 +55,10 @@
     
     [MobClick setLogEnabled: YES];
     
-    
     //addObserver for UserHeadset
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [self.session setCategory:AVAudioSessionCategoryPlayback error:nil];
     [self.session setActive:YES error:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:)
                                                  name:AVAudioSessionRouteChangeNotification

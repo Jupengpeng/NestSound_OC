@@ -297,9 +297,9 @@
     self.releaseTimeLabel.text = [NSTool updateTimeForCreateTimeIntrval:workDetailModel.jointime];
     self.songName.text = [NSString stringWithFormat:@"歌曲名：%@",workDetailModel.title];
     self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",workDetailModel.author];
-    self.watchedCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.looknum];
-    self.favourateCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.zannum];
-    self.collectedCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.fovnum];
+    self.watchedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.looknum];
+    self.favourateCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.zannum];
+    self.collectedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.fovnum];
     
     
     

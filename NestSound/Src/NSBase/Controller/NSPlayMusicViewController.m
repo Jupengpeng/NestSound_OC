@@ -190,10 +190,10 @@ static id _instance;
     self.requestType = YES;
     NSDictionary * dic;
     if (JUserID) {
-//        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from,@"gedanid":@(self.geDanID)};
+        
         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"uid":JUserID};
     }else{
-//        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"openmodel":@(1),@"come":self.from};
+        
         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
     }
     NSString * str = [NSTool encrytWithDic:dic];
@@ -306,7 +306,6 @@ static id _instance;
         
         [NSPlayMusicTool stopMusicWithName:nil];
         //[self stopMusic];
-
 
         [self playMusicUrl:self.musicDetail.playURL];
     } else {

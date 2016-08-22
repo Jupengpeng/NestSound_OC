@@ -378,6 +378,7 @@ extern Boolean plugedHeadset;
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     WS(wSelf);
+    
     if (!parserObject.success) {
         
         if ([operation.urlTag isEqualToString:getQiNiuURL]) {
@@ -400,13 +401,12 @@ extern Boolean plugedHeadset;
             [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
             [lyricDic setValue:self.mp3URL forKey:@"mp3Url"];
             
-
             self.shareVC =[[NSShareViewController alloc] init];
             self.shareVC.shareDataDic = lyricDic;
             self.shareVC.lyricOrMusic = self.isLyric;
             [self.alertView dismissViewControllerAnimated:YES completion:^{
 
-                
+                [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
             }];
 
             
@@ -508,7 +508,19 @@ extern Boolean plugedHeadset;
             }
             self.requestURL = publicLyricURL;
         }else{
-            self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":self.mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
+            self.requestParams = @{
+                                   @"uid":JUserID,
+                                   @"author":dic[@"userName"],
+                                   @"title":lyricDic[@"lyricName"],
+                                   @"lyrics":lyricDic[@"lyric"],
+                                   @"pic":self.titleImage,
+                                   @"createtype":@"HOT",
+                                   @"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],
+                                   @"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],
+                                   @"hotid":lyricDic[@"hotID"],
+                                   @"token":LoginToken,
+                                   @"mp3":self.mp3URL,
+                                   @"useheadset":@([lyricDic[@"isHeadSet"] intValue])};
             self.requestURL = publicMusicURL;
             
         }
@@ -598,7 +610,7 @@ extern Boolean plugedHeadset;
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
         
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
-        [upManager putData:imageData key:nil token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        [upManager putData:imageData key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
             if (self.isLyric) {
                 [wSelf publicWithType:YES];

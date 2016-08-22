@@ -25,14 +25,36 @@
     [super viewDidLoad];
     [self configureUIAppearance];
 }
+- (void)resetThePassword {
+    [[NSToastManager manager] showprogress];
+    if (![newPwdTF.text isEqualToString:ensurePwdTF.text]) {
+        [[NSToastManager manager] showtoast:@"两次密码不一致"];
+        return;
+    }
+    self.requestType = NO;
+    
+    self.requestParams = @{@"id":JUserID,
+                           @"opwd":oldPwdTF.text,
+                           @"newpwd":newPwdTF.text,
+                           @"comfirmpwd":ensurePwdTF.text,
+                           @"token":LoginToken};
+    self.requestURL = changePasswordUrl;
+}
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
         
     } else {
         if (!parserObject.success) {
-//            if ([operation.urlTag isEqualToString:url]) {
-//            }
+            [[NSToastManager manager] hideprogress];
+            if ([operation.urlTag isEqualToString:changePasswordUrl]) {
+                if (parserObject.code == 200) {
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                [[NSToastManager manager] showtoast:parserObject.message];
+                
+            }
         }
     }
 }
@@ -99,9 +121,7 @@
         [ensureBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     }
 }
-- (void)resetThePassword {
-    
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -677,6 +677,7 @@ static CGFloat timerNum=0;
     
     self.navigationItem.rightBarButtonItem = next;
     
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 //    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
     
 //    NSArray *array = @[next, importLyric];
@@ -805,7 +806,10 @@ static CGFloat timerNum=0;
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"请确认操作" message:@"是否放弃当前录音？" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
+            NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recordTitle"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recordLyric"];
+            [recordText synchronize];
             [wSelf removeLink];
             [wSelf stopPlaysound:self.player];
 //            [wSelf stopPlaysound:self.player2];
@@ -1023,12 +1027,13 @@ static CGFloat timerNum=0;
             
             return;
         }
-        NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
-        [NSSingleTon viewFrom].viewTag = @"writeView";
         NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
         [recordText setObject:lyricView.lyricText.text forKey:@"recordTitle"];
         [recordText setObject:titleText.text forKey:@"recordLyric"];
         [recordText synchronize];
+        NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
+        [NSSingleTon viewFrom].viewTag = @"writeView";
+        
         [self.navigationController pushViewController:accompanyList animated:YES];
         
         
@@ -1365,12 +1370,16 @@ static CGFloat timerNum=0;
             
             [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
             [self.dict setValue:mp3URL forKey:@"mp3URL"];
-            [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
+            [self.dict setValue:@(plugedHeadset) forKey:@"isHeadSet"];
             self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
             self.public.mp3URL = mp3URL;
             if (self.aid.length) {
                 self.public.aid = self.aid;
             }
+            NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+            [recordText setObject:lyricView.lyricText.text forKey:@"recordTitle"];
+            [recordText setObject:titleText.text forKey:@"recordLyric"];
+            [recordText synchronize];
             [self.alertView dismissViewControllerAnimated:YES completion:^{
                 [wSelf.navigationController pushViewController:wSelf.public animated:YES];
 //                NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
@@ -1505,60 +1514,6 @@ static CGFloat timerNum=0;
 - (void)disPlayTimeLabel{
     
 }
-//- (void)actionTiming {
-//    
-//    // drawCount++;
-//    timerNum += 1/60.0;
-//    
-////    count = [self decibels];
-//    
-//    if (!self.isPlay) {
-//        if ([self.recorder isRecording]) {
-//            count = [self decibels];
-//        }else{
-//            if ([self.player isPlaying]) {
-//                count = [self playerDecibels:self.player];
-//                
-//            }else if([self.player2 isPlaying]) {
-//                count = [self playerDecibels:self.player2];
-//                
-//            }else if([self.player3 isPlaying]) {
-//                count = [self playerDecibels:self.player3];
-//                
-//            }
-//            
-//        }
-////        int keyValue = (int)count;
-//        
-////        NSString* keyStr = [NSString stringWithFormat:@"%d",(int)abs(keyValue)];
-////        NSInteger i = [[self.descibelDictionary valueForKey:keyStr] integerValue];
-//        //(fabs(count))*11/40;//(fabs(count)*2)/5;
-//        
-////        if (count<-10) {
-//            self.waveform.waveView.desibelNum =(fabs(count))*11/40;
-//            
-////        }else{
-////            self.waveform.waveView.desibelNum =i;
-////            
-////        }
-//        
-////        if (![self.player3 isPlaying] && self.player.currentTime>0) {
-//        
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//                [self.waveform.waveView drawLine];
-//                
-//                [self.waveform.waveView setNeedsDisplay];
-//            });
-//            
-////        }
-//        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
-//        
-//    }
-// 
-//    
-// 
-// }
 
 #pragma mark -setter && getter
 //-(void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel
@@ -1601,7 +1556,7 @@ static CGFloat timerNum=0;
                 
             }
             
-            if (plugedHeadset) {
+            if (!plugedHeadset) {
                 [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:plugedHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
             } else {
                 
@@ -1677,7 +1632,9 @@ static CGFloat timerNum=0;
 
 
 - (void)nextStep:(NSNotification*)userInfo{
+    
     [self.alertView dismissViewControllerAnimated:NO completion:nil];
+    
     [self.navigationController pushViewController:self.public animated:YES];
 
     

@@ -51,7 +51,6 @@ static NSString * const settingCellIditify = @"settingCell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self configureAppearance];
     males = 0;
     count = 0;
@@ -77,7 +76,7 @@ static NSString * const settingCellIditify = @"settingCell";
                 self.qiniuDetail = qiniu.qiNIuModel;
             }else if([operation.urlTag isEqualToString:changeProfileURL]){
                 [self.navigationController popViewControllerAnimated:YES];
-                [[NSToastManager manager] showtoast:@"修改成功"];
+//                [[NSToastManager manager] showtoast:@"修改成功"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
                 NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
                 [changeDic setValue:JUserID forKey:@"userID"];
@@ -285,6 +284,7 @@ static NSString * const settingCellIditify = @"settingCell";
 #pragma mark -UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSUInteger row = indexPath.row;
     if (row == 0) {
         [photoActionSheet showInView:self.view];
@@ -461,13 +461,5 @@ static NSString * const settingCellIditify = @"settingCell";
 //    
 //    
 //}
-
--(void)dealloc
-{
-    
-    NSLog(@"ttttt");
-    
-    
-}
 
 @end

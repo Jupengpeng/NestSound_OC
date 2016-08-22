@@ -283,6 +283,11 @@
                                       
                                   }];
     [rhymeAndLibraryView addSubview:_rhymeBtn];
+    UIView *midView = [UIView new];
+    
+    midView.backgroundColor = KBackgroundColor;
+    
+    [rhymeAndLibraryView addSubview:midView];
     
     _lyicLibrary = [UIButton buttonWithType:UIButtonTypeCustom
                                   configure:^(UIButton *btn) {
@@ -328,9 +333,17 @@
     }];
     [_rhymeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(rhymeAndLibraryView).offset(0);
-        make.height.mas_equalTo(52);
+        make.height.mas_equalTo(51);
     }];
-    
+    [midView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(_rhymeBtn.mas_bottom).offset(0);
+        
+        make.left.right.equalTo(rhymeAndLibraryView).offset(0);
+        
+        make.height.mas_equalTo(1);
+        
+    }];
     [_lyicLibrary mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.left.right.equalTo(rhymeAndLibraryView).offset(0);
         make.height.mas_equalTo(52);

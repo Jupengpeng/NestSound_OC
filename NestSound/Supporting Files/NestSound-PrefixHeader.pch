@@ -122,7 +122,7 @@ extern NSString *port;
 #define changeInspirationURL @"java/inspire/update"
 #define changeMusicStatus @"java/musiopt/updateMusic"
 #define changeLyricStatus @"java/musiopt/updateLyrics"
-
+#define changePasswordUrl @"java/userCenter/updateuserpass?"
 /**
  *  2016年8月18号添加
  *

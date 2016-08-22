@@ -11,6 +11,7 @@
 @interface NSWaveformView : UIView
 
 @property (nonatomic, assign) CGFloat num;
+@property (nonatomic, strong) NSMutableArray *waveArray;
 //时间
 @property(strong,nonatomic)UIScrollView* timeScrollView;
 @property(strong,nonatomic)UIImageView* timeImageView;

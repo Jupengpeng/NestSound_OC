@@ -234,11 +234,11 @@
 
     self.durationLabel.text = dateStr;
     
-    self.workNumberLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",detailModel.worknum] font:[UIFont systemFontOfSize:11.0f]], 10);
-    self.workNumberLabel.text =[NSString stringWithFormat:@"%ld",detailModel.worknum];
+    self.workNumberLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",(long)detailModel.worknum] font:[UIFont systemFontOfSize:11.0f]], 10);
+    self.workNumberLabel.text =[NSString stringWithFormat:@"%ld",(long)detailModel.worknum];
     
-    self.watchedLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",detailModel.looknum] font:[UIFont systemFontOfSize:11.0f]], 10);
-    self.watchedLabel.text = [NSString stringWithFormat:@"%ld",detailModel.looknum];
+    self.watchedLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",(long)detailModel.looknum] font:[UIFont systemFontOfSize:11.0f]], 10);
+    self.watchedLabel.text = [NSString stringWithFormat:@"%ld",(long)detailModel.looknum];
     
     NSString *string = detailModel.actDesc;
 //    @"我们有最棒的音乐，但还不够，我们希望有更多的高手加入，为我们增添一抹靓丽的磨彩。为此，我们准备了230万原创音乐基金作为奖励，支持优胜者参赛，并提供亚洲最大的音乐为我们增添一抹亮丽的墨彩";

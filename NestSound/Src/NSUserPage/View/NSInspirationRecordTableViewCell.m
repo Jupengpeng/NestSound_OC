@@ -39,10 +39,18 @@
     return self;
 }
 
-
 - (void)setupUI {
     
     self.backgroundImageView = [[UIImageView alloc] init];
+    
+    [_backgroundImageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    
+    _backgroundImageView.contentMode =  UIViewContentModeScaleAspectFill;
+    
+    _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    _backgroundImageView.clipsToBounds  = YES;
+//    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;;
     
     self.backgroundImageView.image = [UIImage imageWithRenderColor:[UIColor orangeColor] renderSize:CGSizeMake(1, 0.5)];
     
@@ -189,18 +197,19 @@
     _myInspirationModel = myInspirationModel;
     NSArray * arr = [NSArray arrayWithArray:[_myInspirationModel.titleImageUrls componentsSeparatedByString:@","]];
     if (arr.count) {
-        NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:arr[0]]];
-        UIImage * image = [[UIImage alloc] initWithData:imageData];
-        _backgroundImageView.image = [image scaleFillToSize:CGSizeMake(ScreenWidth-30, 140)];
+        [_backgroundImageView setDDImageWithURLString:arr[0] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+//        NSData * imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:arr[0]]];
+//        UIImage * image = [[UIImage alloc] initWithData:imageData];
+//        _backgroundImageView.image = [image scaleFillToSize:CGSizeMake(ScreenWidth-30, 140)];
     }else{
         _backgroundImageView.image = [UIImage imageNamed:@"2.0_placeHolder_long"];
     }
     
-    if (!self.myInspirationModel.spireContent) {
-        self.descriptionLabel.text = @"";
-    }else{
+//    if (!self.myInspirationModel.spireContent) {
+//        self.descriptionLabel.text = @"";
+//    }else{
         self.descriptionLabel.text = self.myInspirationModel.spireContent;
-    }
+//    }
     
     NSDateFormatter * dateFormater = [[NSDateFormatter alloc] init];
     double timeStamp = _myInspirationModel.createDate / 1000;

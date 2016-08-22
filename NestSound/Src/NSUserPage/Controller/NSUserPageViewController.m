@@ -63,7 +63,9 @@ UITableViewDataSource>
 @property (nonatomic, assign) NSInteger btnTag;
 @property (nonatomic, strong) NSMutableArray *itemIdArr;
 @end
-
+static NSString *ID0 = @"cell0";
+static NSString *ID1 = @"cell1";
+static NSString *ID3 = @"cell3";
 @implementation NSUserPageViewController
 - (NSMutableArray *)itemIdArr {
     if (!_itemIdArr) {
@@ -250,8 +252,8 @@ UITableViewDataSource>
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
+                [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
                 
-                [_tableView reloadData];
             }
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
@@ -331,6 +333,9 @@ UITableViewDataSource>
     _tableView.dataSource = self;
     
     _tableView.backgroundColor = [UIColor whiteColor];
+    
+    [_tableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:ID0];
+    [_tableView registerClass:[NSInspirationRecordTableViewCell class] forCellReuseIdentifier:ID1];
     
     //    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
@@ -759,18 +764,9 @@ UITableViewDataSource>
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     if (self.btnTag == 0) {
         
-        static NSString *ID = @"cell0";
-        
-        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            
-            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
-        }
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -786,15 +782,7 @@ UITableViewDataSource>
         
     } else if (self.btnTag == 1) {
         
-        static NSString *ID = @"cell1";
-        
-        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            
-            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
-        }
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -810,15 +798,7 @@ UITableViewDataSource>
         
     } else if (self.btnTag == 2) {
         
-        static NSString * ID = @"cell0";
-        
-        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            
-            cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
-        }
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -833,15 +813,8 @@ UITableViewDataSource>
         
     } else {
         
-        static NSString *ID= @"cell3";
+        NSInspirationRecordTableViewCell *cell =(NSInspirationRecordTableViewCell *) [tableView dequeueReusableCellWithIdentifier:ID1];
         
-        NSInspirationRecordTableViewCell *cell =(NSInspirationRecordTableViewCell *) [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            
-            cell = [[NSInspirationRecordTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
-        }
         cell.myInspirationModel = dataAry[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

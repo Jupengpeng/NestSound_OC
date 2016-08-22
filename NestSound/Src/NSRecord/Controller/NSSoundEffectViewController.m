@@ -29,9 +29,13 @@
     
     NSString *tuningUrl4;
     
+    NSTimer *timer;
+    
+    int num, a,speed;
+    
     long effectId;
 }
-//@property (nonatomic, strong) NSWaveformView *waveform;
+@property (nonatomic, strong) NSWaveformView *waveform;
 @property (nonatomic, strong) NSMutableArray *btns;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) AVPlayerItem *musicItem;
@@ -50,6 +54,8 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     effectId = 0;
+    num = [self.musicTime floatValue];
+    speed = 2.4 * self.waveArray.count/[self.musicTime floatValue];
     [self setupSoundEffectUI];
 }
 #pragma mark -fetchData
@@ -132,27 +138,29 @@
     
     [self.view addSubview:auditionBtn];
     
-    NSWaveformView *waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(auditionBtn.frame), 20, ScreenWidth-114, 84)];
+    self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(auditionBtn.frame), 20, ScreenWidth-114, 84)];
     
-    waveform.timeScrollView.scrollEnabled = NO;
+    _waveform.timeScrollView.scrollEnabled = NO;
     
-    waveform.layer.borderWidth = 1;
+    _waveform.layer.borderWidth = 1;
     
-    waveform.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
+    _waveform.layer.borderColor = [[UIColor hexColorFloat:@"ffd00b"] CGColor];
     
-    waveform.backgroundColor = [UIColor whiteColor];
+    _waveform.backgroundColor = [UIColor whiteColor];
     
-    [self.view addSubview:waveform];
+    [self.view addSubview:_waveform];
     for (int i = 0; i < self.waveArray.count; i++) {
         UIView *waveView = [UIView new];
         UIView *view = self.waveArray[i];
         waveView.backgroundColor = [UIColor lightGrayColor];
-        waveView.x = waveform.middleLineV.x + i*2.4;
-        waveView.y = waveform.waveView.centerY -view.size.height/2;
+        waveView.x = _waveform.middleLineV.x + i*2;
+        waveView.y = _waveform.waveView.centerY -view.size.height/2 - 0.2;
         waveView.height = view.size.height;
-        waveView.width = 1.2;
-        [waveform.timeScrollView addSubview:waveView];
+        waveView.width = 1.0;
+        
+        [_waveform.timeScrollView addSubview:waveView];
     }
+    
     totalTimeLabel = [[UILabel alloc] init];
     
     totalTimeLabel.font = [UIFont systemFontOfSize:10];
@@ -164,9 +172,9 @@
     
     [totalTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(waveform.mas_right).offset(-5);
+        make.right.equalTo(_waveform.mas_right).offset(-5);
         
-        make.bottom.equalTo(waveform.mas_bottom).offset(-5);
+        make.bottom.equalTo(_waveform.mas_bottom).offset(-5);
         
     }];
     
@@ -183,11 +191,11 @@
         
         make.right.equalTo(totalTimeLabel.mas_left);
         
-        make.bottom.equalTo(waveform.mas_bottom).offset(-5);
+        make.bottom.equalTo(_waveform.mas_bottom).offset(-5);
         
     }];
     
-    UILabel *auditionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(waveform.frame) + 20, ScreenWidth, 20)];
+    UILabel *auditionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_waveform.frame) + 20, ScreenWidth, 20)];
     
     auditionLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -335,12 +343,26 @@
         self.musicItem = [AVPlayerItem playerItemWithURL:url];
         self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
     }
-    
+    timer = [NSTimer timerWithTimeInterval:0.25 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+//
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     [self.player play];
     
 }
-- (void)endPlaying {
+- (void)timerAction {
+    num--;
+    a ++;
+    [self.waveform.timeScrollView setContentOffset:CGPointMake(-a * speed, 0) animated:NO];
     
+    if (num == 0) {
+        
+        num = [self.musicTime floatValue];
+        
+        [timer invalidate];
+    }
+}
+- (void)endPlaying {
+    [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     auditionBtn.selected = NO;
     self.musicItem = nil;
     [self.player pause];
