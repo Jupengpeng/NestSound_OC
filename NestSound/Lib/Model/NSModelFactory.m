@@ -39,6 +39,7 @@
 #import "NSActivityDetailModel.h"
 #import "NSActivityJoinerListModel.h"
 #import "NSJoinedWorkListModel.h"
+#import "NSMusicianListModel.h"
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
@@ -134,7 +135,15 @@
         return [[NSActivityJoinerListModel alloc] initWithJSONDict:jsonDict];
     }else if([url isEqualToString:joinedWorksDetailUrl]){
         return [[NSJoinedWorkListModel alloc] initWithJSONDict:jsonDict];
+    }else if([url isEqualToString:publicLyricURL]){
+        return [[NSActPublicLyricModel alloc] initWithJSONDict:jsonDict];
+    }else if([url isEqualToString:publicMusicURL]){
+        return [[NSActPublicLyricModel alloc] initWithJSONDict:jsonDict];
+    }else if([url isEqualToString:musicianListUrl]){
+        return [[NSMusicianListModel alloc] initWithJSONDict:jsonDict];
+
     }
+    
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     
 }

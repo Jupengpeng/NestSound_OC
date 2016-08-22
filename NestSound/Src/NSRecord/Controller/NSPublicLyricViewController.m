@@ -405,11 +405,18 @@ extern Boolean plugedHeadset;
             self.shareVC.shareDataDic = lyricDic;
             self.shareVC.lyricOrMusic = self.isLyric;
             [self.alertView dismissViewControllerAnimated:YES completion:^{
-                [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
+
                 
             }];
 
             
+        }else if ([operation.urlTag isEqualToString:publicLyricForAct] || [operation.urlTag isEqualToString:publicMusicForAct]){
+            
+
+            NSLog(@"%@",operation.urlTag);
+            [self.alertView dismissViewControllerAnimated:YES completion:^{
+                
+            }];
         }
         
         
@@ -426,20 +433,89 @@ extern Boolean plugedHeadset;
 {
     self.requestType = NO;
     NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    if (type == YES) {
-        if (!self.lyricId) {
-            self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
-        } else {
-        self.requestParams = @{@"id":@(self.lyricId),@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"detail":descriptionText.text,@"status":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken};
+    
+    if (self.aid.length) {
+        if (type == YES) {
+            
+            if (!self.lyricId) {
+                self.requestParams = @{
+                                       @"uid":JUserID,
+                                       @"author":dic[@"userName"],
+                                       @"title":lyricDic[@"lyricName"],
+                                       @"lyrics":lyricDic[@"lyric"],
+                                       @"pic":self.titleImage,
+                                       @"detail":descriptionText.text,
+                                       @"status":[NSNumber numberWithInt:publicSwitch.isOn],
+                                       @"token":LoginToken,
+                                       @"aid":self.aid};
+            } else {
+                self.requestParams = @{
+                                       @"id":@(self.lyricId),
+                                       @"uid":JUserID,
+                                       @"author":dic[@"userName"],
+                                       @"title":lyricDic[@"lyricName"],
+                                       @"lyrics":lyricDic[@"lyric"],
+                                       @"pic":self.titleImage,
+                                       @"detail":descriptionText.text,
+                                       @"status":[NSNumber numberWithInt:publicSwitch.isOn],
+                                       @"token":LoginToken,
+                                       @"aid":self.aid};
+            }
+            self.requestURL = publicLyricForAct;
+        }else{
+            
+              self.requestParams = @{@"uid":JUserID,
+                                     @"author":dic[@"userName"],
+                                     @"title":lyricDic[@"lyricName"],
+                                     @"lyrics":lyricDic[@"lyric"],
+                                     @"pic":self.titleImage,
+                                     @"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],
+                                     @"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],
+                                     @"token":LoginToken,
+                                     @"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],
+                                     @"mp3":self.mp3URL,
+                                     @"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]],
+                                     @"createtype":@"HOT",
+                                     @"aid":self.aid};
+            
+            
+            self.requestURL = publicMusicForAct;
         }
-        self.requestURL = publicLyricURL;
     }else{
-        self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":self.mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
-        self.requestURL = publicMusicURL;
-   
+        
+        if (type == YES) {
+            if (!self.lyricId) {
+                self.requestParams = @{
+                                       @"uid":JUserID,
+                                       @"author":dic[@"userName"],
+                                       @"title":lyricDic[@"lyricName"],
+                                       @"lyrics":lyricDic[@"lyric"],
+                                       @"pic":self.titleImage,
+                                       @"detail":descriptionText.text,
+                                       @"status":[NSNumber numberWithInt:publicSwitch.isOn],
+                                       @"token":LoginToken};
+            } else {
+                self.requestParams = @{
+                                       @"id":@(self.lyricId),
+                                       @"uid":JUserID,
+                                       @"author":dic[@"userName"],
+                                       @"title":lyricDic[@"lyricName"],
+                                       @"lyrics":lyricDic[@"lyric"],
+                                       @"pic":self.titleImage,
+                                       @"detail":descriptionText.text,
+                                       @"status":[NSNumber numberWithInt:publicSwitch.isOn],
+                                       @"token":LoginToken};
+            }
+            self.requestURL = publicLyricURL;
+        }else{
+            self.requestParams = @{@"uid":JUserID,@"author":dic[@"userName"],@"title":lyricDic[@"lyricName"],@"lyrics":lyricDic[@"lyric"],@"pic":self.titleImage,@"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],@"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],@"token":LoginToken,@"hotid":[NSString stringWithFormat:@"%@",lyricDic[@"itemID"]],@"mp3":self.mp3URL,@"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]]};
+            self.requestURL = publicMusicURL;
+            
+        }
+        
     }
-    
-    
+
+
     
    
     

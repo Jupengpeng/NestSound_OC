@@ -6,7 +6,7 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
-
+static NSInteger const kButtonTag = 450;
 
 
 #import "NSThemeActivityController.h"
@@ -19,6 +19,9 @@
 #import "NSUserPageViewController.h"
 #import "NSActivityDetailModel.h"
 #import "NSActivityJoinerListModel.h"
+#import "NSWriteLyricViewController.h"
+#import "NSAccompanyListViewController.h"
+#import "NSLoginViewController.h"
 @interface NSThemeActivityController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,TTTAttributedLabelDelegate>
 {
     CGFloat _topViewHeight;
@@ -30,6 +33,9 @@
     
     BOOL _isRefresh;
     BOOL _isLoadMore;
+    
+    UIView *_moreChoiceView;
+    UIView *_maskView;
 }
 @property (nonatomic,strong) MainTouchTableTableView *mainTableView;
 
@@ -177,6 +183,7 @@
 
     
     self.title = @"专题活动";
+    
     self.mainTableView.tableHeaderView = self.topView ;
 
    
@@ -217,8 +224,16 @@
     [self.view addSubview: self.mainTableView];
     
     [self.view addSubview:self.wantJoinInButton];
+    [self.view bringSubviewToFront:self.wantJoinInButton];
+    [self.wantJoinInButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-10);
+        make.height.mas_equalTo(40);
+        make.width.mas_equalTo(130);
+    }];
+    [self moreChoice];
 
-    
+
     WS(wSelf);
 
     [_mainTableView addDDPullToRefreshWithActionHandler:^{
@@ -237,15 +252,7 @@
 //    self.mainTableView.pullToRefreshView.y = _refreshOriginY - _topViewHeight;
     //    self.mainTableView.pullToRefreshView.alpha = 0;;
     
-    [self.view bringSubviewToFront:self.wantJoinInButton];
-    
-    
-    [self.wantJoinInButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-10);
-        make.height.mas_equalTo(40);
-        make.width.mas_equalTo(130);
-    }];
+
     
 
     
@@ -324,6 +331,130 @@
     }
     return _RCSegView;
 }
+
+- (void)moreChoice {
+    
+    _maskView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    
+    _maskView.backgroundColor = [UIColor lightGrayColor];
+    
+    _maskView.alpha = 0.5;
+    
+    [self.navigationController.view addSubview:_maskView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
+    
+    _maskView.hidden = YES;
+    
+    [_maskView addGestureRecognizer:tap];
+    
+    _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 135)];
+    
+    _moreChoiceView.backgroundColor = [UIColor whiteColor];
+    
+    [self.navigationController.view addSubview:_moreChoiceView];
+    
+    
+
+    
+    NSArray *titles = @[@"去创作",@"去投稿",@"取消"];
+    for (NSInteger i = 0; i < 3; i++) {
+        
+        UIButton *indexButton  =[UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.frame = CGRectMake(0, 45 * i, ScreenWidth, 45);
+            btn.titleLabel.font = [UIFont systemFontOfSize:14];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitle:titles[i] forState:UIControlStateNormal];
+            btn.tag = kButtonTag + i;
+            if (i < 2) {
+                UIView *line = [[UIView alloc] init];
+                
+                line.backgroundColor = [UIColor lightGrayColor];
+                
+                line.frame = CGRectMake(0, 44, ScreenWidth, 0.5);
+                [btn addSubview:line];
+            }
+        } action:^(UIButton *btn) {
+            
+            [self manyChoiceClick:btn];
+            
+        }];
+        [_moreChoiceView addSubview:indexButton];
+    }
+}
+
+- (void)manyChoiceClick:(UIButton *)clickUIButton{
+    
+    NSInteger clickIindex = clickUIButton.tag - kButtonTag;
+    
+    switch (clickIindex) {
+        case 0:
+        {
+            _maskView.hidden = YES;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _moreChoiceView.y = ScreenHeight;
+            }];
+            if (JUserID) {
+                
+                NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
+                writeLyricVC.aid = self.aid;
+                [self.navigationController pushViewController:writeLyricVC animated:YES];
+                
+            } else {
+                
+                NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+                
+                [self presentViewController:loginVC animated:YES completion:nil];
+            }
+
+        }
+            break;
+        case 1:
+        {
+            _maskView.hidden = YES;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _moreChoiceView.y = ScreenHeight;
+            }];
+            if (JUserID) {
+                
+                NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
+                accompanyList.aid = self.aid;
+                [self.navigationController pushViewController:accompanyList animated:YES];
+            }
+            else {
+                
+                NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+                
+                [self presentViewController:loginVC animated:YES completion:nil];
+            }
+        }
+            break;
+        case 2:
+        {
+            [self tapClick:nil];
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+- (void)tapClick:(UIGestureRecognizer *)tap {
+    
+    _maskView.hidden = YES;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        _moreChoiceView.y = ScreenHeight;
+    }];
+}
+
 #pragma mark UIScrollViewDelegate
 
 
@@ -404,6 +535,11 @@
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 #pragma mark TTTAttributedLabelDelegate
 
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
@@ -461,7 +597,13 @@
             btn.layer.cornerRadius = 20.0f;
 //            [btn setImage:[UIImage imageNamed:] forState:<#(UIControlState)#>]
         } action:^(UIButton *btn) {
+            _maskView.hidden = NO;
             
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
+                
+            }];
         }];
     }
     

@@ -5,22 +5,26 @@
 //  Created by 鞠鹏 on 16/8/16.
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
-
-typedef void(^NSThemeTopicCommentCellMoreCommentClick)(NSInteger clickIndex,id);
-typedef void(^NSThemeTopicCommentCellLaunchCommentClick)(NSInteger clickIndex,id);
-
-
 @class NSJoinedWorkDetailModel;
+
+
+typedef void(^NSThemeTopicCommentCellMoreCommentBlock)(NSInteger clickIndex,id obj);
+typedef void(^NSThemeTopicCommentCellLaunchCommentBlock)(NSInteger clickIndex,id obj);
+typedef void(^NSThemeTopicCommentCellHeaderClickBlock)(NSJoinedWorkDetailModel *workDetailModel);
+typedef void(^NSThemeTopicCommentCellWorkCoverBlock)(NSJoinedWorkDetailModel *workDetailModel,UIButton *clickButton);
 
 #import <UIKit/UIKit.h>
 
 @interface NSThemeTopicCommentCell : UITableViewCell
 
 
-@property (nonatomic,copy) NSThemeTopicCommentCellMoreCommentClick moreCommentClick;
+@property (nonatomic,copy) NSThemeTopicCommentCellMoreCommentBlock moreCommentClick;
 
-@property (nonatomic,copy) NSThemeTopicCommentCellLaunchCommentClick launchCommentClick;
+@property (nonatomic,copy) NSThemeTopicCommentCellLaunchCommentBlock launchCommentClick;
 
+@property (nonatomic,copy) NSThemeTopicCommentCellHeaderClickBlock headerClickBlock;
+
+@property (nonatomic,copy) NSThemeTopicCommentCellWorkCoverBlock workCoverBlock;
 
 
 @property (nonatomic,strong) NSJoinedWorkDetailModel *workDetailModel;

@@ -57,9 +57,15 @@
     /**
      *  头像
      */
-    self.headerIcon = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 45)];
-    self.headerIcon.clipsToBounds = YES;
-    self.headerIcon.layer.cornerRadius = self.headerIcon.width/2.0f;
+    self.headerIcon = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+        btn.clipsToBounds = YES;
+        btn.layer.cornerRadius = 45/2.0f;
+
+    } action:^(UIButton *btn) {
+        [self userButtonClick:btn];
+        
+    }];
+
     [self addSubview:self.headerIcon];
     
     [self.headerIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -96,13 +102,10 @@
         
         [btn setBackgroundImage:[UIImage imageNamed:@"2.0_placeHolder_long"] forState:UIControlStateNormal];
         
-        [btn setImage:[UIImage imageNamed:@"2.0_play"] forState:UIControlStateNormal];
-        
-        [btn setImage:[UIImage imageNamed:@"2.0_suspended"] forState:UIControlStateSelected];
-        
+
         
     } action:^(UIButton *btn) {
-        
+        [self coverButtonClick:btn];
     }];
     
     [self addSubview:self.songCoverButton];
@@ -214,6 +217,9 @@
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         btn.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, -10);
     } action:^(UIButton *btn) {
+        /**
+         *  发起评论
+         */
         [self launchCommentClick:btn];
     }];
     
@@ -234,9 +240,14 @@
     self.moreCommentButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setTitleColor:[UIColor hexColorFloat:@"808080"] forState:UIControlStateNormal];
-        [btn setTitle:[NSString stringWithFormat:@"更多%ld条评>>",self.workDetailModel.commentnum] forState:UIControlStateNormal];
+//        [btn setTitle:[NSString stringWithFormat:@"更多%ld条评论>>",self.workDetailModel.commentnum] forState:UIControlStateNormal];
+        [btn setTitle:@"更多评论" forState:UIControlStateNormal];
+
         btn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     } action:^(UIButton *btn) {
+        /**
+         *  更多评论
+         */
         [self moreCommentClick:btn];
     }];
     self.moreCommentButton.clipsToBounds = YES;
@@ -263,15 +274,34 @@
 - (void)setWorkDetailModel:(NSJoinedWorkDetailModel *)workDetailModel{
 //    self.headerIcon.image = [UIImage imageNamed:@"2.0_placeHolder_long"];
 
-    [self.headerIcon sd_setImageWithURL:[NSURL URLWithString:workDetailModel.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] ];
-    [self.songCoverButton sd_setImageWithURL:[NSURL URLWithString:workDetailModel.pic] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    _workDetailModel = workDetailModel;
+    
+    
+    if (workDetailModel.isMusic) {
+        [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_play"] forState:UIControlStateNormal];
+        
+        [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_suspended"] forState:UIControlStateSelected];
+    }else{
+        
+    }
+    
+    [self.headerIcon sd_setBackgroundImageWithURL:[NSURL URLWithString:workDetailModel.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] ];
+    [self.songCoverButton sd_setBackgroundImageWithURL:[NSURL URLWithString:workDetailModel.pic] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    /**
+     * 封面点击状态
+     */
+    self.songCoverButton.selected = workDetailModel.isPlay;
+    
+    
     self.releaserLabel.text = workDetailModel.nickname;
-    self.releaseTimeLabel.text = [NSTool updateTimeForRow:workDetailModel.jointime];
+    self.releaseTimeLabel.text = [NSTool updateTimeForCreateTimeIntrval:workDetailModel.jointime];
     self.songName.text = [NSString stringWithFormat:@"歌曲名：%@",workDetailModel.title];
     self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",workDetailModel.author];
     self.watchedCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.looknum];
     self.favourateCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.zannum];
     self.collectedCount.text = [NSString stringWithFormat:@"%ld",workDetailModel.fovnum];
+    
+    
     
     /**
      *  设置评论
@@ -287,12 +317,9 @@
         
     }else{
         
-        
-       
         [self.moreCommentButton mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(0);
         }];
-
     
         [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(20 * workDetailModel.commentnum);
@@ -335,6 +362,25 @@
 
 #pragma mark button's actions
 
+- (void)userButtonClick:(UIButton *)button{
+    
+    if (self.headerClickBlock) {
+        self.headerClickBlock(self.workDetailModel);
+    }
+    
+}
+
+- (void)coverButtonClick:(UIButton *)button{
+    button.selected = !button.selected;
+    self.workDetailModel.isPlay = button.selected;
+    
+    
+    if (self.workCoverBlock) {
+        self.workCoverBlock(self.workDetailModel,button);
+    }
+}
+
+
 - (void)moreCommentClick:(UIButton *)button{
     if (self.moreCommentClick) {
         self.moreCommentClick(0,nil);
@@ -346,6 +392,7 @@
         self.launchCommentClick(0,nil);
     }
 }
+
 
 
 #pragma mark lazy init

@@ -31,9 +31,9 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 
 
 + (CGFloat)numberOfTextIn:(UILabel *)label;
-+ (NSString *)updateTimeForRow:(NSInteger)createTimeIntrval;
++ (NSString *)updateTimeForCreateTimeIntrval:(NSInteger)createTimeIntrval;
 
-
++ (NSArray *)getTagsFromTagString:(NSString *)tagString;
 @end
 
 //cache include ：accompany，record file

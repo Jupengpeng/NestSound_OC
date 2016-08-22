@@ -18,3 +18,14 @@
 @interface NSPublicLyricModel : NSBaseModel
 @property (nonatomic,strong) publicLyricModel * publicLyricModel;
 @end
+
+
+@interface ActPublicLyricModel : NSBaseModel
+@property (nonatomic,copy) NSString *mp3URL;
+@end
+
+
+@interface NSActPublicLyricModel : NSBaseModel
+@property (nonatomic,strong) ActPublicLyricModel *actPublicLyricModel;
+@end
+

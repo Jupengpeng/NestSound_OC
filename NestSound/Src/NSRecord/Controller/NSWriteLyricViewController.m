@@ -358,6 +358,7 @@
             
             NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
             publicVC.lyricId = self.lyricId;
+            publicVC.aid = self.aid;
             [self.navigationController pushViewController:publicVC animated:YES];
             
         }

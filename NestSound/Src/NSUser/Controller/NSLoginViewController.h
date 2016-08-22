@@ -12,4 +12,5 @@
 
 @property (nonatomic,assign) BOOL isHidden;
 
+
 @end

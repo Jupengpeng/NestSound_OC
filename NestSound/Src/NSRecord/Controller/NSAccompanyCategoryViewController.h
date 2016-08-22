@@ -10,6 +10,11 @@
 
 @interface NSAccompanyCategoryViewController : NSBaseViewController
 
+/**
+ *  活动id
+ */
+@property (nonatomic,copy) NSString *aid;
+
 //-(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;
 - (instancetype)initWithCategoryId:(long)categoryId andCategoryName:(NSString *)categoryName;
 @end

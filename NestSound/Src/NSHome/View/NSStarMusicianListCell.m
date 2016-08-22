@@ -9,6 +9,7 @@
 #import "NSStarMusicianListCell.h"
 #import "NSTool.h"
 #import "NSBiaoqianView.h"
+#import "NSMusicianListModel.h"
 
 @interface NSStarMusicianListCell ()
 
@@ -76,6 +77,52 @@
     
     self.tag2View = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
     [self addSubview:self.tag2View];
+}
+
+- (void)setMusicianModel:(NSMusicianDetailModel *)musicianModel{
+
+    _musicianModel = musicianModel;
+    
+    self.nameLabel.text = musicianModel.name;
+    [self.headerImageView setDDImageWithURLString:musicianModel.pic placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    NSArray *tagArray = [NSTool getTagsFromTagString:musicianModel.ability];
+    self.tag1View.hidden = NO;
+    self.tag2View.hidden = NO;
+    switch (tagArray.count) {
+
+        case 0:
+        {
+            self.tag1View.hidden = YES;
+            self.tag2View.hidden = YES;
+        }
+            break;
+        case 1:
+        {
+            self.tag1View.title = tagArray[0];
+            self.tag2View.hidden = YES;
+        }
+            break;
+        case 2:
+        {
+            self.tag2View.title = tagArray[0];
+            self.tag1View.title = tagArray[1];
+        }
+            break;
+
+            
+        default:
+        {
+            self.tag1View.title = @"全能";
+            self.tag2View.hidden = YES;
+        }
+            break;
+    }
+    
+    self.tag1View.x = ScreenWidth - 10 - self.tag1View.width;
+    self.tag2View.x = CGRectGetMinX(self.tag1View.frame) - self.tag2View.width - 5;
+    self.tag1View.centerY = 45;
+    self.tag2View.centerY = 45;
+    
 }
 
 - (void)updateUIWithData{

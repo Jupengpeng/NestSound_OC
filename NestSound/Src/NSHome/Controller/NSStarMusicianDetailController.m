@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong) UITableView *tableView;
 
+@property (nonatomic,assign) NSInteger page;
+
 @end
 
 @implementation NSStarMusicianDetailController
@@ -28,6 +30,26 @@
     
     [self.view addSubview:self.tableView];
 
+}
+
+- (void)fetchDetailData{
+    
+    [self.tableView.pullToRefreshView startAnimating];
+
+    self.requestType = NO;
+    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+                           @"uid":self.uid};
+    self.requestURL = musicianDetailUrl;
+    
+}
+
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
+    if (requestErr) {
+        
+    }else{
+        
+        
+    }
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource

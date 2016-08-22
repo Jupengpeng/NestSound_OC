@@ -25,4 +25,22 @@
              @"shareURL":@"shareurl"};
 }
 
+
+
+@end
+
+
+@implementation ActPublicLyricModel
+-(NSDictionary *)modelKeyJSONKeyMapper
+{
+    return @{@"mp3URL":@"mp3URL"};
+}
+@end
+
+
+@implementation NSActPublicLyricModel
+-(NSDictionary *)modelKeyJSONKeyMapper
+{
+    return @{@"actPublicLyricModel":@"data"};
+}
 @end

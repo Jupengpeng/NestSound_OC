@@ -144,8 +144,30 @@ extern NSString *port;
 //参赛作品详情列表
 #define joinedWorksDetailUrl @"java/common/activity/worklist"
 
+
+/**
+ *  发布歌曲 （针对活动）
+ */
+#define publicMusicForAct @"java/musiopt/activity"
+
+/**
+ *  发布歌词 （针对活动）
+ */
+#define publicLyricForAct @"java/lyricsopt/activity"
+
 //参赛提交
 #define joinMatchSubmitUrl @"java/activity/attend"
+
+/**
+ *  音乐人列表
+ */
+#define musicianListUrl @"java/common/musician/list"
+
+/**
+ *  音乐人详情
+ */
+
+#define musicianDetailUrl @"java/common/musician/detail"
 
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print

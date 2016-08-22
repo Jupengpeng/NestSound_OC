@@ -227,6 +227,10 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
     if (indexPath.section) {
         NSSimpleCategoryModel * accompany = self.accompanyCategoryAry[indexPath.item];
         NSAccompanyCategoryViewController *accompanyCategoryListVC = [[NSAccompanyCategoryViewController alloc] initWithCategoryId:accompany.categoryId andCategoryName:accompany.categoryName];
+        if (self.aid.length) {
+            accompanyCategoryListVC.aid = self.aid;
+            
+        }
         [self.navigationController pushViewController:accompanyCategoryListVC animated:YES];
     } else {
         NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.section];
@@ -237,7 +241,10 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
             
             NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:simpleSing.itemID andMusicTime:simpleSing.playTimes andHotMp3:simpleSing.playUrl];
             [NSSingleTon viewFrom].controllersNum = 2;
-            
+            if (self.aid.length) {
+                writeMusicVC.aid = self.aid;
+
+            }
             [self.navigationController pushViewController:writeMusicVC animated:YES];
         
         }

@@ -297,7 +297,7 @@ static id _instance;
         
         [self.player pause];
         
-        [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
+//        [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
         
         self.progressBar.value = 0;
         
@@ -321,11 +321,14 @@ static id _instance;
             
         } else {
             
+            /**
+             *  <#Description#>
+             */
             [self removeTimer];
             
             [self.player pause];
             
-            [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
+//            [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
             
             self.progressBar.value = 0;
             

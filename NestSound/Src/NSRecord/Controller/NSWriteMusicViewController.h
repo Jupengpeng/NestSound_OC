@@ -18,6 +18,13 @@
 //@property (nonatomic,assign) NSInteger accompanyId;
 @property (nonatomic,strong) NSMutableDictionary * descibelDictionary;
 
+
+/**
+ *  活动id
+ */
+@property (nonatomic,copy) NSString *aid;
+
+
 -(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;
 
 @end

@@ -52,6 +52,21 @@
 @property (nonatomic,strong) NSArray<commentMessageModel> *workCommonList;
 
 
+@property (nonatomic,copy) NSString *mp3;
+
+/**补充参数
+ 
+ *
+ */
+
+@property (nonatomic,assign) BOOL isPlay;
+
+
+/**
+ *  是否是歌曲
+ */
+@property (nonatomic,assign) BOOL isMusic;
+
 @end
 
 

@@ -10,4 +10,10 @@
 
 @interface NSAccompanyListViewController : NSBaseViewController
 
+/**
+ *  活动id
+ */
+@property (nonatomic,copy) NSString *aid;
+
+
 @end

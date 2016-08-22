@@ -195,7 +195,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         [NSSingleTon viewFrom].controllersNum = 3;
         [self.player pause];
         [NSPlayMusicTool stopMusicWithName:nil];
-        
+        if (self.aid.length) {
+            writeMusicVC.aid = self.aid;
+        }
         [self.navigationController pushViewController:writeMusicVC animated:YES];
     }
 }

@@ -46,7 +46,8 @@
              @"itemid":@"itemid",
              @"headurl":@"headurl",
              @"nickname":@"nickname",
-             @"workCommonList":@"listComment"
+             @"workCommonList":@"listComment",
+             @"mp3":@"mp3"
              };
 }
 

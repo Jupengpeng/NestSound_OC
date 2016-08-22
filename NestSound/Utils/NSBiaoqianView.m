@@ -13,6 +13,8 @@
 
 @property (nonatomic,strong) UIButton *button;
 
+@property (nonatomic,strong) UIImageView *biaoqianImage;
+
 @end
 
 @implementation NSBiaoqianView
@@ -27,8 +29,8 @@
 
 
 - (void)initUI{
-    UIImageView *biaoqianImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 31.3, 11)];
-    biaoqianImage.image = [UIImage imageNamed:@"biaoqian"];
+    self.biaoqianImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 31.3, 11)];
+    self.biaoqianImage.image = [UIImage imageNamed:@"biaoqian"];
     
     self.button = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.titleLabel.font = [UIFont systemFontOfSize:9.0f];
@@ -43,7 +45,7 @@
     }];
     
     
-    [self addSubview:biaoqianImage];
+    [self addSubview:self.biaoqianImage];
     [self addSubview:self.button];
 }
 
@@ -51,11 +53,22 @@
 
 - (void)setTitle:(NSString *)title{
     
-    
+    /**
+     *  计算宽度
+     */
     self.button.width = [NSTool getWidthWithContent:title font:[UIFont systemFontOfSize:10.0f]];
     self.button.x = 12.0f;
     self.width = self.button.width + 12.0f;
     [self.button setTitle:title forState:UIControlStateNormal];
-    
+    [self bringSubviewToFront:self.button];
 }
+
+- (void)setHidden:(BOOL)hidden{
+    [super setHidden:hidden];
+    self.button.hidden = hidden;
+    self.biaoqianImage.hidden = hidden;
+}
+
+
+
 @end

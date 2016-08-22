@@ -1373,6 +1373,9 @@ static CGFloat timerNum=0;
             [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
             self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
             self.public.mp3URL = mp3URL;
+            if (self.aid.length) {
+                self.public.aid = self.aid;
+            }
             [self.alertView dismissViewControllerAnimated:YES completion:^{
                 [wSelf.navigationController pushViewController:wSelf.public animated:YES];
 //                NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
