@@ -83,7 +83,6 @@
 
 @property (nonatomic,strong) UILabel * numLabel;
 
-@property (nonatomic,strong) UIAlertView *alertView;
 @end
 
 static id _instance;

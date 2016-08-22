@@ -151,7 +151,7 @@ static CGFloat timerNum=0;
 
 - (AVAudioRecorder *)newRecorder {
     
-    NSDictionary *settings = @{AVSampleRateKey : @(44100.0), AVNumberOfChannelsKey : @(1)};
+    NSDictionary *settings = @{AVSampleRateKey : @(44100.0), AVNumberOfChannelsKey : @(1)};//采样率
     
     /*NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
                                                             [NSNumber numberWithFloat: 44100.0],                 AVSampleRateKey,
@@ -217,8 +217,8 @@ static CGFloat timerNum=0;
         
         [self.recorder record];
         
-        NSFileManager* f = [NSFileManager defaultManager];
-        long long l = [[f attributesOfItemAtPath:self.wavFilePath error:nil] fileSize];
+//        NSFileManager* f = [NSFileManager defaultManager];
+//        long long l = [[f attributesOfItemAtPath:self.wavFilePath error:nil] fileSize];
         
     }
     
@@ -481,6 +481,7 @@ static CGFloat timerNum=0;
 
 //播放被打断时
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
+    
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     
@@ -498,9 +499,9 @@ static CGFloat timerNum=0;
     [self changeScrollViewColor];
 
    
-    if ([self.waveform.timeScrollView isDragging]) {
-        [self changeScrollViewColor];
-    }
+//    if ([self.waveform.timeScrollView isDragging]) {
+//        [self changeScrollViewColor];
+//    }
 }
 
 //播放被打断结束时
@@ -532,11 +533,11 @@ static CGFloat timerNum=0;
 
 
 //转成mp3格式
-- (void)recorderFileToMp3WithType:(Type)type filePath:(NSString *)filePath  {
+- (NSString *)recorderFileToMp3WithType:(Type)type filePath:(NSString *)filePath  {
     NSFileManager *manager = [NSFileManager defaultManager];
     long long l = [[manager attributesOfItemAtPath:filePath error:nil] fileSize];
     if (!filePath ||l==0) {
-        return;
+        return nil;
     }
     
     NSDate *date = [NSDate date];
@@ -590,12 +591,13 @@ static CGFloat timerNum=0;
     }
     @finally {
         self.mp3Path = mp3FilePath;
-        long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
-        long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
-        
-        NSLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
+//        long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
+//        long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
+//        
+//        NSLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
         
     }
+    return mp3FilePath;
     
 }
 /*
@@ -622,9 +624,6 @@ static CGFloat timerNum=0;
 }
  */
 ////////以上为录音end///
-
-
-
 - (NSMutableArray *)btns {
     
     if (!_btns) {
@@ -678,7 +677,6 @@ static CGFloat timerNum=0;
     
     self.navigationItem.rightBarButtonItem = next;
     
-    
 //    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
     
 //    NSArray *array = @[next, importLyric];
@@ -702,8 +700,7 @@ static CGFloat timerNum=0;
 
     self.waveform.timeScrollView.delegate =self;
   
-    
-    [self initMusicWave];
+//    [self initMusicWave];
 
     [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     speed = self.waveform.rect.size.width/SECOND_LONG;
@@ -852,7 +849,6 @@ static CGFloat timerNum=0;
     
     //nextAccompany
     
-    
     //listenBk
 //    listenBk = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_listen_bk"]];
     
@@ -916,7 +912,6 @@ static CGFloat timerNum=0;
     /*self.DeviceMusicWaveView = [[DeviceMusicWave alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
     self.DeviceMusicWaveView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.DeviceMusicWaveView];*/
-    
     
    /* self.slideBarImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_writeMusic_slideBar"]];
     
@@ -1466,7 +1461,6 @@ static CGFloat timerNum=0;
             count = [self decibels];
 //        }
 //        NSLog(@"DDDDDDDDD%f",count);
-
         
 //        if (self.lineNum % 3 == 0) { //3
         
@@ -1583,8 +1577,8 @@ static CGFloat timerNum=0;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
         [self recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath];
-        NSData *data = [NSData dataWithContentsOfFile:self.mp3Path];
-        self.data=data;
+//        NSData *data = [NSData dataWithContentsOfFile:self.mp3Path];
+        self.data=[NSData dataWithContentsOfFile:[self recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath]];
         
 //        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
         // 1.创建网络管理者
@@ -1604,7 +1598,7 @@ static CGFloat timerNum=0;
                 
             }
             
-            if (!plugedHeadset) {
+            if (plugedHeadset) {
                 [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:plugedHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
             } else {
                 
@@ -1622,7 +1616,7 @@ static CGFloat timerNum=0;
                     [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
                     
                     soundEffectVC.parameterDic = self.dict;
-                    
+                    soundEffectVC.waveArray = self.waveform.waveView.waveArray;
                     soundEffectVC.musicTime = self.timeLabel.text;
                     soundEffectVC.isLyric = NO;
                     soundEffectVC.mp3URL = dict[@"data"][@"mp3URL"];

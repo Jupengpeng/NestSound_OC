@@ -7,7 +7,7 @@
 //
 
 #import "NSBaseViewController.h"
-
+#import "NSWaveformView.h"
 @interface NSSoundEffectViewController : NSBaseViewController
 @property (nonatomic, copy) NSString *musicTime;
 @property (nonatomic, strong) NSMutableDictionary *parameterDic;
@@ -15,4 +15,5 @@
 @property (nonatomic, copy) NSString *mp3File;
 @property (nonatomic,assign)BOOL isLyric;
 @property (nonatomic, strong) NSString *mp3URL;
+@property (nonatomic, strong) NSArray *waveArray;
 @end

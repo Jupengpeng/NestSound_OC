@@ -81,9 +81,6 @@ static NSString * cellId = @"SongCell";
     selectRow = [songAry indexOfObject:model1] + 1;
     NSSongCell *cell = (NSSongCell *)[songsTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     cell.index = YES;
-//    cell.playImg.hidden = NO;
-//    cell.numberLab.hidden = YES;
-//    [songsTable selectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
     [songsTable reloadData];
 }
 #pragma mark -fetchSongListData

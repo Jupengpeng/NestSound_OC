@@ -16,6 +16,7 @@
 @property(strong,nonatomic)UIImageView* timeImageView;
 //@property(strong,nonatomic)NSMutableArray* labelArray;
 @property(strong,nonatomic)WaveView* waveView;
+@property(nonatomic,strong) UIView* middleLineV;
 @property(assign,nonatomic)CGRect rect;
 - (instancetype)initWithFrame:(CGRect)frame;
 ///////////////
