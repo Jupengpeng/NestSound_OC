@@ -29,5 +29,7 @@ typedef void(^NSThemeTopicCommentCellCommentorClickBlock)(NSInteger commentorId)
 
 @property (nonatomic,strong) NSJoinedWorkDetailModel *workDetailModel;
 
+@property (nonatomic,strong) UIButton *songCoverButton;
+
 
 @end

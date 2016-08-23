@@ -88,12 +88,10 @@ static inline NSRegularExpression * NameRegularExpression() {
     if (self.commentModel.comment_type == 1) {
         
         self.name = [NSString stringWithFormat:@"%@:",commentModel.nickname];
-//                     self.message == YES ? self.commentModel.target_nickname : self.commentModel.target_nickname];
     } else {
         
         self.name = [NSString stringWithFormat:@"%@ 回复 %@:",commentModel.nickname,commentModel.target_nickname];
         clickTextCount ++ ;
-//                     self.message == YES ? self.commentModel.target_nickname : self.commentModel.target_nickname];
     }
     self.replyStr = self.commentModel.comment;
     NSString *text = [NSString stringWithFormat:@"%@ %@",self.name, self.replyStr];
@@ -107,27 +105,25 @@ static inline NSRegularExpression * NameRegularExpression() {
          //设定可点击文字的的大小
          UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
          CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-         
+
          if (font) {
              
-             //设置可点击文本的大小
-             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:nickRange];
+//             //设置可点击文本的大小
+//             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:nickRange];
              
              //设置可点击文本的颜色
              [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:nickRange];
              
 //             被评论人
              if (clickTextCount == 2) {
-                 NSRange targetRange = [[mutableAttributedString string] rangeOfString:wSelf.commentModel.target_nickname  options:NSCaseInsensitiveSearch];
+                 NSRange targetRange = NSMakeRange(text.length - (self.replyStr.length + 2 ) - wSelf.commentModel.target_nickname.length, wSelf.commentModel.target_nickname.length);
 
                  
-                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:targetRange];
+//                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:targetRange];
                  [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:targetRange];
 
-                 
-
              }
-             
+
              CFRelease(font);
              
          }
@@ -145,14 +141,13 @@ static inline NSRegularExpression * NameRegularExpression() {
         
         [self.commentLabel addLinkToURL:[NSURL URLWithString:@"nickName"] withRange:nickRange];
     
-    
-    NSRange targetRange = [self.commentLabel.text rangeOfString:wSelf.commentModel.target_nickname  options:NSCaseInsensitiveSearch];
-    
-    [self.commentLabel addLinkToURL:[NSURL URLWithString:@"targetName"] withRange:targetRange];
-    
-    
-    
-    //    [self.contentView addSubview:self.commentLabel];
+    if (clickTextCount == 2) {
+        NSRange targetRange = NSMakeRange(text.length - (self.replyStr.length + 2) - wSelf.commentModel.target_nickname.length, wSelf.commentModel.target_nickname.length);
+//        [self.commentLabel.text rangeOfString:wSelf.commentModel.target_nickname  options:NSCaseInsensitiveSearch];
+        
+        [self.commentLabel addLinkToURL:[NSURL URLWithString:@"targetName"] withRange:targetRange];
+    }
+
     
     self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:0 maxSize:CGSizeMake(ScreenWidth - 20, MAXFLOAT)];
     //65

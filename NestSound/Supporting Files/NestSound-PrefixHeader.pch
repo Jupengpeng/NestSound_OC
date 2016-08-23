@@ -91,6 +91,7 @@ extern NSString *port;
 #define commentMessageURL @"java/message/commentCenterList?"
 #define systemMessageURL @"java/message/sysNoteList?"
 #define myLyricListURL @"java/common/lyrics/myLyrics?"
+#define myMusicListURL @"java/common/music/worklist?"
 #define myFansListURL @"java/fanfocus/fanslist?"
 #define focusUserURL @"java/fanfocus/optFans"
 #define commentURL @"java/common/comment/list?"
@@ -238,6 +239,10 @@ extern NSString *port;
 
 #define kCustomMusicUrl @"http://html.yinchao.cn/app-customization-index.html"
 
-
+/**
+ *  通知命名
+ */
+static NSString *const ChangePlayItemNotification = @"changePlayItem";
+static NSString *const PauseCurrentItemNotification = @"pauseCurrentItem";
 
 #endif /* NestSound_PrefixHeader_pch */

@@ -21,6 +21,9 @@
 @property (nonatomic,copy) NSString * titleImageUrl;
 
 
+@property (nonatomic,assign) long createTime;
+@property (nonatomic,assign) int status;
+
 @end
 
 

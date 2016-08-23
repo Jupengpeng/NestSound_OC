@@ -20,9 +20,11 @@
 @property (nonatomic,copy) NSString *aid;
 
 /**
- *  类型  1 -> 歌曲 2 -> 歌词
+ *  类型  0 -> 歌曲 1 -> 歌词
  */
 @property (nonatomic,copy) NSString *type;
 
+
+@property (nonatomic,assign) BOOL needRefresh;
 
 @end

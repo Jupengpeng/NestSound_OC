@@ -46,6 +46,8 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(NSString *)datetoStringWithDate:(NSTimeInterval)date;
 +(NSString *)datetoLongStringWithDate:(NSTimeInterval)date;
 +(NSString *)datetoMonthStringWithDate:(NSTimeInterval)date;
++ (NSString *)dateToHourStringWithDate:(NSTimeInterval)date;
+
 +(NSTimeInterval)getTimeStamp;
 @end
 

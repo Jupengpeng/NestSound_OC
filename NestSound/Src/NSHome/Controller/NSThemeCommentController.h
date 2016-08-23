@@ -28,4 +28,6 @@
 
 @property (nonatomic,assign) int page;
 
+- (void)fetchData;
+
 @end

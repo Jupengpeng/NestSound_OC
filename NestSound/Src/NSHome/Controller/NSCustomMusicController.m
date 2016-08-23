@@ -81,7 +81,11 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
         /**
          音乐人 id
          */
+        
         NSRange rightRange = [clickStr rangeOfString:@"?"];
+        if (rightRange.length == 0) {
+            rightRange = NSMakeRange(clickStr.length, 0);
+        }
         NSRange uidRange = NSMakeRange(range.location + range.length, rightRange.location  - (range.location + range.length));
         NSString *uid = [clickStr substringWithRange:uidRange];
         NSStarMusicianDetailController *detailController = [[NSStarMusicianDetailController alloc]init];
