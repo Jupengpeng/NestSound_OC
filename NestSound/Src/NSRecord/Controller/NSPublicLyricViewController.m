@@ -13,6 +13,7 @@
 #import "NSPlayMusicTool.h"
 #import <AVFoundation/AVFoundation.h>
 #import "HudView.h"
+#import "NSThemeActivityController.h"
 extern NSString *mp3PathTTest;
 extern Boolean plugedHeadset;
 
@@ -72,7 +73,6 @@ extern Boolean plugedHeadset;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
-        
 }
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
@@ -415,7 +415,13 @@ extern Boolean plugedHeadset;
 
             NSLog(@"%@",operation.urlTag);
             [self.alertView dismissViewControllerAnimated:YES completion:^{
-                
+                NSObject *obj = self.navigationController.childViewControllers[2];
+                if ([obj isKindOfClass:[NSThemeActivityController class]]) {
+                    NSThemeActivityController *themeController = (NSThemeActivityController *)obj;
+                    themeController.needRefresh = YES;
+                    [self.navigationController popToViewController:themeController animated:YES];
+
+                }
             }];
         }
         

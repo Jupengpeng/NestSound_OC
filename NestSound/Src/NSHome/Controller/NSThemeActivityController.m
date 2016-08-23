@@ -22,7 +22,9 @@ static NSInteger const kButtonTag = 450;
 #import "NSWriteLyricViewController.h"
 #import "NSAccompanyListViewController.h"
 #import "NSLoginViewController.h"
-@interface NSThemeActivityController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,TTTAttributedLabelDelegate>
+#import "NSUserWorkListController.h"
+
+@interface NSThemeActivityController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,TTTAttributedLabelDelegate,UIAlertViewDelegate>
 {
     CGFloat _topViewHeight;
     CGFloat _refreshOriginY;
@@ -36,6 +38,11 @@ static NSInteger const kButtonTag = 450;
     
     UIView *_moreChoiceView;
     UIView *_maskView;
+    
+    /**
+     *  是否已经发布过
+     */
+    BOOL _isPublished;
 }
 @property (nonatomic,strong) MainTouchTableTableView *mainTableView;
 
@@ -54,6 +61,8 @@ static NSInteger const kButtonTag = 450;
  */
 @property (nonatomic,assign) NSInteger sort;
 
+@property (nonatomic,strong)  NSThemeCommentController *leftController;
+@property (nonatomic,strong) NSThemeCommentController *rightController;
 
 /**
  *  数据源
@@ -86,17 +95,28 @@ static NSInteger const kButtonTag = 450;
 }
 
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (self.needRefresh) {
+        [self refreshData];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear: animated];
-    [super viewWillAppear:animated];
+    self.needRefresh = NO;
 //    [self.mainTableView removeObserver:self.mainTableView.pullToRefreshView forKeyPath:@"contentOffset"];
 //    [self.mainTableView removeObserver:self.mainTableView.pullToRefreshView forKeyPath:@"frame"];
 }
+
+- (void)refreshData{
+    
+    [self.mainTableView.pullToRefreshView stopAnimating];
+    [self.mainTableView.pullToRefreshView startAnimating];
+    [self fetchActivityDetailData];
+    
+}
+
 - (void)fetchActivityDetailData{
     
     
@@ -155,16 +175,22 @@ static NSInteger const kButtonTag = 450;
                 }
                 
                 [self.joinerList addObjectsFromArray:joinerListModel.joinerList];
+                
+                for (NSActivityJoinerDetailModel *joinerDetailModel in joinerListModel.joinerList) {
+                    /**
+                     *  判断是否参加过活动
+                     */
+                    if (joinerDetailModel.joinerId == [JUserID intValue]) {
+                        _isPublished = YES;
+                    }
+                }
+                
             }
-         
-            
 
             [self reloadUI];
 
         }
     }
-    
-
 
     
 }
@@ -261,6 +287,7 @@ static NSInteger const kButtonTag = 450;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"leaveTop" object:nil];
 }
 
+
 -(void)acceptMsg : (NSNotification *)notification{
     
     NSDictionary *userInfo = notification.userInfo;
@@ -311,23 +338,26 @@ static NSInteger const kButtonTag = 450;
 {
     if (!_RCSegView) {
         
-        NSThemeCommentController *leftController=[[NSThemeCommentController alloc]init];
-        NSThemeCommentController *rightController =[[NSThemeCommentController alloc]init];
+       self.leftController=[[NSThemeCommentController alloc]init];
+        self.rightController =[[NSThemeCommentController alloc]init];
 
-        leftController.aid = self.aid;
-        leftController.type = [NSString stringWithFormat:@"%d",[self.type intValue] + 1];
-        leftController.sort = 0 ;
-        rightController.aid = self.aid;
-        rightController.type = [NSString stringWithFormat:@"%d",[self.type intValue] + 1];
-        leftController.sort = 1 ;
+        self.leftController.aid = self.aid;
+        self.leftController.type = [NSString stringWithFormat:@"%d",[self.type intValue] + 1];
+        self.leftController.sort = 0 ;
+        self.rightController.aid = self.aid;
+        self.rightController.type = [NSString stringWithFormat:@"%d",[self.type intValue] + 1];
+        self.rightController.sort = 1 ;
         
-        NSArray *controllers=@[leftController,rightController];
+        NSArray *controllers=@[self.leftController,self.rightController];
         
         NSArray *titleArray =@[@"最新",@"最热"];
         
         MYSegmentView * rcs=[[MYSegmentView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-64) controllers:controllers titleArray:titleArray ParentController:self lineWidth:ScreenWidth/2 lineHeight:3.];
         
         _RCSegView = rcs;
+    }else{
+        [self.leftController fetchData];
+        [self.rightController fetchData];
     }
     return _RCSegView;
 }
@@ -390,6 +420,7 @@ static NSInteger const kButtonTag = 450;
     switch (clickIindex) {
         case 0:
         {
+
             _maskView.hidden = YES;
             
             [UIView animateWithDuration:0.25 animations:^{
@@ -398,18 +429,8 @@ static NSInteger const kButtonTag = 450;
             }];
             if (JUserID) {
                 
-                /**
-                 *  0 是歌曲
-                 */
-                if ([self.type isEqualToString:@"0"]) {
-                    NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
-                    accompanyList.aid = self.aid;
-                    [self.navigationController pushViewController:accompanyList animated:YES];
-                }else{
-                NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
-                writeLyricVC.aid = self.aid;
-                [self.navigationController pushViewController:writeLyricVC animated:YES];
-                }
+                
+                [self judgeJoininActitityOperation];
                 
             } else {
                 
@@ -430,7 +451,14 @@ static NSInteger const kButtonTag = 450;
             }];
             if (JUserID) {
                 
+                NSUserWorkListController *workListController = [[NSUserWorkListController alloc] init];
+                workListController.workType = self.type;
+                workListController.activityId = self.aid;
+                [self.navigationController pushViewController:workListController animated:YES];
                 
+                workListController.submitBlock = ^(void){
+                    self.needRefresh = YES;
+                };
 
             }
             else {
@@ -453,6 +481,21 @@ static NSInteger const kButtonTag = 450;
     
 }
 
+- (void)judgeJoininActitityOperation{
+    /**
+     *  0 是歌曲
+     */
+    if ([self.type isEqualToString:@"0"]) {
+        NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
+        accompanyList.aid = self.aid;
+        [self.navigationController pushViewController:accompanyList animated:YES];
+    }else{
+        NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
+        writeLyricVC.aid = self.aid;
+        [self.navigationController pushViewController:writeLyricVC animated:YES];
+    }
+}
+
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
     _maskView.hidden = YES;
@@ -461,6 +504,22 @@ static NSInteger const kButtonTag = 450;
         
         _moreChoiceView.y = ScreenHeight;
     }];
+}
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 0) {
+        
+    }else{
+        _maskView.hidden = NO;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
+            
+        }];
+    }
 }
 
 #pragma mark UIScrollViewDelegate
@@ -606,13 +665,23 @@ static NSInteger const kButtonTag = 450;
             btn.layer.cornerRadius = 20.0f;
 //            [btn setImage:[UIImage imageNamed:] forState:<#(UIControlState)#>]
         } action:^(UIButton *btn) {
-            _maskView.hidden = NO;
             
-            [UIView animateWithDuration:0.25 animations:^{
+            if (_isPublished) {
                 
-                _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"操作" message:@"您已经参加过本次活动，再次提交会覆盖原来的作品，请确认是否继续操作？" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:@"继续", nil];
+                [alertView show];
+                return;
+            }
+            else{
                 
-            }];
+                _maskView.hidden = NO;
+                
+                [UIView animateWithDuration:0.25 animations:^{
+                    
+                    _moreChoiceView.y = ScreenHeight - _moreChoiceView.height;
+                    
+                }];
+            }
         }];
     }
     

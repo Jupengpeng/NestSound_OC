@@ -11,13 +11,15 @@
 @implementation NSMyLyricModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    
+
     return @{@"author":@"author",
              @"itemId":@"itemid",
              @"lookNum":@"looknum",
              @"lyrics":@"lyrics",
              @"title":@"title",
-             @"titleImageUrl":@"pic"
+             @"titleImageUrl":@"pic",
+             @"createTime":@"createtime",
+             @"status":@"status"
              };
     
 }

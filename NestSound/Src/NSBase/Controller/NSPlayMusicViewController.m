@@ -287,6 +287,10 @@ static id _instance;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+    /**
+     *  切歌
+     */
+    [[NSNotificationCenter defaultCenter] postNotificationName:ChangePlayItemNotification object:@(self.musicDetail.itemID)];
 }
 
 - (void)endPlaying {
@@ -895,6 +899,11 @@ static id _instance;
         [self removeTimer];
         [self.player pause];
         
+        /**
+         *  将暂停回传给前面
+         */
+        [[NSNotificationCenter defaultCenter] postNotificationName:PauseCurrentItemNotification object:@(self.musicDetail.itemID)];
+        
     }
     
 }
@@ -1224,6 +1233,7 @@ static id _instance;
         }
         
         [self playMusicUrl:self.musicDetail.playURL];
+        
         
         self.ifUrl = musicDetail.playURL;
     }  else {

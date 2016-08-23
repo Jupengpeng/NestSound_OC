@@ -30,6 +30,8 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
 @property (nonatomic, strong) AVPlayer *player;
 
+@property (nonatomic,strong) NSJoinedWorkListModel *workListModel;
+
 
 @end
 
@@ -49,6 +51,20 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
                                                  name:@"pausePlayer"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changePlayItem:)
+                                                 name:ChangePlayItemNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayItem:)
+                                                 name:PauseCurrentItemNotification
+                                               object:nil];
+    
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pausePlayer" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangePlayItemNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:PauseCurrentItemNotification object:nil];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -74,7 +90,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     else{
         if ([operation.urlTag isEqualToString:joinedWorksDetailUrl]) {
             NSJoinedWorkListModel *workListModel = (NSJoinedWorkListModel *)parserObject;
-
+            self.workListModel = workListModel;
             if (self.dataArray.count) {
                 [self.dataArray removeAllObjects];
             }
@@ -104,6 +120,57 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         [self.tableView reloadData];
     }
 }
+
+- (void)changePlayItem:(NSNotification *)notification{
+    
+    NSInteger playedId = [notification.object integerValue];
+    /**
+     *  歌曲的全部id放进歌单
+     */
+    for (NSInteger i = 0 ; i<self.workListModel.joinWorkList.count;i++ )
+    {
+        NSJoinedWorkDetailModel *detailModel = self.workListModel.joinWorkList[i];
+        if ([NSPlayMusicViewController sharedPlayMusic].itemUid) {
+            if (detailModel.itemid == playedId)
+//                [NSPlayMusicViewController sharedPlayMusic].itemUid)
+            {
+                
+                NSThemeTopicCommentCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
+                _clickedButton = cell.songCoverButton;
+                detailModel.isPlay = YES;
+                
+                
+                
+            }else{
+                detailModel.isPlay = NO;
+            }
+        }
+        [self.tableView reloadData];
+    }
+    
+}
+
+- (void)pausePlayItem:(NSNotification *)notification{
+    
+    NSInteger playedId = [notification.object integerValue];
+    /**
+     *  歌曲的全部id放进歌单
+     */
+    for (NSInteger i = 0 ; i<self.workListModel.joinWorkList.count;i++ )
+    {
+        NSJoinedWorkDetailModel *detailModel = self.workListModel.joinWorkList[i];
+        if ([NSPlayMusicViewController sharedPlayMusic].itemUid) {
+            if (detailModel.itemid == playedId)
+//                [NSPlayMusicViewController sharedPlayMusic].itemUid)
+            {
+                detailModel.isPlay = NO;
+            }
+        }
+        [self.tableView reloadData];
+    }
+    
+}
+
 - (void)pausePlayer {
     [NSPlayMusicTool pauseMusicWithName:nil];
     _clickedButton.selected = NO;
@@ -127,11 +194,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     }
 }
 
--(void)dealloc{
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-}
+
 
 
 
@@ -264,6 +327,14 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         /**
          *  取消上一个点击状态
          */
+        if (_clickedButton == clickButton) {
+
+        }else{
+            _clickedButton.selected = NO;
+            _clickedButton = clickButton;
+            _clickedButton.selected = YES;
+        }
+        
         if (clickButton.selected) {
             [NSPlayMusicViewController sharedPlayMusic].itemUid = workListModel.itemid;
             if (!self.player) {

@@ -330,22 +330,41 @@ static NSDateFormatter *dateFormatter;
     }
     // 秒转小时
     NSInteger hours = time/3600;
-    if (hours<24) {
+    NSInteger days = time/3600/24;
+    if (days<24 && days == 0) {
         return [NSString stringWithFormat:@"%ld小时前",(long)hours];
     }
-    //秒转天数
-    NSInteger days = time/3600/24;
-    if (days < 30) {
+    if (days == 1) {
+        return @"昨天";
+    }
+    
+
+
+    if (days < 7 && days > 1) {
         return [NSString stringWithFormat:@"%ld天前",(long)days];
     }
-    //秒转月
-    NSInteger months = time/3600/24/30;
-    if (months < 12) {
-        return [NSString stringWithFormat:@"%ld月前",(long)months];
-    }
-    //秒转年
-    NSInteger years = time/3600/24/30/12;
-    return [NSString stringWithFormat:@"%ld年前",(long)years];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+//    [formatter setDateStyle:NSDateFormatterMediumStyle];
+//    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"MM月dd日 HH:mm"];
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:createTime];
+
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    return confromTimespStr;
+//    //秒转天数
+//    NSInteger days = time/3600/24;
+//    if (days < 30) {
+//        return [NSString stringWithFormat:@"%ld天前",(long)days];
+//    }
+//    //秒转月
+//    NSInteger months = time/3600/24/30;
+//    if (months < 12) {
+//        return [NSString stringWithFormat:@"%ld月前",(long)months];
+//    }
+//    //秒转年
+//    NSInteger years = time/3600/24/30/12;
+//    return [NSString stringWithFormat:@"%ld年前",(long)years];
 }
 
 + (NSArray *)getTagsFromTagString:(NSString *)tagString{

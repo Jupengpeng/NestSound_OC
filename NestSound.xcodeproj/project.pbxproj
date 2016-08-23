@@ -176,6 +176,8 @@
 		695619011D61C35500102BC7 /* MainTouchTableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695618FE1D61C35500102BC7 /* MainTouchTableTableView.m */; };
 		695619021D61C35500102BC7 /* MYSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619001D61C35500102BC7 /* MYSegmentView.m */; };
 		695619051D61C8C500102BC7 /* NSThemeTopicTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */; };
+		695735EE1D6C224E00D1A269 /* NSUserWorkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695735ED1D6C224E00D1A269 /* NSUserWorkListController.m */; };
+		695735F11D6C2D3700D1A269 /* NSUserMusicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 695735F01D6C2D3700D1A269 /* NSUserMusicListModel.m */; };
 		695845131D63039D00F93827 /* NSThemeTopicCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */; };
 		697368211D6576CE001D2A34 /* NSCustomMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697368201D6576CE001D2A34 /* NSCustomMusicController.m */; };
 		697A7CC51D6860B60038F16C /* NSMusicianListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 697A7CC41D6860B60038F16C /* NSMusicianListModel.m */; };
@@ -579,6 +581,10 @@
 		695619001D61C35500102BC7 /* MYSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYSegmentView.m; sourceTree = "<group>"; };
 		695619031D61C8C500102BC7 /* NSThemeTopicTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeTopicTopView.h; sourceTree = "<group>"; };
 		695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeTopicTopView.m; sourceTree = "<group>"; };
+		695735EC1D6C224E00D1A269 /* NSUserWorkListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserWorkListController.h; sourceTree = "<group>"; };
+		695735ED1D6C224E00D1A269 /* NSUserWorkListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserWorkListController.m; sourceTree = "<group>"; };
+		695735EF1D6C2D3700D1A269 /* NSUserMusicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserMusicListModel.h; sourceTree = "<group>"; };
+		695735F01D6C2D3700D1A269 /* NSUserMusicListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserMusicListModel.m; sourceTree = "<group>"; };
 		695845111D63039D00F93827 /* NSThemeTopicCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeTopicCommentCell.h; sourceTree = "<group>"; };
 		695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeTopicCommentCell.m; sourceTree = "<group>"; };
 		6973681F1D6576CE001D2A34 /* NSCustomMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCustomMusicController.h; sourceTree = "<group>"; };
@@ -859,6 +865,8 @@
 				697368201D6576CE001D2A34 /* NSCustomMusicController.m */,
 				69219FC91D658A9200B55B9E /* NSActivityOverViewController.h */,
 				69219FCA1D658A9200B55B9E /* NSActivityOverViewController.m */,
+				695735EC1D6C224E00D1A269 /* NSUserWorkListController.h */,
+				695735ED1D6C224E00D1A269 /* NSUserWorkListController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -890,6 +898,8 @@
 				69D542591D66F81600B26021 /* NSJoinedWorkListModel.m */,
 				697A7CC31D6860B60038F16C /* NSMusicianListModel.h */,
 				697A7CC41D6860B60038F16C /* NSMusicianListModel.m */,
+				695735EF1D6C2D3700D1A269 /* NSUserMusicListModel.h */,
+				695735F01D6C2D3700D1A269 /* NSUserMusicListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2760,6 +2770,7 @@
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
+				695735EE1D6C224E00D1A269 /* NSUserWorkListController.m in Sources */,
 				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
 				6990E6B51D6457BB005F344F /* NSStarMusicianDetailController.m in Sources */,
 				2A4564191D05533500D4DB5F /* NSCommentListModel.m in Sources */,
@@ -2859,6 +2870,7 @@
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
 				697368211D6576CE001D2A34 /* NSCustomMusicController.m in Sources */,
 				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
+				695735F11D6C2D3700D1A269 /* NSUserMusicListModel.m in Sources */,
 				2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */,
 				691F11A91D64BC5F00BACEEA /* NSBiaoqianView.m in Sources */,
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,

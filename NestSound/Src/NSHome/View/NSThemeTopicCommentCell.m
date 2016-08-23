@@ -23,7 +23,6 @@ static NSInteger const kLabelTag = 200;
 @property (nonatomic,strong) UILabel *favourateCount;
 @property (nonatomic,strong) UILabel *collectedCount;
 
-@property (nonatomic,strong) UIButton *songCoverButton;
 
 @property (nonatomic,strong) UIImageView *songCoverImageView;
 
@@ -290,6 +289,7 @@ static NSInteger const kLabelTag = 200;
 
     _workDetailModel = workDetailModel;
     
+    
     if (workDetailModel.isMusic) {
         [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_play"] forState:UIControlStateNormal];
         [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_suspended"] forState:UIControlStateSelected];
@@ -311,7 +311,7 @@ static NSInteger const kLabelTag = 200;
     self.releaserLabel.text = workDetailModel.nickname;
     self.releaseTimeLabel.text = [NSTool updateTimeForCreateTimeIntrval:workDetailModel.jointime];
     self.songName.text = [NSString stringWithFormat:@"歌曲名：%@",workDetailModel.title];
-    self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",workDetailModel.author];
+    self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",workDetailModel.nickname];
     self.watchedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.looknum];
     self.favourateCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.zannum];
     self.collectedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.fovnum];
@@ -353,8 +353,14 @@ static NSInteger const kLabelTag = 200;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.workDetailModel.commentnum;
-}
+    if (_workDetailModel.commentnum > 3) {
+        
+        return 3;
+        
+    }else{
+        
+        return _workDetailModel.commentnum;
+    }}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 20.0f;
