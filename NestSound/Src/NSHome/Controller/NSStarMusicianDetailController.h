@@ -11,5 +11,6 @@
 @interface NSStarMusicianDetailController : NSBaseViewController
 
 @property (nonatomic,copy) NSString *uid;
+@property (nonatomic,copy) NSString *name;
 
 @end

@@ -398,9 +398,18 @@ static NSInteger const kButtonTag = 450;
             }];
             if (JUserID) {
                 
+                /**
+                 *  0 是歌曲
+                 */
+                if ([self.type isEqualToString:@"0"]) {
+                    NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
+                    accompanyList.aid = self.aid;
+                    [self.navigationController pushViewController:accompanyList animated:YES];
+                }else{
                 NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
                 writeLyricVC.aid = self.aid;
                 [self.navigationController pushViewController:writeLyricVC animated:YES];
+                }
                 
             } else {
                 
@@ -421,9 +430,8 @@ static NSInteger const kButtonTag = 450;
             }];
             if (JUserID) {
                 
-                NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
-                accompanyList.aid = self.aid;
-                [self.navigationController pushViewController:accompanyList animated:YES];
+                
+
             }
             else {
                 
@@ -531,6 +539,7 @@ static NSInteger const kButtonTag = 450;
     
     //添加pageView
     [cell.contentView addSubview:self.setPageViewControllers];
+    
     
     return cell;
 }

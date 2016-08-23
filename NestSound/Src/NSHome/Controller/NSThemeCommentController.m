@@ -94,19 +94,11 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
                     if ([NSPlayMusicViewController sharedPlayMusic].itemUid) {
                         if (detailModel.itemid == [NSPlayMusicViewController sharedPlayMusic].itemUid) {
                             detailModel.isPlay = YES;
-                            
                         }
                     }
-
-                    
                 }
-                
-                
-                
             }
-            
             [self.dataArray addObjectsFromArray:workListModel.joinWorkList];
-        
         }
         
         [self.tableView reloadData];
@@ -233,22 +225,26 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     cell.workDetailModel = workListModel;
 
     WS(wSelf);
-
+    /**
+     *  发表评论
+     */
     cell.launchCommentClick = ^(NSInteger clickIndex,id dog){
         
-        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: 10 andType:2];
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: workListModel.itemid andType:[self.type intValue]];
         
-        commentVC.musicName = @"假的";
+        commentVC.musicName = workListModel.title;
         
         [wSelf.navigationController pushViewController:commentVC animated:YES];
 
     };
-    
+    /**
+     *  更多评论
+     */
     cell.moreCommentClick = ^(NSInteger clickIndex,id dog){
-        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: 11 andType:2];
+        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: workListModel.itemid andType:[self.type intValue]];
         //        NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: wSelf.lyricDetail.itemId andType:2];
         
-        commentVC.musicName = @"假的";
+        commentVC.musicName = workListModel.title;
         
         [self.navigationController pushViewController:commentVC animated:YES];
         
@@ -270,7 +266,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
          */
         if (clickButton.selected) {
             [NSPlayMusicViewController sharedPlayMusic].itemUid = workListModel.itemid;
-            if (self.player) {
+            if (!self.player) {
                 [NSPlayMusicTool pauseMusicWithName:nil];
                 self.player = [NSPlayMusicTool playMusicWithUrl:workDetailModel.mp3 block:^(AVPlayerItem *item) {}];
             } else {
@@ -282,6 +278,13 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
             //        self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
         }
         
+    };
+    
+    
+    cell.commetorClickBlock = ^(NSInteger userId){
+        NSUserPageViewController *userPageController = [[NSUserPageViewController alloc]initWithUserID:[NSString stringWithFormat:@"%ld",userId]];
+        userPageController.who = His;
+        [self.navigationController pushViewController:userPageController animated:YES];
     };
     
     return cell;
@@ -297,7 +300,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         
         playVC.itemUid = workListModel.itemid;
-        playVC.from = @"tuijian";
+//        playVC.from = @"tuijian";
         
         playVC.songID = indexPath.section;
         playVC.songAry = self.itemIdArr;

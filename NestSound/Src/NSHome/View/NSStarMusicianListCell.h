@@ -6,13 +6,13 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
-@class NSMusicianDetailModel;
+@class NSMusicianListDetailModel;
 
 #import <UIKit/UIKit.h>
 
 @interface NSStarMusicianListCell : UITableViewCell
 
-@property (nonatomic,strong) NSMusicianDetailModel *musicianModel;
+@property (nonatomic,strong) NSMusicianListDetailModel *musicianModel;
 
 - (void)updateUIWithData;
 

@@ -84,6 +84,9 @@
      
      */
     self.activityCover = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 135, 90)];
+    self.activityCover.clipsToBounds = YES;
+    self.activityCover.contentMode = UIViewContentModeScaleAspectFill;
+    
     [self.topView addSubview:self.activityCover];
     [self.activityCover mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView).offset(10);
@@ -305,7 +308,7 @@
             NSActivityJoinerDetailModel *joinerDetailModel = joinerArr[i];
             UIButton *headButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
                 
-                
+                btn.contentMode = UIViewContentModeScaleAspectFill;
                 btn.frame = CGRectMake(padding + (headerWidth + padding) * i, 43, headerWidth, headerWidth);
                 btn.clipsToBounds = YES;
                 btn.layer.cornerRadius = headerWidth/2.0f;

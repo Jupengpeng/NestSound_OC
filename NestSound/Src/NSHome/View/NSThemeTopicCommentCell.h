@@ -12,7 +12,7 @@ typedef void(^NSThemeTopicCommentCellMoreCommentBlock)(NSInteger clickIndex,id o
 typedef void(^NSThemeTopicCommentCellLaunchCommentBlock)(NSInteger clickIndex,id obj);
 typedef void(^NSThemeTopicCommentCellHeaderClickBlock)(NSJoinedWorkDetailModel *workDetailModel);
 typedef void(^NSThemeTopicCommentCellWorkCoverBlock)(NSJoinedWorkDetailModel *workDetailModel,UIButton *clickButton);
-
+typedef void(^NSThemeTopicCommentCellCommentorClickBlock)(NSInteger commentorId);
 #import <UIKit/UIKit.h>
 
 @interface NSThemeTopicCommentCell : UITableViewCell
@@ -25,8 +25,9 @@ typedef void(^NSThemeTopicCommentCellWorkCoverBlock)(NSJoinedWorkDetailModel *wo
 @property (nonatomic,copy) NSThemeTopicCommentCellHeaderClickBlock headerClickBlock;
 
 @property (nonatomic,copy) NSThemeTopicCommentCellWorkCoverBlock workCoverBlock;
-
+@property (nonatomic,copy) NSThemeTopicCommentCellCommentorClickBlock commetorClickBlock;
 
 @property (nonatomic,strong) NSJoinedWorkDetailModel *workDetailModel;
+
 
 @end

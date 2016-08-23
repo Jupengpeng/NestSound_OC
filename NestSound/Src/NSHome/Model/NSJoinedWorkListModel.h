@@ -7,16 +7,50 @@
 //
 
 #import "NSBaseModel.h"
-#import "NSCommentMessageListModel.h"
 
 
 
+@protocol NSJoinWorkCommentModel
+@end
 
-@interface NSJoinWorkCommentDataListModel : NSBaseModel
+@interface NSJoinWorkCommentModel : NSBaseModel
 
-@property (nonatomic,strong) NSArray<commentMessageModel> *workCommonList;
+
+@property (nonatomic, assign) NSInteger commentId;
+
+@property (nonatomic, assign) NSInteger target_uid;
+
+@property (nonatomic, copy) NSString *headerurl;
+
+@property (nonatomic, assign) NSInteger uid;
+
+@property (nonatomic, assign) NSInteger comment_type;
+
+@property (nonatomic, assign) NSInteger isread;
+
+@property (nonatomic, copy) NSString *comment;
+
+@property (nonatomic, copy) NSString *targetheaderurl;
+
+@property (nonatomic, assign) NSInteger type;
+
+@property (nonatomic, copy) NSString *target_nickname;
+
+@property (nonatomic, assign) NSInteger itemid;
+
+@property (nonatomic, copy) NSString *nickname;
+
+@property (nonatomic, assign) long long createdate;
+
 
 @end
+
+//
+//@interface NSJoinWorkCommentDataListModel : NSBaseModel
+//
+//@property (nonatomic,strong) NSArray<NSJoinWorkCommentModel> *workCommonList;
+//
+//@end
 
 
 
@@ -49,7 +83,7 @@
 
 @property (nonatomic, copy) NSString *nickname;
 
-@property (nonatomic,strong) NSArray<commentMessageModel> *workCommonList;
+@property (nonatomic,strong) NSArray<NSJoinWorkCommentModel> *workCommonList;
 
 
 @property (nonatomic,copy) NSString *mp3;

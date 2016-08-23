@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class NSStarMusicianModel;
+@class NSMusicianModel;
 
 @interface NSStarMusicianTopCell : UITableViewCell
 
-@property (nonatomic,strong) NSStarMusicianModel *musicianModel;
+@property (nonatomic,strong) NSMusicianModel *musicianModel;
 
 @end
