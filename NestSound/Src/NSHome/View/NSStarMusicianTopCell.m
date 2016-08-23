@@ -42,6 +42,8 @@
     self.headIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
     self.headIcon.clipsToBounds = YES;
     self.headIcon.layer.cornerRadius = 30.0f;
+    self.headIcon.contentMode = UIViewContentModeScaleAspectFill;
+
     [self addSubview:self.headIcon];
     
     [self.headIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,15 +89,18 @@
 
 
 
-- (void)setMusicianModel:(NSStarMusicianModel *)musicianModel{
+- (void)setMusicianModel:(NSMusicianModel *)musicianModel{
     
-    [self.headIcon setDDImageWithURLString:@"" placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [self.headIcon setDDImageWithURLString:musicianModel.pic placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     
-    self.nameLabel.text = @"徐佳莹";
-    self.briefLabe.text = @"创作女歌手，音乐人";
+    self.nameLabel.text = musicianModel.name;
+//    @"徐佳莹";
+    self.briefLabe.text = musicianModel.introduction;
+//    @"创作女歌手，音乐人";
     
     
-    NSString *contentStr  = @"    2010年发表单曲《空》收录在大石原唱音乐自选集发表作品:电视剧“我的经济适用男“片尾曲放开爱、戚薇电视剧”爱情自有天意“插曲《小小世界》、娄艺潇电视剧”爱的多米诺“片头曲《爱的多米诺》、阿悄戚薇《失窃之物》专辑主打歌《失窃之物》、box专辑《路》收录《双面人》钟纯研、单曲《@所有怀疑我的人》。";
+    NSString *contentStr  = [NSString stringWithFormat:@"       %@",musicianModel.musicianDescription];
+//    @"    2010年发表单曲《空》收录在大石原唱音乐自选集发表作品:电视剧“我的经济适用男“片尾曲放开爱、戚薇电视剧”爱情自有天意“插曲《小小世界》、娄艺潇电视剧”爱的多米诺“片头曲《爱的多米诺》、阿悄戚薇《失窃之物》专辑主打歌《失窃之物》、box专辑《路》收录《双面人》钟纯研、单曲《@所有怀疑我的人》。";
     
     CGFloat contentHeight = [NSTool getHeightWithContent:contentStr width:ScreenWidth - 30 font:[UIFont systemFontOfSize:12] lineOffset:0];
     self.descriptionLabel.text = contentStr;
@@ -104,9 +109,10 @@
         make.height.mas_equalTo(contentHeight);
     }];
     
-    NSArray *bilities = @[@"作词",@"作曲",@"编曲",@"德玛西亚"];
+    NSArray *bilities = [NSTool getTagsFromTagString:musicianModel.ability];
+//  @[@"作词",@"作曲",@"编曲",@"德玛西亚"];
     CGFloat currentOriginX = 100;
-    for (NSInteger i = 0 ; i < 4; i ++) {
+    for (NSInteger i = 0 ; i < bilities.count; i ++) {
         NSBiaoqianView *biaoqianView = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
         biaoqianView.title = bilities[i];
         biaoqianView.origin = CGPointMake(currentOriginX, 65);

@@ -211,6 +211,9 @@ static id _instance;
         
     } else {
         if (!parserObject.success) {
+            /**
+             *  下载歌曲 播放
+             */
             if ([operation.urlTag isEqualToString:url]) {
                 NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
                 if ([[NSString stringWithFormat:@"%zd",musicModel.musicdDetail.userID] isEqualToString: JUserID]) {
@@ -929,10 +932,16 @@ static id _instance;
 - (void)nextBtnClick:(UIButton *)btn {
     
     if (self.songAry.count != 0) {
+        /**
+         *  当前歌曲为歌单的最后一首，跳到第一首歌曲
+         */
         if (self.songID == self.songAry.count - 1) {
             self.itemUid   = [[self.songAry firstObject] longValue];
             self.songID = 0;
         }else{
+            /**
+             *  下一首歌曲
+             */
             self.songID = self.songID + 1;
             self.itemUid   = [self.songAry[self.songID] longValue];
         }

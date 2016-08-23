@@ -8,7 +8,7 @@
 
 #import "NSMusicianListModel.h"
 
-@implementation NSMusicianDetailModel 
+@implementation NSMusicianListDetailModel 
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
 
@@ -29,3 +29,7 @@
              };
 }
 @end
+
+
+
+

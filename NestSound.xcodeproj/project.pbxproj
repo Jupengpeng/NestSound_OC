@@ -185,6 +185,7 @@
 		6984FC181D6432B5002EA0F5 /* NSStarMusicianListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6984FC171D6432B5002EA0F5 /* NSStarMusicianListCell.m */; };
 		6990E6B51D6457BB005F344F /* NSStarMusicianDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6990E6B41D6457BB005F344F /* NSStarMusicianDetailController.m */; };
 		6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */; };
+		69BB93AE1D6AEB330017140F /* NSThemeCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BB93AD1D6AEB330017140F /* NSThemeCommentCell.m */; };
 		69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */; };
 		69D5425A1D66F81600B26021 /* NSJoinedWorkListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D542591D66F81600B26021 /* NSJoinedWorkListModel.m */; };
 		69D582FC1D66B4A30078D5AE /* NSActivityJoinerListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D582FB1D66B4A30078D5AE /* NSActivityJoinerListModel.m */; };
@@ -596,6 +597,8 @@
 		6990E6B41D6457BB005F344F /* NSStarMusicianDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStarMusicianDetailController.m; sourceTree = "<group>"; };
 		6995A7831D61A3F700DAF325 /* NSThemeActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeActivityController.h; sourceTree = "<group>"; };
 		6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeActivityController.m; sourceTree = "<group>"; };
+		69BB93AC1D6AEB330017140F /* NSThemeCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeCommentCell.h; sourceTree = "<group>"; };
+		69BB93AD1D6AEB330017140F /* NSThemeCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeCommentCell.m; sourceTree = "<group>"; };
 		69BC453F1D62BD3A009C9171 /* NSThemeCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeCommentController.h; sourceTree = "<group>"; };
 		69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeCommentController.m; sourceTree = "<group>"; };
 		69D542581D66F81600B26021 /* NSJoinedWorkListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSJoinedWorkListModel.h; sourceTree = "<group>"; };
@@ -918,6 +921,8 @@
 				695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */,
 				695845111D63039D00F93827 /* NSThemeTopicCommentCell.h */,
 				695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */,
+				69BB93AC1D6AEB330017140F /* NSThemeCommentCell.h */,
+				69BB93AD1D6AEB330017140F /* NSThemeCommentCell.m */,
 				6984FC161D6432B5002EA0F5 /* NSStarMusicianListCell.h */,
 				6984FC171D6432B5002EA0F5 /* NSStarMusicianListCell.m */,
 				69DA389D1D6461AB002246E0 /* NSStarMusicianTopCell.h */,
@@ -2836,6 +2841,7 @@
 				690E09021D65D75700C21750 /* NSActivityDetailModel.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
 				69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */,
+				69BB93AE1D6AEB330017140F /* NSThemeCommentCell.m in Sources */,
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
 				2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */,
 				1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */,

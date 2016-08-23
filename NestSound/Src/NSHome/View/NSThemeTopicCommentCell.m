@@ -5,11 +5,14 @@
 //  Created by 鞠鹏 on 16/8/16.
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
+static NSInteger const kLabelTag = 200;
 
 #import "NSThemeTopicCommentCell.h"
 #import "NSJoinedWorkListModel.h"
 #import "UIButton+WebCache.h"
 #import "NSTool.h"
+#import "NSThemeCommentCell.h"
+#import "NSUserPageViewController.h"
 @interface NSThemeTopicCommentCell ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UIButton *headerIcon;
 @property (nonatomic,strong) UILabel *releaserLabel;
@@ -21,6 +24,8 @@
 @property (nonatomic,strong) UILabel *collectedCount;
 
 @property (nonatomic,strong) UIButton *songCoverButton;
+
+@property (nonatomic,strong) UIImageView *songCoverImageView;
 
 //@property (nonatomic,strong) UITableView *commentTextView;
 
@@ -60,7 +65,7 @@
     self.headerIcon = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.clipsToBounds = YES;
         btn.layer.cornerRadius = 45/2.0f;
-
+        btn.contentMode = UIViewContentModeScaleAspectFill;
     } action:^(UIButton *btn) {
         [self userButtonClick:btn];
         
@@ -97,12 +102,21 @@
         make.top.equalTo(self.mas_top).offset(33);
     }];
     
+    self.songCoverImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    self.songCoverImageView.clipsToBounds = YES;
+    self.songCoverImageView.userInteractionEnabled = YES;
+    self.songCoverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self addSubview:self.songCoverImageView];
+    [self.songCoverImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(10);
+        make.top.equalTo(self.headerIcon.mas_bottom).offset(10);
+        make.width.mas_equalTo(76);
+        make.height.mas_equalTo(76);
+    }];
+    
     self.songCoverButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.frame = CGRectMake(0, 0, 76, 76);
-        
-        [btn setBackgroundImage:[UIImage imageNamed:@"2.0_placeHolder_long"] forState:UIControlStateNormal];
-        
-
+        btn.clipsToBounds = YES;
         
     } action:^(UIButton *btn) {
         [self coverButtonClick:btn];
@@ -276,17 +290,18 @@
 
     _workDetailModel = workDetailModel;
     
-    
     if (workDetailModel.isMusic) {
         [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_play"] forState:UIControlStateNormal];
-        
         [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_suspended"] forState:UIControlStateSelected];
     }else{
         
     }
     
     [self.headerIcon sd_setBackgroundImageWithURL:[NSURL URLWithString:workDetailModel.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] ];
-    [self.songCoverButton sd_setBackgroundImageWithURL:[NSURL URLWithString:workDetailModel.pic] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [self.songCoverImageView setDDImageWithURLString:workDetailModel.pic placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+
+    
+
     /**
      * 封面点击状态
      */
@@ -346,19 +361,29 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellId = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+
+    NSThemeCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSThemeCommentCellID"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.commentLabel.tag = kLabelTag + indexPath.row;
+    NSJoinWorkCommentModel *commentModel = self.workDetailModel.workCommonList[indexPath.row];
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
+    cell.commentModel = commentModel;
+
+    cell.commetorClickBlock = ^(NSInteger uid){
+        if (self.commetorClickBlock) {
+            self.commetorClickBlock(uid);
+        }
+    };
     
-    cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
-    cell.textLabel.textColor = [UIColor hexColorFloat:@"878787"];
-    cell.textLabel.text = @"韦礼安：我的惶恐我的哀愁全部成空";
     return cell;
 }
+
+#pragma make - 
+
+#pragma mark - TTTAttributedLabelDelegate
+
+
+
 
 #pragma mark button's actions
 
@@ -401,6 +426,7 @@
     if (!_tableView) {
         
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 280)];
+    [_tableView registerClass:[NSThemeCommentCell class] forCellReuseIdentifier:@"NSThemeCommentCellID"];
     _tableView.bounces = NO;
     _tableView.delegate = self;
     _tableView.dataSource = self;

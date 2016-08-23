@@ -48,7 +48,7 @@
     self.headerImageView = [[UIImageView alloc] init];
     self.headerImageView.clipsToBounds = YES;
     self.headerImageView.layer.cornerRadius = 30.0f;
-    
+    self.headerImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     [self addSubview:self.headerImageView];
     [self.headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -79,7 +79,7 @@
     [self addSubview:self.tag2View];
 }
 
-- (void)setMusicianModel:(NSMusicianDetailModel *)musicianModel{
+- (void)setMusicianModel:(NSMusicianListDetailModel *)musicianModel{
 
     _musicianModel = musicianModel;
     

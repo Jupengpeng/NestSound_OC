@@ -11,20 +11,41 @@
 
 
 
-
-
-@implementation NSJoinWorkCommentDataListModel
+@implementation NSJoinWorkCommentModel
 
 
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    return @{@"joinerList":@"data",
-             @"code":@"code",
-             @"message":@"message"
+    return @{@"commentId":@"id",
+             @"target_uid":@"target_uid",
+             @"headerurl":@"headerurl",
+             @"uid":@"uid",
+             @"comment_type":@"comment_type",
+             @"isread":@"isread",
+             @"comment":@"comment",
+             @"targetheaderurl":@"targetheaderurl",
+             @"type":@"type",
+             @"target_nickname":@"target_nickname",
+             @"itemid":@"itemid",
+             @"nickname":@"nickname",
+             @"createdate":@"createdate"
              };
 }
 
 @end
+
+//@implementation NSJoinWorkCommentDataListModel
+//
+//
+//-(NSDictionary *)modelKeyJSONKeyMapper
+//{
+//    return @{@"joinerList":@"data",
+//             @"code":@"code",
+//             @"message":@"message"
+//             };
+//}
+//
+//@end
 
 
 

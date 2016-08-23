@@ -57,8 +57,11 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
-    NSString *clickStr=request.URL.absoluteString;
     
+
+    
+    NSString *clickStr=request.URL.absoluteString;
+
     /**
      *  电话
      */
@@ -78,7 +81,8 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
         /**
          音乐人 id
          */
-        NSRange uidRange = NSMakeRange(range.location + range.length, clickStr.length - (range.location + range.length));
+        NSRange rightRange = [clickStr rangeOfString:@"?"];
+        NSRange uidRange = NSMakeRange(range.location + range.length, rightRange.location  - (range.location + range.length));
         NSString *uid = [clickStr substringWithRange:uidRange];
         NSStarMusicianDetailController *detailController = [[NSStarMusicianDetailController alloc]init];
         detailController.uid = uid;

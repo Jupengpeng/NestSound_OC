@@ -12,10 +12,10 @@
 /**
  *  音乐人列表部分
  */
-@protocol NSMusicianDetailModel <NSObject>
+@protocol NSMusicianListDetailModel <NSObject>
 @end
 
-@interface NSMusicianDetailModel : NSBaseModel
+@interface NSMusicianListDetailModel : NSBaseModel
 
 
 @property (nonatomic, assign) NSInteger musicianId;
@@ -35,37 +35,14 @@
 @interface NSMusicianListModel : NSBaseModel
 
 
-@property (nonatomic,strong) NSArray<NSMusicianDetailModel> *musicianList;
-
-@end
-
-
-/**
- *  音乐人 详情 部分
- */
-
-@interface NSMusiciaDetailModel : NSBaseModel
-
-
-@property (nonatomic,strong) NSArray<NSMusicianDetailModel> *musicianList;
-
-@end
-
-@interface musician : NSBaseModel
-
-
-@property (nonatomic,strong) NSArray<NSMusicianDetailModel> *musicianList;
+@property (nonatomic,strong) NSArray<NSMusicianListDetailModel> *musicianList;
 
 @end
 
 
 
-@interface worklist : NSBaseModel
 
 
-@property (nonatomic,strong) NSArray<NSMusicianDetailModel> *musicianList;
-
-@end
 
 
 

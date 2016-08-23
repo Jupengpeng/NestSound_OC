@@ -101,7 +101,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     if (self.musicianArray.count) {
-        NSMusicianDetailModel *detailModel = self.musicianArray[indexPath.section];
+        NSMusicianListDetailModel *detailModel = self.musicianArray[indexPath.section];
         cell.musicianModel = detailModel;
     }
     
@@ -110,10 +110,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSMusicianDetailModel *detailModel = self.musicianArray[indexPath.section];
+    NSMusicianListDetailModel *detailModel = self.musicianArray[indexPath.section];
 
     NSStarMusicianDetailController *detailController= [[NSStarMusicianDetailController alloc]init];
     detailController.uid = [NSString stringWithFormat:@"%ld",detailModel.musicianId];
+    detailController.name = detailModel.name;
     [self.navigationController pushViewController:detailController animated:YES];
 }
 
@@ -126,7 +127,7 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
-        
+        _tableView.backgroundColor = [UIColor hexColorFloat:@"efeff4"];
         [_tableView registerClass:[NSStarMusicianListCell class] forCellReuseIdentifier:@"NSStarMusicianListCellId"];
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.delegate = self;
