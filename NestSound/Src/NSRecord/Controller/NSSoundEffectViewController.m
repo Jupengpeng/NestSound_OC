@@ -8,7 +8,6 @@
 
 #import "NSSoundEffectViewController.h"
 #import "NSPublicLyricViewController.h"
-//#import "NSWaveformView.h"
 #import "NSTunMusicModel.h"
 #import <AVFoundation/AVFoundation.h>
 @interface NSSoundEffectViewController ()<UIAlertViewDelegate>
@@ -34,6 +33,8 @@
     int num, a,speed;
     
     long effectId;
+    
+    CGFloat timerNum;
 }
 @property (nonatomic, strong) NSWaveformView *waveform;
 @property (nonatomic, strong) NSMutableArray *btns;
@@ -41,6 +42,8 @@
 @property (nonatomic, strong) AVPlayerItem *musicItem;
 @property (nonatomic, strong) AVPlayer *player;
 @property (nonatomic, strong) UIAlertView *alertView;
+@property (nonatomic, strong)  CADisplayLink *link;
+@property (nonatomic, strong)  CADisplayLink *waveLink;
 @end
 
 @implementation NSSoundEffectViewController
@@ -54,9 +57,14 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     effectId = 0;
-    num = [self.musicTime floatValue];
-    speed = 2.4 * self.waveArray.count/[self.musicTime floatValue];
+//    num = [self.musicTime floatValue];
+//    speed = 2.4 * self.waveArray.count/[self.musicTime floatValue];
     [self setupSoundEffectUI];
+    [self addLink];
+    [self addWaveLink];
+    [self.link setPaused:YES];
+    [self.waveLink setPaused:YES];
+    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 #pragma mark -fetchData
 - (void)fetchTuningMusic {
@@ -165,7 +173,7 @@
     
     totalTimeLabel.font = [UIFont systemFontOfSize:10];
     
-    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",self.musicTime];
+    totalTimeLabel.text = [NSString stringWithFormat:@"/%02zd:%02zd",(NSInteger)self.musicTime/60, (NSInteger)self.musicTime % 60];
     [totalTimeLabel setTextColor:[UIColor lightGrayColor]];
     
     [self.view addSubview:totalTimeLabel];
@@ -183,7 +191,7 @@
     
     self.timeLabel.font = [UIFont systemFontOfSize:10];
     
-    self.timeLabel.text = [NSString stringWithFormat:@"00:00"];
+    self.timeLabel.text = @"00:00";
     [self.timeLabel setTextColor:[UIColor lightGrayColor]];
     [self.view addSubview:self.timeLabel];
     
@@ -343,26 +351,16 @@
         self.musicItem = [AVPlayerItem playerItemWithURL:url];
         self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
     }
-    timer = [NSTimer timerWithTimeInterval:0.25 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
-//
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     [self.player play];
-    
+    [self.waveLink setPaused:NO];
+    [self.link setPaused:NO];
 }
-- (void)timerAction {
-    num--;
-    a ++;
-    [self.waveform.timeScrollView setContentOffset:CGPointMake(-a * speed, 0) animated:NO];
-    
-    if (num == 0) {
-        
-        num = [self.musicTime floatValue];
-        
-        [timer invalidate];
-    }
-}
+
 - (void)endPlaying {
-    [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+    timerNum = 0;
+    self.timeLabel.text = @"00:00";
+    [self.link setPaused:YES];
+    [self.waveLink setPaused:YES];
     auditionBtn.selected = NO;
     self.musicItem = nil;
     [self.player pause];
@@ -384,8 +382,64 @@
     }
     
 }
-- (void)dealloc{
+- (void)addLink {
     
+    if (!self.link)
+    {
+        self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
+        
+        self.link.frameInterval=4;
+        
+        [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    }
+}
+
+- (void)addWaveLink {
+    
+    if (!self.waveLink)
+    {
+        self.waveLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(scrollTimeView)];
+        
+        self.waveLink.frameInterval = 4;
+        
+        [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    }
+}
+- (void)actionTiming {
+    
+    timerNum += 1/15.0;
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+}
+- (void)scrollTimeView{
+    
+    [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
+    [self changeScrollViewColor];
+    
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+    
+    [self changeScrollViewColor];
+}
+- (void)changeScrollViewColor{
+    
+    if (self.waveArray.count == 0) {
+        return;
+    }
+    UIView* view = (UIView*)self.waveArray[0];
+    CGFloat f=  self.waveform.timeScrollView.contentOffset.x+view.frame.origin.x;
+    for (UIView* view in self.waveArray) {
+        if (view.frame.origin.x<f) {
+            view.backgroundColor = [UIColor hexColorFloat:@"ffd33f"];
+        }
+        else{
+            view.backgroundColor = [UIColor lightGrayColor];
+            
+        }
+    }
+    
+}
+- (void)dealloc{
+    [self removeObserver:self forKeyPath:@"distantKeyPathTemp" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 }
 - (NSMutableArray *)btns {

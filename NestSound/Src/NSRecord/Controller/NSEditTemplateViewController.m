@@ -91,7 +91,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return templateArr.count;
+    return templateArr.count + 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -106,15 +106,31 @@ static NSString  * const templateCellIdifity = @"templateCell";
     if (!indexPath.row) {
         
         cell.topLabel.text = [NSString stringWithFormat:@"歌名:%@",templateTitle];
+        
     } else {
         
-        cell.topLabel.text = templateArr[indexPath.row];
+        cell.templateLyric = templateArr[indexPath.row-1];
     }
     return cell;
 }
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+    if (indexPath.row) {
+        
+        NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
+        CGFloat height = [templateArr[indexPath.row-1] boundingRectWithSize:CGSizeMake(ScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
+        NSLog(@"%.f",height);
+        if (height > 40) {
+            return 70;
+        } else {
+            return 30 + height;
+        }
+        
+    } else {
+        
+        return 50;
+    }
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

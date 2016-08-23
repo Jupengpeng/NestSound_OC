@@ -11,4 +11,5 @@
 @interface NSTemplateTableViewCell : UITableViewCell
 @property (nonatomic, strong) UILabel *topLabel;
 @property (nonatomic, strong) UITextField *bottomTF;
+@property (nonatomic,copy) NSString *templateLyric;
 @end

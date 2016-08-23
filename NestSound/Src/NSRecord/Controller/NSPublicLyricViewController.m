@@ -562,8 +562,6 @@ extern Boolean plugedHeadset;
         default:
             break;
     }
-    
-
 }
 
 #pragma mark -imagePicker

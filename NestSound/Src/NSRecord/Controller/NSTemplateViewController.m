@@ -28,9 +28,11 @@ static NSString  * const templateCellIdifity = @"templateCell";
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!self.templateListArr.count) {
+        [templateListTab setContentOffset:CGPointMake(0, -60) animated:YES];
+            [templateListTab performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+    }
     
-    [templateListTab setContentOffset:CGPointMake(0, -60) animated:YES];
-    [templateListTab performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
     
 }
 #pragma mark -fectData
@@ -44,7 +46,6 @@ static NSString  * const templateCellIdifity = @"templateCell";
         self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],kIsLoadingMore:@(YES),@"token":LoginToken};
     }
     self.requestType = NO;
-    //    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",currentPage],@"uid":JUserID};
     self.requestURL = templateListUrl;
     
 }
@@ -59,20 +60,19 @@ static NSString  * const templateCellIdifity = @"templateCell";
             if ([operation.urlTag isEqualToString:templateListUrl]) {
                 NSTemplateListModel * templateList = (NSTemplateListModel *)parserObject;
                 if (!operation.isLoadingMore) {
+                    
+                    [templateListTab.pullToRefreshView stopAnimating];
+                    
                     self.templateListArr = [NSMutableArray arrayWithArray:templateList.templateList];
                 }else{
+                    
+                    [templateListTab.infiniteScrollingView stopAnimating];
+                    
                     for (NSTemplateModel *model in templateList.templateList) {
                         [self.templateListArr addObject:model];
                     }
                 }
-                if (!operation.isLoadingMore) {
-                    
-                    [templateListTab.pullToRefreshView stopAnimating];
-                    
-                } else {
-                    
-                    [templateListTab.infiniteScrollingView stopAnimating];
-                }
+                
                 [templateListTab reloadData];
             } else if ([operation.urlTag isEqualToString:deleteDraftUrl]) {
                 [[NSToastManager manager] showtoast:@"操作成功"];
@@ -88,11 +88,13 @@ static NSString  * const templateCellIdifity = @"templateCell";
     self.view.backgroundColor = KBackgroundColor;
     
     //templateListTableView
-    templateListTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-64) style:UITableViewStylePlain];
+    templateListTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
     
     templateListTab.delegate = self;
     
     templateListTab.dataSource = self;
+    
+     templateListTab.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     [self.view addSubview:templateListTab];
     
@@ -119,7 +121,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
             [wSelf fetchDraftListDataIsLoadingMore:YES];
         }
     }];
-    templateListTab.showsInfiniteScrolling = YES;
+//    templateListTab.showsInfiniteScrolling = NO;
 }
 #pragma mark - UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -133,7 +135,6 @@ static NSString  * const templateCellIdifity = @"templateCell";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:templateCellIdifity];
         cell.textLabel.text = model.title;
         
-        
     }
     return cell;
 }
@@ -144,6 +145,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSTemplateModel *model = self.templateListArr[indexPath.row];
     
     NSEditTemplateViewController *editTemplateVC = [[NSEditTemplateViewController alloc] initWithTemplateTitle:model.title templateContent:model.content];
