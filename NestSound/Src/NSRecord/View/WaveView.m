@@ -34,7 +34,6 @@
         return;
     }
     self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 29.8 - self.desibelNum/2, 1.0f,self.desibelNum)];//21
-    NSLog(@"%.f",self.waveDistance);
     self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     [self.waveArray addObject:self.realTimeView];
 

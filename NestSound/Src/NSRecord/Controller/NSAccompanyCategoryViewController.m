@@ -112,14 +112,16 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 }
 - (void)setupCategoryListUI {
     self.title = className;
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     
     //accompanyListTableView
     accompanyListTabelView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth-20, ScreenHeight) style:UITableViewStyleGrouped];
     accompanyListTabelView.dataSource = self;
     accompanyListTabelView.delegate = self;
+    accompanyListTabelView.separatorStyle =UITableViewCellSeparatorStyleNone;
 //    accompanyListTabelView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
+    accompanyListTabelView.backgroundColor = [UIColor whiteColor];
     [accompanyListTabelView registerClass:[NSAccompanyTableCell class] forCellReuseIdentifier:accompanyCellIditify];
     
     [self.view addSubview:accompanyListTabelView];

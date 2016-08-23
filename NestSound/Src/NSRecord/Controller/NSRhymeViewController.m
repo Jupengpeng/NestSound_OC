@@ -44,9 +44,7 @@ static NSString *cellIdentifier = @"rhymeCell";
     rhymeTableView.dataSource = self;
     
     [rhymeTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
-    
-    rhymeTableView.backgroundColor = [UIColor colorWithRed:250.0/255 green:250.0/255 blue:250.0/255 alpha:1.0];
-    
+        
     [self.view addSubview:rhymeTableView];
     
     

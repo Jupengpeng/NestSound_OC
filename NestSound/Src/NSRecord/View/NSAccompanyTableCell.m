@@ -24,7 +24,6 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
        
-        
         [self configureUIAppearance];
 
     }

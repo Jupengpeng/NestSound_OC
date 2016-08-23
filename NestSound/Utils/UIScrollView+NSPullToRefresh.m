@@ -72,7 +72,7 @@ NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNot
         baseView = [[UIView alloc] init];
         baseView.stringTag = @"headerBaseView";
         baseView.backgroundColor = refreshView.superview.backgroundColor;
-        baseView.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 60);
+        baseView.frame = CGRectMake(0, 0, ScreenWidth, 60);
         [refreshView addSubview:baseView];
     }
     YDAnimatingView *loadingImageView = (YDAnimatingView *)[baseView viewWithStringTag:@"loadingImageView"];
@@ -98,7 +98,7 @@ NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNot
         
         baseView = [[UIView alloc] init];
         baseView.stringTag = @"footerBaseView";
-        baseView.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 60);
+        baseView.frame = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), 0);
         [infiniteView addSubview:baseView];
     }
     
@@ -114,6 +114,6 @@ NSString *const ShouldRestartAnimationNotification = @"shouldRestartAnimationNot
             make.center.equalTo(baseView);
         }];
     }
-    [infiniteImageView startAnimating];
+//    [infiniteImageView startAnimating];
 }
 @end

@@ -677,13 +677,13 @@ static NSString *ID3 = @"cell3";
         }
     }];
     //loadingMore
-    //    [_tableView addDDInfiniteScrollingWithActionHandler:^{
-    //        if (!wSelf) {
-    //            return ;
-    //        }else{
-    //            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
-    //        }
-    //    }];
+        [_tableView addDDInfiniteScrollingWithActionHandler:^{
+            if (!wSelf) {
+                return ;
+            }else{
+                [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
+            }
+        }];
     
     _tableView.showsInfiniteScrolling = YES;
     

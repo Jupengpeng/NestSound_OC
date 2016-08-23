@@ -34,33 +34,33 @@
 CGFloat count;
 
 Boolean plugedHeadset;
-static CGFloat timerNum=0;
 
-@interface CenterLine : UIView
 
-@end
-
-@implementation CenterLine
-
-#pragma mark -override drawRect
--(void)drawRect:(CGRect)rect {
-    
-    UIBezierPath * path = [UIBezierPath bezierPath];
-    
-    [path moveToPoint:CGPointMake(0, 0)];
-    
-    [path addLineToPoint:CGPointMake(self.width, self.height)];
-    
-    [path setLineWidth:self.width];
-    
-    [[UIColor hexColorFloat:@"ff833f"] setStroke];
-    
-    [[UIColor hexColorFloat:@"ff833f"] setFill];
-    
-    [path stroke];
-}
-
-@end
+//@interface CenterLine : UIView
+//
+//@end
+//
+//@implementation CenterLine
+//
+//#pragma mark -override drawRect
+//-(void)drawRect:(CGRect)rect {
+//    
+//    UIBezierPath * path = [UIBezierPath bezierPath];
+//    
+//    [path moveToPoint:CGPointMake(0, 0)];
+//    
+//    [path addLineToPoint:CGPointMake(self.width, self.height)];
+//    
+//    [path setLineWidth:self.width];
+//    
+//    [[UIColor hexColorFloat:@"ff833f"] setStroke];
+//    
+//    [[UIColor hexColorFloat:@"ff833f"] setFill];
+//    
+//    [path stroke];
+//}
+//
+//@end
 
 
 @interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric, AVAudioPlayerDelegate,UIAlertViewDelegate, AVAudioRecorderDelegate> {
@@ -73,7 +73,7 @@ static CGFloat timerNum=0;
     int clickValue;
     CGFloat timerNumTemp;
     CGFloat speed;
-
+    CGFloat timerNum;
     UITextField *titleText;
     UIImageView * listenBk;
     UIImageView * recordBk;
@@ -442,8 +442,8 @@ static CGFloat timerNum=0;
 
 //伴奏播放完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
     timerNum=0;
-
     if (player == self.player) {
         UIButton* btn = self.btns[2];
         btn.selected = NO;
@@ -493,6 +493,7 @@ static CGFloat timerNum=0;
 
     if (distant> distantKeyPath) {
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNumTemp, 0) animated:NO];
+        NSLog(@"%.f==%.f",speed,timerNumTemp);
         
     }
     
@@ -1570,12 +1571,11 @@ static CGFloat timerNum=0;
                     [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
                     
                     [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
-                    //                [self.dict setValue:mp3URL forKey:@"mp3URL"];
                     [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
                     
                     soundEffectVC.parameterDic = self.dict;
                     soundEffectVC.waveArray = self.waveform.waveView.waveArray;
-                    soundEffectVC.musicTime = self.timeLabel.text;
+                    soundEffectVC.musicTime = timerNum;
                     soundEffectVC.isLyric = NO;
                     soundEffectVC.mp3URL = dict[@"data"][@"mp3URL"];
                     soundEffectVC.mp3File = self.mp3Path;
@@ -1641,7 +1641,9 @@ static CGFloat timerNum=0;
 }
 
 - (void)scrollTimeView{
-    
+    NSLog(@"呵呵呵呵%f",speed);
+    NSLog(@"嘿嘿嘿嘿%f",timerNum);
+    NSLog(@"啦啦啦啦%f",speed*timerNum);
     self.waveform.waveView.waveDistance =speed*timerNum;
     if ([self.player isPlaying]) {
         distantKeyPath=self.waveform.timeScrollView.contentOffset.x;

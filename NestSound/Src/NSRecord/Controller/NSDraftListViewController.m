@@ -146,6 +146,8 @@ static NSString  * const draftCellIdifity = @"draftCell";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSDraftModel * model = self.draftListArr[indexPath.row];    
     
     if ([_delegate respondsToSelector:@selector(selectDraft:withDraftTitle:)]) {
