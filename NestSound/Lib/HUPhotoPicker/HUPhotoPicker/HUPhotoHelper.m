@@ -76,7 +76,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
         }
         
     } failureBlock:^(NSError *error) {
-        //NSLog(@"Group not found!");
+        CHLog(@"Group not found!");
     }];
     return nil;
 }
@@ -129,7 +129,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
             });
             
         } failureBlock:^(NSError *error) {
-           // NSLog(@"Group not found!");
+            CHLog(@"Group not found!");
         }];
 
         
@@ -144,7 +144,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
     HUAlbum *album = [[HUAlbum alloc] init];
     if (IS_IOS8_LATER) {
         PHAssetCollection *assetC = (PHAssetCollection *)assetCollection;
-//        NSLog(@"相簿名:%@", assetC.localizedTitle);
+        CHLog(@"相簿名:%@", assetC.localizedTitle);
         album.title = assetC.localizedTitle;
         PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
         options.synchronous = YES;
@@ -154,7 +154,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
         PHAsset *asset = [assets firstObject];
         // 从asset中获得图片
         [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeZero contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-//            NSLog(@"album：%@", result);
+            CHLog(@"album：%@", result);
             
             album.album = (UIImage *)result;
             
@@ -185,7 +185,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
     dispatch_async(_ioQueue, ^{
         if (IS_IOS8_LATER) {
             PHAssetCollection *assetC = (PHAssetCollection *)assetCollection;
-//            NSLog(@"相簿名:%@", assetC.localizedTitle);
+            CHLog(@"相簿名:%@", assetC.localizedTitle);
             localizedTitle = assetC.localizedTitle;
             PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
             // 同步获得图片, 只会返回1张图片

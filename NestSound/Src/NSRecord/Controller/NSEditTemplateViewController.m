@@ -119,7 +119,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
         
         NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:14]};
         CGFloat height = [templateArr[indexPath.row-1] boundingRectWithSize:CGSizeMake(ScreenWidth-20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
-        NSLog(@"%.f",height);
+        CHLog(@"%.f",height);
         if (height > 40) {
             return 70;
         } else {

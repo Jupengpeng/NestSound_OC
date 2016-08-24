@@ -130,7 +130,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                     [self fetchFansListDataWithIsLoadingMore:NO];
                 } else {
                     
-                    NSLog(@"关注");
+                    CHLog(@"关注");
                 }
                 
                 

@@ -128,6 +128,6 @@
         self.numberLab.text = [NSString stringWithFormat:@"%.f%%" , httplient.progress * 100];
     });
     
-//    NSLog(@"进度%lf",httplient.progress);
+    CHLog(@"进度%lf",httplient.progress);
 }
 @end

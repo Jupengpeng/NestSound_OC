@@ -545,33 +545,33 @@ static NSString *ID3 = @"cell3";
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //    NSLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
+    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
     
     CGFloat offSet_Y = _tableView.contentOffset.y;
     
     if (offSet_Y<-kHeadImageHeight-60) {
         //获取imageView的原始frame
         CGRect frame = headImgView.frame;
-        //        NSLog(@"旧的frame%f",frame.size.height);
+        CHLog(@"旧的frame%f",frame.size.height);
         //修改y
         frame.origin.y = offSet_Y;
-        //        NSLog(@"offset.y %f",offSet_Y);
+        CHLog(@"offset.y %f",offSet_Y);
         //修改height
         frame.size.height = -offSet_Y - 60;
         //重新赋值
         headImgView.frame = frame;
         
-        //        NSLog(@"新的frame%f",frame.size.height);
+        CHLog(@"新的frame%f",frame.size.height);
         
     }
     //tableView相对于图片的偏移量
     CGFloat reoffSet = offSet_Y + kHeadImageHeight + 60;
     
-    //    NSLog(@"%f",reoffSet);
+    CHLog(@"%f",reoffSet);
     //kHeadImageHeight-64是为了向上拉倒导航栏底部时alpha = 1
     alpha = reoffSet/(kHeadImageHeight -64);
     
-//    NSLog(@"%f",alpha);
+    CHLog(@"%f",alpha);
     
     if (alpha>=1) {
         alpha = 0.99;

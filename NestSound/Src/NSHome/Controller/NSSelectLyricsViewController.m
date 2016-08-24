@@ -145,7 +145,7 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     //
     CGFloat height = [self.lyricsArray[indexPath.row] boundingRectWithSize:CGSizeMake(ScreenWidth-70, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size.height;
     
-//    NSLog(@"lable height %.f",height);
+    CHLog(@"lable height %.f",height);
     
     CGRect frame = lyricCell.rightLabel.frame;
     
@@ -153,7 +153,7 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     
     lyricCell.rightLabel.frame = frame;
     
-//    NSLog(@"lable new height %.f",lyricCell.rightLabel.height);
+    CHLog(@"lable new height %.f",lyricCell.rightLabel.height);
     
     lyricCell.selectionStyle = UITableViewCellSelectionStyleNone;
     

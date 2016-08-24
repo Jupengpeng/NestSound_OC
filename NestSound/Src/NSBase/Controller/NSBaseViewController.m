@@ -75,7 +75,7 @@
                                                                         [wSelf actionFetchRequest:operation result:nil error:requestErr];
                                                                     }];
 
-    NSLog(@"%@",operation);
+    CHLog(@"%@",operation);
 
 }
 

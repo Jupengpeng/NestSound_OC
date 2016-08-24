@@ -55,7 +55,7 @@ extern NSString *port;
 #define releaseHost   @"http://api.yinchao.cn"
 #define releasePort   @""
 
-#ifdef Debug // 调试
+#ifdef DEBUG // 调试
 #define CHLog(...) NSLog(__VA_ARGS__)
 #define DDLog() NSLog(@"%d,%s",__LINE__,__FUNCTION__)
 #else // 发布

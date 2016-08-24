@@ -93,7 +93,7 @@
     
     taskId = [app beginBackgroundTaskWithExpirationHandler:^{
         
-        NSLog(@"后台任务超时被退出");
+        CHLog(@"后台任务超时被退出");
         [app endBackgroundTask:taskId];
         taskId = UIBackgroundTaskInvalid;
     }];
@@ -101,11 +101,10 @@
     if(taskId == UIBackgroundTaskInvalid)
         
     {
-        NSLog(@"开启后台任务失败");
+        CHLog(@"开启后台任务失败");
     }
     
-    NSLog(@"remining seconde %f",[app backgroundTimeRemaining]);
-    //NSLog(@"------------启动：self.isHeadset = %d",self.isHeadset);
+    CHLog(@"remining seconde %f",[app backgroundTimeRemaining]);
     return YES;
 }
 
@@ -173,13 +172,13 @@
             
         case AVAudioSessionRouteChangeReasonNewDeviceAvailable:
             
-           // NSLog(@"Headphone/Line plugged in");
+            CHLog(@"Headphone/Line plugged in");
             
             self.isHeadset=YES;
             break;
             
         case AVAudioSessionRouteChangeReasonOldDeviceUnavailable:
-            //NSLog(@"Headphone/Line was pulled. Stopping player....");
+            CHLog(@"Headphone/Line was pulled. Stopping player....");
             //[self.session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
             self.isHeadset=NO;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"pausePlayer" object:nil];
@@ -187,7 +186,7 @@
             
         case AVAudioSessionRouteChangeReasonCategoryChange:
             // called at start - also when other audio wants to play
-            //NSLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
+            CHLog(@"AVAudioSessionRouteChangeReasonCategoryChange");
             break;
     }
 }

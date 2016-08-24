@@ -493,9 +493,7 @@
                 _moreChoiceView.y = ScreenHeight;
             }];
             
-#ifdef debug
-            NSLog(@"点击了举报");
-#endif
+            CHLog(@"点击了举报");
             
             NSUserFeedbackViewController * feedBackVC = [[NSUserFeedbackViewController alloc] initWithType:@"post"];
             
@@ -518,7 +516,7 @@
         }];
         
         
-        NSLog(@"shareurl%@",[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]);
+        CHLog(@"shareurl%@",[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]);
         
     } else {
         //编辑
@@ -636,8 +634,7 @@
 }
 //分享
 - (void)handleShareAction:(UIButton *)sender {
-    NSLog(@"%@",sender.currentTitle);
-    WS(wSelf);
+    CHLog(@"%@",sender.currentTitle);
     UIImage * imageShare;
     NSString *contentShare = [NSString stringWithFormat:@"我用音巢APP创作了一首歌词，快来看看吧！《%@》,%@",_lyricDetail.title,[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]];
     if (_lyricDetail.titleImageUrl.length != 0) {

@@ -44,6 +44,7 @@
 @property (nonatomic, strong) UIAlertView *alertView;
 @property (nonatomic, strong)  CADisplayLink *link;
 @property (nonatomic, strong)  CADisplayLink *waveLink;
+@property (nonatomic, strong) NSMutableArray *waveViewArr;
 @end
 
 @implementation NSSoundEffectViewController
@@ -53,13 +54,18 @@
     }
     return _alertView;
 }
+- (NSMutableArray *)waveViewArr {
+    if (!_waveViewArr) {
+        self.waveViewArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _waveViewArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     effectId = 0;
-//    num = [self.musicTime floatValue];
-//    speed = 2.4 * self.waveArray.count/[self.musicTime floatValue];
     [self setupSoundEffectUI];
+    speed = 32;
     [self addLink];
     [self addWaveLink];
     [self.link setPaused:YES];
@@ -105,7 +111,6 @@
                         break;
                 }
             }
-            
         }
     }
 }
@@ -161,11 +166,11 @@
         UIView *waveView = [UIView new];
         UIView *view = self.waveArray[i];
         waveView.backgroundColor = [UIColor lightGrayColor];
-        waveView.x = _waveform.middleLineV.x + i*2;
+        waveView.x = _waveform.middleLineV.x + i*2.0;
         waveView.y = _waveform.waveView.centerY -view.size.height/2 - 0.2;
         waveView.height = view.size.height;
         waveView.width = 1.0;
-        
+        [self.waveViewArr addObject:waveView];
         [_waveform.timeScrollView addSubview:waveView];
     }
     
@@ -234,7 +239,11 @@
                 btn.tag = 170 + i * 4 + j;
                 
                 [btn addTarget:self action:@selector(auditionBtn:) forControlEvents:UIControlEventTouchUpInside];
-                
+                if (i * 4 + j == 0) {
+                    
+                    btn.selected = YES;
+                    
+                }
                 [self.btns addObject:btn];
                 
                 [self.view addSubview:btn];
@@ -332,7 +341,7 @@
             
             [self fetchTuningMusic];
             return;
-            
+           
         }
         
     } else {
@@ -425,9 +434,9 @@
     if (self.waveArray.count == 0) {
         return;
     }
-    UIView* view = (UIView*)self.waveArray[0];
+    UIView* view = (UIView*)self.waveViewArr[0];
     CGFloat f=  self.waveform.timeScrollView.contentOffset.x+view.frame.origin.x;
-    for (UIView* view in self.waveArray) {
+    for (UIView* view in self.waveViewArr) {
         if (view.frame.origin.x<f) {
             view.backgroundColor = [UIColor hexColorFloat:@"ffd33f"];
         }

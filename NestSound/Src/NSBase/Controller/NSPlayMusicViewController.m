@@ -262,7 +262,7 @@ static id _instance;
 //播放音乐
 - (void)playMusicUrl:(NSString *)musicUrl {
     
-    NSLog(@"--------musicUrl = %@",musicUrl);
+    CHLog(@"--------musicUrl = %@",musicUrl);
     WS(wSelf);
     self.player = [NSPlayMusicTool playMusicWithUrl:musicUrl block:^(AVPlayerItem *musicItem) {
         
@@ -484,7 +484,7 @@ static id _instance;
         playOrPauseBtn.selected = NO;
         
         NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
-        NSLog(@"%ld",_musicDetail.hotId);
+        CHLog(@"%ld",_musicDetail.hotId);
         [self.navigationController pushViewController:musicView animated:YES];
         
     }];
@@ -1055,7 +1055,7 @@ static id _instance;
 }
 
 - (void)handleReportBtnEvent:(UIButton *)sender {
-    NSLog(@"sender title%@",sender.currentTitle);
+    CHLog(@"sender title%@",sender.currentTitle);
     if ([sender.currentTitle isEqualToString:@"举报"]) {
         if (JUserID) {
             
@@ -1299,7 +1299,6 @@ static id _instance;
         [[NSToastManager manager] showtoast:@"复制成功"];
     } else if ([sender.currentImage isEqual: [UIImage imageNamed:@"2.0_lyricPoster"]]) {
         
-        NSLog(@"制作歌词海报");
         NSSelectLyricsViewController *selectLyricVC = [[NSSelectLyricsViewController alloc] init];
         selectLyricVC.lyrics = self.musicDetail.lyrics;
         selectLyricVC.lyricTitle = self.musicDetail.title;
@@ -1339,11 +1338,11 @@ static id _instance;
     if (event.type == UIEventTypeRemoteControl) {
         switch (event.subtype) {
             case UIEventSubtypeRemoteControlTogglePlayPause:
-                NSLog(@" 暂停");
+                CHLog(@" 暂停");
                 [self playOrPauseBtnClick:self.playOrPauseBtn];
                 break;
             case  UIEventSubtypeRemoteControlNextTrack:
-                NSLog(@"下一首");
+                CHLog(@"下一首");
                 [self nextBtnClick:nil];
                 break;
             default:

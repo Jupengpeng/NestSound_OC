@@ -76,7 +76,7 @@ static NSHttpClient *client;
                                    failure:(void(^)(NSURLSessionDataTask *operation,NSError *requestErr))failure {
     
     NSMutableDictionary *transferParas = [parasDict mutableCopy];
-    NSLog(@"paraDisct%@",parasDict);
+    CHLog(@"paraDisct%@",parasDict);
     // Loading
     BOOL showLoading = ![[transferParas objectForKey:kNoLoading] boolValue];
     [transferParas removeObjectForKey:kNoLoading];
@@ -103,9 +103,7 @@ static NSHttpClient *client;
                               
                               //                              [[NSToastManager manager] hideprogress];
                           }
-#ifdef DEBUG
-                          NSLog(@"RESPONSE JSON:%@", responseObject);
-#endif
+                          CHLog(@"RESPONSE JSON:%@", responseObject);
                           
                           //                          if (!success) {
                           //                              return ;
@@ -157,9 +155,7 @@ static NSHttpClient *client;
                                
                                [[NSToastManager manager] hideprogress];
                            }
-#ifdef DEBUG
-                           NSLog(@"RESPONSE JSON:%@", responseObject);
-#endif
+                           CHLog(@"RESPONSE JSON:%@", responseObject);
                            if (!success) {
                                return ;
                            }
@@ -222,7 +218,7 @@ static NSHttpClient *client;
         
         return url;
     } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nonnull filePath, NSError * _Nonnull error) {
-        NSLog(@"File downloaded to: %@,%@", filePath, error);
+        CHLog(@"File downloaded to: %@,%@", filePath, error);
         [kProgress removeObserver:self forKeyPath:@"fractionComplete"];
         
     }];
@@ -236,7 +232,7 @@ static NSHttpClient *client;
                 completion();
             });
         }
-//        NSLog(@"总大小：%lld,当前大小:%lld",kProgress.totalUnitCount,kProgress.completedUnitCount);
+        CHLog(@"总大小：%lld,当前大小:%lld",kProgress.totalUnitCount,kProgress.completedUnitCount);
     }];
     [kProgress addObserver:self
                 forKeyPath:@"fractionComplete"
