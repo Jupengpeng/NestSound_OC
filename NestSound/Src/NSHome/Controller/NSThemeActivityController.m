@@ -487,12 +487,12 @@ static NSInteger const kButtonTag = 450;
     }
     if (_isTopIsCanNotMoveTabView != _isTopIsCanNotMoveTabViewPre) {
         if (!_isTopIsCanNotMoveTabViewPre && _isTopIsCanNotMoveTabView) {
-            //NSLog(@"滑动到顶端");
+            CHLog(@"滑动到顶端");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"goTop" object:nil userInfo:@{@"canScroll":@"1"}];
             _canScroll = NO;
         }
         if(_isTopIsCanNotMoveTabViewPre && !_isTopIsCanNotMoveTabView){
-            //NSLog(@"离开顶端");
+            CHLog(@"离开顶端");
             if (!_canScroll) {
                 scrollView.contentOffset = CGPointMake(0, tabOffsetY);
             }

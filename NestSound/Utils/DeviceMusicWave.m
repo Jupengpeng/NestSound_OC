@@ -54,13 +54,13 @@
 	NSError *err = nil;
 	[audioSession setCategory :AVAudioSessionCategoryPlayAndRecord error:&err];
 	if(err){
-        //NSLog(@"audioSession: %@ %d %@", [err domain], [err code], [[err userInfo] description]);
+        CHLog(@"audioSession: %@ %d %@", [err domain], [err code], [[err userInfo] description]);
         return;
 	}
 	[audioSession setActive:YES error:&err];
 	err = nil;
 	if(err){
-       // NSLog(@"audioSession: %@ %d %@", [err domain], [err code], [[err userInfo] description]);
+        CHLog(@"audioSession: %@ %d %@", [err domain], [err code], [[err userInfo] description]);
         return;
 	}
     self.recordPath = filePath;
@@ -96,7 +96,7 @@
         return;
     }
     [self addSoundMeterItem:[self.recorder averagePowerForChannel:0]];
-    NSLog(@"volume:%f",[self.recorder averagePowerForChannel:0]);
+    CHLog(@"volume:%f",[self.recorder averagePowerForChannel:0]);
 }
 
 - (void)addSoundMeterItem:(int)lastValue{
@@ -153,7 +153,7 @@
 }
 
 - (void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error{
-    NSLog(@"error : %@",error);
+    CHLog(@"error : %@",error);
 }
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{

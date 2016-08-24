@@ -331,7 +331,7 @@
     self.authorName.text = _musicModel.author;
     if (_musicModel.lookNum > 9999) {
         double count = (double)_musicModel.lookNum/10000.0;
-        NSLog(@"%f",count);
+        CHLog(@"%f",count);
         self.heardLabel.text = [NSString stringWithFormat:@"%.1f万",count];
     }else{
         self.heardLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.lookNum];
@@ -358,7 +358,7 @@
 //    self.authorName.text = _myMusicModel.author;
     if (_myMusicModel.lookNum > 9999) {
         double count = (double)_myMusicModel.lookNum/10000.0;
-        NSLog(@"%f",count);
+        CHLog(@"%f",count);
         self.heardLabel.text = [NSString stringWithFormat:@"%.1f万",count];
     }else{
         self.heardLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.lookNum];

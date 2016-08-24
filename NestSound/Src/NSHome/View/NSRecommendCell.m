@@ -140,7 +140,7 @@
     authorNameLab.text = _recommend.authorName;
     if (_recommend.playCount > 9999) {
         double count = (double)_recommend.playCount/10000.0;
-        NSLog(@"%f",count);
+        CHLog(@"%f",count);
         playCountLab.text = [NSString stringWithFormat:@"%.1f万",count];
     }else{
         playCountLab.text = [NSString stringWithFormat:@"%d",_recommend.playCount];

@@ -242,7 +242,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        NSLog(@"首页请求失败");
+        CHLog(@"首页请求失败");
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:index]) {
@@ -357,7 +357,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         
         cell.topicClickBlock = ^(NSInteger clickIndex){
           
-            NSLog(@"click -- %ld", clickIndex);
+            CHLog(@"click -- %ld", clickIndex);
             NSThemeActivityController *themeController = [[NSThemeActivityController alloc] init];
             [self.navigationController pushViewController:themeController animated:YES];
             

@@ -74,6 +74,7 @@ Boolean plugedHeadset;
     CGFloat timerNumTemp;
     CGFloat speed;
     CGFloat timerNum;
+    CGFloat totalTime;
     UITextField *titleText;
     UIImageView * listenBk;
     UIImageView * recordBk;
@@ -189,7 +190,7 @@ Boolean plugedHeadset;
         
         if(error){
             
-            NSLog(@"录音错误说明%@", [error description]);
+            CHLog(@"录音错误说明%@", [error description]);
         }
         
         
@@ -372,13 +373,13 @@ Boolean plugedHeadset;
     {
         level = -0.0f;
         
-//        NSLog(@"AAAAAA%f",decibels);
+        CHLog(@"AAAAAA%f",decibels);
     }
     else if (decibels >= 0.0f)
     {
         level = 1.0f;
         
-//        NSLog(@"BBBBBB%f",decibels);
+        CHLog(@"BBBBBB%f",decibels);
     }
     else
     {
@@ -387,7 +388,7 @@ Boolean plugedHeadset;
         float   inverseAmpRange = 1.0f / (1.0f - minAmp);
         float   amp             = powf(10.0f, 0.05f * decibels);
         float   adjAmp          = (amp - minAmp) * inverseAmpRange;
-//        NSLog(@"CCCCCCCCC%f",decibels);
+        CHLog(@"CCCCCCCCC%f",decibels);
         level = powf(adjAmp, 1.0f / root);
     }
     return level * 60;
@@ -493,7 +494,7 @@ Boolean plugedHeadset;
 
     if (distant> distantKeyPath) {
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNumTemp, 0) animated:NO];
-        NSLog(@"%.f==%.f",speed,timerNumTemp);
+        CHLog(@"%.f==%.f",speed,timerNumTemp);
         
     }
     
@@ -588,14 +589,14 @@ Boolean plugedHeadset;
         fclose(pcm);
     }
     @catch (NSException *exception) {
-        NSLog(@"%@",[exception description]);
+        CHLog(@"%@",[exception description]);
     }
     @finally {
         self.mp3Path = mp3FilePath;
-//        long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
-//        long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
-//        
-//        NSLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
+        long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
+        long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
+//
+        CHLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
         
     }
     return mp3FilePath;
@@ -1029,8 +1030,8 @@ Boolean plugedHeadset;
             return;
         }
         NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
-        [recordText setObject:lyricView.lyricText.text forKey:@"recordTitle"];
-        [recordText setObject:titleText.text forKey:@"recordLyric"];
+        [recordText setObject:titleText.text forKey:@"recordTitle"];
+        [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
         [recordText synchronize];
         NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
         [NSSingleTon viewFrom].viewTag = @"writeView";
@@ -1245,6 +1246,7 @@ Boolean plugedHeadset;
     [self resetButton];
     self.timeLabel.text = @"00:00";
     timerNum=0;
+    totalTime = 0;
     timerNumRecorder=0;
     timerNumRecorder_temp=0;
     timerNumPlay=0;
@@ -1378,8 +1380,8 @@ Boolean plugedHeadset;
                 self.public.aid = self.aid;
             }
             NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
-            [recordText setObject:lyricView.lyricText.text forKey:@"recordTitle"];
-            [recordText setObject:titleText.text forKey:@"recordLyric"];
+            [recordText setObject:titleText.text forKey:@"recordTitle"];
+            [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
             [recordText synchronize];
             [self.alertView dismissViewControllerAnimated:YES completion:^{
                 [wSelf.navigationController pushViewController:wSelf.public animated:YES];
@@ -1466,6 +1468,7 @@ Boolean plugedHeadset;
 - (void)actionTiming {
     
     timerNum += 1/15.0;
+    totalTime += 1/15.0;
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     //分贝数
 
@@ -1473,7 +1476,7 @@ Boolean plugedHeadset;
 //        if ([self.recorder isRecording]) {
             count = [self decibels];
 //        }
-//        NSLog(@"DDDDDDDDD%f",count);
+        CHLog(@"DDDDDDDDD%f",count);
         
 //        if (self.lineNum % 3 == 0) { //3
         
@@ -1575,12 +1578,15 @@ Boolean plugedHeadset;
                     
                     soundEffectVC.parameterDic = self.dict;
                     soundEffectVC.waveArray = self.waveform.waveView.waveArray;
-                    soundEffectVC.musicTime = timerNum;
+                    soundEffectVC.musicTime = totalTime;
                     soundEffectVC.isLyric = NO;
                     soundEffectVC.mp3URL = dict[@"data"][@"mp3URL"];
                     soundEffectVC.mp3File = self.mp3Path;
                     
-                    
+                    NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+                    [recordText setObject:titleText.text forKey:@"recordTitle"];
+                    [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
+                    [recordText synchronize];
                     [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
                 }];
                 
@@ -1637,13 +1643,10 @@ Boolean plugedHeadset;
     
     [self.navigationController pushViewController:self.public animated:YES];
 
-    
 }
 
 - (void)scrollTimeView{
-    NSLog(@"呵呵呵呵%f",speed);
-    NSLog(@"嘿嘿嘿嘿%f",timerNum);
-    NSLog(@"啦啦啦啦%f",speed*timerNum);
+
     self.waveform.waveView.waveDistance =speed*timerNum;
     if ([self.player isPlaying]) {
         distantKeyPath=self.waveform.timeScrollView.contentOffset.x;

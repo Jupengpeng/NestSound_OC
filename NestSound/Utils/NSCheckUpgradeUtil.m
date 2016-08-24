@@ -20,7 +20,7 @@
             NSString *appstoreVersion = [[responseObject objectForKey:@"results"][0] objectForKey:@"version"];
             if(appstoreVersion != nil){
                 NSString *localVersion = [self getCurrentAppVersion];
-                NSLog(@"latest app version %@ ; localVersion:%@",appstoreVersion,localVersion);
+                CHLog(@"latest app version %@ ; localVersion:%@",appstoreVersion,localVersion);
                 NSInteger local = [[localVersion stringByReplacingOccurrencesOfString:@"." withString:@""] integerValue];
                 NSInteger appstore = [[appstoreVersion stringByReplacingOccurrencesOfString:@"." withString:@""] integerValue];
                 if(local < appstore){
@@ -36,7 +36,7 @@
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error ----%@",error.userInfo);
+        CHLog(@"error ----%@",error.userInfo);
     }];
 }
 

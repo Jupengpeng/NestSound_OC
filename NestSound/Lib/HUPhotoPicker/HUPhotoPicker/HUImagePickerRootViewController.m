@@ -130,7 +130,7 @@ static const CGFloat kSpacing = 2.0;
     else {
         NSArray *allValues = _selectedIndexPaths.allValues;
         if (allValues.count >= self.maxCount) {
-            NSLog(@"已到达最大数量了");
+            CHLog(@"已到达最大数量了");
             return;
         }
 

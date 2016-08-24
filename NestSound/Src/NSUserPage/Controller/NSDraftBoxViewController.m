@@ -71,8 +71,8 @@
 
 - (void)draftBoxTableViewCell:(NSDraftBoxTableViewCell *)draftBoxCell withSendBtn:(UIButton *)sendBtn {
     
-    NSIndexPath *index = [_tableView indexPathForCell:draftBoxCell];
-    NSLog(@"%@",index);
+//    NSIndexPath *index = [_tableView indexPathForCell:draftBoxCell];
+//    CHLog(@"%@",index);
 }
 
 

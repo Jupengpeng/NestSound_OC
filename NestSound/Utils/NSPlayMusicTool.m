@@ -54,7 +54,7 @@ static AVPlayerItem *musicItem;
 
 + (AVPlayer *)playIdenticalMusicWithUrl:(NSString *)musicUrl block:(void (^)(AVPlayerItem *musicItem))block {
     
-    NSLog(@"musicUrl----------%@",musicUrl);
+    CHLog(@"musicUrl----------%@",musicUrl);
 //    if (![oldMusicUrl isEqualToString:musicUrl]) {
 //        
 //        [player pause];

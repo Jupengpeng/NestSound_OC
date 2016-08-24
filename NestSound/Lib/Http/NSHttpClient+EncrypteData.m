@@ -58,7 +58,7 @@ static NSData* base64_decode(NSString *str){
         NSMutableDictionary * dic =[[NSMutableDictionary alloc] initWithDictionary: paramaters];
         NSString  * par =  [dic objectForKey:requestData];
       //  NSString * parmaters = [self dictionaryWithJsonString:par];
-        NSLog(@"%@",paramaters);
+        CHLog(@"%@",paramaters);
         
         NSData * base64DecodeData = base64_decode(par);
         NSString * base64DecodeStr = [[NSString alloc] initWithData:base64DecodeData encoding:NSUTF8StringEncoding];
@@ -125,7 +125,7 @@ static NSData* base64_decode(NSString *str){
     
     if(err) {
         
-        NSLog(@"json解析失败：%@",err);
+        CHLog(@"json解析失败：%@",err);
         
         return nil;
         

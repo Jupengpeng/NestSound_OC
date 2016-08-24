@@ -104,7 +104,7 @@ static id _instance;
         
         if(error){
             
-            NSLog(@"录音错误说明%@", [error description]);
+            CHLog(@"录音错误说明%@", [error description]);
         }
         
         
@@ -133,8 +133,8 @@ static id _instance;
         //self.wavPath = wavPath;
 
         NSFileManager* f = [NSFileManager defaultManager];
-        //long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
-        //NSLog(@"录制---------%@,%lld",self.wavPath,l);
+        long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
+        CHLog(@"录制---------%@,%lld",self.wavPath,l);
         //self.FinishRecording = FinishRecording;
         FinishRecording(self.wavPath);
 
@@ -225,10 +225,10 @@ static id _instance;
    {
         
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
-        //NSLog(@"---------%@",self.player);
+        CHLog(@"---------%@",self.player);
         //self.player = [[AVAudioPlayer alloc] initWithData:data error:&error];
 
-        //NSLog(@"-----------error = %@",error);
+        CHLog(@"-----------error = %@",error);
         self.player.delegate = self;
         
         [self.player prepareToPlay];
@@ -359,7 +359,7 @@ static id _instance;
         
         if (self.wavPath == nil) {
             
-            //NSLog(@"没有要转的文件");
+            CHLog(@"没有要转的文件");
             
             return;
         }
@@ -418,16 +418,16 @@ static id _instance;
         fclose(pcm);
     }
     @catch (NSException *exception) {
-        NSLog(@"%@",[exception description]);
+        CHLog(@"%@",[exception description]);
     }
     @finally {
-        //NSLog(@"转换完毕");
+        CHLog(@"转换完毕");
         self.mp3Path = mp3FilePath;
         NSFileManager *manager = [NSFileManager defaultManager];
         long long l1  = [[ manager attributesOfItemAtPath:filePath error:nil] fileSize];
         long long l2  = [[ manager attributesOfItemAtPath:mp3FilePath error:nil] fileSize];
 
-       // NSLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
+        CHLog(@"%@转换前＝%lld,%@转换MP3后＝%lld",filePath,l1,mp3FilePath,l2);
         
         
        /* [manager removeItemAtPath:self.wavPath error:nil];

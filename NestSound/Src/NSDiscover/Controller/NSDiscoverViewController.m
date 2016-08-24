@@ -337,17 +337,17 @@
     
     if (titleBtn.tag == 0) {
         
-        NSLog(@"点击了活动");
+        CHLog(@"点击了活动");
        
     } else if(titleBtn.tag == 1) {
         
-        NSLog(@"点击了歌曲");
+        CHLog(@"点击了歌曲");
     } else if (titleBtn.tag == 2) {
         
-        NSLog(@"点击了歌词");
+        CHLog(@"点击了歌词");
     } else {
         
-        NSLog(@"点击了榜单");
+        CHLog(@"点击了榜单");
     }
     
     [_scrollView setContentOffset:CGPointMake(ScreenWidth * titleBtn.tag, 0) animated:YES];
@@ -401,7 +401,7 @@
     playMusicVC.songAry = [NSMutableArray arrayWithArray:@[@(itemID)]];
     [self.navigationController pushViewController:playMusicVC animated:YES];
     
-    NSLog(@"歌曲");
+    CHLog(@"歌曲");
 }
 
 - (void)searchLyricViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID {
@@ -414,7 +414,7 @@
     
     [self.navigationController pushViewController:lyricVC animated:YES];
     
-    NSLog(@"歌词");
+    CHLog(@"歌词");
 }
 
 - (void)searchViewController:(NSSearchViewController *)searchVC withUserID:(long)userID {

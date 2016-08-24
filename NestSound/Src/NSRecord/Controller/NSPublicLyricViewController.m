@@ -63,7 +63,7 @@ extern Boolean plugedHeadset;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"----------self.mp3File = %@",self.mp3File);
+    CHLog(@"----------self.mp3File = %@",self.mp3File);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     [self configureUIAppearance];
     self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
@@ -297,7 +297,7 @@ extern Boolean plugedHeadset;
     if (btn.selected) {
         
         NSString* url = [NSString stringWithFormat:@"%@%@",host,self.mp3URL];
-                NSLog(@"-------------url = %@",url);
+        CHLog(@"-------------url = %@",url);
 
         [self listenMp3Online:url];
         
@@ -413,7 +413,7 @@ extern Boolean plugedHeadset;
         }else if ([operation.urlTag isEqualToString:publicLyricForAct] || [operation.urlTag isEqualToString:publicMusicForAct]){
             
 
-            NSLog(@"%@",operation.urlTag);
+            CHLog(@"%@",operation.urlTag);
             [self.alertView dismissViewControllerAnimated:YES completion:^{
                 
             }];

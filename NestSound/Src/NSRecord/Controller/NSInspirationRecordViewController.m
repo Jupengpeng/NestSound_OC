@@ -265,7 +265,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 [[NSToastManager manager] showprogress];
                 [upManager putData:imageData key:[NSString stringWithFormat:@"%@%d.png",timeSp,i] token:getQiniuImageModel.qiNIuModel.token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                     
-                    NSLog(@" 图片key：%@",[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]]);
+                    CHLog(@" 图片key：%@",[NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]]);
                     
                     if (self.titleImageURL == nil || self.titleImageURL.length == 0) {
                         
@@ -748,7 +748,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             [wSelf addLink];
             
-            NSLog(@"点击了录音");
+            CHLog(@"点击了录音");
         } else {
             
             [[XHSoundRecorder sharedSoundRecorder] stopRecorder];
@@ -771,7 +771,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
             [wSelf removeLink];
             
-            NSLog(@"点击了暂停录音");
+            CHLog(@"点击了暂停录音");
         }
         
     }];
@@ -828,7 +828,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 
                 wSelf.promptLabel.text = [NSString stringWithFormat:@"%02ld:%02ld/%02ld:%02ld",(NSInteger)timeNum / 60, (NSInteger)timeNum % 60, self.totalTime / 60, self.totalTime % 60];
                 
-                NSLog(@"点击了播放录音");
+                CHLog(@"点击了播放录音");
                 
             }
             
@@ -846,7 +846,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 
                 [wSelf removeLink];
                 
-                NSLog(@"点击了停止播放录音");
+                CHLog(@"点击了停止播放录音");
                 
             }
         }
@@ -894,7 +894,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
         
         btn.hidden = YES;
         
-        NSLog(@"点击了删除录音");
+        CHLog(@"点击了删除录音");
     }];
     
     self.deleteBtn = deleteBtn;
@@ -958,7 +958,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
             
         }];
         
-        NSLog(@"点击了添加录音");
+        CHLog(@"点击了添加录音");
         
     }];
     
@@ -1033,9 +1033,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
 }
 
 - (void)actionTiming {
-    NSLog(@"----------------timeNum = %f",timeNum);
     timeNum += 1/60.0;
-    
     if (self.deleteBtn.hidden) {
         
         CGFloat count = [[XHSoundRecorder sharedSoundRecorder] decibels];
@@ -1142,7 +1140,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
                 wSelf.audioPath = newfilePath;
                 [wSelf uploadPhotoWith:nil type:YES token:nil url:nil];
                 rightItem.enabled = NO;
-                NSLog(@"点击了发布");
+                CHLog(@"点击了发布");
                 
             }];
         } else {

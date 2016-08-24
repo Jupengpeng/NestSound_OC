@@ -144,7 +144,7 @@ static const char *NSBaseModelPropertiesKey;
             [self setValue:value forKey:arrayProperty.name];
         }
     } else if ([dataObject isKindOfClass:[NSDictionary class]]) {
-        NSLog(@"ddata%@",dataObject);
+        CHLog(@"ddata%@",dataObject);
         for (NSBaseModelProperty *property in [properties allValues]) {
             NSString *jsonKey = property.name;
             NSString *mapperKey = [keyMapper objectForKey:jsonKey];
