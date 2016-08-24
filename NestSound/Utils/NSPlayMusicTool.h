@@ -23,4 +23,6 @@
 //停止音乐
 + (void)stopMusicWithName:(NSString *)name;
 
+
+
 @end

@@ -291,10 +291,11 @@ static NSInteger const kLabelTag = 200;
     
     
     if (workDetailModel.isMusic) {
+        self.songCoverButton.enabled = YES;
         [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_play"] forState:UIControlStateNormal];
         [self.songCoverButton setImage:[UIImage imageNamed:@"2.0_suspended"] forState:UIControlStateSelected];
     }else{
-        
+        self.songCoverButton.enabled = NO;
     }
     
     [self.headerIcon sd_setBackgroundImageWithURL:[NSURL URLWithString:workDetailModel.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] ];

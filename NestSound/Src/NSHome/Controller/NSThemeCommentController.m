@@ -6,7 +6,6 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
-
 static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
 #import "NSThemeCommentController.h"
@@ -20,7 +19,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 @interface NSThemeCommentController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
     UIButton *_clickedButton;
-
+    BOOL _isLoop;
 }
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -28,10 +27,18 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
 @property (nonatomic,strong) NSMutableArray *itemIdArr;
 
+
 @property (nonatomic, strong) AVPlayer *player;
 
 @property (nonatomic,strong) NSJoinedWorkListModel *workListModel;
 
+@property (nonatomic,assign) NSInteger songIndex;
+
+@property (nonatomic,assign) NSInteger itemID;
+
+@property (nonatomic,strong) NSPlayMusicViewController *playMuscicController;
+
+@property (nonatomic,assign) BOOL loadedPlayer;
 
 @end
 
@@ -39,15 +46,11 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    /**
+     *  手势冲突处理
+     */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"goTop" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"leaveTop" object:nil];
-    
-    [self.view addSubview:self.tableView];
-
-    [self fetchData];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
                                                  name:@"pausePlayer"
                                                object:nil];
@@ -58,6 +61,22 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
                                                  name:PauseCurrentItemNotification
                                                object:nil];
     
+    [self.view addSubview:self.tableView];
+    [self fetchData];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    self.playMuscicController.songAry = self.itemIdArr;
+    self.playMuscicController.songID = self.songIndex;
+    self.playMuscicController.itemUid = self.itemID;
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    _playMuscicController.view.alpha = 1;
 }
 
 - (void)dealloc{
@@ -67,10 +86,18 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
 
-    
+
+- (void)rightClick{
+//    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+//    
+//    playVC.itemUid = workListModel.itemid;
+//    //        playVC.from = @"tuijian";
+//    
+//    playVC.songID = indexPath.section;
+//    playVC.songAry = self.itemIdArr;
+//    
+//    [self.navigationController pushViewController:playVC animated:YES];
 }
 
 - (void)fetchData{
@@ -109,6 +136,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
                     
                     if ([NSPlayMusicViewController sharedPlayMusic].itemUid) {
                         if (detailModel.itemid == [NSPlayMusicViewController sharedPlayMusic].itemUid) {
+                            self.itemID = detailModel.itemid;
                             detailModel.isPlay = YES;
                         }
                     }
@@ -138,13 +166,14 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
                 NSThemeTopicCommentCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i]];
                 _clickedButton = cell.songCoverButton;
                 detailModel.isPlay = YES;
-                
-                
+                self.itemID = detailModel.itemid;
+
                 
             }else{
                 detailModel.isPlay = NO;
             }
         }
+        
         [self.tableView reloadData];
     }
     
@@ -334,23 +363,53 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
             _clickedButton = clickButton;
             _clickedButton.selected = YES;
         }
-        
+
         if (clickButton.selected) {
-            [NSPlayMusicViewController sharedPlayMusic].itemUid = workListModel.itemid;
+
+            
+            /**
+             *  奇怪的操作 借用 playmusicController 的播放器
+
+             */
+//            if (!_loadedPlayer) {
+                if ([self.type isEqualToString:@"1"]) {
+                    
+                    self.playMuscicController.itemUid = workListModel.itemid;
+                    self.playMuscicController.from = @"huodong";
+                    
+                    self.playMuscicController.songID = indexPath.section;
+                    self.playMuscicController.songAry = self.itemIdArr;
+                    [self.view addSubview:self.playMuscicController.view];
+                    
+                    _playMuscicController.view.alpha = 1;
+                    [self.playMuscicController.view removeFromSuperview];
+                    _loadedPlayer = YES;
+//                }
+            }
+            /**
+             *  将点击的itemid保存
+             */
+            self.itemID = workDetailModel.itemid;
+            self.songIndex = indexPath.section;
+
             if (!self.player) {
                 [NSPlayMusicTool pauseMusicWithName:nil];
                 self.player = [NSPlayMusicTool playMusicWithUrl:workDetailModel.mp3 block:^(AVPlayerItem *item) {}];
+                
             } else {
+                [NSPlayMusicTool pauseMusicWithName:nil];
                 self.player = [NSPlayMusicTool playMusicWithUrl:workDetailModel.mp3 block:^(AVPlayerItem *item) {}];
             }
+//            [playVC playMusicUrl:workDetailModel.mp3];
         } else {
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"pausePlayer" object:nil];
             [NSPlayMusicTool pauseMusicWithName:nil];
-            [NSPlayMusicViewController sharedPlayMusic].itemUid = 0;
+//            playVC.itemUid = 0;
             //        self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
         }
         
     };
-    
     
     cell.commetorClickBlock = ^(NSInteger userId){
         NSUserPageViewController *userPageController = [[NSUserPageViewController alloc]initWithUserID:[NSString stringWithFormat:@"%ld",userId]];
@@ -362,6 +421,8 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 }
 
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSJoinedWorkDetailModel *workListModel = self.dataArray[indexPath.section];
@@ -371,12 +432,13 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         
         playVC.itemUid = workListModel.itemid;
-//        playVC.from = @"tuijian";
+        playVC.from = @"huodong";
         
         playVC.songID = indexPath.section;
         playVC.songAry = self.itemIdArr;
-        
+        workListModel.isPlay = YES;
         [self.navigationController pushViewController:playVC animated:YES];
+        [self.tableView reloadData];
     }
     
     if ([self.type isEqualToString:@"2"]) {
@@ -420,6 +482,14 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         _dataArray = [NSMutableArray array];
     }
     return _dataArray;
+}
+
+- (NSPlayMusicViewController *)playMuscicController{
+    if (!_playMuscicController) {
+        _playMuscicController = [NSPlayMusicViewController sharedPlayMusic];
+        _playMuscicController.view.alpha = 0;
+    }
+    return _playMuscicController;
 }
 
 @end

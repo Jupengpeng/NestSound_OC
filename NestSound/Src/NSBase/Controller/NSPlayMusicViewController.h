@@ -25,4 +25,6 @@
 @property (nonatomic,strong) NSMutableArray * songAry;
 @property (nonatomic,assign) NSInteger songID;
 @property (nonatomic,assign) int isShow;
+- (void)playMusicUrl:(NSString *)musicUrl;
+
 @end
