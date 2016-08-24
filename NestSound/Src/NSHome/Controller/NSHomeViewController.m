@@ -419,7 +419,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         
         CGFloat W = (ScreenWidth - 30);
 //        CGFloat picRatio = 250 / 345.0 ;
-        return CGSizeMake(W,200);
+        return CGSizeMake(W,ScreenHeight/4+20);
     }
     
 }

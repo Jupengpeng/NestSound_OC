@@ -19,6 +19,7 @@
 @dynamic delegate;
 
 - (instancetype)init {
+   self = [super init];
     HUImagePickerRootViewController *vc = nil;
     if (IS_IOS8_LATER) {
         vc = [[HUImagePickerRootViewController alloc] initWithAssetCollection:[HUPhotoHelper sharedInstance].cameraRoll];

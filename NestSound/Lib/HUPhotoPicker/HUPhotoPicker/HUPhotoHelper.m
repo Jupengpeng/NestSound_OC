@@ -197,7 +197,7 @@ static const char *kIOQueueLable = "com.jewelz.assetqueue";
             
             for (PHAsset *asset in assets) {
                 // 是否要原图
-                CGSize size = original ? CGSizeMake(asset.pixelWidth, asset.pixelHeight) : CGSizeZero;
+//                CGSize size = original ? CGSizeMake(asset.pixelWidth, asset.pixelHeight) : CGSizeZero;
                 // 从asset中获得图片
                 [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(300, 300) contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                     if (result) {

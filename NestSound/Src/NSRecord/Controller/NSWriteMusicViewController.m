@@ -1278,17 +1278,18 @@ Boolean plugedHeadset;
     [self.navigationController pushViewController:importLyric animated:YES];
     
 }
-
+/*
 - (void)showPromptView{
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-//    
-//    // Set the annular determinate mode to show task progress.
-//    hud.mode = MBProgressHUDModeText;
-//    hud.label.text = NSLocalizedString(@"歌曲正在上传，请稍后...", @"HUD loading title");
-//    // Move to bottm center.
-//    hud.offset = CGPointMake(0.f, 10);//MBProgressMaxOffset);
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    // Set the annular determinate mode to show task progress.
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = NSLocalizedString(@"歌曲正在上传，请稍后...", @"HUD loading title");
+    // Move to bottm center.
+    hud.offset = CGPointMake(0.f, 10);//MBProgressMaxOffset);
 
 }
+ */
 - (void)nextClick:(UIBarButtonItem *)next {
     
     if ([self.player isPlaying]) {
@@ -1338,18 +1339,16 @@ Boolean plugedHeadset;
 }
 
 #pragma mark -OptionMusic
--(void)tuningMusicWithCreateType:(NSString *)createType andHotId:(long)hotId_ andUserID:(NSString *)userID_ andUseHeadSet:(BOOL)userHeadSet andMusicUrl :(NSString *)musicURl
+-(void)tuningMusicWithCreateType:(NSString *)createType andHotId:(long)hotId_  andUseHeadSet:(BOOL)userHeadSet andMusicUrl :(NSString *)musicURl
 {
     self.requestType = NO;
-    int headSet = 0;
-    if (userHeadSet ) {
-        headSet = 1;
-    }
-    self.requestParams = @{@"hotid":[NSNumber numberWithLong:hotId_],
+    
+    self.requestParams = @{
+                           @"hotid":[NSNumber numberWithLong:hotId_],
                            @"uid":JUserID,
                            @"token":LoginToken,
-                           @"useheadset":[NSNumber numberWithInt:headSet],
-                           @"createtype":@"hot",
+                           @"useheadset":[NSNumber numberWithInt:userHeadSet],
+                           @"createtype":createType,
                            @"musicurl":musicURl,
                            @"effect":@(0)};
     self.requestURL = tunMusicURL;
@@ -1561,7 +1560,7 @@ Boolean plugedHeadset;
             }
             
             if (!plugedHeadset) {
-                [self tuningMusicWithCreateType:nil andHotId:hotId andUserID:JUserID andUseHeadSet:plugedHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+                [self tuningMusicWithCreateType:@"hot" andHotId:hotId andUseHeadSet:plugedHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
             } else {
                 
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
@@ -1598,6 +1597,7 @@ Boolean plugedHeadset;
         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
             // 请求失败
             [self.alertView dismissViewControllerAnimated:YES completion:^{
+                
             }];
             
             //self.next.enabled = YES;

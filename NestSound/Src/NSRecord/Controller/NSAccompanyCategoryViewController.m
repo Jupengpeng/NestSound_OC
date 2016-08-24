@@ -53,6 +53,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [self setupCategoryListUI];
 }
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if (self.categoryAryList.count == 0) {
         [accompanyListTabelView setContentOffset:CGPointMake(0, -60) animated:YES];
         [accompanyListTabelView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];

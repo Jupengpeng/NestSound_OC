@@ -184,8 +184,8 @@ static id _instance;
         if (filePath == nil) {
             
             if (self.wavPath) {
-                NSFileManager* f = [NSFileManager defaultManager];
-                long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
+//                NSFileManager* f = [NSFileManager defaultManager];
+//                long long l = [[f attributesOfItemAtPath:self.wavPath error:nil] fileSize];
                 
                 url = [NSURL fileURLWithPath:self.wavPath];
                 

@@ -110,7 +110,7 @@ static NSString *ID3 = @"cell3";
         self.navigationController.navigationBar.hidden = NO;
 }
 - (void)viewDidDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
         page = 0;

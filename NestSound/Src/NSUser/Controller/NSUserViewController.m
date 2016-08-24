@@ -33,7 +33,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 
 @implementation NSUserViewController
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     NSUserProfileCell *cell = (NSUserProfileCell *)[settingPageTable viewWithTag:125];
     NSMutableDictionary * userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     [cell.userIcon setDDImageWithURLString:userInfo[@"userIcon"] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
