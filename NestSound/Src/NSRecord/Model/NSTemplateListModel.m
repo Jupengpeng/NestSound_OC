@@ -15,7 +15,8 @@
              @"content":@"content",
              @"title":@"title",
              @"workname":@"workname",
-             @"createtime":@"createtime"};
+             @"createtime":@"createtime",
+             @"playUrl":@"mp3"};
 }
 
 @end

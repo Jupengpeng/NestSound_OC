@@ -16,7 +16,6 @@
 #import "NSAccommpanyListModel.h"
 #import "NSPlayMusicTool.h"
 #import "DeviceMusicWave.h"
-#import <AVFoundation/AVFoundation.h>
 #import "NSPublicLyricViewController.h"
 #import "NSTunMusicModel.h"
 #import "NSLoginViewController.h"
@@ -1144,34 +1143,16 @@ Boolean plugedHeadset;
         if (!btn.selected) { //回听
             
             [self.waveLink setPaused:NO];
+            [self.link setPaused:NO];
             
             [[NSToastManager manager ] showtoast:@"开始试听"];
             
             timerNumPlay = timerNumPlay_temp;
             timerNum = timerNumPlay;
-            [self.link setPaused:NO];
+            
             
             self.isPlay = YES; //YES
             
-//            NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
-//            
-//            if (plugedHeadset)
-//            {
-//                
-//                if (!self.player2)
-//                {
-//                    self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-//                    self.player2.enableRate = YES;
-//                    self.player2.rate = 1.0;
-//                    [self.player2 setCurrentTime:curtime2];
-//                    
-//                    [self.player2 prepareToPlay];
-//                    self.player2.meteringEnabled=YES;
-//                    
-//                    self.player2.delegate =self;
-//                    [self.player2 play];
-//                }
-//            }
             
             [self playsound:self.wavFilePath time:curtime3];
             
@@ -1558,42 +1539,41 @@ Boolean plugedHeadset;
                 dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
                 
             }
-            
-            if (!plugedHeadset) {
-                [self tuningMusicWithCreateType:@"hot" andHotId:hotId andUseHeadSet:plugedHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+            if ([dict[@"code"] integerValue] == 200) {
+                if (!plugedHeadset) {
+                    [self tuningMusicWithCreateType:@"hot" andHotId:hotId andUseHeadSet:plugedHeadset andMusicUrl:dict[@"data"][@"mp3URL"]];
+                } else {
+                    
+                    [self.alertView dismissViewControllerAnimated:YES completion:^{
+                        NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
+                        
+                        mp3URL = dict[@"data"][@"mp3URL"];
+                        [self.dict setValue:titleText.text forKey:@"lyricName"];
+                        [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+                        [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
+                        [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
+                        
+                        soundEffectVC.parameterDic = self.dict;
+                        soundEffectVC.waveArray = self.waveform.waveView.waveArray;
+                        soundEffectVC.musicTime = totalTime;
+                        soundEffectVC.isLyric = NO;
+                        soundEffectVC.mp3URL = dict[@"data"][@"mp3URL"];
+                        soundEffectVC.mp3File = self.mp3Path;
+                        
+                        NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+                        [recordText setObject:titleText.text forKey:@"recordTitle"];
+                        [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
+                        [recordText synchronize];
+                        [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
+                    }];
+                }
             } else {
-                
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
-                    NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
-                    
-                    mp3URL = dict[@"data"][@"mp3URL"];
-                    
-                    [self.dict setValue:titleText.text forKey:@"lyricName"];
-                    
-                    [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
-                    
-                    [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
-                    [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
-                    
-                    soundEffectVC.parameterDic = self.dict;
-                    soundEffectVC.waveArray = self.waveform.waveView.waveArray;
-                    soundEffectVC.musicTime = totalTime;
-                    soundEffectVC.isLyric = NO;
-                    soundEffectVC.mp3URL = dict[@"data"][@"mp3URL"];
-                    soundEffectVC.mp3File = self.mp3Path;
-                    
-                    NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
-                    [recordText setObject:titleText.text forKey:@"recordTitle"];
-                    [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
-                    [recordText synchronize];
-                    [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
+                    [[NSToastManager manager] showtoast:@"上传失败"];
                 }];
                 
             }
-            
             //self.wavFilePath = nil;
-            
-            
         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
             // 请求失败
             [self.alertView dismissViewControllerAnimated:YES completion:^{

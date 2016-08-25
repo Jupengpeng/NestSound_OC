@@ -10,5 +10,5 @@
 
 @interface NSEditTemplateViewController : NSBaseViewController
 
-- (instancetype)initWithTemplateTitle:(NSString *)title templateContent:(NSString *)content;
+- (instancetype)initWithTemplateTitle:(NSString *)title templateContent:(NSString *)content playUrl:(NSString *)url;
 @end

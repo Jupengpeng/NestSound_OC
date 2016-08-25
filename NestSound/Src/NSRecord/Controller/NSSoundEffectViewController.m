@@ -10,7 +10,7 @@
 #import "NSPublicLyricViewController.h"
 #import "NSTunMusicModel.h"
 #import <AVFoundation/AVFoundation.h>
-@interface NSSoundEffectViewController ()<UIAlertViewDelegate>
+@interface NSSoundEffectViewController ()<UIAlertViewDelegate,AVAudioPlayerDelegate,UIScrollViewDelegate>
 {
     UILabel *totalTimeLabel;
     
@@ -33,6 +33,8 @@
     int num, a,speed;
     
     long effectId;
+    
+    BOOL decelerate;
     
     CGFloat timerNum;
 }
@@ -62,20 +64,28 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+    
+    decelerate = YES;
     effectId = 0;
+    speed = 32.0;
+    
     [self setupSoundEffectUI];
-    speed = 32;
+    
     [self addLink];
     [self addWaveLink];
     [self.link setPaused:YES];
     [self.waveLink setPaused:YES];
-    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+    [self addObserver:self forKeyPath:@"soundEffectPlay" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 #pragma mark -fetchData
 - (void)fetchTuningMusic {
+    
     [self.alertView show];
+    
     self.requestType = NO;
+    
     self.requestParams = @{@"createtype":@"HOT",@"hotid":self.parameterDic[@"hotID"],@"uid":JUserID,@"recordingsize":@(1),@"bgmsize":@(1),@"useheadset":@(1),@"musicurl":self.mp3URL,@"effect":@(effectId),@"token":LoginToken};
     self.requestURL = tunMusicURL;
     
@@ -90,7 +100,9 @@
             [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
             if ([operation.urlTag isEqualToString:tunMusicURL]) {
                 NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
+                
                 playerUrl = tunMusic.tunMusicModel.MusicPath;
+                self.waveform.timeScrollView.userInteractionEnabled=YES;
                 
                 switch (effectId) {
                     case 0:
@@ -153,7 +165,9 @@
     
     self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(auditionBtn.frame), 20, ScreenWidth-114, 84)];
     
-    _waveform.timeScrollView.scrollEnabled = NO;
+    self.waveform.timeScrollView.userInteractionEnabled=NO;
+    
+    _waveform.timeScrollView.delegate = self;
     
     _waveform.layer.borderWidth = 1;
     
@@ -167,7 +181,7 @@
         UIView *view = self.waveArray[i];
         waveView.backgroundColor = [UIColor lightGrayColor];
         waveView.x = _waveform.middleLineV.x + i*2.0;
-        waveView.y = _waveform.waveView.centerY -view.size.height/2 - 0.2;
+        waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.2;
         waveView.height = view.size.height;
         waveView.width = 1.0;
         [self.waveViewArr addObject:waveView];
@@ -322,15 +336,14 @@
     NSString *host;
     
 #ifdef DEBUG
-    
     host = debugHost;
-    
 #else
-    
     host = releaseHost;
-    
 #endif
     if (!sender.selected) {
+        
+        self.waveform.timeScrollView.userInteractionEnabled=NO;
+        
         if (playerUrl.length) {
             
             NSString* url = [NSString stringWithFormat:@"%@%@",host,playerUrl];
@@ -340,43 +353,65 @@
         } else {
             
             [self fetchTuningMusic];
+            
             return;
            
         }
         
     } else {
         
+        decelerate = YES;
+        
+        [self.waveLink setPaused:YES];
+        
+        [self.link setPaused:YES];
+        
         [self.player pause];
         
+        self.waveform.timeScrollView.userInteractionEnabled=YES;
     }
     sender.selected = !sender.selected;
 }
 - (void)listenMp3Online:(NSString*)mp3Url{
-    //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
+//    NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
     
     NSURL* url = [NSURL URLWithString:mp3Url];
-    
     if (!self.musicItem||!self.player) {
+        
         self.musicItem = [AVPlayerItem playerItemWithURL:url];
+        
         self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
     }
+    
     [self.player play];
     [self.waveLink setPaused:NO];
     [self.link setPaused:NO];
 }
-
 - (void)endPlaying {
+    
+    decelerate = YES;
+    
     timerNum = 0;
+    
     self.timeLabel.text = @"00:00";
+    
     [self.link setPaused:YES];
+    
     [self.waveLink setPaused:YES];
+    
     auditionBtn.selected = NO;
-    self.musicItem = nil;
+    
     [self.player pause];
+    
+    self.musicItem = nil;
+    
     self.player =nil;
+    
+    self.waveform.timeScrollView.userInteractionEnabled=NO;
 }
 - (void)nextClick:(UIButton *)sender {
     if (playerUrl.length) {
+        
         NSPublicLyricViewController *publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:self.parameterDic withType:NO];
         
         publicVC.isLyric=NO;
@@ -421,8 +456,30 @@
 }
 - (void)scrollTimeView{
     
+    decelerate = NO;
+    
     [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
+    
     [self changeScrollViewColor];
+    
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    if (decelerate) {
+       
+        timerNum = scrollView.contentOffset.x/speed;
+        
+        CMTime ctime = CMTimeMake(scrollView.contentOffset.x/speed, 1);
+        
+        [self.musicItem seekToTime:ctime];
+        
+        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+        
+        [self changeScrollViewColor];
+    }
+    
+    
+    
     
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
@@ -448,7 +505,8 @@
     
 }
 - (void)dealloc{
-    [self removeObserver:self forKeyPath:@"distantKeyPathTemp" context:nil];
+    
+    [self removeObserver:self forKeyPath:@"soundEffectPlay" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 }
 - (NSMutableArray *)btns {

@@ -1195,6 +1195,7 @@ static id _instance;
     
     [self.musicItem seekToTime:ctime];
     
+    self.playtime.text = [NSString stringWithFormat:@"%02zd:%02zd", (NSInteger)self.progressBar.value / 60, (NSInteger)progressBar.value % 60];
 }
 
 

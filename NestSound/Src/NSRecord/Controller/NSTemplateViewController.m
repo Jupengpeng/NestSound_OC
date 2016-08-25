@@ -96,6 +96,8 @@ static NSString  * const templateCellIdifity = @"templateCell";
     
      templateListTab.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
+    [templateListTab registerClass:[UITableViewCell class] forCellReuseIdentifier:templateCellIdifity];
+    
     [self.view addSubview:templateListTab];
     
     UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -129,13 +131,34 @@ static NSString  * const templateCellIdifity = @"templateCell";
     return self.templateListArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:templateCellIdifity];
+    
     NSTemplateModel *model = self.templateListArr[indexPath.row];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:templateCellIdifity];
-        cell.textLabel.text = model.title;
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:templateCellIdifity forIndexPath:indexPath];
+    
+    cell.textLabel.text = model.title;
+    
+    UIImageView *musicalNote = [UIImageView new];
+    
+    musicalNote.image = [UIImage imageNamed:@"2.0_music_note"];
+    
+    [cell addSubview:musicalNote];
+    
+    [musicalNote mas_makeConstraints:^(MASConstraintMaker *make) {
         
+        make.right.equalTo(cell.mas_right).offset(-10);
+        
+        make.centerY.equalTo(cell.mas_centerY);
+    }];
+    
+    if (model.playUrl.length) {
+        
+        musicalNote.hidden = NO;
+    } else {
+        
+        musicalNote.hidden = YES;
     }
+    
     return cell;
 }
 
@@ -148,7 +171,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSTemplateModel *model = self.templateListArr[indexPath.row];
     
-    NSEditTemplateViewController *editTemplateVC = [[NSEditTemplateViewController alloc] initWithTemplateTitle:model.title templateContent:model.content];
+    NSEditTemplateViewController *editTemplateVC = [[NSEditTemplateViewController alloc] initWithTemplateTitle:model.title templateContent:model.content playUrl:model.playUrl];
     
     [self.navigationController pushViewController:editTemplateVC animated:YES];
     
