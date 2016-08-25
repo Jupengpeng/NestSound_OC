@@ -23,6 +23,10 @@
 @property (nonatomic,strong) UIButton * LyricesBtn;
 @property (nonatomic,strong) UIButton * toolBtn;
 
+
+
+
+
 @end
 
 @implementation WriteLyricBottomView
@@ -137,6 +141,13 @@
 }
 @property (nonatomic,strong) UIButton * rhymeBtn;
 @property (nonatomic,strong) UIButton * lyicLibrary;
+
+@property (nonatomic,strong) UIButton *guideCaoGaoButton;
+
+@property (nonatomic,strong) UIButton *guideToolButton;
+
+
+
 @end
 
 
@@ -151,7 +162,6 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
-    
 }
 
 
@@ -169,6 +179,22 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+
+/**
+ *  抠圆
+ */
+- (void)setupRoundMaskToButton:(UIButton *)button withPoint:(CGPoint)point radius:(CGFloat)radius{
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    [path appendPath:[UIBezierPath bezierPathWithArcCenter:point radius:radius startAngle:0 endAngle:2*M_PI clockwise:NO]];
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    
+    shapeLayer.path = path.CGPath;
+    
+    [button.layer setMask:shapeLayer];
+}
+
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     
@@ -549,6 +575,78 @@
     }
     return YES;
 }
+
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+
+    [self setupGuideView];
+
+}
+
+- (void)setupGuideView{
+    BOOL isLyricInited = [[NSUserDefaults standardUserDefaults] boolForKey:@"isLyricInited"];
+    if (!isLyricInited) {
+        if (bottomView.importLyricBtn.imageView.frame.size.width) {
+            [self.navigationController.view addSubview:self.guideCaoGaoButton];
+            [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:@"isLyricInited"];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }else{
+        
+    }
+}
+#pragma mark - lazy init
+
+- (UIButton *)guideCaoGaoButton{
+    if (!_guideCaoGaoButton) {
+        _guideCaoGaoButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+            btn.backgroundColor = [UIColor colorWithRed:8/255.0 green:4/255.0 blue:3/255.0 alpha:0.6];
+            CGFloat imageWidth = ScreenWidth - 110;
+            CGFloat imageHeight = imageWidth * 192/234;
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(55, ScreenHeight - 30 - imageHeight, imageWidth, imageHeight)];
+            imageView.image = [UIImage imageNamed:@"guide_caogao"];
+            [btn addSubview:imageView];
+            CGFloat imagePointX = bottomView.importLyricBtn.imageView.width/2.0 + bottomView.importLyricBtn.imageView.x;
+            
+            [self setupRoundMaskToButton:btn withPoint:CGPointMake(imagePointX, ScreenHeight - 26) radius:16];
+            
+        } action:^(UIButton *btn) {
+            
+            [btn removeFromSuperview];
+            [self.navigationController.view addSubview:self.guideToolButton];
+        }];
+    }
+    return _guideCaoGaoButton;
+}
+
+- (UIButton *)guideToolButton{
+    if (!_guideToolButton) {
+        _guideToolButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+            btn.backgroundColor = [UIColor colorWithRed:8/255.0 green:4/255.0 blue:3/255.0 alpha:0.6];
+            CGFloat imagePointX = bottomView.toolBtn.imageView.width/2.0 + bottomView.toolBtn.imageView.x + ScreenWidth*2/3.0;;
+
+            
+            CGFloat imageMaxX = ScreenWidth/3 - bottomView.toolBtn.imageView.x + 5;
+            CGFloat imageWidth = ScreenWidth -  140;
+            CGFloat imageHeight = imageWidth * 442/415;
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - imageMaxX - imageWidth, ScreenHeight - 30 - imageHeight, imageWidth, imageHeight)];
+            imageView.image = [UIImage imageNamed:@"guide_gongju"];
+            [btn addSubview:imageView];
+            
+            [self setupRoundMaskToButton:btn withPoint:CGPointMake(imagePointX, ScreenHeight - 26) radius:16];
+
+            
+            
+        } action:^(UIButton *btn) {
+            [btn removeFromSuperview];
+        }];
+    }
+    return _guideToolButton;
+}
+
 //- (void)textViewDidChange:(UITextView *)textView {
 //    NSString *string = [NSString stringWithFormat:@"%@\n%@\n%@\n", _messageModel.title, _messageModel.date, _messageModel.content];
 //    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:textView.text];

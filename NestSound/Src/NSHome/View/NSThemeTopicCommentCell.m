@@ -313,11 +313,27 @@ static NSInteger const kLabelTag = 200;
     self.releaseTimeLabel.text = [NSTool updateTimeForCreateTimeIntrval:workDetailModel.jointime];
     self.songName.text = [NSString stringWithFormat:@"歌曲名：%@",workDetailModel.title];
     self.authorLabel.text = [NSString stringWithFormat:@"作者：%@",workDetailModel.nickname];
-    self.watchedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.looknum];
-    self.favourateCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.zannum];
-    self.collectedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.fovnum];
     
     
+    if (workDetailModel.looknum > 9999) {
+        double count = (double)workDetailModel.looknum/10000.0;
+        self.watchedCount.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.watchedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.looknum];
+    }
+    if (workDetailModel.zannum > 9999) {
+        double count = (double)workDetailModel.zannum/10000.0;
+        self.favourateCount.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.favourateCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.zannum];
+    }
+    if (workDetailModel.fovnum > 9999) {
+        double count = (double)workDetailModel.fovnum/10000.0;
+        self.collectedCount.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.collectedCount.text = [NSString stringWithFormat:@"%ld",(long)workDetailModel.fovnum];
+    }
+
     
     /**
      *  设置评论

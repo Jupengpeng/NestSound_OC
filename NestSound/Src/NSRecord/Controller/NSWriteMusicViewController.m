@@ -96,6 +96,7 @@ Boolean plugedHeadset;
     BOOL downloadFinish;
     BOOL stopScroll;
     NSDownloadProgressView *ProgressView;//BoxDismiss
+    UIView *_bottomView;
     
 }
 
@@ -144,6 +145,11 @@ Boolean plugedHeadset;
 @property (nonatomic,strong) UIAlertController *alertView;
 
 @property (nonatomic, strong) UIView *maskView;
+
+@property (nonatomic,strong) UIButton *guideBanzouButton;
+
+@property (nonatomic,strong) UIButton *guideDaoruButton;
+
 @end
 
 @implementation NSWriteMusicViewController
@@ -709,22 +715,7 @@ Boolean plugedHeadset;
     speed = self.waveform.rect.size.width/SECOND_LONG;
 
 }
-- (void)receiveClearRecord:(NSNotification *)notiInfo {
-    [self clearRecord];
-    hotId = (long)notiInfo.userInfo[@"accompanyId"];
-    hotMp3Url = notiInfo.userInfo[@"accompanyUrl"];
-    musicTime = (long)notiInfo.userInfo[@"accompanyTime"];
-    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:musicTime]];
-}
 
-
-- (void)tapClick:(UIGestureRecognizer *)tap {
-    
-    [lyricView.lyricText resignFirstResponder];
-    
-    [titleText resignFirstResponder];
-}
-    
 -(void)viewWillAppear:(BOOL)animated
 {
 
@@ -756,6 +747,23 @@ Boolean plugedHeadset;
     
     [[NSHttpClient client] cancelDownload];
 }
+
+- (void)receiveClearRecord:(NSNotification *)notiInfo {
+    [self clearRecord];
+    hotId = (long)notiInfo.userInfo[@"accompanyId"];
+    hotMp3Url = notiInfo.userInfo[@"accompanyUrl"];
+    musicTime = (long)notiInfo.userInfo[@"accompanyTime"];
+    totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:musicTime]];
+}
+
+
+- (void)tapClick:(UIGestureRecognizer *)tap {
+    
+    [lyricView.lyricText resignFirstResponder];
+    
+    [titleText resignFirstResponder];
+}
+
 - (void)downloadAccompanyWithUrl:(NSString *)urlStr {
     
     NSFileManager * fm = [NSFileManager defaultManager];
@@ -851,6 +859,23 @@ Boolean plugedHeadset;
 }
 
 #pragma mark - setupUI
+
+/**
+ *  设置操作引导
+ */
+- (void)setupGuideView{
+    
+    BOOL isWriteMusicInited = [[NSUserDefaults standardUserDefaults] boolForKey:@"isWriteMusicInited"];
+    if (!isWriteMusicInited) {
+        [self.navigationController.view addSubview:self.guideBanzouButton];
+
+        [[NSUserDefaults standardUserDefaults] setValue:@(YES) forKey:@"isWriteMusicInited"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }else{
+
+    }
+}
+
 - (void)setupUI {
     
     //nextAccompany
@@ -874,7 +899,7 @@ Boolean plugedHeadset;
         
         make.height.mas_equalTo(72);
     }];
-    
+    _bottomView = bottomView;
     
     CGFloat btnW = ScreenWidth / 5;
     
@@ -1003,7 +1028,7 @@ Boolean plugedHeadset;
     
     [self.view addSubview:lyricView];
 
- 
+    [self setupGuideView];
     
 }
 
@@ -1712,6 +1737,83 @@ Boolean plugedHeadset;
     }
     
 }
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    
+    
+    
+}
+/**
+ *  抠圆
+ */
+- (void)setupRoundMaskToButton:(UIButton *)button withPoint:(CGPoint)point radius:(CGFloat)radius{
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    [path appendPath:[UIBezierPath bezierPathWithArcCenter:point radius:radius startAngle:0 endAngle:2*M_PI clockwise:NO]];
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    
+    shapeLayer.path = path.CGPath;
+    
+    [button.layer setMask:shapeLayer];
+}
+#pragma mark - lazy init
+
+- (UIButton *)guideBanzouButton{
+    if (!_guideBanzouButton) {
+        _guideBanzouButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+            btn.backgroundColor = [UIColor colorWithRed:8/255.0 green:4/255.0 blue:3/255.0 alpha:0.6];
+            UIButton *banzouButton = [_bottomView viewWithTag:1];
+            CGFloat imagePointX = banzouButton.imageView.width/2.0 + banzouButton.imageView.x;
+            CGFloat imageCenterY = banzouButton.centerY + ScreenHeight - 72 ;
+            [self setupRoundMaskToButton:btn withPoint:CGPointMake(imagePointX, imageCenterY) radius:23];
+            
+            CGFloat imageWidth = (210/375.0) * ScreenWidth;
+            CGFloat imageHeight = imageWidth * 438/419;
+            CGFloat imageMinX = banzouButton.imageView.width + banzouButton.imageView.x + 5;
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageMinX, ScreenHeight - 38 - imageHeight, imageWidth, imageHeight)];
+            imageView.image = [UIImage imageNamed:@"guide_banzou"];
+            [btn addSubview:imageView];
+
+        } action:^(UIButton *btn) {
+            [btn removeFromSuperview];
+            [self.navigationController.view addSubview:self.guideDaoruButton];
+        }];
+    }
+    return _guideBanzouButton;
+}
+
+- (UIButton *)guideDaoruButton{
+    if (!_guideDaoruButton) {
+        _guideDaoruButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
+            btn.backgroundColor = [UIColor colorWithRed:8/255.0 green:4/255.0 blue:3/255.0 alpha:0.6];
+            UIButton *daoruButton = [_bottomView viewWithTag:4];
+            CGFloat imagePointX = ScreenWidth*4.0/5.0f + daoruButton.imageView.width/2.0 + daoruButton.imageView.x;
+            CGFloat imageCenterY = daoruButton.centerY + ScreenHeight - 72 ;
+
+            [self setupRoundMaskToButton:btn withPoint:CGPointMake(imagePointX, imageCenterY) radius:23];
+            
+            CGFloat imageWidth = (220/375.0) * ScreenWidth
+            /**
+             根据图片比例计算
+             
+             */;
+            CGFloat imageHeight = imageWidth * 439/433;
+            CGFloat imageMaxX = (ScreenWidth/5.0f - daoruButton.imageView.x + 5);
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth - imageMaxX - imageWidth, ScreenHeight - 38 - imageHeight, imageWidth, imageHeight)];
+            imageView.image = [UIImage imageNamed:@"guide_geci"];
+            [btn addSubview:imageView];
+            
+            
+        } action:^(UIButton *btn) {
+            [btn removeFromSuperview];
+        }];
+    }
+    return _guideDaoruButton;
+}
+
 - (void)dealloc{
     [self.timer invalidate];
     self.timer = nil;

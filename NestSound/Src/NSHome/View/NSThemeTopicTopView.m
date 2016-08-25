@@ -182,7 +182,7 @@
      */
     NSMutableDictionary *linkAttributes = [NSMutableDictionary dictionary];
     [linkAttributes setValue:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
-    [linkAttributes setValue:(__bridge id)[UIColor hexColorFloat:@"272adb"].CGColor forKey:(NSString *)kCTForegroundColorAttributeName];
+    [linkAttributes setValue:(__bridge id)[UIColor hexColorFloat:@"539ac2"].CGColor forKey:(NSString *)kCTForegroundColorAttributeName];
     self.descriptionLabel.linkAttributes = linkAttributes;
     
     [self.topView addSubview:self.descriptionLabel];
@@ -237,11 +237,22 @@
 
     self.durationLabel.text = dateStr;
     
-    self.workNumberLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",(long)detailModel.worknum] font:[UIFont systemFontOfSize:11.0f]], 10);
-    self.workNumberLabel.text =[NSString stringWithFormat:@"%ld",(long)detailModel.worknum];
+    if (detailModel.worknum > 9999) {
+        double count = (double)detailModel.worknum/10000.0;
+        self.workNumberLabel.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.workNumberLabel.text = [NSString stringWithFormat:@"%ld",(long)detailModel.worknum];
+    }
+    self.workNumberLabel.size =CGSizeMake([NSTool getWidthWithContent:self.workNumberLabel.text font:[UIFont systemFontOfSize:11.0f]], 10);
+
     
-    self.watchedLabel.size =CGSizeMake([NSTool getWidthWithContent:[NSString stringWithFormat:@"%ld",(long)detailModel.looknum] font:[UIFont systemFontOfSize:11.0f]], 10);
-    self.watchedLabel.text = [NSString stringWithFormat:@"%ld",(long)detailModel.looknum];
+    if (detailModel.looknum > 9999) {
+        double count = (double)detailModel.looknum/10000.0;
+        self.watchedLabel.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.watchedLabel.text = [NSString stringWithFormat:@"%ld",(long)detailModel.looknum];
+    }
+    self.watchedLabel.size =CGSizeMake([NSTool getWidthWithContent:self.watchedLabel.text font:[UIFont systemFontOfSize:11.0f]], 10);
     
     NSString *string = detailModel.actDesc;
 //    @"我们有最棒的音乐，但还不够，我们希望有更多的高手加入，为我们增添一抹靓丽的磨彩。为此，我们准备了230万原创音乐基金作为奖励，支持优胜者参赛，并提供亚洲最大的音乐为我们增添一抹亮丽的墨彩";
