@@ -284,13 +284,14 @@ static id _instance;
     if (!self.timer) {
         
         [self addTimer];
+
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     /**
      *  切歌
      */
-    [[NSNotificationCenter defaultCenter] postNotificationName:ChangePlayItemNotification object:@(self.musicDetail.itemID)];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:ChangePlayItemNotification object:@(self.musicDetail.itemID)];
 }
 
 - (void)endPlaying {
@@ -900,7 +901,7 @@ static id _instance;
         [self.player pause];
         
         /**
-         *  将暂停回传给前面
+         *  将暂停回传给前面的活动界面
          */
         [[NSNotificationCenter defaultCenter] postNotificationName:PauseCurrentItemNotification object:@(self.musicDetail.itemID)];
         
@@ -924,6 +925,14 @@ static id _instance;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.itemUid]];
             [NSPlayMusicViewController sharedPlayMusic].itemUid = self.itemUid;
         }
+        if ([self.from isEqualToString:@"huodong"]) {
+            /**
+             *  切歌
+             */
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangePlayItemNotification object:@(self.musicDetail.itemID)];
+            [NSPlayMusicViewController sharedPlayMusic].itemUid = self.itemUid;
+
+        }
     }else{
         self.itemUid = self.musicDetail.prevItemID;
         [self fetchPlayDataWithItemId:self.musicDetail.prevItemID];
@@ -931,8 +940,13 @@ static id _instance;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.musicDetail.nextItemID]];
             
         }
+        if ([self.from isEqualToString:@"huodong"]) {
+            /**
+             *  切歌
+             */
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangePlayItemNotification object:@(self.itemUid)];
+        }
     }
-    
 }
 
 //next song
@@ -956,11 +970,24 @@ static id _instance;
         if ([self.from isEqualToString:@"gedan"]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.itemUid]];
         }
+        if ([self.from isEqualToString:@"huodong"]) {
+            /**
+             *  切歌
+             */
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangePlayItemNotification object:@(self.itemUid)];
+            
+        }
     }else{
         self.itemUid = self.musicDetail.nextItemID;
         [self fetchPlayDataWithItemId:self.musicDetail.nextItemID];
         if ([self.from isEqualToString:@"gedan"]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToRow" object:[NSString stringWithFormat:@"%ld",self.musicDetail.nextItemID]];
+        }
+        if ([self.from isEqualToString:@"huodong"]) {
+            /**
+             *  切歌
+             */
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangePlayItemNotification object:@(self.musicDetail.nextItemID)];
         }
     }
     
@@ -1363,7 +1390,7 @@ static id _instance;
     [self resignFirstResponder];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pausePlayer" object:nil];
-
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangePlayItemNotification object:nil];
 
 }
 

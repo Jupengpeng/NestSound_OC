@@ -23,7 +23,7 @@ static NSInteger const kButtonTag = 450;
 #import "NSAccompanyListViewController.h"
 #import "NSLoginViewController.h"
 #import "NSUserWorkListController.h"
-
+#import "NSPlayMusicViewController.h"
 @interface NSThemeActivityController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,TTTAttributedLabelDelegate,UIAlertViewDelegate>
 {
     CGFloat _topViewHeight;
@@ -38,7 +38,7 @@ static NSInteger const kButtonTag = 450;
     
     UIView *_moreChoiceView;
     UIView *_maskView;
-    
+    UIImageView *_playStatus;
     /**
      *  是否已经发布过
      */
@@ -64,6 +64,8 @@ static NSInteger const kButtonTag = 450;
 @property (nonatomic,strong)  NSThemeCommentController *leftController;
 @property (nonatomic,strong) NSThemeCommentController *rightController;
 
+
+@property (nonatomic,strong) NSPlayMusicViewController *playSongsVC;
 /**
  *  数据源
  */
@@ -97,6 +99,16 @@ static NSInteger const kButtonTag = 450;
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    if (self.playSongsVC.player == nil) {
+        
+    } else {
+        
+        if (self.playSongsVC.player.rate != 0.0) {
+            [_playStatus startAnimating];
+        }else{
+            [_playStatus stopAnimating];
+        }
+    }
     if (self.needRefresh) {
         [self refreshData];
     }
@@ -208,6 +220,7 @@ static NSInteger const kButtonTag = 450;
 - (void)setupUI{
 
     
+    [self setupNavBar];
     self.title = @"专题活动";
     
     self.mainTableView.tableHeaderView = self.topView ;
@@ -278,15 +291,51 @@ static NSInteger const kButtonTag = 450;
 //    self.mainTableView.pullToRefreshView.y = _refreshOriginY - _topViewHeight;
     //    self.mainTableView.pullToRefreshView.alpha = 0;;
     
-
-    
-
-    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"leaveTop" object:nil];
 }
 
+- (void)setupNavBar{
+    _playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
+    _playStatus.animationDuration = 0.8;
+    _playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
+                                   [UIImage imageNamed:@"2.0_play_status_2"],
+                                   [UIImage imageNamed:@"2.0_play_status_3"],
+                                   [UIImage imageNamed:@"2.0_play_status_4"],
+                                   [UIImage imageNamed:@"2.0_play_status_5"],
+                                   [UIImage imageNamed:@"2.0_play_status_6"],
+                                   [UIImage imageNamed:@"2.0_play_status_7"],
+                                   [UIImage imageNamed:@"2.0_play_status_8"],
+                                   [UIImage imageNamed:@"2.0_play_status_9"],
+                                   [UIImage imageNamed:@"2.0_play_status_10"],
+                                   [UIImage imageNamed:@"2.0_play_status_11"],
+                                   [UIImage imageNamed:@"2.0_play_status_12"],
+                                   [UIImage imageNamed:@"2.0_play_status_13"],
+                                   [UIImage imageNamed:@"2.0_play_status_14"],
+                                   [UIImage imageNamed:@"2.0_play_status_15"],
+                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    
+    [_playStatus stopAnimating];
+    _playStatus.userInteractionEnabled = YES;
+    _playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
+    UIButton * btn = [[UIButton alloc] initWithFrame:_playStatus.frame ];
+    [_playStatus addSubview:btn];
+    [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:_playStatus];
+    self.navigationItem.rightBarButtonItem = item;
+}
+
+- (void)musicPaly:(UIBarButtonItem *)palyItem {
+    
+    if (self.playSongsVC.player == nil) {
+        [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
+    } else {
+        
+        [self.navigationController pushViewController:self.playSongsVC animated:YES];
+    }
+    
+}
 
 -(void)acceptMsg : (NSNotification *)notification{
     
@@ -695,7 +744,15 @@ static NSInteger const kButtonTag = 450;
     }
     return _joinerList;
 }
-
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+    }
+    
+    return _playSongsVC;
+}
 /**
 - (UIView *)myrefreshView{
     if (!_myrefreshView) {

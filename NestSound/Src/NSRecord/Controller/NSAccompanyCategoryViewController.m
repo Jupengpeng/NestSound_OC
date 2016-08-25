@@ -243,7 +243,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     
 }
 - (void)pausePlayer {
-    [NSPlayMusicTool stopMusicWithName:nil];
+    [NSPlayMusicTool pauseMusicWithName:nil];
     self.button.selected = NO;
 }
 - (void)leftClick:(UIBarButtonItem *)barButtonItem {
