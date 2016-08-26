@@ -243,10 +243,10 @@ static NSString *ID3 = @"cell3";
                 }
                 [_tableView reloadData];
             }else if ([operation.urlTag isEqualToString:focusUserURL]){
-                [[NSToastManager manager] showtoast:parserObject.data];
-                if ([parserObject.data isEqualToString:@"{mp3URL = 取消关注成功}"]) {
+                [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
+                if ([parserObject.data[@"mp3URL"] isEqualToString:@"取消关注成功"]) {
                     followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
-                } else if ([parserObject.data isEqualToString:@"{mp3URL = 关注成功}"]){
+                } else if ([parserObject.data[@"mp3URL"] isEqualToString:@"关注成功"]){
                     followItem.image = [UIImage imageNamed:@"2.0_focused_icon"];
                 } else {
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
@@ -779,7 +779,6 @@ static NSString *ID3 = @"cell3";
         cell.myMusicModel = dataAry[indexPath.row];
         return cell;
         
-        
     } else if (self.btnTag == 1) {
         
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
@@ -795,7 +794,6 @@ static NSString *ID3 = @"cell3";
         
         return cell;
         
-        
     } else if (self.btnTag == 2) {
         
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
@@ -808,7 +806,7 @@ static NSString *ID3 = @"cell3";
         }];
         cell.myMusicModel = dataAry[indexPath.row];
         cell.numLabel.hidden = YES;
-        
+        cell.secretImgView.hidden = YES;
         return cell;
         
     } else {

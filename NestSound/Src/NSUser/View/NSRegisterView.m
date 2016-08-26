@@ -35,7 +35,7 @@
     
     _userNameTF.font = [UIFont systemFontOfSize:15];
     
-    _userNameTF.placeholder = @" 用户名";
+    _userNameTF.placeholder = @"用户名";
     //    [oldPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_userNameTF];
     
@@ -44,7 +44,7 @@
     
     UIImageView *phoneImgView = [[UIImageView alloc] initWithImage:phoneImg];
     
-    phoneImgView.frame = CGRectMake(0, 0, 12, 20);
+    phoneImgView.frame = CGRectMake(0, 0, 12, 18);
     
     self.phoneTF = [[NSTextField alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_userNameTF.frame) + 10, ScreenWidth - 20, 30) drawingLeft:phoneImgView];
     
@@ -52,7 +52,7 @@
     
     _phoneTF.font = [UIFont systemFontOfSize:15];
     
-    _phoneTF.placeholder = @" 手机号";
+    _phoneTF.placeholder = @"手机号";
     
     //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_phoneTF];
@@ -72,7 +72,7 @@
     
     _codeTF.font = [UIFont systemFontOfSize:15];
     
-    _codeTF.placeholder = @" 验证码";
+    _codeTF.placeholder = @"验证码";
     
     //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_codeTF];
@@ -111,7 +111,7 @@
     
     _passwordTF.font = [UIFont systemFontOfSize:15];
     
-    _passwordTF.placeholder = @" 输入密码";
+    _passwordTF.placeholder = @"输入密码";
     
     //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_passwordTF];
@@ -131,7 +131,7 @@
     
     _repasswordTF.font = [UIFont systemFontOfSize:15];
     
-    _repasswordTF.placeholder = @" 再次输入密码";
+    _repasswordTF.placeholder = @"再次输入密码";
     
     //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_repasswordTF];

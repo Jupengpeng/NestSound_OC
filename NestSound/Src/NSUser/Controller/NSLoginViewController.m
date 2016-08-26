@@ -94,7 +94,7 @@
     } else if (registerView.passwordTF.text.length == 0 || registerView.phoneTF.text.length == 0) {
         
         [[NSToastManager manager] showtoast:@"账号和密码不能为空"];
-    } else if (![NSTool isValidateMobile:registerView.phoneTF.text]) {
+    } else if (registerView.phoneTF.text.length != 11) {
         
         [[NSToastManager manager] showtoast:@"请输入正确的手机号"];
         

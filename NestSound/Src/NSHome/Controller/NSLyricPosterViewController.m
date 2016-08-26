@@ -7,7 +7,7 @@
 //
 
 #import "NSLyricPosterViewController.h"
-
+#import "NSShareView.h"
 @interface NSLyricPosterViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIScrollViewDelegate>
 {
     NSString *lyric;
@@ -15,6 +15,10 @@
     UIImage *posterImg;
     
     CGFloat height;
+    
+    NSShareView *shareView;
+    
+    UIView *maskView;
 }
 @property (nonatomic, strong) UIImageView *imgView;
 @end
@@ -105,6 +109,8 @@
     
     shareBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     
+    [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
+    
     [bottomView addSubview:shareBtn];
     
     [shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -155,6 +161,29 @@
         make.bottom.equalTo(bottomView).offset(-5);
         
     }];
+    maskView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    
+    maskView.backgroundColor = [UIColor lightGrayColor];
+    
+    maskView.alpha = 0.5;
+    
+    [self.view addSubview:maskView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
+    
+    maskView.hidden = YES;
+    
+    [maskView addGestureRecognizer:tap];
+    
+    // 分享弹框
+    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
+    shareView.backgroundColor = [UIColor whiteColor];
+    
+    for (int i = 0; i < 7; i++) {
+        UIButton *shareBtn = (UIButton *)[shareView viewWithTag:250+i];
+        [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.view addSubview:shareView];
 }
 
 - (void)selectPicFromAlbum {
@@ -168,6 +197,24 @@
     [self presentViewController:imgController animated:YES completion:^{
         
     }];
+}
+- (void)tapClick:(UIGestureRecognizer *)tap {
+    
+    maskView.hidden = YES;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        
+        shareView.y = ScreenHeight;
+        
+    }];
+}
+- (void)handleShareAction:(UIButton *)sender {
+    
+    maskView.hidden = NO;
+    [UIView animateWithDuration:0.4 animations:^{
+        shareView.y = ScreenHeight - shareView.height;
+    }];
+    
 }
 - (void)saveThePosterImgToLoacl {
     
