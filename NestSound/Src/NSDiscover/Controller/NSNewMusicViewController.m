@@ -260,6 +260,7 @@
     
     cell.numLabel.hidden = YES;
     cell.myMusicModel = DataAry[indexPath.row];
+    cell.secretImgView.hidden = YES;
     return cell;
 }
 

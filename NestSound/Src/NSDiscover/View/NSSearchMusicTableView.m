@@ -31,7 +31,10 @@
     return self;
 }
 
-
+- (void)setDataAry:(NSMutableArray *)DataAry {
+    _DataAry = DataAry;
+    [self reloadData];
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     

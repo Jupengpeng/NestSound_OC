@@ -24,12 +24,13 @@ static NSString  * const activityBeOnUrlStr = @"yinchao://customization/match/in
 //  已结束的活动：(type => 0 为歌曲  1 => 歌词，aid => 活动id）
 static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/end/aid/";
 //aid=2&type=1
-
+//static NSString *const activityFinishUrlStr = @""
 #import "NSCustomMusicController.h"
 #import "NSStarMusicianListController.h"
 #import "NSStarMusicianDetailController.h"
 #import "NSActivityOverViewController.h"
 #import "NSThemeActivityController.h"
+#import "NSH5ViewController.h"
 @interface NSCustomMusicController ()<UIWebViewDelegate>
 
 @property (nonatomic,copy) NSString *phoneUrlStr;
@@ -57,9 +58,6 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
-    
-
-    
     NSString *clickStr=request.URL.absoluteString;
 
     /**
@@ -75,12 +73,14 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
         UIWebView * callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str1]]];
         [self.view addSubview:callWebview];
+        return NO;
         /**
          音乐人列表
          */
     }else if([clickStr isEqualToString:musicianListUrlStr]){
         NSStarMusicianListController *musicianController = [[NSStarMusicianListController alloc] init];
         [self.navigationController pushViewController:musicianController animated:YES];
+        return NO;
     }else if([clickStr containsString:musicianSigleUrlStr]){
         NSRange range = [clickStr rangeOfString:musicianSigleUrlStr];
         /**
@@ -96,7 +96,7 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
         NSStarMusicianDetailController *detailController = [[NSStarMusicianDetailController alloc]init];
         detailController.uid = uid;
         [self.navigationController pushViewController:detailController animated:YES];
-        
+        return NO;
     }else if([clickStr containsString:activityBeOnUrlStr]){
         /**
          *  进行中活动
@@ -118,9 +118,7 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
         activityController.aid = aid;
         activityController.type = type;
         [self.navigationController pushViewController:activityController animated:YES];
-
-        
-        
+        return NO;
     }else  if([clickStr containsString:activityBeOverUrlStr]){
         /**
          关闭的活动
@@ -128,9 +126,22 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
         NSActivityOverViewController *actOverController = [[NSActivityOverViewController alloc] init];
         actOverController.contentUrlString = clickStr;
         [self.navigationController pushViewController:actOverController animated:YES];
+        return NO;
+    } else if ([clickStr isEqualToString:@"http://html.yinchao.cn/app-customization-index.html"]){
+        
+        return YES;
+    } else {
+        
+        NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
+        
+        eventVC.h5Url = clickStr;
+        
+        [self.navigationController pushViewController:eventVC animated:YES];
+        
+        return NO;
     }
     
-    return YES;
+//    return YES;
 }
 
 - (UIWebView *)customMusicWebView{

@@ -29,13 +29,14 @@
     return self;
 }
 - (void)setupShareView {
-    self.weixinDict                = @{@"icon": @"2.0_weChat", @"name": @"微信"};
-    self.pengyouquanDict    = @{@"icon": @"2.0_friends", @"name": @"朋友圈"};
-    self.weiboDict               = @{@"icon": @"2.0_sina", @"name": @"微博"};
-    self.QQDict                 = @{@"icon": @"2.0_qq", @"name": @"QQ"};
-    self.QzoneDict           = @{@"icon": @"2.0_qZone", @"name": @"QQ空间"};
-    self.fuzhiDic                =  @{@"icon":@"2.0_copy",@"name":@"复制链接"};
-    self.lyricPoster            = @{@"icon":@"2.0_lyricPoster",@"name":@"歌词海报"};
+    
+    self.weixinDict                = @{@"icon": @"2.0_weChat", @"name": @"微信",@"type":UMShareToWechatSession};
+    self.pengyouquanDict    = @{@"icon": @"2.0_friends", @"name": @"朋友圈",@"type":UMShareToWechatTimeline};
+    self.weiboDict               = @{@"icon": @"2.0_sina", @"name": @"微博",@"type":UMShareToSina};
+    self.QQDict                 = @{@"icon": @"2.0_qq", @"name": @"QQ",@"type":UMShareToQQ};
+    self.QzoneDict           = @{@"icon": @"2.0_qZone", @"name": @"QQ空间",@"type":UMShareToQzone};
+    self.fuzhiDic                =  @{@"icon":@"2.0_copy",@"name":@"复制链接",@"type":@"copy"};
+    self.lyricPoster            = @{@"icon":@"2.0_lyricPoster",@"name":@"歌词海报",@"type":@"poster"};
     NSMutableArray *shareArr = [NSMutableArray arrayWithCapacity:1];
     
     if ([Share shareAvailableWeiXin]) {
@@ -51,7 +52,7 @@
     }
     [shareArr addObject:_fuzhiDic];
     [shareArr addObject:_lyricPoster];
-    
+    self.shareArr = [NSArray arrayWithArray:shareArr];
     for (int i = 0; i < 2; i ++) {
         for (int j = 0; j < 5; j++) {
             if (i*5+j < shareArr.count) {
@@ -62,6 +63,21 @@
                 shareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
                 [shareBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                 [shareBtn setImage:[UIImage imageNamed:shareArr[i*5+j][@"icon"]] forState:UIControlStateNormal];
+//                if ([shareArr[i*5+j][@"icon"] isEqualToString:@"2.0_weChat"]) {
+//                    shareBtn.tag = 111;
+//                } else if ([shareArr[i*5+j][@"icon"] isEqualToString:@"2.0_friends"]) {
+//                    shareBtn.tag = 222;
+//                } else if ([shareArr[i*5+j][@"icon"] isEqualToString:@"2.0_sina"]) {
+//                    shareBtn.tag = 333;
+//                } else if ([shareArr[i*5+j][@"icon"] isEqualToString:@"2.0_qq"]) {
+//                    shareBtn.tag = 444;
+//                } else if ([shareArr[i*5+j][@"icon"] isEqualToString:@"2.0_qZone"]) {
+//                    shareBtn.tag = 555;
+//                } else if ([shareArr[i*5+j][@"icon"] isEqualToString:@"2.0_copy"]) {
+//                    shareBtn.tag = 666;
+//                } else if ([shareArr[i*5+j][@"icon"] isEqualToString:@"2.0_lyricPoster"]) {
+//                    shareBtn.tag = 777;
+//                }
                 [self addSubview:shareBtn];
                 
                 UILabel *shareLabel = [[UILabel alloc] initWithFrame:CGRectMake(j *((ScreenWidth-20)/5)+10, 85*i+65, (ScreenWidth-20)/5, 20)];

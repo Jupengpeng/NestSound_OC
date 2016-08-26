@@ -26,6 +26,9 @@
     NSString * requestUserURL;
     NSMutableArray * musicDataAry;
     NSMutableArray * userDataAry;
+    NSSearchMusicTableView *searchMusic;
+    NSSearchMusicTableView *searchLyric;
+    int searchType;
 }
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 
@@ -92,7 +95,6 @@
         self.requestURL = requestUserURL;
     }
     
-    
 }
 
 
@@ -105,8 +107,12 @@
         if (!parserObject.success) {
             NSSearchUserListModel * searchUser = (NSSearchUserListModel *)parserObject;
             if ([operation.urlTag isEqualToString:requestMusicURL]) {
+                if (searchType == 1) {
+                    searchMusic.DataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                } else if (searchType == 2) {
+                    searchLyric.DataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                }
                 
-                musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
             }else if ([operation.urlTag isEqualToString:requestUserURL]){
                 
                 userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
@@ -180,9 +186,9 @@
 
 
 - (void)setupContent {
-    
+    searchType = 1;
     //歌曲
-    NSSearchMusicTableView *searchMusic = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height)];
+    searchMusic = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height)];
     
     searchMusic.tag = 1;
     searchMusic.DataAry = musicDataAry;
@@ -191,7 +197,7 @@
     [self.contentScrollView addSubview:searchMusic];
     
     //歌词
-    NSSearchMusicTableView *searchLyric = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, self.contentScrollView.height)];
+    searchLyric = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, self.contentScrollView.height)];
     
     searchLyric.tag = 2;
     searchLyric.DataAry = musicDataAry;
@@ -229,10 +235,13 @@
     
     
     if (titleBtn.tag == 0) {
+        searchType = 1;
         [self fetchDataWithType:1 andIsLoadingMore:NO];
     } else if (titleBtn.tag == 1) {
+        searchType = 2;
         [self fetchDataWithType:2 andIsLoadingMore:NO];
     } else {
+        searchType = 3;
           [self fetchDataWithType:3 andIsLoadingMore:NO];
     }
     
@@ -247,10 +256,13 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     if (scrollView.contentOffset.x == 0) {
+        searchType = 1;
         [self fetchDataWithType:1 andIsLoadingMore:NO];
     } else if (scrollView.contentOffset.x == ScreenWidth) {
+        searchType = 2;
         [self fetchDataWithType:2 andIsLoadingMore:NO];
     } else {
+        searchType = 3;
          [self fetchDataWithType:3 andIsLoadingMore:NO];
     }
 }
