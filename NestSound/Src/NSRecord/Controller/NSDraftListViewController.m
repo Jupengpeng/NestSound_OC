@@ -8,6 +8,7 @@
 
 #import "NSDraftListViewController.h"
 #import "NSDraftListModel.h"
+#import "NSTool.h"
 @interface NSDraftListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *draftListTab;
@@ -135,7 +136,8 @@ static NSString  * const draftCellIdifity = @"draftCell";
         }
         
         cell.detailTextLabel.textAlignment = NSTextAlignmentRight;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"2016-08-%ld",(long)indexPath.row];
+        cell.detailTextLabel.text = [date datetoLongLongStringWithDate:model.createTime];
+//        [NSString stringWithFormat:@"2016-08-%ld",(long)indexPath.row];
         
     }
     return cell;

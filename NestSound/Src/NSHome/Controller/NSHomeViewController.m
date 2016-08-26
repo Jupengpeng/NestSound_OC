@@ -305,7 +305,12 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         
         return recommendSongAry.count;
         
-    } else if (section == 3){
+    }
+    /**
+     *  话题进行时
+
+     */
+    else if (section == 3){
         
         return 0;
         
@@ -460,7 +465,9 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:recommendSongModel.itemID];
         [self.navigationController pushViewController:songVC animated:YES];
     } else if (section == 3){
-        
+        /**
+         *  活动进行时
+         */
         
     } else if (section == 4){
         NSNew * newModel = (NSNew *)newListAry[row];
@@ -525,8 +532,15 @@ static NSString * const TopCarringCell = @"TopCarringCell";
     if (section == 0) {
         
         return CGSizeMake(ScreenWidth, 190);
-    } else if(section == 1 || section == 3){
+    } else if(section == 1){
         return CGSizeMake(ScreenWidth, 10);
+    } else if(section == 3){
+        /**
+         *  活动进行时
+         */
+        return CGSizeMake(0,0);
+//        return CGSizeMake(ScreenWidth, 10);
+
     }
     return CGSizeMake(ScreenWidth, 35);
     
@@ -551,6 +565,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
     }  else if (indexPath.section == 1 || indexPath.section == 3 ){
         [[reusable viewWithTag:100] removeFromSuperview];
         [[reusable viewWithTag:200] removeFromSuperview];
+        
     } else if (indexPath.section == 2) {
 
         [[reusable viewWithTag:100] removeFromSuperview];

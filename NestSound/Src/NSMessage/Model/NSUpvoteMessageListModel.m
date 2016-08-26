@@ -23,7 +23,8 @@
              @"nickName":@"nickname",
              @"titleImageUrl":@"pic",
              @"titleImageUrls":@"pics",
-             @"workName":@"title"
+             @"workName":@"title",
+             @"add_time":@"add_time"
              };
 
 }

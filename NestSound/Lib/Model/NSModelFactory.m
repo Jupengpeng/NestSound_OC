@@ -45,7 +45,7 @@
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
-//    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
+    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
     CHLog(@"jsonDict%@",jsonDict);
     if ([url isEqualToString:indexURL]) {
 

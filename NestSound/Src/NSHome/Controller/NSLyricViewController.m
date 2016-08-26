@@ -110,7 +110,7 @@
 -(void)fetchData
 {
     self.requestType = YES;
-    NSDictionary * dic = @{@"id": [NSString stringWithFormat:@"%ld",itemId],@"uid":JUserID};
+    NSDictionary * dic = @{@"id": [NSString stringWithFormat:@"%ld",itemId],@"uid":JUserID?JUserID:[NSNull null]};
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
     

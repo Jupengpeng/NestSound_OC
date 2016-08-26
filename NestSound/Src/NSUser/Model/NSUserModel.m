@@ -17,7 +17,8 @@
              @"userID":@"userid",
              @"birthday":@"birthday",
              @"male":@"sex",
-             @"desc":@"descr"};
+             @"desc":@"descr",
+             @"bgPic":@"bgpic"};
 }
 
 @end

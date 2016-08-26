@@ -454,6 +454,17 @@ static NSDateFormatter *dateFormatter;
     return currentTimeString;
 }
 
++(NSString *)datetoLongLongStringWithDate:(NSTimeInterval)date
+{
+    
+    double d = date /1000;
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSString * currentTimeString = [formatter stringFromDate:dat];
+    return currentTimeString;
+}
+
 //date to string formatLike "4月5日"
 
 +(NSString *)datetoMonthStringWithDate:(NSTimeInterval)date

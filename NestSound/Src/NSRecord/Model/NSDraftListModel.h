@@ -18,7 +18,7 @@
 @property (nonatomic,copy) NSString * content;
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * draftdesc;
-
+@property (nonatomic,assign) NSInteger createTime;
 
 @end
 

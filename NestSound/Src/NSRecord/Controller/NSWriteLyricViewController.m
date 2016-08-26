@@ -427,6 +427,9 @@
 #pragma mark -push to my lyric list page
 -(void)imporLyric
 {
+    /**
+     倒入草稿
+          */
     NSDraftListViewController *draftListVC = [[NSDraftListViewController alloc] init];
     
     draftListVC.delegate = self;

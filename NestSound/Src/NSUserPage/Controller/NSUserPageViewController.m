@@ -167,6 +167,20 @@ static NSString *ID3 = @"cell3";
 }
 
 
+- (void)postBgImage{
+    
+//    @"bgPic":user.bgPic
+//};
+//[[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
+//    self.requestType = NO;
+    NSString *picUrl = [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"bgPic"];
+    self.requestParams = @{@"uid":JUserID,
+                           @"bgpic":@""};
+    self.requestURL = uploadBgimageUrl;
+    
+}
+
+
 
 
 #pragma mark -overrider action fetchData

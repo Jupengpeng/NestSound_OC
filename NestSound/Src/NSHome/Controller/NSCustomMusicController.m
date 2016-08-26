@@ -10,7 +10,7 @@
  *  拨打电话：
  */
 
-static NSString  * const phoneUrlStr = @"yinchao://customization/tel/057186693441";
+static NSString  * const phoneUrlStr = @"yinchao://customization/tel/";
 
 //查看音乐人列表：
 static NSString  * const musicianListUrlStr = @"yinchao://customization/musician/list";
@@ -65,8 +65,13 @@ static NSString  * const activityBeOverUrlStr = @"yinchao://customization/match/
     /**
      *  电话
      */
-    if ([clickStr isEqualToString:phoneUrlStr]) {
-        NSMutableString * str1=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"18501423218"];
+    if ([clickStr containsString:phoneUrlStr]) {
+        NSRange frontRange = [clickStr rangeOfString:phoneUrlStr];
+
+        NSString *numString = [clickStr substringWithRange:NSMakeRange(frontRange.length, clickStr.length - frontRange.length)];
+        
+        NSMutableString * str1=[[NSMutableString alloc] initWithFormat:@"tel:%@",numString];
+        
         UIWebView * callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str1]]];
         [self.view addSubview:callWebview];

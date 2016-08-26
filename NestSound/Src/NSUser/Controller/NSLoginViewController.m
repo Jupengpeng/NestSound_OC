@@ -141,6 +141,7 @@
                                                @"birthday":user.birthday,
                                                @"male":[NSNumber numberWithInt:user.male],
                                                @"desc":user.desc,
+                                               @"bgPic":user.bgPic
                                                };
                     [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
                     [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];

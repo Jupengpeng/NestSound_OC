@@ -17,6 +17,7 @@
 @property (nonatomic,copy) NSString * birthday;
 @property (nonatomic,copy) NSString * desc;
 @property (nonatomic,assign) int male;
+@property (nonatomic,copy) NSString *bgPic;
 @end
 
 @interface NSUserModel : NSBaseModel

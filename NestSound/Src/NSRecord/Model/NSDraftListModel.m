@@ -17,7 +17,8 @@
              @"uid":@"uid",
              @"content":@"content",
              @"title":@"title",
-             @"draftdesc":@"draftdesc",};
+             @"draftdesc":@"draftdesc",
+             @"createTime":@"createtime"};
 }
 
 @end
