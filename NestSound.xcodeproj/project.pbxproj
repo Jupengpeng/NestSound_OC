@@ -226,6 +226,8 @@
 		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
 		B80C86551D47A75B00B22855 /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C86541D47A75B00B22855 /* HudView.m */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
+		B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966221D727F90005D3724 /* NSObject+YYModel.m */; };
+		B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966241D727F90005D3724 /* YYClassInfo.m */; };
 		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
@@ -674,6 +676,11 @@
 		B80C86541D47A75B00B22855 /* HudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudView.m; sourceTree = "<group>"; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		B8B966211D727F90005D3724 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
+		B8B966221D727F90005D3724 /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
+		B8B966231D727F90005D3724 /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
+		B8B966241D727F90005D3724 /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
+		B8B966251D727F90005D3724 /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		B8C17E011D545DBE0021CDA3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		B8C17E021D545DBE0021CDA3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1331,6 +1338,7 @@
 		2DFB67261CC1E75900DA24DA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				B8B966201D727F90005D3724 /* YYModel */,
 				695618FC1D61C35500102BC7 /* MainViewController */,
 				946B040F1D4EEC8A00529DBA /* HUPhotoPicker */,
 				2DFB672F1CC1E88F00DA24DA /* Http */,
@@ -1489,6 +1497,19 @@
 			);
 			name = Problem;
 			sourceTree = "<group>";
+		};
+		B8B966201D727F90005D3724 /* YYModel */ = {
+			isa = PBXGroup;
+			children = (
+				B8B966211D727F90005D3724 /* NSObject+YYModel.h */,
+				B8B966221D727F90005D3724 /* NSObject+YYModel.m */,
+				B8B966231D727F90005D3724 /* YYClassInfo.h */,
+				B8B966241D727F90005D3724 /* YYClassInfo.m */,
+				B8B966251D727F90005D3724 /* YYModel.h */,
+			);
+			name = YYModel;
+			path = NestSound/Lib/YYModel;
+			sourceTree = SOURCE_ROOT;
 		};
 		D52D193CDD30D4B66C17B677 /* Pods */ = {
 			isa = PBXGroup;
@@ -2805,6 +2826,7 @@
 				18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */,
 				B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */,
 				946B042B1D4EEC8A00529DBA /* HUImagePickerRootViewController.m in Sources */,
+				B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */,
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
@@ -2859,6 +2881,7 @@
 				0CCC191A1D6452A1009E9478 /* NSTemplateViewController.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
+				B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */,
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
 				946B04311D4EEC8A00529DBA /* README.md in Sources */,
 				944785D41D5B0040004FFB75 /* NSLyricPosterViewController.m in Sources */,

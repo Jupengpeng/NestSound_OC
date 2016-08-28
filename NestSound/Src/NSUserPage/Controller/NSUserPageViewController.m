@@ -22,12 +22,16 @@
 #import "NSInspirationRecordViewController.h"
 #import "NSMyMusicModel.h"
 #import "NSTopLBottomLView.h"
+#import "NSGetQiNiuModel.h"
 #define kHeadImageHeight 200
 @interface NSUserPageViewController ()
 <
 UITableViewDelegate,
 UIScrollViewDelegate,
-UITableViewDataSource>
+UITableViewDataSource,
+UIActionSheetDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate>
 {
     
     UITableView *_tableView;
@@ -43,6 +47,7 @@ UITableViewDataSource>
     NSString * otherUrl;
     NSString * url;
     NSString *headerUrl;
+    NSString *_qiniuUrl;
     int type;
     NSTableHeaderView *headerView ;
     int page;
@@ -58,10 +63,16 @@ UITableViewDataSource>
     UIBarButtonItem *followItem;
     NSTopLBottomLView *focusLLView;
     NSTopLBottomLView *fansLLView;
+    UIImagePickerController * _imagePickerController;
+
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
 @property (nonatomic, strong) NSMutableArray *itemIdArr;
+
+@property (nonatomic,copy) NSString *imageTitleStr;
+
+
 @end
 static NSString *ID0 = @"cell0";
 static NSString *ID1 = @"cell1";
@@ -166,16 +177,18 @@ static NSString *ID3 = @"cell3";
     
 }
 
-
-- (void)postBgImage{
+/**
+ *  上传背景图片信息
+ *
+ *  @param imageUrl <#imageUrl description#>
+ */
+- (void)postBgImageWithImageUrl:(NSString *)imageUrl{
     
-//    @"bgPic":user.bgPic
-//};
-//[[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
-//    self.requestType = NO;
-    NSString *picUrl = [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"bgPic"];
+
+    self.requestType = NO;
     self.requestParams = @{@"uid":JUserID,
-                           @"bgpic":@""};
+                           @"bgpic":imageUrl,
+                           @"token":LoginToken};
     self.requestURL = uploadBgimageUrl;
     
 }
@@ -229,6 +242,10 @@ static NSString *ID3 = @"cell3";
                     }
                     
                     if (self.who == Other) {
+                        /**
+                         *  背景图
+                         */
+                        [headImgView setDDImageWithURLString:@"" placeHolderImage:[UIImage imageNamed:@"2.0_backgroundImage"]];
                         switch (userData.userOtherModel.isFocus) {
                             case 0:
                                 followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
@@ -267,6 +284,18 @@ static NSString *ID3 = @"cell3";
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
                 [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+                
+            } else if ([operation.urlTag isEqualToString:_qiniuUrl]){
+                NSGetQiNiuModel *qiNiuModel = (NSGetQiNiuModel *)parserObject;
+                [self postBgImageWithImageUrl:[NSString stringWithFormat:@"%@.png",qiNiuModel.qiNIuModel.fileName]];
+                
+                qiNiu * data = qiNiuModel.qiNIuModel;
+                NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
+                
+                [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
+                
+            } else if ([operation.urlTag isEqualToString:uploadBgimageUrl]){
+                
                 
             }
             if (!operation.isLoadingMore) {
@@ -406,7 +435,28 @@ static NSString *ID3 = @"cell3";
     //
     //    [headImgView addSubview:toolbar];
     
-    headImgView.image = [UIImage imageNamed:@"2.0_backgroundImage"];
+
+    /**
+     *  背景图
+     */
+    NSString *backgrountImageUrl = [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"bgPic"];
+    [headImgView setDDImageWithURLString:backgrountImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_backgroundImage"]];
+    if (self.who == Myself) {
+        /**
+         *  背景图片添加点击事件
+         */
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+        headImgView.userInteractionEnabled = YES;
+        [headImgView addGestureRecognizer:tap];
+        
+        _imagePickerController = [[UIImagePickerController alloc] init];
+        _imagePickerController.allowsEditing = YES;
+        _imagePickerController.delegate = self;
+    }
+
+    
+    
     
     signatureLabel = [[UILabel alloc] init];
     
@@ -557,6 +607,95 @@ static NSString *ID3 = @"cell3";
     
     _tableView.contentInset = UIEdgeInsetsMake(kHeadImageHeight + 60, 0, 0, 0);
 }
+
+/**
+ *  点击封面
+ *
+ *  @param tap 点击
+ */
+- (void)tapAction:(UITapGestureRecognizer *)tap{
+    
+    UIActionSheet *photoActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"相机",@"相册", nil];
+    [photoActionSheet showInView:self.view];
+}
+
+#pragma mark -uploadPhoto
+-(void)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
+{
+    
+    WS(wSelf);
+//    __block NSString * file = titleImageURL;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:photoPath]) {
+        QNUploadManager * upManager = [[QNUploadManager alloc] init];
+        
+        NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
+        [upManager putData:imageData key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            wSelf.imageTitleStr = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+
+            
+            [self postBgImageWithImageUrl:wSelf.imageTitleStr];
+            
+        } option:nil];
+    }
+    
+//    return file;
+}
+
+#pragma mark -UIImagePickerControllerDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    UIImage * backgroundImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
+    NSFileManager * fm = [NSFileManager defaultManager];
+    if ([fm fileExistsAtPath:fullPath]) {
+        [fm removeItemAtPath:fullPath error:nil];
+    }
+    [NSTool saveImage:backgroundImage withName:@"backgroundImage.png"];
+    UIImage * titlepageImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
+
+    headImgView.image = titlepageImage;
+
+    
+    
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+        /**
+         *  获取七牛图片token
+         */
+        _qiniuUrl = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
+
+    }];
+    
+}
+#pragma mark - actionsheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+        switch (buttonIndex) {
+            case 0:
+                _imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                [self presentViewController:_imagePickerController animated:YES completion:^{
+                    
+                }];
+                break;
+            case 1:
+                _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                [self presentViewController:_imagePickerController animated:YES completion:^{
+                    
+                }];
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+        
+}
+
+#pragma mark - scrolldelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
