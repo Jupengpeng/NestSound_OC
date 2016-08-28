@@ -134,6 +134,8 @@ static NSString * const headerView = @"HeaderView";
 {
     if (requestErr) {
         
+        [_collection.pullToRefreshView stopAnimating];
+        
     } else {
         if (!parserObject.success){
             

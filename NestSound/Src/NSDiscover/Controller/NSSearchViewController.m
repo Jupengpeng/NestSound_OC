@@ -13,8 +13,9 @@
 #import "NSDiscoverMoreLyricModel.h"
 #import "NSSearchUserListModel.h"
 #import "NSUserPageViewController.h"
-
-@interface NSSearchViewController () <UIScrollViewDelegate, UISearchBarDelegate, NSSearchMusicTableViewDelegate, NSSearchUserCollectionViewDelegate> {
+#import "NSNewMusicTableViewCell.h"
+#import "NSSearchUserCollectionViewCell.h"
+@interface NSSearchViewController () <UIScrollViewDelegate, UISearchBarDelegate, NSSearchMusicTableViewDelegate, NSSearchUserCollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     
     UIScrollView *_topScrollView;
     
@@ -22,13 +23,17 @@
     
     UIView *_lineView;
     int currentPage;
+    int searchType;
     NSString * requestMusicURL;
     NSString * requestUserURL;
     NSMutableArray * musicDataAry;
+    NSMutableArray * lyricDataAry;
     NSMutableArray * userDataAry;
     NSSearchMusicTableView *searchMusic;
     NSSearchMusicTableView *searchLyric;
-    int searchType;
+    UITableView *musicTableView;
+    UITableView *lyricTableView;
+    UICollectionView *userCollectionView;
 }
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 
@@ -36,6 +41,9 @@
 
 @end
 
+static NSString * const musicCellIdentify = @"musicTableCell";
+static NSString * const lyricCellIdentify = @"lyricTableCell";
+static NSString * const userCellIdentify = @"userCollectionCell";
 @implementation NSSearchViewController
 
 
@@ -102,20 +110,30 @@
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
+        [musicTableView.pullToRefreshView stopAnimating];
+        [lyricTableView.pullToRefreshView stopAnimating];
+        [userCollectionView.pullToRefreshView stopAnimating];
+        [musicTableView.infiniteScrollingView stopAnimating];
         
     } else {
         if (!parserObject.success) {
             NSSearchUserListModel * searchUser = (NSSearchUserListModel *)parserObject;
             if ([operation.urlTag isEqualToString:requestMusicURL]) {
                 if (searchType == 1) {
-                    searchMusic.DataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
-                } else if (searchType == 2) {
-                    searchLyric.DataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                    musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                    [musicTableView reloadData];
+                } else {
+                    lyricDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                    [lyricTableView reloadData];
                 }
-                
+                if (operation.isLoadingMore) {
+                    
+                }
             }else if ([operation.urlTag isEqualToString:requestUserURL]){
                 
                 userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
+                
+                [userCollectionView reloadData];
                 
             }
         }
@@ -126,6 +144,8 @@
 #pragma mark -setupUI
 
 - (void)setupUI {
+    
+    searchType = 1;
     
     _topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 33)];
     
@@ -149,7 +169,7 @@
         
         titleBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         
-        titleBtn.tag = i;
+        titleBtn.tag = i + 100;
         
         [titleBtn addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -178,15 +198,196 @@
     
     [self.view addSubview:self.contentScrollView];
     
-    [self setupContent];
+    musicTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStylePlain];
     
+    musicTableView.delegate = self;
     
+    musicTableView.dataSource = self;
+    
+    musicTableView.rowHeight = 80;
+    
+    musicTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    [musicTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:musicCellIdentify];
+    
+    [self.contentScrollView addSubview:musicTableView];
+    
+    WS(Wself);
+    //refresh
+    [musicTableView addDDPullToRefreshWithActionHandler:^{
+        if (!Wself) {
+            return ;
+        }else{
+            [Wself fetchDataWithType:1 andIsLoadingMore:NO];
+        }
+    }];
+    //loadingMore
+    [musicTableView addDDInfiniteScrollingWithActionHandler:^{
+        if (!Wself) {
+            return ;
+        }
+        [Wself fetchDataWithType:1 andIsLoadingMore:YES];
+    }];
+    musicTableView.showsInfiniteScrolling = NO;
+    //歌词
+    lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStylePlain];
+    
+    lyricTableView.delegate = self;
+    
+    lyricTableView.dataSource= self;
+    
+    lyricTableView.rowHeight = 80;
+    
+    lyricTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    [lyricTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:lyricCellIdentify];
+    
+    [self.contentScrollView addSubview:lyricTableView];
+    //refresh
+    [lyricTableView addDDPullToRefreshWithActionHandler:^{
+        if (!Wself) {
+            return ;
+        }else{
+            [Wself fetchDataWithType:2 andIsLoadingMore:NO];
+        }
+    }];
+    //loadingMore
+    [lyricTableView addDDInfiniteScrollingWithActionHandler:^{
+        if (!Wself) {
+            return ;
+        }
+        [Wself fetchDataWithType:2 andIsLoadingMore:YES];
+    }];
+    //用户
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    
+    layout.minimumLineSpacing = 10;
+    
+    layout.minimumInteritemSpacing = 10;
+    
+    CGFloat itemW = (ScreenWidth - 60) / 4;
+    
+    layout.itemSize = CGSizeMake(itemW, itemW + itemW / 3);
+    
+    layout.sectionInset = UIEdgeInsetsMake(10, 15, 0, 15);
+    
+    userCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(2 * ScreenWidth, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) collectionViewLayout:layout];
+    
+    userCollectionView.dataSource = self;
+    
+    userCollectionView.delegate = self;
+    
+    userCollectionView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    [userCollectionView registerClass:[NSSearchUserCollectionViewCell class] forCellWithReuseIdentifier:userCellIdentify];
+    
+    [self.contentScrollView addSubview:userCollectionView];
+    
+    //refresh
+    [userCollectionView addDDPullToRefreshWithActionHandler:^{
+        if (!Wself) {
+            return ;
+        }else{
+            [Wself fetchDataWithType:3 andIsLoadingMore:NO];
+        }
+    }];
+    //loadingMore
+    [userCollectionView addDDInfiniteScrollingWithActionHandler:^{
+        if (!Wself) {
+            return ;
+        }
+        [Wself fetchDataWithType:1 andIsLoadingMore:YES];
+    }];
+//    [self setupContent];
+    
+}
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return  searchType == 1 ? musicDataAry.count : lyricDataAry.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == musicTableView) {
+        
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:musicCellIdentify forIndexPath:indexPath];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
+        
+        cell.myMusicModel = musicDataAry[indexPath.row];
+        
+        return cell;
+    } else {
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:lyricCellIdentify forIndexPath:indexPath];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
+        
+        cell.myMusicModel = lyricDataAry[indexPath.row];
+        
+        return cell;
+    }
+    
+}
+
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMyMusicModel *model = musicDataAry[indexPath.row];
+    if (tableView == musicTableView) {
+        
+        if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:withItemId:)]) {
+            
+            [self.delegate1 searchMusicViewController:self withItemId:model.itemId];
+        }
+        
+    } else if (tableView == lyricTableView) {
+        
+        if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:withItemId:)]) {
+            
+            [self.delegate1 searchMusicViewController:self withItemId:model.itemId];
+        }
+        
+    }
+}
+#pragma mark - UICollectionDataSource
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return userDataAry.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSSearchUserModel * user = userDataAry[indexPath.row];
+    
+    NSSearchUserCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:userCellIdentify forIndexPath:indexPath];
+    
+    cell.searchUser = user;
+    return cell;
+}
+
+#pragma mark - UICollectionDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if ([self.delegate1 respondsToSelector:@selector(searchUserCollectionView:withUserID:)]) {
+        NSSearchUserModel * user = userDataAry[indexPath.row];
+        [self.delegate1 searchViewController:self withUserID:user.userID];
+    }
 }
 
 
 
 - (void)setupContent {
-    searchType = 1;
+//    searchType = 1;
     //歌曲
     searchMusic = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height)];
     
@@ -232,16 +433,13 @@
         
         _lineView.x = titleBtn.width * titleBtn.tag;
     }];
-    
+    searchType = titleBtn.tag - 99;
     
     if (titleBtn.tag == 0) {
-        searchType = 1;
         [self fetchDataWithType:1 andIsLoadingMore:NO];
     } else if (titleBtn.tag == 1) {
-        searchType = 2;
         [self fetchDataWithType:2 andIsLoadingMore:NO];
     } else {
-        searchType = 3;
           [self fetchDataWithType:3 andIsLoadingMore:NO];
     }
     

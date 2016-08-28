@@ -89,7 +89,7 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        
+        [activityColl.pullToRefreshView stopAnimating];
     } else {
         if (!parserObject.success) {
             
