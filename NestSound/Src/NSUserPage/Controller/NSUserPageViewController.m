@@ -5,6 +5,7 @@
 //  Created by yandi on 16/4/24.
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
+#define kDefaultImage [UIImage imageNamed:@"2.0_backgroundImage"]
 
 #import "NSUserPageViewController.h"
 #import "NSTableHeaderView.h"
@@ -23,6 +24,8 @@
 #import "NSMyMusicModel.h"
 #import "NSTopLBottomLView.h"
 #import "NSGetQiNiuModel.h"
+#import "UIImageView+Webcache.h"
+#import <Accelerate/Accelerate.h>
 #define kHeadImageHeight 200
 @interface NSUserPageViewController ()
 <
@@ -71,7 +74,8 @@ UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *itemIdArr;
 
 @property (nonatomic,copy) NSString *imageTitleStr;
-
+@property (nonatomic,strong) UIImage *bgImage;
+@property (nonatomic,strong) UIAlertController *alertView;
 
 @end
 static NSString *ID0 = @"cell0";
@@ -116,7 +120,7 @@ static NSString *ID3 = @"cell3";
         nav.navigationBar.hidden = YES;
         [self presentViewController:nav animated:YES completion:nil];
     }
-    UIImage *image1 = [self imageByApplyingAlpha:alpha image:[UIImage imageNamed:@"2.0_backgroundImage"]];
+    UIImage *image1 = [self imageByApplyingAlpha:alpha image:kDefaultImage];
     [self.navigationController.navigationBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
         self.navigationController.navigationBar.hidden = NO;
 }
@@ -241,11 +245,21 @@ static NSString *ID3 = @"cell3";
                         }
                     }
                     
+                    
+                    /**
+                     *  背景图
+                     */
+                    NSString *backgrountImageUrl = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",userData.userDataModel.userModel.bgPic];
+                    [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    
+                        self.bgImage = image;
+                    }];
+                    
                     if (self.who == Other) {
                         /**
                          *  背景图
                          */
-                        [headImgView setDDImageWithURLString:@"" placeHolderImage:[UIImage imageNamed:@"2.0_backgroundImage"]];
+                        [headImgView setDDImageWithURLString:@"" placeHolderImage:kDefaultImage];
                         switch (userData.userOtherModel.isFocus) {
                             case 0:
                                 followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
@@ -295,8 +309,8 @@ static NSString *ID3 = @"cell3";
                 [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
                 
             } else if ([operation.urlTag isEqualToString:uploadBgimageUrl]){
-                
-                
+                [self.alertView dismissViewControllerAnimated:YES completion:^{
+                }];
             }
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
@@ -382,7 +396,7 @@ static NSString *ID3 = @"cell3";
     
     //    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    _tableView.showsVerticalScrollIndicator = YES;
+    _tableView.showsVerticalScrollIndicator = NO;
     
     WS(wSelf);
     [self.view addSubview:_tableView];
@@ -436,11 +450,7 @@ static NSString *ID3 = @"cell3";
     //    [headImgView addSubview:toolbar];
     
 
-    /**
-     *  背景图
-     */
-    NSString *backgrountImageUrl = [[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"bgPic"];
-    [headImgView setDDImageWithURLString:backgrountImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_backgroundImage"]];
+
     if (self.who == Myself) {
         /**
          *  背景图片添加点击事件
@@ -623,6 +633,8 @@ static NSString *ID3 = @"cell3";
 -(void)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
 {
     
+    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"背景正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:self.alertView animated:YES completion:nil];
     WS(wSelf);
 //    __block NSString * file = titleImageURL;
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -632,9 +644,14 @@ static NSString *ID3 = @"cell3";
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.imageTitleStr = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+            NSString *totalStr = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",wSelf.imageTitleStr];
+            [[NSUserDefaults standardUserDefaults] setObject:totalStr forKey:@"bgPic"];
 
             
+            
             [self postBgImageWithImageUrl:wSelf.imageTitleStr];
+            
+            
             
         } option:nil];
     }
@@ -656,8 +673,7 @@ static NSString *ID3 = @"cell3";
     UIImage * titlepageImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
 
     headImgView.image = titlepageImage;
-
-    
+    self.bgImage = titlepageImage;
     
     
     [self dismissViewControllerAnimated:YES completion:^{
@@ -698,33 +714,34 @@ static NSString *ID3 = @"cell3";
 #pragma mark - scrolldelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
+
+//    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
     
     CGFloat offSet_Y = _tableView.contentOffset.y;
     
     if (offSet_Y<-kHeadImageHeight-60) {
         //获取imageView的原始frame
         CGRect frame = headImgView.frame;
-        CHLog(@"旧的frame%f",frame.size.height);
+//        CHLog(@"旧的frame%f",frame.size.height);
         //修改y
         frame.origin.y = offSet_Y;
-        CHLog(@"offset.y %f",offSet_Y);
+//        CHLog(@"offset.y %f",offSet_Y);
         //修改height
         frame.size.height = -offSet_Y - 60;
         //重新赋值
         headImgView.frame = frame;
         
-        CHLog(@"新的frame%f",frame.size.height);
+//        CHLog(@"新的frame%f",frame.size.height);
         
     }
     //tableView相对于图片的偏移量
     CGFloat reoffSet = offSet_Y + kHeadImageHeight + 60;
     
-    CHLog(@"%f",reoffSet);
+//    CHLog(@"%f",reoffSet);
     //kHeadImageHeight-64是为了向上拉倒导航栏底部时alpha = 1
     alpha = reoffSet/(kHeadImageHeight -64);
     
-    CHLog(@"%f",alpha);
+//    CHLog(@"%f",alpha);
     
     if (alpha>=1) {
         alpha = 0.99;
@@ -745,18 +762,33 @@ static NSString *ID3 = @"cell3";
         [_tableView addSubview:backgoundView];
     }
     
-    UIImage *image1 = [self imageByApplyingAlpha:alpha image:[UIImage imageNamed:@"2.0_backgroundImage"]];
+    UIImage *navbarImage ;
+    if (self.bgImage) {
+        navbarImage = self.bgImage;
+    }else{
+        navbarImage = kDefaultImage;
+    }
+    
+    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:alpha];
+//    UIImage *blurimage1 = [self.bgImage applyLightEffectWithAlpha:alpha];
+    UIImage *image1 = self.bgImage;
+//    [self imageByApplyingAlpha:a·lpha image:blurimage1];
+
+//    NSData *data = UIImageJPEGRepresentation(self.bgImage, 1);
+    
     if (alpha <= 0) {
         [self.navigationController.navigationBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
     } else {
         [self.navigationController.navigationBar setBackgroundImage:[image1 applyLightEffect] forBarMetrics:UIBarMetricsDefault];
+
     }
     
 }
+
 //改变图片透明度
 - (UIImage *)imageByApplyingAlpha:(CGFloat)alp  image:(UIImage*)image
 {
-    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 1.0f);
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGRect area = CGRectMake(0,  image.size.height-64, image.size.width, image.size.height);
@@ -813,7 +845,8 @@ static NSString *ID3 = @"cell3";
     _tableView.delegate = self;
     
     _tableView.dataSource = self;
-    
+
+    _tableView.showsVerticalScrollIndicator = NO;
     //    _tableView.tableHeaderView = headerView;
     
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

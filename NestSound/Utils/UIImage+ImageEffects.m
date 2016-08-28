@@ -13,6 +13,12 @@
     return [self applyBlurWithRadius:30 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
+- (UIImage *)applyLightEffectWithAlpha:(CGFloat)alpha
+{
+    CGFloat alphValue = 0.3 * alpha;
+    UIColor *tintColor = [UIColor colorWithWhite:1.0 alpha:alphValue];
+    return [self applyBlurWithRadius:30 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+}
 
 - (UIImage *)applyExtraLightEffect
 {

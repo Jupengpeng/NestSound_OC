@@ -141,9 +141,9 @@
                                                @"birthday":user.birthday,
                                                @"male":[NSNumber numberWithInt:user.male],
                                                @"desc":user.desc,
-                                               @"bgPic":user.bgPic
                                                };
                     [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
+                    [[NSUserDefaults standardUserDefaults] setObject:user.bgPic forKey:@"bgPic"];
                     [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
                     [[NSUserDefaults standardUserDefaults] synchronize];

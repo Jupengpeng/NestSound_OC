@@ -372,6 +372,9 @@ Boolean plugedHeadset;
     [self.recorder updateMeters];
     float   level;                // The linear 0.0 .. 1.0 value we need.
     float   minDecibels = -60.0f; // Or use -60dB, which I measured in a silent room.
+    /**
+     *  获得指定声道的分贝平均值
+     */
     float   decibels    = [self.recorder averagePowerForChannel:0];
     
     if (decibels < minDecibels)

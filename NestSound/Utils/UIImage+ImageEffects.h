@@ -5,6 +5,10 @@
 @interface UIImage (ImageEffects)
 
 - (UIImage *)applyLightEffect;
+
+- (UIImage *)applyLightEffectWithAlpha:(CGFloat)alpha;
+
+
 - (UIImage *)applyExtraLightEffect;
 - (UIImage *)applyDarkEffect;
 - (UIImage *)applyTintEffectWithColor:(UIColor *)tintColor;

@@ -24,6 +24,7 @@
 @property (nonatomic,copy) NSString * headerUrl;
 @property (nonatomic,copy) NSString * nickName;
 @property (nonatomic,copy) NSString * signature;
+@property (nonatomic,copy) NSString *bgPic;
 @end
 
 @interface UserDataModel : NSBaseModel

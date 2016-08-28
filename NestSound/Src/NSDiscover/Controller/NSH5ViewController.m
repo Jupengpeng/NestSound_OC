@@ -48,6 +48,17 @@ UIWebViewDelegate
 }
 
 #pragma mark - UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSString *clickStr=request.URL.absoluteString;
+    if (![self.h5Url isEqualToString:clickStr]) {
+        NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
+        eventVC.h5Url = clickStr;
+        [self.navigationController pushViewController:eventVC animated:YES];
+    }
+
+    return YES;
+}
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];

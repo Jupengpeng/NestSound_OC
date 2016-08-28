@@ -31,7 +31,8 @@
              @"userId":@"uid",
              @"headerUrl":@"headurl",
              @"nickName":@"nickname",
-             @"signature":@"signature"};
+             @"signature":@"signature",
+             @"bgPic":@"bgpic"};
 }
 
 @end
