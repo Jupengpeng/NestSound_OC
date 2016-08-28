@@ -10,7 +10,7 @@
 @property (nonatomic,assign) BOOL success;
 @property (nonatomic,copy) NSString *message;
 @property (nonatomic,assign) long code;
-@property (nonatomic, copy) NSString *data;
+@property (nonatomic, copy) id data;
 
 @property (nonatomic,copy) NSString *jsonStr;
 

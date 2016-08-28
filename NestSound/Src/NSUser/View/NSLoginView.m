@@ -25,7 +25,7 @@
     
     UIImageView *phoneImgView = [[UIImageView alloc] initWithImage:phoneImg];
     
-    phoneImgView.frame = CGRectMake(0, 0, 12, 20);
+    phoneImgView.frame = CGRectMake(0, 0, 12, 18);
     
     self.phoneTF = [[NSTextField alloc] initWithFrame:CGRectMake(10, 5, ScreenWidth -20, 30) drawingLeft:phoneImgView];
     
@@ -35,7 +35,7 @@
     
     _phoneTF.font = [UIFont systemFontOfSize:15];
     
-    _phoneTF.placeholder = @" 输入手机号码";
+    _phoneTF.placeholder = @"输入手机号码";
     
 //    [oldPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_phoneTF];
@@ -55,7 +55,7 @@
     
     _PwdTF.font = [UIFont systemFontOfSize:15];
     
-    _PwdTF.placeholder = @" 输入密码";
+    _PwdTF.placeholder = @"输入密码";
     
 //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_PwdTF];
