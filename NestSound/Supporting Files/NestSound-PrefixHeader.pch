@@ -46,6 +46,7 @@
 #import "JPUSHService.h"
 #import "AFNetworking.h"
 #import "NSCheckUpgradeUtil.h"
+#import "YYModel.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;

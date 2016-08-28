@@ -101,6 +101,9 @@
         return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
     
     }else if ([url isEqualToString:otherCenterURL]){
+        /**
+         其他人的个人中心
+         */
         return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:publicLyricURL]){
         return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
@@ -149,6 +152,8 @@
     }else if([url isEqualToString:myMusicListURL]){
         return [[NSUserMusicListModel alloc] initWithJSONDict:jsonDict];
 
+    }else if([url isEqualToString:uploadBgimageUrl]){
+        NSLog(@"%@",jsonStr);
     }
     
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];

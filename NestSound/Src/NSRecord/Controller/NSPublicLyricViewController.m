@@ -280,7 +280,7 @@ extern Boolean plugedHeadset;
     
 }
 
-- (void)playRemoteMusic:(UIButton*)btn{
+- (void)playRemoteMusic:(UIButton *)btn{
     
     btn.selected = !btn.selected;
     NSString *host;
