@@ -103,6 +103,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     dateLabel.font = [UIFont systemFontOfSize:10];
     
+    dateLabel.textColor = [UIColor lightGrayColor];
 //    dateLabel.text = @"2016-05-26";
     
     [self.contentView addSubview:dateLabel];
@@ -389,7 +390,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
     //65
-    self.commentLabel.frame = CGRectMake(65, 55, self.labelSize.width, self.labelSize.height);
+    self.commentLabel.frame = CGRectMake(15, 55, self.labelSize.width, self.labelSize.height);
     
     self.commentLabelMaxY = CGRectGetMaxY(self.commentLabel.frame) + 10;
 

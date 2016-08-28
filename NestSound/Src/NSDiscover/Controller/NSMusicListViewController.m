@@ -103,7 +103,7 @@
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        
+        [_tableView.pullToRefreshView stopAnimating];
     } else {
         
         if (!parserObject.success) {

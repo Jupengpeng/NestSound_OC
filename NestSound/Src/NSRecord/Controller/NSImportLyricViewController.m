@@ -174,7 +174,6 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
         [_delegate selectLyric:lyric withMusicName:musicName];
     }
     
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -412,7 +412,6 @@ extern Boolean plugedHeadset;
             
         }else if ([operation.urlTag isEqualToString:publicLyricForAct] || [operation.urlTag isEqualToString:publicMusicForAct]){
             
-
             CHLog(@"%@",operation.urlTag);
             [self.alertView dismissViewControllerAnimated:YES completion:^{
                 NSObject *obj = self.navigationController.childViewControllers[2];
@@ -523,7 +522,7 @@ extern Boolean plugedHeadset;
                                    @"createtype":@"HOT",
                                    @"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],
                                    @"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],
-                                   @"hotid":lyricDic[@"hotID"],
+                                   @"hotid":lyricDic[@"itemID"],
                                    @"token":LoginToken,
                                    @"mp3":self.mp3URL,
                                    @"useheadset":@([lyricDic[@"isHeadSet"] intValue])};
@@ -532,11 +531,7 @@ extern Boolean plugedHeadset;
         }
         
     }
-
-
-    
    
-    
 }
 
 #pragma mark -addtitlePage

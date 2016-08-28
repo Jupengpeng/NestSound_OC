@@ -1084,6 +1084,7 @@ static id _instance;
 
 - (void)handleReportBtnEvent:(UIButton *)sender {
     CHLog(@"sender title%@",sender.currentTitle);
+    int isShow;
     if ([sender.currentTitle isEqualToString:@"举报"]) {
         if (JUserID) {
             
@@ -1101,19 +1102,19 @@ static id _instance;
             
             [[NSToastManager manager] showtoast:@"请登录后再举报"];
         }
-    } else if ([sender.currentTitle isEqualToString:@"将作品设为公开"]) {
         
-        self.requestType = NO;
-        self.requestParams = @{@"id":[NSNumber numberWithLong:self.musicDetail.itemID],@"is_issue":[NSNumber numberWithInt:1],@"token":LoginToken};
-        self.requestURL = changeMusicStatus;
+    } else if ([sender.currentTitle isEqualToString:@"将作品设为公开"]) {
+        isShow = 1;
+        
         [sender setTitle:@"将作品设为私密" forState:UIControlStateNormal];
     } else if ([sender.currentTitle isEqualToString:@"将作品设为私密"]) {
+        isShow = 0;
         
-        self.requestType = NO;
-        self.requestParams = @{@"id":[NSNumber numberWithLong:self.musicDetail.itemID],@"is_issue":[NSNumber numberWithInt:0],@"token":LoginToken};
-        self.requestURL = changeMusicStatus;
         [sender setTitle:@"将作品设为公开" forState:UIControlStateNormal];
     }
+    self.requestType = NO;
+    self.requestParams = @{@"id":[NSNumber numberWithLong:self.musicDetail.itemID],@"is_issue":[NSNumber numberWithInt:isShow],@"token":LoginToken};
+    self.requestURL = changeMusicStatus;
 }
 - (void)handlePersonalBtnEvent:(UIButton *)sender {
 
