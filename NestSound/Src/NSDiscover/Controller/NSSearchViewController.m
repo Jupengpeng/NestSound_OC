@@ -15,6 +15,9 @@
 #import "NSUserPageViewController.h"
 #import "NSNewMusicTableViewCell.h"
 #import "NSSearchUserCollectionViewCell.h"
+#import "NSPlayMusicViewController.h"
+#import "NSLyricViewController.h"
+#import "NSLoginViewController.h"
 @interface NSSearchViewController () <UIScrollViewDelegate, UISearchBarDelegate, NSSearchMusicTableViewDelegate, NSSearchUserCollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate> {
     
     UIScrollView *_topScrollView;
@@ -23,12 +26,13 @@
     
     UIView *_lineView;
     int currentPage;
-    int searchType;
+    long searchType;
     NSString * requestMusicURL;
     NSString * requestUserURL;
     NSMutableArray * musicDataAry;
     NSMutableArray * lyricDataAry;
     NSMutableArray * userDataAry;
+    UIImageView *emptyImage;
     NSSearchMusicTableView *searchMusic;
     NSSearchMusicTableView *searchLyric;
     UITableView *musicTableView;
@@ -54,12 +58,12 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     [self setupUI];
 }
 
-
-
 - (void)fetchData:(NSString *)name {
     
     self.name = name;
-    
+    [musicDataAry removeAllObjects];
+    [lyricDataAry removeAllObjects];
+    [userDataAry removeAllObjects];
     if (self.contentScrollView.contentOffset.x == 0) {
         
         [self fetchDataWithType:1 andIsLoadingMore:NO];
@@ -120,19 +124,54 @@ static NSString * const userCellIdentify = @"userCollectionCell";
             NSSearchUserListModel * searchUser = (NSSearchUserListModel *)parserObject;
             if ([operation.urlTag isEqualToString:requestMusicURL]) {
                 if (searchType == 1) {
-                    musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                    if (!operation.isLoadingMore) {
+                        [musicTableView.pullToRefreshView stopAnimating];
+                        musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                    } else {
+                        [musicTableView.infiniteScrollingView stopAnimating];
+                        for (NSMyMusicModel *model in searchUser.searchMusicList) {
+                            [musicDataAry addObject:model];
+                        }
+                    }
+                    if (musicDataAry.count) {
+                        emptyImage.hidden = YES;
+                    } else {
+                        emptyImage.hidden = NO;
+                    }
                     [musicTableView reloadData];
                 } else {
-                    lyricDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                    if (!operation.isLoadingMore) {
+                        [lyricTableView.pullToRefreshView stopAnimating];
+                        lyricDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
+                    } else {
+                        [lyricTableView.infiniteScrollingView stopAnimating];
+                        for (NSMyMusicModel *model in searchUser.searchMusicList) {
+                            [lyricDataAry addObject:model];
+                        }
+                    }
+                    if (lyricDataAry.count) {
+                        emptyImage.hidden = YES;
+                    } else {
+                        emptyImage.hidden = NO;
+                    }
                     [lyricTableView reloadData];
                 }
-                if (operation.isLoadingMore) {
-                    
-                }
+                
             }else if ([operation.urlTag isEqualToString:requestUserURL]){
-                
-                userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
-                
+                if (!operation.isLoadingMore) {
+                    [userCollectionView.pullToRefreshView stopAnimating];
+                    userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
+                } else {
+                    [userCollectionView.infiniteScrollingView stopAnimating];
+                    for (NSSearchUserModel *model in searchUser.searchUserList) {
+                        [userDataAry addObject:model];
+                    }
+                }
+                if (userDataAry.count) {
+                    emptyImage.hidden = YES;
+                } else {
+                    emptyImage.hidden = NO;
+                }
                 [userCollectionView reloadData];
                 
             }
@@ -206,6 +245,8 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     musicTableView.rowHeight = 80;
     
+    musicTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     musicTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     [musicTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:musicCellIdentify];
@@ -238,6 +279,8 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     lyricTableView.rowHeight = 80;
     
+    lyricTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     lyricTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     [lyricTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:lyricCellIdentify];
@@ -265,7 +308,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     layout.minimumInteritemSpacing = 10;
     
-    CGFloat itemW = (ScreenWidth - 60) / 4;
+    CGFloat itemW = (ScreenWidth - 50) / 3;
     
     layout.itemSize = CGSizeMake(itemW, itemW + itemW / 3);
     
@@ -296,9 +339,16 @@ static NSString * const userCellIdentify = @"userCollectionCell";
         if (!Wself) {
             return ;
         }
-        [Wself fetchDataWithType:1 andIsLoadingMore:YES];
+        [Wself fetchDataWithType:3 andIsLoadingMore:YES];
     }];
 //    [self setupContent];
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    emptyImage.centerX = ScreenWidth/2;
+    
+    emptyImage.y = 100;
+    
+    [self.view addSubview:emptyImage];
     
 }
 #pragma mark - UITableViewDataSource
@@ -342,19 +392,19 @@ static NSString * const userCellIdentify = @"userCollectionCell";
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSMyMusicModel *model = musicDataAry[indexPath.row];
+    
     if (tableView == musicTableView) {
-        
-        if ([self.delegate1 respondsToSelector:@selector(searchMusicTableView:withItemId:)]) {
+        NSMyMusicModel *model = musicDataAry[indexPath.row];
+        if ([self.delegate1 respondsToSelector:@selector(searchMusicViewController:withItemId:)]) {
             
             [self.delegate1 searchMusicViewController:self withItemId:model.itemId];
         }
         
     } else if (tableView == lyricTableView) {
-        
-        if ([self.delegate1 respondsToSelector:@selector(searchLyricTableView:withItemId:)]) {
+        NSMyMusicModel *model = lyricDataAry[indexPath.row];
+        if ([self.delegate1 respondsToSelector:@selector(searchLyricViewController:withItemId:)]) {
             
-            [self.delegate1 searchMusicViewController:self withItemId:model.itemId];
+            [self.delegate1 searchLyricViewController:self withItemId:model.itemId];
         }
         
     }
@@ -377,9 +427,10 @@ static NSString * const userCellIdentify = @"userCollectionCell";
 
 #pragma mark - UICollectionDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if ([self.delegate1 respondsToSelector:@selector(searchUserCollectionView:withUserID:)]) {
-        NSSearchUserModel * user = userDataAry[indexPath.row];
+    NSSearchUserModel * user = userDataAry[indexPath.row];
+
+    if ([self.delegate1 respondsToSelector:@selector(searchViewController:withUserID:)]) {
+        
         [self.delegate1 searchViewController:self withUserID:user.userID];
     }
 }
@@ -387,7 +438,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
 
 
 - (void)setupContent {
-//    searchType = 1;
+    searchType = 1;
     //歌曲
     searchMusic = [[NSSearchMusicTableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height)];
     
@@ -427,42 +478,68 @@ static NSString * const userCellIdentify = @"userCollectionCell";
 
 - (void)titleBtnClick:(UIButton *)titleBtn {
     
-    [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * titleBtn.tag, 0) animated:YES];
+    [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * (titleBtn.tag-100), 0) animated:YES];
     
     [UIView animateWithDuration:0.25 animations:^{
         
-        _lineView.x = titleBtn.width * titleBtn.tag;
+        _lineView.x = titleBtn.width * (titleBtn.tag-100);
     }];
     searchType = titleBtn.tag - 99;
     
-    if (titleBtn.tag == 0) {
+    if (titleBtn.tag == 100) {
+        if (musicDataAry.count) {
+            [musicTableView reloadData];
+        } else {
         [self fetchDataWithType:1 andIsLoadingMore:NO];
-    } else if (titleBtn.tag == 1) {
+        }
+    } else if (titleBtn.tag == 101) {
+        if (lyricDataAry.count) {
+            [lyricTableView reloadData];
+        } else {
         [self fetchDataWithType:2 andIsLoadingMore:NO];
+        }
     } else {
+        if (userDataAry.count) {
+            [userCollectionView reloadData];
+        } else {
           [self fetchDataWithType:3 andIsLoadingMore:NO];
+        }
     }
     
 }
 
 #pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    _lineView.x = scrollView.contentOffset.x / ScreenWidth * _lineView.width;
+    if (scrollView == self.contentScrollView) {
+        _lineView.x = scrollView.contentOffset.x / ScreenWidth * _lineView.width;
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
-    if (scrollView.contentOffset.x == 0) {
-        searchType = 1;
-        [self fetchDataWithType:1 andIsLoadingMore:NO];
-    } else if (scrollView.contentOffset.x == ScreenWidth) {
-        searchType = 2;
-        [self fetchDataWithType:2 andIsLoadingMore:NO];
-    } else {
-        searchType = 3;
-         [self fetchDataWithType:3 andIsLoadingMore:NO];
+    if (scrollView == self.contentScrollView) {
+        UIButton *btn = (UIButton *)[self.view viewWithTag:scrollView.contentOffset.x / ScreenWidth + 100];
+        [self titleBtnClick:btn];
+//        if (scrollView.contentOffset.x == 0) {
+//            searchType = 1;
+//            if (musicDataAry.count) {
+//                [musicTableView reloadData];
+//            } else {
+//                [self fetchDataWithType:1 andIsLoadingMore:NO];
+//            }
+//        } else if (scrollView.contentOffset.x == ScreenWidth) {
+//            searchType = 2;
+//            if (lyricDataAry.count) {
+//                [lyricTableView reloadData];
+//            } else {
+//                [self fetchDataWithType:2 andIsLoadingMore:NO];
+//            }
+//        } else {
+//            searchType = 3;
+//            [self fetchDataWithType:3 andIsLoadingMore:NO];
+//        }
     }
+    
 }
 
 

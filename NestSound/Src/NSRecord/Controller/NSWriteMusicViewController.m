@@ -1515,7 +1515,6 @@ Boolean plugedHeadset;
         NSUInteger key =[[self.descibelArray objectAtIndex:i] integerValue];
         [self.descibelDictionary  setValue:[arrWave objectAtIndex:i] forKey:[NSString stringWithFormat:@"%ld",(unsigned long)key]];
 
-
     }
     
 }
@@ -1533,9 +1532,10 @@ Boolean plugedHeadset;
 
 - (void)selectLyric:(NSString *)lyrics withMusicName:(NSString *)musicName {
     
-    lyricView.lyricText.text = lyrics;
-    
-    titleText.text = musicName;
+    NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+    [recordText setObject:musicName forKey:@"recordTitle"];
+    [recordText setObject:lyrics forKey:@"recordLyric"];
+    [recordText synchronize];
 }
 
 - (void)uploadMusic{

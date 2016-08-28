@@ -110,13 +110,14 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
             
             NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
             if (!operation.isLoadingMore) {
-                
+                [accompanyCollection.pullToRefreshView stopAnimating];
                 self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
                 [self.simpleSingAry removeAllObjects];
                 [self.simpleSingAry addObject: listModel.simpleList.simpleSingList];
 //                
                 
             }else{
+                [accompanyCollection.infiniteScrollingView stopAnimating];
 //                if ([operation.urlTag isEqualToString:hotUrl]) {
 //                    if (listModel.accommpanyList.count == 0) {
 //                        
@@ -139,11 +140,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 //                }
             }
             
-            if (!operation.isLoadingMore) {
-                [accompanyCollection.pullToRefreshView stopAnimating];
-            }else{
-                [accompanyCollection.infiniteScrollingView stopAnimating];
-            }
+            
             [accompanyCollection reloadData];
         }
     }

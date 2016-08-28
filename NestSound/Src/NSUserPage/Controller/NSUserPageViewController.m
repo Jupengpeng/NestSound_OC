@@ -657,9 +657,6 @@ static NSString *ID3 = @"cell3";
 
     headImgView.image = titlepageImage;
 
-    
-    
-    
     [self dismissViewControllerAnimated:YES completion:^{
         /**
          *  获取七牛图片token
@@ -776,77 +773,7 @@ static NSString *ID3 = @"cell3";
     
     return newImage;
 }
-- (void)setupUI {
-    
-    headerView = [[NSTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 290)];
-    
-    if (self.who == Myself) {
-        
-        //        NSMutableArray *array = [NSMutableArray array];
-        
-        UIBarButtonItem *setting = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_setting"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(settingClick:)];
-        
-        //        [array addObject:setting];
-        
-        self.navigationItem.rightBarButtonItem = setting;
-        
-    }
-    
-    if (self.who == Other) {
-        
-        UIBarButtonItem *follow = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_follow"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
-        
-        self.navigationItem.rightBarButtonItem = follow;
-        
-    }
-    
-    
-    //    [headerView.followBtn addTarget:self action:@selector(followBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    //
-    //    [headerView.fansBtn addTarget:self action:@selector(fansBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    _tableView = [[UITableView alloc] initWithFrame:self.view.frame];
-    
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    _tableView.delegate = self;
-    
-    _tableView.dataSource = self;
-    
-    //    _tableView.tableHeaderView = headerView;
-    
-    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    _tableView.showsVerticalScrollIndicator = YES;
-    WS(wSelf);
-    [self.view addSubview:_tableView];
-    
-    [_tableView addInfiniteScrollingWithActionHandler:^{
-        if (!wSelf) {
-            return ;
-        }else{
-            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
-        }
-    }];
-    //loadingMore
-        [_tableView addDDInfiniteScrollingWithActionHandler:^{
-            if (!wSelf) {
-                return ;
-            }else{
-                [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
-            }
-        }];
-    
-    _tableView.showsInfiniteScrolling = YES;
-    
-    
-    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
-    emptyImage.centerX = ScreenWidth/2;
-    emptyImage.y = 380;
-    [_tableView addSubview:emptyImage];
-    
-}
+
 
 - (void)followBtnClick:(UIGestureRecognizer *)tap {
     if (self.who == Myself) {
@@ -975,7 +902,62 @@ static NSString *ID3 = @"cell3";
     
     
 }
-
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *status;
+    int isShow;
+    NSMyMusicModel *model = dataAry[indexPath.row];
+    if (model.isShow) {
+        status = @"设为公开";
+        isShow = 1;
+    } else {
+        status = @"设为私密";
+        isShow = 0;
+    }
+    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:status handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        //在block中实现相对应的事件
+        
+        if (self.btnTag == 0) {
+            self.requestType = NO;
+            self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"is_issue":[NSNumber numberWithInt:isShow],@"token":LoginToken};
+            self.requestURL = changeMusicStatus;
+        } else if (self.btnTag == 1) {
+            self.requestType = NO;
+            self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"status":[NSNumber numberWithInt:isShow],@"token":LoginToken};
+            self.requestURL = changeLyricStatus;
+        }
+        
+    }];
+    
+    //注意：1、当rowActionWithStyle的值为UITableViewRowActionStyleDestructive时，系统默认背景色为红色；当值为UITableViewRowActionStyleNormal时，背景色默认为淡灰色，可通过UITableViewRowAction的对象的.backgroundColor设置；
+    //2、当左滑按钮执行的操作涉及数据源和页面的更新时，要先更新数据源，在更新视图，否则会出现无响应的情况
+    UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除"handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        self.requestType = NO;
+        NSMyMusicModel * myMode = dataAry[indexPath.row];
+        if (type == 3) {
+            self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
+            self.requestURL = collectURL;
+        }else{
+            
+            if (type == 4) {
+                type = 3;
+            }
+            self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
+            
+            self.requestURL = deleteWorkURL;
+        }
+        
+        [dataAry removeObjectAtIndex:indexPath.row];
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }];
+    //此处UITableViewRowAction对象放入的顺序决定了对应按钮在cell中的顺序
+    if (self.btnTag == 1 || self.btnTag == 0) {
+        return @[delete,action];
+    } else {
+        return @[delete];
+    }
+    
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.btnTag == 0 || self.btnTag == 1 || self.btnTag == 2) {
