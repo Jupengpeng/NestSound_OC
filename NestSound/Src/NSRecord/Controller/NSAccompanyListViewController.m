@@ -115,31 +115,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
                 [self.simpleSingAry removeAllObjects];
                 [self.simpleSingAry addObject: listModel.simpleList.simpleSingList];
 //                
-                
             }else{
                 [accompanyCollection.infiniteScrollingView stopAnimating];
-//                if ([operation.urlTag isEqualToString:hotUrl]) {
-//                    if (listModel.accommpanyList.count == 0) {
-//                        
-//                    }else{
-//                        
-//                        [hotAccompanyAry addObjectsFromArray:listModel.simpleCategoryList];
-//                    }
-//                    
-//                    
-//                }else{
-//                    
-//                    if (listModel.accommpanyList.count == 0) {
-//                        
-//                    }else{
-//                        
-//                        [newAccompanyAry addObjectsFromArray:listModel.simpleCategoryList];
-//                        
-//                    }
-//                    
-//                }
+                [self.accompanyCategoryAry addObjectsFromArray:listModel.simpleCategoryList.simpleCategory];
+                
             }
-            
             
             [accompanyCollection reloadData];
         }
@@ -222,7 +202,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section) {
+        
         NSSimpleCategoryModel * accompany = self.accompanyCategoryAry[indexPath.item];
+        
         NSAccompanyCategoryViewController *accompanyCategoryListVC = [[NSAccompanyCategoryViewController alloc] initWithCategoryId:accompany.categoryId andCategoryName:accompany.categoryName];
         if (self.aid.length) {
             accompanyCategoryListVC.aid = self.aid;

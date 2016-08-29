@@ -40,8 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.userInteractionEnabled = YES;
-//    self.navigationController.navigationBar.hidden = YES;
-
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_login_backgroundImage"]];
     num = 60;
     [self setupNewUI];
@@ -51,7 +49,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    self.navigationController.navigationBar.hidden = YES;
+    self.navigationController.navigationBar.hidden = NO;
 }
 - (void)setupNewUI {
     self.title = @"修改密码";

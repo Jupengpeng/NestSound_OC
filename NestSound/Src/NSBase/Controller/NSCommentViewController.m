@@ -47,7 +47,7 @@
     
     commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44)];
     
-    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     commentTableView.delegate = self;
     
@@ -56,6 +56,7 @@
     commentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     commentTableView.estimatedRowHeight = 80;
+    
     [self.view addSubview:commentTableView];
     WS(wSelf);
     //refresh
@@ -75,7 +76,7 @@
             [wSelf fetchCommentWithIsLoadingMore:YES];
         }
     }];
-    commentTableView.showsInfiniteScrolling = NO;
+//    commentTableView.showsInfiniteScrolling = NO;
     
     
     [self bottomView];
@@ -133,8 +134,10 @@
                 NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     commentAry = [NSMutableArray arrayWithArray:commentList.commentList];
+                    [commentTableView.pullToRefreshView stopAnimating];
                 }else{
                     [commentAry addObjectsFromArray:commentList.commentList];
+                    [commentTableView.infiniteScrollingView stopAnimating];
                 }
                 
             }else if ([operation.urlTag isEqualToString:postCommentURL]){
@@ -145,11 +148,6 @@
                 [self fetchCommentWithIsLoadingMore:NO];
             }
             [commentTableView reloadData];
-            if (!operation.isLoadingMore) {
-                [commentTableView.pullToRefreshView stopAnimating];
-            }else{
-                [commentTableView.infiniteScrollingView stopAnimating];
-            }
             
         }
     }

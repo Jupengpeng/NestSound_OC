@@ -121,6 +121,7 @@ static NSString * const systemCellID = @"SystemCellID";
                 NSUpvoteMessageListModel * upvoteMessage = (NSUpvoteMessageListModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     messageArr = [NSMutableArray arrayWithArray:upvoteMessage.upvoteMessageList];
+                    emptyImage.image = [UIImage imageNamed:@"2.0_noUpvote_bk"];
                 }else{
                     if (upvoteMessage.upvoteMessageList.count == 0) {
                         messageList.showsInfiniteScrolling = NO;
@@ -130,13 +131,12 @@ static NSString * const systemCellID = @"SystemCellID";
                     }
                 }
                 
-                emptyImage.image = [UIImage imageNamed:@"2.0_noUpvote_bk"];
             }else if ([operation.urlTag isEqualToString:collectUrl]){
                 NSUpvoteMessageListModel * collecMessage = (NSUpvoteMessageListModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     messageArr = [NSMutableArray arrayWithArray:collecMessage.upvoteMessageList];
                     
-                    
+                    emptyImage.image = [UIImage imageNamed:@"2.0_nocollection_bk"];
                 }else{
                     if (collecMessage.upvoteMessageList.count == 0) {
                         messageList.showsInfiniteScrolling = NO;
@@ -146,12 +146,13 @@ static NSString * const systemCellID = @"SystemCellID";
                     }
                     
                 }
-                emptyImage.image = [UIImage imageNamed:@"2.0_nocollection_bk"];
+                
                 
             }else if ([operation.urlTag isEqualToString:commentUrl]){
                 NSCommentListModel * commentMessage = (NSCommentListModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     messageArr = [NSMutableArray arrayWithArray:commentMessage.commentList];
+                    emptyImage.image = [UIImage imageNamed:@"2.0_noComment_bk"];
                 }else{
                     if (commentMessage.commentList.count == 0) {
                         
@@ -161,12 +162,13 @@ static NSString * const systemCellID = @"SystemCellID";
                     }
                     
                 }
-                emptyImage.image = [UIImage imageNamed:@"2.0_noComment_bk"];
+                
                 
             }else if ([operation.urlTag isEqualToString:systemUrl]){
                 NSSystemMessageListModel * systemMessage = (NSSystemMessageListModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     messageArr = [NSMutableArray arrayWithArray:systemMessage.systemMessageList];
+                    emptyImage.image = [UIImage imageNamed:@"2.0_noMessageBk"];
                 }else{
                     if (systemMessage.systemMessageList.count == 0) {
                         messageList.showsInfiniteScrolling = NO;
@@ -176,14 +178,9 @@ static NSString * const systemCellID = @"SystemCellID";
                     }
                     
                 }
-                emptyImage.image = [UIImage imageNamed:@"2.0_noMessageBk"];
+                
             }
             
-            if (messageArr.count == 0) {
-                emptyImage.hidden = NO;
-            } else {
-                emptyImage.hidden = YES;
-            }
             messageList.showsPullToRefresh = YES;
             [messageList reloadData];
             if (!operation.isLoadingMore) {
@@ -192,7 +189,11 @@ static NSString * const systemCellID = @"SystemCellID";
             }else{
                 [messageList.infiniteScrollingView stopAnimating];
             }
-            
+            if (messageArr.count == 0) {
+                emptyImage.hidden = NO;
+            } else {
+                emptyImage.hidden = YES;
+            }
         }else{
             
         }
@@ -243,8 +244,8 @@ static NSString * const systemCellID = @"SystemCellID";
   messageList.showsInfiniteScrolling = YES;
     
     emptyImage = [[UIImageView alloc] init];
-    [self.view addSubview:emptyImage];
     emptyImage.hidden = YES;
+    [self.view addSubview:emptyImage];
     //constraints
     [emptyImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self.view);
@@ -397,9 +398,7 @@ static NSString * const systemCellID = @"SystemCellID";
     }
 }
 
-
 - (void)commentTableViewCell:(NSCommentTableViewCell *)cell {
-    
     
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.userID]];
     

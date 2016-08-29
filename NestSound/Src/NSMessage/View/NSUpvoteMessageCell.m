@@ -42,6 +42,10 @@
     headerImage.layer.borderColor = [UIColor hexColorFloat:@"f0f0f0"].CGColor;
     headerImage.layer.cornerRadius = 18;
     headerImage.layer.masksToBounds = YES;
+    [headerImage setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    headerImage.contentMode =  UIViewContentModeScaleAspectFill;
+    headerImage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    headerImage.clipsToBounds  = YES;
     [self.contentView addSubview:headerImage];
     
     //nickNameLabel

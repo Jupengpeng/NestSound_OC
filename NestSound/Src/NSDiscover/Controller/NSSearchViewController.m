@@ -370,7 +370,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
         }];
         
         cell.myMusicModel = musicDataAry[indexPath.row];
-        
+        cell.secretImgView.hidden = YES;
         return cell;
     } else {
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:lyricCellIdentify forIndexPath:indexPath];
@@ -383,7 +383,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
         }];
         
         cell.myMusicModel = lyricDataAry[indexPath.row];
-        
+        cell.secretImgView.hidden = YES;
         return cell;
     }
     

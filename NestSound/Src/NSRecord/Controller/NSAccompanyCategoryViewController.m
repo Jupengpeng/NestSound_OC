@@ -71,10 +71,26 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
     self.requestType = YES;
-    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage],
-                           @"cid":[NSNumber numberWithLong:classId],
-                           @"name":[NSNull null],
-                           @"type":[NSNull null]};
+    NSString *type;
+    NSDictionary * dic = [NSDictionary dictionary];
+    if ([className isEqualToString:@"最新"]) {
+        type = @"new";
+    } else if ([className isEqualToString:@"热门"]) {
+        type = @"hot";
+    } else {
+        type = @"";
+    }
+    if (type.length) {
+        dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage],
+                               @"cid":[NSNumber numberWithLong:classId],
+                               @"name":[NSNull null],
+                               @"type":type};
+    } else {
+        dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage],
+                               @"cid":[NSNumber numberWithLong:classId],
+                               @"name":[NSNull null],
+                               @"type":[NSNull null]};
+    }
     NSString * str = [NSTool encrytWithDic:dic];
     
     newUrl = [accompanyCategoryListUrl stringByAppendingString:str];

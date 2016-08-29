@@ -38,6 +38,10 @@
     headView = [[UIImageView alloc] init];
     headView.layer.cornerRadius = 18;
     headView.layer.masksToBounds = YES;
+    [headView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    headView.contentMode =  UIViewContentModeScaleAspectFill;
+    headView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    headView.clipsToBounds  = YES;
     [self.contentView addSubview:headView];
     [headView setDDImageWithURLString:nil placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     

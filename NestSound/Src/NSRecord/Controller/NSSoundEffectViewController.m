@@ -82,7 +82,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-    
+    [self endPlaying];
 }
 #pragma mark -fetchData
 - (void)fetchTuningMusic {
@@ -185,7 +185,7 @@
         UIView *waveView = [UIView new];
         UIView *view = self.waveArray[i];
         waveView.backgroundColor = [UIColor lightGrayColor];
-        waveView.x = view.x - _waveform.middleLineV.x - 99 + ScreenWidth/2;
+        waveView.x = view.x - ScreenWidth/2 + self.waveform.middleLineV.x;
         waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.2;
         waveView.height = view.size.height;
         waveView.width = 1.0;
@@ -483,9 +483,6 @@
         
         [self changeScrollViewColor];
     }
-    
-    
-    
     
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
