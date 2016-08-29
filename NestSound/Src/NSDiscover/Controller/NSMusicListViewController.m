@@ -63,7 +63,9 @@
     
     _tableView.rowHeight = 80;
     
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [_tableView setTableFooterView:noLineView];
     
 //    [self.view addSubview:_tableView];
     self.view = _tableView;

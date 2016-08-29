@@ -437,7 +437,7 @@
     moreChoiceViewH = 44 *array.count;
     
     _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, moreChoiceViewH)];
-    
+     
     _moreChoiceView.backgroundColor = [UIColor whiteColor];
     
     [self.navigationController.view addSubview:_moreChoiceView];

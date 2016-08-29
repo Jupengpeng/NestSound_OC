@@ -45,17 +45,17 @@
     
     self.title = [NSString stringWithFormat:@"%@的评论",self.musicName];
     
-    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44)];
+    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44) style:UITableViewStyleGrouped];
     
-//    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     commentTableView.delegate = self;
     
     commentTableView.dataSource = self;
+     
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    commentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    commentTableView.estimatedRowHeight = 80;
+    [commentTableView setTableFooterView:noLineView];
     
     [self.view addSubview:commentTableView];
     WS(wSelf);
@@ -351,7 +351,9 @@
     
     return cell.commentLabelMaxY;
 }
-
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//    return 10.0;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
