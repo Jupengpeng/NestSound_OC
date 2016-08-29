@@ -80,7 +80,7 @@ UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *itemIdArr;
 
 @property (nonatomic,copy) NSString *imageTitleStr;
-@property (nonatomic,strong) UIImage *bgImage;
+@property (nonatomic,strong) UIImage *localbgImage;
 @property (nonatomic,strong) UIAlertController *alertView;
 
 @end
@@ -130,12 +130,19 @@ static NSString *ID3 = @"cell3";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.navigationController.navigationBar.hidden = NO;
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
         page = 0;
     }
+    /**
+     *  是导航栏吧白色，解决前面透明的跳入显示不正确
+     */
+
 
 
 }
@@ -253,11 +260,15 @@ static NSString *ID3 = @"cell3";
                         }
                     }
                     
-                    
+                    NSString *backgrountImageUrl =userData.userDataModel.userModel.bgPic;
+
                     /**
                      *  背景图
                      */
-                    NSString *backgrountImageUrl =userData.userDataModel.userModel.bgPic;
+
+                    if (self.localbgImage) {
+                        headImgView.image = self.localbgImage;
+                    }else{
 
                     [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                         
@@ -268,12 +279,9 @@ static NSString *ID3 = @"cell3";
 
 
                     }];
-                    
+                    }
                     if (self.who == Other) {
-                        /**
-                         *  背景图
-                         */
-
+  
                         [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                             
                             /**
@@ -283,6 +291,7 @@ static NSString *ID3 = @"cell3";
                             
                             
                         }];
+                        
                         
                         switch (userData.userOtherModel.isFocus) {
                             case 0:
@@ -618,7 +627,6 @@ static NSString *ID3 = @"cell3";
         
         toolbarLabel.tag = 159 + i;
         
-        [backgoundView addSubview:toolbarLabel];
         
         NSToolbarButton *toolbarBtn = [[NSToolbarButton alloc] initWithFrame:CGRectMake(W * i, 0, W, 60)];
         
@@ -636,6 +644,8 @@ static NSString *ID3 = @"cell3";
         [toolbarBtn addTarget:self action:@selector(toolbarBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [backgoundView addSubview:toolbarBtn];
+        [backgoundView addSubview:toolbarLabel];
+
         if (i==0) {
             self.btnTag = toolbarBtn.tag;
             toolbarBtn.selected = YES;
@@ -700,7 +710,6 @@ static NSString *ID3 = @"cell3";
 
     headImgView.image = titlepageImage;
     
-    self.bgImage = titlepageImage;
     
     
 
@@ -831,21 +840,20 @@ static NSString *ID3 = @"cell3";
 
 
     }
+    UIImage *headerImage ;
     
-    UIImage *navbarImage ;
-    if (self.bgImage) {
-        navbarImage = self.bgImage;
+    if (self.localbgImage) {
+        headerImage = self.localbgImage;
     }else{
-        navbarImage = kDefaultImage;
+        headerImage = kDefaultImage;
     }
     
 //    UIImage *blurimage1 = [self.bgImage applyLightEffectWithAlpha:alpha];
 
-    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
-    UIImage *image = [UIImage imageWithContentsOfFile:fullPath];
+    
     if (alpha <= 0) {
 //        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
-        headImgView.image = image;
+        headImgView.image = headerImage;
 
     } else if(alpha <= 1 && alpha>0){
 
@@ -853,7 +861,7 @@ static NSString *ID3 = @"cell3";
         
         
 //        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
-        headImgView.image = [self setupBlurImageWithBlurRadius:alpha image:image];
+        headImgView.image = [self setupBlurImageWithBlurRadius:alpha image:headerImage];
     } else{
 //        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
 
@@ -863,7 +871,8 @@ static NSString *ID3 = @"cell3";
 }
 
 - (UIImage *)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image{
-        NSData *data = UIImageJPEGRepresentation(image, 0.3);
+
+    NSData *data = UIImageJPEGRepresentation(image, 0.3);
     UIImage *inputImage = [UIImage imageWithData:data];
 
     GPUImageGaussianBlurPositionFilter *passthroughFilter = [[GPUImageGaussianBlurPositionFilter alloc]init];
@@ -977,7 +986,7 @@ static NSString *ID3 = @"cell3";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.btnTag == 0) {
+    if (self.btnTag ==kButtonTag + 0) {
         
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
         
@@ -995,7 +1004,7 @@ static NSString *ID3 = @"cell3";
         }
         return cell;
         
-    } else if (self.btnTag == 1) {
+    } else if (self.btnTag == kButtonTag +1) {
         
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
         
@@ -1012,7 +1021,7 @@ static NSString *ID3 = @"cell3";
         }
         return cell;
         
-    } else if (self.btnTag == 2) {
+    } else if (self.btnTag == kButtonTag +2) {
         
         NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
         
@@ -1054,12 +1063,12 @@ static NSString *ID3 = @"cell3";
     UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:status handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         //在block中实现相对应的事件
         
-        if (self.btnTag == 0) {
+        if (self.btnTag ==kButtonTag + 0) {
             self.requestType = NO;
             self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"is_issue":[NSNumber numberWithInt:isShow],@"token":LoginToken};
             self.requestURL = changeMusicStatus;
             
-        } else if (self.btnTag == 1) {
+        } else if (self.btnTag ==kButtonTag + 1) {
             self.requestType = NO;
             self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"status":[NSNumber numberWithInt:isShow],@"token":LoginToken};
             self.requestURL = changeLyricStatus;
@@ -1090,7 +1099,7 @@ static NSString *ID3 = @"cell3";
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }];
     //此处UITableViewRowAction对象放入的顺序决定了对应按钮在cell中的顺序
-    if (self.btnTag == 1 || self.btnTag == 0) {
+    if (self.btnTag ==kButtonTag + 1 || self.btnTag ==kButtonTag + 0) {
         return @[delete,action];
     } else {
         return @[delete];
@@ -1099,7 +1108,7 @@ static NSString *ID3 = @"cell3";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.btnTag == 0 || self.btnTag == 1 || self.btnTag == 2) {
+    if (self.btnTag ==kButtonTag + 0 || self.btnTag ==kButtonTag + 1 || self.btnTag ==kButtonTag + 2) {
         
         return 80;
     } else {
@@ -1385,13 +1394,7 @@ static NSString *ID3 = @"cell3";
     //    [self setupUI];
 }
 
-- (void)setBgImage:(UIImage *)bgImage{
-    NSData *data = UIImageJPEGRepresentation(bgImage, 0.3);
-    UIImage *inputImage = [UIImage imageWithData:data];
-    _bgImage = inputImage;
-    
- 
-}
+
 
 //图片压缩到指定大小
 - (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize image:(UIImage *)image
@@ -1448,6 +1451,13 @@ static NSString *ID3 = @"cell3";
     UIGraphicsEndImageContext();
     return newImage;
 }
+- (UIImage *)localbgImage{
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
+    UIImage *headerImage = [UIImage imageWithContentsOfFile:fullPath];
+    _localbgImage = headerImage;
+    return _localbgImage;
+}
+
 @end
 
 
