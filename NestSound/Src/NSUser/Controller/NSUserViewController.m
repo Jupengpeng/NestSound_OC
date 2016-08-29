@@ -45,11 +45,16 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     [super viewDidLoad];
     
     [self configureAppearance];
+
 }
 
 
 -(void)configureAppearance
 {
+    /**
+     *  是导航栏吧白色，解决前面透明的跳入显示不正确
+     */
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
     self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     //nav
