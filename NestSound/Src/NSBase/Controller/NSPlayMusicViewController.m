@@ -1010,7 +1010,7 @@ static id _instance;
     
     [_maskView addGestureRecognizer:tap];
     // 分享弹框
-    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
+    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180) withType:@"player"];
     shareArr = [NSArray arrayWithArray:shareView.shareArr];
     shareView.backgroundColor = [UIColor whiteColor];
     

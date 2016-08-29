@@ -11,5 +11,5 @@
 @interface NSShareView : UIView
 @property (nonatomic,strong) NSArray *shareArr;
 
-
+- (instancetype)initWithFrame:(CGRect)frame withType:(NSString *)type;
 @end

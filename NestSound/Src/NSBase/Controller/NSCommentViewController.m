@@ -48,9 +48,12 @@
     commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44)];
     
     commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
     commentTableView.delegate = self;
     
     commentTableView.dataSource = self;
+    
+    commentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     commentTableView.estimatedRowHeight = 80;
     [self.view addSubview:commentTableView];
@@ -76,9 +79,6 @@
     
     
     [self bottomView];
-    
-    
-    
     
     //注册键盘通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -139,8 +139,10 @@
                 
             }else if ([operation.urlTag isEqualToString:postCommentURL]){
                 [[NSToastManager manager] showtoast:@"发表评论成功"];
+                [self fetchCommentWithIsLoadingMore:NO];
             }else if ([operation.urlTag isEqualToString:deleteCommentURL]){
                 [[NSToastManager manager] showtoast:@"删除评论成功"];
+                [self fetchCommentWithIsLoadingMore:NO];
             }
             [commentTableView reloadData];
             if (!operation.isLoadingMore) {
@@ -232,6 +234,8 @@
     inputField = [[UITextField alloc] init];
     
     inputField.borderStyle = UITextBorderStyleRoundedRect;
+    
+    inputField.placeholder = @"来~说点什么吧";
     
     inputField.delegate = self;
     

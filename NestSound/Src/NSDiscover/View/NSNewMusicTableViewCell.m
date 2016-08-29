@@ -348,9 +348,9 @@
     _myMusicModel = myMusicModel;
    
     if (myMusicModel.isShow) {
-        self.secretImgView.hidden = NO;
-    } else {
         self.secretImgView.hidden = YES;
+    } else {
+        self.secretImgView.hidden = NO;
     }
     self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
     [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];

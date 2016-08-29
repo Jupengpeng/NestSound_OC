@@ -51,10 +51,10 @@
 extern BOOL debugMode;
 extern NSString *host;
 extern NSString *port;
-#define debugHost     @"http://112.124.125.2"
+#define debugHost     @"http://api.yinchao.cn"
 #define debugPort     @""
-#define releaseHost   @"http://api.yinchao.cn"
-#define releasePort   @""
+#define releaseHost   @""
+#define releasePort   @"http://112.124.125.2"
 
 #ifdef DEBUG // 调试
 #define CHLog(...) NSLog(__VA_ARGS__)
@@ -123,7 +123,7 @@ extern NSString *port;
 #define otherFFURL @"java/fanfocus/otherfanslist?"
 #define changeInspirationURL @"java/inspire/update"
 #define changeMusicStatus @"java/musiopt/updateMusic"
-#define changeLyricStatus @"java/musiopt/updateLyrics"
+#define changeLyricStatus @"java/lyricsopt/updateLyrics"
 #define changePasswordUrl @"java/userCenter/updateuserpass?"
 /**
  *  2016年8月18号添加

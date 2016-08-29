@@ -311,6 +311,8 @@ static NSString *ID3 = @"cell3";
             } else if ([operation.urlTag isEqualToString:uploadBgimageUrl]){
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
                 }];
+            } else if ([operation.urlTag isEqualToString:changeMusicStatus] || [operation.urlTag isEqualToString:changeLyricStatus]) {
+                [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
             }
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
@@ -465,9 +467,6 @@ static NSString *ID3 = @"cell3";
         _imagePickerController.delegate = self;
     }
 
-    
-    
-    
     signatureLabel = [[UILabel alloc] init];
     
     signatureLabel.font = [UIFont systemFontOfSize:13];
@@ -893,6 +892,9 @@ static NSString *ID3 = @"cell3";
         
         cell.numLabel.hidden = YES;
         cell.myMusicModel = dataAry[indexPath.row];
+        if (self.who == Other) {
+            cell.secretImgView.hidden = YES;
+        }
         return cell;
         
     } else if (self.btnTag == 1) {
@@ -907,7 +909,9 @@ static NSString *ID3 = @"cell3";
         }];
         cell.myMusicModel = dataAry[indexPath.row];
         cell.numLabel.hidden = YES;
-        
+        if (self.who == Other) {
+            cell.secretImgView.hidden = YES;
+        }
         return cell;
         
     } else if (self.btnTag == 2) {
@@ -942,7 +946,7 @@ static NSString *ID3 = @"cell3";
     NSString *status;
     int isShow;
     NSMyMusicModel *model = dataAry[indexPath.row];
-    if (model.isShow) {
+    if (!model.isShow) {
         status = @"设为公开";
         isShow = 1;
     } else {
@@ -956,12 +960,13 @@ static NSString *ID3 = @"cell3";
             self.requestType = NO;
             self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"is_issue":[NSNumber numberWithInt:isShow],@"token":LoginToken};
             self.requestURL = changeMusicStatus;
+            
         } else if (self.btnTag == 1) {
             self.requestType = NO;
             self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"status":[NSNumber numberWithInt:isShow],@"token":LoginToken};
             self.requestURL = changeLyricStatus;
         }
-        
+//      [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
     }];
     
     //注意：1、当rowActionWithStyle的值为UITableViewRowActionStyleDestructive时，系统默认背景色为红色；当值为UITableViewRowActionStyleNormal时，背景色默认为淡灰色，可通过UITableViewRowAction的对象的.backgroundColor设置；

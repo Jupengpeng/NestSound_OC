@@ -21,14 +21,17 @@
 
 @implementation NSShareView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame withType:(NSString *)type{
+    
     self = [super initWithFrame:frame];
+    
     if (self) {
-        [self setupShareView];
+        
+        [self setupShareViewWithType:type];
     }
     return self;
 }
-- (void)setupShareView {
+- (void)setupShareViewWithType:(NSString *)type {
     
     self.weixinDict                = @{@"icon": @"2.0_weChat", @"name": @"微信",@"type":UMShareToWechatSession};
     self.pengyouquanDict    = @{@"icon": @"2.0_friends", @"name": @"朋友圈",@"type":UMShareToWechatTimeline};
@@ -50,8 +53,14 @@
         [shareArr addObject:_QQDict];
         [shareArr addObject:_QzoneDict];
     }
-    [shareArr addObject:_fuzhiDic];
-    [shareArr addObject:_lyricPoster];
+    if ([type isEqualToString:@"poster"]) {
+        
+    } else {
+        
+        [shareArr addObject:_fuzhiDic];
+        [shareArr addObject:_lyricPoster];
+    }
+    
     self.shareArr = [NSArray arrayWithArray:shareArr];
     for (int i = 0; i < 2; i ++) {
         for (int j = 0; j < 5; j++) {

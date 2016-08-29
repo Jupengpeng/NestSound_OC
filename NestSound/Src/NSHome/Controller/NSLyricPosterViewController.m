@@ -19,14 +19,23 @@
     NSShareView *shareView;
     
     UIView *maskView;
+    
+    UIImage *finalImg;
+    
 }
 @property (nonatomic, strong) UIImageView *imgView;
+@property (nonatomic, strong) NSArray *shareArr;
 @end
 
 @implementation NSLyricPosterViewController
 
 @synthesize posterImg = _posterImg;
-
+- (NSArray *)shareArr {
+    if (!_shareArr) {
+        self.shareArr = [NSArray array];
+    }
+    return _shareArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -167,7 +176,7 @@
     
     maskView.alpha = 0.5;
     
-    [self.view addSubview:maskView];
+    [self.navigationController.view addSubview:maskView];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
@@ -176,14 +185,17 @@
     [maskView addGestureRecognizer:tap];
     
     // 分享弹框
-    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
+    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 100) withType:@"poster"];
+    
+    self.shareArr = shareView.shareArr;
+    
     shareView.backgroundColor = [UIColor whiteColor];
     
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 5; i++) {
         UIButton *shareBtn = (UIButton *)[shareView viewWithTag:250+i];
-        [shareBtn addTarget:self action:@selector(handleShareAction:) forControlEvents:UIControlEventTouchUpInside];
+        [shareBtn addTarget:self action:@selector(handleShareViewButton:) forControlEvents:UIControlEventTouchUpInside];
     }
-    [self.view addSubview:shareView];
+    [self.navigationController.view addSubview:shareView];
 }
 
 - (void)selectPicFromAlbum {
@@ -191,6 +203,8 @@
     UIImagePickerController *imgController = [[UIImagePickerController alloc] init];
     
     imgController.delegate = self;
+    
+    imgController.editing = YES;
     
     imgController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
@@ -216,13 +230,24 @@
     }];
     
 }
+- (void)handleShareViewButton:(UIButton *)sender {
+    
+    NSDictionary *dic = self.shareArr[sender.tag-250];
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:nil];
+    [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:nil image:finalImg location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            [self tapClick:nil];
+            [[NSToastManager manager] showtoast:@"分享成功"];
+        }
+    }];
+}
 - (void)saveThePosterImgToLoacl {
     
     [self saveImageToPhotos:[self drawRectImage:posterImg withContent:lyric title:[NSString stringWithFormat:@"%@",self.lyricTitle] author:[NSString stringWithFormat:@"作词:『%@』",self.lyricAuthor]]];
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    UIImage * img = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage * img = [info objectForKey:UIImagePickerControllerEditedImage];
     
     self.imgView.image = [self drawRectImage:img withContent:lyric title:[NSString stringWithFormat:@"%@",self.lyricTitle] author:[NSString stringWithFormat:@"作词:『%@』",self.lyricAuthor]];
     [self dismissViewControllerAnimated:YES completion:^{
@@ -260,6 +285,7 @@
     //最后一定不要忘记关闭对应的上下文
     UIGraphicsEndImageContext();
     
+    finalImg = newImage;
     return newImage;
 }
 - (void)saveImageToPhotos:(UIImage*)savedImage

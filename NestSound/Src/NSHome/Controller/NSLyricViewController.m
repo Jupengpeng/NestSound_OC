@@ -443,7 +443,7 @@
     [self.navigationController.view addSubview:_moreChoiceView];
     
     //分享
-    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180)];
+    shareView = [[NSShareView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 180) withType:@"lyrics"];
     
     shareView.backgroundColor = [UIColor whiteColor];
     for (int i = 0; i < 6; i++) {

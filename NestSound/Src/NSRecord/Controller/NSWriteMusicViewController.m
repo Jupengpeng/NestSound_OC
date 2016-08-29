@@ -1379,7 +1379,7 @@ Boolean plugedHeadset;
             
             [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
             
-            [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"itemID"];
+            [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
             [self.dict setValue:mp3URL forKey:@"mp3URL"];
             [self.dict setValue:@(plugedHeadset) forKey:@"isHeadSet"];
             self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];

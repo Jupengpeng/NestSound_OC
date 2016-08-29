@@ -368,9 +368,7 @@ extern Boolean plugedHeadset;
         btn.enabled = YES;
         [[NSToastManager manager] showtoast:@"封面不能为空哟"];
     }
-    
-    
-    
+        
 }
 
 
@@ -429,8 +427,6 @@ extern Boolean plugedHeadset;
         
         [manager removeItemAtPath:self.mp3File error:nil];
     }
-    
-    
     
 }
 #pragma mark -public
@@ -522,7 +518,7 @@ extern Boolean plugedHeadset;
                                    @"createtype":@"HOT",
                                    @"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],
                                    @"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],
-                                   @"hotid":lyricDic[@"itemID"],
+                                   @"hotid":lyricDic[@"hotID"],
                                    @"token":LoginToken,
                                    @"mp3":self.mp3URL,
                                    @"useheadset":@([lyricDic[@"isHeadSet"] intValue])};

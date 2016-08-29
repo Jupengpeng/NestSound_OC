@@ -79,6 +79,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     [self addObserver:self forKeyPath:@"soundEffectPlay" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+}
 #pragma mark -fetchData
 - (void)fetchTuningMusic {
     
@@ -180,11 +185,12 @@
         UIView *waveView = [UIView new];
         UIView *view = self.waveArray[i];
         waveView.backgroundColor = [UIColor lightGrayColor];
-        waveView.x = _waveform.middleLineV.x + i*2.0;
+        waveView.x = view.x - _waveform.middleLineV.x - 99 + ScreenWidth/2;
         waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.2;
         waveView.height = view.size.height;
         waveView.width = 1.0;
         [self.waveViewArr addObject:waveView];
+        CHLog(@"第%d个%@",i,view);
         [_waveform.timeScrollView addSubview:waveView];
     }
     

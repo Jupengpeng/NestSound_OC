@@ -86,15 +86,14 @@ static NSString * const systemCellID = @"SystemCellID";
     self.requestType = YES;
     
     if (!isLoadingMore) {
-        
         currentPage = 1;
+        self.requestParams = @{kIsLoadingMore :@(NO)};
     } else {
-        
        currentPage++;
+        self.requestParams = @{kIsLoadingMore :@(YES)};
     }
-    self.requestParams = @{kIsLoadingMore:@(isLoadingMore)};
    
-    NSDictionary * dic = @{@"uid":JUserID,@"page":[NSString stringWithFormat:@"%d",currentPage],@"token":LoginToken};
+    NSDictionary * dic = @{@"uid":JUserID,@"page":[NSNumber numberWithInt: currentPage],@"token":LoginToken};
     NSString * str = [NSTool encrytWithDic:dic];
     if (messageType == UpvoteMessageType) {
         upvoteUrl = [upvoteMessageURL stringByAppendingString:str];
@@ -155,6 +154,7 @@ static NSString * const systemCellID = @"SystemCellID";
                     messageArr = [NSMutableArray arrayWithArray:commentMessage.commentList];
                 }else{
                     if (commentMessage.commentList.count == 0) {
+                        
                         messageList.showsInfiniteScrolling = NO;
                     }else{
                         [messageArr addObjectsFromArray:commentMessage.commentList];
@@ -181,6 +181,8 @@ static NSString * const systemCellID = @"SystemCellID";
             
             if (messageArr.count == 0) {
                 emptyImage.hidden = NO;
+            } else {
+                emptyImage.hidden = YES;
             }
             messageList.showsPullToRefresh = YES;
             [messageList reloadData];
@@ -192,6 +194,7 @@ static NSString * const systemCellID = @"SystemCellID";
             }
             
         }else{
+            
         }
     }
 }
@@ -288,7 +291,6 @@ static NSString * const systemCellID = @"SystemCellID";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger row = indexPath.row;
-    
     
     if (messageType == UpvoteMessageType) {
         NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:upvoteCellID];
