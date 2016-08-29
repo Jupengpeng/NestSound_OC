@@ -5,6 +5,7 @@
 //  Created by Apple on 16/5/25.
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
+static NSString * const kDefaultTip = @"来~说点什么";
 
 #import "NSCommentViewController.h"
 #import "NSCommentTableViewCell.h"
@@ -18,6 +19,10 @@
     
     UIView *maskView;
     
+    /**
+     *  评论内容
+     */
+    NSString *_commentContent;
     UITextField *inputField;
     long itemID ;
     int currentPage;
@@ -51,7 +56,7 @@
     commentTableView.delegate = self;
     
     commentTableView.dataSource = self;
-    
+    commentTableView.tableFooterView = [[UIView alloc] init];
     commentTableView.estimatedRowHeight = 80;
     [self.view addSubview:commentTableView];
     WS(wSelf);
@@ -236,7 +241,7 @@
     inputField.delegate = self;
     
     [bottomView addSubview:inputField];
-    
+    inputField.placeholder = kDefaultTip;
     inputField.returnKeyType = UIReturnKeySend;
     [inputField mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -253,20 +258,35 @@
 
 - (void)tap:(UIGestureRecognizer *)tap {
     
-    [inputField resignFirstResponder];
     
-    inputField.text = nil;
     
-    inputField.placeholder = nil;
     
     inputField.tag = 2;
     
     maskView.hidden = YES;
+    
+    [inputField resignFirstResponder];
+
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (_commentContent) {
+        textField.text = _commentContent;
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    _commentContent = textField.text;
+    inputField.text = nil;
+
+    textField.placeholder = kDefaultTip;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    inputField.placeholder = nil;
+//    inputField.placeholder = nil;
     
     [textField resignFirstResponder];
     
