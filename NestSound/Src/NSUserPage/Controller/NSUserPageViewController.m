@@ -5,6 +5,8 @@
 //  Created by yandi on 16/4/24.
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
+
+static NSInteger const kButtonTag = 200;
 #define kDefaultImage [UIImage imageNamed:@"2.0_backgroundImage"]
 
 #import "NSUserPageViewController.h"
@@ -26,7 +28,9 @@
 #import "NSGetQiNiuModel.h"
 #import "UIImageView+Webcache.h"
 #import <Accelerate/Accelerate.h>
-#define kHeadImageHeight 200
+#import "GPUImage.h"
+
+#define kHeadImageHeight 264
 @interface NSUserPageViewController ()
 <
 UITableViewDelegate,
@@ -66,7 +70,9 @@ UINavigationControllerDelegate>
     UIBarButtonItem *followItem;
     NSTopLBottomLView *focusLLView;
     NSTopLBottomLView *fansLLView;
+    UIView *_midLine;
     UIImagePickerController * _imagePickerController;
+    NSString *_localFullPath;
 
 }
 
@@ -120,8 +126,8 @@ static NSString *ID3 = @"cell3";
         nav.navigationBar.hidden = YES;
         [self presentViewController:nav animated:YES completion:nil];
     }
-    UIImage *image1 = [self imageByApplyingAlpha:alpha image:kDefaultImage];
-    [self.navigationController.navigationBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
+//    UIImage *image1 = [self imageByApplyingAlpha:alpha image:kDefaultImage];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.navigationController.navigationBar.hidden = NO;
 }
 - (void)viewDidDisappear:(BOOL)animated {
@@ -130,6 +136,8 @@ static NSString *ID3 = @"cell3";
         [self.tabBarController setSelectedIndex:0];
         page = 0;
     }
+
+
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -249,17 +257,33 @@ static NSString *ID3 = @"cell3";
                     /**
                      *  背景图
                      */
-                    NSString *backgrountImageUrl = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",userData.userDataModel.userModel.bgPic];
+                    NSString *backgrountImageUrl =userData.userDataModel.userModel.bgPic;
+
                     [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    
-                        self.bgImage = image;
+                        
+                        /**
+                         *  缓存背景图片到本地
+                         */
+                        [NSTool saveImage:image withName:@"backgroundImage.png"];
+
+
                     }];
                     
                     if (self.who == Other) {
                         /**
                          *  背景图
                          */
-                        [headImgView setDDImageWithURLString:@"" placeHolderImage:kDefaultImage];
+
+                        [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                            
+                            /**
+                             *  缓存背景图片到本地
+                             */
+                            [NSTool saveImage:image withName:@"backgroundImage.png"];
+                            
+                            
+                        }];
+                        
                         switch (userData.userOtherModel.isFocus) {
                             case 0:
                                 followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
@@ -305,7 +329,6 @@ static NSString *ID3 = @"cell3";
                 
                 qiNiu * data = qiNiuModel.qiNIuModel;
                 NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
-                
                 [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
                 
             } else if ([operation.urlTag isEqualToString:uploadBgimageUrl]){
@@ -513,7 +536,7 @@ static NSString *ID3 = @"cell3";
     midLineView.backgroundColor = [UIColor whiteColor];
     
     [headImgView addSubview: midLineView];
-    
+    _midLine = midLineView;
     [midLineView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.bottom.equalTo(headImgView.mas_bottom).with.offset(-5);
@@ -599,18 +622,24 @@ static NSString *ID3 = @"cell3";
         
         NSToolbarButton *toolbarBtn = [[NSToolbarButton alloc] initWithFrame:CGRectMake(W * i, 0, W, 60)];
         
-        toolbarBtn.backgroundColor = [UIColor clearColor];
+//        toolbarBtn.backgroundColor = [UIColor clearColor];
         
 //        [toolbarBtn setImage:[UIImage imageNamed:[NSString stringWithFormat:@"2.0_toolbarBtn%02d",i]] forState:UIControlStateNormal];
 //        
         [toolbarBtn setTitle:toolBarArr[i] forState:UIControlStateNormal];
         
-        toolbarBtn.tag = i;
+        [toolbarBtn setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"e3e3e3"] renderSize:toolbarBtn.size] forState:UIControlStateSelected];
+        [toolbarBtn setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:toolbarBtn.size] forState:UIControlStateNormal];
+
+        toolbarBtn.tag = i + kButtonTag;
         
         [toolbarBtn addTarget:self action:@selector(toolbarBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [backgoundView addSubview:toolbarBtn];
-        
+        if (i==0) {
+            self.btnTag = toolbarBtn.tag;
+            toolbarBtn.selected = YES;
+        }
     }
     [_tableView addSubview:backgoundView];
     
@@ -641,6 +670,7 @@ static NSString *ID3 = @"cell3";
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
         
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
+        NSLog(@"%ld",imageData.length);
         [upManager putData:imageData key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.imageTitleStr = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
             NSString *totalStr = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",wSelf.imageTitleStr];
@@ -664,14 +694,12 @@ static NSString *ID3 = @"cell3";
     UIImage * backgroundImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
     NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
-    NSFileManager * fm = [NSFileManager defaultManager];
-    if ([fm fileExistsAtPath:fullPath]) {
-        [fm removeItemAtPath:fullPath error:nil];
-    }
+
     [NSTool saveImage:backgroundImage withName:@"backgroundImage.png"];
     UIImage * titlepageImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
 
     headImgView.image = titlepageImage;
+    
     self.bgImage = titlepageImage;
     
     
@@ -744,7 +772,7 @@ static NSString *ID3 = @"cell3";
 //    CHLog(@"%f",alpha);
     
     if (alpha>=1) {
-        alpha = 0.99;
+//        alpha = 0.99;
         CGRect frame = backgoundView.frame;
         
         frame.origin.y = 64;
@@ -752,7 +780,34 @@ static NSString *ID3 = @"cell3";
         backgoundView.frame = frame;
         
         [self.view addSubview:backgoundView];
+        
+        
+        CGRect bgImageFrame = headImgView.frame;
+        bgImageFrame.origin.y = 64 - kHeadImageHeight;
+        headImgView.frame = bgImageFrame;
+        
+        [self.view addSubview:headImgView];
+        
     } else {
+        
+        /**
+         *  如果距离alpha为1 还差 64 移除文本
+         */
+        if ((kHeadImageHeight - 64 - reoffSet) <= 64) {
+            signatureLabel.hidden = YES;
+            focusLLView.hidden = YES;
+            fansLLView.hidden = YES;
+            _midLine.hidden = YES;
+        }else{
+            signatureLabel.hidden = NO;
+            focusLLView.hidden = NO;
+            fansLLView.hidden = NO;
+            _midLine.hidden = NO;
+
+        }
+        
+        
+        
         CGRect frame = backgoundView.frame;
         
         frame.origin.y = -60;
@@ -760,6 +815,21 @@ static NSString *ID3 = @"cell3";
         backgoundView.frame = frame;
         
         [_tableView addSubview:backgoundView];
+        
+        
+        CGRect bgImageFrame = headImgView.frame;
+
+        /**
+         *  headerview完全展开好不在跟随移动
+         */
+        if (bgImageFrame.origin.y > -60 - kHeadImageHeight) {
+            bgImageFrame.origin.y = -60 - kHeadImageHeight;
+            headImgView.frame = bgImageFrame;
+            
+            [_tableView addSubview:headImgView];
+        }
+
+
     }
     
     UIImage *navbarImage ;
@@ -769,21 +839,49 @@ static NSString *ID3 = @"cell3";
         navbarImage = kDefaultImage;
     }
     
-    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:alpha];
 //    UIImage *blurimage1 = [self.bgImage applyLightEffectWithAlpha:alpha];
-    UIImage *image1 = self.bgImage;
-//    [self imageByApplyingAlpha:a·lpha image:blurimage1];
 
-//    NSData *data = UIImageJPEGRepresentation(self.bgImage, 1);
-    
+    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
+    UIImage *image = [UIImage imageWithContentsOfFile:fullPath];
     if (alpha <= 0) {
-        [self.navigationController.navigationBar setBackgroundImage:image1 forBarMetrics:UIBarMetricsDefault];
-    } else {
-        [self.navigationController.navigationBar setBackgroundImage:[image1 applyLightEffect] forBarMetrics:UIBarMetricsDefault];
+//        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
+        headImgView.image = image;
+
+    } else if(alpha <= 1 && alpha>0){
+
+        
+        
+        
+//        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
+        headImgView.image = [self setupBlurImageWithBlurRadius:alpha image:image];
+    } else{
+//        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
+
+//        [self.navigationController.navigationBar setBackgroundImage:headImgView.image forBarMetrics:UIBarMetricsDefault];
 
     }
-    
 }
+
+- (UIImage *)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image{
+        NSData *data = UIImageJPEGRepresentation(image, 0.3);
+    UIImage *inputImage = [UIImage imageWithData:data];
+
+    GPUImageGaussianBlurPositionFilter *passthroughFilter = [[GPUImageGaussianBlurPositionFilter alloc]init];
+    passthroughFilter.blurRadius = blurRadius;
+    [passthroughFilter forceProcessingAtSize:inputImage.size];
+    
+    [passthroughFilter useNextFrameForImageCapture];
+    
+    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:inputImage];
+    
+    [stillImageSource addTarget:passthroughFilter];
+    
+    [stillImageSource processImage];
+    
+    UIImage *nearestNeightImage = [passthroughFilter imageFromCurrentFramebuffer];
+    return nearestNeightImage;
+}
+
 
 //改变图片透明度
 - (UIImage *)imageByApplyingAlpha:(CGFloat)alp  image:(UIImage*)image
@@ -1144,8 +1242,10 @@ static NSString *ID3 = @"cell3";
 }
 
 - (void)toolbarBtnClick:(UIButton *)toolbarBtn {
-    
-    switch (toolbarBtn.tag) {
+    UIButton *lastButton = [backgoundView viewWithTag:self.btnTag];
+    lastButton.selected = NO;
+    toolbarBtn.selected = YES;
+    switch (toolbarBtn.tag - kButtonTag) {
             
         case 0: {
             
@@ -1285,6 +1385,69 @@ static NSString *ID3 = @"cell3";
     //    [self setupUI];
 }
 
+- (void)setBgImage:(UIImage *)bgImage{
+    NSData *data = UIImageJPEGRepresentation(bgImage, 0.3);
+    UIImage *inputImage = [UIImage imageWithData:data];
+    _bgImage = inputImage;
+    
+ 
+}
+
+//图片压缩到指定大小
+- (UIImage*)imageByScalingAndCroppingForSize:(CGSize)targetSize image:(UIImage *)image
+{
+    UIImage *sourceImage = image;
+    UIImage *newImage = nil;
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO)
+    {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        if (widthFactor > heightFactor)
+            scaleFactor = widthFactor; // scale to fit height
+        else
+            scaleFactor = heightFactor; // scale to fit width
+        scaledWidth= width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        // center the image
+        if (widthFactor > heightFactor)
+        {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        }
+        else if (widthFactor < heightFactor)
+        {
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+    }
+    
+    UIGraphicsBeginImageContext(targetSize); // this will crop
+    
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width= scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    if(newImage == nil)
+        NSLog(@"could not scale image");
+    
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+    return newImage;
+}
 @end
 
 
