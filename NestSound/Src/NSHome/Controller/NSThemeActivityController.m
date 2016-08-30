@@ -222,7 +222,7 @@ static NSInteger const kButtonTag = 450;
     
     [self setupNavBar];
     self.title = @"专题活动";
-    
+    self.view.backgroundColor = [UIColor hexColorFloat:@"f6f6f6"];
     self.mainTableView.tableHeaderView = self.topView ;
 
    
@@ -405,8 +405,8 @@ static NSInteger const kButtonTag = 450;
         
         _RCSegView = rcs;
     }else{
-        [self.leftController fetchData];
-        [self.rightController fetchData];
+        [self.leftController fetchDataWithIsLoadingMore:NO];
+        [self.rightController fetchDataWithIsLoadingMore:NO];
     }
     return _RCSegView;
 }
@@ -676,7 +676,7 @@ static NSInteger const kButtonTag = 450;
 
 - (MainTouchTableTableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[MainTouchTableTableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64) style:UITableViewStylePlain];
+        _mainTableView = [[MainTouchTableTableView alloc] initWithFrame:CGRectMake(0, 2, ScreenWidth, ScreenHeight - 64 - 2) style:UITableViewStylePlain];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.showsVerticalScrollIndicator = NO;

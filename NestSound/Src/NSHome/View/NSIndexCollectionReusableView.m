@@ -20,7 +20,7 @@
     UIPageControl *_page;
     NSMutableArray * bannerImageArr;
     NSMutableArray * songAry;
-    
+    UIButton *_moreBtn;
     
 }
 
@@ -77,31 +77,34 @@
 
 - (UIButton *)loadMore {
     
-    UIButton *moreBtn = [[UIButton alloc] init];
-    
-    [moreBtn setTitle:@"更多" forState:UIControlStateNormal];
-    
-    [moreBtn setImage:[UIImage imageNamed:@"2.0_more"] forState:UIControlStateNormal];
-    
-    [moreBtn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-    
-    moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    
-    moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-    
-    moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
-    
-    [self addSubview:moreBtn];
-    
-    [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (!_moreBtn) {
         
-        make.right.equalTo(self.mas_right).offset(-15);
-        make.centerY.equalTo(self.mas_centerY);
-
         
-    }];
-    
-    return moreBtn;
+        _moreBtn = [[UIButton alloc] init];
+        
+        [_moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+        
+        [_moreBtn setImage:[UIImage imageNamed:@"2.0_more"] forState:UIControlStateNormal];
+        
+        [_moreBtn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
+        
+        _moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        
+        _moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+        
+        _moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
+        
+        [self addSubview:_moreBtn];
+        
+        [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.right.equalTo(self.mas_right).offset(-15);
+            make.centerY.equalTo(self.mas_centerY);
+            
+            
+        }];
+    }
+    return _moreBtn;
 }
 
 

@@ -290,12 +290,9 @@
         [self.descriptionLabel addLinkToURL:nil withRange:range];
     }
     }
- 
+    self.joinCountLabel.font = [UIFont systemFontOfSize:14.0f];
+
     if (joinerArr.count) {
-        
-        
-        
-        self.joinCountLabel.font = [UIFont systemFontOfSize:14.0f];
         self.joinCountLabel.text = [NSString stringWithFormat:@"参加人数%ld人",joinerArr.count];
         CGFloat padding = 9.0f;
         CGFloat headerWidth = (ScreenWidth - padding * 9)/8.0f;
@@ -339,6 +336,9 @@
             [self.bottomView addSubview:headButton];
         }
         
+    }else{
+        self.joinCountLabel.text = [NSString stringWithFormat:@"参加人数%ld人",joinerArr.count];
+
     }
     
   

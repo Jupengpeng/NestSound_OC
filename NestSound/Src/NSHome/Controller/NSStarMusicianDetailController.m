@@ -56,16 +56,16 @@
         if (!weakSelf) {
 
         }else{
-            [weakSelf fetchDetailData];
+            [weakSelf fetchDetailDataWithIsLoadingMore:NO];
         }
     }];
     [self.tableView.pullToRefreshView startAnimating];
-    [self fetchDetailData];
+    [self fetchDetailDataWithIsLoadingMore:NO];
     
     
 }
 
-- (void)fetchDetailData{
+- (void)fetchDetailDataWithIsLoadingMore:(BOOL)isLoadingMore{
     
     [self.tableView.pullToRefreshView startAnimating];
 
