@@ -228,6 +228,8 @@
 		B801F1821D73302300DD7949 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B801F1811D73302300DD7949 /* QuartzCore.framework */; };
 		B801F1831D73302D00DD7949 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18FFE8351CF1809F0012880E /* AVFoundation.framework */; };
 		B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */ = {isa = PBXBuildFile; fileRef = B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */; };
+		B80C07761D757F690032BBCD /* NSImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C07751D757F690032BBCD /* NSImageCropperViewController.m */; };
+		B80C07791D757F820032BBCD /* NSImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C07781D757F820032BBCD /* NSImagePicker.m */; };
 		B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864D1D47055200B22855 /* Foundation.framework */; };
 		B80C86501D47055F00B22855 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864F1D47055F00B22855 /* UIKit.framework */; };
 		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
@@ -853,6 +855,10 @@
 		B801F1811D73302300DD7949 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B807D8C01D49173900B01BB5 /* DeviceMusicWave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceMusicWave.h; sourceTree = "<group>"; };
 		B807D8C11D49173900B01BB5 /* DeviceMusicWave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceMusicWave.m; sourceTree = "<group>"; };
+		B80C07741D757F690032BBCD /* NSImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageCropperViewController.h; sourceTree = "<group>"; };
+		B80C07751D757F690032BBCD /* NSImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageCropperViewController.m; sourceTree = "<group>"; };
+		B80C07771D757F820032BBCD /* NSImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImagePicker.h; sourceTree = "<group>"; };
+		B80C07781D757F820032BBCD /* NSImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImagePicker.m; sourceTree = "<group>"; };
 		B80C86491D42930C00B22855 /* record.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = record.h; sourceTree = "<group>"; };
 		B80C864D1D47055200B22855 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B80C864F1D47055F00B22855 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -1531,6 +1537,7 @@
 		2DFB67261CC1E75900DA24DA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				B80C07731D757F470032BBCD /* NSImagePicker */,
 				B801F0C71D732F0300DD7949 /* GPUImage */,
 				B8B966201D727F90005D3724 /* YYModel */,
 				695618FC1D61C35500102BC7 /* MainViewController */,
@@ -1892,6 +1899,17 @@
 				B801F1771D732F0300DD7949 /* GPUImageZoomBlurFilter.h */,
 			);
 			path = include;
+			sourceTree = "<group>";
+		};
+		B80C07731D757F470032BBCD /* NSImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				B80C07741D757F690032BBCD /* NSImageCropperViewController.h */,
+				B80C07751D757F690032BBCD /* NSImageCropperViewController.m */,
+				B80C07771D757F820032BBCD /* NSImagePicker.h */,
+				B80C07781D757F820032BBCD /* NSImagePicker.m */,
+			);
+			path = NSImagePicker;
 			sourceTree = "<group>";
 		};
 		B80C86481D4292DA00B22855 /* Problem */ = {
@@ -3276,6 +3294,7 @@
 				2DFB677A1CC1F0ED00DA24DA /* UIButton+NSAdditions.m in Sources */,
 				18E4CB231D0E61690059783C /* XHSoundRecorder.m in Sources */,
 				690E09021D65D75700C21750 /* NSActivityDetailModel.m in Sources */,
+				B80C07761D757F690032BBCD /* NSImageCropperViewController.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
 				69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */,
 				69BB93AE1D6AEB330017140F /* NSThemeCommentCell.m in Sources */,
@@ -3303,6 +3322,7 @@
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
 				94456D511D51C1390088385F /* NSLoginView.m in Sources */,
 				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
+				B80C07791D757F820032BBCD /* NSImagePicker.m in Sources */,
 				2AB16BE11D1279C600A3034C /* NSDiscoverMoreLyricModel.m in Sources */,
 				2ACC24F41CF53D08000BDEDC /* NSUpvoteMessageListModel.m in Sources */,
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
@@ -3504,7 +3524,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
+				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3532,7 +3552,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
+				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

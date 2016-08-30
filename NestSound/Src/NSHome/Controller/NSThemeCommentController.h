@@ -28,6 +28,6 @@
 
 @property (nonatomic,assign) int page;
 
-- (void)fetchData;
+- (void)fetchDataWithIsLoadingMore:(BOOL)isLoadingMore;
 
 @end

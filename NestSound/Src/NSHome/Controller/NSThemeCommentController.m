@@ -40,6 +40,8 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
 @property (nonatomic,assign) BOOL loadedPlayer;
 
+@property (nonatomic,strong) UIImageView *emptyImageView;
+
 @end
 
 @implementation NSThemeCommentController
@@ -62,7 +64,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
                                                object:nil];
     
     [self.view addSubview:self.tableView];
-    [self fetchData];
+    [self fetchDataWithIsLoadingMore:NO];
     
 }
 
@@ -100,13 +102,27 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 //    [self.navigationController pushViewController:playVC animated:YES];
 }
 
-- (void)fetchData{
+- (void)fetchDataWithIsLoadingMore:(BOOL)isLoadingMore{
     self.requestType = NO;
-    self.page = 1;
-    self.requestParams = @{@"aid":(self.aid.length ? self.aid: @"5"),
-                           @"type":(self.type.length ? self.type:@"1"),
-                           @"sort":[NSString stringWithFormat:@"%d",self.sort],
-                           @"page":[NSString stringWithFormat:@"%d",self.page]};
+    
+
+    if (!isLoadingMore) {
+        self.page = 1;
+        self.requestParams = @{kIsLoadingMore:@(YES),
+                               @"aid":(self.aid.length ? self.aid: @"5"),
+                               @"type":(self.type.length ? self.type:@"1"),
+                               @"sort":[NSString stringWithFormat:@"%d",self.sort],
+                               @"page":[NSString stringWithFormat:@"%d",self.page]};
+    }else{
+        ++ self.page;
+
+        self.requestParams = @{kIsLoadingMore:@(YES),
+                               @"aid":(self.aid.length ? self.aid: @"5"),
+                               @"type":(self.type.length ? self.type:@"1"),
+                               @"sort":[NSString stringWithFormat:@"%d",self.sort],
+                               @"page":[NSString stringWithFormat:@"%d",self.page]};
+    }
+
     self.requestURL = joinedWorksDetailUrl;
 }
 
@@ -116,16 +132,19 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
     }
     else{
         if ([operation.urlTag isEqualToString:joinedWorksDetailUrl]) {
-            NSJoinedWorkListModel *workListModel = (NSJoinedWorkListModel *)parserObject;
-            self.workListModel = workListModel;
-            if (self.dataArray.count) {
-                [self.dataArray removeAllObjects];
+            if (!operation.isLoadingMore) {
+                if (self.itemIdArr.count) {
+                    [self.itemIdArr removeAllObjects];
+                }
+                if (self.dataArray.count) {
+                    [self.dataArray removeAllObjects];
+                }
             }
             
+            NSJoinedWorkListModel *workListModel = (NSJoinedWorkListModel *)parserObject;
+            self.workListModel = workListModel;
 
-            if (self.itemIdArr.count) {
-                [self.itemIdArr removeAllObjects];
-            }
+
             if (workListModel.joinWorkList.count) {
 
                 /**
@@ -142,7 +161,21 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
                     }
                 }
             }
+
             [self.dataArray addObjectsFromArray:workListModel.joinWorkList];
+            if (self.dataArray.count == 0) {
+                _emptyImageView.hidden = NO;
+            } else {
+                _emptyImageView.hidden = YES;
+            }
+            
+            if (!operation.isLoadingMore) {
+                [_tableView.pullToRefreshView stopAnimating];
+            }else{
+                [_tableView.infiniteScrollingView stopAnimating];
+            }
+
+            
         }
         
         [self.tableView reloadData];
@@ -466,6 +499,25 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         footerView.backgroundColor = [UIColor clearColor];
         _tableView.tableFooterView = footerView;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _emptyImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+        
+        _emptyImageView.centerX = ScreenWidth/2;
+        
+        _emptyImageView.y = 100;
+        
+        [_tableView addSubview:_emptyImageView];
+        
+        WS(wSelf);
+        [_tableView addInfiniteScrollingWithActionHandler:^{
+            if (!wSelf) {
+                return ;
+            }else{
+                [wSelf fetchDataWithIsLoadingMore:YES];
+            }
+        }];
+        
+        _tableView.showsInfiniteScrolling = YES;
+
     }
     return _tableView;
 }

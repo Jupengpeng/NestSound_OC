@@ -29,7 +29,7 @@ static NSInteger const kButtonTag = 200;
 #import "UIImageView+Webcache.h"
 #import <Accelerate/Accelerate.h>
 #import "GPUImage.h"
-
+#import "NSImagePicker.h"
 #define kHeadImageHeight 264
 @interface NSUserPageViewController ()
 <
@@ -37,8 +37,8 @@ UITableViewDelegate,
 UIScrollViewDelegate,
 UITableViewDataSource,
 UIActionSheetDelegate,
-UIImagePickerControllerDelegate,
-UINavigationControllerDelegate>
+UINavigationControllerDelegate,
+NSImagePickerDelegate>
 {
     
     UITableView *_tableView;
@@ -71,8 +71,7 @@ UINavigationControllerDelegate>
     NSTopLBottomLView *focusLLView;
     NSTopLBottomLView *fansLLView;
     UIView *_midLine;
-    UIImagePickerController * _imagePickerController;
-    NSString *_localFullPath;
+    NSString *_sdCachePath;
 
 }
 
@@ -80,7 +79,7 @@ UINavigationControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *itemIdArr;
 
 @property (nonatomic,copy) NSString *imageTitleStr;
-@property (nonatomic,strong) UIImage *localbgImage;
+@property (nonatomic,strong) UIImage *bgImage;
 @property (nonatomic,strong) UIAlertController *alertView;
 
 @end
@@ -177,23 +176,18 @@ static NSString *ID3 = @"cell3";
     }
     
     if (userDic) {
-        
         if (who == Myself) {
             NSDictionary * dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSString * str = [NSTool encrytWithDic:dic];
             url = [userCenterURL stringByAppendingString:str];
-            
         }else{
-            
             NSDictionary * dic = @{@"otherid":userId,@"uid":JUserID,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
             url = [otherCenterURL stringByAppendingString:str];
-            
         }
         self.requestURL = url;
     }
-    
 }
 
 /**
@@ -266,19 +260,22 @@ static NSString *ID3 = @"cell3";
                      *  背景图
                      */
 
-                    if (self.localbgImage) {
-                        headImgView.image = self.localbgImage;
+                    UIImage *originalImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userData.userDataModel.userModel.bgPic];
+                    NSLog(@"%@",originalImage);
+                    if (originalImage) {
+                        headImgView.image = originalImage;
+                        self.bgImage = originalImage;
+
                     }else{
-
-                    [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                         
-                        /**
-                         *  缓存背景图片到本地
-                         */
-                        [NSTool saveImage:image withName:@"backgroundImage.png"];
-
-
-                    }];
+                        [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                            
+                            /**
+                             *  缓存背景图片到本地
+                             */
+                            headImgView.image = image;
+                            self.bgImage = image;
+                        }];
                     }
                     if (self.who == Other) {
   
@@ -287,8 +284,9 @@ static NSString *ID3 = @"cell3";
                             /**
                              *  缓存背景图片到本地
                              */
-                            [NSTool saveImage:image withName:@"backgroundImage.png"];
-                            
+//                            [NSTool saveImage:image withName:@"backgroundImage.png"];
+                            self.bgImage = image;
+
                             
                         }];
                         
@@ -334,7 +332,7 @@ static NSString *ID3 = @"cell3";
                 
             } else if ([operation.urlTag isEqualToString:_qiniuUrl]){
                 NSGetQiNiuModel *qiNiuModel = (NSGetQiNiuModel *)parserObject;
-                [self postBgImageWithImageUrl:[NSString stringWithFormat:@"%@.png",qiNiuModel.qiNIuModel.fileName]];
+//                [self postBgImageWithImageUrl:[NSString stringWithFormat:@"%@.png",qiNiuModel.qiNIuModel.fileName]];
                 
                 qiNiu * data = qiNiuModel.qiNIuModel;
                 NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
@@ -342,6 +340,9 @@ static NSString *ID3 = @"cell3";
                 
             } else if ([operation.urlTag isEqualToString:uploadBgimageUrl]){
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
+                    
+                    [[NSToastManager manager] showtoast:@"上传成功"];
+                    headImgView.image = self.bgImage;
                 }];
             } else if ([operation.urlTag isEqualToString:changeMusicStatus] || [operation.urlTag isEqualToString:changeLyricStatus]) {
                 [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
@@ -494,9 +495,7 @@ static NSString *ID3 = @"cell3";
         headImgView.userInteractionEnabled = YES;
         [headImgView addGestureRecognizer:tap];
         
-        _imagePickerController = [[UIImagePickerController alloc] init];
-        _imagePickerController.allowsEditing = YES;
-        _imagePickerController.delegate = self;
+
     }
 
     signatureLabel = [[UILabel alloc] init];
@@ -609,14 +608,7 @@ static NSString *ID3 = @"cell3";
     
     for (int i = 0; i < toolBarArr.count; i++) {
         
-        if (i != 0) {
-            
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(W * i, 0, 1, 60)];
-            
-            line.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
-            
-            [backgoundView addSubview:line];
-        }
+        
         UILabel  *toolbarLabel = [[UILabel alloc] initWithFrame:CGRectMake(W*i, 10, W, 20)];
         
         toolbarLabel.textColor = [UIColor hexColorFloat:@"666666"];
@@ -645,7 +637,14 @@ static NSString *ID3 = @"cell3";
         
         [backgoundView addSubview:toolbarBtn];
         [backgoundView addSubview:toolbarLabel];
-
+        if (i != 0) {
+            
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(W * i, 0, 1, 60)];
+            
+            line.backgroundColor = [UIColor hexColorFloat:@"e5e5e5"];
+            
+            [backgoundView addSubview:line];
+        }
         if (i==0) {
             self.btnTag = toolbarBtn.tag;
             toolbarBtn.selected = YES;
@@ -670,82 +669,95 @@ static NSString *ID3 = @"cell3";
 #pragma mark -uploadPhoto
 -(void)uploadPhotoWith:(NSString *)photoPath type:(BOOL)type_ token:(NSString *)token url:(NSString *)url
 {
-    
-    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"背景正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-    [self presentViewController:self.alertView animated:YES completion:nil];
     WS(wSelf);
-//    __block NSString * file = titleImageURL;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:photoPath]) {
-        QNUploadManager * upManager = [[QNUploadManager alloc] init];
-        
-        NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
-        NSLog(@"%ld",imageData.length);
-        [upManager putData:imageData key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-            wSelf.imageTitleStr = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
-            NSString *totalStr = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",wSelf.imageTitleStr];
-            [[NSUserDefaults standardUserDefaults] setObject:totalStr forKey:@"bgPic"];
 
+    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"背景正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+    [self presentViewController:self.alertView animated:YES completion:^{
+        
+        //    __block NSString * file = titleImageURL;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:photoPath]) {
+            QNUploadManager * upManager = [[QNUploadManager alloc] init];
             
-            
-            [self postBgImageWithImageUrl:wSelf.imageTitleStr];
-            
-            
-            
-        } option:nil];
-    }
+            NSData *imageData = [NSData dataWithContentsOfFile:photoPath];
+            UIImage *image = [UIImage imageWithContentsOfFile:photoPath];
+            NSData *data = UIImageJPEGRepresentation(image, 0.3);
+            self.bgImage = image;
+            NSLog(@"imageData %ld data %ld",imageData.length,data.length);
+            [upManager putData:data key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                wSelf.imageTitleStr = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+                NSString *totalStr = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",wSelf.imageTitleStr];
+                [[NSUserDefaults standardUserDefaults] setObject:totalStr forKey:@"bgPic"];
+                
+                [self postBgImageWithImageUrl:wSelf.imageTitleStr];
+                
+                
+            } option:nil];
+        }
+        
+    }];
+   
     
 //    return file;
 }
 
-#pragma mark -UIImagePickerControllerDelegate
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
-{
-    UIImage * backgroundImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
-
-    [NSTool saveImage:backgroundImage withName:@"backgroundImage.png"];
-    UIImage * titlepageImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
-
-    headImgView.image = titlepageImage;
-    
-    
-    
-
-    [self dismissViewControllerAnimated:YES completion:^{
-        /**
-         *  获取七牛图片token
-         */
-        _qiniuUrl = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
-
-    }];
-    
-}
+//#pragma mark -UIImagePickerControllerDelegate
+//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+//{
+//    UIImage * backgroundImage = [info objectForKey:UIImagePickerControllerEditedImage];
+//    
+//
+//    [NSTool saveImage:backgroundImage withName:@"backgroundImage.png"];
+//
+//    
+//    
+//
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        /**
+//         *  获取七牛图片token
+//         */
+//        _qiniuUrl = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
+//
+//    }];
+//    
+//}
 #pragma mark - actionsheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-        switch (buttonIndex) {
-            case 0:
-                _imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                [self presentViewController:_imagePickerController animated:YES completion:^{
-                    
-                }];
-                break;
-            case 1:
-                _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self presentViewController:_imagePickerController animated:YES completion:^{
-                    
-                }];
-                
-                break;
-                
-            default:
-                break;
-        }
+    if (buttonIndex <= 1) {
+        NSImagePicker *imagePicker = [NSImagePicker sharedInstance];
+        imagePicker.delegate = self;
+        [imagePicker showImagePickerWithType:buttonIndex InViewController:self Scale:kHeadImageHeight/ScreenWidth];
+    }else{
         
+    }
+
+
+    
+}
+
+#pragma mark - NSImagePickerDelegate
+
+- (void)imagePickerDidCancel:(NSImagePicker *)imagePicker{
+    
+}
+- (void)imagePicker:(NSImagePicker *)imagePicker didFinished:(UIImage *)editedImage{
+    UIImage * backgroundImage = editedImage;
+    
+    
+    [NSTool saveImage:backgroundImage withName:@"backgroundImage.png"];
+    
+    
+    
+    
+//    [self dismissViewControllerAnimated:YES completion:^{
+        /**
+         *  获取七牛图片token
+         */
+        _qiniuUrl = [self getQiniuDetailWithType:1 andFixx:@"lyrcover"];
         
+//    }];
 }
 
 #pragma mark - scrolldelegate
@@ -776,12 +788,12 @@ static NSString *ID3 = @"cell3";
     
 //    CHLog(@"%f",reoffSet);
     //kHeadImageHeight-64是为了向上拉倒导航栏底部时alpha = 1
-    alpha = reoffSet/(kHeadImageHeight -64);
+    alpha =1 - (kHeadImageHeight - 64 - reoffSet)/64;
     
 //    CHLog(@"%f",alpha);
     
     if (alpha>=1) {
-//        alpha = 0.99;
+        alpha = 1;
         CGRect frame = backgoundView.frame;
         
         frame.origin.y = 64;
@@ -841,52 +853,33 @@ static NSString *ID3 = @"cell3";
 
     }
     UIImage *headerImage ;
-    
-    if (self.localbgImage) {
-        headerImage = self.localbgImage;
+    if (self.bgImage) {
+        headerImage = self.bgImage;
     }else{
         headerImage = kDefaultImage;
     }
-    
-//    UIImage *blurimage1 = [self.bgImage applyLightEffectWithAlpha:alpha];
-
+    //    UIImage *blurimage1 = [self.bgImage applyLightEffectWithAlpha:alpha];
     
     if (alpha <= 0) {
-//        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
         headImgView.image = headerImage;
-
-    } else if(alpha <= 1 && alpha>0){
-
-        
-        
-        
-//        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:0];
+    } else if(alpha < 1 && alpha>0){
         headImgView.image = [self setupBlurImageWithBlurRadius:alpha image:headerImage];
     } else{
-//        [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
-
-//        [self.navigationController.navigationBar setBackgroundImage:headImgView.image forBarMetrics:UIBarMetricsDefault];
-
     }
 }
 
 - (UIImage *)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image{
 
-    NSData *data = UIImageJPEGRepresentation(image, 0.3);
-    UIImage *inputImage = [UIImage imageWithData:data];
-
-    GPUImageGaussianBlurPositionFilter *passthroughFilter = [[GPUImageGaussianBlurPositionFilter alloc]init];
-    passthroughFilter.blurRadius = blurRadius;
+//    NSData *data = UIImageJPEGRepresentation(image, 0.3);
+//    UIImage *inputImage = [UIImage imageWithData:data];
+    UIImage *inputImage = image;
+    GPUImageGaussianBlurFilter *passthroughFilter = [[GPUImageGaussianBlurFilter alloc]init];
+    passthroughFilter.blurRadiusInPixels = 20 * blurRadius;;
     [passthroughFilter forceProcessingAtSize:inputImage.size];
-    
     [passthroughFilter useNextFrameForImageCapture];
-    
     GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:inputImage];
-    
     [stillImageSource addTarget:passthroughFilter];
-    
     [stillImageSource processImage];
-    
     UIImage *nearestNeightImage = [passthroughFilter imageFromCurrentFramebuffer];
     return nearestNeightImage;
 }
@@ -1451,11 +1444,10 @@ static NSString *ID3 = @"cell3";
     UIGraphicsEndImageContext();
     return newImage;
 }
-- (UIImage *)localbgImage{
-    NSString * fullPath = [LocalPath stringByAppendingPathComponent:@"backgroundImage.png"];
-    UIImage *headerImage = [UIImage imageWithContentsOfFile:fullPath];
-    _localbgImage = headerImage;
-    return _localbgImage;
+
+
+- (UIImage *)bgImage{
+    return _bgImage;
 }
 
 @end
