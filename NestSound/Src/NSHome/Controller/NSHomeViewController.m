@@ -124,7 +124,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
      UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     self.navigationItem.rightBarButtonItem = item;
     
-    [self configureUIAppearance];
+//    [self configureUIAppearance];
 
     [self fetchIndexData];
     [self getAuthorToken];
@@ -288,7 +288,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    return 6;
+    return 5;
 }
 
 
@@ -310,11 +310,12 @@ static NSString * const TopCarringCell = @"TopCarringCell";
      *  话题进行时
 
      */
+//    else if (section == 3){
+//        
+//        return 0;
+//        
+//    }
     else if (section == 3){
-        
-        return 0;
-        
-    } else if (section == 4){
         
         return newListAry.count;
     } else {
@@ -354,23 +355,25 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         
         return cell;
         
-    } else if (indexPath.section == 3){
-        
-        NSTopicCarryOnCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TopCarringCell forIndexPath:indexPath];
-        
-        [cell setupDataWithTopicArray:[NSMutableArray array]];
-        
-        cell.topicClickBlock = ^(NSInteger clickIndex){
-          
-            CHLog(@"click -- %ld", clickIndex);
-            NSThemeActivityController *themeController = [[NSThemeActivityController alloc] init];
-            [self.navigationController pushViewController:themeController animated:YES];
-            
-        };
-        
-        return cell;
-        
-    } else if (indexPath.section == 4) {
+    }
+//    else if (indexPath.section == 3){
+//        
+//        NSTopicCarryOnCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TopCarringCell forIndexPath:indexPath];
+//        
+//        [cell setupDataWithTopicArray:[NSMutableArray array]];
+//        
+//        cell.topicClickBlock = ^(NSInteger clickIndex){
+//          
+//            CHLog(@"click -- %ld", (long)clickIndex);
+//            NSThemeActivityController *themeController = [[NSThemeActivityController alloc] init];
+//            [self.navigationController pushViewController:themeController animated:YES];
+//            
+//        };
+//        
+//        return cell;
+//        
+//    }
+    else if (indexPath.section == 3) {
         
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NewWorkCell forIndexPath:indexPath];
         NSNew * newModel = (NSNew *)[newListAry objectAtIndex:indexPath.row];
@@ -409,13 +412,15 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         CGFloat W = (ScreenWidth - 40) * 0.5;
         return CGSizeMake(W, 135);
         
-    } else if (indexPath.section == 3){
-        
-        CGFloat W = (ScreenWidth);
-        
-        return CGSizeMake(W, 145.0f);
-        
-    } else if (indexPath.section == 4) {
+    }
+//    else if (indexPath.section == 3){
+//        
+//        CGFloat W = (ScreenWidth);
+//        
+//        return CGSizeMake(W, 145.0f);
+//        
+//    }
+    else if (indexPath.section == 3) {
         
         CGFloat W = (ScreenWidth - 50) / 3;
         return CGSizeMake(W, W + W * 0.38);
@@ -464,12 +469,14 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
         NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:recommendSongModel.itemID];
         [self.navigationController pushViewController:songVC animated:YES];
-    } else if (section == 3){
-        /**
-         *  活动进行时
-         */
-        
-    } else if (section == 4){
+    }
+//    else if (section == 3){
+//        /**
+//         *  活动进行时
+//         */
+//        
+//    }
+    else if (section == 3){
         NSNew * newModel = (NSNew *)newListAry[row];
         //newModel type == 1 is music type == 2 is lyric
         if (newModel.type == 1) {
@@ -488,7 +495,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
             [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
-    }else if (section == 5){
+    }else if (section == 4){
         NSMusicSay * musicSay = (NSMusicSay *)musicSayAry[row];
         //type == 1 is music ,type == 2 is web
         if (musicSay.type == 1) {
@@ -533,15 +540,16 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         
         return CGSizeMake(ScreenWidth, 190);
     } else if(section == 1){
-        return CGSizeMake(ScreenWidth, 10);
-    } else if(section == 3){
-        /**
-         *  活动进行时
-         */
-        return CGSizeMake(0,0);
-//        return CGSizeMake(ScreenWidth, 10);
-
+        return CGSizeMake(ScreenWidth, 0);
     }
+//    else if(section == 3){
+//        /**
+//         *  活动进行时
+//         */
+//        return CGSizeMake(0,0);
+////        return CGSizeMake(ScreenWidth, 10);
+//
+//    }
     return CGSizeMake(ScreenWidth, 35);
     
 }
@@ -554,7 +562,6 @@ static NSString * const TopCarringCell = @"TopCarringCell";
     reusable.clipsToBounds = YES;
     if (indexPath.section == 0) {
         
-        
         reusable.bannerAry = bannerAry;
         
         reusable.titleLable.text = @"推荐作品";
@@ -562,7 +569,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 //        NSLocalizedString(@"promot_recommendWorks", @"");
 //        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
         
-    }  else if (indexPath.section == 1 || indexPath.section == 3 ){
+    }  else if (indexPath.section == 1){
         [[reusable viewWithTag:100] removeFromSuperview];
         [[reusable viewWithTag:200] removeFromSuperview];
         
@@ -579,7 +586,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 
 //        LocalizedStr(@"promot_recommendSongList");
 
-    } else if (indexPath.section == 4) {
+    } else if (indexPath.section == 3) {
 
         [[reusable viewWithTag:100] removeFromSuperview];
         
@@ -588,7 +595,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         reusable.titleLable.text = @"最新作品";
 //        LocalizedStr(@"promot_newWorks");
         
-    } else if (indexPath.section == 5){
+    } else if (indexPath.section == 4){
 
         UIButton *songSayBtn = [reusable loadMore];
         

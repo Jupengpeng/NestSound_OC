@@ -218,22 +218,27 @@ static NSDateFormatter *dateFormatter;
 
 +(NSString *)stringFormatWithTimeLong:(long)times
 {
-    NSString * minute;
-    NSString * second;
-    int seconds = times%60;
-    long minutes = times/60;
-    if (minutes/10 == 0) {
-        minute = [NSString stringWithFormat:@"0%ld",minutes];
+    if (times) {
+        NSString * minute;
+        NSString * second;
+        int seconds = times%60;
+        long minutes = times/60;
+        if (minutes/10 == 0) {
+            minute = [NSString stringWithFormat:@"0%ld",minutes];
+        }
+        
+        if (seconds/10 == 0) {
+            second = [NSString stringWithFormat:@"0%d",seconds];
+        }else{
+            second = [NSString stringWithFormat:@"%d",seconds];
+        }
+        
+        NSString * str = [NSString stringWithFormat:@"%@:%@",minute,second];
+        return str;
+    } else {
+        return @"00:00";
     }
     
-    if (seconds/10 == 0) {
-        second = [NSString stringWithFormat:@"0%d",seconds];
-    }else{
-        second = [NSString stringWithFormat:@"%d",seconds];
-    }
-    
-    NSString * str = [NSString stringWithFormat:@"%@:%@",minute,second];
-    return str;
 }
 
 + (NSString*)getMachine{

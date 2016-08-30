@@ -50,6 +50,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
                                                  name:@"pausePlayer"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer) name:AVAudioSessionInterruptionNotification object:nil];
     [self setupCategoryListUI];
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -206,7 +207,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     //downLoading accompany and push to recordVC
     if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
         [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":@(accompany.mp3Times),@"accompanyUrl":accompany.mp3URL}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":[NSNumber numberWithLong:accompany.mp3Times],@"accompanyUrl":accompany.mp3URL}];
         
     } else {
         

@@ -64,10 +64,11 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    AVAudioSession * session =[ AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     decelerate = YES;
     effectId = 0;
-    speed = 32.0;
+    speed = ScreenWidth/10.0;
     
     [self setupSoundEffectUI];
     
@@ -77,6 +78,10 @@
     [self.waveLink setPaused:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlaying)
+                                                 name:@"pausePlayer"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlaying) name:AVAudioSessionInterruptionNotification object:nil];
     [self addObserver:self forKeyPath:@"soundEffectPlay" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 - (void)viewWillDisappear:(BOOL)animated {
@@ -366,15 +371,7 @@
         
     } else {
         
-        decelerate = YES;
-        
-        [self.waveLink setPaused:YES];
-        
-        [self.link setPaused:YES];
-        
-        [self.player pause];
-        
-        self.waveform.timeScrollView.userInteractionEnabled=YES;
+        [self pausePlaying];
     }
     sender.selected = !sender.selected;
 }
@@ -392,6 +389,18 @@
     [self.player play];
     [self.waveLink setPaused:NO];
     [self.link setPaused:NO];
+}
+- (void)pausePlaying {
+    
+    decelerate = YES;
+    
+    [self.waveLink setPaused:YES];
+    
+    [self.link setPaused:YES];
+    
+    [self.player pause];
+    
+    self.waveform.timeScrollView.userInteractionEnabled=YES;
 }
 - (void)endPlaying {
     
@@ -495,7 +504,7 @@
         return;
     }
     UIView* view = (UIView*)self.waveViewArr[0];
-    CGFloat f=  self.waveform.timeScrollView.contentOffset.x+view.frame.origin.x;
+    CGFloat f=  self.waveform.timeScrollView.contentOffset.x+view.frame.origin.x - 2.0;
     for (UIView* view in self.waveViewArr) {
         if (view.frame.origin.x<f) {
             view.backgroundColor = [UIColor hexColorFloat:@"ffd33f"];

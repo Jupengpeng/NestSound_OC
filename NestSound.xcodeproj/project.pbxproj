@@ -371,7 +371,6 @@
 		2A0B72351D003870003957E3 /* NSString+NSMD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSMD5Addition.m"; sourceTree = "<group>"; };
 		2A141DC81D00B057003ACA74 /* NSUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserModel.h; sourceTree = "<group>"; };
 		2A141DC91D00B057003ACA74 /* NSUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserModel.m; sourceTree = "<group>"; };
-		2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2A29B9581CDF16EF0052635A /* NSAccompanyListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListHeaderView.h; sourceTree = "<group>"; };
 		2A29B9591CDF16EF0052635A /* NSAccompanyListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListHeaderView.m; sourceTree = "<group>"; };
 		2A3750271CEC422C007C2967 /* NSChangeNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSChangeNameViewController.h; sourceTree = "<group>"; };
@@ -1378,7 +1377,6 @@
 			isa = PBXGroup;
 			children = (
 				B80C86481D4292DA00B22855 /* Problem */,
-				2A1C7DE91CDDE0C4000EDE3F /* Default-568h@2x.png */,
 				2DFB66F31CC1E65600DA24DA /* NestSound */,
 				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
 				2DFB66F21CC1E65600DA24DA /* Products */,

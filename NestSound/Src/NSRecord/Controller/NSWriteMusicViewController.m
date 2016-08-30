@@ -235,9 +235,18 @@ Boolean plugedHeadset;
     
     if ([self.recorder isRecording])
     {
+        self.waveform.timeScrollView.userInteractionEnabled=YES;
         
+        [self.waveLink setPaused:YES];
+        
+        timerNumRecorder_temp = self.player.currentTime;
+        
+        [self pausePlaysound:self.player];
+        [self.link setPaused:YES];
+        timerNumTemp=timerNum;
         [self.recorder pause];
-        
+        UIButton* btn = self.btns[2];
+        btn.selected = NO;
     }
     
 }
@@ -331,10 +340,10 @@ Boolean plugedHeadset;
         [self.player stop];
         self.player = nil;
     }
-//    if (self.player2) {
-//        [self.player2 stop];
-//        self.player2 = nil;
-//    }
+    if (self.player2) {
+        [self.player2 stop];
+        self.player2 = nil;
+    }
     if (self.player3) {
         [self.player3 stop];
         self.player3 = nil;
@@ -479,7 +488,7 @@ Boolean plugedHeadset;
 
         [self stopPlaysound:self.player3];
         
-//        [self stopPlaysound:self.player2];
+        [self stopPlaysound:self.player2];
         
 //        [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     }
@@ -666,9 +675,9 @@ Boolean plugedHeadset;
 }
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.appDelete = [[UIApplication sharedApplication] delegate];
     self.session = [AVAudioSession sharedInstance];
     self.wavFilePath = nil;
@@ -682,7 +691,10 @@ Boolean plugedHeadset;
     timerNumPlay_temp=0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveClearRecord:) name:@"clearRecordNotification" object:nil];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecorder)
+                                                 name:@"pausePlayer"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecorder) name:AVAudioSessionInterruptionNotification object:nil];
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     
     self.navigationItem.rightBarButtonItem = next;
@@ -720,8 +732,8 @@ Boolean plugedHeadset;
 
 -(void)viewWillAppear:(BOOL)animated
 {
-
     [super viewWillAppear:animated];
+    [UIApplication sharedApplication].idleTimerDisabled = YES;//设置不允许休眠
     self.navigationController.navigationBar.hidden = NO;
     //timerNumRecorder=0;
     //timerNumRecorder_temp=0;
@@ -744,6 +756,7 @@ Boolean plugedHeadset;
     [self downloadAccompanyWithUrl:hotMp3Url];
 }
 - (void)viewDidDisappear:(BOOL)animated {
+    [UIApplication sharedApplication].idleTimerDisabled = NO;//设置不允许休眠
     
     [super viewDidDisappear:animated];
     
@@ -752,9 +765,9 @@ Boolean plugedHeadset;
 
 - (void)receiveClearRecord:(NSNotification *)notiInfo {
     [self clearRecord];
-    hotId = (long)notiInfo.userInfo[@"accompanyId"];
+    hotId = [notiInfo.userInfo[@"accompanyId"] longValue];
     hotMp3Url = notiInfo.userInfo[@"accompanyUrl"];
-    musicTime = (long)notiInfo.userInfo[@"accompanyTime"];
+    musicTime = [notiInfo.userInfo[@"accompanyTime"] longValue];
     totalTimeLabel.text = [NSString stringWithFormat:@"/%@",[NSTool stringFormatWithTimeLong:musicTime]];
 }
 
@@ -824,7 +837,7 @@ Boolean plugedHeadset;
             [recordText synchronize];
             [wSelf removeLink];
             [wSelf stopPlaysound:self.player];
-//            [wSelf stopPlaysound:self.player2];
+            [wSelf stopPlaysound:self.player2];
             [wSelf stopPlaysound:self.player3];
             [wSelf stopRecorder];
             
@@ -1132,17 +1145,8 @@ Boolean plugedHeadset;
             
         } else {
 
-            self.waveform.timeScrollView.userInteractionEnabled=YES;
-
-            [self.waveLink setPaused:YES];
-
-            timerNumRecorder_temp = self.player.currentTime;
             [self pauseRecorder];
            
-            [self pausePlaysound:self.player];
-            [self.link setPaused:YES];
-            timerNumTemp=timerNum;
-            btn.selected = !btn.selected;
         }
         
          curtime3=0;
@@ -1178,12 +1182,11 @@ Boolean plugedHeadset;
             timerNumPlay = timerNumPlay_temp;
             timerNum = timerNumPlay;
             
-            
             self.isPlay = YES; //YES
             
-            
+             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             [self playsound:self.wavFilePath time:curtime3];
-            
+            [self playAccompanyWithUrl:url withTime:curtime3];
         }else{//没回听
             self.waveform.timeScrollView.userInteractionEnabled=YES;
             
@@ -1191,7 +1194,7 @@ Boolean plugedHeadset;
             curtime3=   self.player3.currentTime;
             timerNumPlay_temp=curtime3;
             
-//            [self pausePlaysound:self.player2];
+            [self pausePlaysound:self.player2];
             [self pausePlaysound:self.player3];
             [self.link setPaused:YES];
             [self.waveLink setPaused:YES];
@@ -1251,6 +1254,20 @@ Boolean plugedHeadset;
     }
 
 }
+- (void)playAccompanyWithUrl:(NSURL *)url withTime:(NSTimeInterval)time{
+    if (!self.player2) {
+        self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        self.player2.currentTime = time;
+        self.player2.enableRate = YES;
+        self.player2.rate = 1.0;
+        self.player2.delegate = self;
+        totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
+        //                self.player.meteringEnabled=YES;
+        [self.player2 prepareToPlay];
+        
+    }
+    [self.player2 play];
+}
 - (void)clearRecord{
     [self resetButton];
     self.timeLabel.text = @"00:00";
@@ -1268,7 +1285,7 @@ Boolean plugedHeadset;
     self.wavFilePath = nil;
     [self.link setPaused:YES];
     [self stopPlaysound:self.player];
-//    [self stopPlaysound:self.player2];
+    [self stopPlaysound:self.player2];
     [self stopPlaysound:self.player3];
     [self stopRecorder];
 
@@ -1476,13 +1493,14 @@ Boolean plugedHeadset;
 - (void)actionTiming {
     
     timerNum += 1/15.0;
-    totalTime += 1/15.0;
+    
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     //分贝数
 
     if (!self.isPlay) {
 //        if ([self.recorder isRecording]) {
-            count = [self decibels];
+        totalTime += 1/15.0;
+        count = [self decibels];
 //        }
         CHLog(@"DDDDDDDDD%f",count);
         

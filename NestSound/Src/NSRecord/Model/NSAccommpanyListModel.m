@@ -18,7 +18,8 @@
              @"author":@"author",
              @"title":@"title",
              @"titleImageUrl":@"pic",
-             @"mp3Times":@"mp3times"
+             @"mp3Times":@"mp3times",
+             @"useTime":@"usenum"
              };
 }
 @end

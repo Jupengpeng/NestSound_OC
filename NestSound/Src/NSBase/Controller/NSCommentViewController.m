@@ -50,9 +50,9 @@ static NSString * const kDefaultTip = @"来~说点什么";
     
     self.title = [NSString stringWithFormat:@"%@的评论",self.musicName];
     
-    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44) style:UITableViewStyleGrouped];
+    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44) style:UITableViewStylePlain];
     
-    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     commentTableView.delegate = self;
     

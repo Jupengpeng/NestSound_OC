@@ -121,7 +121,7 @@ static id _instance;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
                                                  name:@"pausePlayer"
                                                object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer) name:AVAudioSessionInterruptionNotification object:nil];
     if (self.playOrPauseBtn.selected) {
         
         if (!self.timer) {
@@ -1443,9 +1443,8 @@ static id _instance;
     
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
     [self resignFirstResponder];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeBtnsState" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pausePlayer" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:ChangePlayItemNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 
 }
 

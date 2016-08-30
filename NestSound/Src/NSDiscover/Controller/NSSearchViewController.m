@@ -129,9 +129,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
                         musicDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
                     } else {
                         [musicTableView.infiniteScrollingView stopAnimating];
-                        for (NSMyMusicModel *model in searchUser.searchMusicList) {
-                            [musicDataAry addObject:model];
-                        }
+                        [musicDataAry addObjectsFromArray:searchUser.searchMusicList];
                     }
                     if (musicDataAry.count) {
                         emptyImage.hidden = YES;
@@ -145,9 +143,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
                         lyricDataAry = [NSMutableArray arrayWithArray:searchUser.searchMusicList];
                     } else {
                         [lyricTableView.infiniteScrollingView stopAnimating];
-                        for (NSMyMusicModel *model in searchUser.searchMusicList) {
-                            [lyricDataAry addObject:model];
-                        }
+                        [musicDataAry addObjectsFromArray:searchUser.searchMusicList];
                     }
                     if (lyricDataAry.count) {
                         emptyImage.hidden = YES;
@@ -163,9 +159,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
                     userDataAry = [NSMutableArray arrayWithArray:searchUser.searchUserList];
                 } else {
                     [userCollectionView.infiniteScrollingView stopAnimating];
-                    for (NSSearchUserModel *model in searchUser.searchUserList) {
-                        [userDataAry addObject:model];
-                    }
+                    [userDataAry addObjectsFromArray:searchUser.searchUserList];
                 }
                 if (userDataAry.count) {
                     emptyImage.hidden = YES;
@@ -269,7 +263,6 @@ static NSString * const userCellIdentify = @"userCollectionCell";
         }
         [Wself fetchDataWithType:1 andIsLoadingMore:YES];
     }];
-    musicTableView.showsInfiniteScrolling = NO;
     //歌词
     lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStylePlain];
     
@@ -343,6 +336,8 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     }];
 //    [self setupContent];
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    emptyImage.hidden = YES;
     
     emptyImage.centerX = ScreenWidth/2;
     

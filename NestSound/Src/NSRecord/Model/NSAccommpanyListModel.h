@@ -64,6 +64,7 @@
 
 @property (nonatomic,assign) long itemID;
 @property (nonatomic,assign) int mp3Times;
+@property (nonatomic,assign) int useTime;
 @property (nonatomic,copy) NSString * mp3URL;
 @property (nonatomic,copy) NSString * author;
 @property (nonatomic,copy) NSString * title;

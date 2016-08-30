@@ -111,9 +111,14 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
             NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 [accompanyCollection.pullToRefreshView stopAnimating];
-                self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                [self.simpleSingAry removeAllObjects];
-                [self.simpleSingAry addObject: listModel.simpleList.simpleSingList];
+                if (listModel.simpleCategoryList.simpleCategory.count) {
+                    self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
+                }
+                if (listModel.simpleList.simpleSingList.itemID) {
+                    [self.simpleSingAry removeAllObjects];
+                    [self.simpleSingAry addObject: listModel.simpleList.simpleSingList];
+                }
+                
 //                
             }else{
                 [accompanyCollection.infiniteScrollingView stopAnimating];
@@ -215,7 +220,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
         NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.section];
         if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
             [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":@(simpleSing.playTimes),@"accompanyUrl":simpleSing.playUrl}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":[NSNumber numberWithLong:simpleSing.playTimes],@"accompanyUrl":simpleSing.playUrl}];
         } else {
             
             NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:simpleSing.itemID andMusicTime:simpleSing.playTimes andHotMp3:simpleSing.playUrl];

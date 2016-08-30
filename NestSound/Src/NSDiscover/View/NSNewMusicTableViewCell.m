@@ -353,7 +353,13 @@
         self.secretImgView.hidden = NO;
     }
     self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
-    [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    if (_myMusicModel.titleImageUrl.length) {
+        [self.coverIcon setDDImageWithURLString:_myMusicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    } else {
+        int a = (arc4random()%10)+1;
+        [self.coverIcon setDDImageWithURLString:[NSString stringWithFormat:@"http://pic.yinchao.cn/lrycirs_backgroup%02d.png",a] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    }
+    
     self.musicName.text = _myMusicModel.title;
 //    self.authorName.text = _myMusicModel.author;
     if (_myMusicModel.lookNum > 9999) {

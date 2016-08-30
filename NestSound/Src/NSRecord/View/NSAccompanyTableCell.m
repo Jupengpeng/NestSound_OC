@@ -13,6 +13,7 @@
     UIImageView * titlePage;
     UILabel * authorNameLabel;
     UILabel * workNameLabel;
+    UILabel * useTimeLabel;
     UIButton * playBtn;
 }
 @end
@@ -72,11 +73,18 @@
     [self.contentView addSubview:workNameLabel];
 
     //authorNameLabel
-//    authorNameLabel = [[UILabel alloc] init];
-//    authorNameLabel.font = [UIFont systemFontOfSize:11];
-//    authorNameLabel.numberOfLines = 0;
-//    authorNameLabel.textColor = [UIColor hexColorFloat:@"666666"];
-//    [self.contentView addSubview:authorNameLabel];
+    authorNameLabel = [[UILabel alloc] init];
+    authorNameLabel.font = [UIFont systemFontOfSize:11];
+    authorNameLabel.numberOfLines = 0;
+    authorNameLabel.textColor = [UIColor hexColorFloat:@"666666"];
+    [self.contentView addSubview:authorNameLabel];
+    
+    //useTimeLabel
+    useTimeLabel = [[UILabel alloc] init];
+    useTimeLabel.font = [UIFont systemFontOfSize:11];
+    useTimeLabel.numberOfLines = 0;
+    useTimeLabel.textColor = [UIColor hexColorFloat:@"666666"];
+    [self.contentView addSubview:useTimeLabel];
 }
 
 -(void)layoutSubviews
@@ -98,22 +106,24 @@
     
     [workNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titlePage.mas_right).with.offset(10);
-        make.top.equalTo(self.contentView.mas_top).with.offset(10);
         make.right.equalTo(self.contentView.mas_right).with.offset(-10);
-        make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
-//        make.height.mas_equalTo(30);
+        make.top.equalTo(self.contentView.mas_top).with.offset(5);
+        make.bottom.equalTo(authorNameLabel.mas_top).with.offset(-5);
     }];
     
-//    [authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(workNameLabel.mas_left);
-//        make.top.equalTo(workNameLabel.mas_bottom).with.offset(10);
-//        make.right.equalTo(self.contentView.mas_right).with.offset(-10);
-//        make.height.mas_equalTo(30);
-//        
-//    }];
-    
+    [authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(workNameLabel.mas_left);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-10);
+        make.top.equalTo(workNameLabel.mas_bottom).with.offset(5);
+        make.bottom.equalTo(useTimeLabel.mas_top).with.offset(-5);
+    }];
+    [useTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(workNameLabel.mas_left);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-10);
+        make.top.equalTo(authorNameLabel.mas_bottom).with.offset(5);
+        make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
+    }];
     [self.btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
 //        make.centerX.centerY.equalTo(titlePage);
         make.right.equalTo(titlePage.mas_right).with.offset(-5);
         make.bottom.equalTo(titlePage.mas_bottom).with.offset(-5);
@@ -127,7 +137,8 @@
     _accompanyModel = accompanyModel;
     
     workNameLabel.text = _accompanyModel.title;
-//    authorNameLabel.text = _accompanyModel.author;
+    authorNameLabel.text = [NSString stringWithFormat:@"%@ %d",_accompanyModel.author, _accompanyModel.mp3Times];
+    useTimeLabel.text = [NSString stringWithFormat:@"使用次数:%d",_accompanyModel.useTime];
     [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 }
 
