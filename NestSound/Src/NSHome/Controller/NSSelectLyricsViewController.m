@@ -15,8 +15,9 @@
     UITableViewCell *cell;
     NSInteger index;
 }
-@property (nonatomic, strong) NSArray *lyricsArray;
+@property (nonatomic, strong) NSMutableArray *lyricsArray;
 @property (nonatomic, strong) NSMutableArray *lyricPosterArr;
+@property (nonatomic,strong) NSMutableArray *lyricIndexArr;
 @end
 
 static NSString *lyricCellIdenfity = @"lyricCell";
@@ -25,7 +26,7 @@ static NSString *lyricCellIdenfity = @"lyricCell";
 
 - (NSArray *)lyricsArray {
     if (!_lyricsArray) {
-        self.lyricsArray = [NSArray array];
+        self.lyricsArray = [NSMutableArray array];
     }
     return _lyricsArray;
 }
@@ -40,8 +41,14 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     [self setupUI];
 }
 - (void)setupUI {
+    
     self.lyricsArray = [self.lyrics componentsSeparatedByString:@"\r\n"];
     
+    if (self.lyricsArray.count == 1) {
+        self.lyricsArray = [self.lyrics componentsSeparatedByString:@"\n"];
+
+    }
+
     WS(wSelf);
     self.view.userInteractionEnabled = YES;
     
@@ -87,6 +94,17 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     } action:^(UIButton *btn) {
         
         NSLyricPosterViewController *lyricPosterVC = [[NSLyricPosterViewController alloc] init];
+        
+        for (NSInteger i = 0; i < self.lyricPosterArr.count; i++) {
+            for (NSInteger j = 1; j < self.lyricPosterArr.count - i ; j ++) {
+                NSInteger comparNum = [self.lyricIndexArr[j]  integerValue];
+                NSInteger currentNum = [self.lyricIndexArr[j - 1] integerValue];
+                if (comparNum < currentNum) {
+                    [self.lyricIndexArr exchangeObjectAtIndex:j - 1 withObjectAtIndex:j];
+                    [self.lyricPosterArr exchangeObjectAtIndex:j - 1 withObjectAtIndex:j];
+                }
+            }
+        }
         
         lyricPosterVC.lyricsArr = self.lyricPosterArr;
         
@@ -139,13 +157,16 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     
     NSLyricTableViewCell *lyricCell = [tableView dequeueReusableCellWithIdentifier:lyricCellIdenfity forIndexPath:indexPath];
     
+    
+    
     lyricCell.rightLabel.text = self.lyricsArray[indexPath.row];
     
     NSDictionary *fontDic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
-    //
+
     CGFloat height = [self.lyricsArray[indexPath.row] boundingRectWithSize:CGSizeMake(ScreenWidth-70, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic context:nil].size.height;
     
     CHLog(@"lable height %.f",height);
+    
     
     CGRect frame = lyricCell.rightLabel.frame;
     
@@ -156,9 +177,21 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     CHLog(@"lable new height %.f",lyricCell.rightLabel.height);
     
     lyricCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    /**
+     *  已被点击的坐标
+     */
+    if ([self.lyricIndexArr containsObject:[NSNumber numberWithInteger:indexPath.row]]) {
+        lyricCell.rightLabel.textColor = [UIColor whiteColor];
+        lyricCell.backgroundColor = [UIColor colorWithRed:106.0/255 green:96.0/255 blue:84.0/255 alpha:1.0];
+        lyricCell.leftImgView.hidden = NO;
+    }else{
+        lyricCell.rightLabel.textColor = [UIColor colorWithRed:153.0/255 green:153.0/255 blue:153.0/255 alpha:1.0];
+        lyricCell.backgroundColor = [UIColor clearColor];
+        lyricCell.leftImgView.hidden = YES;
+    }
     
-    lyricCell.backgroundColor = [UIColor clearColor];
-        
+    
     return lyricCell;
 }
 #pragma mark - UITableViewDelegate
@@ -180,6 +213,8 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     
     lyricCell.rightLabel.textColor = [UIColor whiteColor];
     
+    [self.lyricIndexArr addObject:[NSNumber numberWithInteger:indexPath.row]];
+    
     [self.lyricPosterArr addObject:[NSString stringWithFormat:@"%@\n",self.lyricsArray[indexPath.row]]];
 }
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -192,11 +227,22 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     
     lyricCell.backgroundColor = [UIColor clearColor];
     
+    [self.lyricIndexArr removeObject:[NSNumber numberWithInteger:indexPath.row]];
+    
     [self.lyricPosterArr removeObject:[NSString stringWithFormat:@"%@\n",self.lyricsArray[indexPath.row]]];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma lazy init
+
+- (NSMutableArray *)lyricIndexArr{
+    if (!_lyricIndexArr) {
+        _lyricIndexArr = [NSMutableArray array];
+    }
+    return _lyricIndexArr;
 }
 
 /*

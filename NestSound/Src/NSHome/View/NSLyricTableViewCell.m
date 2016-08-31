@@ -19,7 +19,10 @@
 }
 
 - (void)setupLyricCellUI {
-    self.leftImgView = [UIImageView new];
+    if (!self.leftImgView) {
+        self.leftImgView = [UIImageView new];
+
+    }
     
     _leftImgView.image = [UIImage imageNamed:@"2.0_select_icon"];
     

@@ -34,10 +34,11 @@
     self.requestType = NO;
     
     self.requestParams = @{@"id":JUserID,
-                           @"opwd":oldPwdTF.text,
-                           @"newpwd":newPwdTF.text,
-                           @"comfirmpwd":ensurePwdTF.text,
-                           @"token":LoginToken};
+                           @"opwd":[oldPwdTF.text stringToMD5],
+                           @"newpwd":[newPwdTF.text stringToMD5],
+                           @"comfirmpwd":[ensurePwdTF.text stringToMD5],
+                           @"token":LoginToken
+                           };
     self.requestURL = changePasswordUrl;
 }
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr

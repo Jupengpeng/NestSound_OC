@@ -8,7 +8,8 @@
 
 #import "NSLyricPosterViewController.h"
 #import "NSShareView.h"
-@interface NSLyricPosterViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIScrollViewDelegate>
+#import "NSImagePicker.h"
+@interface NSLyricPosterViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIScrollViewDelegate,NSImagePickerDelegate>
 {
     NSString *lyric;
     
@@ -200,6 +201,12 @@
 
 - (void)selectPicFromAlbum {
     
+    
+    NSImagePicker *imagePicker = [NSImagePicker sharedInstance];
+    imagePicker.delegate = self;
+    [imagePicker showImagePickerWithType:1 InViewController:self Scale:(ScreenHeight/2)/ScreenWidth];
+    /**
+    
     UIImagePickerController *imgController = [[UIImagePickerController alloc] init];
     
     imgController.delegate = self;
@@ -211,6 +218,7 @@
     [self presentViewController:imgController animated:YES completion:^{
         
     }];
+     */
 }
 - (void)tapClick:(UIGestureRecognizer *)tap {
     
@@ -232,8 +240,11 @@
 }
 - (void)handleShareViewButton:(UIButton *)sender {
     
+    
     NSDictionary *dic = self.shareArr[sender.tag-250];
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:nil];
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeImage;
+
     [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:nil image:finalImg location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
             [self tapClick:nil];
@@ -243,8 +254,15 @@
 }
 - (void)saveThePosterImgToLoacl {
     
+    if (finalImg) {
+        [self saveImageToPhotos:finalImg];
+    }else{
     [self saveImageToPhotos:[self drawRectImage:posterImg withContent:lyric title:[NSString stringWithFormat:@"%@",self.lyricTitle] author:[NSString stringWithFormat:@"作词:『%@』",self.lyricAuthor]]];
+    }
 }
+/**
+#pragma mark - UIImageViewDelegate
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage * img = [info objectForKey:UIImagePickerControllerEditedImage];
@@ -253,6 +271,17 @@
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
+}
+ */
+
+#pragma mark - NSImagePickerDelegate
+
+- (void)imagePickerDidCancel:(NSImagePicker *)imagePicker{
+    
+}
+- (void)imagePicker:(NSImagePicker *)imagePicker didFinished:(UIImage *)editedImage{
+    self.imgView.image = [self drawRectImage:editedImage withContent:lyric title:[NSString stringWithFormat:@"%@",self.lyricTitle] author:[NSString stringWithFormat:@"作词:『%@』",self.lyricAuthor]];
+
 }
 -(UIImage *)drawRectImage:(UIImage *)img withContent:(NSString *)content title:(NSString *)title author:(NSString *)author;
 {
@@ -273,6 +302,7 @@
     [author drawInRect:CGRectMake(10, ScreenHeight/2 + 30 + height0, ScreenWidth, height1+ 10) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"STHeitiSC-Light" size:15.f],NSForegroundColorAttributeName:[UIColor blackColor]}];
     
     CGFloat height2 = [content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:fontDic1 context:nil].size.height;
+    
     [content drawInRect:CGRectMake(10, ScreenHeight/2 + 40 + height0 + height1, ScreenWidth, height2) withAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"STHeitiSC-Light" size:15.f],NSForegroundColorAttributeName:[UIColor blackColor]}];
     
     UIImage *logoImg = [UIImage imageNamed:@"2.0_poster_logo"];

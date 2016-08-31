@@ -5,6 +5,11 @@
 //  Created by Apple on 16/5/30.
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
+
+
+#define kButtonTag 160
+
+
 #import <AVFoundation/AVFoundation.h>
 #import "NSWriteMusicViewController.h"
 #import "NSAccompanyListViewController.h"
@@ -157,7 +162,11 @@ Boolean plugedHeadset;
 
 - (AVAudioRecorder *)newRecorder {
     
-    NSDictionary *settings = @{AVSampleRateKey : @(44100.0), AVNumberOfChannelsKey : @(1)};//采样率
+    NSDictionary *settings = @{AVSampleRateKey : @(88200.0),
+                               AVNumberOfChannelsKey : @(1),
+                               AVLinearPCMIsFloatKey:@(NO)
+                               };
+                               //录音通道数  1 或 2};//采样率
     
     /*NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
                                                             [NSNumber numberWithFloat: 44100.0],                 AVSampleRateKey,
@@ -180,8 +189,9 @@ Boolean plugedHeadset;
         
         NSString *wavPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
         
+//        wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf",currentTimeString]];
         wavPath = [wavPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf",currentTimeString]];
-        
+
         self.wavFilePath = wavPath;
         NSURL *url = [NSURL URLWithString:wavPath];
         NSError *error = nil;
@@ -457,9 +467,11 @@ Boolean plugedHeadset;
     
 }*/
 
-
+#pragma mark -  AVAudioPlayerDelegate
 //伴奏播放完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    
+    [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.timeScrollView.contentSize.width, 0) animated:NO];
     
     timerNum=0;
     if (player == self.player) {
@@ -586,7 +598,9 @@ Boolean plugedHeadset;
         unsigned char mp3_buffer[MP3_SIZE];
         
         lame_t lame = lame_init();
-        lame_set_in_samplerate(lame, type == TrueMachine ? 22050 : 44100.0);
+//        lame_set_in_samplerate(lame, type == TrueMachine ? 22050 : 44100.0);
+        lame_set_in_samplerate(lame, 44100.0);
+
         lame_set_VBR(lame, vbr_default);
         lame_init_params(lame);
         
@@ -939,7 +953,7 @@ Boolean plugedHeadset;
             [btn setImage:[UIImage imageNamed:@"2.0_writeMusic_recording"] forState:UIControlStateSelected];
         }
         
-        btn.tag = i;
+        btn.tag = i + kButtonTag;
         
         [btn addTarget:self action:@selector(bottomBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -1062,7 +1076,7 @@ Boolean plugedHeadset;
     self.appDelete = [UIApplication sharedApplication].delegate;
     
      clickValue = [self buttonClickedValue:btn];
-    if (btn.tag == 0) {
+    if (btn.tag == kButtonTag + 0) {
         if ([self.player isPlaying]) {
             //[HudView showView:self.navigationController.view string:@"请先停止录音"];
             [[NSToastManager manager ] showtoast:@"请先停止录音"];
@@ -1079,7 +1093,7 @@ Boolean plugedHeadset;
         [self.navigationController pushViewController:accompanyList animated:YES];
         
         
-    } else if (btn.tag == 2) {
+    } else if (btn.tag == kButtonTag + 2) {
         
         self.waveform.timeScrollView.userInteractionEnabled=NO;
 
@@ -1154,7 +1168,7 @@ Boolean plugedHeadset;
          timerNumPlay_temp=0;
         
         
-    } else if (btn.tag ==1) {
+    } else if (btn.tag == kButtonTag + 1) {
 
         self.waveform.timeScrollView.userInteractionEnabled=NO;
         
@@ -1185,8 +1199,14 @@ Boolean plugedHeadset;
             self.isPlay = YES; //YES
             
              NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
+            /**
+             *  有耳机播放伴奏
+             */
+            if (plugedHeadset) {
+                [self playAccompanyWithUrl:url withTime:curtime3];
+            }
             [self playsound:self.wavFilePath time:curtime3];
-            [self playAccompanyWithUrl:url withTime:curtime3];
+
         }else{//没回听
             self.waveform.timeScrollView.userInteractionEnabled=YES;
             
@@ -1202,7 +1222,7 @@ Boolean plugedHeadset;
         }
         btn.selected = !btn.selected;//－－no
         
-    } else if (btn.tag == 3) {//
+    } else if (btn.tag == kButtonTag + 3) {//
         
         if ([self.player isPlaying]) {
           //  [HudView showView:self.navigationController.view string:@"先停止录音"];
@@ -1231,7 +1251,7 @@ Boolean plugedHeadset;
         }
         
         
-    } else if (btn.tag == 4) {
+    } else if (btn.tag == kButtonTag + 4) {
         
         [self importLyricClick:nil];
     }
@@ -1255,7 +1275,7 @@ Boolean plugedHeadset;
 
 }
 - (void)playAccompanyWithUrl:(NSURL *)url withTime:(NSTimeInterval)time{
-    if (!self.player2) {
+//    if (!self.player2) {
         self.player2 = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
         self.player2.currentTime = time;
         self.player2.enableRate = YES;
@@ -1265,7 +1285,7 @@ Boolean plugedHeadset;
         //                self.player.meteringEnabled=YES;
         [self.player2 prepareToPlay];
         
-    }
+//    }
     [self.player2 play];
 }
 - (void)clearRecord{
@@ -1318,6 +1338,10 @@ Boolean plugedHeadset;
  */
 - (void)nextClick:(UIBarButtonItem *)next {
     
+    if ([self.player3 isPlaying] ||[self.player2 isPlaying]) {
+        [self bottomBtnClick:[self.view viewWithTag:kButtonTag +1]];
+    }
+    
     if ([self.player isPlaying]) {
         [HudView showView:self.navigationController.view  string:@"请先停止录音"];
         return;
@@ -1327,10 +1351,9 @@ Boolean plugedHeadset;
         [HudView showView:self.navigationController.view  string:@"还未开始录音"];
         return;
     }
-    if ([self.player3 isPlaying]) {
-        [self.player3 pause];
-        return;
-    }
+
+
+    
     
     if (titleText.text.length == 0) {
         [HudView showView:self.navigationController.view string:@"歌词标题不能为空"];
@@ -1559,6 +1582,7 @@ Boolean plugedHeadset;
     [recordText synchronize];
 }
 
+#pragma mark - 上传音频
 - (void)uploadMusic{
     WS(wSelf);
     //后台执行mp3转换和上传
@@ -1644,7 +1668,6 @@ Boolean plugedHeadset;
         if (mp3URL || (i == 8000)) {
             break;
         }
-
     }
     //sleep(7.);
 }
@@ -1765,7 +1788,7 @@ Boolean plugedHeadset;
         _guideBanzouButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             btn.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
             btn.backgroundColor = [UIColor colorWithRed:8/255.0 green:4/255.0 blue:3/255.0 alpha:0.6];
-            UIButton *banzouButton = [_bottomView viewWithTag:1];
+            UIButton *banzouButton = [_bottomView viewWithTag:1 + kButtonTag];
             CGFloat imagePointX = banzouButton.imageView.width/2.0 + banzouButton.imageView.x;
             CGFloat imageCenterY = banzouButton.centerY + ScreenHeight - 72 ;
             [self setupRoundMaskToButton:btn withPoint:CGPointMake(imagePointX, imageCenterY) radius:23];
@@ -1790,7 +1813,7 @@ Boolean plugedHeadset;
         _guideDaoruButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             btn.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
             btn.backgroundColor = [UIColor colorWithRed:8/255.0 green:4/255.0 blue:3/255.0 alpha:0.6];
-            UIButton *daoruButton = [_bottomView viewWithTag:4];
+            UIButton *daoruButton = [_bottomView viewWithTag:4 + kButtonTag];
             CGFloat imagePointX = ScreenWidth*4.0/5.0f + daoruButton.imageView.width/2.0 + daoruButton.imageView.x;
             CGFloat imageCenterY = daoruButton.centerY + ScreenHeight - 72 ;
 

@@ -351,6 +351,18 @@
 #else
     host = releaseHost;
 #endif
+//    if (!sender.selected) {
+//        self.waveform.timeScrollView.userInteractionEnabled=NO;
+//
+//        NSString *url = [NSString stringWithFormat:@"%@%@",host,self.mp3URL];
+//        [self listenMp3Online: url ];
+//
+//    }else{
+//        [self pausePlaying];
+//
+//    }
+//
+//    return;
     if (!sender.selected) {
         
         self.waveform.timeScrollView.userInteractionEnabled=NO;
