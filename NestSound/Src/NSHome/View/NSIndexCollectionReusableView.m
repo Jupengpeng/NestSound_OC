@@ -110,6 +110,11 @@
 
 - (void)addHeaderViewWithImageArray:(NSArray *)imageArray {
 
+    if (_scrollView) {
+        _scrollView.hidden = NO;
+        _page.hidden = NO;
+        return;
+    }
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 140)];
     arrConut = imageArray.count;
     _scrollView.delegate = self;
@@ -273,14 +278,21 @@
 -(void)setBannerAry:(NSMutableArray *)bannerAry
 {
     _bannerAry = bannerAry;
-     NSMutableArray * bannerAry1 = [NSMutableArray array];
-    for (id obj in bannerAry) {
-        NSBanner * banner = (NSBanner *)obj;
-       
-        [bannerAry1 addObject:banner.titleImageUrl];
+    if (bannerAry.count) {
+        NSMutableArray * bannerAry1 = [NSMutableArray array];
+        for (id obj in bannerAry) {
+            NSBanner * banner = (NSBanner *)obj;
+            
+            [bannerAry1 addObject:banner.titleImageUrl];
+            
+        }
+        [self addHeaderViewWithImageArray:bannerAry1];
+    }else{
+        _scrollView.hidden = YES;
+        _page.hidden = YES;
         
     }
-    [self addHeaderViewWithImageArray:bannerAry1];
+
 }
 
 @end

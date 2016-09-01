@@ -91,6 +91,7 @@ static NSHttpClient *client;
     
     WS(wSelf);
     NSString *requestURL = [NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],url];
+    NSLog(@"requestURL ---  %@",requestURL);
     NSURLSessionDataTask *operation;
     
     if (requestType) {

@@ -1340,6 +1340,8 @@ Boolean plugedHeadset;
     
     if ([self.player3 isPlaying] ||[self.player2 isPlaying]) {
         [self bottomBtnClick:[self.view viewWithTag:kButtonTag +1]];
+        [self.player2 stop];
+        [self.player3 stop];
     }
     
     if ([self.player isPlaying]) {

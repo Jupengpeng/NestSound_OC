@@ -83,13 +83,13 @@ static NSDateFormatter *dateFormatter;
     NSString *requestURL = [USERDEFAULT objectForKey:customHostKey];
     if (![NSTool isStringEmpty:requestURL]) {
         if (![NSTool isStringEmpty:customPortKey]) {
-            requestURL = [requestURL stringByAppendingFormat:@":%@",[USERDEFAULT objectForKey:customPortKey]];
+            requestURL = [requestURL stringByAppendingFormat:@"%@",[USERDEFAULT objectForKey:customPortKey]];
         }
         return requestURL;
     }
     requestURL = host;
     if (![NSTool isStringEmpty:port]) {
-        requestURL = [requestURL stringByAppendingFormat:@":%@",port];
+        requestURL = [requestURL stringByAppendingFormat:@"%@",port];
     }
     return requestURL;
 }

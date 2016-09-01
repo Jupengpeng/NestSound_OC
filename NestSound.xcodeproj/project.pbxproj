@@ -1386,7 +1386,6 @@
 				2DFB66F31CC1E65600DA24DA /* NestSound */,
 				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
 				2DFB66F21CC1E65600DA24DA /* Products */,
-				B6FF3AC9C475214C526BE9EE /* Frameworks */,
 				D52D193CDD30D4B66C17B677 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -1936,6 +1935,7 @@
 		D52D193CDD30D4B66C17B677 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				B6FF3AC9C475214C526BE9EE /* Frameworks */,
 				5A1B50989E881DC33A50036C /* Pods-NestSound.debug.xcconfig */,
 				7822CA4949F2D37B6D5242E6 /* Pods-NestSound.release.xcconfig */,
 				4EB897E9CC9102B21CC4E69C /* Pods-NestSoundTests.debug.xcconfig */,
@@ -3524,7 +3524,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3542,7 +3542,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3552,7 +3552,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

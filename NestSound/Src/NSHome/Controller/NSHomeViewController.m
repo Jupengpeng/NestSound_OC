@@ -568,16 +568,17 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 
 //        NSLocalizedString(@"promot_recommendWorks", @"");
 //        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
-        
+        return reusable;
+
     }  else if (indexPath.section == 1){
-        [[reusable viewWithTag:100] removeFromSuperview];
-        [[reusable viewWithTag:200] removeFromSuperview];
-        
+        reusable.bannerAry = nil;
+
+        return reusable;
+
     } else if (indexPath.section == 2) {
 
-        [[reusable viewWithTag:100] removeFromSuperview];
-        
-        [[reusable viewWithTag:200] removeFromSuperview];
+        reusable.bannerAry = nil;
+
         
         UIButton *songMenuBtn = [reusable loadMore];
         
@@ -585,27 +586,26 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         reusable.titleLable.text = @"推荐歌单";
 
 //        LocalizedStr(@"promot_recommendSongList");
+        return reusable;
 
     } else if (indexPath.section == 3) {
 
-        [[reusable viewWithTag:100] removeFromSuperview];
-        
-        [[reusable viewWithTag:200] removeFromSuperview];
+
+        reusable.bannerAry = nil;
 
         reusable.titleLable.text = @"最新作品";
 //        LocalizedStr(@"promot_newWorks");
-        
+        return reusable;
+
     } else if (indexPath.section == 4){
+        reusable.bannerAry = nil;
 
         UIButton *songSayBtn = [reusable loadMore];
         
         [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        [[reusable viewWithTag:100] removeFromSuperview];
-        
-        [[reusable viewWithTag:200] removeFromSuperview];
-
         reusable.titleLable.text = @"乐说";
+        return reusable;
 //        LocalizedStr(@"promot_musicSay");
 
     }

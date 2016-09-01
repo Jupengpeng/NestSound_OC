@@ -349,7 +349,7 @@
 #ifdef DEBUG
     host = debugHost;
 #else
-    host = releaseHost;
+    host = releasePort;
 #endif
 //    if (!sender.selected) {
 //        self.waveform.timeScrollView.userInteractionEnabled=NO;

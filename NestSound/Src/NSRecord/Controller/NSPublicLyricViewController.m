@@ -291,7 +291,7 @@ extern Boolean plugedHeadset;
     
 #else
     
-    host = releaseHost;
+    host = releasePort;
     
 #endif
     if (btn.selected) {

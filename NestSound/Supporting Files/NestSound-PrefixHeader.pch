@@ -54,7 +54,7 @@ extern NSString *port;
 #define debugHost     @"http://api.yinchao.cn"
 #define debugPort     @""
 #define releaseHost   @""
-#define releasePort   @"http://112.124.125.2"
+#define releasePort   @"http://api.yinchao.cn"
 
 #ifdef DEBUG // 调试
 #define CHLog(...) NSLog(__VA_ARGS__)
