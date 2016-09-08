@@ -30,12 +30,20 @@
     
 }
 
-- (void)fetchMusicianListdata{
-    
-    [self.tableView.pullToRefreshView startAnimating];
+- (void)fetchMusicianListdataWithIsLoadingMore:(BOOL)isLoadingMore{
     
     self.requestType = NO;
-    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page]};
+
+    if (!isLoadingMore) {
+        self.page = 1;
+        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+                               kIsLoadingMore :@(NO)};
+    }else{
+        ++self.page;
+        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+                               kIsLoadingMore:@(YES)};
+    }
+    
     self.requestURL = musicianListUrl;
     
 }
@@ -46,12 +54,20 @@
     }else{
         if ([operation.urlTag isEqualToString:musicianListUrl]) {
             NSMusicianListModel *listModel = (NSMusicianListModel *)parserObject;
-            if (self.musicianArray.count) {
-                [self.musicianArray removeAllObjects];
+            if (!operation.isLoadingMore) {
+                if (self.musicianArray.count) {
+                    [self.musicianArray removeAllObjects];
+                }
             }
+
             [self.musicianArray addObjectsFromArray:listModel.musicianList];
 
-            [_tableView.pullToRefreshView stopAnimating];
+            if (!operation.isLoadingMore) {
+                [_tableView.pullToRefreshView stopAnimating];
+            }else{
+                [_tableView.infiniteScrollingView stopAnimating];
+            }
+
         }
         [self.tableView  reloadData];
     }
@@ -69,11 +85,20 @@
         if (!weakSelf) {
             
         }else{
-            [weakSelf fetchMusicianListdata];
+            [weakSelf fetchMusicianListdataWithIsLoadingMore:NO];
         }
-        
     }];
-    [self fetchMusicianListdata];
+    
+    [self.tableView addDDInfiniteScrollingWithActionHandler:^{
+       
+        if (!weakSelf) {
+            
+        }else{
+            [weakSelf fetchMusicianListdataWithIsLoadingMore:YES];
+        }
+    }];
+
+    [self fetchMusicianListdataWithIsLoadingMore:NO];
     [self.tableView.pullToRefreshView startAnimating];
 }
 

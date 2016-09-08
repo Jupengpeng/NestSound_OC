@@ -77,9 +77,11 @@
 
 - (UIButton *)loadMore {
     
-    if (!_moreBtn) {
+    if (_moreBtn) {
+        [_moreBtn removeFromSuperview];
+        _moreBtn = nil;
         
-        
+    }
         _moreBtn = [[UIButton alloc] init];
         
         [_moreBtn setTitle:@"更多" forState:UIControlStateNormal];
@@ -103,7 +105,6 @@
             
             
         }];
-    }
     return _moreBtn;
 }
 

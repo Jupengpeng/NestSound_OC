@@ -119,10 +119,10 @@ UICollectionViewDelegateFlowLayout
     SongListColl.backgroundColor = [UIColor whiteColor];
     SongListColl.showsHorizontalScrollIndicator = NO;
     SongListColl.showsVerticalScrollIndicator = NO;
+//    SongListColl.alwaysBounceVertical = YES;
     SongListColl.delegate = self;
     SongListColl.dataSource = self;
     [SongListColl registerClass:[NSSongMenuCollectionViewCell class] forCellWithReuseIdentifier:cellId];
-//    SongListColl.bounces = NO;
     
     [self.view addSubview:SongListColl];
     
