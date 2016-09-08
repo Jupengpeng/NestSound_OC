@@ -1370,7 +1370,7 @@ Boolean plugedHeadset;
         if (JUserID) {
             
             [self.link setPaused:YES];
-            [self pauseDevides];
+//            [self pauseDevides];
             [self uploadMusic];
             
 //             self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];

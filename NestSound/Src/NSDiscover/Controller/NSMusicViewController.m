@@ -226,7 +226,7 @@ static NSString * const headerView = @"HeaderView";
     if (indexPath.section == 0) {
         
         UIButton *hotMusic = [reusable loadMore];
-       
+        [hotMusic removeTarget:self action:@selector(newMusic:) forControlEvents:UIControlEventTouchUpInside];
         [hotMusic addTarget:self action:@selector(hotMusic:) forControlEvents:UIControlEventTouchUpInside];
         
         reusable.titleLable.text = self.topTitle;
@@ -234,7 +234,7 @@ static NSString * const headerView = @"HeaderView";
     } else if (indexPath.section == 1) {
        
         UIButton *newMusic = [reusable loadMore];
-        
+        [newMusic removeTarget:self action:@selector(hotMusic:) forControlEvents:UIControlEventTouchUpInside];
         [newMusic addTarget:self action:@selector(newMusic:) forControlEvents:UIControlEventTouchUpInside];
         
         reusable.titleLable.text = self.bottomTitle;

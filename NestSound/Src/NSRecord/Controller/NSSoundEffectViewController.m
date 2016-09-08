@@ -351,6 +351,9 @@
 #else
     host = releasePort;
 #endif
+    /**
+     *  测试lame转换的mp3
+     */
 //    if (!sender.selected) {
 //        self.waveform.timeScrollView.userInteractionEnabled=NO;
 //
@@ -416,11 +419,12 @@
 }
 - (void)endPlaying {
     
+    
     decelerate = YES;
     
     timerNum = 0;
     
-    self.timeLabel.text = @"00:00";
+//    self.timeLabel.text = @"00:00";
     
     [self.link setPaused:YES];
     
@@ -478,16 +482,21 @@
 }
 - (void)actionTiming {
     
-    timerNum += 1/15.0;
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
 }
 - (void)scrollTimeView{
     
-    decelerate = NO;
-    
-    [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
-    
-    [self changeScrollViewColor];
+    if (self.player.status == AVPlayerStatusReadyToPlay) {
+        decelerate = NO;
+        
+        [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
+        
+        [self changeScrollViewColor];
+        
+        timerNum += 1/15.0;
+
+    }
+
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -526,7 +535,7 @@
             
         }
     }
-    
+
 }
 - (void)dealloc{
     
