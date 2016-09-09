@@ -47,6 +47,7 @@
 #import "AFNetworking.h"
 #import "NSCheckUpgradeUtil.h"
 #import "YYModel.h"
+#import "YYCache.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;

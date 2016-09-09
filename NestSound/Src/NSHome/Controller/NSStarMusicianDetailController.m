@@ -59,6 +59,16 @@
             [weakSelf fetchDetailDataWithIsLoadingMore:NO];
         }
     }];
+    
+    [self.tableView addDDInfiniteScrollingWithActionHandler:^{
+        
+        if (!weakSelf) {
+            
+        }else{
+            [weakSelf fetchDetailDataWithIsLoadingMore:YES];
+        }
+    }];
+    
     [self.tableView.pullToRefreshView startAnimating];
     [self fetchDetailDataWithIsLoadingMore:NO];
     
@@ -67,11 +77,22 @@
 
 - (void)fetchDetailDataWithIsLoadingMore:(BOOL)isLoadingMore{
     
-    [self.tableView.pullToRefreshView startAnimating];
-
+    
     self.requestType = NO;
-    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
-                           @"uid":self.uid};
+    
+    if (!isLoadingMore) {
+        self.page = 1;
+        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+                               @"uid":self.uid,
+                               kIsLoadingMore :@(NO)};
+    }else{
+        ++self.page;
+        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+                               @"uid":self.uid,
+                               kIsLoadingMore :@(YES)};
+    }
+    
+
     self.requestURL = musicianDetailUrl;
     
 }
@@ -83,15 +104,21 @@
         if ([operation.urlTag isEqualToString:musicianDetailUrl]) {
          
             self.musicianModel = (NSStarMusicianModel *)parserObject;
-            
-            if (self.songArray.count) {
-                [self.songArray removeAllObjects];
+            if (!operation.isLoadingMore) {
+                if (self.songArray.count) {
+                    [self.songArray removeAllObjects];
+                }
             }
+
             for (NSWorklistModel *workModel in self.musicianModel.worklistData.workList) {
                 [self.songArray addObject:@(workModel.workId)];
             }
             
-            [self.tableView.pullToRefreshView stopAnimating];
+            if (!operation.isLoadingMore) {
+                [_tableView.pullToRefreshView stopAnimating];
+            }else{
+                [_tableView.infiniteScrollingView stopAnimating];
+            }
             [self.tableView reloadData];
         }
         

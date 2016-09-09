@@ -12,7 +12,7 @@
 @protocol NSSimpleSingModel <NSObject>
 
 @end
-@interface NSSimpleSingModel : NSBaseModel
+@interface NSSimpleSingModel : NSBaseModel<NSCoding>
 
 @property (nonatomic,assign) long itemID;
 @property (nonatomic,copy) NSString *author;
@@ -38,7 +38,7 @@
 
 @end
 
-@interface NSSimpleCategoryModel : NSBaseModel
+@interface NSSimpleCategoryModel : NSBaseModel<NSCoding>
 @property (nonatomic,copy) NSString * categoryName;
 @property (nonatomic,assign) long categoryId;
 @property (nonatomic,copy) NSString *categoryPic;

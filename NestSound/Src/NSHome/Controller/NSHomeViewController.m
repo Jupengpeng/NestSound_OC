@@ -25,6 +25,8 @@
   */
 #import "NSThemeActivityController.h"
 #import "NSCustomMusicController.h"
+#import "NSAccommpanyListModel.h"
+#import "UIImageView+WebCache.h"
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate> {
     
     UICollectionView *_collection;
@@ -38,7 +40,10 @@
     UIImageView * playStatus;
     int i;
     NSMutableArray * songAry;
-    
+    /**
+     *  作曲部分预加载链接
+     */
+    NSString *_preLoadImagesUrl;
 }
 
 @property (nonatomic, strong) NSMutableArray *itemIDArray;
@@ -128,6 +133,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 
     [self fetchIndexData];
     [self getAuthorToken];
+    [self preLoadImages];
    
 }
 
@@ -161,6 +167,18 @@ static NSString * const TopCarringCell = @"TopCarringCell";
             [playStatus stopAnimating];
         }
     }
+    
+}
+
+#pragma mark - 预加载作曲图片
+
+-(void)preLoadImages{
+    
+    self.requestType = YES;
+    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",1]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    _preLoadImagesUrl = [accompanyListURL stringByAppendingString:str];
+    self.requestURL = _preLoadImagesUrl;
     
 }
 
@@ -278,6 +296,23 @@ static NSString * const TopCarringCell = @"TopCarringCell";
                         [userData setObject:dic forKey:@"user"];
                         [userData synchronize];
                     }
+                }
+            }else if ([operation.urlTag isEqualToString:_preLoadImagesUrl]){
+                /**
+                 *  预加载作曲类目图片
+                 */
+                NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
+                
+                for (int myIndex = 0; myIndex < listModel.simpleCategoryList.simpleCategory.count; myIndex++)
+                {
+                    NSSimpleCategoryModel *categoryModel = listModel.simpleCategoryList.simpleCategory[myIndex];
+                    NSURL *imageUrl = [NSURL URLWithString:categoryModel.categoryPic];
+
+                    [[SDWebImageManager sharedManager] downloadImageWithURL:imageUrl options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                        
+                    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+//                        NSLog(@"第%d张图片下载好了 /n",myIndex);
+                    }];
                 }
             }
         }
@@ -581,6 +616,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 
         
         UIButton *songMenuBtn = [reusable loadMore];
+        
         
         [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         reusable.titleLable.text = @"推荐歌单";
