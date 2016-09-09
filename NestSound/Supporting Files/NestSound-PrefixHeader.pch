@@ -48,6 +48,7 @@
 #import "NSCheckUpgradeUtil.h"
 #import "YYModel.h"
 #import "YYCache.h"
+#import "SDCycleScrollView.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;

@@ -50,7 +50,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 {
     [super viewDidLoad];
     cache = [YYCache cacheWithName:@"accompanyData"];
-    [self.simpleSingAry addObject:[cache objectForKey:@"simpleSingle"]];
+    self.simpleSingAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:@"simpleSingle"]];
     self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:@"accompanyCategory"]];
     
     [self configureUIAppearance];
@@ -124,12 +124,12 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
                 [accompanyCollection.pullToRefreshView stopAnimating];
                 if (listModel.simpleCategoryList.simpleCategory.count) {
                     self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                    [cache setObject:listModel.simpleCategoryList.simpleCategory forKey:@"accompanyCategory"];
+                    [cache setObject:self.accompanyCategoryAry forKey:@"accompanyCategory"];
                 }
                 if (listModel.simpleList.simpleSingList.itemID) {
                     [self.simpleSingAry removeAllObjects];
                     [self.simpleSingAry addObject:listModel.simpleList.simpleSingList];
-                    [cache setObject:listModel.simpleList.simpleSingList forKey:@"simpleSingle"];
+                    [cache setObject:self.simpleSingAry forKey:@"simpleSingle"];
                 }
                 
             }else{

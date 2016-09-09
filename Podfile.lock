@@ -29,6 +29,8 @@ PODS:
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.3)
   - RSAEncryptor (0.0.1)
+  - SDCycleScrollView (1.65):
+    - SDWebImage (~> 3.7)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
@@ -47,6 +49,7 @@ DEPENDENCIES:
   - pop
   - Qiniu
   - RSAEncryptor
+  - SDCycleScrollView
   - SDWebImage
   - SVPullToRefresh
   - TheAmazingAudioEngine
@@ -64,6 +67,7 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
+  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
@@ -72,6 +76,6 @@ SPEC CHECKSUMS:
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
 
-PODFILE CHECKSUM: 17340951f3e5996f2daac3dc10e65bf69c6a64a8
+PODFILE CHECKSUM: 10bbdf1c1a5d945b67c9ebdcc5f51cc51fa586f4
 
 COCOAPODS: 1.0.1

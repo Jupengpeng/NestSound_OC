@@ -221,7 +221,7 @@
         
         make.left.equalTo(headerView.mas_left).offset(15);
         
-        make.bottom.equalTo(headerView.mas_bottom);
+        make.centerY.equalTo(headerView.mas_centerY);
         
     }];
     
@@ -242,7 +242,7 @@
     
     [titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.bottom.equalTo(headerView.mas_bottom);
+        make.centerY.equalTo(headerView.mas_centerY);
         
         make.left.equalTo(icon.mas_right).offset(8);
         
