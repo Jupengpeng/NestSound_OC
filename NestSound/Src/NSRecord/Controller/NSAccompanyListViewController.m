@@ -27,6 +27,7 @@ UICollectionViewDelegate
     int currentPage;
     NSString * newUrl;
     NSString * hotUrl;
+    YYCache *cache;
     
 }
 
@@ -37,6 +38,8 @@ UICollectionViewDelegate
 @property (nonatomic, strong) NSMutableArray * simpleSingAry;
 
 @property (nonatomic, strong) NSMutableArray * accompanyCategoryAry;
+
+//@property (nonatomic, strong) YYCache *cache;
 @end
 
 
@@ -46,15 +49,19 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    cache = [YYCache cacheWithName:@"accompanyData"];
+    [self.simpleSingAry addObject:[cache objectForKey:@"simpleSingle"]];
+    self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:@"accompanyCategory"]];
     
     [self configureUIAppearance];
+    [self fetchAccompanyListDataWithIsLoadingMore:NO];;
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
-    [self fetchAccompanyData];
+    
 }
 
 - (void)leftClick:(UIBarButtonItem *)barButtonItem {
@@ -72,11 +79,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 #pragma mark -fetchData
 -(void)fetchAccompanyData
 {
-    if (self.accompanyCategoryAry.count == 0) {
+//    if (self.accompanyCategoryAry.count == 0) {
 
         [accompanyCollection setContentOffset:CGPointMake(0, -60) animated:YES];
         [accompanyCollection performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
-    }
+//    }
     
 }
 
@@ -104,22 +111,27 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        
+        [accompanyCollection.pullToRefreshView stopAnimating];
     } else {
         if (!parserObject.success) {
             
+//            cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
+//            cache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = NO;
+            [cache removeAllObjects];
             NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
+            
             if (!operation.isLoadingMore) {
                 [accompanyCollection.pullToRefreshView stopAnimating];
                 if (listModel.simpleCategoryList.simpleCategory.count) {
                     self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
+                    [cache setObject:listModel.simpleCategoryList.simpleCategory forKey:@"accompanyCategory"];
                 }
                 if (listModel.simpleList.simpleSingList.itemID) {
                     [self.simpleSingAry removeAllObjects];
-                    [self.simpleSingAry addObject: listModel.simpleList.simpleSingList];
+                    [self.simpleSingAry addObject:listModel.simpleList.simpleSingList];
+                    [cache setObject:listModel.simpleList.simpleSingList forKey:@"simpleSingle"];
                 }
                 
-//                
             }else{
                 [accompanyCollection.infiniteScrollingView stopAnimating];
                 [self.accompanyCategoryAry addObjectsFromArray:listModel.simpleCategoryList.simpleCategory];
@@ -176,8 +188,6 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
     
 }
 
-
-
 #pragma mark - sing no accompany
 -(void)doSingNoAccompany
 {
@@ -190,6 +200,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
     return 2;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+        
     return section ? self.accompanyCategoryAry.count : self.simpleSingAry.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -217,7 +228,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
         }
         [self.navigationController pushViewController:accompanyCategoryListVC animated:YES];
     } else {
-        NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.section];
+        NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.row];
         if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
             [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":[NSNumber numberWithLong:simpleSing.playTimes],@"accompanyUrl":simpleSing.playUrl}];

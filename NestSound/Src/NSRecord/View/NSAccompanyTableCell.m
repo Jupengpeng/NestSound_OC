@@ -137,7 +137,7 @@
     _accompanyModel = accompanyModel;
     
     workNameLabel.text = _accompanyModel.title;
-    authorNameLabel.text = [NSString stringWithFormat:@"%@ %d",_accompanyModel.author, _accompanyModel.mp3Times];
+    authorNameLabel.text = [NSString stringWithFormat:@"%@ %@",_accompanyModel.author, [NSTool stringFormatWithTimeLong:_accompanyModel.mp3Times]];
     useTimeLabel.text = [NSString stringWithFormat:@"使用次数:%d",_accompanyModel.useTime];
     [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 }
