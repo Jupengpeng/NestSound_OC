@@ -29,14 +29,15 @@ PODS:
     - AFNetworking (~> 2.0)
     - HappyDNS (~> 0.3)
   - RSAEncryptor (0.0.1)
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SVPullToRefresh (0.4.1)
   - TheAmazingAudioEngine (1.5.6)
   - TTTAttributedLabel (2.0.0)
   - UMengAnalytics-NO-IDFA (4.1.1)
   - UMengSocialCOM (5.2.1)
+  - YYCache (1.0.3)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
@@ -52,6 +53,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - UMengAnalytics-NO-IDFA
   - UMengSocialCOM
+  - YYCache
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -62,13 +64,14 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UMengAnalytics-NO-IDFA: 1064992c1b7aaa22823179c0b33a664813fd7a85
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
+  YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
 
-PODFILE CHECKSUM: 83ab74caa928d82ab9b6b792f946d08634094a62
+PODFILE CHECKSUM: 17340951f3e5996f2daac3dc10e65bf69c6a64a8
 
 COCOAPODS: 1.0.1

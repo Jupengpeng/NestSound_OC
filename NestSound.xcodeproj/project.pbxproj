@@ -61,6 +61,7 @@
 		18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */; };
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		18FFE82E1CF025250012880E /* NSPlayMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.m */; };
+		25EB0EC829464EF597F7DD43 /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */; };
 		2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F21D111FB70028D4D2 /* NSGetQiNiuModel.m */; };
 		2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0057F51D11263D0028D4D2 /* NSPublicLyricModel.m */; };
 		2A0058071D11C4080028D4D2 /*  Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A0058051D11C4080028D4D2 /*  Localizable.strings */; };
@@ -240,6 +241,7 @@
 		B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966241D727F90005D3724 /* YYClassInfo.m */; };
 		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
+		ECA6C3C4F25B7946B3DBC7DA /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -875,7 +877,9 @@
 		B8B966251D727F90005D3724 /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		B8C17E011D545DBE0021CDA3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		B8C17E021D545DBE0021CDA3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
+		CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F632447B70FFF967631B2741 /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -899,6 +903,7 @@
 				B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */,
 				2AB516B91CFE932100583D00 /* libsqlite3.tbd in Frameworks */,
 				E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */,
+				ECA6C3C4F25B7946B3DBC7DA /* libPods-NestSound.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -907,6 +912,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */,
+				25EB0EC829464EF597F7DD43 /* libPods-NestSoundTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1387,6 +1393,7 @@
 				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
 				2DFB66F21CC1E65600DA24DA /* Products */,
 				D52D193CDD30D4B66C17B677 /* Pods */,
+				55555060779DD3A6AD5B5DDB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1627,6 +1634,15 @@
 				2DFB67441CC1E92E00DA24DA /* NSBaseModelProperty.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		55555060779DD3A6AD5B5DDB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */,
+				F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		695618FC1D61C35500102BC7 /* MainViewController */ = {
