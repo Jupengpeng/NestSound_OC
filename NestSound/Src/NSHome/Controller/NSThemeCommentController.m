@@ -108,7 +108,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
     if (!isLoadingMore) {
         self.page = 1;
-        self.requestParams = @{kIsLoadingMore:@(YES),
+        self.requestParams = @{kIsLoadingMore:@(NO),
                                @"aid":(self.aid.length ? self.aid: @"5"),
                                @"type":(self.type.length ? self.type:@"1"),
                                @"sort":[NSString stringWithFormat:@"%d",self.sort],
@@ -147,12 +147,16 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
 
             if (workListModel.joinWorkList.count) {
 
+                
                 /**
                  *  歌曲的全部id放进歌单
                  */
                 for (NSJoinedWorkDetailModel *detailModel in workListModel.joinWorkList) {
                     [self.itemIdArr addObject:@(detailModel.itemid)];
                     
+                    /**
+                     *  将正在播放的音乐标记为正在播放
+                     */
                     if ([NSPlayMusicViewController sharedPlayMusic].itemUid) {
                         if (detailModel.itemid == [NSPlayMusicViewController sharedPlayMusic].itemUid) {
                             self.itemID = detailModel.itemid;
@@ -508,7 +512,7 @@ static NSString * const NSThemeTopicCommentCellID = @"NSThemeTopicCommentCell";
         [_tableView addSubview:_emptyImageView];
         
         WS(wSelf);
-        [_tableView addInfiniteScrollingWithActionHandler:^{
+        [_tableView addDDInfiniteScrollingWithActionHandler:^{
             if (!wSelf) {
                 return ;
             }else{

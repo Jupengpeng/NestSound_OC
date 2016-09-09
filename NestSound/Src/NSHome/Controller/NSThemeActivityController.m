@@ -130,9 +130,6 @@ static NSInteger const kButtonTag = 450;
 }
 
 - (void)fetchActivityDetailData{
-    
-    
-    [self.mainTableView.pullToRefreshView startAnimating];
 
     /**
      *  重新发起
@@ -405,6 +402,7 @@ static NSInteger const kButtonTag = 450;
         
         _RCSegView = rcs;
     }else{
+        
         [self.leftController fetchDataWithIsLoadingMore:NO];
         [self.rightController fetchDataWithIsLoadingMore:NO];
     }
