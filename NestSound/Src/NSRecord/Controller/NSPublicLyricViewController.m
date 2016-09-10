@@ -389,24 +389,28 @@ extern Boolean plugedHeadset;
             
             
         }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
-            
-            NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
-            NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
-            
-            [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
-            [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
-            [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
-            [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
-            [lyricDic setValue:self.mp3URL forKey:@"mp3Url"];
-            
-            self.shareVC =[[NSShareViewController alloc] init];
-            self.shareVC.shareDataDic = lyricDic;
-            self.shareVC.lyricOrMusic = self.isLyric;
-            [self.alertView dismissViewControllerAnimated:YES completion:^{
-
-                [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
-            }];
-
+            if (parserObject.code == 200) {
+                
+                NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
+                NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
+                
+                [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
+                [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
+                [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
+                [lyricDic setValue:[[[NSUserDefaults standardUserDefaults] objectForKey:@"user"] objectForKey:@"userName"] forKey:@"author"];
+                [lyricDic setValue:self.mp3URL forKey:@"mp3Url"];
+                
+                self.shareVC =[[NSShareViewController alloc] init];
+                self.shareVC.shareDataDic = lyricDic;
+                self.shareVC.lyricOrMusic = self.isLyric;
+                [self.alertView dismissViewControllerAnimated:YES completion:^{
+                    
+                    [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
+                }];
+            } else {
+                
+                [[NSToastManager manager] showtoast:parserObject.message];
+            }
             
         }else if ([operation.urlTag isEqualToString:publicLyricForAct] || [operation.urlTag isEqualToString:publicMusicForAct]){
             

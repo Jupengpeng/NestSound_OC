@@ -15,7 +15,7 @@
     UITableViewCell *cell;
     NSInteger index;
 }
-@property (nonatomic, strong) NSMutableArray *lyricsArray;
+@property (nonatomic, strong) NSArray *lyricsArray;
 @property (nonatomic, strong) NSMutableArray *lyricPosterArr;
 @property (nonatomic,strong) NSMutableArray *lyricIndexArr;
 @end
@@ -42,11 +42,13 @@ static NSString *lyricCellIdenfity = @"lyricCell";
 }
 - (void)setupUI {
     
-    self.lyricsArray = [self.lyrics componentsSeparatedByString:@"\r\n"];
+    
     
     if (self.lyricsArray.count == 1) {
         self.lyricsArray = [self.lyrics componentsSeparatedByString:@"\n"];
 
+    } else {
+        self.lyricsArray = [self.lyrics componentsSeparatedByString:@"\r\n"];
     }
 
     WS(wSelf);

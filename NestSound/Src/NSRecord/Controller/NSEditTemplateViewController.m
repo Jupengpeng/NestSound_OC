@@ -64,10 +64,17 @@ static NSString  * const templateCellIdifity = @"templateCell";
         if (i == 0) {
             title = cell.bottomTF.text;
         } else {
-            [contentArr addObject:[NSString stringWithFormat:@"%@\n",cell.bottomTF.text]];
+            if (cell.bottomTF.text.length) {
+                [contentArr addObject:[NSString stringWithFormat:@"%@",cell.bottomTF.text]];
+            }
+            
         }
     }
-    content = [contentArr componentsJoinedByString:@","];
+    content = [contentArr componentsJoinedByString:@"\n"];
+    if (!content.length) {
+        [[NSToastManager manager] showtoast:@"请填写歌词"];
+        return;
+    }
     [dict setValue:title forKey:@"lyricName"];
     
     [dict setValue:content forKey:@"lyric"];
@@ -101,7 +108,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
     
     templateTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [templateTableView registerClass:[NSTemplateTableViewCell class] forCellReuseIdentifier:templateCellIdifity];
+//    [templateTableView registerClass:[NSTemplateTableViewCell class] forCellReuseIdentifier:templateCellIdifity];
     
     [self.view addSubview:templateTableView];
     
@@ -323,9 +330,14 @@ static NSString  * const templateCellIdifity = @"templateCell";
     return templateArr.count + 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSTemplateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:templateCellIdifity forIndexPath:indexPath];
-    
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,indexPath.row];
+    // 通过不同标识创建cell实例
+    NSTemplateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    // 判断为空进行初始化  --（当拉动页面显示超过主页面内容的时候就会重用之前的cell，而不会再次初始化）
+    if (!cell) {
+        cell = [[NSTemplateTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+
     cell.tag = indexPath.row + 100;
     
     cell.bottomTF.delegate = self;
