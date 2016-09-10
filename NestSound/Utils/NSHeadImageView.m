@@ -6,6 +6,8 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
+#define kDefaultImage [UIImage imageNamed:@"2.0_backgroundImage"]
+
 #import "NSHeadImageView.h"
 #import "GPUImage.h"
 
@@ -42,6 +44,17 @@
     [super setFrame:frame];
     self.shelterImageView.size = frame.size;
 }
+
+- (void)setImage:(UIImage *)image{
+    
+    [super setImage:image];
+    
+    if (!image) {
+        self.image = kDefaultImage;
+    }
+    
+}
+
 
 - (void)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image{
     

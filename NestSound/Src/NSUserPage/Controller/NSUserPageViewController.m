@@ -470,14 +470,13 @@ static NSString *ID3 = @"cell3";
     
     headImgView = [[NSHeadImageView alloc]initWithFrame:CGRectMake(0, -kHeadImageHeight-60, ScreenWidth, kHeadImageHeight)];
    
-    headImgView.image = kDefaultImage;
     //    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, headImgView.frame.size.width,headImgView.frame.size.height)];
     //
     //    toolbar.barStyle = UIBarStyleBlackTranslucent;
     //
     //    [headImgView addSubview:toolbar];
     
-
+    
 
     if (self.who == Myself) {
         /**
