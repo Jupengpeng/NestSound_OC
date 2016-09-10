@@ -308,6 +308,7 @@ static NSString * const musicSayData = @"musicSayData";
                 if (userModels) {
                     userModel * user = userModels.userDetail;
                     if (user) {
+                        [JPUSHService setAlias:[NSString stringWithFormat:@"%ld",user.userID] callbackSelector:nil object:nil];
                         NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
                         NSMutableDictionary * dic =  [[NSMutableDictionary alloc] initWithDictionary:[userData objectForKey:@"user"]];
                         [dic setObject:user.userName forKey:@"userName"];
