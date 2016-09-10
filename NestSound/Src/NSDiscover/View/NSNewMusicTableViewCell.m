@@ -326,7 +326,7 @@
     _musicModel = musicModel;
     
     self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
-    [self.coverIcon setDDImageWithURLString:_musicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"UMS_alipay_icon"]];
+    [self.coverIcon setDDImageWithURLString:_musicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.musicName.text = _musicModel.workName;
     self.authorName.text = _musicModel.author;
     if (_musicModel.lookNum > 9999) {

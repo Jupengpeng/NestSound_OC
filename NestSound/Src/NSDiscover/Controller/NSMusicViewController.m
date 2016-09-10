@@ -224,14 +224,14 @@ static NSString * const headerView = @"HeaderView";
     NSIndexCollectionReusableView *reusable = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView forIndexPath:indexPath];
     
     if (indexPath.section == 0) {
-        
+        reusable.SDCycleScrollView.hidden = YES;
         UIButton *hotMusic = [reusable loadMore];
         [hotMusic addTarget:self action:@selector(hotMusic:) forControlEvents:UIControlEventTouchUpInside];
         
         reusable.titleLable.text = self.topTitle;
         
     } else if (indexPath.section == 1) {
-       
+       reusable.SDCycleScrollView.hidden = YES;
         UIButton *newMusic = [reusable loadMore];
         [newMusic addTarget:self action:@selector(newMusic:) forControlEvents:UIControlEventTouchUpInside];
         

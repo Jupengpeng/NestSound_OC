@@ -18,7 +18,11 @@
 
 @interface NSIndexCollectionReusableView : UICollectionReusableView 
 
+@property (nonatomic, strong) SDCycleScrollView *SDCycleScrollView;
+
 @property (nonatomic, strong) UILabel *titleLable;
+
+//@property (nonatomic, strong) UIButton *moreBtn;
 
 @property (nonatomic, strong) NSMutableArray * bannerAry;
 

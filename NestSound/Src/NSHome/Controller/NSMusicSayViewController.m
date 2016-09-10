@@ -126,16 +126,12 @@ static NSString * const musicSayCellId = @"musicSayCellId";
             if ([operation.urlTag isEqualToString:url]) {
                 NSMusicSayListMode * musicSaylist = (NSMusicSayListMode *)parserObject;
                 if (!operation.isLoadingMore) {
+                    [musicSayList.pullToRefreshView stopAnimating];
                     musicSayAry = [NSMutableArray arrayWithArray:musicSaylist.musicSayList];
                 }else
                 {
-                    [musicSayAry addObjectsFromArray:musicSaylist.musicSayList];
-                }
-                
-                if (!operation.isLoadingMore) {
-                    [musicSayList.pullToRefreshView stopAnimating];
-                }else{
                     [musicSayList.infiniteScrollingView stopAnimating];
+                    [musicSayAry addObjectsFromArray:musicSaylist.musicSayList];
                 }
                 
             }

@@ -18,6 +18,7 @@ pod 'pop'
 pod 'TTTAttributedLabel'
 pod 'UMengSocialCOM'
 pod 'YYCache'
+pod 'SDCycleScrollView'
 end
 
 target 'NestSoundTests' do

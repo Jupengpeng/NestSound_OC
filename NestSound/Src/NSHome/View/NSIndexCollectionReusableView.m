@@ -34,6 +34,8 @@
     
     if (self = [super initWithFrame:frame]) {
         
+        [self resetupIndexCollectionReusableView];
+        
         UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_vertical"]];
         icon.tag = 150 ;
         icon.layer.cornerRadius = icon.width * 0.5;
@@ -64,16 +66,28 @@
             
         }];
         
-
-
-        [self addTimer];
-
+//
+//
+//        [self addTimer];
+        
     }
     
     return self;
 }
 
-
+- (void)resetupIndexCollectionReusableView {
+    self.SDCycleScrollView = [[SDCycleScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight/5)];
+    _SDCycleScrollView.placeholderImage = [UIImage imageNamed:@"2.0_placeHolder_long"];
+    
+    _SDCycleScrollView.autoScrollTimeInterval = 3.0;
+    
+    _SDCycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+//    [UIColor hexColorFloat:@"c1c1c1"]
+    
+    _SDCycleScrollView.currentPageDotColor = [UIColor hexColorFloat:@"ffce00"];
+    [self addSubview:_SDCycleScrollView];
+    
+}
 
 - (UIButton *)loadMore {
     
@@ -101,7 +115,8 @@
         [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.right.equalTo(self.mas_right).offset(-15);
-            make.centerY.equalTo(self.mas_centerY);
+//            make.centerY.equalTo(self.mas_centerY);
+            make.bottom.equalTo(self.mas_bottom).offset(-8);
             
             
         }];
