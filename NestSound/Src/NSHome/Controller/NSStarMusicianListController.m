@@ -50,7 +50,8 @@
 
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
     if (requestErr) {
-        
+        [_tableView.pullToRefreshView stopAnimating];
+        [_tableView.infiniteScrollingView stopAnimating];
     }else{
         if ([operation.urlTag isEqualToString:musicianListUrl]) {
             NSMusicianListModel *listModel = (NSMusicianListModel *)parserObject;
@@ -98,8 +99,8 @@
         }
     }];
 
-    [self fetchMusicianListdataWithIsLoadingMore:NO];
-    [self.tableView.pullToRefreshView startAnimating];
+    [_tableView triggerPullToRefresh];
+
 }
 
 #pragma mark - UITableViewDelegate,UITableViewDataSource

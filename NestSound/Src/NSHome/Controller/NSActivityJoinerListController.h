@@ -13,4 +13,6 @@
 
 @interface NSActivityJoinerListController : NSBaseViewController
 
+@property (nonatomic,copy) NSString *aid;
+
 @end

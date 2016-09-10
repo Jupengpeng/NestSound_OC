@@ -6,10 +6,16 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
+
+typedef void(^NSActivityJoinerListCellFollowBlock)(NSString *uid);
+@class NSActivityJoinerDetailModel;
 #import <UIKit/UIKit.h>
 
 @interface NSActivityJoinerListCell : UITableViewCell
 
-- (void)setupData;
+
+@property (nonatomic,strong) NSActivityJoinerDetailModel *detailModel;
+
+@property (nonatomic,copy) NSActivityJoinerListCellFollowBlock followBlock;
 
 @end

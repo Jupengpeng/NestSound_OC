@@ -69,8 +69,8 @@
         }
     }];
     
-    [self.tableView.pullToRefreshView startAnimating];
-    [self fetchDetailDataWithIsLoadingMore:NO];
+    [_tableView triggerPullToRefresh];
+
     
     
 }
@@ -99,7 +99,8 @@
 
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
     if (requestErr) {
-        
+        [_tableView.pullToRefreshView stopAnimating];
+        [_tableView.infiniteScrollingView stopAnimating];
     }else{
         if ([operation.urlTag isEqualToString:musicianDetailUrl]) {
          

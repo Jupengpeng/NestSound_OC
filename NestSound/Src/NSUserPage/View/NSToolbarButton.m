@@ -17,9 +17,9 @@
         
         self.backgroundColor = [UIColor clearColor];
         
-        [self setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor hexColorFloat:@"323232"] forState:UIControlStateNormal];
         
-        self.titleLabel.font = [UIFont systemFontOfSize:12];
+        self.titleLabel.font = [UIFont systemFontOfSize:13];
 
     }
     
