@@ -33,6 +33,23 @@
 @end
 
 @implementation NSBanner
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.titleImageUrl forKey:@"titleImageUrl"];
+    [aCoder encodeObject:self.activityURL forKey:@"activityURL"];
+    [aCoder encodeInt:self.state forKey:@"state"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        self.titleImageUrl = [aDecoder decodeObjectForKey:@"titleImageUrl"];
+        self.activityURL  = [aDecoder decodeObjectForKey:@"activityURL"];
+        self.state   = [aDecoder decodeIntForKey:@"state"];
+    }
+    return self;
+}
+
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"itemID":@"itemid",
@@ -52,6 +69,23 @@
 @end
 
 @implementation NSRecommend
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.titlePageUrl forKey:@"titlePageUrl"];
+    [aCoder encodeObject:self.authorName forKey:@"authorName"];
+    [aCoder encodeInt:self.playCount forKey:@"playCount"];
+    [aCoder encodeObject:self.workName forKey:@"workName"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        self.titlePageUrl = [aDecoder decodeObjectForKey:@"titlePageUrl"];
+        self.authorName  = [aDecoder decodeObjectForKey:@"authorName"];
+        self.playCount   = [aDecoder decodeIntForKey:@"playCount"];
+        self.workName    = [aDecoder decodeObjectForKey:@"workName"];
+    }
+    return self;
+}
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"titlePageUrl":@"pic",
@@ -61,7 +95,6 @@
              @"workName":@"title",
              @"type":@"status"
              };
-    
 }
 @end
 
@@ -84,6 +117,21 @@
 //@end
 
 @implementation NSRecommendSong
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.titleImageURl forKey:@"titleImageURl"];
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.desc forKey:@"desc"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        self.titleImageURl = [aDecoder decodeObjectForKey:@"titleImageURl"];
+        self.title  = [aDecoder decodeObjectForKey:@"title"];
+        self.desc    = [aDecoder decodeObjectForKey:@"desc"];
+    }
+    return self;
+}
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"titleImageURl":@"pic",
@@ -104,6 +152,23 @@
 @end
 
 @implementation NSNew
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.titlePageUrl forKey:@"titlePageUrl"];
+    [aCoder encodeObject:self.authorName forKey:@"authorName"];
+    [aCoder encodeObject:self.workName forKey:@"workName"];
+    [aCoder encodeInt:self.playCount forKey:@"playCount"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        self.titlePageUrl = [aDecoder decodeObjectForKey:@"titlePageUrl"];
+        self.authorName  = [aDecoder decodeObjectForKey:@"authorName"];
+        self.workName    = [aDecoder decodeObjectForKey:@"workName"];
+        self.playCount  = [aDecoder decodeIntForKey:@"playCount"];
+    }
+    return self;
+}
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"titlePageUrl":@"pic",
@@ -126,6 +191,21 @@
 @end
 
 @implementation NSMusicSay
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.titleImageUrl forKey:@"titleImageUrl"];
+    [aCoder encodeObject:self.detail forKey:@"detail"];
+    [aCoder encodeObject:self.workName forKey:@"workName"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        self.titleImageUrl = [aDecoder decodeObjectForKey:@"titleImageUrl"];
+        self.detail  = [aDecoder decodeObjectForKey:@"detail"];
+        self.workName    = [aDecoder decodeObjectForKey:@"workName"];
+    }
+    return self;
+}
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"titleImageUrl":@"pic",

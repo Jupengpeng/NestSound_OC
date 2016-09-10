@@ -27,7 +27,7 @@
 #import "NSCustomMusicController.h"
 #import "NSAccommpanyListModel.h"
 #import "UIImageView+WebCache.h"
-@interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, NSIndexCollectionReusableViewDelegate,SDCycleScrollViewDelegate> {
+@interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource,SDCycleScrollViewDelegate> {
     
     UICollectionView *_collection;
     NSMutableArray * bannerAry;
@@ -36,7 +36,7 @@
     NSMutableArray * newListAry;
     NSMutableArray * musicSayAry;
     NSString * getTokenUrl;
-    NSString * index;
+    NSString * indexUrl;
     UIImageView * playStatus;
     int i;
     NSMutableArray * songAry;
@@ -63,6 +63,13 @@ static NSString * const NewWorkCell = @"NewWorkCell";
  *  话题进行时
  */
 static NSString * const TopCarringCell = @"TopCarringCell";
+//数据缓存
+static NSString * const homeCacheData = @"homeCacheData";
+static NSString * const bannerData = @"bannerData";
+static NSString * const recommendData = @"recommendData";
+static NSString * const recommendSongData = @"recommendSongData";
+static NSString * const newListData =  @"newListData";
+static NSString * const musicSayData = @"musicSayData";
 @implementation NSHomeViewController
 
 
@@ -129,15 +136,17 @@ static NSString * const TopCarringCell = @"TopCarringCell";
     [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
      UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     self.navigationItem.rightBarButtonItem = item;
-    
-    [self configureUIAppearance];
 
     [self fetchIndexData];
     [self getAuthorToken];
 //    [self preLoadImages];
-//    cache = [YYCache cacheWithName:@"accompanyData"];
-//    [self.simpleSingAry addObject:[cache objectForKey:@"simpleSingle"]];
-//    self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:@"accompanyCategory"]];
+    cache = [YYCache cacheWithName:homeCacheData];
+    bannerAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:bannerData]];
+    recommendAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:recommendData]];
+    recommendSongAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:recommendSongData]];
+    newListAry   =  [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:newListData]];
+    musicSayAry  = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:musicSayData]];
+    [self configureUIAppearance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -255,7 +264,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
     NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:1];
     NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
     self.requestURL = [indexURL stringByAppendingString:str];
-    index = self.requestURL;
+    indexUrl = self.requestURL;
     
 }
 
@@ -264,25 +273,34 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 {
     if (requestErr) {
         CHLog(@"首页请求失败");
+        [_collection.pullToRefreshView stopAnimating];
     } else {
         if (!parserObject.success) {
-            if ([operation.urlTag isEqualToString:index]) {
+            if ([operation.urlTag isEqualToString:indexUrl]) {
+                [cache removeAllObjects];
                 NSIndexModel * indexModel = (NSIndexModel *)parserObject;
                 [bannerAry removeAllObjects];
+                //banner数据
                 bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
+                [cache setObject:bannerAry forKey:bannerData];
+                //推荐作品数据
                 recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
+                [cache setObject:recommendAry forKey:recommendData];
                 for (NSRecommend *model in recommendAry) {
                     [self.itemIDArray addObject:@(model.itemId)];
                 }
+                //推荐歌单数据
                 recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
+                [cache setObject:recommendSongAry forKey:recommendSongData];
+                //最新作品数据
                 newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
+                [cache setObject:newListAry forKey:newListData];
                 for (NSNew *model in newListAry) {
                     [self.itemIDArr addObject:@(model.itemId)];
                 }
+                //乐说数据
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
-                
-//                [_collection removeFromSuperview];
-//                [self configureUIAppearance];
+                [cache setObject:musicSayAry forKey:musicSayData];
                 [_collection reloadData];
                 [_collection.pullToRefreshView stopAnimating];
             }else if([operation.urlTag isEqualToString:getToken]){
@@ -370,7 +388,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RecommendCell forIndexPath:indexPath];
         
-        NSRecommend * recommendModel =  (NSRecommend *)[recommendAry objectAtIndex:indexPath.row];
+        NSRecommend * recommendModel =  [recommendAry objectAtIndex:indexPath.row];
         cell.recommend = recommendModel;
         cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
         cell.contentView.layer.borderWidth = 1;
@@ -478,7 +496,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     if (section == 0) {
-        NSRecommend * recomm = (NSRecommend *)recommendAry[row];
+        NSRecommend * recomm = recommendAry[row];
         
         //type == 1 is music  type ==2 is lyric
         if (recomm.type == 1) {
@@ -609,6 +627,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 //        reusable.bannerAry = bannerAry;
         reusable.SDCycleScrollView.hidden = NO;
         reusable.titleLable.text = @"推荐作品";
+        [reusable loadMore:NO];
 
 //        NSLocalizedString(@"promot_recommendWorks", @"");
 //        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
@@ -618,7 +637,8 @@ static NSString * const TopCarringCell = @"TopCarringCell";
         
 //        reusable.bannerAry = nil;
         reusable.SDCycleScrollView.hidden = YES;
-        
+        [reusable loadMore:NO];
+
         return reusable;
 
     } else if (indexPath.section == 2) {
@@ -627,7 +647,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 
         reusable.SDCycleScrollView.hidden = YES;
         
-        UIButton *songMenuBtn = [reusable loadMore];
+        UIButton *songMenuBtn = [reusable loadMore:YES];
         
         [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         reusable.titleLable.text = @"推荐歌单";
@@ -642,6 +662,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 
         reusable.titleLable.text = @"最新作品";
         
+        [reusable loadMore:NO];
 //        LocalizedStr(@"promot_newWorks");
         return reusable;
 
@@ -650,7 +671,7 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 //        reusable.bannerAry = nil;
         
         reusable.SDCycleScrollView.hidden = YES;
-        UIButton *songSayBtn = [reusable loadMore];
+        UIButton *songSayBtn = [reusable loadMore:YES];
         
         [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -680,9 +701,10 @@ static NSString * const TopCarringCell = @"TopCarringCell";
 }
 
 //轮播器点击事件
-- (void)indexCollectionReusableView:(NSIndexCollectionReusableView *)reusableView withImageBtn:(UIButton *)imageBtn {
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+//- (void)indexCollectionReusableView:(NSIndexCollectionReusableView *)reusableView withImageBtn:(UIButton *)imageBtn {
     
-    NSBanner * banner = (NSBanner *)bannerAry[imageBtn.tag];
+    NSBanner * banner = (NSBanner *)bannerAry[index];
     long item = banner.itemID;
     if (banner.state == 1) {
         NSH5ViewController * event = [[NSH5ViewController alloc] init];

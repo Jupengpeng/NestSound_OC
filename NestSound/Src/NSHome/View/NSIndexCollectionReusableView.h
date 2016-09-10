@@ -26,7 +26,7 @@
 
 @property (nonatomic, strong) NSMutableArray * bannerAry;
 
-- (UIButton *)loadMore;
+- (UIButton *)loadMore:(BOOL)flag;
 
 @property (nonatomic, weak) id<NSIndexCollectionReusableViewDelegate> delegate;
 

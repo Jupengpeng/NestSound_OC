@@ -153,20 +153,26 @@
                 if (parserObject.code == 200) {
                     registerView.codeBtn.enabled = NO;;
                     
-                    registerView.codeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-                    
                     [self addTimer];
                 } else {
                     
-                [[NSToastManager manager] showtoast:parserObject.message];
+                    [[NSToastManager manager] showtoast:parserObject.message];
                     
                 }
                 
             }else if ([operation.urlTag isEqualToString:registerURL]){
                 
-                [[NSToastManager manager] showtoast:@"注册成功，请您登录"];
                 
-                [self loginEvent:nil];
+                if (parserObject.code == 200) {
+                    self.requestType = NO;
+                    self.requestParams = @{@"mobile":registerView.phoneTF.text,
+                                           @"password":[registerView.passwordTF.text stringToMD5]};
+                    self.requestURL = loginURl;
+                } else {
+                    [[NSToastManager manager] showtoast:parserObject.message];
+                }
+                
+//                [self loginEvent:nil];
                 
             }
             
@@ -687,13 +693,15 @@
     
     registerView.codeBtn.titleLabel.text = [NSString stringWithFormat:@"%ds后重新获取",num];
     
+//    registerView.codeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+
     [registerView.codeBtn setTitle:[NSString stringWithFormat:@"%ds后重新获取",num] forState:UIControlStateDisabled];
     
     if (num == 0) {
         
         [registerView.codeBtn setTitle:@"重新获取" forState:UIControlStateDisabled];
         
-        registerView.codeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//        registerView.codeBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         num = 60;
         

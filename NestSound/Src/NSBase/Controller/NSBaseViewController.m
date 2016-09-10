@@ -60,23 +60,23 @@
      *
      */
     NSURLSessionDataTask *operation =[[NSHttpClient client] requestWithURL:url type:self.requestType                                          paras:self.requestParams
-                                                                    success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
-                                                                        
-                                                                        NSBaseModel *responseModel = (NSBaseModel *)parserObject;
-                                                                        
-                                                                        
-                                                                        // callback
-                                                                        [wSelf actionFetchRequest:operation
-                                                                                           result:responseModel
-                                                                                            error:nil];
-                                                                    }
-                                                                    failure:^(NSURLSessionDataTask *operation, NSError *requestErr) {
-                                                                        [[NSToastManager manager] showtoast:@"网络开小差了，请检查您的网络!"];
-                                                                        [wSelf actionFetchRequest:operation result:nil error:requestErr];
-                                                                    }];
-
+                                                                   success:^(NSURLSessionDataTask *operation, NSObject *parserObject) {
+                                                                       
+                                                                       NSBaseModel *responseModel = (NSBaseModel *)parserObject;
+                                                                       
+                                                                       
+                                                                       // callback
+                                                                       [wSelf actionFetchRequest:operation
+                                                                                          result:responseModel
+                                                                                           error:nil];
+                                                                   }
+                                                                   failure:^(NSURLSessionDataTask *operation, NSError *requestErr) {
+                                                                       [[NSToastManager manager] showtoast:@"网络开小差了，请检查您的网络!"];
+                                                                       [wSelf actionFetchRequest:operation result:nil error:requestErr];
+                                                                   }];
+    
     CHLog(@"%@",operation);
-
+    
 }
 
 - (void)setShowBackBtn:(BOOL)showBackBtn {

@@ -75,20 +75,16 @@ static NSData* base64_decode(NSString *str){
             
         }
         
-        [dic removeObjectForKey:requestData];
+        
         if (!resultDataDic) {
-            return nil;
+            [dic removeObjectForKey:requestData];
+            return dic;
         }
         
         [dic setObject:resultDataDic forKey:requestData];
         
         return dic;
     }
-
-   
-    
-    
-
 }
 
 

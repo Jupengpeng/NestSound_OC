@@ -13,7 +13,7 @@
 @end
 
 
-@interface NSBanner : NSBaseModel
+@interface NSBanner : NSBaseModel<NSCoding>
 
 @property (nonatomic,copy) NSString * titleImageUrl;
 @property (nonatomic,assign) long itemID;
@@ -31,7 +31,7 @@
 @protocol NSRecommend <NSObject>
 @end
 
-@interface NSRecommend : NSBaseModel
+@interface NSRecommend : NSBaseModel<NSCoding>
 
 @property (nonatomic,copy) NSString * titlePageUrl;
 @property (nonatomic,copy) NSString * authorName;
@@ -45,14 +45,14 @@
 @interface NSRecommendList : NSBaseModel
 
 @property (nonatomic,assign) int totalCount;
-@property (nonatomic,strong) NSArray <NSMusicModel> * recommendList;
+@property (nonatomic,strong) NSArray <NSRecommend> * recommendList;
 @end
 
 @protocol  NSRecommendSong  <NSObject>
 
 @end
 
-@interface NSRecommendSong : NSBaseModel
+@interface NSRecommendSong : NSBaseModel<NSCoding>
 @property (nonatomic,copy) NSString * titleImageURl;
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * desc;
@@ -68,7 +68,7 @@
 @protocol NSNew <NSObject>
 @end
 
-@interface NSNew : NSBaseModel
+@interface NSNew : NSBaseModel<NSCoding>
 
 @property (nonatomic,copy) NSString * titlePageUrl;
 @property (nonatomic,copy) NSString * authorName;
@@ -88,7 +88,7 @@
 @protocol NSMusicSay <NSObject>
 @end
 
-@interface NSMusicSay : NSBaseModel
+@interface NSMusicSay : NSBaseModel<NSCoding>
 
 @property (nonatomic,copy) NSString * titleImageUrl;
 @property (nonatomic,assign) int itemID;
