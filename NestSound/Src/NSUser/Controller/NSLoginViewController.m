@@ -144,6 +144,7 @@
                                                };
                     [[NSUserDefaults standardUserDefaults] setObject:userDic forKey:@"user"];
                     [[NSUserDefaults standardUserDefaults] setObject:user.bgPic forKey:@"bgPic"];
+                    [JPUSHService setAlias:[NSString stringWithFormat:@"%ld",user.userID] callbackSelector:nil object:nil];
                     [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
                     [[NSUserDefaults standardUserDefaults] synchronize];

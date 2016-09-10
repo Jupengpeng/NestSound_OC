@@ -294,7 +294,7 @@ static NSString * const settingCellIditify = @"settingCell";
        
         [self.navigationController pushViewController:changeName animated:YES];
         [changeName returnName:^(NSString *name) {
-            userInfo[@"name"] = name;
+            userInfo[@"userName"] = name;
             [tableView reloadData];
         }];
     }else if (row == 2){
