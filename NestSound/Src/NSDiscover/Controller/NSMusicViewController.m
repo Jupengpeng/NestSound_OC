@@ -225,14 +225,14 @@ static NSString * const headerView = @"HeaderView";
     
     if (indexPath.section == 0) {
         reusable.SDCycleScrollView.hidden = YES;
-        UIButton *hotMusic = [reusable loadMore];
+        UIButton *hotMusic = [reusable loadMore:YES];
         [hotMusic addTarget:self action:@selector(hotMusic:) forControlEvents:UIControlEventTouchUpInside];
         
         reusable.titleLable.text = self.topTitle;
         
     } else if (indexPath.section == 1) {
        reusable.SDCycleScrollView.hidden = YES;
-        UIButton *newMusic = [reusable loadMore];
+        UIButton *newMusic = [reusable loadMore:YES];
         [newMusic addTarget:self action:@selector(newMusic:) forControlEvents:UIControlEventTouchUpInside];
         
         reusable.titleLable.text = self.bottomTitle;

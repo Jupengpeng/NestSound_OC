@@ -29,7 +29,7 @@
     
     self.userNameTF = [[NSTextField alloc] initWithFrame:CGRectMake(10, 5, ScreenWidth -20, 30) drawingLeft:userNameImgView];
     
-    _userNameTF.keyboardType = UIKeyboardTypeNumberPad;
+//    _userNameTF.keyboardType = UIKeyboardTypeNumberPad;
     
     _userNameTF.layer.borderColor = [[UIColor clearColor] CGColor];
     
@@ -50,6 +50,8 @@
     
     _phoneTF.layer.borderColor = [[UIColor clearColor] CGColor];
     
+    _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
+    
     _phoneTF.font = [UIFont systemFontOfSize:15];
     
     _phoneTF.placeholder = @"手机号";
@@ -66,9 +68,11 @@
     
     codeImgView.frame = CGRectMake(0, 0, 12, 14);
     
-    self.codeTF = [[NSTextField alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_phoneTF.frame) + 10, ScreenWidth - 110, 30) drawingLeft:codeImgView];
+    self.codeTF = [[NSTextField alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_phoneTF.frame) + 10, ScreenWidth - 120, 30) drawingLeft:codeImgView];
     
     _codeTF.layer.borderColor = [[UIColor clearColor] CGColor];
+    
+    _codeTF.keyboardType = UIKeyboardTypeNumberPad;
     
     _codeTF.font = [UIFont systemFontOfSize:15];
     
@@ -77,7 +81,7 @@
     //    [newPwdTF addTarget:self action:@selector(textFieldContentChange:) forControlEvents:UIControlEventEditingChanged];
     [self addSubview:_codeTF];
     
-    UIView *yellowView = [[UIView alloc] initWithFrame:CGRectMake(ScreenWidth - 95, CGRectGetMaxY(_phoneTF.frame) + 10, 2, 20)];
+    UIView *yellowView = [[UIView alloc] initWithFrame:CGRectMake(ScreenWidth - 105, CGRectGetMaxY(_phoneTF.frame) + 10, 2, 20)];
     
     yellowView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     
@@ -86,7 +90,9 @@
     //获取验证码
     self.codeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    _codeBtn.frame = CGRectMake(ScreenWidth - 90 , CGRectGetMaxY(_phoneTF.frame), 80, 40);
+    _codeBtn.frame = CGRectMake(ScreenWidth - 100 , CGRectGetMaxY(_phoneTF.frame), 90, 40);
+    
+    _codeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     
     _codeBtn.layer.cornerRadius = 20;
         

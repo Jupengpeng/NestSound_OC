@@ -44,14 +44,17 @@ UICollectionViewDelegate
 
 
 static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
+static NSString * const accompanyData   = @"accompanyData";
+static NSString * const simpleSingle  = @"simpleSingle";
+static NSString * const accompanyCategory = @"accompanyCategory";
 @implementation NSAccompanyListViewController
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    cache = [YYCache cacheWithName:@"accompanyData"];
-    self.simpleSingAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:@"simpleSingle"]];
-    self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:@"accompanyCategory"]];
+    cache = [YYCache cacheWithName:accompanyData];
+    self.simpleSingAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:simpleSingle]];
+    self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:accompanyCategory]];
     
     [self configureUIAppearance];
     [self fetchAccompanyListDataWithIsLoadingMore:NO];;
@@ -124,12 +127,12 @@ static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
                 [accompanyCollection.pullToRefreshView stopAnimating];
                 if (listModel.simpleCategoryList.simpleCategory.count) {
                     self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                    [cache setObject:self.accompanyCategoryAry forKey:@"accompanyCategory"];
+                    [cache setObject:self.accompanyCategoryAry forKey:accompanyCategory];
                 }
                 if (listModel.simpleList.simpleSingList.itemID) {
                     [self.simpleSingAry removeAllObjects];
                     [self.simpleSingAry addObject:listModel.simpleList.simpleSingList];
-                    [cache setObject:self.simpleSingAry forKey:@"simpleSingle"];
+                    [cache setObject:self.simpleSingAry forKey:simpleSingle];
                 }
                 
             }else{

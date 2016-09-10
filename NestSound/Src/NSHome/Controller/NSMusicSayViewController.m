@@ -25,6 +25,9 @@ UICollectionViewDelegateFlowLayout
     NSString * url ;
 
     int currentPage;
+    
+    UIImageView *emptyImage;
+    
 }
 @end
 static NSString * const musicSayCellId = @"musicSayCellId";
@@ -57,8 +60,8 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 -(void)configureUIAppearance
 {
     
-    self.navigationController.title = @"乐说";
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.title = @"乐说";
+//    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -66,7 +69,7 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     musicSayList = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layOut];
     musicSayList.dataSource = self;
     musicSayList.delegate = self;
-    musicSayList.backgroundColor = [UIColor whiteColor];
+    musicSayList.backgroundColor = KBackgroundColor;
     musicSayList.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:musicSayList];
     [musicSayList registerClass:[NSMusicSayCollectionViewCell class] forCellWithReuseIdentifier:musicSayCellId];
@@ -93,6 +96,15 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     //hide infitView
     musicSayList.showsInfiniteScrolling = NO;
     
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    emptyImage.centerX = ScreenWidth/2;
+    
+    emptyImage.hidden = YES;
+    
+    emptyImage.y = 100;
+    
+    [self.view addSubview:emptyImage];
 }
 
 #pragma mark -fetchData
@@ -128,12 +140,15 @@ static NSString * const musicSayCellId = @"musicSayCellId";
                 if (!operation.isLoadingMore) {
                     [musicSayList.pullToRefreshView stopAnimating];
                     musicSayAry = [NSMutableArray arrayWithArray:musicSaylist.musicSayList];
-                }else
-                {
+                } else {
                     [musicSayList.infiniteScrollingView stopAnimating];
                     [musicSayAry addObjectsFromArray:musicSaylist.musicSayList];
                 }
-                
+                if (musicSayAry.count) {
+                    emptyImage.hidden = YES;
+                } else {
+                    emptyImage.hidden = NO;
+                }
             }
             [musicSayList reloadData];
         }else{

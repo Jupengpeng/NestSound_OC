@@ -89,13 +89,10 @@
     
 }
 
-- (UIButton *)loadMore {
+- (UIButton *)loadMore:(BOOL)flag {
     
-    if (_moreBtn) {
-        [_moreBtn removeFromSuperview];
-        _moreBtn = nil;
+    if (flag) {
         
-    }
         _moreBtn = [[UIButton alloc] init];
         
         [_moreBtn setTitle:@"更多" forState:UIControlStateNormal];
@@ -115,11 +112,12 @@
         [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.right.equalTo(self.mas_right).offset(-15);
-//            make.centerY.equalTo(self.mas_centerY);
+            //            make.centerY.equalTo(self.mas_centerY);
             make.bottom.equalTo(self.mas_bottom).offset(-8);
             
             
         }];
+    }
     return _moreBtn;
 }
 

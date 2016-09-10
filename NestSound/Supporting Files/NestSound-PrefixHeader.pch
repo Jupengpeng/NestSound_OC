@@ -100,7 +100,7 @@ extern NSString *port;
 #define commentURL @"java/common/comment/list?"
 #define playMusicURL @"java/common/music/work?"
 #define feedBackURL @"java/feedback/save?"
-#define reportURL @"hjava/report/save?"
+#define reportURL @"java/report/save?"
 #define upvoteURL @"java/workzan/optZan?"
 #define collectURL @"java/workfov/optZan?"
 #define lyricLibraryURL @"java/lyricsopt/getLyriCats?"
