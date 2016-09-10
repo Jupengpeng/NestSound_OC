@@ -161,14 +161,14 @@ static NSInteger const kButtonTag = 450;
      *  @return return value description
      */
     
-
+    
     
 }
 
 #pragma mark -overrider action fetchData
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
     if (requestErr) {
-        
+        [self.mainTableView.pullToRefreshView stopAnimating];
     }else{
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:activityDetailUrl]) {
@@ -178,13 +178,10 @@ static NSInteger const kButtonTag = 450;
             }else if ([operation.urlTag isEqualToString:joinedUserListUrl]){
                 _joinerListLoaded = YES;
                 NSActivityJoinerListModel *joinerListModel = (NSActivityJoinerListModel *)parserObject;
-
                 if (self.joinerList.count) {
                     [self.joinerList removeAllObjects];
                 }
-                
                 [self.joinerList addObjectsFromArray:joinerListModel.joinerList];
-                
                 for (NSActivityJoinerDetailModel *joinerDetailModel in joinerListModel.joinerList) {
                     /**
                      *  判断是否参加过活动
@@ -193,11 +190,8 @@ static NSInteger const kButtonTag = 450;
                         _isPublished = YES;
                     }
                 }
-                
             }
-
             [self reloadUI];
-
         }
     }
 
@@ -240,13 +234,13 @@ static NSInteger const kButtonTag = 450;
                     pageVC.who = Other;
                     [weakSelf.navigationController pushViewController:pageVC animated:YES];
                 }
-                
-                
+        
             }
                 break;
             case 7:
             {
                 NSActivityJoinerListController *joinerListController = [[NSActivityJoinerListController alloc] init];
+                joinerListController.aid = weakSelf.aid;
                 [weakSelf.navigationController pushViewController:joinerListController animated:YES];
             }
                 break;
@@ -282,45 +276,44 @@ static NSInteger const kButtonTag = 450;
     /**
      *  第一次手动请求数据
      */
-    [self fetchActivityDetailData];
-    [_mainTableView.pullToRefreshView startAnimating];
-//    _refreshOriginY = weakSelf.mainTableView.pullToRefreshView.y;
-//    self.mainTableView.pullToRefreshView.y = _refreshOriginY - _topViewHeight;
-    //    self.mainTableView.pullToRefreshView.alpha = 0;;
-    
-    
-    
+    [_mainTableView triggerPullToRefresh];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(acceptMsg:) name:@"leaveTop" object:nil];
 }
 
 - (void)setupNavBar{
-    _playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
-    _playStatus.animationDuration = 0.8;
-    _playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
-                                   [UIImage imageNamed:@"2.0_play_status_2"],
-                                   [UIImage imageNamed:@"2.0_play_status_3"],
-                                   [UIImage imageNamed:@"2.0_play_status_4"],
-                                   [UIImage imageNamed:@"2.0_play_status_5"],
-                                   [UIImage imageNamed:@"2.0_play_status_6"],
-                                   [UIImage imageNamed:@"2.0_play_status_7"],
-                                   [UIImage imageNamed:@"2.0_play_status_8"],
-                                   [UIImage imageNamed:@"2.0_play_status_9"],
-                                   [UIImage imageNamed:@"2.0_play_status_10"],
-                                   [UIImage imageNamed:@"2.0_play_status_11"],
-                                   [UIImage imageNamed:@"2.0_play_status_12"],
-                                   [UIImage imageNamed:@"2.0_play_status_13"],
-                                   [UIImage imageNamed:@"2.0_play_status_14"],
-                                   [UIImage imageNamed:@"2.0_play_status_15"],
-                                   [UIImage imageNamed:@"2.0_play_status_16"]];
     
-    [_playStatus stopAnimating];
-    _playStatus.userInteractionEnabled = YES;
-    _playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
-    UIButton * btn = [[UIButton alloc] initWithFrame:_playStatus.frame ];
-    [_playStatus addSubview:btn];
-    [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:_playStatus];
-    self.navigationItem.rightBarButtonItem = item;
+    if ([self.type isEqualToString:@"1"]) {
+        
+    }else{
+        _playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
+        _playStatus.animationDuration = 0.8;
+        _playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
+                                        [UIImage imageNamed:@"2.0_play_status_2"],
+                                        [UIImage imageNamed:@"2.0_play_status_3"],
+                                        [UIImage imageNamed:@"2.0_play_status_4"],
+                                        [UIImage imageNamed:@"2.0_play_status_5"],
+                                        [UIImage imageNamed:@"2.0_play_status_6"],
+                                        [UIImage imageNamed:@"2.0_play_status_7"],
+                                        [UIImage imageNamed:@"2.0_play_status_8"],
+                                        [UIImage imageNamed:@"2.0_play_status_9"],
+                                        [UIImage imageNamed:@"2.0_play_status_10"],
+                                        [UIImage imageNamed:@"2.0_play_status_11"],
+                                        [UIImage imageNamed:@"2.0_play_status_12"],
+                                        [UIImage imageNamed:@"2.0_play_status_13"],
+                                        [UIImage imageNamed:@"2.0_play_status_14"],
+                                        [UIImage imageNamed:@"2.0_play_status_15"],
+                                        [UIImage imageNamed:@"2.0_play_status_16"]];
+        
+        [_playStatus stopAnimating];
+        _playStatus.userInteractionEnabled = YES;
+        _playStatus.image = [UIImage imageNamed:@"2.0_play_status_1"];
+        UIButton * btn = [[UIButton alloc] initWithFrame:_playStatus.frame ];
+        [_playStatus addSubview:btn];
+        [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:_playStatus];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+   
 }
 
 - (void)musicPaly:(UIBarButtonItem *)palyItem {

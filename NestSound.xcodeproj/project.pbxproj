@@ -235,6 +235,7 @@
 		B80C86501D47055F00B22855 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864F1D47055F00B22855 /* UIKit.framework */; };
 		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
 		B80C86551D47A75B00B22855 /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C86541D47A75B00B22855 /* HudView.m */; };
+		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
 		B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966221D727F90005D3724 /* NSObject+YYModel.m */; };
@@ -867,6 +868,8 @@
 		B80C86511D47056C00B22855 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B80C86531D47A75B00B22855 /* HudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HudView.h; sourceTree = "<group>"; };
 		B80C86541D47A75B00B22855 /* HudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudView.m; sourceTree = "<group>"; };
+		B81AFE1A1D83DAC00033B3B5 /* NSHeadImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHeadImageView.h; sourceTree = "<group>"; };
+		B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSHeadImageView.m; sourceTree = "<group>"; };
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
@@ -1536,6 +1539,8 @@
 				94456D4D1D5185A60088385F /* NSTextField.m */,
 				941854491D533FCD00227FA4 /* NSCheckUpgradeUtil.h */,
 				9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */,
+				B81AFE1A1D83DAC00033B3B5 /* NSHeadImageView.h */,
+				B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3381,6 +3386,7 @@
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
 				695619011D61C35500102BC7 /* MainTouchTableTableView.m in Sources */,
+				B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */,
 				2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */,
 				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
 				946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */,

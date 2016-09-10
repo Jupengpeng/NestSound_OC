@@ -8,6 +8,7 @@
 
 #import "NSActivityJoinerListCell.h"
 #import "UIButton+WebCache.h"
+#import "NSActivityJoinerListModel.h"
 @interface NSActivityJoinerListCell ()
 
 @property (nonatomic,strong) UIButton *headerButton;
@@ -79,9 +80,12 @@
         make.right.equalTo(self.mas_right).offset(-15.0f);
     }];
     
+    /**
     self.followButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+
         
     } action:^(UIButton *btn) {
+        
         
     }];
     
@@ -93,18 +97,32 @@
         make.height.mas_equalTo(36.0f);
         make.width.mas_equalTo(44.0f);
     }];
+     */
+ 
+
+}
+
+- (void)setDetailModel:(NSActivityJoinerDetailModel *)detailModel{
+    _detailModel =detailModel;
+    
+    [self.headerButton sd_setBackgroundImageWithURL:[NSURL URLWithString:detailModel.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    
+    self.joinerNameLabel.text = detailModel.nickname;
+    
+    if (detailModel.descr.length) {
+        self.descriptionLabel.text = detailModel.descr;
+
+    }else{
+        self.descriptionLabel.text = @"这个人很懒什么都没留下";
+
+    }
     
 }
 
 - (void)setupData{
         
-    [self.headerButton sd_setBackgroundImageWithURL:[NSURL URLWithString:@""] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+
     
-    self.joinerNameLabel.text = @"吃瓜群众";
-    
-    self.descriptionLabel.text = @"这个人很懒什么都没留下";
-    
-    [self.followButton setBackgroundImage:[UIImage imageNamed:@"ic_jiaguanzhu"] forState:UIControlStateNormal];
     
 }
 

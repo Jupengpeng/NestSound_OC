@@ -29,7 +29,7 @@
     
     _topLabel.textAlignment = NSTextAlignmentCenter;
     
-    _topLabel.font = [UIFont systemFontOfSize:14];
+    _topLabel.font = [UIFont systemFontOfSize:12];
     
     [self addSubview:_topLabel];
     
@@ -47,7 +47,7 @@
     
     _bottomLabel.textAlignment = NSTextAlignmentCenter;
     
-    _bottomLabel.font = [UIFont systemFontOfSize:14];
+    _bottomLabel.font = [UIFont systemFontOfSize:12];
     
     [self addSubview:_bottomLabel];
     
