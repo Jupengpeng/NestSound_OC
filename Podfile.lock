@@ -50,7 +50,7 @@ DEPENDENCIES:
   - Qiniu
   - RSAEncryptor
   - SDCycleScrollView
-  - SDWebImage
+  - SDWebImage (~> 3.8.2)
   - SVPullToRefresh
   - TheAmazingAudioEngine
   - TTTAttributedLabel
@@ -76,6 +76,6 @@ SPEC CHECKSUMS:
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
 
-PODFILE CHECKSUM: 10bbdf1c1a5d945b67c9ebdcc5f51cc51fa586f4
+PODFILE CHECKSUM: 84f117176c23a7deab55b21146ea00b722a22b30
 
 COCOAPODS: 1.0.1

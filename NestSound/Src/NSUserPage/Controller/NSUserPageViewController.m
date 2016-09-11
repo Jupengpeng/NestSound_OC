@@ -789,7 +789,7 @@ static NSString *ID3 = @"cell3";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 
-//    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
+    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
     
     CGFloat offSet_Y = _tableView.contentOffset.y;
     
@@ -804,80 +804,67 @@ static NSString *ID3 = @"cell3";
         frame.size.height = -offSet_Y - 60;
         //重新赋值
         headImgView.frame = frame;
-        
 //        CHLog(@"新的frame%f",frame.size.height);
         
-    }
-    //tableView相对于图片的偏移量
-    CGFloat reoffSet = offSet_Y + kHeadImageHeight + 60;
-    
-//    CHLog(@"%f",reoffSet);
-    //kHeadImageHeight-64是为了向上拉倒导航栏底部时alpha = 1
-    alpha =1 - (kHeadImageHeight - 64 - reoffSet)/64;
-    
-//    CHLog(@"%f",alpha);
-    
-    if (alpha>=1) {
-        alpha = 1;
+    }else if(offSet_Y >= -kHeadImageHeight - 64 && offSet_Y <= - (64 + 64 + 60)){
+        signatureLabel.hidden = NO;
+        focusLLView.hidden = NO;
+        fansLLView.hidden = NO;
+        _midLine.hidden = NO;
+        
+        CGRect bgImageFrame = headImgView.frame;
+        bgImageFrame.origin.y = -60 - kHeadImageHeight;
+        bgImageFrame.size.height = kHeadImageHeight;
+        headImgView.frame = bgImageFrame;
+        [_tableView addSubview:headImgView];
+    }else if (offSet_Y >=- (64 + 64 + 60)&& offSet_Y < -(64 + 60)){
+        signatureLabel.hidden = YES;
+        focusLLView.hidden = YES;
+        fansLLView.hidden = YES;
+        _midLine.hidden = YES;
+        /**
+         *  四个标签放回tableview跟随
+         */
         CGRect frame = backgoundView.frame;
-        
-        frame.origin.y = 64;
-        
+        frame.origin.y = -60;
         backgoundView.frame = frame;
+        [_tableView addSubview:backgoundView];
+        /**
+         *  封面
+         */
+        CGRect bgImageFrame = headImgView.frame;
+        bgImageFrame.origin.y = -60 - kHeadImageHeight;
+        bgImageFrame.size.height = kHeadImageHeight;
+        headImgView.frame = bgImageFrame;
+        [_tableView addSubview:headImgView];
+    }else if(offSet_Y >= -(64 + 60)){
+        signatureLabel.hidden = YES;
+        focusLLView.hidden = YES;
+        fansLLView.hidden = YES;
+        _midLine.hidden = YES;
         
-        [self.view addSubview:backgoundView];
-        
+        /**
+         *  到顶端 保持上半部分悬浮
+         */
         
         CGRect bgImageFrame = headImgView.frame;
         bgImageFrame.origin.y = 64 - kHeadImageHeight;
         headImgView.frame = bgImageFrame;
-        
         [self.view addSubview:headImgView];
-        
-    } else {
-        
-        /**
-         *  如果距离alpha为1 还差 64 移除文本
-         */
-        if ((kHeadImageHeight - 64 - reoffSet) <= 64) {
-            signatureLabel.hidden = YES;
-            focusLLView.hidden = YES;
-            fansLLView.hidden = YES;
-            _midLine.hidden = YES;
-        }else{
-            signatureLabel.hidden = NO;
-            focusLLView.hidden = NO;
-            fansLLView.hidden = NO;
-            _midLine.hidden = NO;
 
-        }
-        
-        
-        
         CGRect frame = backgoundView.frame;
-        
-        frame.origin.y = -60;
-        
+        frame.origin.y = 64;
         backgoundView.frame = frame;
-        
-        [_tableView addSubview:backgoundView];
-        
-        
-        CGRect bgImageFrame = headImgView.frame;
-
-        /**
-         *  headerview完全展开好不在跟随移动
-         */
-        if (bgImageFrame.origin.y > -60 - kHeadImageHeight) {
-            bgImageFrame.origin.y = -60 - kHeadImageHeight;
-            headImgView.frame = bgImageFrame;
-            
-            [_tableView addSubview:headImgView];
-        }
-
-
+        [self.view addSubview:backgoundView];
     }
-    //    UIImage *blurimage1 = [self.bgImage applyLightEffectWithAlpha:alpha];
+    //tableView相对于图片的偏移量
+    CGFloat reoffSet = offSet_Y + kHeadImageHeight + 60;
+    //kHeadImageHeight-64是为了向上拉倒导航栏底部时alpha = 1
+    alpha =1 - (kHeadImageHeight - 64 - reoffSet)/64;
+    
+    if (alpha>=1) {
+        alpha = 1;
+    }
     
     if (alpha <= 0) {
         headImgView.blurAlpha = 0;
@@ -886,9 +873,73 @@ static NSString *ID3 = @"cell3";
     } else{
         
     }
+//    CHLog(@"reoffSet ------ %f /n alpha ----- %f",reoffSet,alpha);
+
+    
+    /**
+     *  如果距离 还差 64 移除文本
+     */
+//    if ((kHeadImageHeight - 64 - reoffSet) <= 64) {
+//        signatureLabel.hidden = YES;
+//        focusLLView.hidden = YES;
+//        fansLLView.hidden = YES;
+//        _midLine.hidden = YES;
+//    }else{
+//        signatureLabel.hidden = NO;
+//        focusLLView.hidden = NO;
+//        fansLLView.hidden = NO;
+//        _midLine.hidden = NO;
+//        
+//    }
+
+//
+//        CGRect bgImageFrame = headImgView.frame;
+//        bgImageFrame.origin.y = 64 - kHeadImageHeight;
+//        headImgView.frame = bgImageFrame;
+//        
+//        [self.view addSubview:headImgView];
+//        /**
+//         *  到顶端 保持上半部分悬浮
+//         */
+//        CGRect frame = backgoundView.frame;
+//        
+//        frame.origin.y = 64;
+//        
+//        backgoundView.frame = frame;
+//        
+//        [self.view addSubview:backgoundView];
+//        
+//    } else{
+//        
+//        
+//        CGRect frame = backgoundView.frame;
+//        
+//        frame.origin.y = -60;
+//        
+//        backgoundView.frame = frame;
+//        
+//        [_tableView addSubview:backgoundView];
+//        
+//        
+//        CGRect bgImageFrame = headImgView.frame;
+//
+//        /**
+//         *  headerview 即将离开 self.view 跟随 tableview
+//         */
+//
+//        if (bgImageFrame.origin.y > -60 - kHeadImageHeight) {
+//            CHLog(@"bgImageFrame.origin.y  ------ %f ",bgImageFrame.origin.y);
+//
+//            bgImageFrame.origin.y = -60 - kHeadImageHeight;
+//            headImgView.frame = bgImageFrame;
+//            
+//            [_tableView addSubview:headImgView];
+//        }
+//
+//
+//    }
+    
 }
-
-
 
 
 //改变图片透明度

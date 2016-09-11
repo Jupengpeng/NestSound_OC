@@ -5,7 +5,7 @@
 platform :ios, '8.0'
 target 'NestSound' do
 pod 'Masonry'
-pod 'SDWebImage'
+pod 'SDWebImage', '~> 3.8.2'
 pod 'AFNetworking','~>2.6.3'
 pod 'MBProgressHUD','~> 1.0.0'
 pod 'SVPullToRefresh'
