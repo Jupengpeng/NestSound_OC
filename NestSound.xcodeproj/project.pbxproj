@@ -238,6 +238,7 @@
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
+		B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */; };
 		B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966221D727F90005D3724 /* NSObject+YYModel.m */; };
 		B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966241D727F90005D3724 /* YYClassInfo.m */; };
 		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
@@ -873,6 +874,8 @@
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		B89CF2AA1D845A5B00F4D8FD /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		B8B966211D727F90005D3724 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
 		B8B966221D727F90005D3724 /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
 		B8B966231D727F90005D3724 /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
@@ -1548,6 +1551,7 @@
 		2DFB67261CC1E75900DA24DA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				B89CF2A91D845A5B00F4D8FD /* FXBlurView */,
 				B80C07731D757F470032BBCD /* NSImagePicker */,
 				B801F0C71D732F0300DD7949 /* GPUImage */,
 				B8B966201D727F90005D3724 /* YYModel */,
@@ -1938,6 +1942,15 @@
 				B80C86491D42930C00B22855 /* record.h */,
 			);
 			name = Problem;
+			sourceTree = "<group>";
+		};
+		B89CF2A91D845A5B00F4D8FD /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				B89CF2AA1D845A5B00F4D8FD /* FXBlurView.h */,
+				B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */,
+			);
+			path = FXBlurView;
 			sourceTree = "<group>";
 		};
 		B8B966201D727F90005D3724 /* YYModel */ = {
@@ -3294,6 +3307,7 @@
 				94456D4E1D5185A60088385F /* NSTextField.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
+				B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */,
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */,
 				697F7F2B1D655CB400F7EBCC /* NSActivityJoinerListCell.m in Sources */,
