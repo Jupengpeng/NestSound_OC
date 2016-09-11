@@ -17,6 +17,14 @@
 - (UIImage *)scaleFillToSize:(CGSize)size;
 
 + (UIImage *)imageWithRenderColor:(UIColor *)color renderSize:(CGSize)size;
+/**
+ *  rgb 值创建图片
+ */
++ (UIImage*) createImageWithColor: (UIColor*) color;
+/**
+改变图片size
+ */
++ (UIImage *)image:(UIImage*)image byScalingToSize:(CGSize)targetSize;
 
 + (UIImage *)opaqueImageWithRenderColor:(UIColor *)color renderSize:(CGSize)size;
 

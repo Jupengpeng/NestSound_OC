@@ -264,8 +264,9 @@ static NSString *ID3 = @"cell3";
                     UIImage *originalImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userData.userDataModel.userModel.bgPic];
                     NSLog(@"%@",originalImage);
                     if (originalImage) {
-                        headImgView.image = originalImage;
                         self.bgImage = originalImage;
+
+                        headImgView.image = self.bgImage;
 
                     }else{
                         [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -273,8 +274,9 @@ static NSString *ID3 = @"cell3";
                             /**
                              *  缓存背景图片到本地
                              */
-                            headImgView.image = image;
                             self.bgImage = image;
+
+                            headImgView.image = self.bgImage;
                         }];
                     }
                     if (self.who == Other) {
@@ -286,6 +288,8 @@ static NSString *ID3 = @"cell3";
                              */
 //                            [NSTool saveImage:image withName:@"backgroundImage.png"];
                             self.bgImage = image;
+
+                            headImgView.image = self.bgImage;
 
                             
                         }];
@@ -482,9 +486,12 @@ static NSString *ID3 = @"cell3";
         /**
          *  背景图片添加点击事件
          */
-
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+
+
+        
         headImgView.userInteractionEnabled = YES;
+
         [headImgView addGestureRecognizer:tap];
         
 
@@ -678,8 +685,31 @@ static NSString *ID3 = @"cell3";
             
             NSData *imageData = [NSData dataWithContentsOfFile:photoPath];
             UIImage *image = [UIImage imageWithContentsOfFile:photoPath];
-            NSData *data = UIImageJPEGRepresentation(image, 0.3);
-            self.bgImage = image;
+            
+            //修改size
+            UIImage *scaledImage = [UIImage image:image  byScalingToSize:CGSizeMake(ScreenWidth * 2, kHeadImageHeight * 2)];
+
+            /**
+             *  压缩上传
+             *
+             *  @param image 原图
+             *  @param 0.3   压缩系数
+             *
+             *  @return 压缩二进制
+             */
+            NSData *data =  UIImageJPEGRepresentation(scaledImage, 1);
+            UIImage *compressImage = scaledImage;
+            
+            for (NSInteger i = 0; i < 5; i ++) {
+                if (data.length < 200000) {
+                    break;
+                }
+                data = UIImageJPEGRepresentation(compressImage, 0.8);
+                compressImage =[UIImage imageWithData:data];
+//                NSLog(@"%lu,/n%@",(unsigned long)data.length,compressImage);
+            }
+            
+            self.bgImage = compressImage;
             NSLog(@"imageData %ld data %ld",imageData.length,data.length);
             [upManager putData:data key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 wSelf.imageTitleStr = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
@@ -744,8 +774,6 @@ static NSString *ID3 = @"cell3";
     
     
     [NSTool saveImage:backgroundImage withName:@"backgroundImage.png"];
-    
-    
     
     
 //    [self dismissViewControllerAnimated:YES completion:^{
@@ -849,21 +877,18 @@ static NSString *ID3 = @"cell3";
 
 
     }
-    UIImage *headerImage ;
-    if (self.bgImage) {
-        headerImage = self.bgImage;
-    }else{
-        headerImage = kDefaultImage;
-    }
     //    UIImage *blurimage1 = [self.bgImage applyLightEffectWithAlpha:alpha];
     
     if (alpha <= 0) {
-        headImgView.image = headerImage;
-    } else if(alpha < 1 && alpha>0){
-        [headImgView setupBlurImageWithBlurRadius:alpha image:headerImage];
+        headImgView.blurAlpha = 0;
+    } else if(alpha <= 1 && alpha>0){
+        headImgView.blurAlpha = alpha;
     } else{
+        
     }
 }
+
+
 
 
 //改变图片透明度
@@ -1427,8 +1452,12 @@ static NSString *ID3 = @"cell3";
 }
 
 
-- (UIImage *)bgImage{
-    return _bgImage;
+- (void)setBgImage:(UIImage *)bgImage{
+    NSData *data = UIImageJPEGRepresentation(bgImage, 1);
+    UIImage *inputImage = [UIImage imageWithData:data];
+    NSLog(@"%ld",data.length);
+    _bgImage = inputImage;
+    
 }
 
 @end

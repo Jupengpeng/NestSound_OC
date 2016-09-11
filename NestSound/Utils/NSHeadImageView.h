@@ -10,7 +10,9 @@
 
 @interface NSHeadImageView : UIImageView
 
-- (void)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image;
+@property (nonatomic,assign) CGFloat blurAlpha;
+
+- (UIImage *)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image;
 
 
 @end

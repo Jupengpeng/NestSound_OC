@@ -26,8 +26,15 @@ UIWebViewDelegate
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    //    [self configureUIAppearance];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self configureUIAppearance];
+
+    NSLog(@"%@",self.h5Url);
 }
 
 #pragma mark configureUIAppearance
