@@ -132,7 +132,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        
+        [commentTableView.pullToRefreshView stopAnimating];
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:commentUrl]) {

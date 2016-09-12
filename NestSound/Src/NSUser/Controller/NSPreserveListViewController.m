@@ -8,7 +8,7 @@
 
 #import "NSPreserveListViewController.h"
 
-@interface NSPreserveListViewController ()
+@interface NSPreserveListViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -16,9 +16,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self configurePreserveListView];
 }
+- (void)configurePreserveListView {
+    
+    self.title = @"保全列表";
+    
+    UITableView *preserveTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    
+    preserveTab.dataSource = self;
+    
+    preserveTab.delegate = self;
+    
+    [self.view addSubview:preserveTab];
+}
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 4;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    return nil;
+}
+#pragma mark - UITableViewDelegate
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

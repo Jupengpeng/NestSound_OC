@@ -25,6 +25,7 @@
     
     if (self == [super initWithFrame:frame]) {
         
+        self.image = kDefaultImage;
         
         self.userInteractionEnabled = YES;
         //设置图片的模式

@@ -7,7 +7,11 @@
 //
 
 #import "NSBaseViewController.h"
-
+typedef  NS_ENUM(NSInteger,UserMessageType){
+    
+    EditMessageType,
+    ShowMessageType
+};
 @interface NSUserMessageViewController : NSBaseViewController
-
+-(instancetype)initWithUserMessageType:(UserMessageType)messageType_;
 @end

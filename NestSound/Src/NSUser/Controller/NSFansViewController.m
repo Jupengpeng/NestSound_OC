@@ -133,7 +133,6 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                     CHLog(@"关注");
                 }
                 
-                
             }
             if (fansAry.count == 0) {
                 emptyImageView.hidden = NO;
@@ -154,21 +153,6 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
 #pragma mark
 -(void)configureUIAppearance
 {
-    
-    //emptyImageView
-    emptyImageView = [[UIImageView alloc] init];
-    [self.view addSubview:emptyImageView];
-    emptyImageView.hidden = YES;
-    //nav
-    if (isFans) {
-        self.title = @"粉丝";
-        emptyImageView.image = [UIImage imageNamed:@"2.0_noFans_bk"];
-    }else{
-        self.title = @"关注";
-        emptyImageView.image = [UIImage imageNamed:@"2.0_noFocus_bk"];
-    }
-    
-    
     //fansTableView
     fansTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     fansTableView.dataSource = self;
@@ -199,8 +183,24 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         }
     }];
     
-    
     fansTableView.showsInfiniteScrolling = NO;
+    
+    //emptyImageView
+    emptyImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    
+    if (isFans) {
+        self.title = @"粉丝";
+        emptyImageView.image = [UIImage imageNamed:@"2.0_noFans_bk"];
+    }else{
+        self.title = @"关注";
+        emptyImageView.image = [UIImage imageNamed:@"2.0_noFocus_bk"];
+    }
+    
+    emptyImageView.hidden = YES;
+    
+    [self.view addSubview:emptyImageView];
+    
+    //nav
     
 }
 

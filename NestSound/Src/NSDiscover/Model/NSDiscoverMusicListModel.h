@@ -7,7 +7,7 @@
 //
 
 #import "NSBaseModel.h"
-#import "NSIndexModel.h"
+#import "NSMusicModel.h"
 
 
 
@@ -15,12 +15,12 @@
 @interface NSDiscoverHotList : NSBaseModel
 
 @property (nonatomic,assign) int totalCount;
-@property (nonatomic,strong) NSArray <NSRecommend> * hotList;
+@property (nonatomic,strong) NSArray <NSMusicModel> * hotList;
 @end
 
 @interface NSDiscoverNewList : NSBaseModel
 @property (nonatomic,assign) int totalCount;
-@property (nonatomic,strong) NSArray <NSRecommend> * songList;
+@property (nonatomic,strong) NSArray <NSMusicModel> * songList;
 @end
 
 

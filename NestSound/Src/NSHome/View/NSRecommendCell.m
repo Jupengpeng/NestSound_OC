@@ -131,7 +131,7 @@
 
 #pragma mark setter & getter
 
--(void)setRecommend:(NSRecommend *)recommend
+-(void)setRecommend:(NSMusicModel *)recommend
 {
 
     _recommend = recommend;
