@@ -49,6 +49,7 @@
 #import "YYModel.h"
 #import "YYCache.h"
 #import "SDCycleScrollView.h"
+#import "SDWebImageManager.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;
@@ -252,5 +253,5 @@ extern NSString *port;
  */
 static NSString *const ChangePlayItemNotification = @"changePlayItem";
 static NSString *const PauseCurrentItemNotification = @"pauseCurrentItem";
-
+static NSString *const kHiddenTabBarTipViewNotification = @"kHiddenTabBarTipView";
 #endif /* NestSound_PrefixHeader_pch */

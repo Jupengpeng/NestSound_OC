@@ -310,6 +310,7 @@ UITableViewDataSource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(1)];
     NSUInteger section = indexPath.section;
     NSMessageListViewController * messageListVC;
     switch (section) {

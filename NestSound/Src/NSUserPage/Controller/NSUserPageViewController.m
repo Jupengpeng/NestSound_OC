@@ -232,6 +232,7 @@ static NSString *ID3 = @"cell3";
                         userNameLable.text = userData.userDataModel.userModel.nickName;
                         signatureLabel.text = userData.userDataModel.userModel.signature;
                         focusLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.focusNum];
+                        fansLLView.topLabel.text = @"123456";
                         fansLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.fansNum];
                     }
                     headerUrl = userData.userDataModel.userModel.headerUrl;
@@ -439,9 +440,9 @@ static NSString *ID3 = @"cell3";
     
     _tableView.showsVerticalScrollIndicator = NO;
     
-    WS(wSelf);
     [self.view addSubview:_tableView];
     
+    WS(wSelf);
     [_tableView addInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
             return ;
@@ -449,14 +450,6 @@ static NSString *ID3 = @"cell3";
             [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
         }
     }];
-    //loadingMore
-    //    [_tableView addDDInfiniteScrollingWithActionHandler:^{
-    //        if (!wSelf) {
-    //            return ;
-    //        }else{
-    //            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
-    //        }
-    //    }];
     
     _tableView.showsInfiniteScrolling = YES;
     
@@ -480,7 +473,6 @@ static NSString *ID3 = @"cell3";
     //
     //    [headImgView addSubview:toolbar];
     
-    
 
     if (self.who == Myself) {
         /**
@@ -488,8 +480,6 @@ static NSString *ID3 = @"cell3";
          */
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 
-
-        
         headImgView.userInteractionEnabled = YES;
 
         [headImgView addGestureRecognizer:tap];
@@ -522,6 +512,10 @@ static NSString *ID3 = @"cell3";
     
     focusLLView = [[NSTopLBottomLView alloc] init];
     
+//    focusLLView.tipView.hidden = YES;
+    
+    focusLLView.tipView.backgroundColor = [UIColor clearColor];
+    
     focusLLView.bottomLabel.text = @"关注";
     
     [headImgView addSubview:focusLLView];
@@ -553,7 +547,6 @@ static NSString *ID3 = @"cell3";
 //        make.right.equalTo(focusLLView.mas_left).with.offset(-4.7);
         make.right.equalTo(focusLLView.mas_left).with.offset(-10);
 
-        
         make.width.mas_equalTo(0.6);
         
         make.height.mas_equalTo(30);
@@ -564,6 +557,10 @@ static NSString *ID3 = @"cell3";
     
     fansLLView = [[NSTopLBottomLView alloc] init];
     
+//    fansLLView.tipView.hidden = NO;
+    
+    fansLLView.tipView.backgroundColor = [UIColor redColor];
+    
     fansLLView.bottomLabel.text = @"粉丝";
     
     [headImgView addSubview:fansLLView];
@@ -572,7 +569,6 @@ static NSString *ID3 = @"cell3";
         
         make.bottom.equalTo(headImgView.mas_bottom).with.offset(-5);
         
-//        make.right.equalTo(focusLLView.mas_left).with.offset(-10);
         make.right.equalTo(midLineView.mas_left).with.offset(-10);
 
         make.height.mas_equalTo(32);
@@ -710,7 +706,7 @@ static NSString *ID3 = @"cell3";
             }
             
             self.bgImage = compressImage;
-            NSLog(@"imageData %ld data %ld",imageData.length,data.length);
+            NSLog(@"imageData %ld data %ld",(unsigned long)imageData.length,(unsigned long)data.length);
             [upManager putData:data key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 wSelf.imageTitleStr = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
                 NSString *totalStr = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",wSelf.imageTitleStr];

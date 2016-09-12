@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C2F9A7D1D8687600045A2EC /* NSPreserveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */; };
+		0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */; };
+		0C2F9A831D86A63A0045A2EC /* NSPreserveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */; };
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
 		0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */; };
 		0CCC19111D642D6A009E9478 /* NSDraftListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19101D642D6A009E9478 /* NSDraftListViewController.m */; };
@@ -257,6 +260,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C2F9A7B1D8687600045A2EC /* NSPreserveListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveListViewController.h; sourceTree = "<group>"; };
+		0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveListViewController.m; sourceTree = "<group>"; };
+		0C2F9A7E1D8688060045A2EC /* NSUserMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserMessageViewController.h; sourceTree = "<group>"; };
+		0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserMessageViewController.m; sourceTree = "<group>"; };
+		0C2F9A811D86A63A0045A2EC /* NSPreserveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTableViewCell.h; sourceTree = "<group>"; };
+		0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTableViewCell.m; sourceTree = "<group>"; };
 		0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRhymeViewController.h; sourceTree = "<group>"; };
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
 		0CCC190C1D62EEF0009E9478 /* NSSoundEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSoundEffectViewController.h; sourceTree = "<group>"; };
@@ -1306,6 +1315,10 @@
 				945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */,
 				94626B331D5035350002CA02 /* NSModifyPwdViewController.h */,
 				94626B341D5035350002CA02 /* NSModifyPwdViewController.m */,
+				0C2F9A7B1D8687600045A2EC /* NSPreserveListViewController.h */,
+				0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */,
+				0C2F9A7E1D8688060045A2EC /* NSUserMessageViewController.h */,
+				0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1342,6 +1355,8 @@
 				94456D501D51C1390088385F /* NSLoginView.m */,
 				94456D521D51EA7E0088385F /* NSRegisterView.h */,
 				94456D531D51EA7E0088385F /* NSRegisterView.m */,
+				0C2F9A811D86A63A0045A2EC /* NSPreserveTableViewCell.h */,
+				0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3288,6 +3303,7 @@
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
 				2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
+				0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
 				2AB300701D1699ED00938F1C /* NSTunMusicModel.m in Sources */,
@@ -3316,6 +3332,7 @@
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
 				0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */,
+				0C2F9A831D86A63A0045A2EC /* NSPreserveTableViewCell.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
 				2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */,
@@ -3383,6 +3400,7 @@
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
 				946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */,
+				0C2F9A7D1D8687600045A2EC /* NSPreserveListViewController.m in Sources */,
 				2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,

@@ -29,7 +29,7 @@
     
     _topLabel.textAlignment = NSTextAlignmentCenter;
     
-    _topLabel.font = [UIFont systemFontOfSize:12];
+    _topLabel.font = [UIFont systemFontOfSize:13];
     
     [self addSubview:_topLabel];
     
@@ -37,6 +37,26 @@
         
         make.top.left.right.equalTo(self);
                 
+    }];
+    
+    self.tipView = [UIView new];
+    
+//    _tipView.hidden = YES;
+    
+    _tipView.backgroundColor = [UIColor redColor];
+    
+    _tipView.layer.cornerRadius = 3;
+    
+    [self addSubview:_tipView];
+    
+    [self.tipView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.right.equalTo(_topLabel.mas_right).offset(2);
+        
+        make.top.equalTo(_topLabel.mas_top).offset(0);
+        
+        make.size.mas_offset(CGSizeMake(6, 6));
+        
     }];
     
     self.bottomLabel = [UILabel new];
@@ -47,7 +67,7 @@
     
     _bottomLabel.textAlignment = NSTextAlignmentCenter;
     
-    _bottomLabel.font = [UIFont systemFontOfSize:12];
+    _bottomLabel.font = [UIFont systemFontOfSize:13];
     
     [self addSubview:_bottomLabel];
     

@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 
 
-@class NSRecommend;
+@class NSMusicModel;
 @class NSNew;
 @interface NSRecommendCell : UICollectionViewCell
 
 
-@property (nonatomic,strong) NSRecommend * recommend;
+@property (nonatomic,strong) NSMusicModel * recommend;
 
 @property (nonatomic,strong) NSNew * songNew;
 @property (nonatomic,assign) BOOL isMusic;

@@ -116,10 +116,13 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [application setApplicationIconBadgeNumber:0];
+    [application cancelAllLocalNotifications];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -159,8 +162,18 @@
     [JPUSHService handleRemoteNotification:userInfo];
     
     completionHandler(UIBackgroundFetchResultNewData);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
 }
-
+- (void)application:(UIApplication *)application
+didReceiveLocalNotification:(UILocalNotification *)notification {
+    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
+}
+//推送失败
+- (void)application:(UIApplication *)application
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
+}
 #pragma mark -userHeadSet
 - (void)audioRouteChangeListenerCallback:(NSNotification*)notification
 {
@@ -190,6 +203,12 @@
             break;
     }
 }
-
+// 接收到内存警告的时候调用
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    // 停止所有的下载
+    [[SDWebImageManager sharedManager] cancelAll];
+    // 删除缓存
+    [[SDWebImageManager sharedManager].imageCache clearMemory];
+}
 
 @end

@@ -7,20 +7,20 @@
 //
 
 #import "NSBaseModel.h"
-#import "NSIndexModel.h"
+#import "NSMusicModel.h"
 
 
 
 @interface NSLyricListModel : NSBaseModel
 
 
-@property (nonatomic,strong) NSArray <NSRecommend> * lyricList;
+@property (nonatomic,strong) NSArray <NSMusicModel> * lyricList;
 
 @end
 
 @interface NSHotLyricListModel : NSBaseModel
 
-@property (nonatomic,strong) NSArray <NSRecommend> * hotLyricList;
+@property (nonatomic,strong) NSArray <NSMusicModel> * hotLyricList;
 @end
 
 @interface NSDicoverLyricListModel : NSBaseModel

@@ -96,7 +96,7 @@ static NSString * const musicSayCellId = @"musicSayCellId";
     //hide infitView
     musicSayList.showsInfiniteScrolling = NO;
     
-    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMoreMusicSay_bk"]];
     
     emptyImage.centerX = ScreenWidth/2;
     

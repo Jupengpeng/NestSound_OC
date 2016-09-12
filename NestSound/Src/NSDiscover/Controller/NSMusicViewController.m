@@ -146,7 +146,7 @@ static NSString * const headerView = @"HeaderView";
                     
                 }else{
                     hotSongList = [NSMutableArray arrayWithArray:musicListModel.HotList.hotList];
-                    for (NSRecommend *model in hotSongList) {
+                    for (NSMusicModel *model in hotSongList) {
                         [self.hotItemIdList addObject:@(model.itemId)];
                     }
                 }
@@ -154,7 +154,7 @@ static NSString * const headerView = @"HeaderView";
                     
                 }else{
                     newSongList = [NSMutableArray arrayWithArray:musicListModel.SongList.songList];
-                    for (NSRecommend *model in newSongList) {
+                    for (NSMusicModel *model in newSongList) {
                         [self.latestItemIdList addObject:@(model.itemId)];
                     }
                 }
@@ -249,7 +249,7 @@ static NSString * const headerView = @"HeaderView";
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-    NSRecommend * music;
+    NSMusicModel * music;
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     if (section == 0) {
        

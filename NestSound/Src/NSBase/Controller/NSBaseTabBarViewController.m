@@ -23,7 +23,9 @@
 #import "NSLoginViewController.h"
 
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
-
+{
+    UIView *redDotView;
+}
 @end
 
 @implementation NSBaseTabBarViewController
@@ -33,6 +35,7 @@
     
     [self setupUI];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hiddenTabBarTipView:) name:kHiddenTabBarTipViewNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -41,7 +44,14 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 }
-
+- (void)hiddenTabBarTipView:(NSNotification *)noti {
+    if ([noti.object intValue]) {
+        redDotView.hidden = YES;
+    } else {
+        redDotView.hidden = NO;
+    }
+    
+}
 - (void)setupUI {
     
     NSPlusTabBar *tabBar = [[NSPlusTabBar alloc] init];
@@ -74,7 +84,15 @@
     userPageVc.who = Myself;
     [self addChildViewController:userPageVc imageName:@"2.0_my_normal" selectedImageName:@"2.0_my_selected" title:@"我的"];
     
-    
+    redDotView = [[UIView alloc] init];
+    redDotView.backgroundColor = [UIColor redColor];
+    redDotView.layer.cornerRadius = 4;
+    redDotView.hidden = YES;
+    CGRect tabFrame = self.tabBar.frame;
+    CGFloat x = ceilf(0.72 * tabFrame.size.width);
+    CGFloat y = ceilf(0.12 * tabFrame.size.height);
+    redDotView.frame = CGRectMake(x, y, 8, 8);
+    [self.tabBar addSubview:redDotView];
 }
 
 
@@ -91,7 +109,8 @@
                                               selectedImage:[selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [childCtrl.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor hexColorFloat:@"ffd00b"]} forState:UIControlStateSelected];
     childCtrl.tabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-//    childCtrl.tabBarItem.
+//    childCtrl.tabBarItem.badgeValue
+    
     NSBaseNavigationController *nav = [[NSBaseNavigationController alloc] initWithRootViewController:childCtrl];
     
     nav.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
@@ -162,7 +181,9 @@
     
 }
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end
 
 

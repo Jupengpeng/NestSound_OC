@@ -12,6 +12,8 @@
 #import "NSUserFeedbackViewController.h"
 #import "NSAboutUsViewController.h"
 #import "NSModifyPwdViewController.h"
+#import "NSPreserveListViewController.h"
+#import "NSUserMessageViewController.h"
 @interface NSUserViewController ()
 <
 UITableViewDataSource,
@@ -103,7 +105,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 1 ? 4: 1;
+    return section == 1 ? 6: 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,6 +121,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     if (section == 0) {
         if (!userProfileCell ) {
             userProfileCell = [[NSUserProfileCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:UserProfileCellIdefity];
+            userProfileCell.selectionStyle = UITableViewCellSelectionStyleNone;
             userProfileCell.tag = 125;
         }
         NSMutableDictionary * userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
@@ -136,7 +139,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         }
         
         return userProfileCell;
-    }else if (section == 1){
+    } else if (section == 1){
         
         if (!settingCell) {
             settingCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SettingCellIdefity];
@@ -170,6 +173,14 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         UILabel * valueLabel = (UILabel *)[settingCell viewWithTag:100];
         UISwitch * not = (UISwitch *)[settingCell viewWithTag:101];
         if (row == 0) {
+            
+            settingCell.textLabel.text = @"个人信息";
+            
+        } else if (row == 1) {
+            
+            settingCell.textLabel.text = @"保全信息";
+            
+        } else if (row == 2) {
             settingCell.accessoryType = UITableViewCellAccessoryNone;
             index = indexPath;
             settingCell.textLabel.text = @"清理缓存";
@@ -177,23 +188,22 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             valueLabel.hidden = NO;
             valueLabel.text = [Memory getCacheSize];
             
-        }else if (row == 1){
+        }else if (row == 3){
             settingCell.textLabel.text = @"消息通知";
             //LocalizedStr(@"prompt_newMessageNotifation");
             settingCell.accessoryType = UITableViewCellAccessoryNone;
             
             not.hidden = NO;
             
-        } else if (row == 2) {
+        } else if (row == 4) {
             //            settingCell.textLabel.text = @"关于我们";
             //             LocalizedStr(@"prompt_rating");
             
             settingCell.textLabel.text = @"修改密码";
             
-        } else if (row == 3){
+        } else if (row == 5){
             
             settingCell.textLabel.text = @"关于我们";
-            //            settingCell.textLabel.text = @"修改密码";
             
         }
 
@@ -210,12 +220,9 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         
         return loginOutCell;
         
-        
     }
     return settingCell;
 }
-
-
 
 #pragma mark tableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -228,16 +235,24 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         
     }else if (section == 1){
         if (row == 0) {
+            NSUserMessageViewController *userMessageVC = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
+            [self.navigationController pushViewController:userMessageVC animated:YES];
+            
+        } else if (row == 1) {
+            NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
+            [self.navigationController pushViewController:preserveListVC animated:YES];
+            
+        } else if (row == 2) {
             [Memory clearCache];
             [[NSToastManager manager] showtoast:@"已成功清理缓存"];
             UITableViewCell * settingCell = [settingPageTable cellForRowAtIndexPath:indexPath];
             UILabel * cacheSize = (UILabel *)[settingCell viewWithTag:100];
             cacheSize.text = [Memory getCacheSize];
-        } else if (row == 2){
+        } else if (row == 4){
             
             NSModifyPwdViewController *modifyPwdVC = [[NSModifyPwdViewController alloc] init];
             [self.navigationController pushViewController:modifyPwdVC animated:YES];
-        } else if (row == 3){
+        } else if (row == 5){
             NSAboutUsViewController *aboutUsVC = [[NSAboutUsViewController alloc] init];
             [self.navigationController pushViewController:aboutUsVC animated:YES];
         }else {

@@ -92,7 +92,7 @@
              @"authorName":@"author",
              @"itemId":@"itemid",
              @"playCount":@"looknum",
-             @"workName":@"title",
+             @"workName":@"name",
              @"type":@"status"
              };
 }
