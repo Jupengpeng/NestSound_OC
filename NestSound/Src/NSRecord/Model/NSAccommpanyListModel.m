@@ -25,6 +25,17 @@
 @end
 
 @implementation NSAccommpanyListModel
+
+- (instancetype)init{
+    if (self == [super init]) {
+        self.simpleList = [[NSSimpleListModel alloc]init];
+        self.simpleCategoryList = [[NSSimpleCategoryListModel alloc]init];
+
+
+    }
+    return self;
+}
+
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
     return @{@"accommpanyList":@"data",
