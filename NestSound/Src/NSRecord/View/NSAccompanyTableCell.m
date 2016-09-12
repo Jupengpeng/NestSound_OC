@@ -36,8 +36,8 @@
 -(void)configureUIAppearance
 {
 
-    self.contentView.backgroundColor = [UIColor hexColorFloat:@"f0f0f0"];
-    self.contentView.layer.cornerRadius = 10;
+//    self.contentView.backgroundColor = [UIColor hexColorFloat:@"f0f0f0"];
+//    self.contentView.layer.cornerRadius = 10;
     
     //titlePage
     titlePage = [[UIImageView alloc] init];
@@ -45,6 +45,8 @@
     titlePage.contentMode =  UIViewContentModeScaleAspectFill;
     titlePage.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     titlePage.clipsToBounds  = YES;
+    titlePage.layer.cornerRadius = 3;
+
     [self.contentView addSubview:titlePage];
     
     UIButton *btn = [[UIButton alloc] init];
@@ -68,20 +70,20 @@
     //workNameLabel
     workNameLabel = [[UILabel alloc] init];
     workNameLabel.numberOfLines = 0;
-    workNameLabel.font = [UIFont systemFontOfSize:15];
+    workNameLabel.font = [UIFont systemFontOfSize:14];
     workNameLabel.textColor = [UIColor hexColorFloat:@"181818"];
     [self.contentView addSubview:workNameLabel];
 
     //authorNameLabel
     authorNameLabel = [[UILabel alloc] init];
-    authorNameLabel.font = [UIFont systemFontOfSize:11];
+    authorNameLabel.font = [UIFont systemFontOfSize:12];
     authorNameLabel.numberOfLines = 0;
     authorNameLabel.textColor = [UIColor hexColorFloat:@"666666"];
     [self.contentView addSubview:authorNameLabel];
     
     //useTimeLabel
     useTimeLabel = [[UILabel alloc] init];
-    useTimeLabel.font = [UIFont systemFontOfSize:11];
+    useTimeLabel.font = [UIFont systemFontOfSize:12];
     useTimeLabel.numberOfLines = 0;
     useTimeLabel.textColor = [UIColor hexColorFloat:@"666666"];
     [self.contentView addSubview:useTimeLabel];
@@ -93,7 +95,9 @@
     //constraints
     
     [titlePage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.contentView);
+        make.top.equalTo(self.contentView).offset(10);
+        make.left.equalTo(self.contentView).offset(15);
+        make.bottom.equalTo(self.contentView).offset(-10);
         make.width.mas_equalTo(12*ScreenWidth/25);
     }];
     
@@ -106,22 +110,22 @@
     
     [workNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titlePage.mas_right).with.offset(10);
-        make.right.equalTo(self.contentView.mas_right).with.offset(-10);
-        make.top.equalTo(self.contentView.mas_top).with.offset(5);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-15);
+        make.top.equalTo(self.contentView.mas_top).with.offset(15);
         make.bottom.equalTo(authorNameLabel.mas_top).with.offset(-5);
     }];
     
     [authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(workNameLabel.mas_left);
-        make.right.equalTo(self.contentView.mas_right).with.offset(-10);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-15);
         make.top.equalTo(workNameLabel.mas_bottom).with.offset(5);
         make.bottom.equalTo(useTimeLabel.mas_top).with.offset(-5);
     }];
     [useTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(workNameLabel.mas_left);
-        make.right.equalTo(self.contentView.mas_right).with.offset(-10);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-15);
         make.top.equalTo(authorNameLabel.mas_bottom).with.offset(5);
-        make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
+        make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-20);
     }];
     [self.btn mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerX.centerY.equalTo(titlePage);
@@ -137,7 +141,7 @@
     _accompanyModel = accompanyModel;
     
     workNameLabel.text = _accompanyModel.title;
-    authorNameLabel.text = [NSString stringWithFormat:@"%@ %@",_accompanyModel.author, [NSTool stringFormatWithTimeLong:_accompanyModel.mp3Times]];
+    authorNameLabel.text = [NSString stringWithFormat:@"作者:%@ %@",_accompanyModel.author, [NSTool stringFormatWithTimeLong:_accompanyModel.mp3Times]];
     useTimeLabel.text = [NSString stringWithFormat:@"使用次数:%d",_accompanyModel.useTime];
     [titlePage setDDImageWithURLString:_accompanyModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
 }

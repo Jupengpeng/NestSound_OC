@@ -15,61 +15,269 @@
 #import "NSAccompanyCategoryCell.h"
 #import "NSAccompanyCategoryViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "NSAccompanyTableCell.h"
+#import "NSAccommpanyListModel.h"
+#import "NSAccompanyListFilterView.h"
 
-@interface NSAccompanyListViewController ()
-<
-UICollectionViewDataSource,
-UICollectionViewDelegate
->
+
+static NSString * const accompanyData   = @"accompanyData";
+static NSString * const simpleSingle  = @"simpleSingle";
+static NSString * const accompanyCategory = @"accompanyCategory";
+@interface NSAccompanyListViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
+    int _currentPage;
     
-    UICollectionView *accompanyCollection;
-    int currentPage;
-    NSString * newUrl;
-    NSString * hotUrl;
-    YYCache *cache;
+    NSInteger _sortType;
     
+    
+    long _classId;
+    
+    NSString *_className;
+    
+    NSString *_accompanyListURL;
+    NSString *_accompanyCategoryListUrl;
+    
+    YYCache *_cache;
 }
-
+@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *categoryAryList;
 @property (nonatomic, strong) AVPlayer *player;
-
 @property (nonatomic, strong) UIButton *button;
 
+
+/**
+ *  清唱
+ */
+@property (nonatomic,strong) NSSimpleSingModel *simpleSingModel;
+/**
+ *  类型筛选器
+ */
+@property (nonatomic,strong) NSAccompanyListFilterView *filterView;
+
+
+/**
+ *  缓存
+ */
 @property (nonatomic, strong) NSMutableArray * simpleSingAry;
 
 @property (nonatomic, strong) NSMutableArray * accompanyCategoryAry;
 
-//@property (nonatomic, strong) YYCache *cache;
 @end
 
+static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 
-static NSString * const accompanyCellIditify = @"NSAccompanyCollectionCell";
-static NSString * const accompanyData   = @"accompanyData";
-static NSString * const simpleSingle  = @"simpleSingle";
-static NSString * const accompanyCategory = @"accompanyCategory";
 @implementation NSAccompanyListViewController
 
--(void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    cache = [YYCache cacheWithName:accompanyData];
-    self.simpleSingAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:simpleSingle]];
-    self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:accompanyCategory]];
     
-    [self configureUIAppearance];
-    [self fetchAccompanyListDataWithIsLoadingMore:NO];;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
+                                                 name:@"pausePlayer"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer) name:AVAudioSessionInterruptionNotification object:nil];
+    
+
+    [self getCache];
+    [self setupUI];
+    [self fetchAccompanyListData];
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.filterView removeFromSuperview];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+//    if (self.categoryAryList.count == 0) {
+//        [self.tableView setContentOffset:CGPointMake(0, -60) animated:YES];
+//        [self.tableView performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
+//        
+//    }
+}
+
+/**
+ *  获取缓存
+ */
+- (void)getCache{
+    _cache = [YYCache cacheWithName:accompanyData];
+    self.simpleSingAry = [NSMutableArray arrayWithArray:(NSArray *)[_cache objectForKey:simpleSingle]];
+    self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[_cache objectForKey:accompanyCategory]];
+    
+    if (self.accompanyCategoryAry) {
+        NSAccommpanyListModel* listModel = [[NSAccommpanyListModel alloc]init];;
+        listModel.simpleCategoryList.simpleCategory = [self.accompanyCategoryAry mutableCopy];
+        listModel.simpleList.simpleSingList = self.simpleSingAry.firstObject;
+        [self setupHeaderViewWithSimpleSing:listModel.simpleList.simpleSingList];
+        [self setupFilterViewUIWith:listModel];
+    }
+}
+- (void)setupUI{
+    
+    self.title = @"原唱伴奏";
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     
+    UIImageView *shaixuanView  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 16)];
+    shaixuanView.userInteractionEnabled = YES;
+    shaixuanView.image = [UIImage imageNamed:@"ic_saixuan"];
+    UIButton * btn = [[UIButton alloc] initWithFrame:shaixuanView.frame ];
+    [shaixuanView addSubview:btn];
+    [btn addTarget:self action:@selector(filterClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:shaixuanView];
+    self.navigationItem.rightBarButtonItem = item;
+    
+    
+    [self.view addSubview:self.tableView];
+    WS(weakSelf);
+    [self.tableView addDDPullToRefreshWithActionHandler:^{
+        [weakSelf fetchAccompanyListDataWithIsLoadingMore:NO];
+    }];
+    
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf fetchAccompanyListDataWithIsLoadingMore:YES];
+    }];
+    
+    
 }
 
-- (void)leftClick:(UIBarButtonItem *)barButtonItem {
+- (void)setupFilterViewUIWith:(NSAccommpanyListModel *)accompanyListModel{
     
-    [NSSingleTon viewFrom].viewTag = @"";
+    self.filterView = [[NSAccompanyListFilterView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight) listModel:accompanyListModel];
+    
+    WS(weakSelf);
+    
+    
+    self.filterView.confirmBlock = ^(NSInteger sortIndex,NSInteger categoryIndex,NSSimpleCategoryModel *categoryModel){
+        _classId = categoryModel.categoryId;
+        _sortType = sortIndex;
+        [weakSelf fetchAccompanyListDataWithIsLoadingMore:NO];
+        
+    };
+    //    self.filterView.categoryBlock = ^(NSInteger cateIndex,NSSimpleCategoryModel *categoryModel){
+    //
+    //        _classId = categoryModel.categoryId;
+    //
+    //        [weakSelf fetchAccompanyListDataWithIsLoadingMore:NO];
+    //    };
+    [self.navigationController.view addSubview:self.filterView];
+    
+    /**
+     *  各项初始化城第一个
+     */
+    [self.filterView setOriginalStateWithIndex:0];
+    
+}
+
+
+- (void)setupHeaderViewWithSimpleSing:(NSSimpleSingModel *)simpleSing {
+    CGFloat contentWidth = ScreenWidth - 30;
+    CGFloat contentHeight = contentWidth * 125/345;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, contentHeight + 20)];
+
+    UIButton *contentButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.5, ScreenWidth,  contentHeight + 19)];
+    [contentButton addTarget:self action:@selector(simpleSingClick:) forControlEvents:UIControlEventTouchUpInside];
+    contentButton.backgroundColor = [UIColor whiteColor];
+    [headerView addSubview:contentButton];
+    
+    
+    
+    UIImageView *backImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 9.5, contentWidth, contentHeight)];
+    
+    [backImgView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    
+    backImgView.contentMode =  UIViewContentModeScaleAspectFill;
+    
+    backImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    backImgView.clipsToBounds  = YES;
+    backImgView.layer.cornerRadius = 3.0;
+    [contentButton addSubview:backImgView];
+    
+    [backImgView setDDImageWithURLString:simpleSing.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    
+    self.tableView.tableHeaderView = headerView;
+}
+/**
+ *  清唱
+ *
+ *  @param clickButton <#clickButton description#>
+ */
+- (void)simpleSingClick:(UIButton *)clickButton{
+    NSSimpleSingModel *simpleSing = self.simpleSingModel;
+    if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":[NSNumber numberWithLong:simpleSing.playTimes],@"accompanyUrl":simpleSing.playUrl}];
+    } else {
+        
+        NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:simpleSing.itemID andMusicTime:simpleSing.playTimes andHotMp3:simpleSing.playUrl];
+        [NSSingleTon viewFrom].controllersNum = 2;
+        if (self.aid.length) {
+            writeMusicVC.aid = self.aid;
+            
+        }
+        [self.navigationController pushViewController:writeMusicVC animated:YES];
+        
+    }
+}
+
+- (void)filterClick:(UIButton *)button{
+    [self.filterView showWithCompletion:^(BOOL finished) {
+        
+    }];
+}
+
+
+#pragma mark 播放器方法
+
+//播放结束代理
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    [self pausePlayer];
+    
+}
+
+- (void)playerClick:(UIButton *)btn {
+    
+    btn.selected = !btn.selected;
+    
+    if (btn == self.button) {
+        
+    } else {
+        
+        self.button.selected = NO;
+    }
+    NSAccompanyTableCell * cell = (NSAccompanyTableCell *)btn.superview.superview;
+    
+    if (btn.selected) {
+        
+        if (self.player) {
+            
+            [NSPlayMusicTool pauseMusicWithName:nil];
+            
+            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+            
+        } else {
+            
+            self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+        }
+        
+    } else {
+        
+        [NSPlayMusicTool pauseMusicWithName:nil];
+    }
+    
+    self.button = btn;
+}
+
+
+- (void)pausePlayer {
+    [NSPlayMusicTool pauseMusicWithName:nil];
+    self.button.selected = NO;
+}
+- (void)leftClick:(UIBarButtonItem *)barButtonItem {
     
     [NSPlayMusicTool pauseMusicWithName:nil];
     
@@ -78,35 +286,66 @@ static NSString * const accompanyCategory = @"accompanyCategory";
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-#pragma mark -fetchData
--(void)fetchAccompanyData
-{
-//    if (self.accompanyCategoryAry.count == 0) {
-
-        [accompanyCollection setContentOffset:CGPointMake(0, -60) animated:YES];
-        [accompanyCollection performSelector:@selector(triggerPullToRefresh) withObject:nil afterDelay:0.5];
-//    }
+#pragma mark -fetchAccommpanyListDataIsLoadMore
+/**
+ *  请求伴奏类型列表
+ */
+-(void)fetchAccompanyListData{
+    
+    _currentPage = 1;
+    self.requestType = YES;
+    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",_currentPage]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    _accompanyListURL = [accompanyListURL stringByAppendingString:str];
+    self.requestURL = _accompanyListURL;
     
 }
 
 #pragma mark -fetchAccommpanyListDataIsLoadMore
 -(void)fetchAccompanyListDataWithIsLoadingMore:(BOOL)isLoadingMore{
-
-
+    
     if (!isLoadingMore) {
-        currentPage = 1;
-           self.requestParams = @{kIsLoadingMore :@(NO)};
+        _currentPage = 1;
+        self.requestParams = @{kIsLoadingMore :@(NO)};
     }else{
-        ++currentPage;
+        ++_currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
     self.requestType = YES;
-    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",currentPage]};
+//    NSString *type;
+//    NSDictionary * dic = [NSDictionary dictionary];
+//    if ([_className isEqualToString:@"最新"]) {
+//        type = @"new";
+//    } else if ([_className isEqualToString:@"热门"]) {
+//        type = @"hot";
+//    } else {
+//        type = @"";
+//    }
+    NSString *type;
+    NSDictionary * dic = [NSDictionary dictionary];
+
+    if (_sortType == 0) {
+        type = @"new";
+    }else{
+        type = @"hot";
+    }
+    if (type.length) {
+        dic = @{@"page":[NSString stringWithFormat:@"%d",_currentPage],
+                @"cid":[NSNumber numberWithLong:_classId],
+                @"name":[NSNull null],
+                @"type":type};
+    } else {
+        dic = @{@"page":[NSString stringWithFormat:@"%d",_currentPage],
+                @"cid":[NSNumber numberWithLong:_classId],
+                @"name":[NSNull null],
+                @"type":[NSNull null]};
+    }
     NSString * str = [NSTool encrytWithDic:dic];
-        newUrl = [accompanyListURL stringByAppendingString:str];
-        self.requestURL = newUrl;
-   
+    
+    _accompanyCategoryListUrl = [accompanyCategoryListUrl stringByAppendingString:str];
+    
+    self.requestURL = _accompanyCategoryListUrl;
+    
 }
 
 
@@ -114,186 +353,166 @@ static NSString * const accompanyCategory = @"accompanyCategory";
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
     if (requestErr) {
-        [accompanyCollection.pullToRefreshView stopAnimating];
+        
     } else {
         if (!parserObject.success) {
             
-//            cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
-//            cache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = NO;
-            [cache removeAllObjects];
-            NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
-            
-            if (!operation.isLoadingMore) {
-                [accompanyCollection.pullToRefreshView stopAnimating];
+            if ([operation.urlTag isEqualToString:_accompanyCategoryListUrl]) {
+                /**
+                 *  具体伴奏列表
+                 */
+                NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    
+                    [self.tableView.pullToRefreshView stopAnimating];
+                    
+                    self.categoryAryList = [NSMutableArray arrayWithArray:listModel.accommpanyList];
+                    
+                }else{
+                    
+                    [self.tableView.infiniteScrollingView stopAnimating];
+                    
+                    for (NSAccommpanyModel *model in listModel.accommpanyList) {
+                        
+                        [self.categoryAryList addObject:model];
+                    }
+                }
+            }else if ([operation.urlTag isEqualToString:_accompanyListURL]){
+                /**
+                 *  伴奏类型列表
+                 */
+                
+                NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
+                
                 if (listModel.simpleCategoryList.simpleCategory.count) {
+                    /**
+                     *  缓存
+                     */
                     self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
-                    [cache setObject:self.accompanyCategoryAry forKey:accompanyCategory];
+                    [_cache setObject:self.accompanyCategoryAry forKey:accompanyCategory];
+                    
+                    
+                    /**
+                     *  设置 筛选器
+                     */
+                    [self setupFilterViewUIWith:listModel];
                 }
                 if (listModel.simpleList.simpleSingList.itemID) {
+                    
+                    /**
+                     *  缓存
+                     */
                     [self.simpleSingAry removeAllObjects];
                     [self.simpleSingAry addObject:listModel.simpleList.simpleSingList];
-                    [cache setObject:self.simpleSingAry forKey:simpleSingle];
+                    [_cache setObject:self.simpleSingAry forKey:simpleSingle];
+                    
+                    
+                    
+                    self.simpleSingModel = listModel.simpleList.simpleSingList;
+                    [self setupHeaderViewWithSimpleSing:self.simpleSingModel];
                 }
                 
-            }else{
-                [accompanyCollection.infiniteScrollingView stopAnimating];
-                [self.accompanyCategoryAry addObjectsFromArray:listModel.simpleCategoryList.simpleCategory];
+            }
                 
-            }
+
             
-            [accompanyCollection reloadData];
+            [self.tableView reloadData];
         }
     }
 }
 
-#pragma mark configureUIAppearance
--(void)configureUIAppearance
-{
-    //nav
-    self.title = @"原唱伴奏";
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    accompanyCollection = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) collectionViewLayout:layout];
-    
-    accompanyCollection.delegate = self;
-    
-    accompanyCollection.dataSource = self;
-    
-    accompanyCollection.showsVerticalScrollIndicator = NO;
-    
-    accompanyCollection.alwaysBounceVertical = YES;
-    
-    [accompanyCollection registerClass:[NSAccompanyCategoryCell class] forCellWithReuseIdentifier:accompanyCellIditify];
-    
-    accompanyCollection.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    
-    [self.view addSubview:accompanyCollection];
-    
-    
-    
-    WS(Wself);
-    //refresh
-    [accompanyCollection addDDPullToRefreshWithActionHandler:^{
-        if (!Wself) {
-            return ;
-        }else{
-            [Wself fetchAccompanyListDataWithIsLoadingMore:NO];
-        }
-    }];
-    //loadingMore
-    [accompanyCollection addDDInfiniteScrollingWithActionHandler:^{
-        if (!Wself) {
-            return ;
-        }
-        [Wself fetchAccompanyListDataWithIsLoadingMore:YES];
-    }];
-    accompanyCollection.showsInfiniteScrolling = NO;
-    
+#pragma mark - <UITableViewDelegate,UITableViewDataSource>
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
 }
 
-#pragma mark - sing no accompany
--(void)doSingNoAccompany
-{
-    NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:108 andMusicTime:300 andHotMp3:@"http://audio.yinchao.cn/empty_hot_temp.mp3"];
-    [self.navigationController pushViewController:writeMusicVC animated:YES];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.categoryAryList.count;
+}
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 3*ScreenHeight/25 + 20;
 }
-#pragma mark - UICollectionViewDataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 2;
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return  0.01;
 }
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-        
-    return section ? self.accompanyCategoryAry.count : self.simpleSingAry.count;
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.5;
 }
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSAccompanyCategoryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:accompanyCellIditify forIndexPath:indexPath];
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger section = indexPath.section;
+    NSAccompanyTableCell * accompanyCell = [tableView dequeueReusableCellWithIdentifier:accompanyCellIditify];
     
-    if (indexPath.section == 0) {
+    [accompanyCell.btn addTarget:self action:@selector(playerClick:) forControlEvents:UIControlEventTouchUpInside];
+    accompanyCell.btn.tag = indexPath.section;
+    accompanyCell.btn.selected = NO;
+    
+    accompanyCell.accompanyModel = self.categoryAryList[section];
+    return accompanyCell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSAccommpanyModel * accompany = self.categoryAryList[indexPath.section];
+    //downLoading accompany and push to recordVC
+    if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":[NSNumber numberWithLong:accompany.mp3Times],@"accompanyUrl":accompany.mp3URL}];
         
-        cell.simpleSing = self.simpleSingAry[indexPath.row];
     } else {
-        cell.accompanyCategory = self.accompanyCategoryAry[indexPath.row];
-    }
-    
-    return cell;
-}
-#pragma mark - UICollectionViewDelegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section) {
         
-        NSSimpleCategoryModel * accompany = self.accompanyCategoryAry[indexPath.item];
-        
-        NSAccompanyCategoryViewController *accompanyCategoryListVC = [[NSAccompanyCategoryViewController alloc] initWithCategoryId:accompany.categoryId andCategoryName:accompany.categoryName];
+        NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
+        [NSSingleTon viewFrom].controllersNum = 3;
         if (self.aid.length) {
-            accompanyCategoryListVC.aid = self.aid;
-            
-        }
-        [self.navigationController pushViewController:accompanyCategoryListVC animated:YES];
-    } else {
-        NSSimpleSingModel *simpleSing = self.simpleSingAry[indexPath.row];
-        if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
-            [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":[NSNumber numberWithLong:simpleSing.playTimes],@"accompanyUrl":simpleSing.playUrl}];
-        } else {
-            
-            NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:simpleSing.itemID andMusicTime:simpleSing.playTimes andHotMp3:simpleSing.playUrl];
-            [NSSingleTon viewFrom].controllersNum = 2;
-            if (self.aid.length) {
-                writeMusicVC.aid = self.aid;
-
-            }
-            [self.navigationController pushViewController:writeMusicVC animated:YES];
-        
+            writeMusicVC.aid = self.aid;
         }
         
+        [self pausePlayer];
+        [self.navigationController pushViewController:writeMusicVC animated:YES];
     }
-    
-}
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) {
-        
-        return CGSizeMake(ScreenWidth - 30, ScreenHeight/4);
-        
-    } else {
-        
-        CGFloat W = (ScreenWidth - 50) / 3;
-        return CGSizeMake(W, W);
-        
-    }
-    
-}
-#pragma mark -collectionView LayOut
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    if (section == 0) {
-        return UIEdgeInsetsMake(10, 15, 10, 15);
-    }
-    return UIEdgeInsetsMake(0, 15, 0, 15);
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    
-    return 10;
+#pragma mark - lazy init
+
+- (UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, ScreenWidth , ScreenHeight - 1) style:UITableViewStylePlain];
+        
+        _tableView.backgroundColor = [UIColor hexColorFloat:kAppLineRgbValue];
+        [_tableView registerClass:[NSAccompanyTableCell class] forCellReuseIdentifier:accompanyCellIditify];
+        _tableView.tableFooterView = [[UIView alloc]init];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        
+        
+    }
+    return _tableView;
 }
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    
-    return 10;
-    
+- (NSMutableArray *)categoryAryList {
+    if (!_categoryAryList) {
+        self.categoryAryList = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _categoryAryList;
 }
 
 
-- (NSMutableArray *)simpleSingAry {
-    if (!_simpleSingAry) {
-        self.simpleSingAry = [NSMutableArray arrayWithCapacity:1];
-    }
-    return _simpleSingAry;
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"pausePlayer" object:nil];
+    
 }
-- (NSMutableArray *)accompanyCategoryAry {
-    if (!_accompanyCategoryAry) {
-        self.accompanyCategoryAry = [NSMutableArray arrayWithCapacity:1];
-    }
-    return _accompanyCategoryAry;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
+
+
 @end

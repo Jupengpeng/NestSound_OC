@@ -785,7 +785,7 @@ static NSString *ID3 = @"cell3";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 
-    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
+//    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
     
     CGFloat offSet_Y = _tableView.contentOffset.y;
     
@@ -814,6 +814,9 @@ static NSString *ID3 = @"cell3";
         headImgView.frame = bgImageFrame;
         [_tableView addSubview:headImgView];
     }else if (offSet_Y >=- (64 + 64 + 60)&& offSet_Y < -(64 + 60)){
+        /**
+         *  该步开始 文本小时 headImg开始模糊
+         */
         signatureLabel.hidden = YES;
         focusLLView.hidden = YES;
         fansLLView.hidden = YES;
@@ -834,6 +837,9 @@ static NSString *ID3 = @"cell3";
         headImgView.frame = bgImageFrame;
         [_tableView addSubview:headImgView];
     }else if(offSet_Y >= -(64 + 60)){
+        /**
+         *  完全模糊
+         */
         signatureLabel.hidden = YES;
         focusLLView.hidden = YES;
         fansLLView.hidden = YES;

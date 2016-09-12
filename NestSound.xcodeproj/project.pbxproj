@@ -242,6 +242,7 @@
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
 		B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */; };
+		B8A3222E1D8556A9004D448D /* NSAccompanyListFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A3222D1D8556A9004D448D /* NSAccompanyListFilterView.m */; };
 		B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966221D727F90005D3724 /* NSObject+YYModel.m */; };
 		B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966241D727F90005D3724 /* YYClassInfo.m */; };
 		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
@@ -885,6 +886,8 @@
 		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		B89CF2AA1D845A5B00F4D8FD /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
+		B8A3222C1D8556A9004D448D /* NSAccompanyListFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyListFilterView.h; sourceTree = "<group>"; };
+		B8A3222D1D8556A9004D448D /* NSAccompanyListFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyListFilterView.m; sourceTree = "<group>"; };
 		B8B966211D727F90005D3724 /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
 		B8B966221D727F90005D3724 /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
 		B8B966231D727F90005D3724 /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
@@ -1278,6 +1281,8 @@
 				94FADBF31D360AD7006D436D /* NSDownloadProgressView.m */,
 				0CCC19211D647A9A009E9478 /* NSTemplateTableViewCell.h */,
 				0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */,
+				B8A3222C1D8556A9004D448D /* NSAccompanyListFilterView.h */,
+				B8A3222D1D8556A9004D448D /* NSAccompanyListFilterView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3428,6 +3433,7 @@
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				94F196761D5479320029C923 /* NSTopLBottomLView.m in Sources */,
 				2DFB677C1CC1F0ED00DA24DA /* UIImage+ImageEffects.m in Sources */,
+				B8A3222E1D8556A9004D448D /* NSAccompanyListFilterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
