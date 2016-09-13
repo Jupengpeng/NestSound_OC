@@ -23,6 +23,7 @@
 #import "NSIndexModel.h"
 #import "NSSongListModel.h"
 #import "NSRollView.h"
+#import "NSPreserveApplyController.h"
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -35,6 +36,7 @@
     UIButton *upVoteBtn;
     UIButton *reportBtn;
     UIButton *personalBtn;
+    UIButton *_preserveButton;
     UILabel * upvoteNumLabel;
     UILabel * collecNumLabel;
     UILabel * commentNumLabel;
@@ -132,7 +134,6 @@ static id _instance;
     
     [self fetchPlayDataWithItemId:self.itemUid];
     
-    [self moreChoice];
     
     self.scrollV.contentOffset = CGPointMake(0, 0);
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -216,17 +217,7 @@ static id _instance;
              */
             if ([operation.urlTag isEqualToString:url]) {
                 NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
-                if ([[NSString stringWithFormat:@"%zd",musicModel.musicdDetail.userID] isEqualToString: JUserID]) {
-                    if (self.isShow == 0) {
-                        [reportBtn setTitle:@"将作品设为公开" forState:UIControlStateNormal];
-                    } else {
-                        [reportBtn setTitle:@"将作品设为私密" forState:UIControlStateNormal];
-                    }
-                    [personalBtn setTitle:@"取消" forState:UIControlStateNormal];
-                } else {
-                    [reportBtn setTitle:@"举报" forState:UIControlStateNormal];
-                    [personalBtn setTitle:@"进入个人主页" forState:UIControlStateNormal];
-                }
+
                 self.musicDetail = musicModel.musicdDetail;
                 
             }else if ([operation.urlTag isEqualToString:upvoteURL]) {
@@ -997,7 +988,7 @@ static id _instance;
     
 }
 
-- (void)moreChoice {
+- (void)moreChoiceWithModel:(NSPlayMusicDetail *)musicDetail {
     
     _maskView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     
@@ -1023,66 +1014,102 @@ static id _instance;
     }
     [self.view addSubview:shareView];
     
-    _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 90)];
+    _moreChoiceView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 0)];
     
     _moreChoiceView.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_moreChoiceView];
     
+    CGFloat buttonHeight = 45.0f;
+    /**
+     *  举报
+     */
     reportBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    
     reportBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    
     [reportBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
     [reportBtn addTarget:self action:@selector(handleReportBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-    
     [_moreChoiceView addSubview:reportBtn];
     
     [reportBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.top.left.right.equalTo(_moreChoiceView);
-        
-        make.height.mas_equalTo(_moreChoiceView.height / 2);
-        
+        make.height.mas_equalTo(buttonHeight);
     }];
     
+    /**
+     *  个人中心
+     */
     personalBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    
     personalBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    
     [personalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
     [personalBtn addTarget:self action:@selector(handlePersonalBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-    
     [_moreChoiceView addSubview:personalBtn];
     
+
     [personalBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.left.right.equalTo(_moreChoiceView);
-        
         make.top.equalTo(reportBtn.mas_bottom);
-        
         make.height.equalTo(reportBtn.mas_height);
-        
-    }];    
-    
-    UIView *line = [[UIView alloc] init];
-    
-    line.backgroundColor = [UIColor lightGrayColor];
-    
-    [reportBtn addSubview:line];
-    
-    [line mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.right.equalTo(self.view);
-        
-        make.bottom.equalTo(reportBtn.mas_bottom);
-        
-        make.height.mas_equalTo(0.5);
-        
     }];
     
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [reportBtn addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(reportBtn.mas_bottom);
+        make.height.mas_equalTo(0.5);
+    }];
+    /**
+     *  自己的作品
+     */
+    if ([[NSString stringWithFormat:@"%zd",musicDetail.userID] isEqualToString: JUserID]) {
+        if (self.isShow == 0) {
+            [reportBtn setTitle:@"将作品设为公开" forState:UIControlStateNormal];
+        } else {
+            [reportBtn setTitle:@"将作品设为私密" forState:UIControlStateNormal];
+        }
+        [personalBtn setTitle:@"取消" forState:UIControlStateNormal];
+        
+        _moreChoiceView.height = buttonHeight * 3.0f;
+        /**
+         *  添加保全申请
+         */
+        _preserveButton =  [UIButton buttonWithType:UIButtonTypeSystem];
+        _preserveButton.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_preserveButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_preserveButton addTarget:self action:@selector(handlePersonalBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+        [_preserveButton setTitle:@"保全申请" forState:UIControlStateNormal];
+        [_moreChoiceView addSubview:_preserveButton];
+        [_preserveButton addTarget:self action:@selector(handlePreserveBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+        [_preserveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(_moreChoiceView);
+            make.top.equalTo(personalBtn.mas_bottom);
+            make.height.equalTo(reportBtn.mas_height);
+        }];
+        UIView *line = [[UIView alloc] init];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [_preserveButton addSubview:line];
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.bottom.equalTo(personalBtn.mas_bottom);
+            make.height.mas_equalTo(0.5);
+        }];
+        
+    } else {
+        [reportBtn setTitle:@"举报" forState:UIControlStateNormal];
+        [personalBtn setTitle:@"进入个人主页" forState:UIControlStateNormal];
+        _moreChoiceView.height = buttonHeight * 2.0f;
+
+    }
+    
+
+}
+
+- (void)handlePreserveBtnEvent:(UIButton *)sender{
+    
+    NSPreserveApplyController *preserveController = [[NSPreserveApplyController alloc] init];
+    preserveController.itemUid = self.itemUid;
+    [self.navigationController pushViewController:preserveController animated:YES];
 }
 
 - (void)handleReportBtnEvent:(UIButton *)sender {
@@ -1280,6 +1307,12 @@ static id _instance;
     commentNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.commentNum];
     upvoteNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.zanNum];
     collecNumLabel.text = [NSString stringWithFormat:@"%ld",_musicDetail.fovNum];
+    
+    
+    
+    [self moreChoiceWithModel:musicDetail];
+    
+
     
 }
 //分享

@@ -179,7 +179,6 @@ static NSString * const musicSayData = @"musicSayData";
             [playStatus stopAnimating];
         }
     }
-    
 }
 
 #pragma mark - 预加载作曲图片
