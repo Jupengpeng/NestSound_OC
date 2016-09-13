@@ -137,12 +137,14 @@ static NSString * const kDefaultTip = @"来~说点什么";
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:commentUrl]) {
                 NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
+                [commentTableView.pullToRefreshView stopAnimating];
+                [commentTableView.infiniteScrollingView stopAnimating];
                 if (!operation.isLoadingMore) {
                     commentAry = [NSMutableArray arrayWithArray:commentList.commentList];
-                    [commentTableView.pullToRefreshView stopAnimating];
+                    
                 }else{
                     [commentAry addObjectsFromArray:commentList.commentList];
-                    [commentTableView.infiniteScrollingView stopAnimating];
+                    
                 }
                 
             }else if ([operation.urlTag isEqualToString:postCommentURL]){

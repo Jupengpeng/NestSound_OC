@@ -20,23 +20,24 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
+        [self configurePreserveCellUIAppearance];
     }
     return self;
 }
 -(void)configurePreserveCellUIAppearance {
     //titleLabel
     leftLabel = [[UILabel alloc] init];
-    leftLabel.textAlignment = NSTextAlignmentLeft;
+    leftLabel.text = @"保全申请保全申请";
     leftLabel.textColor = [UIColor hexColorFloat:@"1818181"];
-    leftLabel.font = [UIFont systemFontOfSize:12];
+    leftLabel.font = [UIFont systemFontOfSize:14];
     [self addSubview:leftLabel];
     
     //dateLabel or state
     rightLabel = [[UILabel alloc] init];
+    rightLabel.text = @"2016-08-15";
     rightLabel.textAlignment = NSTextAlignmentLeft;
     rightLabel.textColor = [UIColor hexColorFloat:@"999999"];
-    rightLabel.font = [UIFont systemFontOfSize:9];
+    rightLabel.font = [UIFont systemFontOfSize:12];
     [self addSubview:rightLabel];
     
     midImgView = [[UIImageView alloc] init];
@@ -49,21 +50,22 @@
     [super layoutSubviews];
     
     [leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_right).with.offset(10);
-        make.top.equalTo(self.mas_top).with.offset(22);
-        make.right.equalTo(self.mas_right).with.offset(-40);
+        make.left.equalTo(self.mas_left).with.offset(10);
+        make.centerY.equalTo(self.mas_centerY);
+        make.height.mas_equalTo(44);
+//        make.right.equalTo(self.mas_right).with.offset(-40);
     }];
     
     [rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(leftLabel.mas_left);
-        make.top.equalTo(leftLabel.mas_bottom).with.offset(6);
-        make.right.equalTo(leftLabel.mas_right);
+//        make.left.equalTo(midImgView.mas_right);
+        make.centerY.equalTo(self.mas_centerY);
+        make.right.equalTo(self.mas_right).offset(-10);
     }];
     
     [midImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
-        make.right.equalTo(self.mas_right).with.offset(-15);
-        make.width.mas_equalTo(12);
+        make.left.equalTo(leftLabel.mas_right).with.offset(10);
+        make.width.mas_equalTo(14);
         make.height.mas_equalTo(14);
     }];
 }

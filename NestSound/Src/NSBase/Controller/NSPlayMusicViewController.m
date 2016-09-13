@@ -484,7 +484,10 @@ static id _instance;
         [wSelf.player pause];
         
         playOrPauseBtn.selected = NO;
-        
+        if (!_musicDetail.hotId) {
+            [[NSToastManager manager] showtoast:@"伴奏不存在"];
+            return;
+        }
         NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
         CHLog(@"%ld",_musicDetail.hotId);
         [self.navigationController pushViewController:musicView animated:YES];
