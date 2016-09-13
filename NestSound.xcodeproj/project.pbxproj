@@ -246,6 +246,8 @@
 		B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966221D727F90005D3724 /* NSObject+YYModel.m */; };
 		B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966241D727F90005D3724 /* YYClassInfo.m */; };
 		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
+		B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */; };
+		B8F83EB51D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 		ECA6C3C4F25B7946B3DBC7DA /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
@@ -895,6 +897,10 @@
 		B8B966251D727F90005D3724 /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		B8C17E011D545DBE0021CDA3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		B8C17E021D545DBE0021CDA3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
+		B8F83EB01D87BAF300E301D7 /* NSPreserveApplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyController.h; sourceTree = "<group>"; };
+		B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyController.m; sourceTree = "<group>"; };
+		B8F83EB31D87D3DF00E301D7 /* NSPreserveWorkInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveWorkInfoCell.h; sourceTree = "<group>"; };
+		B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveWorkInfoCell.m; sourceTree = "<group>"; };
 		CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1324,6 +1330,8 @@
 				0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */,
 				0C2F9A7E1D8688060045A2EC /* NSUserMessageViewController.h */,
 				0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */,
+				B8F83EB01D87BAF300E301D7 /* NSPreserveApplyController.h */,
+				B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1362,6 +1370,8 @@
 				94456D531D51EA7E0088385F /* NSRegisterView.m */,
 				0C2F9A811D86A63A0045A2EC /* NSPreserveTableViewCell.h */,
 				0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */,
+				B8F83EB31D87D3DF00E301D7 /* NSPreserveWorkInfoCell.h */,
+				B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3308,6 +3318,7 @@
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
 				2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
+				B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */,
 				0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
@@ -3362,6 +3373,7 @@
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */,
+				B8F83EB51D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m in Sources */,
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
 				946B04311D4EEC8A00529DBA /* README.md in Sources */,
 				944785D41D5B0040004FFB75 /* NSLyricPosterViewController.m in Sources */,

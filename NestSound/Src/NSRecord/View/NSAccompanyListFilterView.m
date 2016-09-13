@@ -26,6 +26,8 @@
     NSInteger _sortIndex;
     NSInteger _categoryIndex;
     CGFloat _totalHeight;
+    
+    UIView *_superView;
 }
 
 @property (nonatomic,strong) UIView *tagMainView;
@@ -155,7 +157,13 @@
         [self dismiss];
         return;
     }
-
+    if (self.superview) {
+        _superView = self.superview;
+    }
+    if (_superView) {
+        [_superView addSubview:self];
+    }
+    
     self.hidden = NO;
 
     [UIView animateWithDuration:0.3 delay:0.0f usingSpringWithDamping:0.7f initialSpringVelocity:5.0f options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionLayoutSubviews  animations:^{
@@ -172,7 +180,9 @@
 
     } completion:^(BOOL finished) {
         self.hidden = YES;
-
+        if (self.superview) {
+            [self removeFromSuperview];
+        }
     }];
 }
 

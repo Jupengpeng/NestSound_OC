@@ -85,7 +85,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.filterView removeFromSuperview];
+    [self.filterView dismiss];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
