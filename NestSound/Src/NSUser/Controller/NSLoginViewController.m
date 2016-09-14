@@ -258,7 +258,31 @@
     
     [scrollView addSubview:loginBnt];
     
-     leftImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_triangle_icon"]];
+        UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, ScreenHeight - 130, ScreenWidth/2 - 90, 0.5)];
+        leftLabel.backgroundColor = [UIColor lightGrayColor];
+        [self.view addSubview:leftLabel];
+        UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2 + 70, ScreenHeight - 130, ScreenWidth/2 - 90, 0.5)];
+        rightLabel.backgroundColor = [UIColor lightGrayColor];
+        [self.view addSubview:rightLabel];
+    
+        UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth/2 - 60, ScreenHeight - 140, 120, 20)];
+        textLabel.text = @"使用第三方快速登录";
+        textLabel.textAlignment = NSTextAlignmentCenter;
+        textLabel.font = [UIFont systemFontOfSize:13];
+        textLabel.textColor = [UIColor lightGrayColor];
+        [self.view addSubview:textLabel];
+    
+        NSArray *images = @[[UIImage imageNamed:@"2.0_weChat"], [UIImage imageNamed:@"2.0_sina"], [UIImage imageNamed:@"2.0_qq"]];
+        for (int i = 0; i < 3; i++) {
+            UIButton *otherButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            otherButton.frame = CGRectMake(ScreenWidth / 2 - 100 + 80 * i, ScreenHeight - 100, 40, 40);
+            [otherButton setBackgroundImage:images[i] forState:UIControlStateNormal];
+            otherButton.tag = 110 + i;
+            [otherButton addTarget:self action:@selector(handleThirdLog:) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:otherButton];
+        }
+    
+    leftImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_triangle_icon"]];
     
     leftImgView.y = CGRectGetMaxY(loginBnt.frame);
     
@@ -643,6 +667,65 @@
     [scrollView addSubview:registerBtn];
 
     
+}
+//第三方登录
+- (void)handleThirdLog:(UIButton *)sender {
+    switch (sender.tag) {
+        case 110:
+        {
+            UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
+            
+            snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+                
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    
+                    NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+                    UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+                    NSLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+                    
+                }
+                
+            });
+        }
+            break;
+        case 111:
+        {
+            UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+            
+            snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+                
+                //          获取微博用户名、uid、token等
+                
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    
+                    NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+                    UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+                    NSLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+                    
+                }});
+        }
+            break;
+        case 112:
+        {
+            UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
+            
+            snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+                
+                //          获取微博用户名、uid、token等
+                
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    
+                    NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+                    UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+                    NSLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+                    
+                }});
+        }
+            break;
+        default:
+            break;
+    }
+//    []
 }
 //忘记密码
 - (void)forgetPassword:(UIButton *)sender {

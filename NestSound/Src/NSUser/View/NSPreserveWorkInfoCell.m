@@ -11,7 +11,8 @@
 #define  GetMusicName(name)   [NSString stringWithFormat:@"作曲：%@",name]
 #define  GetAccompanyName(name)   [NSString stringWithFormat:@"伴奏：%@",name]
 #define  GetcreaTime(name)   [NSString stringWithFormat:@"创作时间：%@",name]
-
+#define  GetPreserveDate(name) [NSString stringWithFormat:@"保全时间：%@",name]
+#define  GetPreserveCode(name) [NSString stringWithFormat:@"保全编号：%@",name]
 
 #import "NSPreserveWorkInfoCell.h"
 #import "UIImageView+WebCache.h"
@@ -24,7 +25,6 @@
 @property (nonatomic,strong) UILabel *musicTitle;
 @property (nonatomic,strong) UILabel *accompanyTitle;
 @property (nonatomic,strong) UILabel *createTime;
-
 
 @end
 @implementation NSPreserveWorkInfoCell
@@ -99,6 +99,7 @@
             make.right.equalTo(self.mas_right).offset(-10.0f);
             make.height.mas_equalTo(12.0f);
         }];
+        
         self.createTime = [[UILabel alloc] initWithFrame:CGRectZero];
         self.createTime.textColor = [UIColor hexColorFloat:@"878787"];
         self.createTime.font = [UIFont systemFontOfSize:12.0f];
@@ -110,6 +111,27 @@
             make.height.mas_equalTo(14.0f);
         }];
         
+        self.preserveDate = [[UILabel alloc] init];
+        self.preserveDate.textColor = [UIColor hexColorFloat:@"878787"];
+        self.preserveDate.font = [UIFont systemFontOfSize:12.0f];
+        [self addSubview:self.preserveDate];
+        [self.preserveDate mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.mas_left).offset(10.0f);
+            make.top.equalTo(self.workCover.mas_bottom).offset(7.0f);
+            make.right.equalTo(self.mas_right).offset(-10.0f);
+            make.height.mas_equalTo(14.0f);
+        }];
+        
+        self.preserveCode = [[UILabel alloc] init];
+        self.preserveCode.textColor = [UIColor hexColorFloat:@"878787"];
+        self.preserveCode.font = [UIFont systemFontOfSize:12.0f];
+        [self addSubview:self.preserveCode];
+        [self.preserveCode mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.mas_left).offset(10.0f);
+            make.top.equalTo(self.preserveDate.mas_bottom).offset(7.0f);
+            make.right.equalTo(self.mas_right).offset(-10.0f);
+            make.height.mas_equalTo(14.0f);
+        }];
     }
     return self;
 }
@@ -124,7 +146,8 @@
     self.musicTitle.text = GetMusicName(@"赵雷");
     self.accompanyTitle.text = GetAccompanyName(@"音巢音乐-家乡民谣");
     self.createTime.text = GetcreaTime(@"2016.09.13 15:35");
-
+    self.preserveDate.text = GetPreserveDate(@"2016.09.13 15:35");
+    self.preserveCode.text = GetPreserveCode(@"21JB5TMBA23PSM0");
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

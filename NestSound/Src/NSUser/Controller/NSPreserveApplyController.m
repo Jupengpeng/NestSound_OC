@@ -55,6 +55,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSPreserveWorkInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreserveWorkInfoCellId"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.preserveDate.hidden = YES;
+    cell.preserveCode.hidden = YES;
     [cell setupData];
     return cell;
 }
