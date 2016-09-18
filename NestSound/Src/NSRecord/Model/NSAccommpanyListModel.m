@@ -10,6 +10,26 @@
 
 
 @implementation NSAccommpanyModel
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.titleImageUrl forKey:@"titleImageUrl"];
+    [aCoder encodeObject:self.mp3URL forKey:@"mp3URL"];
+    [aCoder encodeInt:self.mp3Times forKey:@"mp3Times"];
+    [aCoder encodeInt:self.itemID forKey:@"itemID"];
+    [aCoder encodeObject:self.author forKey:@"author"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        self.titleImageUrl = [aDecoder decodeObjectForKey:@"titleImageUrl"];
+        self.mp3URL = [aDecoder decodeObjectForKey:@"mp3URL"];
+        self.mp3Times = [aDecoder decodeIntForKey:@"mp3Times"];
+        self.itemID = [aDecoder decodeIntForKey:@"itemID"];
+        self.author = [aDecoder decodeObjectForKey:@"author"];
+    }
+    return self;
+}
+
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
 
@@ -25,16 +45,6 @@
 @end
 
 @implementation NSAccommpanyListModel
-
-- (instancetype)init{
-    if (self == [super init]) {
-        self.simpleList = [[NSSimpleListModel alloc]init];
-        self.simpleCategoryList = [[NSSimpleCategoryListModel alloc]init];
-
-
-    }
-    return self;
-}
 
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
@@ -61,11 +71,17 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.titleImageUrl forKey:@"titleImageUrl"];
+    [aCoder encodeObject:self.playUrl forKey:@"playUrl"];
+    [aCoder encodeInt:self.playTimes forKey:@"playTimes"];
+    [aCoder encodeInt:self.itemID forKey:@"itemID"];
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
         self.titleImageUrl = [aDecoder decodeObjectForKey:@"titleImageUrl"];
+        self.playUrl = [aDecoder decodeObjectForKey:@"playUrl"];
+        self.playTimes = [aDecoder decodeIntForKey:@"playTimes"];
+        self.itemID = [aDecoder decodeIntForKey:@"itemID"];
     }
     return self;
 }
