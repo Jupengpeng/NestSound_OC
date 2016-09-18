@@ -7,11 +7,12 @@
 //
 
 #import "NSPreserveListViewController.h"
-
+#import "NSPreserveTableViewCell.h"
+#import "NSPreserveDetailViewController.h"
 @interface NSPreserveListViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
-
+static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 @implementation NSPreserveListViewController
 
 - (void)viewDidLoad {
@@ -35,10 +36,22 @@
     return 4;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    return nil;
+    NSPreserveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:preserveCellIdentifier];
+    if (!cell) {
+        cell = [[NSPreserveTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveCellIdentifier];
+    }
+    
+    return cell;
 }
 #pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.1;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] init];
+    [self.navigationController pushViewController:preserveDetailVC animated:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -22,6 +22,7 @@
 		0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */; };
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
 		0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */; };
+		0CCE78901D87ACA900542845 /* NSPreserveDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -292,6 +293,8 @@
 		0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryViewController.h; sourceTree = "<group>"; };
 		0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryViewController.m; sourceTree = "<group>"; };
 		0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "韵脚.txt"; sourceTree = "<group>"; };
+		0CCE788E1D87ACA900542845 /* NSPreserveDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveDetailViewController.h; sourceTree = "<group>"; };
+		0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveDetailViewController.m; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -1326,10 +1329,12 @@
 				945073C21D484F77008B0DF9 /* NSAboutUsViewController.m */,
 				94626B331D5035350002CA02 /* NSModifyPwdViewController.h */,
 				94626B341D5035350002CA02 /* NSModifyPwdViewController.m */,
-				0C2F9A7B1D8687600045A2EC /* NSPreserveListViewController.h */,
-				0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */,
 				0C2F9A7E1D8688060045A2EC /* NSUserMessageViewController.h */,
 				0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */,
+				0C2F9A7B1D8687600045A2EC /* NSPreserveListViewController.h */,
+				0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */,
+				0CCE788E1D87ACA900542845 /* NSPreserveDetailViewController.h */,
+				0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */,
 				B8F83EB01D87BAF300E301D7 /* NSPreserveApplyController.h */,
 				B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */,
 			);
@@ -3407,6 +3412,7 @@
 				0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
+				0CCE78901D87ACA900542845 /* NSPreserveDetailViewController.m in Sources */,
 				697A7CC51D6860B60038F16C /* NSMusicianListModel.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
 				946B04281D4EEC8A00529DBA /* HUAlbumsViewController.m in Sources */,

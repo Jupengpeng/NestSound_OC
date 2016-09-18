@@ -168,45 +168,6 @@ static inline NSRegularExpression * NameRegularExpression() {
     self.commentLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
 //
     
-//    WS(wSelf);
-//    self.name = @"张轩赫";
-//    NSString *text = [NSString stringWithFormat:@"回复 %@ :  %@",self.name, self.replyStr];
-//    
-//    
-//    [self.commentLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
-//     {
-//         
-//         //设置可点击文字的范围
-//         
-//         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.name options:NSCaseInsensitiveSearch];
-//         
-//         //设定可点击文字的的大小
-//         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
-//         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-//         
-//         if (font) {
-//             
-//             //设置可点击文本的大小
-//             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
-//             
-//             //设置可点击文本的颜色
-//             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
-//             
-//             CFRelease(font);
-//         
-//         }
-////         }
-//         return mutableAttributedString;
-//     }];
-//    
-//    //正则
-//    NSRegularExpression *regexp = NameRegularExpression();
-//    
-//    NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.name.length)];
-//    
-//    [self.commentLabel addLinkToURL:nil withRange:linkRange];
-    
-    
     [self.contentView addSubview:self.commentLabel];
 //
 //    self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
@@ -393,7 +354,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
     //65
-    self.commentLabel.frame = CGRectMake(15, 55, self.labelSize.width, self.labelSize.height);
+    self.commentLabel.frame = CGRectMake(15, 55, self.labelSize.width + 10, self.labelSize.height);
     
     self.commentLabelMaxY = CGRectGetMaxY(self.commentLabel.frame) + 10;
 
