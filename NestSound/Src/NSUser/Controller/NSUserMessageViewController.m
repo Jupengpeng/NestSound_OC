@@ -25,6 +25,16 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
     [super viewDidLoad];
     [self configureUserMessageView];
 }
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    id obj;
+    if (self.fillInBlock) {
+        self.fillInBlock(obj);
+    }
+}
+
 - (void)configureUserMessageView {
     if (type == EditMessageType) {
         

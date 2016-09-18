@@ -23,6 +23,7 @@
 static NSString * const accompanyData   = @"accompanyData";
 static NSString * const simpleSingle  = @"simpleSingle";
 static NSString * const accompanyCategory = @"accompanyCategory";
+static NSString * const accompanyList = @"accompanyList";
 @interface NSAccompanyListViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     int _currentPage;
@@ -61,6 +62,7 @@ static NSString * const accompanyCategory = @"accompanyCategory";
 @property (nonatomic, strong) NSMutableArray * simpleSingAry;
 
 @property (nonatomic, strong) NSMutableArray * accompanyCategoryAry;
+
 
 @end
 
@@ -104,8 +106,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     _cache = [YYCache cacheWithName:accompanyData];
     self.simpleSingAry = [NSMutableArray arrayWithArray:(NSArray *)[_cache objectForKey:simpleSingle]];
     self.accompanyCategoryAry = [NSMutableArray arrayWithArray:(NSArray *)[_cache objectForKey:accompanyCategory]];
-    
-    if (self.accompanyCategoryAry) {
+    self.categoryAryList = [NSMutableArray arrayWithArray:(NSArray *)[_cache objectForKey:accompanyList]];
+    if (self.accompanyCategoryAry.count) {
         NSAccommpanyListModel* listModel = [[NSAccommpanyListModel alloc]init];;
         listModel.simpleCategoryList.simpleCategory = [self.accompanyCategoryAry mutableCopy];
         listModel.simpleList.simpleSingList = self.simpleSingAry.firstObject;
@@ -356,7 +358,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
     } else {
         if (!parserObject.success) {
-            
+            [_cache removeAllObjects];
             if ([operation.urlTag isEqualToString:_accompanyCategoryListUrl]) {
                 /**
                  *  具体伴奏列表
@@ -367,15 +369,16 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                     [self.tableView.pullToRefreshView stopAnimating];
                     
                     self.categoryAryList = [NSMutableArray arrayWithArray:listModel.accommpanyList];
-                    
+                    [_cache setObject:self.categoryAryList forKey:accompanyList];
+
                 }else{
                     
                     [self.tableView.infiniteScrollingView stopAnimating];
                     
-                    for (NSAccommpanyModel *model in listModel.accommpanyList) {
-                        
-                        [self.categoryAryList addObject:model];
-                    }
+                    [self.categoryAryList addObjectsFromArray:listModel.accommpanyList];
+                    [_cache setObject:self.categoryAryList forKey:accompanyList];
+
+                    
                 }
             }else if ([operation.urlTag isEqualToString:_accompanyListURL]){
                 /**

@@ -6,6 +6,8 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
+typedef void(^NSUserMessageViewControllerFillInBlock)(id object);
+
 #import "NSBaseViewController.h"
 typedef  NS_ENUM(NSInteger,UserMessageType){
     
@@ -14,4 +16,8 @@ typedef  NS_ENUM(NSInteger,UserMessageType){
 };
 @interface NSUserMessageViewController : NSBaseViewController
 -(instancetype)initWithUserMessageType:(UserMessageType)messageType_;
+
+
+@property (nonatomic,copy) NSUserMessageViewControllerFillInBlock fillInBlock;
+
 @end
