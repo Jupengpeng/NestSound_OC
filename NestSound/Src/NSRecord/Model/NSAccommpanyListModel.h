@@ -60,7 +60,7 @@
 @protocol NSAccommpanyModel <NSObject>
 @end
 
-@interface NSAccommpanyModel : NSBaseModel
+@interface NSAccommpanyModel : NSBaseModel<NSCoding>
 
 @property (nonatomic,assign) long itemID;
 @property (nonatomic,assign) int mp3Times;

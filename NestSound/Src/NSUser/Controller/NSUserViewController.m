@@ -151,27 +151,27 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             
             valueLabel.tag = 100;
             valueLabel.hidden = YES;
-            UISwitch * not = [[UISwitch alloc] init];
-            not.onTintColor = [UIColor hexColorFloat:@"ffd00b"];
-            not.on = YES;
-            not.hidden = YES;
-            not.tag = 101;
-            [settingCell addSubview:not];
-            settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            UISwitch * not = [[UISwitch alloc] init];
+//            not.onTintColor = [UIColor hexColorFloat:@"ffd00b"];
+//            not.on = YES;
+//            not.hidden = YES;
+//            not.tag = 101;
+//            [settingCell addSubview:not];
+//            settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             //constraints
             [valueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.equalTo(settingCell.contentView.mas_right).with.offset(-15);
                 make.centerY.equalTo(settingCell.mas_centerY);
             }];
         
-            [not mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(settingCell.contentView.mas_right).with.offset(-15);
-                make.centerY.equalTo(settingCell.mas_centerY);
-            }];
+//            [not mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.right.equalTo(settingCell.contentView.mas_right).with.offset(-15);
+//                make.centerY.equalTo(settingCell.mas_centerY);
+//            }];
             
         }
         UILabel * valueLabel = (UILabel *)[settingCell viewWithTag:100];
-        UISwitch * not = (UISwitch *)[settingCell viewWithTag:101];
+//        UISwitch * not = (UISwitch *)[settingCell viewWithTag:101];
         if (row == 0) {
             
             settingCell.textLabel.text = @"个人信息";
@@ -191,20 +191,20 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
         }else if (row == 3){
             settingCell.textLabel.text = @"消息通知";
             //LocalizedStr(@"prompt_newMessageNotifation");
-            settingCell.accessoryType = UITableViewCellAccessoryNone;
+            settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
-            not.hidden = NO;
+//            not.hidden = NO;
             
         } else if (row == 4) {
             //            settingCell.textLabel.text = @"关于我们";
             //             LocalizedStr(@"prompt_rating");
             
             settingCell.textLabel.text = @"修改密码";
-            
+            settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else if (row == 5){
             
             settingCell.textLabel.text = @"关于我们";
-            
+            settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
 
         return settingCell;
@@ -248,6 +248,9 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             UITableViewCell * settingCell = [settingPageTable cellForRowAtIndexPath:indexPath];
             UILabel * cacheSize = (UILabel *)[settingCell viewWithTag:100];
             cacheSize.text = [Memory getCacheSize];
+        } else if (row == 3) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=NOTIFICATIONS_ID"]];
         } else if (row == 4){
             
             NSModifyPwdViewController *modifyPwdVC = [[NSModifyPwdViewController alloc] init];
