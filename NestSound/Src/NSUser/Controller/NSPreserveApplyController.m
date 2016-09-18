@@ -8,12 +8,16 @@
 
 #import "NSPreserveApplyController.h"
 #import "NSPreserveWorkInfoCell.h"
-@interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource>
+#import "NSPreserveUserCell.h"
+#import "NSUserMessageViewController.h"
+@interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     UILabel *_totalPrice;
     BOOL _uerIsChosen;
 }
 @property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic,strong) NSUserMessageViewController *userMsgController;
 
 @end
 
@@ -24,6 +28,7 @@
 
     
     [self setupUI];
+//    _uerIsChosen = YES;
 }
 
 - (void)setupUI{
@@ -32,12 +37,55 @@
 
     [self.view addSubview:self.tableView];
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, ScreenHeight -64 - 11 - 25, ScreenWidth - 20, 11)];
-    tipLabel.font = [UIFont systemFontOfSize:11.0f];
-    tipLabel.text = @"提交申请即表示认同《音巢保全免责声明》";
+    TTTAttributedLabel *tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(10, ScreenHeight -64 - 11 - 25, ScreenWidth - 20, 11)];
+//    tipLabel.font = [UIFont systemFontOfSize:11.0f];
+    NSMutableDictionary *linkAttributes = [NSMutableDictionary dictionary];
+    [linkAttributes setValue:(__bridge id)[UIColor hexColorFloat:@"afafaf"].CGColor forKey:(NSString *)kCTForegroundColorAttributeName];
+    UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:11];
+    CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+    [linkAttributes setValue:(__bridge id)font forKey:(NSString *)kCTFontAttributeName];
+    tipLabel.attributedText = [[NSAttributedString alloc] initWithString:@"提交申请即表示认同《音巢保全免责声明》" attributes:linkAttributes];
+    [linkAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+    tipLabel.linkAttributes = linkAttributes;
+
+
+
+    NSRange linkRange = [tipLabel.text rangeOfString:@"音巢保全免责声明"];
     tipLabel.textColor = [UIColor hexColorFloat:@"afafaf"];
     tipLabel.textAlignment = NSTextAlignmentCenter;
+    tipLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+    tipLabel.delegate = self;
+
+    [tipLabel addLinkToURL:nil withRange:linkRange];
     [self.view addSubview:tipLabel];
+
+
+
+    
+//    [tipLabel setText:@"提交申请即表示认同《音巢保全免责声明》" afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
+//     {
+//         
+//         
+//         //设定可点击文字的的大小
+//         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:11];
+//         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+//         
+//         if (font) {
+//             
+//             //设置可点击文本的大小
+//             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:linkRange];
+//             
+//             //设置可点击文本的颜色
+//             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"afafaf"] CGColor] range:linkRange];
+//             
+//             CFRelease(font);
+//             
+//         }
+//         //         }
+//         return mutableAttributedString;
+//     }];
+    
+    
     
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.frame = CGRectMake(10, ScreenHeight - 96 - 64, ScreenWidth -20, 45);
@@ -108,6 +156,20 @@
             UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(10, 39, ScreenWidth - 10, 0.5)];
             line.backgroundColor = [UIColor hexColorFloat:@"f3f2f3"];
             [headerView addSubview:line];
+            
+            
+            if (_uerIsChosen) {
+                UIButton *editbutton= [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+                    btn.frame = CGRectMake(ScreenWidth - 50, 0, 50, 40);
+                    [btn setTitleColor:[UIColor hexColorFloat:@"323232"] forState:UIControlStateNormal];
+                    btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                    [btn setTitle:@"编辑" forState:UIControlStateNormal];
+                } action:^(UIButton *btn) {
+                    [self.navigationController pushViewController:self.userMsgController animated:YES];
+
+                }];
+                [headerView addSubview:editbutton];
+            }
 
         }
             break;
@@ -166,7 +228,11 @@
         return 150;
     }
     else if (indexPath.section == 1){
-        return 50;
+        if (!_uerIsChosen) {
+            return 50;
+        }else{
+            return 140;
+        }
     }else{
         return 50;
     }
@@ -192,17 +258,23 @@
                 if (!cell) {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    UIButton *addButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 15, ScreenWidth, 20)];
+                    [addButton setImage:[UIImage createImageWithColor:[UIColor hexColorFloat:kAppBaseYellowValue]] forState:UIControlStateNormal];
+                    [addButton setTitle:@"添加个人信息" forState:UIControlStateNormal];
+                    [addButton setImage:[UIImage imageNamed:@"2.0_coach_round_selected "] forState:UIControlStateNormal];
+                    addButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                    [addButton setTitleColor:[UIColor hexColorFloat:@"4a4a4a"] forState:UIControlStateNormal];
+                    addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
+                    addButton.imageEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 5);
+                    addButton.userInteractionEnabled = NO;
+                    [cell addSubview:addButton];
                 }
-                UIButton *addButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 15, ScreenWidth, 20)];
-                [addButton setImage:[UIImage createImageWithColor:[UIColor hexColorFloat:kAppBaseYellowValue]] forState:UIControlStateNormal];
-                [addButton setTitle:@"添加个人信息" forState:UIControlStateNormal];
-                addButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-                [addButton setTitleColor:[UIColor hexColorFloat:@"4a4a4a"] forState:UIControlStateNormal];
-                addButton.userInteractionEnabled = NO;
-                [cell addSubview:addButton];
+ 
                 return cell;
             }else{
-                
+                NSPreserveUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreserveUserCellId"];cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell setupData];
+                return cell;
             }
         }
         default:
@@ -221,11 +293,13 @@
 
 }
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             if (!_uerIsChosen) {
-                
+                [self.navigationController pushViewController:self.userMsgController animated:YES];
+
             }else{
                 return;
             }
@@ -240,12 +314,20 @@
 
 }
 
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    
+
+    
+}
+
 #pragma mark - lazy init 
 
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, ScreenWidth, ScreenHeight -1) style:UITableViewStylePlain];
         [_tableView registerClass:[NSPreserveWorkInfoCell class] forCellReuseIdentifier:@"NSPreserveWorkInfoCellId"];
+        [_tableView registerClass:[NSPreserveUserCell class] forCellReuseIdentifier:@"NSPreserveUserCellId"];
 //        _tableView.backgroundColor=[UIColor whiteColor];
 //        _tableView.separatorColor = [UIColor hexColorFloat:@"f5f5f5"];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -255,5 +337,18 @@
     return _tableView;
 }
 
+- (NSUserMessageViewController *)userMsgController{
+    
+    WS(weakSelf);
+    if (!_userMsgController) {
+        _userMsgController = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
+        _userMsgController.fillInBlock = ^(id object){
+//            _uerIsChosen = YES;
+            _uerIsChosen = !_uerIsChosen;
+            [weakSelf.tableView reloadData];
+        };
+    }
+    return _userMsgController;
+}
 
 @end
