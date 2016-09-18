@@ -358,7 +358,6 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
     } else {
         if (!parserObject.success) {
-            [_cache removeAllObjects];
             if ([operation.urlTag isEqualToString:_accompanyCategoryListUrl]) {
                 /**
                  *  具体伴奏列表
@@ -381,6 +380,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                     
                 }
             }else if ([operation.urlTag isEqualToString:_accompanyListURL]){
+                [_cache removeAllObjects];
+
                 /**
                  *  伴奏类型列表
                  */
@@ -394,7 +395,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
                     self.accompanyCategoryAry = [NSMutableArray arrayWithArray:listModel.simpleCategoryList.simpleCategory];
                     [_cache setObject:self.accompanyCategoryAry forKey:accompanyCategory];
                     
-                    
+                    CHLog(@"%@",[_cache objectForKey:accompanyCategory]);
                     /**
                      *  设置 筛选器
                      */
