@@ -785,7 +785,7 @@ static NSString *ID3 = @"cell3";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 
-//    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
+    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
     
     CGFloat offSet_Y = _tableView.contentOffset.y;
     
@@ -807,6 +807,17 @@ static NSString *ID3 = @"cell3";
         focusLLView.hidden = NO;
         fansLLView.hidden = NO;
         _midLine.hidden = NO;
+        
+        
+        if (backgoundView.superview != _tableView) {
+            /**
+             *  四个标签放回tableview跟随
+             */
+            CGRect frame = backgoundView.frame;
+            frame.origin.y = -60;
+            backgoundView.frame = frame;
+            [_tableView addSubview:backgoundView];
+        }
         
         CGRect bgImageFrame = headImgView.frame;
         bgImageFrame.origin.y = -60 - kHeadImageHeight;

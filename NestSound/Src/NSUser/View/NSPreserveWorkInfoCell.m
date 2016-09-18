@@ -37,9 +37,9 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 12, 60, 12)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 12, 60, 13)];
         titleLabel.textColor = [UIColor hexColorFloat:@"afafaf"];
-        titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        titleLabel.font = [UIFont systemFontOfSize:13.0f];
         titleLabel.text = @"作品信息";
         [self addSubview:titleLabel];
         

@@ -240,8 +240,8 @@ extern NSString *port;
 #define SECOND_LONG 10  //3000
 
 #define KBackgroundColor [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0]
-#define kAppLineRgbValue @"e3e3e3"
-#define kAppBaseYellowValue @"fdd805"
+#define kAppLineRgbValue @"dcdede"
+#define kAppBaseYellowValue @"fed10c"
 /**
  *  音乐定制
  */
