@@ -40,7 +40,7 @@
 - (instancetype)initWithFrame:(CGRect)frame listModel:(NSAccommpanyListModel *)listModel
 {
     if (self = [super initWithFrame:frame]) {
-        
+        self.hidden = YES;
         _listModel = listModel;
         self.clipsToBounds = YES;
         

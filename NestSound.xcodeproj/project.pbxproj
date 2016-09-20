@@ -23,6 +23,10 @@
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
 		0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */; };
 		0CCE78901D87ACA900542845 /* NSPreserveDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */; };
+		0CCF1D7F1D9101F700F97526 /* NSPreserveSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D7E1D9101F700F97526 /* NSPreserveSelectViewController.m */; };
+		0CCF1D821D91266300F97526 /* NSSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D811D91266300F97526 /* NSSettingViewController.m */; };
+		0CCF1D851D91383E00F97526 /* NSInspirationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D841D91383E00F97526 /* NSInspirationListViewController.m */; };
+		0CCF1D881D91385200F97526 /* NSCollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -296,6 +300,14 @@
 		0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "韵脚.txt"; sourceTree = "<group>"; };
 		0CCE788E1D87ACA900542845 /* NSPreserveDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveDetailViewController.h; sourceTree = "<group>"; };
 		0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveDetailViewController.m; sourceTree = "<group>"; };
+		0CCF1D7D1D9101F700F97526 /* NSPreserveSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveSelectViewController.h; sourceTree = "<group>"; };
+		0CCF1D7E1D9101F700F97526 /* NSPreserveSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveSelectViewController.m; sourceTree = "<group>"; };
+		0CCF1D801D91266300F97526 /* NSSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSettingViewController.h; sourceTree = "<group>"; };
+		0CCF1D811D91266300F97526 /* NSSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSettingViewController.m; sourceTree = "<group>"; };
+		0CCF1D831D91383E00F97526 /* NSInspirationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInspirationListViewController.h; sourceTree = "<group>"; };
+		0CCF1D841D91383E00F97526 /* NSInspirationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInspirationListViewController.m; sourceTree = "<group>"; };
+		0CCF1D861D91385200F97526 /* NSCollectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCollectionListViewController.h; sourceTree = "<group>"; };
+		0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCollectionListViewController.m; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -1314,6 +1326,8 @@
 			children = (
 				2D8608DA1CCC87A10027F147 /* NSUserViewController.h */,
 				2D8608DB1CCC87A10027F147 /* NSUserViewController.m */,
+				0CCF1D801D91266300F97526 /* NSSettingViewController.h */,
+				0CCF1D811D91266300F97526 /* NSSettingViewController.m */,
 				2AE2E5081CE5A70C00FD2DC3 /* NSUserProfileViewController.h */,
 				2AE2E5091CE5A70C00FD2DC3 /* NSUserProfileViewController.m */,
 				2AE2E50E1CE5B22200FD2DC3 /* NSFansViewController.h */,
@@ -1340,6 +1354,8 @@
 				0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */,
 				B8F83EB01D87BAF300E301D7 /* NSPreserveApplyController.h */,
 				B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */,
+				0CCF1D7D1D9101F700F97526 /* NSPreserveSelectViewController.h */,
+				0CCF1D7E1D9101F700F97526 /* NSPreserveSelectViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1403,6 +1419,10 @@
 				2D8608E41CCC87D00027F147 /* NSUserPageViewController.m */,
 				18E402841CE6F55A00B36002 /* NSDraftBoxViewController.h */,
 				18E402851CE6F55A00B36002 /* NSDraftBoxViewController.m */,
+				0CCF1D831D91383E00F97526 /* NSInspirationListViewController.h */,
+				0CCF1D841D91383E00F97526 /* NSInspirationListViewController.m */,
+				0CCF1D861D91385200F97526 /* NSCollectionListViewController.h */,
+				0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3285,6 +3305,7 @@
 				6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */,
 				0CCC19201D646579009E9478 /* NSEditTemplateViewController.m in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
+				0CCF1D821D91266300F97526 /* NSSettingViewController.m in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
 				695735EE1D6C224E00D1A269 /* NSUserWorkListController.m in Sources */,
@@ -3303,6 +3324,7 @@
 				946B04261D4EEC8A00529DBA /* HUAlbumCell.m in Sources */,
 				183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */,
 				2ADE8F621CFE7715006CD840 /* NSShareModulView.m in Sources */,
+				0CCF1D851D91383E00F97526 /* NSInspirationListViewController.m in Sources */,
 				0CCC19111D642D6A009E9478 /* NSDraftListViewController.m in Sources */,
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
@@ -3425,12 +3447,14 @@
 				2AB3006D1D165B0200938F1C /* NSInspirtationModel.m in Sources */,
 				2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */,
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
+				0CCF1D7F1D9101F700F97526 /* NSPreserveSelectViewController.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
 				946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */,
 				0C2F9A7D1D8687600045A2EC /* NSPreserveListViewController.m in Sources */,
 				2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */,
+				0CCF1D881D91385200F97526 /* NSCollectionListViewController.m in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import "NSShareViewController.h"
 #import "NSShareCollectionViewCell.h"
-
+#import "NSPreserveApplyController.h"
 
 @interface NSShareViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -48,8 +48,6 @@ static NSString *identifier = @"identifier";
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.hidden = YES;
-    
     self.weixinDict         = @{@"icon": @"2.0_shareWX_btn", @"name": @"微信"};
     self.pengyouquanDict    = @{@"icon": @"2.0_shareFriend_btn", @"name": @"朋友圈"};
     self.weiboDict          = @{@"icon": @"2.0_shareSina_btn", @"name": @"微博"};
@@ -85,11 +83,11 @@ static NSString *identifier = @"identifier";
     
     shareCollection.x = 0;
     
-    shareCollection.y = self.view.height * 0.5 - W;
+    shareCollection.y = ScreenHeight/3-10;
     
     shareCollection.width = ScreenWidth;
     
-    shareCollection.height = 300;
+    shareCollection.height = 3*W;
     
     shareCollection.backgroundColor = [UIColor clearColor];
     
@@ -97,12 +95,43 @@ static NSString *identifier = @"identifier";
     
     shareCollection.dataSource = self;
     
+    [shareCollection registerClass:[NSShareCollectionViewCell class] forCellWithReuseIdentifier:identifier];
+    
     [self.view addSubview:shareCollection];
     
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(shareCollection.frame) + 30, ScreenWidth, 20)];
+    
+    tipLabel.text = @"*为了您的个人权益,推荐您进行保全登记";
+    
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    
+    tipLabel.font = [UIFont systemFontOfSize:13];
+    
+    [self.view addSubview:tipLabel];
+    
+    UIButton *preserveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+//    preserveBtn.centerX = self.view.centerX;
+//    
+//    preserveBtn.y = CGRectGetMaxY(tipLabel.frame) + 10;
     
     
-    [shareCollection registerClass:[NSShareCollectionViewCell class] forCellWithReuseIdentifier:identifier];
+    [preserveBtn setBackgroundImage:[UIImage imageNamed:@"2.0_preserve_btn"] forState:UIControlStateNormal];
+    
+    [preserveBtn addTarget:self action:@selector(preserveApply) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:preserveBtn];
+    
+    [preserveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerX.equalTo(self.view.mas_centerX);
         
+        make.height.mas_equalTo(44);
+        
+        make.top.equalTo(tipLabel.mas_bottom).offset(20);
+        
+    }];
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         btn.tintColor = [UIColor blackColor];
@@ -119,7 +148,11 @@ static NSString *identifier = @"identifier";
     [self.view addSubview:btn];
 }
 
-
+- (void)preserveApply {
+    NSPreserveApplyController *preserveController = [[NSPreserveApplyController alloc] init];
+//    preserveController.itemUid = self.itemUid;
+    [self.navigationController pushViewController:preserveController animated:YES];
+}
 #pragma mark - chose avaiableShareModule
 -(void)availableShareModue
 {

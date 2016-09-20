@@ -18,6 +18,8 @@
 #import "NSUserViewController.h"
 #import "UMSocial.h"
 #import "NSBaseTabBarViewController.h"
+#import "NSMessageListViewController.h"
+#import "NSFansViewController.h"
 #import <AVFoundation/AVFoundation.h>
 @interface AppDelegate ()
 
@@ -164,6 +166,28 @@
     completionHandler(UIBackgroundFetchResultNewData);
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
+    NSBaseTabBarViewController *tabController = (NSBaseTabBarViewController *) [UIApplication sharedApplication].keyWindow.rootViewController;
+//    YRSideViewController *sideViewController= (YRSideViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+//    UITabBarController *tab = (UITabBarController *)sideViewController.rootViewController;
+    UINavigationController *nav = tabController.viewControllers[tabController.selectedIndex];
+    NSMessageListViewController * messageListVC;
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    if ([userInfo[@"type"] isEqualToString:@"comment"]) {
+        messageListVC = [[NSMessageListViewController alloc] initWithMessageType:CommentMessageType];
+        messageListVC.messageListType = @"评论";
+        [nav pushViewController:messageListVC animated:YES];
+    } else if ([userInfo[@"type"] isEqualToString:@"zan"]) {
+        messageListVC = [[NSMessageListViewController alloc] initWithMessageType:UpvoteMessageType];
+        messageListVC.messageListType = @"赞";
+        [nav pushViewController:messageListVC animated:YES];
+    } else if ([userInfo[@"type"] isEqualToString:@"fov"]) {
+        messageListVC = [[NSMessageListViewController alloc] initWithMessageType:CollectionMessageType];
+        messageListVC.messageListType = @"收藏";
+        [nav pushViewController:messageListVC animated:YES];
+    } else if ([userInfo[@"type"] isEqualToString:@"focus"]){
+        NSFansViewController * myFansVC = [[NSFansViewController alloc] initWithUserID:JUserID _isFans:YES isWho:Myself];
+        [nav pushViewController:myFansVC animated:YES];
+    }
 }
 - (void)application:(UIApplication *)application
 didReceiveLocalNotification:(UILocalNotification *)notification {

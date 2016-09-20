@@ -53,22 +53,7 @@ UITableViewDataSource
     playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
     
     playStatus.animationDuration = 0.8;
-    playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
-                                   [UIImage imageNamed:@"2.0_play_status_2"],
-                                   [UIImage imageNamed:@"2.0_play_status_3"],
-                                   [UIImage imageNamed:@"2.0_play_status_4"],
-                                   [UIImage imageNamed:@"2.0_play_status_5"],
-                                   [UIImage imageNamed:@"2.0_play_status_6"],
-                                   [UIImage imageNamed:@"2.0_play_status_7"],
-                                   [UIImage imageNamed:@"2.0_play_status_8"],
-                                   [UIImage imageNamed:@"2.0_play_status_9"],
-                                   [UIImage imageNamed:@"2.0_play_status_10"],
-                                   [UIImage imageNamed:@"2.0_play_status_11"],
-                                   [UIImage imageNamed:@"2.0_play_status_12"],
-                                   [UIImage imageNamed:@"2.0_play_status_13"],
-                                   [UIImage imageNamed:@"2.0_play_status_14"],
-                                   [UIImage imageNamed:@"2.0_play_status_15"],
-                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    playStatus.animationImages = animationImgsArr;
     
     [playStatus stopAnimating];
     playStatus.userInteractionEnabled = YES;
@@ -103,21 +88,11 @@ UITableViewDataSource
         login = [[NSLoginViewController alloc] init];
         UINavigationController * loginNav = [[UINavigationController alloc] initWithRootViewController:login];
         loginNav.navigationBar.hidden = YES;
-//        [self.tabBarController setSelectedIndex:0];
-//        count = 0;
+        
         [self presentViewController:loginNav animated:YES completion:nil];
         
     } else {
-//        if (self.playSongsVC.player == nil) {
-//            
-//        } else {
-//            
-//            if (self.playSongsVC.player.rate != 0.0) {
-//                [playStatus startAnimating];
-//            }else{
-//                [playStatus stopAnimating];
-//            }
-//        }
+       
         [self fetchData];
     }
     
@@ -186,6 +161,11 @@ UITableViewDataSource
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
+                if (bageAry.count) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
+                } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(1)];
+                }
             }
         }
         [_messageTypeTab reloadData];
@@ -310,7 +290,7 @@ UITableViewDataSource
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(1)];
+    
     NSUInteger section = indexPath.section;
     NSMessageListViewController * messageListVC;
     switch (section) {

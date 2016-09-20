@@ -20,6 +20,7 @@
 #import "NSMusicSayViewController.h"
 #import "NSUserModel.h"
 #import "NSTopicCarryOnCell.h"
+#import "NSMessageListModel.h"
 /**
  *  专题活动
   */
@@ -37,6 +38,7 @@
     NSMutableArray * musicSayAry;
     NSString * getTokenUrl;
     NSString * indexUrl;
+    NSString * messageUrl;
     UIImageView * playStatus;
     int i;
     NSMutableArray * songAry;
@@ -111,22 +113,7 @@ static NSString * const musicSayData = @"musicSayData";
     
    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
     playStatus.animationDuration = 0.8;
-    playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
-                                   [UIImage imageNamed:@"2.0_play_status_2"],
-                                   [UIImage imageNamed:@"2.0_play_status_3"],
-                                   [UIImage imageNamed:@"2.0_play_status_4"],
-                                   [UIImage imageNamed:@"2.0_play_status_5"],
-                                   [UIImage imageNamed:@"2.0_play_status_6"],
-                                   [UIImage imageNamed:@"2.0_play_status_7"],
-                                   [UIImage imageNamed:@"2.0_play_status_8"],
-                                   [UIImage imageNamed:@"2.0_play_status_9"],
-                                   [UIImage imageNamed:@"2.0_play_status_10"],
-                                   [UIImage imageNamed:@"2.0_play_status_11"],
-                                   [UIImage imageNamed:@"2.0_play_status_12"],
-                                   [UIImage imageNamed:@"2.0_play_status_13"],
-                                   [UIImage imageNamed:@"2.0_play_status_14"],
-                                   [UIImage imageNamed:@"2.0_play_status_15"],
-                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    playStatus.animationImages = animationImgsArr;
     
     [playStatus stopAnimating];
     playStatus.userInteractionEnabled = YES;
@@ -138,6 +125,7 @@ static NSString * const musicSayData = @"musicSayData";
     self.navigationItem.rightBarButtonItem = item;
 
     [self fetchIndexData];
+    
     [self getAuthorToken];
 //    [self preLoadImages];
     cache = [YYCache cacheWithName:homeCacheData];
@@ -153,22 +141,7 @@ static NSString * const musicSayData = @"musicSayData";
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];
     self.navigationController.navigationBar.hidden = NO;
-    
-    /**
-     *  重新设置刷新样式，需要更好地解决方案
-     */
-    WS(wSelf);
-    [_collection addDDPullToRefreshWithActionHandler:^{
-        if (!wSelf) {
-            return ;
-        }else{
-            [wSelf fetchIndexData];
-        }
-    }];
-    
-    if (bannerAry.count == 0) {
-        [self fetchIndexData];
-    }
+    [self fetchMessageData];
     if (self.playSongsVC.player == nil) {
        
     } else {
@@ -241,6 +214,7 @@ static NSString * const musicSayData = @"musicSayData";
         if (!wSelf) {
             return ;
         }else{
+            [wSelf fetchMessageData];
             [wSelf fetchIndexData];
         }
     }];
@@ -266,7 +240,20 @@ static NSString * const musicSayData = @"musicSayData";
     indexUrl = self.requestURL;
     
 }
-
+-(void)fetchMessageData
+{
+    self.requestType = YES;
+    
+    NSMutableDictionary * userDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
+    
+    if (userDic) {
+        NSDictionary * dic =@{@"uid":JUserID,@"token":LoginToken,@"timeStamp": [NSNumber  numberWithDouble:[date getTimeStamp]]};
+        NSString * str = [NSTool encrytWithDic:dic];
+        messageUrl = [messageURL stringByAppendingString:str];
+        self.requestURL = messageUrl;
+    }
+    
+}
 #pragma mak -override FetchData;
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
 {
@@ -317,6 +304,21 @@ static NSString * const musicSayData = @"musicSayData";
                         [userData setObject:dic forKey:@"user"];
                         [userData synchronize];
                     }
+                }
+            } else if ([operation.urlTag isEqualToString:messageUrl]) {
+                NSMessageListModel * messageList = (NSMessageListModel *)parserObject;
+                
+                messageCountModel * mess = messageList.messageCount;
+                NSMutableArray *bageAry = [NSMutableArray array];
+                
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.commentCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
+                if (bageAry.count) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
+                } else {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(1)];
                 }
             }
 //            else if ([operation.urlTag isEqualToString:_preLoadImagesUrl]){

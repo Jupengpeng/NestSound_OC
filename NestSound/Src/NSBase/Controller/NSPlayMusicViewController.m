@@ -1074,26 +1074,25 @@ static id _instance;
         /**
          *  添加保全申请
          */
-        _preserveButton =  [UIButton buttonWithType:UIButtonTypeSystem];
-        _preserveButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_preserveButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_preserveButton addTarget:self action:@selector(handlePersonalBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-        [_preserveButton setTitle:@"保全申请" forState:UIControlStateNormal];
-        [_moreChoiceView addSubview:_preserveButton];
-        [_preserveButton addTarget:self action:@selector(handlePreserveBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
-        [_preserveButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(_moreChoiceView);
-            make.top.equalTo(personalBtn.mas_bottom);
-            make.height.equalTo(reportBtn.mas_height);
-        }];
-        UIView *line = [[UIView alloc] init];
-        line.backgroundColor = [UIColor lightGrayColor];
-        [_preserveButton addSubview:line];
-        [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.bottom.equalTo(personalBtn.mas_bottom);
-            make.height.mas_equalTo(0.5);
-        }];
+//        _preserveButton =  [UIButton buttonWithType:UIButtonTypeSystem];
+//        _preserveButton.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [_preserveButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [_preserveButton setTitle:@"保全申请" forState:UIControlStateNormal];
+//        [_moreChoiceView addSubview:_preserveButton];
+//        [_preserveButton addTarget:self action:@selector(handlePreserveBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
+//        [_preserveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.right.equalTo(_moreChoiceView);
+//            make.top.equalTo(personalBtn.mas_bottom);
+//            make.height.equalTo(reportBtn.mas_height);
+//        }];
+//        UIView *line = [[UIView alloc] init];
+//        line.backgroundColor = [UIColor lightGrayColor];
+//        [_preserveButton addSubview:line];
+//        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.right.equalTo(self.view);
+//            make.bottom.equalTo(personalBtn.mas_bottom);
+//            make.height.mas_equalTo(0.5);
+//        }];
         
     } else {
         [reportBtn setTitle:@"举报" forState:UIControlStateNormal];
@@ -1104,12 +1103,12 @@ static id _instance;
 
 }
 
-- (void)handlePreserveBtnEvent:(UIButton *)sender{
-    
-    NSPreserveApplyController *preserveController = [[NSPreserveApplyController alloc] init];
-    preserveController.itemUid = self.itemUid;
-    [self.navigationController pushViewController:preserveController animated:YES];
-}
+//- (void)handlePreserveBtnEvent:(UIButton *)sender{
+//    
+//    NSPreserveApplyController *preserveController = [[NSPreserveApplyController alloc] init];
+//    preserveController.itemUid = self.itemUid;
+//    [self.navigationController pushViewController:preserveController animated:YES];
+//}
 
 - (void)handleReportBtnEvent:(UIButton *)sender {
     CHLog(@"sender title%@",sender.currentTitle);

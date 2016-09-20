@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.navigationController.navigationBar.hidden = NO;
     
     [self setupUI];
 //    _uerIsChosen = YES;

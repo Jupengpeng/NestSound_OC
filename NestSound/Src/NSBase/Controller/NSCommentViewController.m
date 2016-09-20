@@ -276,16 +276,16 @@ static NSString * const kDefaultTip = @"来~说点什么";
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    if (_commentContent) {
-        textField.text = _commentContent;
-    }
+//    if (_commentContent) {
+//        textField.text = _commentContent;
+//    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    _commentContent = textField.text;
-    inputField.text = nil;
-
-    textField.placeholder = kDefaultTip;
+//    _commentContent = textField.text;
+//    inputField.text = nil;
+//
+//    textField.placeholder = kDefaultTip;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

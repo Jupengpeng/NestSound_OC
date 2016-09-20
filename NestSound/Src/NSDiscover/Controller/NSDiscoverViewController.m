@@ -129,22 +129,7 @@
     playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
     
     playStatus.animationDuration = 0.8;
-    playStatus.animationImages = @[[UIImage imageNamed:@"2.0_play_status_1"],
-                                   [UIImage imageNamed:@"2.0_play_status_2"],
-                                   [UIImage imageNamed:@"2.0_play_status_3"],
-                                   [UIImage imageNamed:@"2.0_play_status_4"],
-                                   [UIImage imageNamed:@"2.0_play_status_5"],
-                                   [UIImage imageNamed:@"2.0_play_status_6"],
-                                   [UIImage imageNamed:@"2.0_play_status_7"],
-                                   [UIImage imageNamed:@"2.0_play_status_8"],
-                                   [UIImage imageNamed:@"2.0_play_status_9"],
-                                   [UIImage imageNamed:@"2.0_play_status_10"],
-                                   [UIImage imageNamed:@"2.0_play_status_11"],
-                                   [UIImage imageNamed:@"2.0_play_status_12"],
-                                   [UIImage imageNamed:@"2.0_play_status_13"],
-                                   [UIImage imageNamed:@"2.0_play_status_14"],
-                                   [UIImage imageNamed:@"2.0_play_status_15"],
-                                   [UIImage imageNamed:@"2.0_play_status_16"]];
+    playStatus.animationImages = animationImgsArr;
     
     [playStatus stopAnimating];
     playStatus.userInteractionEnabled = YES;
