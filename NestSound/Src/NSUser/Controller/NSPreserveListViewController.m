@@ -9,6 +9,7 @@
 #import "NSPreserveListViewController.h"
 #import "NSPreserveTableViewCell.h"
 #import "NSPreserveDetailViewController.h"
+#import "NSPreserveSelectViewController.h"
 @interface NSPreserveListViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @end
@@ -22,7 +23,7 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 - (void)configurePreserveListView {
     
     self.title = @"保全列表";
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick)];
     UITableView *preserveTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     
     preserveTab.dataSource = self;
@@ -30,6 +31,10 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     preserveTab.delegate = self;
     
     [self.view addSubview:preserveTab];
+}
+- (void)rightClick {
+    NSPreserveSelectViewController *preserveSelectVC = [[NSPreserveSelectViewController alloc] init];
+    [self.navigationController pushViewController:preserveSelectVC animated:YES];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

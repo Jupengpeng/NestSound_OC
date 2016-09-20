@@ -47,22 +47,20 @@
     nickLabel = [[UILabel alloc] init];
     nickLabel.textAlignment = NSTextAlignmentLeft;
     nickLabel.textColor = [UIColor hexColorFloat:@"1818181"];
-    nickLabel.font = [UIFont systemFontOfSize:12];
+    nickLabel.font = [UIFont systemFontOfSize:15];
     [self addSubview:nickLabel];
     
     //numberLabel
     numberLabel = [[UILabel alloc] init];
     numberLabel.textAlignment = NSTextAlignmentLeft;
     numberLabel.textColor = [UIColor hexColorFloat:@"999999"];
-    numberLabel.font = [UIFont systemFontOfSize:9];
+    numberLabel.font = [UIFont systemFontOfSize:12];
     [self addSubview:numberLabel];
     
-    editImageView = [[UIImageView alloc] init];
-    editImageView.image = [UIImage imageNamed:@"2.0_modify"];
-    [self addSubview:editImageView];
+//    editImageView = [[UIImageView alloc] init];
+//    editImageView.image = [UIImage imageNamed:@"2.0_modify"];
+//    [self addSubview:editImageView];
     
-    
-
 }
 
 #pragma mark -layoutSubviews
@@ -80,22 +78,22 @@
     
     [nickLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userIcon.mas_right).with.offset(10);
-        make.top.equalTo(self.mas_top).with.offset(22);
-        make.right.equalTo(self.mas_right).with.offset(-40);
+        make.bottom.equalTo(self.userIcon.mas_centerY).with.offset(-1);
+        make.right.equalTo(self.mas_right).with.offset(-100);
     }];
 
     [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(nickLabel.mas_left);
-        make.top.equalTo(nickLabel.mas_bottom).with.offset(6);
+        make.top.equalTo(self.userIcon.mas_centerY).with.offset(1);
         make.right.equalTo(nickLabel.mas_right);
     }];
     
-    [editImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.mas_centerY);
-        make.right.equalTo(self.mas_right).with.offset(-15);
-        make.width.mas_equalTo(12);
-        make.height.mas_equalTo(14);
-    }];
+//    [editImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.userIcon.mas_centerY);
+//        make.right.equalTo(self.mas_right).with.offset(-15);
+//        make.width.mas_equalTo(12);
+//        make.height.mas_equalTo(14);
+//    }];
 }
 
 

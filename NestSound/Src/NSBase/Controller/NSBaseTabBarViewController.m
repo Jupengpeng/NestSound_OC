@@ -21,7 +21,7 @@
 #import "NSAccompanyListViewController.h"
 #import "NSWriteMusicViewController.h"
 #import "NSLoginViewController.h"
-
+#import "NSUserViewController.h"
 @interface NSBaseTabBarViewController () <NSPlusTabBarDelegate, NSComposeViewDelegate>
 {
     UIView *redDotView;
@@ -80,9 +80,10 @@
     
     
     //我的
-    NSUserPageViewController *userPageVc = [[NSUserPageViewController alloc] init];
-    userPageVc.who = Myself;
-    [self addChildViewController:userPageVc imageName:@"2.0_my_normal" selectedImageName:@"2.0_my_selected" title:@"我的"];
+    NSUserViewController *userVc = [[NSUserViewController alloc] init];
+//    NSUserPageViewController *userPageVc = [[NSUserPageViewController alloc] init];
+//    userPageVc.who = Myself;
+    [self addChildViewController:userVc imageName:@"2.0_my_normal" selectedImageName:@"2.0_my_selected" title:@"我的"];
     
     redDotView = [[UIView alloc] init];
     redDotView.backgroundColor = [UIColor redColor];

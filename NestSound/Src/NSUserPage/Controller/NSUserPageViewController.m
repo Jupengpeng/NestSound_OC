@@ -390,26 +390,27 @@ static NSString *ID3 = @"cell3";
     [navigationView addSubview:userNameLable];
     
     
-    if (self.who == Myself) {
-        UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        
-         [settingBtn setTitle:@"设置" forState:UIControlStateNormal];
-        
-        [settingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        
-        [settingBtn addTarget:self action:@selector(settingOrFocusClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [navigationView addSubview:settingBtn];
-        
-        [settingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.right.equalTo(navigationView).with.offset(-5);
-            
-            make.centerY.equalTo(navigationView.mas_centerY);
-            
-        }];
-        
-    } else {
+//    if (self.who == Myself) {
+//        UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+//        
+//         [settingBtn setTitle:@"设置" forState:UIControlStateNormal];
+//        
+//        [settingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        
+//        [settingBtn addTarget:self action:@selector(settingOrFocusClick:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [navigationView addSubview:settingBtn];
+//        
+//        [settingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            
+//            make.right.equalTo(navigationView).with.offset(-5);
+//            
+//            make.centerY.equalTo(navigationView.mas_centerY);
+//            
+//        }];
+//        
+//    } else
+    if (self.who == Other){
         
         followItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_addFocus_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
         
@@ -530,9 +531,9 @@ static NSString *ID3 = @"cell3";
         
     }];
     
-    UITapGestureRecognizer *focusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followBtnClick:)];
-    
-    [focusLLView addGestureRecognizer:focusTap];
+//    UITapGestureRecognizer *focusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followBtnClick:)];
+//    
+//    [focusLLView addGestureRecognizer:focusTap];
     
     UIView *midLineView = [[UIView alloc] init];
     
@@ -575,9 +576,9 @@ static NSString *ID3 = @"cell3";
         
     }];
     
-    UITapGestureRecognizer *fansTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fansBtnClick:)];
-    
-    [fansLLView addGestureRecognizer:fansTap];
+//    UITapGestureRecognizer *fansTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fansBtnClick:)];
+//    
+//    [fansLLView addGestureRecognizer:fansTap];
     
     [_tableView addSubview:headImgView];
     

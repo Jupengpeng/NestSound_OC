@@ -101,6 +101,9 @@ Boolean plugedHeadset;
     BOOL stopScroll;
     NSDownloadProgressView *ProgressView;//BoxDismiss
     UIView *_bottomView;
+    NSTimer *timer;
+    UIImageView *timerImgView;
+    int num;
     
 }
 
@@ -696,6 +699,7 @@ Boolean plugedHeadset;
     self.session = [AVAudioSession sharedInstance];
     self.wavFilePath = nil;
     self.mp3Path=nil;
+    num = 4;
     timerNum=0;
     drawCount=0;
     stopScroll=NO;
@@ -1059,6 +1063,18 @@ Boolean plugedHeadset;
 
     [self setupGuideView];
     
+    timerImgView = [UIImageView new];
+    
+    timerImgView.x = ScreenWidth/2-20;
+    
+    timerImgView.centerY = self.view.height/3;
+    
+    timerImgView.width = 40;
+    
+    timerImgView.height = 40;
+    
+    [self.view addSubview:timerImgView];
+    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -1112,9 +1128,6 @@ Boolean plugedHeadset;
         }
         
         if (!btn.selected) {
-
-            //[HudView showView:self.navigationController.view string:@"开始录音"];
-            
             
             NSURL *url = [NSURL fileURLWithPath:[LocalAccompanyPath stringByAppendingPathComponent:[hotMp3Url lastPathComponent]]];
             if (downloadFinish) {
@@ -1129,16 +1142,13 @@ Boolean plugedHeadset;
                     [self.player prepareToPlay];
                     
                 }
+                [self addTimer];
+//                [[NSToastManager manager ] showtoast:@"开始录音"];
                 
-                [self.player play];
-                
-                [[NSToastManager manager ] showtoast:@"开始录音"];
                 self.isPlay = NO;
                 
                 timerNumRecorder =timerNumRecorder_temp;
                 timerNum=   timerNumRecorder;
-                
-                [self.link setPaused:NO];
                 
                 if (self.appDelete.isHeadset) {
                     
@@ -1149,7 +1159,10 @@ Boolean plugedHeadset;
                     plugedHeadset=NO;
                     
                 }
-                [self startRecorder];
+                
+//                [self.link setPaused:NO];
+//                [self.player play];
+//                [self startRecorder];
                 
                 btn.selected = !btn.selected;
             } else {
@@ -1450,7 +1463,37 @@ Boolean plugedHeadset;
         }
     }
 }
+//倒计时
+- (void)addTimer {
+    
+    timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
 
+- (void)removeTimer {
+    
+    [timer invalidate];
+    
+    timer = nil;
+}
+
+- (void)timerAction {
+    timerImgView.hidden = NO;
+    num--;
+    timerImgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"2.0_%d",num]];
+    
+    if (num == -1) {
+        timerImgView.hidden = YES;
+        [self.link setPaused:NO];
+        [self.player play];
+        [self startRecorder];
+        
+        num = 4;
+        
+        [self removeTimer];
+    }
+}
 
 /**
  *  添加定时器
@@ -1843,7 +1886,9 @@ Boolean plugedHeadset;
 - (void)dealloc{
     [self.timer invalidate];
     self.timer = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"pausePlayer"];
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"clearRecordNotification"];
     [self removeObserver:self forKeyPath:@"distantKeyPathTemp" context:nil];
+    [self removeObserver:self forKeyPath:AVAudioSessionInterruptionNotification context:nil];
 }
 @end

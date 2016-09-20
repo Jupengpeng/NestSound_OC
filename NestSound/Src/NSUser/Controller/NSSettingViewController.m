@@ -7,18 +7,161 @@
 //
 
 #import "NSSettingViewController.h"
-
-@interface NSSettingViewController ()
-
+#import "NSAboutUsViewController.h"
+#import "NSModifyPwdViewController.h"
+@interface NSSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    UITableView *settingTable;
+}
 @end
-
+static NSString * const SettingCellIdefity = @"SettingCell";
+static NSString * const LoginOutIdefity = @"LoginOutCell";
 @implementation NSSettingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self configureSettingUI];
+}
+- (void)configureSettingUI {
+    //settingPaegTable
+    settingTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    settingTable.dataSource = self;
+    settingTable.delegate = self;
+    settingTable.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    [self.view addSubview:settingTable];
+    //messageNotificationSwitch
+//    messageNotifictionSwitch = [[UISwitch alloc] init];
+//    messageNotifictionSwitch.tintColor = [UIColor hexColorFloat:@"ffd00b"];
+    
+    //constraints
+    [settingTable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.bottom.equalTo(self.view);
+    }];
+}
+#pragma mark TableViewDataSource
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+    
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    return 0.01;
+    
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return section == 0 ? 5: 1;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *stringArr = @[@"账号绑定",@"修改密码",@"清理缓存",@"新消息通知",@"关于我们友"];
+    
+    UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
+    UITableViewCell * loginOutCell = [tableView dequeueReusableCellWithIdentifier:LoginOutIdefity];
+    
+    
+    if (indexPath.section == 0){
+        
+        if (!settingCell) {
+            settingCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SettingCellIdefity];
+            settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+        }
+        settingCell.textLabel.text = stringArr[indexPath.row];
+        if (indexPath.row == 2) {
+            settingCell.accessoryType = UITableViewCellAccessoryNone;
+            settingCell.detailTextLabel.text = [Memory getCacheSize];
+            settingCell.detailTextLabel.tag = 100;
+        }
+        
+        return settingCell;
+        
+    } else if (indexPath.section == 1){
+        if (!loginOutCell) {
+            loginOutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoginOutIdefity];
+            
+        }
+        loginOutCell.textLabel.text = @"退出登录";
+        //        LocalizedStr(@"prompt_loginOut");
+        loginOutCell.textLabel.textAlignment = NSTextAlignmentCenter;
+        
+        return loginOutCell;
+        
+    }
+    return settingCell;
+}
+
+#pragma mark tableViewDelegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSUInteger section = indexPath.section;
+    NSUInteger row = indexPath.row;
+    if (section == 0){
+        if (row == 0) {
+//            NSUserMessageViewController *userMessageVC = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
+//            [self.navigationController pushViewController:userMessageVC animated:YES];
+            CHLog(@"账号绑定");
+        } else if (row == 1) {
+            NSModifyPwdViewController *modifyPwdVC = [[NSModifyPwdViewController alloc] init];
+            [self.navigationController pushViewController:modifyPwdVC animated:YES];
+            
+        } else if (row == 2) {
+            [Memory clearCache];
+            [[NSToastManager manager] showtoast:@"已成功清理缓存"];
+            UITableViewCell * settingCell = [settingTable cellForRowAtIndexPath:indexPath];
+            UILabel * cacheSize = (UILabel *)[settingCell viewWithTag:100];
+            cacheSize.text = [Memory getCacheSize];
+        }
+        else if (row == 3) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        } else if (row == 4){
+            
+            NSAboutUsViewController *aboutUsVC = [[NSAboutUsViewController alloc] init];
+            [self.navigationController pushViewController:aboutUsVC animated:YES];
+        }
+        
+    }else if(section == 1){
+        
+        //logingOut
+        [self logintOut];
+    }
+    
+}
+
+#pragma mark -loginOut
+-(void)logintOut
+{
+    self.requestType = NO;
+    self.requestParams = @{@"token":LoginToken};
+    self.requestURL = loginOutURL;
+    
+}
+
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:loginOutURL]) {
+                NSUserDefaults * user = [NSUserDefaults standardUserDefaults];
+                [user removeObjectForKey:@"user"];
+                [MobClick profileSignOff];
+                [user synchronize];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"changeBtnsState" object:nil];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            }
+        }
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
