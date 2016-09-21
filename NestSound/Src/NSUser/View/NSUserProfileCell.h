@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class UserModel;
+
 @interface NSUserProfileCell : UITableViewCell
 
 @property (nonatomic,copy) NSString * iconURL;
@@ -16,5 +18,5 @@
 
 @property (nonatomic,copy) NSString * number;
 @property (nonatomic,strong) UIImageView * userIcon;
-
+@property (nonatomic,strong) UserModel *userModel;
 @end

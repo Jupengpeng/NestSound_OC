@@ -19,7 +19,8 @@
              @"workNum":@"worknum",
              @"inspireNum":@"inspirenum",
              @"collectionNum":@"fovnum",
-             @"isFocus":@"isFocus"};
+             @"isFocus":@"isFocus"
+             };
 }
 @end
 

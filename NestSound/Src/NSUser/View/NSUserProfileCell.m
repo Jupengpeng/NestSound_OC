@@ -7,7 +7,7 @@
 //
 
 #import "NSUserProfileCell.h"
-
+#import "NSUserDataModel.h"
 @interface NSUserProfileCell ()
 {
     UILabel * nickLabel;
@@ -99,7 +99,6 @@
 
 #pragma mark setter&getter
 
-
 -(void)setNickName:(NSString *)nickName
 {
     _nickName = nickName;
@@ -112,5 +111,17 @@
     numberLabel.text = _number;
 }
 
-
+- (void)setUserModel:(UserModel *)userModel {
+    
+    _userModel = userModel;
+    [self.userIcon setDDImageWithURLString:userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    
+    nickLabel.text = userModel.nickName;
+    
+    if (userModel.signature) {
+        numberLabel.text = userModel.signature;
+    }else{
+        numberLabel.text = @"您还没有描述哦";
+    }
+}
 @end

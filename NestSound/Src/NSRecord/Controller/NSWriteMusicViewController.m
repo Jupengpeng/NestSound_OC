@@ -526,7 +526,7 @@ Boolean plugedHeadset;
 
     if (distant> distantKeyPath) {
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNumTemp, 0) animated:NO];
-        CHLog(@"%.f==%.f",speed,timerNumTemp);
+        
         
     }
     

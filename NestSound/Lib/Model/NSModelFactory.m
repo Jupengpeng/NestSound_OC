@@ -93,7 +93,7 @@
         return [[NSSystemMessageListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:playMusicURL]){
         return [[NSPlayMusicDetailModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:userCenterURL]){
+    }else if ([url isEqualToString:userCenterURL] || [url isEqualToString:userListUrl]){
     
         return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
     

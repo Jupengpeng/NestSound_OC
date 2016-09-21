@@ -280,7 +280,6 @@ static NSString * const headerView = @"HeaderView";
 
 //push hotMusicVC
 - (void)hotMusic:(UIButton *)topBtn {
-    
 
     if (isMusic) {
         NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:NO];

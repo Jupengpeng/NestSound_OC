@@ -180,7 +180,7 @@ static NSString *ID3 = @"cell3";
         if (who == Myself) {
             NSDictionary * dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSString * str = [NSTool encrytWithDic:dic];
-            url = [userCenterURL stringByAppendingString:str];
+            url = [userListUrl stringByAppendingString:str];
         }else{
             NSDictionary * dic = @{@"otherid":userId,@"uid":JUserID,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
@@ -232,7 +232,6 @@ static NSString *ID3 = @"cell3";
                         userNameLable.text = userData.userDataModel.userModel.nickName;
                         signatureLabel.text = userData.userDataModel.userModel.signature;
                         focusLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.focusNum];
-                        fansLLView.topLabel.text = @"123456";
                         fansLLView.topLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.fansNum];
                     }
                     headerUrl = userData.userDataModel.userModel.headerUrl;
@@ -1012,8 +1011,8 @@ static NSString *ID3 = @"cell3";
 
 - (void)settingOrFocusClick:(UIButton *)sender {
     
-        NSUserViewController * userSettingVC = [[NSUserViewController alloc] init];
-        [self.navigationController pushViewController:userSettingVC animated:YES];
+    NSUserViewController * userSettingVC = [[NSUserViewController alloc] init];
+    [self.navigationController pushViewController:userSettingVC animated:YES];
         
 }
 
