@@ -73,17 +73,22 @@
     if (isLyric) {
         if ([self.MusicType isEqualToString:@"hot"]) {
             self.title = @"热门歌词";
-        }else{
+        }  else if ([self.MusicType isEqualToString:@"lyric"]) {
+            self.title = @"歌词";
+        } else{
             self.title = @"最新歌词";
         }
     }else{
-    if ([self.MusicType isEqualToString:@"hot"]) {
+        if ([self.MusicType isEqualToString:@"hot"]) {
             self.title = @"热门歌曲";
-//          LocalizedStr(@"promot_hotMusic");
-        }else{
+            //          LocalizedStr(@"promot_hotMusic");
+        }else if ([self.MusicType isEqualToString:@"music"]) {
+            self.title = @"歌曲";
+        }
+        else{
             self.title = @"最新歌曲";
-//        LocalizedStr(@"promot_newMusic");
-            }
+            //        LocalizedStr(@"promot_newMusic");
+        }
     }
     
     _tableView = [[UITableView alloc] init];
@@ -146,6 +151,7 @@
 -(void)fetchDataWithIsLoadingMore:(BOOL)isLoadingMore
 {
     self.requestType = YES;
+    NSDictionary * dic;
     if (!isLoadingMore) {
         currentPage = 1;
         self.requestParams = @{kIsLoadingMore :@(NO)};
@@ -154,16 +160,28 @@
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
     if ([self.MusicType isEqualToString:@"hot"]) {
-        typed = 2;
-    }else{
-        typed = 1;
+        dic = @{@"page":[NSNumber numberWithInt:currentPage],@"orderType":[NSNumber numberWithInt:2]};
+    }else if ([self.MusicType isEqualToString:@"music"]){
+        dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:1]};
+    } else if ([self.MusicType isEqualToString:@"lyric"]) {
+        dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:2]};
+    } else {
+        dic = @{@"page":[NSNumber numberWithInt:currentPage],@"orderType":[NSNumber numberWithInt:1]};
     }
-    NSDictionary * dic = @{@"page":[NSNumber numberWithInt:currentPage],@"orderType":[NSNumber numberWithInt:typed]};
+    
     NSString * str = [NSTool encrytWithDic:dic];
     if (isLyric) {
-        url = [discoverLyricMoreURL stringByAppendingString:str];
+        if ([self.MusicType isEqualToString:@"lyric"]) {
+            url = [userMLICListUrl stringByAppendingString:str];
+        } else {
+            url = [discoverLyricMoreURL stringByAppendingString:str];
+        }
     }else{
-        url = [discoverMusicMoreURL stringByAppendingString:str];
+        if ([self.MusicType isEqualToString:@"music"]) {
+            url = [userMLICListUrl stringByAppendingString:str];
+        } else {
+            url = [discoverMusicMoreURL stringByAppendingString:str];
+        }
     }
     self.requestURL = url;
     

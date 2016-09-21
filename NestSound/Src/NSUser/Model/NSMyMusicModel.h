@@ -13,6 +13,7 @@
 
 @interface NSMyMusicModel : NSBaseModel
 @property (nonatomic,assign) NSTimeInterval  createDate;
+@property (nonatomic,assign) NSTimeInterval  createdate;
 @property (nonatomic,assign) long fovNum;
 @property (nonatomic,assign) long itemId;
 @property (nonatomic,assign) long lookNum;

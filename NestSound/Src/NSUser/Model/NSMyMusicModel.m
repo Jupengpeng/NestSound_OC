@@ -11,7 +11,8 @@
 @implementation NSMyMusicModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    return @{@"createDate":@"createdate",
+    return @{@"createDate":@"createDate",
+             @"createdate":@"createdate",
              @"fovNum":@"fovnum",
              @"isShow":@"status",
              @"itemId":@"itemid",

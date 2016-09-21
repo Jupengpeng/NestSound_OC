@@ -110,7 +110,7 @@
         
     }else if ([url isEqualToString:getQiniuDetail]){
         return [[NSGetQiNiuModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:discoverLyricMoreURL] || [url isEqualToString:discoverMusicMoreURL]){
+    }else if ([url isEqualToString:discoverLyricMoreURL] || [url isEqualToString:discoverMusicMoreURL] || [url isEqualToString:userMLICListUrl]){
         return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:searchURL]){
         return [[NSSearchUserListModel alloc] initWithJSONDict:jsonDict];

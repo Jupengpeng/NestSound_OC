@@ -19,6 +19,8 @@
 #import "NSLoginViewController.h"
 #import "NSFansViewController.h"
 #import "NSNewMusicViewController.h"
+#import "NSInspirationListViewController.h"
+#import "NSCollectionListViewController.h"
 #import "NSToolbarButton.h"
 #import "NSUserDataModel.h"
 @interface NSUserViewController ()
@@ -275,12 +277,12 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 
     }else if (section == 1){
         if (row == 0) {
-            NSUserMessageViewController *userMessageVC = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
-            [self.navigationController pushViewController:userMessageVC animated:YES];
+            NSInspirationListViewController *inspirationListVC = [[NSInspirationListViewController alloc] init];
+            [self.navigationController pushViewController:inspirationListVC animated:YES];
             
         } else if (row == 1) {
-            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:NO];
-            [self.navigationController pushViewController:hotMusicVC animated:YES];
+            NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];
+            [self.navigationController pushViewController:collectionListVC animated:YES];
             
         } else if (row == 2) {
             NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
@@ -312,13 +314,13 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     switch (toolbarBtn.tag - 230) {
             
         case 0: {
-            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:NO];
+            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"music" andIsLyric:NO];
             [self.navigationController pushViewController:hotMusicVC animated:YES];
             
             break;
         }
         case 1: {
-            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:YES];
+            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"lyric" andIsLyric:YES];
             [self.navigationController pushViewController:hotMusicVC animated:YES];
             break;
         }

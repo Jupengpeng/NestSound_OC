@@ -256,18 +256,18 @@ static NSString *ID3 = @"cell3";
                     }
                     
                     NSString *backgrountImageUrl =userData.userDataModel.userModel.bgPic;
-
+                    
                     /**
                      *  背景图
                      */
-
+                    
                     UIImage *originalImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userData.userDataModel.userModel.bgPic];
                     NSLog(@"%@",originalImage);
                     if (originalImage) {
                         self.bgImage = originalImage;
-
+                        
                         headImgView.image = self.bgImage;
-
+                        
                     }else{
                         [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                             
@@ -275,25 +275,23 @@ static NSString *ID3 = @"cell3";
                              *  缓存背景图片到本地
                              */
                             self.bgImage = image;
-
+                            
                             headImgView.image = self.bgImage;
                         }];
                     }
                     if (self.who == Other) {
-  
+                        
                         [headImgView sd_setImageWithURL:[NSURL URLWithString:backgrountImageUrl] placeholderImage:kDefaultImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                             
                             /**
                              *  缓存背景图片到本地
                              */
-//                            [NSTool saveImage:image withName:@"backgroundImage.png"];
+                            //                            [NSTool saveImage:image withName:@"backgroundImage.png"];
                             self.bgImage = image;
-
+                            
                             headImgView.image = self.bgImage;
-
                             
                         }];
-                        
                         
                         switch (userData.userOtherModel.isFocus) {
                             case 0:

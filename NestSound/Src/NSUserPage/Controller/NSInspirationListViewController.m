@@ -8,17 +8,70 @@
 
 #import "NSInspirationListViewController.h"
 #import "NSInspirationRecordTableViewCell.h"
-@interface NSInspirationListViewController ()
+#import "NSInspirationRecordViewController.h"
+#import "NSUserDataModel.h"
+@interface NSInspirationListViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    int currentPage;
+    NSString *url;
+}
 @property (nonatomic, strong) UITableView *inspirationTab;
+@property (nonatomic, strong) NSMutableArray *myInspirationAry;
 @end
 static NSString *cellIdentifier = @"cellIdentifier";
 @implementation NSInspirationListViewController
-
+- (NSMutableArray *)myInspirationAry {
+    if (!_myInspirationAry) {
+        self.myInspirationAry = [NSMutableArray array];
+    }
+    return _myInspirationAry;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureInspirationListUI];
+    [self fectInspirationDataWithIsLoadingMore:NO];
+}
+- (void)fectInspirationDataWithIsLoadingMore:(BOOL)isLoadingMore {
+    self.requestType = YES;
+    NSDictionary * dic;
+    if (!isLoadingMore) {
+        currentPage = 1;
+        self.requestParams = @{kIsLoadingMore :@(NO)};
+    }else{
+        ++currentPage;
+        self.requestParams = @{kIsLoadingMore:@(YES)};
+    }
+    dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:4]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [userMLICListUrl stringByAppendingString:str];
+    self.requestURL = url;
+}
+#pragma mark -override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if ( requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
+                
+                if (!operation.isLoadingMore) {
+                    [_inspirationTab.pullToRefreshView stopAnimating];
+                    self.myInspirationAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                    
+                }else{
+                    [_inspirationTab.infiniteScrollingView stopAnimating];
+                    [_myInspirationAry addObjectsFromArray:userData.myMusicList.musicList];
+                    
+                }
+            }
+        }
+    }
 }
 - (void)configureInspirationListUI {
+    self.title = @"灵感纪录";
+    
     self.inspirationTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     _inspirationTab.delegate = self;
     
@@ -45,24 +98,24 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
-//    return dataAry.count;
+    return _myInspirationAry.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-        
         NSInspirationRecordTableViewCell *cell =(NSInspirationRecordTableViewCell *) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
-//        cell.myInspirationModel = dataAry[indexPath.row];
+        cell.myInspirationModel = _myInspirationAry[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
-    
-    
-    
+        
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMyMusicModel * myMusic = _myInspirationAry[indexPath.row];
+    NSInspirationRecordViewController * inspirationVC = [[NSInspirationRecordViewController alloc] initWithItemId:myMusic.itemId andType:NO];
+    [self.navigationController pushViewController:inspirationVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
