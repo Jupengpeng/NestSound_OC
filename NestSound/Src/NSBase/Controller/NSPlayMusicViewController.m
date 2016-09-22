@@ -1070,7 +1070,7 @@ static id _instance;
         }
         [personalBtn setTitle:@"取消" forState:UIControlStateNormal];
         
-        _moreChoiceView.height = buttonHeight * 3.0f;
+        _moreChoiceView.height = buttonHeight * 2.0f;
         /**
          *  添加保全申请
          */
@@ -1130,7 +1130,6 @@ static id _instance;
             
             [[NSToastManager manager] showtoast:@"请登录后再举报"];
         }
-        
     } else if ([sender.currentTitle isEqualToString:@"将作品设为公开"]) {
         isShow = 1;
         

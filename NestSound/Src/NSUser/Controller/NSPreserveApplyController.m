@@ -9,15 +9,23 @@
 #import "NSPreserveApplyController.h"
 #import "NSPreserveWorkInfoCell.h"
 #import "NSPreserveUserCell.h"
+#import "NSH5ViewController.h"
 #import "NSUserMessageViewController.h"
+#import "NSPreserveTypeView.h"
 @interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     UILabel *_totalPrice;
     BOOL _uerIsChosen;
+    /**
+     *  保全身份
+     */
+    UIButton *_typeButton;
 }
 @property (nonatomic,strong) UITableView *tableView;
 
 @property (nonatomic,strong) NSUserMessageViewController *userMsgController;
+
+@property (nonatomic,strong) NSPreserveTypeView *typeView;
 
 @end
 
@@ -29,6 +37,11 @@
     
     [self setupUI];
 //    _uerIsChosen = YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.typeView disMiss];
 }
 
 - (void)setupUI{
@@ -50,7 +63,7 @@
 
 
 
-    NSRange linkRange = [tipLabel.text rangeOfString:@"音巢保全免责声明"];
+    NSRange linkRange = [tipLabel.text rangeOfString:@"《音巢保全免责声明》"];
     tipLabel.textColor = [UIColor hexColorFloat:@"afafaf"];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
@@ -100,6 +113,12 @@
     }];
     [self.view addSubview:submitButton];
     
+    [self.view addSubview:self.typeView];
+    self.typeView.chooseTypeBlock = ^(NSString *typeStr,NSInteger typeId){
+      
+        [_typeButton setTitle:typeStr forState:UIControlStateNormal];
+        
+    };
 }
 
 #pragma mark -  UITableViewDelegate,UITableViewDataSource
@@ -133,7 +152,7 @@
     if (section == 0) {
         return 10;
     }else if(section == 1){
-        return 10;
+        return 50;
     }else{
         return 0;
     }
@@ -215,7 +234,35 @@
     if (section == 0) {
         footerView.height = 10.0f;
     }else if(section == 1){
-        footerView.height = 10.0f;
+        footerView.height = 50.0f;
+        
+        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 1, ScreenWidth, 40)];
+        contentView.backgroundColor = [UIColor whiteColor];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 15, 80, 14)];
+        titleLabel.text = @"保全身份";
+        titleLabel.textColor = [UIColor hexColorFloat:@"323232"];
+        titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [contentView addSubview:titleLabel];
+        [footerView addSubview:contentView];
+        
+        UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_more"]];
+        arrow.x = ScreenWidth - arrow.width - 10;
+        arrow.centerY = 20;
+        [footerView addSubview:arrow];
+        
+        _typeButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.frame = CGRectMake(ScreenWidth - 125, 0, 100, 40);
+            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight ;
+            [btn setTitleColor:[UIColor hexColorFloat:@"323232"] forState:UIControlStateNormal ];
+            btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+            [btn setTitle:@"词作者,曲作者" forState:UIControlStateNormal];
+        } action:^(UIButton *btn) {
+            CGRect footerRect = [self.tableView convertRect:footerView.frame toView:self.view];
+            self.typeView.y = footerRect.origin.y;
+            [self.typeView show];
+        }];
+        [footerView addSubview:_typeButton];
+
     }else{
     }
     
@@ -309,17 +356,25 @@
 
 }
 
+#pragma mark - TTTAttributedLabelDelegate
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    if (url.absoluteString.length) {
+        NSH5ViewController *h5Controller = [[NSH5ViewController alloc] init];
+        h5Controller.h5Url = url.absoluteString;
+        [self.navigationController pushViewController:h5Controller animated:YES];
+        
+    }
+
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
 }
 
-- (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    
-    
 
-    
-}
 
 #pragma mark - lazy init 
 
@@ -331,6 +386,7 @@
 //        _tableView.backgroundColor=[UIColor whiteColor];
 //        _tableView.separatorColor = [UIColor hexColorFloat:@"f5f5f5"];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.bounces = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }
@@ -349,6 +405,15 @@
         };
     }
     return _userMsgController;
+}
+
+- (NSPreserveTypeView *)typeView{
+    if (!_typeView) {
+        NSArray *titles = @[@"词作者,曲作者",@"词作者",@"曲作者"];
+        _typeView = [[NSPreserveTypeView alloc] initWithFrame:CGRectMake(ScreenWidth - 125, 0, 100, 0) titlesArr:titles];
+        
+    }
+    return _typeView;
 }
 
 @end

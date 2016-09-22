@@ -421,7 +421,7 @@ static NSString *ID3 = @"cell3";
     if (self.who == Other) {
         tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
     }else{
-        tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-self.tabBarController.tabBar.size.height) style:UITableViewStylePlain];
+        tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
     }
     _tableView = tableView;
     
@@ -783,7 +783,7 @@ static NSString *ID3 = @"cell3";
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 
-    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
+//    CHLog(@"tableView.contentOffset.y %f",_tableView.contentOffset.y);
     
     CGFloat offSet_Y = _tableView.contentOffset.y;
     
