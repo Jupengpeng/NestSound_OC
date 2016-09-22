@@ -13,7 +13,6 @@
 #import "NSAboutUsViewController.h"
 #import "NSModifyPwdViewController.h"
 #import "NSPreserveListViewController.h"
-#import "NSUserMessageViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSSettingViewController.h"
 #import "NSLoginViewController.h"
@@ -37,9 +36,13 @@ UITableViewDelegate
     
     int page;
     
-    NSString *url;
+    NSString *userDataUrl;
+    
+    NSString *newFansDataUrl;
     
     UserModel *_userModel;
+    
+    UIView *redTipView;
 
 }
 @property (nonatomic,strong) NSArray *toolBarArr;
@@ -79,6 +82,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     
     [self configureAppearance];
     
+//    [self fetchUserData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -93,6 +97,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         nav.navigationBar.hidden = YES;
         [self presentViewController:nav animated:YES completion:nil];
     } else {
+        
         [self fetchUserData];
     }
 }
@@ -103,7 +108,43 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         page = 0;
     }
 }
-
+-(void)fetchUserData
+{
+    self.requestType = YES;
+    if (JUserID) {
+        NSDictionary * dic = @{@"uid":JUserID,@"token":LoginToken};
+        NSString * str = [NSTool encrytWithDic:dic];
+        userDataUrl = [userCenterURL stringByAppendingString:str];
+        self.requestURL = userDataUrl;
+    }
+    
+}
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:userDataUrl]) {
+                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
+                
+                _userModel = userData.userDataModel.userModel;
+                
+                [self.numsArr addObject:@(userData.userOtherModel.workNum)];
+                [self.numsArr addObject:@(userData.userOtherModel.lyricsNum)];
+                [self.numsArr addObject:@(userData.userOtherModel.focusNum)];
+                [self.numsArr addObject:@(userData.userOtherModel.fansNum)];
+                if (userData.userOtherModel.pushFocusNum) {
+                    redTipView.hidden = NO;
+                }
+                [settingPageTable reloadData];
+            }
+            
+        } else {
+            
+        }
+    }
+}
 -(void)configureAppearance
 {
     /**
@@ -155,7 +196,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
 //    if (section == 0) {
-        return 0.01;
+        return 1;
 //    }
 //    return 10;
     
@@ -184,6 +225,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
                 //            userProfileCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 userProfileCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
+            
             userProfileCell.userModel = _userModel;
 //
             return userProfileCell;
@@ -208,7 +250,16 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
                 if (self.numsArr.count) {
                     toolbarLabel.text = [NSString stringWithFormat:@"%@",self.numsArr[i]];
                 }
-                
+                if (i == 2) {
+                    redTipView = [[UIView alloc] initWithFrame:CGRectMake(4 * W-10, 10, 6, 6)];
+                    
+                    redTipView.backgroundColor = [UIColor redColor];
+                    
+                    redTipView.layer.cornerRadius = 3;
+                    
+                    redTipView.hidden = YES;
+                    
+                }
                 NSToolbarButton *toolbarBtn = [[NSToolbarButton alloc] initWithFrame:CGRectMake(W * i, 0, W, 60)];
                 
                 toolbarBtn.tag = 230 + i;
@@ -222,6 +273,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
                 
                 [toolBarCell addSubview:toolbarBtn];
                 [toolBarCell addSubview:toolbarLabel];
+                [toolBarCell addSubview:redTipView];
                 if (i != 0) {
                     
                     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(W * i, 0, 1, 60)];
@@ -333,7 +385,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         case 3: {
             NSFansViewController * myFansVC = [[NSFansViewController alloc] initWithUserID:JUserID _isFans:YES isWho:Myself];
             [self.navigationController pushViewController:myFansVC animated:YES];
-            
+            redTipView.hidden = YES;
             break;
         }
         default:
@@ -342,35 +394,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             break;
     }
 }
--(void)fetchUserData
-{
-    self.requestType = YES;
-    
-    NSDictionary * dic = @{@"uid":JUserID,@"token":LoginToken};
-    NSString * str = [NSTool encrytWithDic:dic];
-    url = [userCenterURL stringByAppendingString:str];
-    self.requestURL = url;
-    
-}
--(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
-{
-    if (requestErr) {
-        
-    } else {
-        if (!parserObject.success) {
-            if ([operation.urlTag isEqualToString:url]) {
-                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
-                
-                _userModel = userData.userDataModel.userModel;
-                
-                [self.numsArr addObject:@(userData.userOtherModel.workNum)];
-                [self.numsArr addObject:@(userData.userOtherModel.lyricsNum)];
-                [self.numsArr addObject:@(userData.userOtherModel.focusNum)];
-                [self.numsArr addObject:@(userData.userOtherModel.fansNum)];
-            }
-            [settingPageTable reloadData];
-        }
-    }
-}
+
+
 
 @end

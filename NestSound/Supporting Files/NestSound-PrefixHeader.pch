@@ -90,6 +90,7 @@ extern NSString *port;
 #define otherCenterURL @"java/common/otherCenter/index21?"
 #define userMLICListUrl @"java/userCenter/listdetails/v22?"
 #define messageURL @"java/message/center/v22?"
+//#define newFansTipUrl @"java/userCenter/focusnum/v22?"
 #define upvoteMessageURL @"java/message/zanCenterList/v22?"
 #define accompanyListURL @"java/common/accompanimentcategory/list?"
 #define accompanyCategoryListUrl @"java/common/accompaniment/list21?"

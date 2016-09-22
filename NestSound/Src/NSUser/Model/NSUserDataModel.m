@@ -15,6 +15,7 @@
 {
     return @{@"fansNum":@"fansnum",
              @"focusNum":@"gznum",
+             @"pushFocusNum":@"focusnum",
              @"lyricsNum":@"lyricsnum",
              @"workNum":@"worknum",
              @"inspireNum":@"inspirenum",

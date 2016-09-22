@@ -9,6 +9,7 @@
 #import "NSSettingViewController.h"
 #import "NSAboutUsViewController.h"
 #import "NSModifyPwdViewController.h"
+#import "NSBindThirdAccountViewController.h"
 @interface NSSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *settingTable;
@@ -23,6 +24,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     [self configureSettingUI];
 }
 - (void)configureSettingUI {
+    self.title = @"设置";
     //settingPaegTable
     settingTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     settingTable.dataSource = self;
@@ -49,7 +51,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 0.01;
+    return 1;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -60,7 +62,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *stringArr = @[@"账号绑定",@"修改密码",@"清理缓存",@"新消息通知",@"关于我们友"];
+    NSArray *stringArr = @[@"账号绑定",@"修改密码",@"清理缓存",@"新消息通知",@"关于我们"];
     
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
     UITableViewCell * loginOutCell = [tableView dequeueReusableCellWithIdentifier:LoginOutIdefity];
@@ -87,6 +89,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             loginOutCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:LoginOutIdefity];
             
         }
+        loginOutCell.textLabel.textColor = [UIColor redColor];
         loginOutCell.textLabel.text = @"退出登录";
         //        LocalizedStr(@"prompt_loginOut");
         loginOutCell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -105,9 +108,9 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     NSUInteger row = indexPath.row;
     if (section == 0){
         if (row == 0) {
-//            NSUserMessageViewController *userMessageVC = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
-//            [self.navigationController pushViewController:userMessageVC animated:YES];
-            CHLog(@"账号绑定");
+            NSBindThirdAccountViewController *bindAccountVC = [[NSBindThirdAccountViewController alloc] init];
+            [self.navigationController pushViewController:bindAccountVC animated:YES];
+            
         } else if (row == 1) {
             NSModifyPwdViewController *modifyPwdVC = [[NSModifyPwdViewController alloc] init];
             [self.navigationController pushViewController:modifyPwdVC animated:YES];

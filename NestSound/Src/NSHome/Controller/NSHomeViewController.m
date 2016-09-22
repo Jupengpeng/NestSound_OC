@@ -310,16 +310,13 @@ static NSString * const musicSayData = @"musicSayData";
                 
                 messageCountModel * mess = messageList.messageCount;
                 NSMutableArray *bageAry = [NSMutableArray array];
-                
-                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.commentCount]];
-                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
-                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
-                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
-                if (bageAry.count) {
+                if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount) {
+                    
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
                 } else {
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(1)];
                 }
+                
             }
 //            else if ([operation.urlTag isEqualToString:_preLoadImagesUrl]){
 //                /**

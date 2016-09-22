@@ -8,27 +8,101 @@
 
 #import "NSPreserveSelectViewController.h"
 #import "NSPreserveApplyController.h"
+#import "NSUserDataModel.h"
 @interface NSPreserveSelectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UIScrollView *_topScrollView;
     UITableView *musicTableView;
     UITableView *lyricTableView;
     UIView *_lineView;
+    int currentPage;
+    NSString *url;
+    long productType;
 }
 @property (nonatomic, strong) UIScrollView *contentScrollView;
+@property (nonatomic, strong) NSMutableArray *musicDataAry;
+@property (nonatomic, strong) NSMutableArray *lyricDataAry;
 @end
 static NSString * const productCellIdentifier = @"productCellIdentifier";
 @implementation NSPreserveSelectViewController
-
+- (NSMutableArray *)dataArr {
+    if (!_musicDataAry) {
+        self.musicDataAry = [NSMutableArray array];
+    }
+    return _musicDataAry;
+}
+- (NSMutableArray *)lyricDataAry {
+    if (!_lyricDataAry) {
+        self.lyricDataAry = [NSMutableArray array];
+    }
+    return _lyricDataAry;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self configurePreserveSelectView];
+    
+    [self fectProductDataWithProductType:1 IsLoadingMore:NO];
+}
+- (void)fectProductDataWithProductType:(long)type IsLoadingMore:(BOOL)isLoadingMore {
+    self.requestType = YES;
+    NSDictionary * dic;
+    if (!isLoadingMore) {
+        currentPage = 1;
+        self.requestParams = @{kIsLoadingMore :@(NO)};
+    }else{
+        ++currentPage;
+        self.requestParams = @{kIsLoadingMore:@(YES)};
+    }
+    dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:3]};
+    NSString * str = [NSTool encrytWithDic:dic];
+    url = [userMLICListUrl stringByAppendingString:str];
+    self.requestURL = url;
+}
+#pragma mark -override actionFetchData
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if ( requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
+                
+                if (!operation.isLoadingMore) {
+                    
+                    if (productType == 1) {
+                        [musicTableView.pullToRefreshView stopAnimating];
+                        self.musicDataAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                    } else {
+                        [lyricTableView.pullToRefreshView stopAnimating];
+                        self.lyricDataAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                    }
+  
+                }else{
+                    if (productType == 1) {
+                        [musicTableView.infiniteScrollingView stopAnimating];
+                        [self.musicDataAry addObjectsFromArray:userData.myMusicList.musicList];
+                    } else {
+                        [lyricTableView.infiniteScrollingView stopAnimating];
+                        [self.lyricDataAry addObjectsFromArray:userData.myMusicList.musicList];
+                    }
+                }
+                if (productType == 1) {
+                    [musicTableView reloadData];
+                } else {
+                    [lyricTableView reloadData];
+                }
+                
+            }
+        }
+    }
 }
 - (void)configurePreserveSelectView {
     
     self.title = @"作品列表";
     self.view.backgroundColor = KBackgroundColor;
+    productType = 1;
     _topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 33)];
     _topScrollView.backgroundColor = KBackgroundColor;
     _topScrollView.contentSize = CGSizeZero;
@@ -151,23 +225,22 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         
         _lineView.x = titleBtn.width * (titleBtn.tag-100);
     }];
-//    searchType = titleBtn.tag - 99;
+    productType = titleBtn.tag - 100;
     
-//    if (titleBtn.tag == 100) {
-//        if (musicDataAry.count) {
-//            [musicTableView reloadData];
-//        } else {
-//            [self fetchDataWithType:1 andIsLoadingMore:NO];
-//        }
-//    } else if (titleBtn.tag == 101) {
-//        if (lyricDataAry.count) {
-//            [lyricTableView reloadData];
-//        } else {
-//            [self fetchDataWithType:2 andIsLoadingMore:NO];
-//        }
-//    }
-//    }
-    
+    if (titleBtn.tag == 100) {
+        if (self.musicDataAry.count) {
+            [musicTableView reloadData];
+        } else {
+            [self fectProductDataWithProductType:1 IsLoadingMore:NO];
+        }
+    } else if (titleBtn.tag == 101) {
+        if (self.lyricDataAry.count) {
+            [lyricTableView reloadData];
+        } else {
+            [self fectProductDataWithProductType:2 IsLoadingMore:NO];
+        }
+    }
+
 }
 
 #pragma mark UIScrollViewDelegate

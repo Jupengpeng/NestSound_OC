@@ -10,7 +10,7 @@
 #import "NSNewMusicTableViewCell.h"
 #import "NSPlayMusicViewController.h"
 #import "NSLyricViewController.h"
-#import "NSUserDataModel.h"
+#import "NSDiscoverMoreLyricModel.h"
 @interface NSCollectionListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     int currentPage;
@@ -26,9 +26,9 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureCollectionListUI];
-    [self fectInspirationDataWithIsLoadingMore:NO];
+    [self fetchCollectionDataWithIsLoadingMore:NO];
 }
-- (void)fectInspirationDataWithIsLoadingMore:(BOOL)isLoadingMore {
+- (void)fetchCollectionDataWithIsLoadingMore:(BOOL)isLoadingMore {
     self.requestType = YES;
     NSDictionary * dic;
     if (!isLoadingMore) {
@@ -51,17 +51,22 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:url]) {
-                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
-                
+                NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
-                    [_collectionTab.pullToRefreshView stopAnimating];
-                    self.myCollectionAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                    
+                    self.myCollectionAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
                     
                 }else{
-                    [_collectionTab.infiniteScrollingView stopAnimating];
-                    [_myCollectionAry addObjectsFromArray:userData.myMusicList.musicList];
                     
+                    [self.myCollectionAry addObjectsFromArray:discoverMore.moreLyricList];
+                                    }
+                [_collectionTab reloadData];
+                if (!operation.isLoadingMore) {
+                    [_collectionTab.pullToRefreshView stopAnimating];
+                }else{
+                    [_collectionTab.infiniteScrollingView stopAnimating];
                 }
+                
             }
         }
     }
@@ -74,6 +79,8 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     
     _collectionTab.dataSource = self;
     
+    _collectionTab.rowHeight = 80;
+    
     _collectionTab.backgroundColor = [UIColor whiteColor];
     
     [_collectionTab registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:collectionCellIdentifier];
@@ -84,12 +91,16 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     
     [self.view addSubview:_collectionTab];
     
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [_collectionTab setTableFooterView:noLineView];
+    
     WS(wSelf);
     [_collectionTab addInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
             return ;
         }else{
-            [wSelf fectInspirationDataWithIsLoadingMore:YES];
+            [wSelf fetchCollectionDataWithIsLoadingMore:YES];
         }
     }];
 }

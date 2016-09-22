@@ -10,6 +10,7 @@
 #import "NSDatePicker.h"
 #import "NSChangeNameViewController.h"
 #import "NSGetQiNiuModel.h"
+#import "NSUserMessageViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 @interface NSUserProfileViewController ()
 
@@ -173,9 +174,12 @@ static NSString * const settingCellIditify = @"settingCell";
 }
 
 #pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return section ? 1 : 5;
 
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,7 +193,7 @@ static NSString * const settingCellIditify = @"settingCell";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.1;
+    return 1;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -224,9 +228,9 @@ static NSString * const settingCellIditify = @"settingCell";
         
         [userIcon mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(settingCell.contentView.mas_centerY);
-            make.right.equalTo(settingCell.contentView.mas_right).with.offset(-15);
-            make.height.mas_equalTo(42);
-            make.width.mas_equalTo(42);
+            make.right.equalTo(settingCell.contentView.mas_right).with.offset(-10);
+            make.height.mas_equalTo(40);
+            make.width.mas_equalTo(40);
         }];
         
         
@@ -234,51 +238,51 @@ static NSString * const settingCellIditify = @"settingCell";
     
     UILabel * valueLabel = (UILabel *)[settingCell.contentView viewWithTag:100];
     UIImageView * userIcon = (UIImageView *)[settingCell.contentView viewWithTag:101];
-   
-    if (row == 0) {
-        settingCell.textLabel.text = @"用户头像";
-//        LocalizedStr(@"prompt_userIcon");
-        self.titleImageUrl = userInfo[@"userIcon"];
-        [userIcon setDDImageWithURLString:self.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
-        userIcon.hidden = NO;
-        valueLabel.hidden = YES;
-        
-    }else if (row == 1){
-        settingCell.textLabel.text = @"昵称";
-        valueLabel.hidden = NO;
-        nickName = userInfo[@"userName"];
-
-        valueLabel.text = nickName;
-        
-    }else if (row == 2){
-        settingCell.textLabel.text = @"性别";
-        if ([userInfo[@"male"] intValue]== 1) {
-            male = @"女";
-        }else{
-            male = @"男";
-        }
-        valueLabel.text = male;
-    }else if (row == 3){
-        settingCell.textLabel.text = @"生日";
-        if (userInfo[@"birthday"]) {
-            birthday = userInfo[@"birthday"];
-        }else{
-            birthday = @"";
-        }
-        valueLabel.text = birthday;
-    }else if (row == 4){
-        settingCell.textLabel.text = @"个性签名";
-        if (userInfo[@"desc"]) {
-            signature = userInfo[@"desc"];
-        }else{
-            signature = @"您还没有描述";
-        }
-        valueLabel.text = signature;
-    }
-
-
     
-    return settingCell;
+        if (row == 0 && indexPath.section == 0) {
+            settingCell.textLabel.text = @"用户头像";
+            //        LocalizedStr(@"prompt_userIcon");
+            self.titleImageUrl = userInfo[@"userIcon"];
+            [userIcon setDDImageWithURLString:self.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+            userIcon.hidden = NO;
+            valueLabel.hidden = YES;
+            
+        }else if (row == 1){
+            settingCell.textLabel.text = @"昵称";
+            valueLabel.hidden = NO;
+            nickName = userInfo[@"userName"];
+            
+            valueLabel.text = nickName;
+            
+        }else if (row == 2){
+            settingCell.textLabel.text = @"性别";
+            if ([userInfo[@"male"] intValue]== 1) {
+                male = @"女";
+            }else{
+                male = @"男";
+            }
+            valueLabel.text = male;
+        }else if (row == 3){
+            settingCell.textLabel.text = @"生日";
+            if (userInfo[@"birthday"]) {
+                birthday = userInfo[@"birthday"];
+            }else{
+                birthday = @"";
+            }
+            valueLabel.text = birthday;
+        }else if (row == 4){
+            settingCell.textLabel.text = @"个性签名";
+            if (userInfo[@"desc"]) {
+                signature = userInfo[@"desc"];
+            }else{
+                signature = @"您还没有描述";
+            }
+            valueLabel.text = signature;
+        } else if (row == 0 && indexPath.section == 1) {
+            settingCell.textLabel.text = @"个人保全信息";
+        }
+        return settingCell;
+    
 }
 
 #pragma mark -UITableViewDelegate
@@ -286,7 +290,7 @@ static NSString * const settingCellIditify = @"settingCell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSUInteger row = indexPath.row;
-    if (row == 0) {
+    if (row == 0 && indexPath.section == 0) {
         [photoActionSheet showInView:self.view];
         cellIndex = indexPath;
     }else if (row == 1){
@@ -309,6 +313,9 @@ static NSString * const settingCellIditify = @"settingCell";
             userInfo[@"desc"] = name;
             [tableView reloadData];
         }];
+    } else if (row == 0 && indexPath.section == 1) {
+        NSUserMessageViewController *userMessageVC = [[NSUserMessageViewController alloc] init];
+        [self.navigationController pushViewController:userMessageVC animated:YES];
     }
     
     

@@ -9,7 +9,7 @@
 #import "NSInspirationListViewController.h"
 #import "NSInspirationRecordTableViewCell.h"
 #import "NSInspirationRecordViewController.h"
-#import "NSUserDataModel.h"
+#import "NSDiscoverMoreLyricModel.h"
 @interface NSInspirationListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     int currentPage;
@@ -54,16 +54,20 @@ static NSString *cellIdentifier = @"cellIdentifier";
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:url]) {
-                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
-                
+                NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
-                    [_inspirationTab.pullToRefreshView stopAnimating];
-                    self.myInspirationAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                    
+                    self.myInspirationAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
                     
                 }else{
-                    [_inspirationTab.infiniteScrollingView stopAnimating];
-                    [_myInspirationAry addObjectsFromArray:userData.myMusicList.musicList];
                     
+                    [self.myInspirationAry addObjectsFromArray:discoverMore.moreLyricList];
+                }
+                [_inspirationTab reloadData];
+                if (!operation.isLoadingMore) {
+                    [_inspirationTab.pullToRefreshView stopAnimating];
+                }else{
+                    [_inspirationTab.infiniteScrollingView stopAnimating];
                 }
             }
         }
@@ -77,6 +81,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     _inspirationTab.dataSource = self;
     
+    _inspirationTab.rowHeight = 140;
+    
     _inspirationTab.backgroundColor = [UIColor whiteColor];
     
     [_inspirationTab registerClass:[NSInspirationRecordTableViewCell class] forCellReuseIdentifier:cellIdentifier];
@@ -87,12 +93,16 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     [self.view addSubview:_inspirationTab];
     
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [_inspirationTab setTableFooterView:noLineView];
+    
     WS(wSelf);
     [_inspirationTab addInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
             return ;
         }else{
-//            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
+            [wSelf fectInspirationDataWithIsLoadingMore:YES];
         }
     }];
 }

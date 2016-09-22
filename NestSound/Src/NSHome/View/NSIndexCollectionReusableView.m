@@ -20,14 +20,31 @@
     UIPageControl *_page;
     NSMutableArray * bannerImageArr;
     NSMutableArray * songAry;
-    UIButton *_moreBtn;
+//    UIButton *_moreBtn;
     
 }
-
+@property (nonatomic,strong) UIButton *moreBtn;
 @end
 
 @implementation NSIndexCollectionReusableView
-
+- (UIButton *)moreBtn {
+    if (!_moreBtn) {
+        self.moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [self.moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+        
+        [self.moreBtn setImage:[UIImage imageNamed:@"2.0_more"] forState:UIControlStateNormal];
+        
+        [self.moreBtn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
+        
+        self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        
+        self.moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+        
+        self.moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
+    }
+    return _moreBtn;
+}
 
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -93,32 +110,18 @@
     
     if (flag) {
         
-        _moreBtn = [[UIButton alloc] init];
+        [self addSubview:self.moreBtn];
         
-        [_moreBtn setTitle:@"更多" forState:UIControlStateNormal];
-        
-        [_moreBtn setImage:[UIImage imageNamed:@"2.0_more"] forState:UIControlStateNormal];
-        
-        [_moreBtn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-        
-        _moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        
-        _moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-        
-        _moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
-        
-        [self addSubview:_moreBtn];
-        
-        [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.right.equalTo(self.mas_right).offset(-15);
-            //            make.centerY.equalTo(self.mas_centerY);
+
             make.bottom.equalTo(self.mas_bottom).offset(-8);
             
             
         }];
     }
-    return _moreBtn;
+    return self.moreBtn;
 }
 
 

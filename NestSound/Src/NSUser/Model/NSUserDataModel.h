@@ -12,6 +12,7 @@
 @interface UserOtherModel : NSBaseModel
 @property (nonatomic,assign) long fansNum;
 @property (nonatomic,assign) long focusNum;
+@property (nonatomic,assign) long pushFocusNum;
 @property (nonatomic,assign) int isFocus;
 @property (nonatomic,assign) long lyricsNum;
 @property (nonatomic,assign) long workNum;

@@ -321,12 +321,16 @@ static NSString *ID3 = @"cell3";
                 }
                 [_tableView reloadData];
             }else if ([operation.urlTag isEqualToString:focusUserURL]){
+                
                 [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
                 if ([parserObject.data[@"mp3URL"] isEqualToString:@"取消关注成功"]) {
+                    
                     followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
                 } else if ([parserObject.data[@"mp3URL"] isEqualToString:@"关注成功"]){
+                    
                     followItem.image = [UIImage imageNamed:@"2.0_focused_icon"];
                 } else {
+                    
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {

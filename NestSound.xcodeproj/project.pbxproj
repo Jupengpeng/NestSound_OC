@@ -27,6 +27,7 @@
 		0CCF1D821D91266300F97526 /* NSSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D811D91266300F97526 /* NSSettingViewController.m */; };
 		0CCF1D851D91383E00F97526 /* NSInspirationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D841D91383E00F97526 /* NSInspirationListViewController.m */; };
 		0CCF1D881D91385200F97526 /* NSCollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */; };
+		0CCF5E5A1D93B5D100A6BF3A /* NSBindThirdAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF5E591D93B5D100A6BF3A /* NSBindThirdAccountViewController.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -309,6 +310,8 @@
 		0CCF1D841D91383E00F97526 /* NSInspirationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInspirationListViewController.m; sourceTree = "<group>"; };
 		0CCF1D861D91385200F97526 /* NSCollectionListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCollectionListViewController.h; sourceTree = "<group>"; };
 		0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCollectionListViewController.m; sourceTree = "<group>"; };
+		0CCF5E581D93B5D100A6BF3A /* NSBindThirdAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBindThirdAccountViewController.h; sourceTree = "<group>"; };
+		0CCF5E591D93B5D100A6BF3A /* NSBindThirdAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBindThirdAccountViewController.m; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -1428,6 +1431,8 @@
 				0CCF1D841D91383E00F97526 /* NSInspirationListViewController.m */,
 				0CCF1D861D91385200F97526 /* NSCollectionListViewController.h */,
 				0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */,
+				0CCF5E581D93B5D100A6BF3A /* NSBindThirdAccountViewController.h */,
+				0CCF5E591D93B5D100A6BF3A /* NSBindThirdAccountViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3307,6 +3312,7 @@
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
 				2AAE01C71CFC2077008D3145 /* NSLoginViewController.m in Sources */,
+				0CCF5E5A1D93B5D100A6BF3A /* NSBindThirdAccountViewController.m in Sources */,
 				6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */,
 				0CCC19201D646579009E9478 /* NSEditTemplateViewController.m in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,

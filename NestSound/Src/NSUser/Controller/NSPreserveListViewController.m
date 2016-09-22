@@ -30,6 +30,8 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     
     preserveTab.delegate = self;
     
+    preserveTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
     [self.view addSubview:preserveTab];
 }
 - (void)rightClick {
@@ -50,7 +52,7 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 }
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.1;
+    return 1;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] init];

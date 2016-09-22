@@ -122,7 +122,7 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
 }
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.1;
+    return 1;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
