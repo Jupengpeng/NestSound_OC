@@ -246,7 +246,9 @@
 		B80C86551D47A75B00B22855 /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C86541D47A75B00B22855 /* HudView.m */; };
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
+		B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
+		B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
 		B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */; };
 		B8A2E0911D8E6FF200B0B6D0 /* NSPreserveUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A2E0901D8E6FF200B0B6D0 /* NSPreserveUserCell.m */; };
@@ -904,8 +906,12 @@
 		B81AFE1A1D83DAC00033B3B5 /* NSHeadImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHeadImageView.h; sourceTree = "<group>"; };
 		B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSHeadImageView.m; sourceTree = "<group>"; };
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		B8441D6D1D9373EC00BDDD09 /* NSPreservePayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePayCell.h; sourceTree = "<group>"; };
+		B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreservePayCell.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
 		B878AF2A1D929F340059013F /* NSPreserveTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTypeView.m; sourceTree = "<group>"; };
+		B87F69F61D93AA7000A7B620 /* NSMusicSayDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayDetailController.h; sourceTree = "<group>"; };
+		B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayDetailController.m; sourceTree = "<group>"; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		B899FA491D41B9AE001E79F3 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		B89CF2AA1D845A5B00F4D8FD /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
@@ -1128,6 +1134,8 @@
 				69219FCA1D658A9200B55B9E /* NSActivityOverViewController.m */,
 				695735EC1D6C224E00D1A269 /* NSUserWorkListController.h */,
 				695735ED1D6C224E00D1A269 /* NSUserWorkListController.m */,
+				B87F69F61D93AA7000A7B620 /* NSMusicSayDetailController.h */,
+				B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1406,6 +1414,8 @@
 				B8A2E0901D8E6FF200B0B6D0 /* NSPreserveUserCell.m */,
 				B878AF291D929F340059013F /* NSPreserveTypeView.h */,
 				B878AF2A1D929F340059013F /* NSPreserveTypeView.m */,
+				B8441D6D1D9373EC00BDDD09 /* NSPreservePayCell.h */,
+				B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3275,6 +3285,7 @@
 				188D12091CED9F170009FD5B /* NSInspirationRecordTableViewCell.m in Sources */,
 				2DFB67771CC1F0ED00DA24DA /* NSString+NSAdditions.m in Sources */,
 				2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */,
+				B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */,
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
 				2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */,
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
@@ -3309,6 +3320,7 @@
 				180F3E641D13C9160008C086 /* NSSearchUserListModel.m in Sources */,
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2A9429B61CF419990099A6DB /* NSDiscoverBandListModel.m in Sources */,
+				B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
 				2AAE01C71CFC2077008D3145 /* NSLoginViewController.m in Sources */,
