@@ -184,7 +184,6 @@
         }
     }
     self.requestURL = url;
-    
 
 }
 
