@@ -8,7 +8,7 @@
 
 #import "NSPreserveSelectViewController.h"
 #import "NSPreserveApplyController.h"
-#import "NSUserDataModel.h"
+#import "NSDiscoverMoreLyricModel.h"
 @interface NSPreserveSelectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UIScrollView *_topScrollView;
@@ -54,7 +54,8 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:3]};
+    
+    dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithLong:productType]};
     NSString * str = [NSTool encrytWithDic:dic];
     url = [userMLICListUrl stringByAppendingString:str];
     self.requestURL = url;
@@ -67,27 +68,29 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:url]) {
-                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
                 
+                NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
-                    
                     if (productType == 1) {
                         [musicTableView.pullToRefreshView stopAnimating];
-                        self.musicDataAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                        self.musicDataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
+
                     } else {
                         [lyricTableView.pullToRefreshView stopAnimating];
-                        self.lyricDataAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
+                        self.lyricDataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
                     }
-  
+                    
                 }else{
                     if (productType == 1) {
                         [musicTableView.infiniteScrollingView stopAnimating];
-                        [self.musicDataAry addObjectsFromArray:userData.myMusicList.musicList];
+                        [self.musicDataAry addObjectsFromArray:discoverMore.moreLyricList];
                     } else {
                         [lyricTableView.infiniteScrollingView stopAnimating];
-                        [self.lyricDataAry addObjectsFromArray:userData.myMusicList.musicList];
+                        [self.lyricDataAry addObjectsFromArray:discoverMore.moreLyricList];
                     }
+                    
                 }
+                
                 if (productType == 1) {
                     [musicTableView reloadData];
                 } else {
@@ -109,7 +112,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     
     [self.view addSubview:_topScrollView];
     
-    NSArray *titleArray = @[@"歌词",@"歌曲"];
+    NSArray *titleArray = @[@"歌曲",@"歌词"];
     
     CGFloat W = ScreenWidth / titleArray.count;
     
@@ -175,7 +178,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         if (!Wself) {
             return ;
         }else{
-//            [Wself fetchDataWithType:1 andIsLoadingMore:NO];
+            [Wself fectProductDataWithProductType:1 IsLoadingMore:NO];
         }
     }];
     //loadingMore
@@ -183,7 +186,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         if (!Wself) {
             return ;
         }
-//        [Wself fetchDataWithType:1 andIsLoadingMore:YES];
+        [Wself fectProductDataWithProductType:1 IsLoadingMore:YES];
     }];
     //歌词
     lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStylePlain];
@@ -206,7 +209,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         if (!Wself) {
             return ;
         }else{
-//            [Wself fetchDataWithType:2 andIsLoadingMore:NO];
+            [Wself fectProductDataWithProductType:2 IsLoadingMore:NO];
         }
     }];
     //loadingMore
@@ -214,7 +217,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         if (!Wself) {
             return ;
         }
-//        [Wself fetchDataWithType:2 andIsLoadingMore:YES];
+        [Wself fectProductDataWithProductType:2 IsLoadingMore:YES];
     }];
 }
 - (void)titleBtnClick:(UIButton *)titleBtn {
@@ -225,17 +228,17 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         
         _lineView.x = titleBtn.width * (titleBtn.tag-100);
     }];
-    productType = titleBtn.tag - 100;
+    productType = titleBtn.tag - 99;
     
     if (titleBtn.tag == 100) {
         if (self.musicDataAry.count) {
-            [musicTableView reloadData];
+//            [musicTableView reloadData];
         } else {
             [self fectProductDataWithProductType:1 IsLoadingMore:NO];
         }
     } else if (titleBtn.tag == 101) {
         if (self.lyricDataAry.count) {
-            [lyricTableView reloadData];
+//            [lyricTableView reloadData];
         } else {
             [self fectProductDataWithProductType:2 IsLoadingMore:NO];
         }
@@ -251,17 +254,25 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return productType == 1 ? self.musicDataAry.count : self.lyricDataAry.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:productCellIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:productCellIdentifier];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
     }
-    cell.textLabel.text = @"南方姑娘";
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
-    cell.detailTextLabel.text = @"2016.09.20 14:00";
+    if (productType == 1) {
+        NSMyMusicModel *model = self.musicDataAry[indexPath.row];
+        cell.textLabel.text = model.title;
+        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.inTableTime];
+    } else {
+        NSMyMusicModel *model = self.lyricDataAry[indexPath.row];
+        cell.textLabel.text = model.title;
+        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.inTableTime];
+    }
+    
     return cell;
 }
 #pragma mark - UITableViewDelegate
