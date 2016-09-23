@@ -28,6 +28,7 @@
 #import "NSCustomMusicController.h"
 #import "NSAccommpanyListModel.h"
 #import "UIImageView+WebCache.h"
+#import "NSMusicSayDetailController.h"
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource,SDCycleScrollViewDelegate> {
     
     UICollectionView *_collection;
@@ -556,20 +557,30 @@ static NSString * const musicSayData = @"musicSayData";
         
     }else if (section == 4){
         NSMusicSay * musicSay = (NSMusicSay *)musicSayAry[row];
-        //type == 1 is music ,type == 2 is web
-        if (musicSay.type == 1) {
-            NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-            playVC.itemUid = musicSay.itemID;
-            playVC.from = @"yueshuo";
-            playVC.geDanID = 0;
-            
-            [self.navigationController pushViewController:playVC animated:YES];
-            
-        }else{
-            NSH5ViewController * h5VC = [[NSH5ViewController alloc] init];
-            h5VC.h5Url = musicSay.playUrl;
-            [self.navigationController pushViewController:h5VC animated:YES];
-        }
+        //type == 1 is music ,type == 2 is lyric
+        NSMusicSayDetailController *musicSayController = [[NSMusicSayDetailController alloc] init];
+        musicSayController.itemUid = [NSString stringWithFormat:@"%d",musicSay.itemID];
+        musicSayController.detailStr = musicSay.detail;
+        musicSayController.name = musicSay.workName;
+        musicSayController.picUrl = musicSay.titleImageUrl;
+        musicSayController.type = [NSString stringWithFormat:@"%d",musicSay.type];
+        musicSayController.contentUrl = musicSay.playUrl;
+
+        [self.navigationController pushViewController:musicSayController animated:YES];
+
+//        if (musicSay.type == 1) {
+//            NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+//            playVC.itemUid = musicSay.itemID;
+//            playVC.from = @"yueshuo";
+//            playVC.geDanID = 0;
+//            
+//            [self.navigationController pushViewController:playVC animated:YES];
+//            
+//        }else{
+//            NSH5ViewController * h5VC = [[NSH5ViewController alloc] init];
+//            h5VC.h5Url = musicSay.playUrl;
+//            [self.navigationController pushViewController:h5VC animated:YES];
+//        }
     }
 
 }

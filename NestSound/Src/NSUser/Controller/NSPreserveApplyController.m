@@ -12,6 +12,7 @@
 #import "NSH5ViewController.h"
 #import "NSUserMessageViewController.h"
 #import "NSPreserveTypeView.h"
+#import "NSPreservePayCell.h"
 @interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     UILabel *_totalPrice;
@@ -20,6 +21,7 @@
      *  保全身份
      */
     UIButton *_typeButton;
+    UIButton *_choosenPayButton;
 }
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -308,7 +310,7 @@
                     UIButton *addButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 15, ScreenWidth, 20)];
                     [addButton setImage:[UIImage createImageWithColor:[UIColor hexColorFloat:kAppBaseYellowValue]] forState:UIControlStateNormal];
                     [addButton setTitle:@"添加个人信息" forState:UIControlStateNormal];
-                    [addButton setImage:[UIImage imageNamed:@"2.0_coach_round_selected "] forState:UIControlStateNormal];
+                    [addButton setImage:[UIImage imageNamed:@"addUserInfo"] forState:UIControlStateNormal];
                     addButton.titleLabel.font = [UIFont systemFontOfSize:13.0f];
                     [addButton setTitleColor:[UIColor hexColorFloat:@"4a4a4a"] forState:UIControlStateNormal];
                     addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
@@ -326,14 +328,16 @@
         }
         default:
         {
-            static NSString *cellId = @"PayCellId";
 
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
-
+            NSPreservePayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreservePayCellId"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.chooseBlock = ^(UIButton *choosenButton){
+                _choosenPayButton.selected = NO;
+                _choosenPayButton = choosenButton;
+                _choosenPayButton.selected = YES;
+            };
+  
             return cell;
         }
     }
@@ -383,6 +387,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, ScreenWidth, ScreenHeight -1) style:UITableViewStylePlain];
         [_tableView registerClass:[NSPreserveWorkInfoCell class] forCellReuseIdentifier:@"NSPreserveWorkInfoCellId"];
         [_tableView registerClass:[NSPreserveUserCell class] forCellReuseIdentifier:@"NSPreserveUserCellId"];
+        [_tableView registerClass:[NSPreservePayCell class] forCellReuseIdentifier:@"NSPreservePayCellId"];
 //        _tableView.backgroundColor=[UIColor whiteColor];
 //        _tableView.separatorColor = [UIColor hexColorFloat:@"f5f5f5"];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

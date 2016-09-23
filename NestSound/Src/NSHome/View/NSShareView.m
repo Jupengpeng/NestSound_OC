@@ -55,7 +55,10 @@
     }
     if ([type isEqualToString:@"poster"]) {
         
-    } else {
+    }else if ([type isEqualToString:@"yueshuo"]){
+        [shareArr addObject:_fuzhiDic];
+    }
+    else {
         
         [shareArr addObject:_fuzhiDic];
         [shareArr addObject:_lyricPoster];

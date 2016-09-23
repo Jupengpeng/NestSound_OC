@@ -21,6 +21,7 @@
 #import "NSUserPageViewController.h"
 #import "NSSelectLyricsViewController.h"
 #import "NSUserViewController.h"
+#import "NSMusicSayDetailController.h"
 @implementation NSBaseViewController (CustomNavBar)
 
 + (void)load {
@@ -73,7 +74,13 @@
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
     }
-        
+    if ([self isKindOfClass:[NSMusicSayDetailController class]]) {
+        self.navigationController.navigationBar.hidden = NO;
+        self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage createImageWithColor:[UIColor whiteColor]] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[UIImage createImageWithColor:[UIColor hexColorFloat:@"dddfdf"]] ];
+    }
+    
 }
 
 #pragma mark - resetNavBar

@@ -181,6 +181,13 @@ extern NSString *port;
  */
 #define uploadBgimageUrl @"java/userCenter/updateuserbg"
 
+
+
+/**
+ *  获取商品 charge
+ */
+#define getGoodChargeUrl @"paypal/Paypal/CreateCharge";
+
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
 #ifndef  DEBUG
