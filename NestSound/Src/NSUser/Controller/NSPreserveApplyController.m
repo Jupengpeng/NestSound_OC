@@ -30,6 +30,8 @@
 
 @property (nonatomic,strong) NSPreserveTypeView *typeView;
 
+@property (nonatomic,strong) UIButton *rmvViewBtn;
+
 @end
 
 @implementation NSPreserveApplyController
@@ -95,11 +97,8 @@
     self.tableView.tableFooterView = footerView;
     
     [self.view addSubview:self.typeView];
-    self.typeView.chooseTypeBlock = ^(NSString *typeStr,NSInteger typeId){
-      
-        [_typeButton setTitle:typeStr forState:UIControlStateNormal];
-        
-    };
+
+    [self.view insertSubview:self.rmvViewBtn belowSubview:self.typeView];
 }
 
 
@@ -272,6 +271,7 @@
             CGRect footerRect = [self.tableView convertRect:footerView.frame toView:self.view];
             self.typeView.y = footerRect.origin.y;
             [self.typeView show];
+            self.rmvViewBtn.height = ScreenHeight;
         }];
         [footerView addSubview:_typeButton];
 
@@ -435,9 +435,26 @@
     if (!_typeView) {
         NSArray *titles = @[@"词作者,曲作者",@"词作者",@"曲作者"];
         _typeView = [[NSPreserveTypeView alloc] initWithFrame:CGRectMake(ScreenWidth - 125, 0, 100, 0) titlesArr:titles];
-        
+        _typeView.chooseTypeBlock = ^(NSString *typeStr,NSInteger typeId){
+            
+            [_typeButton setTitle:typeStr forState:UIControlStateNormal];
+            self.rmvViewBtn.height = 0;
+        };
     }
     return _typeView;
+}
+
+- (UIButton *)rmvViewBtn{
+    if (!_rmvViewBtn) {
+        _rmvViewBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+            btn.frame= CGRectMake(0, 0, ScreenWidth, 0);
+//            btn.backgroundColor = [UIColor lightGrayColor];
+        } action:^(UIButton *btn) {
+            [self.typeView disMiss];
+            btn.height = 0;
+        }];
+    }
+    return _rmvViewBtn;
 }
 
 @end

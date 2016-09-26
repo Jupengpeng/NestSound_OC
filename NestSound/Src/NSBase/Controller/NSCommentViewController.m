@@ -30,6 +30,8 @@ static NSString * const kDefaultTip = @"来~说点什么";
     long targetUserId;
     NSString * commentUrl;
     NSString * postCommentUrl;
+    
+    NSString *_musicSayComUrl;
 }
 
 @end
@@ -111,6 +113,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
 }
 
 #pragma mark -fetchCommentData
+
 -(void)fetchCommentWithIsLoadingMore:(BOOL)isLoadingMore
 {
     self.requestType = YES;
@@ -121,11 +124,28 @@ static NSString * const kDefaultTip = @"来~说点什么";
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
-    NSString * str = [NSTool encrytWithDic:dic];
-    commentUrl = [commentURL stringByAppendingString:str];
-    self.requestURL = commentUrl;
-
+    
+    switch (type) {
+ 
+            /**
+             *  乐说
+             */
+       case 3:
+        {
+            NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"token":LoginToken};
+            NSString * str = [NSTool encrytWithDic:dic];
+            _musicSayComUrl = [musicSayCommentListUrl stringByAppendingString:str];
+            self.requestURL = _musicSayComUrl;
+        }
+        default:
+        {
+            NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
+            NSString * str = [NSTool encrytWithDic:dic];
+            commentUrl = [commentURL stringByAppendingString:str];
+            self.requestURL = commentUrl;
+        }
+            break;
+    }
 }
 
 #pragma mark -actionFetchData
@@ -151,6 +171,26 @@ static NSString * const kDefaultTip = @"来~说点什么";
                 [[NSToastManager manager] showtoast:@"发表评论成功"];
                 [self fetchCommentWithIsLoadingMore:NO];
             }else if ([operation.urlTag isEqualToString:deleteCommentURL]){
+                [[NSToastManager manager] showtoast:@"删除评论成功"];
+                [self fetchCommentWithIsLoadingMore:NO];
+            }else if([operation.urlTag isEqualToString:_musicSayComUrl]){
+                /**
+                 *  乐说部分
+                 */
+                NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
+                [commentTableView.pullToRefreshView stopAnimating];
+                [commentTableView.infiniteScrollingView stopAnimating];
+                if (!operation.isLoadingMore) {
+                    commentAry = [NSMutableArray arrayWithArray:commentList.commentList];
+                    
+                }else{
+                    [commentAry addObjectsFromArray:commentList.commentList];
+                    
+                }
+            }else if([operation.urlTag isEqualToString:musicSayLaughCommentUrl]){
+                [[NSToastManager manager] showtoast:@"发表评论成功"];
+                [self fetchCommentWithIsLoadingMore:NO];
+            }else if ([operation.urlTag isEqualToString:musicSayDeleteCommentUrl]){
                 [[NSToastManager manager] showtoast:@"删除评论成功"];
                 [self fetchCommentWithIsLoadingMore:NO];
             }
@@ -320,10 +360,15 @@ static NSString * const kDefaultTip = @"来~说点什么";
 {
     self.requestType = NO;
     
+    if (type == 3) {
+        self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
+        
+        self.requestURL = musicSayLaughCommentUrl;
+    }else{
     self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
     
     self.requestURL = postCommentURL;
-
+    }
 }
 
 
@@ -332,8 +377,15 @@ static NSString * const kDefaultTip = @"来~说点什么";
 {
 
     self.requestType = NO;
-    self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type]};
-    self.requestURL = deleteCommentURL;
+
+    if (type == 3) {
+            self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID]};
+        self.requestURL = musicSayDeleteCommentUrl;
+    }else{
+        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type]};
+        self.requestURL = deleteCommentURL;
+
+    }
 
 }
 
