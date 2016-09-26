@@ -31,7 +31,7 @@
 
 - (void)drawRect:(CGRect)rect{
     if (self.desibelNum==0) {
-//        return;
+        return;
     }
     self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 29.8 - self.desibelNum/2, 1.0f,self.desibelNum)];//21
     self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];

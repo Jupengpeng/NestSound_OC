@@ -388,7 +388,7 @@ Boolean plugedHeadset;
     self.recorder.meteringEnabled = YES;
 //    CGFloat decibels = [self.recorder peakPowerForChannel:0];
     CGFloat decibels = [self.recorder averagePowerForChannel:0];
-
+ 
     return  decibels;
     */
     [self.recorder updateMeters];
@@ -398,29 +398,26 @@ Boolean plugedHeadset;
      *  获得指定声道的分贝平均值
      */
     float   decibels    = [self.recorder averagePowerForChannel:0];
-    
-    if (decibels < minDecibels)
-    {
-        level = -0.0f;
-        
-        CHLog(@"AAAAAA%f",decibels);
-    }
-    else if (decibels >= 0.0f)
-    {
-        level = 1.0f;
-        
-        CHLog(@"BBBBBB%f",decibels);
-    }
-    else
-    {
+//    CHLog(@"%f",decibels);
+//    if (decibels < minDecibels)
+//    {
+//        level = -0.0f;
+//        
+//    }
+//    else if (decibels >= 0.0f)
+//    {
+//        level = 1.0f;
+//        
+//    }
+//    else
+//    {
         float   root            = 2.0f;
         float   minAmp          = powf(10.0f, 0.05f * minDecibels);
         float   inverseAmpRange = 1.0f / (1.0f - minAmp);
         float   amp             = powf(10.0f, 0.05f * decibels);
         float   adjAmp          = (amp - minAmp) * inverseAmpRange;
-        CHLog(@"CCCCCCCCC%f",decibels);
         level = powf(adjAmp, 1.0f / root);
-    }
+//    }
     return level * 60;
 }
 
@@ -473,8 +470,8 @@ Boolean plugedHeadset;
 #pragma mark -  AVAudioPlayerDelegate
 //伴奏播放完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    
-    [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.timeScrollView.contentSize.width, 0) animated:NO];
+//    [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+//    [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.timeScrollView.contentSize.width, 0) animated:NO];
     
     timerNum=0;
     if (player == self.player) {
@@ -508,7 +505,6 @@ Boolean plugedHeadset;
 //        [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     }
     
-//   [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     
 }
 
@@ -516,27 +512,26 @@ Boolean plugedHeadset;
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
     
 }
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
-    
-    if ([self.player isPlaying]||[self.player3 isPlaying]) {
-        return;
-    }
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
+//    
+//    if ([self.player isPlaying]||[self.player3 isPlaying]) {
+//        return;
+//    }
 
-    CGFloat distant = [[change objectForKey:@"new"] floatValue];
+//    CGFloat distant = [[change objectForKey:@"new"] floatValue];
 
-    if (distant> distantKeyPath) {
-        [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNumTemp, 0) animated:NO];
-        
-        
-    }
+//    if (distant> distantKeyPath) {
+//        [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+//        
+//    }
     
-    [self changeScrollViewColor];
+//    [self changeScrollViewColor];
 
    
 //    if ([self.waveform.timeScrollView isDragging]) {
 //        [self changeScrollViewColor];
 //    }
-}
+//}
 
 //播放被打断结束时
 - (void)audioPlayerEndInterruption:(AVAudioPlayer *)player withOptions:(NSUInteger)flags {
@@ -708,7 +703,8 @@ Boolean plugedHeadset;
     timerNumPlay=0;
     timerNumPlay_temp=0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveClearRecord:) name:@"clearRecordNotification" object:nil];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+//    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecorder)
                                                  name:@"pausePlayer"
                                                object:nil];
@@ -716,7 +712,7 @@ Boolean plugedHeadset;
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     
     self.navigationItem.rightBarButtonItem = next;
-    
+//    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 //    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
     
@@ -743,7 +739,7 @@ Boolean plugedHeadset;
   
 //    [self initMusicWave];
 
-    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
     speed = self.waveform.rect.size.width/SECOND_LONG;
 
 }
@@ -1366,9 +1362,6 @@ Boolean plugedHeadset;
         [HudView showView:self.navigationController.view  string:@"还未开始录音"];
         return;
     }
-
-
-    
     
     if (titleText.text.length == 0) {
         [HudView showView:self.navigationController.view string:@"歌词标题不能为空"];
@@ -1566,13 +1559,9 @@ Boolean plugedHeadset;
     //分贝数
 
     if (!self.isPlay) {
-//        if ([self.recorder isRecording]) {
+        
         totalTime += 1/15.0;
         count = [self decibels];
-//        }
-        CHLog(@"DDDDDDDDD%f",count);
-        
-//        if (self.lineNum % 3 == 0) { //3
         
             dispatch_async(dispatch_get_main_queue(), ^{
 
@@ -1583,7 +1572,6 @@ Boolean plugedHeadset;
                 [self.waveform.waveView setNeedsDisplay];
             });
             
-//        }
     }
     
 }
@@ -1752,12 +1740,12 @@ Boolean plugedHeadset;
     
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    self.distantKeyPathTemp = scrollView.contentOffset.x;
-
-
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    
+//    self.distantKeyPathTemp = scrollView.contentOffset.x;
+//
+//
+//}
 
 
 
