@@ -53,8 +53,8 @@
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 45 - 64, ScreenWidth, 45)];
     [self.view addSubview:bottomView];
-    NSArray *normalIconArr = @[@"",@"",@""];
-    NSArray *selectedIconArr = @[@"",@"",@""];
+    NSArray *normalIconArr = @[@"2.0_collection_normal",@"2.0_comment_no",@"2.0_share_icon"];
+    NSArray *selectedIconArr = @[@"2.0_collection_normal",@"2.0_collection_selected",@"2.0_share_icon"];
     CGFloat buttonWidth = ScreenWidth/3.0f;
 
     for (NSInteger i = 0; i < 3; i ++) {
@@ -62,13 +62,13 @@
             btn.frame = CGRectMake(buttonWidth * i, 0, buttonWidth, 45);
             btn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
             [btn setTitleColor:[UIColor hexColorFloat:@"646464"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"gouxuan_No"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"gouxuan"] forState:UIControlStateSelected];
+//            [btn setImage:[UIImage imageNamed:@"gouxuan_No"] forState:UIControlStateNormal];
+//            [btn setImage:[UIImage imageNamed:@"gouxuan"] forState:UIControlStateSelected];
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, -4);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 4);
-
-            //            [btn setImage:[UIImage imageNamed:normalIconArr[i]] forState:UIControlStateNormal];
-//            [btn setImage:[UIImage imageNamed:selectedIconArr[i]] forState:UIControlStateSelected];
+            UIImage *normalImg = [UIImage imageNamed:normalIconArr[i]];
+            [btn setImage:normalImg forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:selectedIconArr[i]] forState:UIControlStateSelected];
 
         } action:^(UIButton *btn) {
             
@@ -165,18 +165,12 @@
 
 - (void)httpPostDianzanWith:(NSString *)itemId{
     
-    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
-
-    NSTimeInterval a=[dat timeIntervalSince1970]*1000;
-    NSString *timeString = [NSString stringWithFormat:@"%d", a];
-    NSDictionary* dict = @{
-                           //                           @"channel" : self.channel,
-                           @"orderNo":timeString,
-                           @"amount"  : @20.6,
-                           @"sort_id":@"1"};
+    
     self.requestType = NO;
-    self.requestParams = dict;
-    self.requestURL = getGoodChargeUrl;
+    self.requestParams = @{@"itemid":itemId,
+                           @"uid":JUserID};
+    self.requestURL = musicSayDianzanUrl;
+    
 }
 
 
@@ -261,7 +255,7 @@
         isShare = NO;
     }
     if (isShare) {
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:[NSString stringWithFormat:@"欢迎阅读乐说——%@,作品链接：%@",self.name,self.contentUrl] image:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.picUrl]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:[NSString stringWithFormat:@"欢迎阅读乐说——《%@》,作品链接：%@",self.name,self.contentUrl] image:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.picUrl]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 [self tapClick:nil];
                 [[NSToastManager manager] showtoast:@"分享成功"];

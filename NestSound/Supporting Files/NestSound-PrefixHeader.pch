@@ -184,10 +184,24 @@ extern NSString *port;
 
 
 
+
 /**
  *  获取商品 charge
  */
-#define getGoodChargeUrl @"paypal/Paypal/CreateCharge";
+#define getGoodChargeUrl @"paypal/Paypal/CreateCharge"
+
+
+/**
+ *  乐说部分
+ *
+ *  20160926添加
+ */
+
+#define musicSayDianzanUrl @"java/common/yueshuo/zan/v22"
+#define musicSayLaughCommentUrl @"java/yueshuo/comment/v22"
+#define musicSayCommentListUrl @"java/common/yueshuo/comment/list?"
+#define musicSayDeleteCommentUrl @"java/yueshuo/comment/delete/v22"
+
 
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print

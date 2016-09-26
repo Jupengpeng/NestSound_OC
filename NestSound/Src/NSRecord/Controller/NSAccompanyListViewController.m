@@ -35,8 +35,8 @@ static NSString * const accompanyList = @"accompanyList";
     
     NSString *_className;
     
-    NSString *_accompanyListURL;
-    NSString *_accompanyCategoryListUrl;
+    NSString *_accompanyTypeListURL;
+    NSString *_accompanyDetailListUrl;
     
     YYCache *_cache;
 }
@@ -298,8 +298,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     self.requestType = YES;
     NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",_currentPage]};
     NSString * str = [NSTool encrytWithDic:dic];
-    _accompanyListURL = [accompanyListURL stringByAppendingString:str];
-    self.requestURL = _accompanyListURL;
+    _accompanyTypeListURL = [accompanyListURL stringByAppendingString:str];
+    self.requestURL = _accompanyTypeListURL;
     
 }
 
@@ -344,9 +344,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     }
     NSString * str = [NSTool encrytWithDic:dic];
     
-    _accompanyCategoryListUrl = [accompanyCategoryListUrl stringByAppendingString:str];
+    _accompanyDetailListUrl = [accompanyCategoryListUrl stringByAppendingString:str];
     
-    self.requestURL = _accompanyCategoryListUrl;
+    self.requestURL = _accompanyDetailListUrl;
     
 }
 
@@ -358,7 +358,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
     } else {
         if (!parserObject.success) {
-            if ([operation.urlTag isEqualToString:_accompanyCategoryListUrl]) {
+            if ([operation.urlTag isEqualToString:_accompanyDetailListUrl]) {
                 /**
                  *  具体伴奏列表
                  */
@@ -379,7 +379,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 
                     
                 }
-            }else if ([operation.urlTag isEqualToString:_accompanyListURL]){
+            }else if ([operation.urlTag isEqualToString:_accompanyTypeListURL]){
                 [_cache removeAllObjects];
 
                 /**

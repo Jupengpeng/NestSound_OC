@@ -239,7 +239,9 @@
 
 
 - (void)setupWithListModel:(NSAccommpanyListModel *)listModel{
-
+    /**
+     *  数组逆序
+     */
     if (!listModel.simpleCategoryList.simpleCategory.count) {
         return;
     }
@@ -248,11 +250,15 @@
     NSInteger lineCount =  remainder?
                            (1 + listModel.simpleCategoryList.simpleCategory.count/4) :
                            listModel.simpleCategoryList.simpleCategory.count/4 ;
+    
+    NSMutableArray *neededArray = [[NSMutableArray alloc] initWithCapacity:10];
+    NSArray *arr = [[listModel.simpleCategoryList.simpleCategory reverseObjectEnumerator] allObjects];
+    [neededArray addObjectsFromArray:arr];
     NSInteger index = 0 ;
     for (NSInteger line = 0; line <lineCount; line ++) {
-        for (NSInteger column = 0; column < ((line == lineCount - 1)?  : 4 );column ++ ) {
+        for (NSInteger column = 0; column < ((line == lineCount - 1)?(!remainder?4:remainder)  : 4 );column ++ ) {
             index = line * 4 + column;
-            NSSimpleCategoryModel *categoryModel = [listModel.simpleCategoryList.simpleCategory objectAtIndex:index];
+            NSSimpleCategoryModel *categoryModel = [neededArray objectAtIndex:index];
             
             UIButton *tagButton  = [self createTagButtonWithFrame:CGRectMake(kLeadPadding + (kTagButtonWidth + kSpacePadding) * column,  kOriginY + (kTagButtonHeight + kSpacePadding) * line, kTagButtonWidth, kTagButtonHeight) title:categoryModel.categoryName action:^(UIButton *btn) {
                 [self chooseCategoryWithIndex:btn];

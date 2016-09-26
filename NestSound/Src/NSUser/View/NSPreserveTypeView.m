@@ -63,6 +63,11 @@
     }];
 }
 
+- (void)dismissNow{
+    self.height = 0;
+    self.tableView.height = 0;
+}
+
 #pragma mark - <UITableViewDelegate,UITableViewDataSource>
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{

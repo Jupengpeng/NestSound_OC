@@ -42,6 +42,8 @@
 #import "NSMusicianListModel.h"
 #import "NSStarMusicianModel.h"
 #import "NSUserMusicListModel.h"
+#import "NSMusicSayChargeModel.h"
+#import "YYModel.h"
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
@@ -152,7 +154,12 @@
     }else if([url isEqualToString:myMusicListURL]){
         return [[NSUserMusicListModel alloc] initWithJSONDict:jsonDict];
 
-    }else if([url isEqualToString:uploadBgimageUrl]){
+    }else if ([url isEqualToString:getGoodChargeUrl]){
+        return [NSMusicSayChargeModel yy_modelWithDictionary:jsonDict];
+
+    }
+    
+    else if([url isEqualToString:uploadBgimageUrl]){
         NSLog(@"%@",jsonStr);
     }
     
