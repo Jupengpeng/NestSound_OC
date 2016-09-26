@@ -22,6 +22,7 @@
      */
     UIButton *_typeButton;
     UIButton *_choosenPayButton;
+    NSString *_applyType;
 }
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -52,7 +53,8 @@
 
     [self.view addSubview:self.tableView];
     
-    TTTAttributedLabel *tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(10, ScreenHeight -64 - 11 - 25, ScreenWidth - 20, 11)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 120)];
+    TTTAttributedLabel *tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(10, footerView.height - 11 - 25, ScreenWidth - 20, 11)];
 //    tipLabel.font = [UIFont systemFontOfSize:11.0f];
     NSMutableDictionary *linkAttributes = [NSMutableDictionary dictionary];
     [linkAttributes setValue:(__bridge id)[UIColor hexColorFloat:@"afafaf"].CGColor forKey:(NSString *)kCTForegroundColorAttributeName];
@@ -72,38 +74,13 @@
     tipLabel.delegate = self;
 
     [tipLabel addLinkToURL:nil withRange:linkRange];
-    [self.view addSubview:tipLabel];
+    [footerView addSubview:tipLabel];
 
 
 
-    
-//    [tipLabel setText:@"提交申请即表示认同《音巢保全免责声明》" afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
-//     {
-//         
-//         
-//         //设定可点击文字的的大小
-//         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:11];
-//         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-//         
-//         if (font) {
-//             
-//             //设置可点击文本的大小
-//             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:linkRange];
-//             
-//             //设置可点击文本的颜色
-//             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"afafaf"] CGColor] range:linkRange];
-//             
-//             CFRelease(font);
-//             
-//         }
-//         //         }
-//         return mutableAttributedString;
-//     }];
-    
-    
     
     UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
-        btn.frame = CGRectMake(10, ScreenHeight - 96 - 64, ScreenWidth -20, 45);
+        btn.frame = CGRectMake(10, footerView.height - 96 , ScreenWidth -20, 45);
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [btn setTitle:@"提交申请" forState:UIControlStateNormal];
         btn.clipsToBounds = YES;
@@ -111,9 +88,11 @@
         btn.layer.cornerRadius = 45/2.0f;
         btn.backgroundColor = [UIColor hexColorFloat:kAppBaseYellowValue];
     } action:^(UIButton *btn) {
-        
+        [self fetchGoodCharge];
     }];
-    [self.view addSubview:submitButton];
+    [footerView addSubview:submitButton];
+
+    self.tableView.tableFooterView = footerView;
     
     [self.view addSubview:self.typeView];
     self.typeView.chooseTypeBlock = ^(NSString *typeStr,NSInteger typeId){
@@ -121,6 +100,37 @@
         [_typeButton setTitle:typeStr forState:UIControlStateNormal];
         
     };
+}
+
+
+- (void)fetchGoodCharge{
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    
+    NSTimeInterval a=[dat timeIntervalSince1970]*1000;
+    NSString *timeString = [NSString stringWithFormat:@"%d", a];
+    NSDictionary* dict = @{
+                           //                           @"channel" : self.channel,
+                           @"orderNo":timeString,
+                           @"amount"  : @20.6,
+                           @"sort_id":@"1"};
+    self.requestType = NO;
+    self.requestParams = dict;
+    self.requestURL = getGoodChargeUrl;
+}
+
+
+/**
+ *  overwrite data method
+ */
+
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
+    if (requestErr) {
+        
+    }else{
+        
+        
+        
+    }
 }
 
 #pragma mark -  UITableViewDelegate,UITableViewDataSource
@@ -360,6 +370,14 @@
 
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [self.typeView dismissNow];
+    
+
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+}
+
 #pragma mark - TTTAttributedLabelDelegate
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     
@@ -384,14 +402,15 @@
 
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, ScreenWidth, ScreenHeight -1) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, ScreenWidth, ScreenHeight -1 - 64) style:UITableViewStylePlain];
         [_tableView registerClass:[NSPreserveWorkInfoCell class] forCellReuseIdentifier:@"NSPreserveWorkInfoCellId"];
         [_tableView registerClass:[NSPreserveUserCell class] forCellReuseIdentifier:@"NSPreserveUserCellId"];
         [_tableView registerClass:[NSPreservePayCell class] forCellReuseIdentifier:@"NSPreservePayCellId"];
 //        _tableView.backgroundColor=[UIColor whiteColor];
 //        _tableView.separatorColor = [UIColor hexColorFloat:@"f5f5f5"];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.bounces = NO;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.bounces = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

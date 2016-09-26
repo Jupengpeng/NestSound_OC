@@ -17,10 +17,8 @@ typedef void(^NSPreserveTypeViewChooseBlock)(NSString *typeStr,NSInteger typeId)
 
 - (instancetype)initWithFrame:(CGRect)frame titlesArr:(NSArray *)titlesArr;
 
-
-
 - (void)show;
 
 - (void)disMiss;
-
+- (void)dismissNow;
 @end
