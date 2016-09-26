@@ -53,8 +53,8 @@ static NSString * const settingCellIditify = @"settingCell";
 {
     [super viewDidLoad];
     [self configureAppearance];
-    males = 0;
-    count = 0;
+//    males = 0;
+//    count = 0;
     
 }
 
@@ -66,36 +66,7 @@ static NSString * const settingCellIditify = @"settingCell";
 }
 
 
--(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
-{
-    if (requestErr) {
-        
-    } else {
-        if (!parserObject.success) {
-            if ([operation.urlTag isEqualToString:url]) {
-                NSGetQiNiuModel *  qiniu = (NSGetQiNiuModel *)parserObject;
-                self.qiniuDetail = qiniu.qiNIuModel;
-            }else if([operation.urlTag isEqualToString:changeProfileURL]){
-                [self.navigationController popViewControllerAnimated:YES];
-//                [[NSToastManager manager] showtoast:@"修改成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
-                NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
-                [changeDic setValue:JUserID forKey:@"userID"];
-                [changeDic setValue:LoginToken forKey:@"userLoginToken"];
-                [changeDic setValue:nickName forKey:@"userName"];
-                [changeDic setValue:[NSString stringWithFormat:@"http://pic.yinchao.cn/%@",self.titleImageUrl] forKey:@"userIcon"];
-                
-                [changeDic setValue:[NSNumber numberWithInt:males] forKey:@"male"];
-                [changeDic setValue:birthday  forKey:@"birthday"];
-                [changeDic setValue:signature forKey:@"desc"];
-                [[NSUserDefaults standardUserDefaults ] removeObjectForKey:@"user"];
-                [[NSUserDefaults standardUserDefaults] setObject:changeDic forKey:@"user"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-            
-        }
-    }
-}
+
 #pragma mark -configureAppearance
 -(void)configureAppearance
 {
@@ -103,11 +74,11 @@ static NSString * const settingCellIditify = @"settingCell";
      self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     userInfo = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
-    
+
     self.title = @"完善个人信息";
 
-    UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(getBack)];
-    self.navigationItem.leftBarButtonItem = back;
+//    UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(getBack)];
+//    self.navigationItem.leftBarButtonItem = back;
     
     settingTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     settingTableView.dataSource = self;
@@ -146,10 +117,11 @@ static NSString * const settingCellIditify = @"settingCell";
 
 -(void)getBack
 {
-    count ++;
-    if (count == 1) {
-        url = [self getQiniuDetailWithType:1 andFixx:@"headport"];
-    }
+    
+//    count ++;
+//    if (count == 1) {
+//        url = [self getQiniuDetailWithType:1 andFixx:@"headport"];
+//    }
     
 
 }
@@ -162,10 +134,10 @@ static NSString * const settingCellIditify = @"settingCell";
     [fomatter setDateFormat:@"YYYY-MM-dd"];
     NSString * dateString = [fomatter stringFromDate:bir];
     [userInfo setObject:dateString forKey:@"birthday"];
-//    userInfo[@"birthday"] = [date datetoStringWithDate:bir];
     birthday = dateString;
     datePicker.hidden = YES;
     [settingTableView reloadData];
+    [self changeProfile];
 }
 
 -(void)cancelChose
@@ -242,42 +214,42 @@ static NSString * const settingCellIditify = @"settingCell";
         if (row == 0 && indexPath.section == 0) {
             settingCell.textLabel.text = @"用户头像";
             //        LocalizedStr(@"prompt_userIcon");
-            self.titleImageUrl = userInfo[@"userIcon"];
-            [userIcon setDDImageWithURLString:self.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+//            self.titleImageUrl = userInfo[@"userIcon"];
+            [userIcon setDDImageWithURLString:userInfo[@"userIcon"] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
             userIcon.hidden = NO;
             valueLabel.hidden = YES;
             
         }else if (row == 1){
             settingCell.textLabel.text = @"昵称";
             valueLabel.hidden = NO;
-            nickName = userInfo[@"userName"];
+//            nickName = userInfo[@"userName"];
             
-            valueLabel.text = nickName;
+            valueLabel.text = userInfo[@"userName"];
             
         }else if (row == 2){
             settingCell.textLabel.text = @"性别";
             if ([userInfo[@"male"] intValue]== 1) {
-                male = @"女";
+                valueLabel.text = @"女";
             }else{
-                male = @"男";
+                valueLabel.text = @"男";
             }
-            valueLabel.text = male;
+//            valueLabel.text = male;
         }else if (row == 3){
             settingCell.textLabel.text = @"生日";
-            if (userInfo[@"birthday"]) {
-                birthday = userInfo[@"birthday"];
-            }else{
-                birthday = @"";
-            }
-            valueLabel.text = birthday;
+//            if (userInfo[@"birthday"]) {
+//                birthday = userInfo[@"birthday"];
+//            }else{
+//                birthday = @"";
+//            }
+            valueLabel.text = userInfo[@"birthday"];
         }else if (row == 4){
             settingCell.textLabel.text = @"个性签名";
             if (userInfo[@"desc"]) {
-                signature = userInfo[@"desc"];
+                valueLabel.text = userInfo[@"desc"];
             }else{
-                signature = @"您还没有描述";
+                valueLabel.text = @"您还没有描述";
             }
-            valueLabel.text = signature;
+//            valueLabel.text = signature;
         } else if (row == 0 && indexPath.section == 1) {
             settingCell.textLabel.text = @"个人保全信息";
         }
@@ -299,7 +271,9 @@ static NSString * const settingCellIditify = @"settingCell";
         [self.navigationController pushViewController:changeName animated:YES];
         [changeName returnName:^(NSString *name) {
             userInfo[@"userName"] = name;
+            nickName = name;
             [tableView reloadData];
+            [self changeProfile];
         }];
     }else if (row == 2){
     
@@ -311,7 +285,9 @@ static NSString * const settingCellIditify = @"settingCell";
         [self.navigationController pushViewController:changeName animated:YES];
         [changeName returnName:^(NSString *name) {
             userInfo[@"desc"] = name;
+            signature = name;
             [tableView reloadData];
+            [self changeProfile];
         }];
     } else if (row == 0 && indexPath.section == 1) {
         NSUserMessageViewController *userMessageVC = [[NSUserMessageViewController alloc] init];
@@ -351,25 +327,24 @@ static NSString * const settingCellIditify = @"settingCell";
         switch (buttonIndex) {
             case 0:
             {
-
+                males = 2;
                 [userInfo setObject:[NSNumber numberWithInt:2] forKey:@"male"];
                 [settingTableView reloadData];
-                
+                [self changeProfile];
                 break;
             }
             case 1:
             {
 
-//                    [userInfo removeObjectForKey:@"male"];
-
-                    [userInfo setObject:[NSNumber numberWithInt:1] forKey:@"male"];
+                males = 1;
+                [userInfo setObject:[NSNumber numberWithInt:1] forKey:@"male"];
                 [settingTableView reloadData];
+                [self changeProfile];
                 break;
             }
             default:
                 break;
         }
-    
     
     }
 
@@ -382,12 +357,12 @@ static NSString * const settingCellIditify = @"settingCell";
     UIImage * userIconImage = [info objectForKey:UIImagePickerControllerEditedImage];
     [NSTool saveImage:userIconImage withName:@"userIcon.png"];
     UITableViewCell * settingCell = [settingTableView cellForRowAtIndexPath:cellIndex];
-   
-    UIImageView * userIcon = (UIImageView *)[settingCell viewWithTag:101];
-//    userIcon.layer.cornerRadius = 21;
-    userIcon.image = userIconImage;
     
     [self dismissViewControllerAnimated:YES completion:^{
+        UIImageView * userIcon = (UIImageView *)[settingCell viewWithTag:101];
+        //    userIcon.layer.cornerRadius = 21;
+        userIcon.image = userIconImage;
+        url = [self getQiniuDetailWithType:1 andFixx:@"headport"];
     }];
     
 }
@@ -404,7 +379,8 @@ static NSString * const settingCellIditify = @"settingCell";
         QNUploadManager * upManager = [[QNUploadManager alloc] init];
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:[[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-            wSelf.titleImageUrl = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
+            wSelf.titleImageUrl = resp[@"key"];
+            userInfo[@"userIcon"] = [NSString stringWithFormat:@"http://pic.yinchao.cn/%@",wSelf.titleImageUrl];
             [self changeProfile];
         } option:nil];
     }else{
@@ -454,13 +430,54 @@ static NSString * const settingCellIditify = @"settingCell";
     [dic setObject:JUserID forKey:@"uid"];
     [dic setObject:LoginToken forKey:@"token"];
     self.requestParams = dic;
-
+//    self.requestParams = @{@"token":LoginToken,@"uid":JUserID,@"headurl":self.titleImageUrl,@"nickname":nickName,@"sex":[NSNumber numberWithInt:males],@"signature":signature,@"birthday":birthday};
     self.requestURL = changeProfileURL;
 
 }
-//- (void)viewWillDisappear:(BOOL)animated {
-//    
-//    [super viewWillDisappear:animated];
+-(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
+{
+    if (requestErr) {
+        
+    } else {
+        if (!parserObject.success) {
+            if ([operation.urlTag isEqualToString:url]) {
+                NSGetQiNiuModel *  qiniu = (NSGetQiNiuModel *)parserObject;
+                self.qiniuDetail = qiniu.qiNIuModel;
+            }else if([operation.urlTag isEqualToString:changeProfileURL]){
+                //                [self.navigationController popViewControllerAnimated:YES];
+                //                [[NSToastManager manager] showtoast:@"修改成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
+//                                NSMutableDictionary * changeDic = [[NSMutableDictionary alloc] init];
+//                                [changeDic setValue:JUserID forKey:@"userID"];
+//                                [changeDic setValue:LoginToken forKey:@"userLoginToken"];
+//                                [changeDic setValue:userInfo[@"userName"] forKey:@"userName"];
+//                                [changeDic setValue:userInfo[@"userIcon"] forKey:@"userIcon"];
+//                
+//                                [changeDic setValue:[NSNumber numberWithInt:[userInfo[@"male"] intValue]] forKey:@"male"];
+//                                [changeDic setValue:userInfo[@"birthday"]  forKey:@"birthday"];
+//                                [changeDic setValue:userInfo[@"desc"] forKey:@"desc"];
+
+                NSDictionary *changeDic = @{@"userID":JUserID,
+                                            @"userLoginToken":LoginToken,
+                                            @"userName":userInfo[@"userName"],
+                                            @"userIcon":userInfo[@"userIcon"],
+                                            @"male":[NSNumber numberWithInt:[userInfo[@"male"] intValue]],
+                                            @"birthday":userInfo[@"birthday"],
+                                            @"desc":userInfo[@"desc"]};
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
+                [[NSUserDefaults standardUserDefaults] setObject:changeDic forKey:@"user"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                NSMutableDictionary *dic = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
+                CHLog(@"%@",dic);
+            }
+            
+        }
+    }
+}
+//- (void)viewDidDisappear:(BOOL)animated {
+//
+//    [super viewDidDisappear:animated];
+//    [self getBack];
 ////    [self.navigationController.interactivePopGestureRecognizer addTarget:self action:@selector(getBack)];
 ////    if ([self  respondsToSelector:@selector(popViewControllerAnimated:)]) {
 ////
