@@ -465,10 +465,11 @@ static NSString * const settingCellIditify = @"settingCell";
                                             @"birthday":userInfo[@"birthday"],
                                             @"desc":userInfo[@"desc"]};
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"user"];
+                NSMutableDictionary *dic = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
                 [[NSUserDefaults standardUserDefaults] setObject:changeDic forKey:@"user"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                NSMutableDictionary *dic = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
-                CHLog(@"%@",dic);
+                NSMutableDictionary *dic1 = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
+                CHLog(@"个人信息%@＝＝＝＝%@",dic,dic1);
             }
             
         }
