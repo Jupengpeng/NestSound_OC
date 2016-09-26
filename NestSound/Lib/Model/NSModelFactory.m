@@ -157,6 +157,8 @@
     }else if ([url isEqualToString:getGoodChargeUrl]){
         return [NSMusicSayChargeModel yy_modelWithDictionary:jsonDict];
 
+    }else if([url isEqualToString:musicSayDianzanUrl]){
+        return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     }
     
     else if([url isEqualToString:uploadBgimageUrl]){

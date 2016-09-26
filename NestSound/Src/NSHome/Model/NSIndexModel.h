@@ -96,6 +96,10 @@
 @property (nonatomic,copy) NSString * playUrl;
 @property (nonatomic,copy) NSString * detail;
 @property (nonatomic,copy) NSString * workName;
+@property (nonatomic,copy) NSString *shareUrl;
+@property (nonatomic,copy) NSString *zanNum;
+@property (nonatomic,copy) NSString *commentNum;
+@property (nonatomic,copy) NSString *shareNum;
 @end
 
 

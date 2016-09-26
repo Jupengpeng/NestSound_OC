@@ -195,6 +195,10 @@
     [aCoder encodeObject:self.titleImageUrl forKey:@"titleImageUrl"];
     [aCoder encodeObject:self.detail forKey:@"detail"];
     [aCoder encodeObject:self.workName forKey:@"workName"];
+    [aCoder encodeObject:self.shareUrl forKey:@"shareUrl"];
+    [aCoder encodeObject:self.zanNum forKey:@"zanNum"];
+    [aCoder encodeObject:self.commentNum forKey:@"commentNum"];
+    [aCoder encodeObject:self.shareNum forKey:@"shareNum"];
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
@@ -213,8 +217,11 @@
              @"type":@"type",
              @"playUrl":@"url",
              @"detail":@"detail",
-             @"workName":@"name"
-             };
+             @"workName":@"name",
+             @"shareUrl":@"shareurl",
+             @"zanNum":@"zannum",
+             @"commentNum":@"commentnum",
+             @"shareNum":@"sharenum"};
 }
 
 @end

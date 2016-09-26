@@ -9,7 +9,7 @@
 #import "NSMusicSayDetailController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSShareView.h"
-#import "NSThemeCommentController.h"
+#import "NSCommentViewController.h"
 @interface NSMusicSayDetailController ()<UIWebViewDelegate>
 {
     UIButton *_favourButton;
@@ -77,9 +77,21 @@
                 /**
                  *  点赞
                  */
+                
+                btn.selected = !btn.selected;
+                [self httpPostDianzanWith:self.itemUid];
             }else if (btn == _commentButton){
                 CHLog(@"_commentButton");
-
+                /**
+                 type = 3表示乐说
+                 
+                 - returns: <#return value description#>
+                 */
+                NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: [self.itemUid longLongValue] andType:3];
+                
+                commentVC.musicName = self.name;
+                
+                [self.navigationController pushViewController:commentVC animated:YES];
             }else if (btn == _sharebutton){
                 CHLog(@"_sharebutton");
                 _maskView.hidden = NO;
@@ -178,7 +190,10 @@
     if (requestErr) {
         
     }else{
+        
         CHLog(@"%@",parserObject);
+        
+        
     }
 }
 
