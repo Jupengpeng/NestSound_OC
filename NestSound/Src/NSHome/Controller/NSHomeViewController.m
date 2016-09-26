@@ -310,7 +310,7 @@ static NSString * const musicSayData = @"musicSayData";
                 NSMessageListModel * messageList = (NSMessageListModel *)parserObject;
                 
                 messageCountModel * mess = messageList.messageCount;
-                NSMutableArray *bageAry = [NSMutableArray array];
+//                NSMutableArray *bageAry = [NSMutableArray array];
                 if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount) {
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];

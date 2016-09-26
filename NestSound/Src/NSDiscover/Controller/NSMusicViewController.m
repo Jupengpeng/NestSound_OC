@@ -295,7 +295,6 @@ static NSString * const headerView = @"HeaderView";
 - (void)newMusic:(UIButton *)newBtn {
     
     
-    
     if (isMusic) {
         NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:@"lal" andIsLyric:NO];
         

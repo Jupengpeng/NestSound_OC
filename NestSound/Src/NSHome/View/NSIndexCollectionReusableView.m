@@ -27,24 +27,24 @@
 @end
 
 @implementation NSIndexCollectionReusableView
-- (UIButton *)moreBtn {
-    if (!_moreBtn) {
-        self.moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        [self.moreBtn setTitle:@"更多" forState:UIControlStateNormal];
-        
-        [self.moreBtn setImage:[UIImage imageNamed:@"2.0_more"] forState:UIControlStateNormal];
-        
-        [self.moreBtn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-        
-        self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        
-        self.moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-        
-        self.moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
-    }
-    return _moreBtn;
-}
+//- (UIButton *)moreBtn {
+//    if (!_moreBtn) {
+//        self.moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        
+//        [self.moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+//        
+//        [self.moreBtn setImage:[UIImage imageNamed:@"2.0_more"] forState:UIControlStateNormal];
+//        
+//        [self.moreBtn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
+//        
+//        self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+//        
+//        self.moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+//        
+//        self.moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
+//    }
+//    return _moreBtn;
+//}
 
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -109,6 +109,23 @@
 - (UIButton *)loadMore:(BOOL)flag {
     
     if (flag) {
+        if (self.moreBtn) {
+            [self.moreBtn removeFromSuperview];
+            _moreBtn = nil;
+        }
+        self.moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [self.moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+        
+        [self.moreBtn setImage:[UIImage imageNamed:@"2.0_more"] forState:UIControlStateNormal];
+        
+        [self.moreBtn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
+        
+        self.moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        
+        self.moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+        
+        self.moreBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 22, 0, 0);
         
         [self addSubview:self.moreBtn];
         
