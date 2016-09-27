@@ -652,7 +652,7 @@
     
     NSArray *shareArr = shareView.shareArr;
     NSDictionary *dic = shareArr[sender.tag-250];
-    BOOL isShare;
+    BOOL isShare = YES;
 
 //    switch (sender.tag) {
             /**
@@ -661,7 +661,7 @@
             if (dic[@"type"] == UMShareToWechatSession) {
 
             [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            isShare = YES;
+//            isShare = YES;
 //            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
 //                if (response.responseCode == UMSResponseCodeSuccess) {
 ////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -674,7 +674,7 @@
              */
 
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            isShare = YES;
+//            isShare = YES;
 //            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
 //                if (response.responseCode == UMSResponseCodeSuccess) {
 ////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -686,7 +686,7 @@
              *  新浪微博
              */
             [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-            isShare = YES;
+//            isShare = YES;
 //            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
 //                if (response.responseCode == UMSResponseCodeSuccess) {
 ////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -700,7 +700,7 @@
              */
 
             [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            isShare = YES;
+//            isShare = YES;
 //            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
 //                if (response.responseCode == UMSResponseCodeSuccess) {
 ////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -714,7 +714,7 @@
              */
 
             [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-            isShare = YES;
+//            isShare = YES;
 //            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:contentShare image:imageShare  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
 //                if (response.responseCode == UMSResponseCodeSuccess) {
 ////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];

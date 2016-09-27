@@ -35,7 +35,8 @@
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 12, 60, 13)];
         titleLabel.textColor = [UIColor hexColorFloat:@"afafaf"];

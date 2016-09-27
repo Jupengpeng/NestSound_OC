@@ -11,5 +11,5 @@
 @interface NSUserProfileViewController : NSBaseViewController
 
 @property (nonatomic,strong) qiNiu * qiniuDetail;
-
+- (instancetype)initWithUserDictionary:(NSDictionary *)dic;
 @end

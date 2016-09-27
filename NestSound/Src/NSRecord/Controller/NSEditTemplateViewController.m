@@ -52,7 +52,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
     [self setupEditTemplateUI];
 }
 - (void)viewDidDisappear:(BOOL)animated {
-    
+    [super viewDidDisappear:animated];
     [self endPlaying];
 }
 -(void)saveTemplate {

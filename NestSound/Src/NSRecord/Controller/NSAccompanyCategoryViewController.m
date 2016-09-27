@@ -73,7 +73,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     }
     self.requestType = YES;
     NSString *type;
-    NSDictionary * dic = [NSDictionary dictionary];
+    NSDictionary * dic = nil;
     if ([className isEqualToString:@"最新"]) {
         type = @"new";
     } else if ([className isEqualToString:@"热门"]) {

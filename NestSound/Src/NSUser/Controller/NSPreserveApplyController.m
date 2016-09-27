@@ -63,7 +63,8 @@
     UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:11];
     CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
     [linkAttributes setValue:(__bridge id)font forKey:(NSString *)kCTFontAttributeName];
-    tipLabel.attributedText = [[NSAttributedString alloc] initWithString:@"提交申请即表示认同《音巢保全免责声明》" attributes:linkAttributes];
+    NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:@"提交申请即表示认同《音巢保全免责声明》" attributes:linkAttributes];
+    tipLabel.attributedText = attributedStr;
     [linkAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
     tipLabel.linkAttributes = linkAttributes;
 

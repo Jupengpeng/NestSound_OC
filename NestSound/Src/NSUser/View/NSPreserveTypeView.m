@@ -19,8 +19,8 @@
 @implementation NSPreserveTypeView
 
 - (instancetype)initWithFrame:(CGRect)frame titlesArr:(NSArray *)titlesArr{
-    
-    if (self == [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         _titlesaArray = titlesArr;
         
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 0) style:UITableViewStylePlain];

@@ -324,7 +324,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 //        type = @"";
 //    }
     NSString *type;
-    NSDictionary * dic = [NSDictionary dictionary];
+    NSDictionary * dic = nil;
 
     if (_sortType == 0) {
         type = @"new";

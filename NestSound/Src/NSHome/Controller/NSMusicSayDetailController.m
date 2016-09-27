@@ -238,7 +238,7 @@
 
 //分享
 - (void)handleShareAction:(UIButton *)sender {
-    BOOL isShare;
+    BOOL isShare = YES;
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:self.contentUrl];
     [UMSocialData defaultData].extConfig.title = self.name;
     
@@ -246,23 +246,23 @@
     if (dic[@"type"] == UMShareToWechatSession) {
         
         [UMSocialData defaultData].extConfig.wechatSessionData.url = self.contentUrl;
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToWechatTimeline) {
         
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.contentUrl;
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToSina) {
         
         [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToQQ) {
         
         [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToQzone) {
         
         [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
-        isShare = YES;
+//        isShare = YES;
     } else if ([dic[@"type"] isEqualToString:@"copy"]) {
         
         [UIPasteboard generalPasteboard].string = self.contentUrl;

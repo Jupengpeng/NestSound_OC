@@ -25,7 +25,8 @@
 
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
         
         for (NSInteger i = 1; i < 3; i ++) {
             UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(10, 45*i, ScreenWidth - 10, 0.5)];

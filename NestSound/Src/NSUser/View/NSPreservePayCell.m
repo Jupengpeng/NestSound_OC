@@ -27,12 +27,12 @@
 
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
        
         self.payIconView = [[UIImageView alloc] init];
         self.payIconView.frame = CGRectMake(10, 9, 35, 31);
         [self addSubview:self.payIconView];
-
         
         self.payTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(55, 18, 60, 14)];
         self.payTitleLabel.font = [UIFont systemFontOfSize:14.0f];

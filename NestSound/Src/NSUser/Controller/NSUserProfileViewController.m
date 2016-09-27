@@ -48,7 +48,12 @@ UINavigationControllerDelegate
 static NSString * const settingCellIditify = @"settingCell";
 
 @implementation NSUserProfileViewController
-
+- (instancetype)initWithUserDictionary:(NSDictionary *)dic {
+    if (self = [super init]) {
+        userInfo = [NSMutableDictionary dictionaryWithDictionary:dic];
+    }
+    return self;
+}
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -73,7 +78,7 @@ static NSString * const settingCellIditify = @"settingCell";
 
      self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
-    userInfo = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
+//    userInfo = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
 
     self.title = @"完善个人信息";
 
@@ -406,11 +411,11 @@ static NSString * const settingCellIditify = @"settingCell";
 {
     self.requestType = NO;
     
-    if ([male isEqualToString:@"男"]) {
-        males = 2;
-    }else if([male isEqualToString:@"女"]){
-        males = 1;
-    }
+//    if ([male isEqualToString:@"男"]) {
+//        males = 2;
+//    }else if([male isEqualToString:@"女"]){
+//        males = 1;
+//    }
     NSMutableDictionary * dic = [[NSMutableDictionary alloc] init];
     if (nickName) {
         [dic setObject:nickName forKey:@"nickname"];

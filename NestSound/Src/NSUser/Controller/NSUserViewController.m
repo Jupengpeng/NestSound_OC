@@ -43,6 +43,8 @@ UITableViewDelegate
     UserModel *_userModel;
     
     UIView *redTipView;
+    
+    NSDictionary *userDic;
 
 }
 @property (nonatomic,strong) NSArray *toolBarArr;
@@ -127,7 +129,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:userDataUrl]) {
                 NSUserDataModel * userData = (NSUserDataModel *)parserObject;
-                
+                userDic = parserObject.data[@"user"];
                 _userModel = userData.userDataModel.userModel;
                 
                 [self.numsArr addObject:@(userData.userOtherModel.workNum)];
@@ -344,7 +346,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     
     }else if(section == 2){
         if (row == 0) {
-            NSUserProfileViewController * userProfileInfoVC = [[NSUserProfileViewController alloc] init];
+            NSUserProfileViewController * userProfileInfoVC = [[NSUserProfileViewController alloc] initWithUserDictionary:userDic];
             [self.navigationController pushViewController:userProfileInfoVC animated:YES];
             
         } else if (row == 1) {

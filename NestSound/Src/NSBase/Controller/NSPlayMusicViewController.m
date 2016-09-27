@@ -1112,7 +1112,7 @@ static id _instance;
 
 - (void)handleReportBtnEvent:(UIButton *)sender {
     CHLog(@"sender title%@",sender.currentTitle);
-    int isShow;
+    int isShow = 0;
     if ([sender.currentTitle isEqualToString:@"举报"]) {
         if (JUserID) {
             
@@ -1314,7 +1314,7 @@ static id _instance;
 }
 //分享
 - (void)handleShareAction:(UIButton *)sender {
-    BOOL isShare;
+    BOOL isShare = YES;
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:self.musicDetail.playURL];
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     
@@ -1322,23 +1322,23 @@ static id _instance;
     if (dic[@"type"] == UMShareToWechatSession) {
         
         [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToWechatTimeline) {
         
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToSina) {
         
         [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToQQ) {
         
         [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-        isShare = YES;
+//        isShare = YES;
     } else if (dic[@"type"] == UMShareToQzone) {
         
         [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
-        isShare = YES;
+//        isShare = YES;
     } else if ([dic[@"type"] isEqualToString:@"copy"]) {
         
         [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.prevItemID];
