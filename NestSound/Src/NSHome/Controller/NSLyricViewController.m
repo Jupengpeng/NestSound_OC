@@ -713,7 +713,7 @@
              *  qq空间
              */
 
-            [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
+            [UMSocialData defaultData].extConfig.qzoneData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
 //            isShare = YES;
 //            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:contentShare image:imageShare  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
 //                if (response.responseCode == UMSResponseCodeSuccess) {

@@ -1315,17 +1315,17 @@ static id _instance;
 //分享
 - (void)handleShareAction:(UIButton *)sender {
     BOOL isShare = YES;
-    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:self.musicDetail.playURL];
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeVideo url:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]];
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     
     NSDictionary *dic = shareArr[sender.tag-250];
     if (dic[@"type"] == UMShareToWechatSession) {
         
-        [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = self.musicDetail.playURL;
 //        isShare = YES;
     } else if (dic[@"type"] == UMShareToWechatTimeline) {
         
-        [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.musicDetail.playURL;
 //        isShare = YES;
     } else if (dic[@"type"] == UMShareToSina) {
         
@@ -1333,11 +1333,11 @@ static id _instance;
 //        isShare = YES;
     } else if (dic[@"type"] == UMShareToQQ) {
         
-        [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [UMSocialData defaultData].extConfig.qqData.url = self.musicDetail.playURL;
 //        isShare = YES;
     } else if (dic[@"type"] == UMShareToQzone) {
         
-        [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid];
+        [UMSocialData defaultData].extConfig.qzoneData.url = self.musicDetail.playURL;
 //        isShare = YES;
     } else if ([dic[@"type"] isEqualToString:@"copy"]) {
         

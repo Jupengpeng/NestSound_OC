@@ -261,7 +261,7 @@
 //        isShare = YES;
     } else if (dic[@"type"] == UMShareToQzone) {
         
-        [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
+        [UMSocialData defaultData].extConfig.qzoneData.url = self.contentUrl;
 //        isShare = YES;
     } else if ([dic[@"type"] isEqualToString:@"copy"]) {
         

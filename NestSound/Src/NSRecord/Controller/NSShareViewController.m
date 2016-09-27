@@ -226,7 +226,7 @@ static NSString *identifier = @"identifier";
         urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:titleImageURl];
     } else {
         contentShare = _shareDataDic[@"author"];
-        urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:[NSString stringWithFormat:@"http://audio.yinchao.cn%@",_shareDataDic[@"mp3Url"]]];
+        urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeMusic url:shareUrl];
     }
     if (titleImageURl.length != 0) {
         imageShare = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:titleImageURl]]];
@@ -236,7 +236,7 @@ static NSString *identifier = @"identifier";
     
     [UMSocialData defaultData].extConfig.title = workName;
     if ([[dic objectForKey:@"name"] isEqualToString:@"微信"]) {
-        [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl;
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"http://audio.yinchao.cn%@",_shareDataDic[@"mp3Url"]];
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -245,7 +245,7 @@ static NSString *identifier = @"identifier";
     }
     
     if ([[dic objectForKey:@"name"] isEqualToString:@"朋友圈"]) {
-        [UMSocialData defaultData].extConfig.wechatTimelineData.url = shareUrl;
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"http://audio.yinchao.cn%@",_shareDataDic[@"mp3Url"]];
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -262,7 +262,7 @@ static NSString *identifier = @"identifier";
         }];
     }
     if ([[dic objectForKey:@"name"] isEqualToString:@"QQ"]) {
-        [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
+        [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"http://audio.yinchao.cn%@",_shareDataDic[@"mp3Url"]];
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -271,9 +271,7 @@ static NSString *identifier = @"identifier";
     }
     if ([[dic objectForKey:@"name"] isEqualToString:@"QQ空间"]) {
         
-        
-        
-        [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
+        [UMSocialData defaultData].extConfig.qzoneData.url = [NSString stringWithFormat:@"http://audio.yinchao.cn%@",_shareDataDic[@"mp3Url"]];
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 [wSelf.navigationController popToRootViewControllerAnimated:YES];

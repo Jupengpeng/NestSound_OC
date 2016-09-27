@@ -78,7 +78,7 @@ static NSString * const settingCellIditify = @"settingCell";
 
      self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
-//    userInfo = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
+    userInfo = [[NSMutableDictionary  alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"user"]];
 
     self.title = @"完善个人信息";
 
