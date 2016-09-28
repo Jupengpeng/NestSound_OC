@@ -29,7 +29,7 @@
     UIView *_maskView;
     AVPlayer * av;
     UIView *_moreChoiceView;
-    NSString * url;
+    NSString * requestUrl;
     NSString * playURL;
     UIImageView *backgroundImage;
     UIButton *collectionBtn;
@@ -42,6 +42,7 @@
     UILabel * commentNumLabel;
     NSShareView *shareView;
     NSArray *shareArr;
+    TencentOAuth *tencentOAuth;
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -199,8 +200,8 @@ static id _instance;
         dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
     }
     NSString * str = [NSTool encrytWithDic:dic];
-    url = [playMusicURL stringByAppendingString:str];
-    self.requestURL = url;
+    requestUrl = [playMusicURL stringByAppendingString:str];
+    self.requestURL = requestUrl;
     
 }
 
@@ -215,7 +216,7 @@ static id _instance;
             /**
              *  下载歌曲 播放
              */
-            if ([operation.urlTag isEqualToString:url]) {
+            if ([operation.urlTag isEqualToString:requestUrl]) {
                 NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
 
                 self.musicDetail = musicModel.musicdDetail;
@@ -1315,36 +1316,49 @@ static id _instance;
 //分享
 - (void)handleShareAction:(UIButton *)sender {
     BOOL isShare = YES;
-    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeVideo url:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]];
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeMusic url:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]];
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     
     NSDictionary *dic = shareArr[sender.tag-250];
-    if (dic[@"type"] == UMShareToWechatSession) {
+    if ([dic[@"name"] isEqualToString:@"微信"]) {
         
         [UMSocialData defaultData].extConfig.wechatSessionData.url = self.musicDetail.playURL;
 //        isShare = YES;
-    } else if (dic[@"type"] == UMShareToWechatTimeline) {
+    } else if ([dic[@"name"] isEqualToString:@"朋友圈"]) {
         
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.musicDetail.playURL;
 //        isShare = YES;
-    } else if (dic[@"type"] == UMShareToSina) {
+    } else if ([dic[@"name"] isEqualToString:@"微博"]) {
         
         [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
 //        isShare = YES;
-    } else if (dic[@"type"] == UMShareToQQ) {
+    } else if ([dic[@"name"] isEqualToString:@"QQ"]) {
+        tencentOAuth = [[TencentOAuth alloc] initWithAppId:qqAppId
+                                andDelegate:nil];
+        QQApiAudioObject *audioObj = [QQApiAudioObject objectWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]] title:_musicDetail.title description:_musicDetail.author previewImageURL:[NSURL URLWithString:_musicDetail.titleImageURL]];
+        [audioObj setFlashURL:[NSURL URLWithString:_musicDetail.playURL]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:audioObj];
+        QQApiSendResultCode sent = [QQApiInterface sendReq:req];
+        [self handleSendResult:sent];
         
-        [UMSocialData defaultData].extConfig.qqData.url = self.musicDetail.playURL;
+//        [UMSocialData defaultData].extConfig.qqData.url = self.musicDetail.playURL;
 //        isShare = YES;
-    } else if (dic[@"type"] == UMShareToQzone) {
-        
-        [UMSocialData defaultData].extConfig.qzoneData.url = self.musicDetail.playURL;
+    } else if ([dic[@"name"] isEqualToString:@"QQ空间"]) {
+        tencentOAuth = [[TencentOAuth alloc] initWithAppId:qqAppId
+                                               andDelegate:nil];
+        QQApiAudioObject *audioObj = [QQApiAudioObject objectWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]] title:_musicDetail.title description:_musicDetail.author previewImageURL:[NSURL URLWithString:_musicDetail.titleImageURL]];
+        [audioObj setFlashURL:[NSURL URLWithString:_musicDetail.playURL]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:audioObj];
+        QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
+        [self handleSendResult:sent];
+//        [UMSocialData defaultData].extConfig.qzoneData.url = self.musicDetail.playURL;
 //        isShare = YES;
-    } else if ([dic[@"type"] isEqualToString:@"copy"]) {
+    } else if ([dic[@"name"] isEqualToString:@"复制链接"]) {
         
-        [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.prevItemID];
+        [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,_musicDetail.itemID];
         [[NSToastManager manager] showtoast:@"复制成功"];
         isShare = NO;
-    } else if ([dic[@"type"] isEqualToString:@"poster"]) {
+    } else if ([dic[@"name"] isEqualToString:@"歌词海报"]) {
         
         NSSelectLyricsViewController *selectLyricVC = [[NSSelectLyricsViewController alloc] init];
         selectLyricVC.lyrics = self.musicDetail.lyrics;
@@ -1355,15 +1369,74 @@ static id _instance;
         isShare = NO;
     }
     if (isShare) {
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                [self tapClick:nil];
-                [[NSToastManager manager] showtoast:@"分享成功"];
-            }
-        }];
+        if (![dic[@"name"] isEqualToString:@"QQ"]) {
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+                if (response.responseCode == UMSResponseCodeSuccess) {
+                    [self tapClick:nil];
+                    [[NSToastManager manager] showtoast:@"分享成功"];
+                }
+            }];
+        }
+        
     }
 }
-
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+//    [QQApiInterface handleOpenURL:url delegate:qqApiDelegate];
+    return YES;
+}
+- (void)handleSendResult:(QQApiSendResultCode)sendResult
+{
+    switch (sendResult)
+    {
+        case EQQAPIAPPNOTREGISTED:
+        {
+            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"App未注册" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [msgbox show];
+            
+            break;
+        }
+        case EQQAPIMESSAGECONTENTINVALID:
+        case EQQAPIMESSAGECONTENTNULL:
+        case EQQAPIMESSAGETYPEINVALID:
+        {
+            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"发送参数错误" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [msgbox show];
+            
+            break;
+        }
+        case EQQAPIQQNOTINSTALLED:
+        {
+            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"未安装手Q" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [msgbox show];
+            
+            break;
+        }
+        case EQQAPIQQNOTSUPPORTAPI:
+        {
+            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"API接口不支持" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [msgbox show];
+            
+            break;
+        }
+        case EQQAPISENDFAILD:
+        {
+            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"发送失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [msgbox show];
+            
+            break;
+        }
+        case EQQAPIVERSIONNEEDUPDATE:
+        {
+            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"Error" message:@"当前QQ版本太低，需要更新" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil];
+            [msgbox show];
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+}
 //播放器
 //播放音乐
 - (void)playMusicWithUrl:(NSString *)musicUrl{

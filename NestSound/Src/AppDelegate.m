@@ -167,8 +167,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
     NSBaseTabBarViewController *tabController = (NSBaseTabBarViewController *) [UIApplication sharedApplication].keyWindow.rootViewController;
-//    YRSideViewController *sideViewController= (YRSideViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-//    UITabBarController *tab = (UITabBarController *)sideViewController.rootViewController;
+
     UINavigationController *nav = tabController.viewControllers[tabController.selectedIndex];
     NSMessageListViewController * messageListVC;
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
