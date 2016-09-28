@@ -207,6 +207,10 @@
         self.titleImageUrl = [aDecoder decodeObjectForKey:@"titleImageUrl"];
         self.detail  = [aDecoder decodeObjectForKey:@"detail"];
         self.workName    = [aDecoder decodeObjectForKey:@"workName"];
+        self.shareUrl = [aDecoder decodeObjectForKey:@"shareUrl"];
+        self.zanNum = [aDecoder decodeObjectForKey:@"zanNum"];
+        self.commentNum = [aDecoder decodeObjectForKey:@"commentNum"];
+        self.shareNum = [aDecoder decodeObjectForKey:@"shareNum"];
     }
     return self;
 }

@@ -99,7 +99,7 @@
     
         return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
     
-    }else if ([url isEqualToString:commentURL]){
+    }else if ([url isEqualToString:commentURL] ){
         return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
     
     }else if ([url isEqualToString:otherCenterURL]){

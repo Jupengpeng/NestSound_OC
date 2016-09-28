@@ -124,7 +124,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    
+    NSString * str = nil;
     switch (type) {
  
             /**
@@ -133,19 +133,19 @@ static NSString * const kDefaultTip = @"来~说点什么";
        case 3:
         {
             NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"token":LoginToken};
-            NSString * str = [NSTool encrytWithDic:dic];
-            _musicSayComUrl = [musicSayCommentListUrl stringByAppendingString:str];
-            self.requestURL = _musicSayComUrl;
+            str = [NSTool encrytWithDic:dic];
+           
         }
         default:
         {
             NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
-            NSString * str = [NSTool encrytWithDic:dic];
-            commentUrl = [commentURL stringByAppendingString:str];
-            self.requestURL = commentUrl;
+            str = [NSTool encrytWithDic:dic];
+
         }
             break;
     }
+    commentUrl = [commentURL stringByAppendingString:str];
+    self.requestURL = commentUrl;
 }
 
 #pragma mark -actionFetchData
@@ -185,17 +185,16 @@ static NSString * const kDefaultTip = @"来~说点什么";
                     
                 }else{
                     [commentAry addObjectsFromArray:commentList.commentList];
-                    
                 }
-            }else if([operation.urlTag isEqualToString:musicSayLaughCommentUrl]){
-                [[NSToastManager manager] showtoast:@"发表评论成功"];
-                [self fetchCommentWithIsLoadingMore:NO];
-            }else if ([operation.urlTag isEqualToString:musicSayDeleteCommentUrl]){
-                [[NSToastManager manager] showtoast:@"删除评论成功"];
-                [self fetchCommentWithIsLoadingMore:NO];
             }
+//            else if([operation.urlTag isEqualToString:musicSayLaughCommentUrl]){
+//                [[NSToastManager manager] showtoast:@"发表评论成功"];
+//                [self fetchCommentWithIsLoadingMore:NO];
+//            }else if ([operation.urlTag isEqualToString:musicSayDeleteCommentUrl]){
+//                [[NSToastManager manager] showtoast:@"删除评论成功"];
+//                [self fetchCommentWithIsLoadingMore:NO];
+//            }
             [commentTableView reloadData];
-            
         }
     }
 }
@@ -362,13 +361,12 @@ static NSString * const kDefaultTip = @"来~说点什么";
     
     if (type == 3) {
         self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
-        
-        self.requestURL = musicSayLaughCommentUrl;
     }else{
-    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
-    
-    self.requestURL = postCommentURL;
+        self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
+        
     }
+    self.requestURL = postCommentURL;
+
 }
 
 
@@ -379,13 +377,13 @@ static NSString * const kDefaultTip = @"来~说点什么";
     self.requestType = NO;
 
     if (type == 3) {
-            self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID]};
-        self.requestURL = musicSayDeleteCommentUrl;
+        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID]};
     }else{
         self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type]};
-        self.requestURL = deleteCommentURL;
-
+        
     }
+    self.requestURL = deleteCommentURL;
+
 
 }
 
