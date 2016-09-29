@@ -128,15 +128,20 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:userDataUrl]) {
-                NSUserDataModel * userData = (NSUserDataModel *)parserObject;
+                NSUserDataModel * userModel = (NSUserDataModel *)parserObject;
                 userDic = parserObject.data[@"user"];
-                _userModel = userData.userDataModel.userModel;
-                
-                [self.numsArr addObject:@(userData.userOtherModel.workNum)];
-                [self.numsArr addObject:@(userData.userOtherModel.lyricsNum)];
-                [self.numsArr addObject:@(userData.userOtherModel.focusNum)];
-                [self.numsArr addObject:@(userData.userOtherModel.fansNum)];
-                if (userData.userOtherModel.pushFocusNum) {
+                _userModel = userModel.userDataModel.userModel;
+//                NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
+//                NSMutableDictionary * dic =  [NSMutableDictionary dictionaryWithDictionary:[userData objectForKey:@"user"]];
+//                [dic setObject:userModel.userDataModel.userModel.nickName forKey:@"userName"];
+//                NSDictionary *userDic = [userData objectForKey:@"user"];
+//                [userData setObject:dic forKey:@"user"];
+//                [userData synchronize];
+                [self.numsArr addObject:@(userModel.userOtherModel.workNum)];
+                [self.numsArr addObject:@(userModel.userOtherModel.lyricsNum)];
+                [self.numsArr addObject:@(userModel.userOtherModel.focusNum)];
+                [self.numsArr addObject:@(userModel.userOtherModel.fansNum)];
+                if (userModel.userOtherModel.pushFocusNum) {
                     redTipView.hidden = NO;
                 }
                 [settingPageTable reloadData];

@@ -9,7 +9,7 @@
 #import "NSPreserveDetailViewController.h"
 #import "NSPreserveWorkInfoCell.h"
 @interface NSPreserveDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@property (nonatomic, strong) UIImageView *oneImageView;
 @end
 static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdentifier";
 @implementation NSPreserveDetailViewController
@@ -46,7 +46,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     
     [preserveState setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     
-    [preserveState addTarget:self action:@selector(handleUserMessageFinish) forControlEvents:UIControlEventTouchUpInside];
+    [preserveState addTarget:self action:@selector(handlePreserveStatus:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:preserveState];
     
@@ -61,6 +61,25 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
         make.height.mas_equalTo(40);
         
     }];
+    
+    _oneImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    
+    _oneImageView.hidden = YES;
+    
+    _oneImageView.backgroundColor = [UIColor lightGrayColor];
+    
+    [self.view addSubview:_oneImageView];
+}
+- (void)handlePreserveStatus:(UIButton *)sender {
+    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+    NSMutableArray *photos = [NSMutableArray array];
+    MJPhoto *photo = [[MJPhoto alloc] init];
+    photo.url = [NSURL URLWithString:@"http://pic.yinchao.cn/dongliyaogun001.png"];
+    photo.srcImageView = _oneImageView;
+    [photos addObject:photo];
+    browser.photos = photos;
+    browser.currentPhotoIndex = sender.tag;
+    [browser show];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

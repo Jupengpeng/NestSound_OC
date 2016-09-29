@@ -266,11 +266,11 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     if (productType == 1) {
         NSMyMusicModel *model = self.musicDataAry[indexPath.row];
         cell.textLabel.text = model.title;
-        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.inTableTime];
+        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.createDate];
     } else {
         NSMyMusicModel *model = self.lyricDataAry[indexPath.row];
         cell.textLabel.text = model.title;
-        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.inTableTime];
+        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.createDate];
     }
     
     return cell;

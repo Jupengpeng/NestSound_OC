@@ -11,6 +11,9 @@
 		0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */; };
 		0C2F9A831D86A63A0045A2EC /* NSPreserveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */; };
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
+		0C670D0A1D9BA64900319E0D /* NSPreserveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C670D091D9BA64900319E0D /* NSPreserveListModel.m */; };
+		0C670D0D1D9BB27900319E0D /* NSPreservePersonListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C670D0C1D9BB27900319E0D /* NSPreservePersonListModel.m */; };
+		0C7CED981D9CBDF8004AC64F /* NSPhotoScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7CED971D9CBDF8004AC64F /* NSPhotoScanView.m */; };
 		0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */; };
 		0CCC19111D642D6A009E9478 /* NSDraftListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19101D642D6A009E9478 /* NSDraftListViewController.m */; };
 		0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19161D643392009E9478 /* NSDraftListModel.m */; };
@@ -282,6 +285,12 @@
 		0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTableViewCell.m; sourceTree = "<group>"; };
 		0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRhymeViewController.h; sourceTree = "<group>"; };
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
+		0C670D081D9BA64900319E0D /* NSPreserveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveListModel.h; sourceTree = "<group>"; };
+		0C670D091D9BA64900319E0D /* NSPreserveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveListModel.m; sourceTree = "<group>"; };
+		0C670D0B1D9BB27900319E0D /* NSPreservePersonListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePersonListModel.h; sourceTree = "<group>"; };
+		0C670D0C1D9BB27900319E0D /* NSPreservePersonListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreservePersonListModel.m; sourceTree = "<group>"; };
+		0C7CED961D9CBDF8004AC64F /* NSPhotoScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPhotoScanView.h; sourceTree = "<group>"; };
+		0C7CED971D9CBDF8004AC64F /* NSPhotoScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPhotoScanView.m; sourceTree = "<group>"; };
 		0CCC190C1D62EEF0009E9478 /* NSSoundEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSoundEffectViewController.h; sourceTree = "<group>"; };
 		0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSoundEffectViewController.m; sourceTree = "<group>"; };
 		0CCC190F1D642D6A009E9478 /* NSDraftListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftListViewController.h; sourceTree = "<group>"; };
@@ -1392,6 +1401,10 @@
 				2A141DC91D00B057003ACA74 /* NSUserModel.m */,
 				2ADE945E1D040878000AC281 /* NSFansListModel.h */,
 				2ADE945F1D040878000AC281 /* NSFansListModel.m */,
+				0C670D081D9BA64900319E0D /* NSPreserveListModel.h */,
+				0C670D091D9BA64900319E0D /* NSPreserveListModel.m */,
+				0C670D0B1D9BB27900319E0D /* NSPreservePersonListModel.h */,
+				0C670D0C1D9BB27900319E0D /* NSPreservePersonListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1629,6 +1642,8 @@
 				9418544A1D533FCD00227FA4 /* NSCheckUpgradeUtil.m */,
 				B81AFE1A1D83DAC00033B3B5 /* NSHeadImageView.h */,
 				B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */,
+				0C7CED961D9CBDF8004AC64F /* NSPhotoScanView.h */,
+				0C7CED971D9CBDF8004AC64F /* NSPhotoScanView.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3304,6 +3319,7 @@
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				946B04291D4EEC8A00529DBA /* HUImagePickerCell.m in Sources */,
 				697F7F281D6558AA00F7EBCC /* NSActivityJoinerListController.m in Sources */,
+				0C7CED981D9CBDF8004AC64F /* NSPhotoScanView.m in Sources */,
 				692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */,
@@ -3319,6 +3335,7 @@
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
 				18147DF21D110126009A0440 /* NSLexiconCollectionViewCell.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
+				0C670D0D1D9BB27900319E0D /* NSPreservePersonListModel.m in Sources */,
 				188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */,
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
 				2ADE8F5F1CFE7679006CD840 /* NSShareViewController.m in Sources */,
@@ -3403,6 +3420,7 @@
 				B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */,
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */,
+				0C670D0A1D9BA64900319E0D /* NSPreserveListModel.m in Sources */,
 				697F7F2B1D655CB400F7EBCC /* NSActivityJoinerListCell.m in Sources */,
 				0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,

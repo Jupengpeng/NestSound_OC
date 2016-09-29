@@ -50,6 +50,7 @@
 #import "YYCache.h"
 #import "SDCycleScrollView.h"
 #import "SDWebImageManager.h"
+#import "MJPhotoBrowser.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;
@@ -134,6 +135,9 @@ extern NSString *port;
 #define changeMusicStatus @"java/musiopt/updateMusic"
 #define changeLyricStatus @"java/lyricsopt/updateLyrics"
 #define changePasswordUrl @"java/userCenter/updateuserpass?"
+#define preserveListUrl @"java//baoquan/getBaoquanListByid"
+#define preservePersonListUrl @"java//baoquan/getBaoquanrenByid"
+#define addPreservePersonUrl @"java//baoquan/addBaoquanren"
 /**
  *  2016年8月18号添加
  *

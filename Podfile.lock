@@ -24,6 +24,10 @@ PODS:
   - JPush (2.1.8)
   - Masonry (1.0.1)
   - MBProgressHUD (1.0.0)
+  - MJPhotoBrowser (1.0.2):
+    - SDWebImage
+    - SVProgressHUD
+    - YLGIFImage
   - pop (1.0.9)
   - Qiniu (7.0.20):
     - AFNetworking (~> 2.0)
@@ -34,11 +38,13 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SVProgressHUD (2.0.3)
   - SVPullToRefresh (0.4.1)
   - TheAmazingAudioEngine (1.5.6)
   - TTTAttributedLabel (2.0.0)
   - UMengAnalytics-NO-IDFA (4.1.1)
   - UMengSocialCOM (5.2.1)
+  - YLGIFImage (0.11)
   - YYCache (1.0.3)
 
 DEPENDENCIES:
@@ -46,6 +52,7 @@ DEPENDENCIES:
   - JPush
   - Masonry
   - MBProgressHUD (~> 1.0.0)
+  - MJPhotoBrowser
   - pop
   - Qiniu
   - RSAEncryptor
@@ -64,18 +71,21 @@ SPEC CHECKSUMS:
   JPush: 2d1286494eae216433f6d7709b2721565b4babc9
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   TheAmazingAudioEngine: 0ed8c05486646373a48b22a341d31de42d1af2c3
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UMengAnalytics-NO-IDFA: 1064992c1b7aaa22823179c0b33a664813fd7a85
   UMengSocialCOM: 074c135ce349aa4c8848d3fb8458757bcb6ffb67
+  YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
 
-PODFILE CHECKSUM: 84f117176c23a7deab55b21146ea00b722a22b30
+PODFILE CHECKSUM: 648fb605eabe5210fa9a3dc352d6cb79bf56c6ab
 
 COCOAPODS: 1.0.1

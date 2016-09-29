@@ -10,25 +10,51 @@
 #import "NSPreserveTableViewCell.h"
 #import "NSPreserveDetailViewController.h"
 #import "NSPreserveSelectViewController.h"
+#import "NSPreserveListModel.h"
 @interface NSPreserveListViewController ()<UITableViewDataSource, UITableViewDelegate>
-
+{
+    UITableView *preserveTab;
+}
+@property (nonatomic,strong) NSMutableArray *preserveListArr;
 @end
 static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 @implementation NSPreserveListViewController
-
+- (NSMutableArray *)preserveListArr {
+    if (!_preserveListArr) {
+        self.preserveListArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _preserveListArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configurePreserveListView];
+}
+- (void)fetchPreserveListData {
+    self.requestType = NO;
+    self.requestParams = @{@"id":JUserID,@"token":LoginToken};
+    self.requestURL = preserveListUrl;
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:preserveListUrl]) {
+            NSPreserveListModel *preserveListModel = (NSPreserveListModel*)parserObject;
+            self.preserveListArr = [NSMutableArray arrayWithArray:preserveListModel.preserveList];
+        }
+    }
 }
 - (void)configurePreserveListView {
     
     self.title = @"保全列表";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick)];
-    UITableView *preserveTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    preserveTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     
     preserveTab.dataSource = self;
     
     preserveTab.delegate = self;
+    
+    preserveTab.rowHeight = 50;
     
     preserveTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     

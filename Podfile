@@ -19,6 +19,7 @@ pod 'TTTAttributedLabel'
 pod 'UMengSocialCOM'
 pod 'YYCache'
 pod 'SDCycleScrollView'
+pod 'MJPhotoBrowser'
 end
 
 target 'NestSoundTests' do

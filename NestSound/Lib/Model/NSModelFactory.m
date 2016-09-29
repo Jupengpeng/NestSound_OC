@@ -44,6 +44,8 @@
 #import "NSUserMusicListModel.h"
 #import "NSMusicSayChargeModel.h"
 #import "YYModel.h"
+#import "NSPreserveListModel.h"
+#import "NSPreservePersonListModel.h"
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
@@ -157,8 +159,11 @@
     }else if ([url isEqualToString:getGoodChargeUrl]){
         return [NSMusicSayChargeModel yy_modelWithDictionary:jsonDict];
 
-    }else if([url isEqualToString:musicSayDianzanUrl]){
-        return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
+    }else if ([url isEqualToString:preserveListUrl]) {
+        return [[NSPreserveListModel alloc] initWithJSONDict:jsonDict];
+    }
+    else if([url isEqualToString:preservePersonListUrl]){
+        return [[NSPreservePersonListModel alloc] initWithJSONDict:jsonDict];
     }
     
     else if([url isEqualToString:uploadBgimageUrl]){

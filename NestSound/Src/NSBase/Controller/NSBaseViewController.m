@@ -41,8 +41,7 @@
 }
 
 #pragma mark - subclass can override
-- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject
-                     error:(NSError *)requestErr {
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
     // subclass can override
 }
 
