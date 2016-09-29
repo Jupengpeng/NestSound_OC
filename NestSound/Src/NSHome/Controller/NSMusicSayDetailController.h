@@ -14,7 +14,7 @@
 
 @interface NSMusicSayDetailController : NSBaseViewController
 
-@property (nonatomic,copy) NSString *itemUid;
+@property (nonatomic,copy) NSString *itemId;
 
 @property (nonatomic,copy) NSString *detailStr;
 @property (nonatomic,copy) NSString *name;

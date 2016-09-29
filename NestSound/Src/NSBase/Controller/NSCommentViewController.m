@@ -132,9 +132,9 @@ static NSString * const kDefaultTip = @"来~说点什么";
              */
        case 3:
         {
-            NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"token":LoginToken};
+            NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
             str = [NSTool encrytWithDic:dic];
-           
+            break;
         }
         default:
         {
@@ -377,7 +377,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
     self.requestType = NO;
 
     if (type == 3) {
-        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID]};
+        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],};
     }else{
         self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type]};
         

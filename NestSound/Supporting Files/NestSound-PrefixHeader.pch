@@ -71,7 +71,7 @@ extern NSString *port;
 //POST:不带问号 GET:带问号
 #define customHostKey @"customHostKey"
 #define customPortKey @"customPortKey"
-#define indexURL @"java/common/index/app?"
+#define indexURL @"java/common/index/app/v22?"
 #define dicoverMusicURL @"java/common/find/music/v22?"
 #define dicoverActivityURL @"java/common/find/activelist?"
 #define dicoverLyricURL @"java/common/find/lyrics/v22?"
@@ -103,7 +103,7 @@ extern NSString *port;
 #define myFansListURL @"java/fanfocus/fanslist?"
 #define focusUserURL @"java/fanfocus/optFans/v22"
 //获取作品评论列表 作品类型 1=歌曲，2=歌词 ,3=乐说
-#define commentURL @"java/common/comment/list?"
+#define commentURL @"java/common/comment/list/v22?"
 #define playMusicURL @"java/common/music/work?"
 #define feedBackURL @"java/feedback/save?"
 #define reportURL @"java/report/save?"
@@ -210,6 +210,11 @@ extern NSString *port;
 #define musicSayDetailUrl @"java/yueshuo/detail/v22"
 //乐说-更新分享数量(post)
 #define updateShareCount @"java/common/yueshuo/sharecount/v22"
+
+//发起保全
+#define laughBaoquanUrl @"java/baoquan/CreateFirstBaoquan"
+
+
 
 
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"

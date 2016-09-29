@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "NSShareView.h"
 #import "NSCommentViewController.h"
+#import "NSMusicSayListMode.h"
 @interface NSMusicSayDetailController ()<UIWebViewDelegate>
 {
     UIButton *_favourButton;
@@ -23,6 +24,8 @@
 
 }
 
+@property (nonatomic,strong) NSMusicSay *musicModel;
+
 @end
 
 @implementation NSMusicSayDetailController
@@ -35,13 +38,13 @@
 }
 
 - (void)setupUI{
-    self.title = @"乐说";
-    
+//    self.title = @"乐说";
+    self.title = self.name;
     //webView
     _webView = [[UIWebView alloc] init];
     _webView.delegate = self;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]]];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.contentUrl]]];
     [self.view addSubview:_webView];
     
     [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,7 +57,7 @@
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 45 - 64, ScreenWidth, 45)];
     [self.view addSubview:bottomView];
     NSArray *normalIconArr = @[@"2.0_collection_normal",@"2.0_comment_no",@"2.0_share_icon"];
-    NSArray *selectedIconArr = @[@"2.0_collection_normal",@"2.0_collection_selected",@"2.0_share_icon"];
+    NSArray *selectedIconArr = @[@"2.0_collection_selected",@"2.0_comment_no",@"2.0_share_icon"];
     CGFloat buttonWidth = ScreenWidth/3.0f;
 
     for (NSInteger i = 0; i < 3; i ++) {
@@ -62,8 +65,6 @@
             btn.frame = CGRectMake(buttonWidth * i, 0, buttonWidth, 45);
             btn.titleLabel.font = [UIFont systemFontOfSize:12.0f];
             [btn setTitleColor:[UIColor hexColorFloat:@"646464"] forState:UIControlStateNormal];
-//            [btn setImage:[UIImage imageNamed:@"gouxuan_No"] forState:UIControlStateNormal];
-//            [btn setImage:[UIImage imageNamed:@"gouxuan"] forState:UIControlStateSelected];
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, -4);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 4);
             UIImage *normalImg = [UIImage imageNamed:normalIconArr[i]];
@@ -79,7 +80,7 @@
                  */
                 
                 btn.selected = !btn.selected;
-                [self httpPostDianzanWith:self.itemUid];
+                [self httpPostDianzanWith:self.itemId];
             }else if (btn == _commentButton){
                 CHLog(@"_commentButton");
                 /**
@@ -87,7 +88,7 @@
                  
                  - returns: <#return value description#>
                  */
-                NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: [self.itemUid longLongValue] andType:3];
+                NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: [self.itemId longLongValue] andType:3];
                 
                 commentVC.musicName = self.name;
                 
@@ -155,45 +156,88 @@
     [self.navigationController.view  addSubview:_shareView];
 
     
-    [self setupData];
+    [self fechYueshuoDetail];
     
 }
 
 
 
 - (void)setupData{
+    
+    
+    
     [_favourButton setTitle:[NSString stringWithFormat:@"(%d)",123] forState:UIControlStateNormal];
     [_commentButton setTitle:[NSString stringWithFormat:@"(%d)",123] forState:UIControlStateNormal];
     [_sharebutton setTitle:[NSString stringWithFormat:@"(%d)",123] forState:UIControlStateNormal];
     
-    
-    [self httpPostDianzanWith:self.itemUid];
     
 }
 
 
 #pragma mark - internet request 
 
+- (void)fechYueshuoDetail{
+    self.requestType = NO;
+    self.requestParams = @{@"itemid":self.itemId,
+                           @"uid":JUserID,
+                           @"token":LoginToken};
+    self.requestURL = musicSayDetailUrl;
+}
+
+- (void)postUpdateShareCount{
+    
+    self.requestType = NO;
+    self.requestParams = @{@"itemid":self.itemId,
+                           @"token":LoginToken};
+    self.requestURL = updateShareCount;
+    
+}
 
 - (void)httpPostDianzanWith:(NSString *)itemId{
     
     
     self.requestType = NO;
     self.requestParams = @{@"itemid":itemId,
-                           @"uid":JUserID};
+                           @"uid":JUserID,
+                           @"token":LoginToken};
     self.requestURL = musicSayDianzanUrl;
     
 }
 
 
+
+#pragma mark overwrite
+
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
     if (requestErr) {
         
     }else{
+        if ([operation.urlTag isEqualToString:musicSayDianzanUrl]) {
+            NSBaseModel *baseModel = (NSBaseModel *)parserObject;
+            
+            NSString *msg = [baseModel.data objectForKey:@"mp3URL"];
+            if ([msg isEqualToString:@"取消点赞成功"]) {
+                _favourButton.selected = NO;
+            }else{
+                _favourButton.selected = YES;
+
+            }
+            [[NSToastManager manager] showtoast:msg];
         
-        CHLog(@"%@",parserObject);
-        
-        
+        }else if ([operation.urlTag isEqualToString:musicSayDetailUrl]){
+            NSMusicSay *musicModel = (NSMusicSay *)parserObject;
+            self.musicModel = musicModel;
+            
+            _favourButton.selected = musicModel.isZan;
+            
+            [_favourButton setTitle:[NSString stringWithFormat:@"(%d)",[musicModel.zannum intValue]] forState:UIControlStateNormal];
+            [_commentButton setTitle:[NSString stringWithFormat:@"(%d)",[musicModel.commentnum intValue]] forState:UIControlStateNormal];
+            [_sharebutton setTitle:[NSString stringWithFormat:@"(%d)",musicModel.sharenum.intValue] forState:UIControlStateNormal];
+        }else if ([operation.urlTag isEqualToString:updateShareCount]){
+            
+            NSBaseModel *baseModel = (NSBaseModel *)parserObject;
+
+        }
     }
 }
 
@@ -239,7 +283,7 @@
 //分享
 - (void)handleShareAction:(UIButton *)sender {
     BOOL isShare = YES;
-    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeDefault url:self.contentUrl];
+    UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeWeb url:self.contentUrl];
     [UMSocialData defaultData].extConfig.title = self.name;
     
     NSDictionary *dic = _shareView.shareArr[sender.tag-250];
@@ -270,10 +314,17 @@
         isShare = NO;
     }
     if (isShare) {
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:[NSString stringWithFormat:@"欢迎阅读乐说——《%@》,作品链接：%@",self.name,self.contentUrl] image:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.picUrl]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:[NSString stringWithFormat:@"%@%@",self.detailStr,self.contentUrl] image:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.picUrl]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 [self tapClick:nil];
                 [[NSToastManager manager] showtoast:@"分享成功"];
+                
+                /**
+                 *  跟新分享数量
+                 */
+                [self postUpdateShareCount];
+                
+                [self fechYueshuoDetail];
             }
         }];
     }

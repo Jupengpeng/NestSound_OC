@@ -111,7 +111,7 @@
     [childCtrl.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor hexColorFloat:@"ffd00b"]} forState:UIControlStateSelected];
     childCtrl.tabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
 //    childCtrl.tabBarItem.badgeValue
-    
+     
     NSBaseNavigationController *nav = [[NSBaseNavigationController alloc] initWithRootViewController:childCtrl];
     
     nav.navigationBar.barTintColor = [UIColor hexColorFloat:@"ffd705"];

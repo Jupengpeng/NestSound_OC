@@ -157,7 +157,7 @@
         return [[NSUserMusicListModel alloc] initWithJSONDict:jsonDict];
 
     }else if ([url isEqualToString:getGoodChargeUrl]){
-        return [NSMusicSayChargeModel yy_modelWithDictionary:jsonDict];
+        return [NSMusicSayChargeModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
 
     }else if ([url isEqualToString:preserveListUrl]) {
         return [[NSPreserveListModel alloc] initWithJSONDict:jsonDict];
@@ -167,7 +167,14 @@
     }
     
     else if([url isEqualToString:uploadBgimageUrl]){
-        NSLog(@"%@",jsonStr);
+        CHLog(@"%@",jsonStr);
+    }
+    else if ([url isEqualToString:musicSayDetailUrl]){
+        CHLog(@"%@",[jsonDict objectForKey:@"data"]);
+        return [NSMusicSay yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
+
+    }else if ([url isEqualToString:laughBaoquanUrl]){
+        NSLog(@"%@",jsonDict);
     }
     
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];

@@ -556,7 +556,7 @@ static NSString * const musicSayData = @"musicSayData";
         NSMusicSay * musicSay = (NSMusicSay *)musicSayAry[row];
         //type == 1 is music ,type == 2 is lyric
         NSMusicSayDetailController *musicSayController = [[NSMusicSayDetailController alloc] init];
-        musicSayController.itemUid = [NSString stringWithFormat:@"%d",musicSay.itemID];
+        musicSayController.itemId = [NSString stringWithFormat:@"%d",musicSay.itemID];
         musicSayController.detailStr = musicSay.detail;
         musicSayController.name = musicSay.workName;
         musicSayController.picUrl = musicSay.titleImageUrl;
