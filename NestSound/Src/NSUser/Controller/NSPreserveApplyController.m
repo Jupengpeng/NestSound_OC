@@ -91,7 +91,7 @@
         btn.layer.cornerRadius = 45/2.0f;
         btn.backgroundColor = [UIColor hexColorFloat:kAppBaseYellowValue];
     } action:^(UIButton *btn) {
-        [self fetchGoodCharge];
+        [self postLaughProjectRight];
     }];
     [footerView addSubview:submitButton];
 
@@ -101,6 +101,27 @@
 
     [self.view insertSubview:self.rmvViewBtn belowSubview:self.typeView];
 }
+
+#pragma mark HTTP request method
+
+//发起保全
+- (void)postLaughProjectRight{
+    self.requestType = NO;
+    self.requestParams = @{@"work_id":[NSString stringWithFormat:@"%ld",self.itemUid],
+                           @"sort_id":@"1",
+                           @"username":@"1",
+                           @"usertype":@"1",
+                           @"creditId":@"11",
+                           @"username":@"1",
+                           @"mobile":@"1",
+                           @"email":@"1",
+                           @"lyricsname":@"1",
+                           @"token":LoginToken};
+    
+    
+    self.requestURL = laughBaoquanUrl;
+}
+
 
 
 - (void)fetchGoodCharge{
@@ -127,7 +148,15 @@
     if (requestErr) {
         
     }else{
-        
+        if ([operation.urlTag isEqualToString:laughBaoquanUrl]) {
+            
+            
+            
+            
+        }else if ([operation.urlTag isEqualToString:getGoodChargeUrl]){
+            
+            
+        }
         
         
     }

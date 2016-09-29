@@ -12,6 +12,7 @@
 #import "NSPlayMusicViewController.h"
 #import "NSH5ViewController.h"
 #import "NSMusicSayListMode.h"
+#import "NSMusicSayDetailController.h"
 @interface NSMusicSayViewController()
 <UICollectionViewDataSource,UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout
@@ -189,23 +190,33 @@ static NSString * const musicSayCellId = @"musicSayCellId";
 #pragma mark -collectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     NSInteger row = indexPath.row;
-    NSMusicSay * mm = musicSayAry[row];
-    if (mm.type == 1) {
-        NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-        playVC.itemUid = itemId;
-        playVC.geDanID = 0;
-        playVC.from = @"yueshuo";
-#warning  songListArr
-//        playVC.songAry =
-        [self.navigationController pushViewController: playVC animated:YES];
-    }else{
-        NSH5ViewController * eventVC =[[NSH5ViewController alloc] init];
-        eventVC.h5Url = @"url";
-        [self.navigationController pushViewController:eventVC animated:YES];
+    NSMusicSay * musicSay = musicSayAry[row];
     
-    }
+    NSMusicSayDetailController *musicSayController = [[NSMusicSayDetailController alloc] init];
+    musicSayController.itemId = [NSString stringWithFormat:@"%d",musicSay.itemID];
+    musicSayController.detailStr = musicSay.detail;
+    musicSayController.name = musicSay.workName;
+    musicSayController.picUrl = musicSay.titleImageUrl;
+    musicSayController.type = [NSString stringWithFormat:@"%d",musicSay.type];
+    musicSayController.contentUrl = musicSay.playUrl;
+    [self.navigationController pushViewController:musicSayController animated:YES];
+
+//    if (mm.type == 1) {
+//        NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+//        playVC.itemUid = itemId;
+//        playVC.geDanID = 0;
+//        playVC.from = @"yueshuo";
+//#warning  songListArr
+////        playVC.songAry =
+//        [self.navigationController pushViewController: playVC animated:YES];
+//    }else{
+//        NSH5ViewController * eventVC =[[NSH5ViewController alloc] init];
+//        eventVC.h5Url = @"url";
+//        [self.navigationController pushViewController:eventVC animated:YES];
+//    
+//    }
 
 }
 

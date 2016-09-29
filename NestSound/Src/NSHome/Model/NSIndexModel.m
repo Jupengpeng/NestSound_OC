@@ -195,10 +195,11 @@
     [aCoder encodeObject:self.titleImageUrl forKey:@"titleImageUrl"];
     [aCoder encodeObject:self.detail forKey:@"detail"];
     [aCoder encodeObject:self.workName forKey:@"workName"];
-    [aCoder encodeObject:self.shareUrl forKey:@"shareUrl"];
-    [aCoder encodeObject:self.zanNum forKey:@"zanNum"];
-    [aCoder encodeObject:self.commentNum forKey:@"commentNum"];
-    [aCoder encodeObject:self.shareNum forKey:@"shareNum"];
+    [aCoder encodeObject:self.shareurl forKey:@"shareurl"];
+    [aCoder encodeObject:self.zannum forKey:@"zannum"];
+    [aCoder encodeObject:self.commentnum forKey:@"commentnum"];
+    [aCoder encodeObject:self.sharenum forKey:@"sharenum"];
+    [aCoder encodeBool:self.isZan forKey:@"isZan"];
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     
@@ -207,10 +208,11 @@
         self.titleImageUrl = [aDecoder decodeObjectForKey:@"titleImageUrl"];
         self.detail  = [aDecoder decodeObjectForKey:@"detail"];
         self.workName    = [aDecoder decodeObjectForKey:@"workName"];
-        self.shareUrl = [aDecoder decodeObjectForKey:@"shareUrl"];
-        self.zanNum = [aDecoder decodeObjectForKey:@"zanNum"];
-        self.commentNum = [aDecoder decodeObjectForKey:@"commentNum"];
-        self.shareNum = [aDecoder decodeObjectForKey:@"shareNum"];
+        self.shareurl = [aDecoder decodeObjectForKey:@"shareurl"];
+        self.zannum = [aDecoder decodeObjectForKey:@"zannum"];
+        self.commentnum = [aDecoder decodeObjectForKey:@"commentnum"];
+        self.sharenum = [aDecoder decodeObjectForKey:@"sharenum"];
+        self.isZan =  [aDecoder decodeBoolForKey:@"isZan"];
     }
     return self;
 }
@@ -222,10 +224,11 @@
              @"playUrl":@"url",
              @"detail":@"detail",
              @"workName":@"name",
-             @"shareUrl":@"shareurl",
-             @"zanNum":@"zannum",
-             @"commentNum":@"commentnum",
-             @"shareNum":@"sharenum"};
+             @"shareurl":@"shareurl",
+             @"zannum":@"zannum",
+             @"commentnum":@"commentnum",
+             @"commentnum":@"sharenum",
+             @"isZan":@"isZan"};
 }
 
 @end

@@ -96,10 +96,13 @@
 @property (nonatomic,copy) NSString * playUrl;
 @property (nonatomic,copy) NSString * detail;
 @property (nonatomic,copy) NSString * workName;
-@property (nonatomic,copy) NSString *shareUrl;
-@property (nonatomic,copy) NSString *zanNum;
-@property (nonatomic,copy) NSString *commentNum;
-@property (nonatomic,copy) NSString *shareNum;
+@property (nonatomic,copy) NSString *shareurl;
+@property (nonatomic,copy) NSString *zannum;
+@property (nonatomic,copy) NSString *commentnum;
+@property (nonatomic,copy) NSString *sharenum;
+
+
+@property (nonatomic,assign) NSInteger isZan;
 @end
 
 
