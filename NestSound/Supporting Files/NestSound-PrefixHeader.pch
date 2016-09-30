@@ -190,12 +190,15 @@ extern NSString *port;
 #define uploadBgimageUrl @"java/userCenter/updateuserbg"
 
 
-
+/**
+ * 生成订单
+ */
+#define getOrderNoUrl @"paypal/order/save/v22"
 
 /**
  *  获取商品 charge
  */
-#define getGoodChargeUrl @"paypal/Paypal/CreateCharge"
+#define getGoodChargeUrl @"paypal/pay/save/v22"
 
 
 /**
