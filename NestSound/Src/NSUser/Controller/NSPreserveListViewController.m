@@ -28,6 +28,7 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configurePreserveListView];
+    [self fetchPreserveListData];
 }
 - (void)fetchPreserveListData {
     self.requestType = NO;
@@ -42,6 +43,7 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
             NSPreserveListModel *preserveListModel = (NSPreserveListModel*)parserObject;
             self.preserveListArr = [NSMutableArray arrayWithArray:preserveListModel.preserveList];
         }
+        [preserveTab reloadData];
     }
 }
 - (void)configurePreserveListView {
@@ -66,14 +68,15 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
+//    return self.preserveListArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSPreserveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:preserveCellIdentifier];
     if (!cell) {
         cell = [[NSPreserveTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveCellIdentifier];
     }
-    
+//    cell.preserveModel = self.preserveListArr[indexPath.row];
     return cell;
 }
 #pragma mark - UITableViewDelegate
@@ -81,7 +84,8 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     return 1;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] init];
+    NSPreserveModel *model = self.preserveListArr[indexPath.row];
+    NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] initWithPreserveID:model.preserveId sortID:model.sortId];
     [self.navigationController pushViewController:preserveDetailVC animated:YES];
 }
 

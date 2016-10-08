@@ -8,15 +8,44 @@
 
 #import "NSPreserveDetailViewController.h"
 #import "NSPreserveWorkInfoCell.h"
+#import "NSPreserveDetailListModel.h"
 @interface NSPreserveDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    long preserveId;
+    long sortId;
+}
 @property (nonatomic, strong) UIImageView *oneImageView;
 @end
 static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdentifier";
 @implementation NSPreserveDetailViewController
-
+-(instancetype)initWithPreserveID:(long)preserveID_ sortID:(long)sortID_
+{
+    if (self = [super init]) {
+        preserveId = preserveID_;
+        sortId     = sortID_;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupPreserveDetailUI];
+    [self fetchPreserveDetailData];
+}
+- (void)fetchPreserveDetailData {
+    
+    self.requestType = NO;
+    
+    self.requestParams = @{@"token":LoginToken,@"id":@(preserveId),@"sort_id":@(sortId),@"uid":JUserID};
+    
+    self.requestURL = preserveDetailUrl;
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        
+        
+    }
 }
 - (void)setupPreserveDetailUI {
     
@@ -83,13 +112,11 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 5;
-    } else if (section == 1) {
-        return 4;
     } else {
         return 1;
     }
@@ -100,7 +127,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     
     UITableViewCell * userMessageCell = [tableView dequeueReusableCellWithIdentifier:preserveDetailCellIdentifier];
     NSPreserveWorkInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreserveWorkInfoCellId"];
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
         if (!cell) {
             cell = [[NSPreserveWorkInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSPreserveWorkInfoCellId"];
         }
@@ -159,7 +186,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
 }
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 2 ? 185 : 44;
+    return indexPath.section == 1 ? 185 : 44;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.1;

@@ -32,8 +32,6 @@ UITableViewDelegate
     
     UITableView * settingPageTable;
     
-    UISwitch * messageNotifictionSwitch;
-    
     int page;
     
     NSString *userDataUrl;
@@ -131,12 +129,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
                 NSUserDataModel * userModel = (NSUserDataModel *)parserObject;
                 userDic = parserObject.data[@"user"];
                 _userModel = userModel.userDataModel.userModel;
-//                NSUserDefaults * userData = [NSUserDefaults standardUserDefaults];
-//                NSMutableDictionary * dic =  [NSMutableDictionary dictionaryWithDictionary:[userData objectForKey:@"user"]];
-//                [dic setObject:userModel.userDataModel.userModel.nickName forKey:@"userName"];
-//                NSDictionary *userDic = [userData objectForKey:@"user"];
-//                [userData setObject:dic forKey:@"user"];
-//                [userData synchronize];
+//                
                 [self.numsArr addObject:@(userModel.userOtherModel.workNum)];
                 [self.numsArr addObject:@(userModel.userOtherModel.lyricsNum)];
                 [self.numsArr addObject:@(userModel.userOtherModel.focusNum)];
@@ -171,9 +164,6 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     settingPageTable.delegate = self;
     settingPageTable.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     [self.view addSubview:settingPageTable];
-    //messageNotificationSwitch
-    messageNotifictionSwitch = [[UISwitch alloc] init];
-    messageNotifictionSwitch.tintColor = [UIColor hexColorFloat:@"ffd00b"];
     
     //constraints
     [settingPageTable mas_makeConstraints:^(MASConstraintMaker *make) {

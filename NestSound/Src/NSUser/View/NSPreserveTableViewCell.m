@@ -7,12 +7,12 @@
 //
 
 #import "NSPreserveTableViewCell.h"
-
+#import "NSPreserveListModel.h"
 @interface NSPreserveTableViewCell ()
 {
     UILabel *leftLabel;
     UILabel *rightLabel;
-    UIImageView *midImgView;
+    UIImageView *leftImgView;
     UILabel *statusLabel;
 }
 @end
@@ -26,10 +26,10 @@
     return self;
 }
 -(void)configurePreserveCellUIAppearance {
-    //midImgView
-    midImgView = [[UIImageView alloc] init];
-    midImgView.image = [UIImage imageNamed:@"2.2_preserveAll"];
-    [self addSubview:midImgView];
+    //leftImgView
+    leftImgView = [[UIImageView alloc] init];
+    leftImgView.image = [UIImage imageNamed:@"2.2_preserveAll"];
+    [self addSubview:leftImgView];
     
     //titleLabel
     leftLabel = [[UILabel alloc] init];
@@ -60,7 +60,7 @@
 {
     [super layoutSubviews];
     
-    [midImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [leftImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self.mas_left).offset(10);
         make.width.mas_equalTo(15);
@@ -68,7 +68,7 @@
     }];
     
     [leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(midImgView.mas_right).offset(10);
+        make.left.equalTo(leftImgView.mas_right).offset(10);
         make.centerY.equalTo(self.mas_centerY);
         make.height.mas_equalTo(44);
         make.right.equalTo(rightLabel.mas_left).offset(-10);
@@ -88,6 +88,32 @@
         make.right.equalTo(self.mas_right).offset(-10);
         
     }];
+    
+}
+- (void)setPreserveModel:(NSPreserveModel *)preserveModel {
+    
+    switch (preserveModel.sortId) {
+        case 1:
+            leftImgView.image = [UIImage imageNamed:@"2.2_preserveMusic"];
+            break;
+        case 2:
+            leftImgView.image = [UIImage imageNamed:@"2.2_preserveLyric"];
+            break;
+        case 3:
+            leftImgView.image = [UIImage imageNamed:@"2.2_preserveAll"];
+            break;
+        default:
+            break;
+    }
+    if (preserveModel.status == 0) {
+        statusLabel.text = @"保全失败";
+    } else if (preserveModel.status == 1) {
+        statusLabel.text = @"保全成功";
+    } else {
+        statusLabel.text = @"保全认证中...";
+    }
+    leftLabel.text = preserveModel.preserveName;
+    rightLabel.text = [date  datetoStringWithDate:[preserveModel.createTime longLongValue]];
     
 }
 - (void)awakeFromNib {

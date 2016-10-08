@@ -23,7 +23,8 @@
     return @{@"preserveName":@"workname",
              @"createTime":@"createtime",
              @"status":@"statue",
-             @"preserveId":@"id"
+             @"preserveId":@"id",
+             @"sortId":@"sort_id"
              };
 }
 

@@ -8,7 +8,7 @@
 
 #import "NSPreserveSelectViewController.h"
 #import "NSPreserveApplyController.h"
-#import "NSDiscoverMoreLyricModel.h"
+#import "NSUnPreserveListModel.h"
 @interface NSPreserveSelectViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UIScrollView *_topScrollView;
@@ -46,7 +46,6 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
 }
 - (void)fectProductDataWithProductType:(long)type IsLoadingMore:(BOOL)isLoadingMore {
     self.requestType = YES;
-    NSDictionary * dic;
     if (!isLoadingMore) {
         currentPage = 1;
         self.requestParams = @{kIsLoadingMore :@(NO)};
@@ -54,11 +53,10 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    
-    dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithLong:productType]};
-    NSString * str = [NSTool encrytWithDic:dic];
-    url = [userMLICListUrl stringByAppendingString:str];
-    self.requestURL = url;
+//    @"page":[NSNumber numberWithInt:currentPage],
+    self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"sort_id":[NSNumber numberWithLong:productType]};
+ 
+    self.requestURL = unPreservedListUrl;
 }
 #pragma mark -override actionFetchData
 -(void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr
@@ -67,26 +65,26 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         
     } else {
         if (!parserObject.success) {
-            if ([operation.urlTag isEqualToString:url]) {
+            if ([operation.urlTag isEqualToString:unPreservedListUrl]) {
                 
-                NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
+                NSUnPreserveListModel * unPreserveModel = (NSUnPreserveListModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     if (productType == 1) {
                         [musicTableView.pullToRefreshView stopAnimating];
-                        self.musicDataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
+                        self.musicDataAry = [NSMutableArray arrayWithArray:unPreserveModel.unPreserveList];
 
                     } else {
                         [lyricTableView.pullToRefreshView stopAnimating];
-                        self.lyricDataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
+                        self.lyricDataAry = [NSMutableArray arrayWithArray:unPreserveModel.unPreserveList];
                     }
                     
                 }else{
                     if (productType == 1) {
                         [musicTableView.infiniteScrollingView stopAnimating];
-                        [self.musicDataAry addObjectsFromArray:discoverMore.moreLyricList];
+                        [self.musicDataAry addObjectsFromArray:unPreserveModel.unPreserveList];
                     } else {
                         [lyricTableView.infiniteScrollingView stopAnimating];
-                        [self.lyricDataAry addObjectsFromArray:discoverMore.moreLyricList];
+                        [self.lyricDataAry addObjectsFromArray:unPreserveModel.unPreserveList];
                     }
                     
                 }
@@ -264,13 +262,13 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
     }
     if (productType == 1) {
-        NSMyMusicModel *model = self.musicDataAry[indexPath.row];
+        NSUnPreserveModel *model = self.musicDataAry[indexPath.row];
         cell.textLabel.text = model.title;
-        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.createDate];
+        cell.detailTextLabel.text = model.time;
     } else {
-        NSMyMusicModel *model = self.lyricDataAry[indexPath.row];
+        NSUnPreserveModel *model = self.lyricDataAry[indexPath.row];
         cell.textLabel.text = model.title;
-        cell.detailTextLabel.text = [date datetoLongStringWithDate:model.createDate];
+        cell.detailTextLabel.text = model.time;
     }
     
     return cell;

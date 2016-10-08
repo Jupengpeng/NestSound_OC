@@ -248,8 +248,8 @@
     
     NSInteger remainder = listModel.simpleCategoryList.simpleCategory.count%4;
     NSInteger lineCount =  remainder?
-                           (1 + listModel.simpleCategoryList.simpleCategory.count/4) :
-                           listModel.simpleCategoryList.simpleCategory.count/4 ;
+    (1 + listModel.simpleCategoryList.simpleCategory.count/4) :
+    listModel.simpleCategoryList.simpleCategory.count/4 ;
     
     NSMutableArray *neededArray = [[NSMutableArray alloc] initWithCapacity:10];
     NSArray *arr = [[listModel.simpleCategoryList.simpleCategory reverseObjectEnumerator] allObjects];
@@ -262,7 +262,7 @@
             
             UIButton *tagButton  = [self createTagButtonWithFrame:CGRectMake(kLeadPadding + (kTagButtonWidth + kSpacePadding) * column,  kOriginY + (kTagButtonHeight + kSpacePadding) * line, kTagButtonWidth, kTagButtonHeight) title:categoryModel.categoryName action:^(UIButton *btn) {
                 [self chooseCategoryWithIndex:btn];
-
+                
             }];
             
             tagButton.tag = kButtonBaseTag + index;

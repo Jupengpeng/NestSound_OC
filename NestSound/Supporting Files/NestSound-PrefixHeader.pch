@@ -135,9 +135,11 @@ extern NSString *port;
 #define changeMusicStatus @"java/musiopt/updateMusic"
 #define changeLyricStatus @"java/lyricsopt/updateLyrics"
 #define changePasswordUrl @"java/userCenter/updateuserpass?"
-#define preserveListUrl @"java//baoquan/getBaoquanListByid"
-#define preservePersonListUrl @"java//baoquan/getBaoquanrenByid"
-#define addPreservePersonUrl @"java//baoquan/addBaoquanren"
+#define preserveListUrl @"copyright/preserve/getPreserveListByid?"
+#define preservePersonListUrl @"java/baoquan/getBaoquanrenByid"
+#define addPreservePersonUrl @"copyright/preserve/addBaoquanren?"
+#define unPreservedListUrl @"copyright/preserve/getProductList?"
+#define preserveDetailUrl @"copyright/preserve/getOrderDetail?"
 /**
  *  2016年8月18号添加
  *

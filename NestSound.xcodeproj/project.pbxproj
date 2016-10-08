@@ -31,6 +31,8 @@
 		0CCF1D851D91383E00F97526 /* NSInspirationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D841D91383E00F97526 /* NSInspirationListViewController.m */; };
 		0CCF1D881D91385200F97526 /* NSCollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */; };
 		0CCF5E5A1D93B5D100A6BF3A /* NSBindThirdAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF5E591D93B5D100A6BF3A /* NSBindThirdAccountViewController.m */; };
+		0CD0FDA41DA8EB0200EC0795 /* NSUnPreserveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */; };
+		0CD0FDA71DA916CC00EC0795 /* NSPreserveDetailListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0FDA61DA916CC00EC0795 /* NSPreserveDetailListModel.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -324,6 +326,10 @@
 		0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCollectionListViewController.m; sourceTree = "<group>"; };
 		0CCF5E581D93B5D100A6BF3A /* NSBindThirdAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBindThirdAccountViewController.h; sourceTree = "<group>"; };
 		0CCF5E591D93B5D100A6BF3A /* NSBindThirdAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBindThirdAccountViewController.m; sourceTree = "<group>"; };
+		0CD0FDA21DA8EB0200EC0795 /* NSUnPreserveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUnPreserveListModel.h; sourceTree = "<group>"; };
+		0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUnPreserveListModel.m; sourceTree = "<group>"; };
+		0CD0FDA51DA916CC00EC0795 /* NSPreserveDetailListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveDetailListModel.h; sourceTree = "<group>"; };
+		0CD0FDA61DA916CC00EC0795 /* NSPreserveDetailListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveDetailListModel.m; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -1405,6 +1411,10 @@
 				0C670D091D9BA64900319E0D /* NSPreserveListModel.m */,
 				0C670D0B1D9BB27900319E0D /* NSPreservePersonListModel.h */,
 				0C670D0C1D9BB27900319E0D /* NSPreservePersonListModel.m */,
+				0CD0FDA21DA8EB0200EC0795 /* NSUnPreserveListModel.h */,
+				0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */,
+				0CD0FDA51DA916CC00EC0795 /* NSPreserveDetailListModel.h */,
+				0CD0FDA61DA916CC00EC0795 /* NSPreserveDetailListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3366,6 +3376,7 @@
 				2AAE01BE1CFC0F7F008D3145 /* NSMyLricListModel.m in Sources */,
 				6984FC151D642306002EA0F5 /* NSStarMusicianListController.m in Sources */,
 				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
+				0CD0FDA41DA8EB0200EC0795 /* NSUnPreserveListModel.m in Sources */,
 				946B04261D4EEC8A00529DBA /* HUAlbumCell.m in Sources */,
 				183E039F1CDDC80F0071FEE5 /* NSDiscoverViewController.m in Sources */,
 				2ADE8F621CFE7715006CD840 /* NSShareModulView.m in Sources */,
@@ -3486,6 +3497,7 @@
 				2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */,
 				0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
+				0CD0FDA71DA916CC00EC0795 /* NSPreserveDetailListModel.m in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				0CCE78901D87ACA900542845 /* NSPreserveDetailViewController.m in Sources */,
 				697A7CC51D6860B60038F16C /* NSMusicianListModel.m in Sources */,
@@ -3681,7 +3693,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3709,7 +3721,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

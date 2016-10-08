@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class NSPreserveModel;
 @interface NSPreserveTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) NSPreserveModel *preserveModel;
 @end

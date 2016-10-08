@@ -514,10 +514,6 @@ static NSString *ID3 = @"cell3";
     
     focusLLView = [[NSTopLBottomLView alloc] init];
     
-//    focusLLView.tipView.hidden = YES;
-    
-    focusLLView.tipView.backgroundColor = [UIColor clearColor];
-    
     focusLLView.bottomLabel.text = @"关注";
     
     [headImgView addSubview:focusLLView];
@@ -558,10 +554,6 @@ static NSString *ID3 = @"cell3";
     //粉丝
     
     fansLLView = [[NSTopLBottomLView alloc] init];
-    
-//    fansLLView.tipView.hidden = NO;
-    
-    fansLLView.tipView.backgroundColor = [UIColor redColor];
     
     fansLLView.bottomLabel.text = @"粉丝";
     

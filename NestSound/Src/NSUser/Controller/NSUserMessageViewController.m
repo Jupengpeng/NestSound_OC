@@ -26,6 +26,7 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureUserMessageView];
+    [self fetchPreserveUserMessageData];
 }
 
 
@@ -44,20 +45,23 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
     
     self.requestURL = preservePersonListUrl;
 }
+
 - (void)handleUserMessageFinish {
-    
-    UITextField *textField1 = [userMessageCell viewWithTag:161];
-    UITextField *textField2 = [userMessageCell viewWithTag:161];
-    UITextField *textField3 = [userMessageCell viewWithTag:161];
+    UITableViewCell *cell1 = (UITableViewCell *)[userMessageTab viewWithTag:161];
+    UITextField *textField1 = (UITextField*)[cell1 viewWithTag:180];
+    UITableViewCell *cell2 = (UITableViewCell *)[userMessageTab viewWithTag:162];
+    UITextField *textField2 = (UITextField*)[cell2 viewWithTag:180];
+    UITableViewCell *cell3 = (UITableViewCell *)[userMessageTab viewWithTag:163];
+    UITextField *textField3 = (UITextField*)[cell3 viewWithTag:180];
     self.requestType = NO;
     self.requestParams = @{@"token":LoginToken,
                            @"bq_uid":JUserID,
-                           @"bq_username":@"王菲",
-//                               textField1.text,
-                           @"bq_phone":@"18501423218",
-//                               textField2.text,
-                           @"bq_creditID":@"12234121"
-//                               textField3.text
+                           @"bq_username":
+                               textField1.text,
+                           @"bq_phone":
+                               textField2.text,
+                           @"bq_creditID":
+                               textField3.text
                            };
     self.requestURL = addPreservePersonUrl;
 }
@@ -67,10 +71,10 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
     }else{
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:preservePersonListUrl]) {
-                NSPreservePersonListModel * preservePersonList = (NSPreservePersonListModel *)parserObject;
+//                NSPreservePersonListModel * preservePersonList = (NSPreservePersonListModel *)parserObject;
                 
 //                if (!operation.isLoadingMore) {
-//                    
+//
 //                }
                 
                 
@@ -132,32 +136,25 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
         userMessageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:userMessageCellIditify];
         userMessageCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    userMessageCell.tag = 160 + indexPath.row;
     UILabel * leftLabel = [[UILabel alloc] init];
     leftLabel.text = titles[indexPath.row];
     leftLabel.font = [UIFont systemFontOfSize:15];
     [userMessageCell.contentView addSubview:leftLabel];
     
     UITextField *rightTF = [[UITextField alloc] init];
+    rightTF.tag = 180;
     [userMessageCell.contentView addSubview:rightTF];
-    rightTF.tag = 160 + indexPath.row;
+    
     [leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.left.equalTo(userMessageCell.contentView.mas_left).offset(15);
-        
         make.width.mas_equalTo(100);
-        
         make.centerY.equalTo(userMessageCell.mas_centerY);
     }];
-    
     [rightTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        
         make.left.equalTo(leftLabel.mas_left).offset(60);
-        
         make.right.equalTo(userMessageCell.contentView.mas_right).offset(-15);
-        
         make.centerY.equalTo(userMessageCell.mas_centerY);
-        
     }];
     
     if (!indexPath.row) {

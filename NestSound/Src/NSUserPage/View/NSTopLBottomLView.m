@@ -39,25 +39,25 @@
                 
     }];
     
-    self.tipView = [UIView new];
-    
+//    self.tipView = [UIView new];
+//    
 //    _tipView.hidden = YES;
+//    
+//    _tipView.backgroundColor = [UIColor redColor];
+//    
+//    _tipView.layer.cornerRadius = 3;
+//    
+//    [self addSubview:_tipView];
     
-    _tipView.backgroundColor = [UIColor redColor];
-    
-    _tipView.layer.cornerRadius = 3;
-    
-    [self addSubview:_tipView];
-    
-    [self.tipView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.right.equalTo(_topLabel.mas_right).offset(2);
-        
-        make.top.equalTo(_topLabel.mas_top).offset(0);
-        
-        make.size.mas_offset(CGSizeMake(6, 6));
-        
-    }];
+//    [self.tipView mas_makeConstraints:^(MASConstraintMaker *make) {
+//       
+//        make.right.equalTo(_topLabel.mas_right).offset(2);
+//        
+//        make.top.equalTo(_topLabel.mas_top).offset(0);
+//        
+//        make.size.mas_offset(CGSizeMake(6, 6));
+//        
+//    }];
     
     self.bottomLabel = [UILabel new];
     

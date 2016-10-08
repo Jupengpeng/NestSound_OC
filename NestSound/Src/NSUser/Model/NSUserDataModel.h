@@ -31,15 +31,13 @@
 @interface UserDataModel : NSBaseModel
 @property (nonatomic,strong) UserModel * userModel;
 @end
+
 @interface MyMusicList : NSBaseModel
-
-
 @property (nonatomic,assign) int totalCount;
 @property (nonatomic,strong) NSArray <NSMyMusicModel> * musicList;
 @end
 
 @interface NSUserDataModel : NSBaseModel
-
 @property (nonatomic,strong) UserDataModel * userDataModel;
 @property (nonatomic,strong) MyMusicList * myMusicList;
 @property (nonatomic,strong) UserOtherModel * userOtherModel;

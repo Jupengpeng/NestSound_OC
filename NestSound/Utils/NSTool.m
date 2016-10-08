@@ -434,7 +434,6 @@ static NSDateFormatter *dateFormatter;
 @end
 
 @implementation date
-
 +(NSString *)datetoStringWithDate:(NSTimeInterval)date
 {
 
