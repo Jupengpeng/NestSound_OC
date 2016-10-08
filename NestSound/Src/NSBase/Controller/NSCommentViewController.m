@@ -361,6 +361,8 @@ static NSString * const kDefaultTip = @"来~说点什么";
     
     if (type == 3) {
         self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
+        
+        self.commentExecuteBlock();
     }else{
         self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
         
@@ -377,9 +379,11 @@ static NSString * const kDefaultTip = @"来~说点什么";
     self.requestType = NO;
 
     if (type == 3) {
-        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],};
+        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
+        self.commentExecuteBlock();
+
     }else{
-        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type]};
+        self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
         
     }
     self.requestURL = deleteCommentURL;
@@ -430,6 +434,8 @@ static NSString * const kDefaultTip = @"来~说点什么";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSCommentTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+
     targetUserId = cell.commentModel.userID;
     maskView.hidden = NO;
     
@@ -438,6 +444,34 @@ static NSString * const kDefaultTip = @"来~说点什么";
     inputField.tag = 1;
     
     inputField.placeholder = [NSString stringWithFormat:@"回复: %@",cell.authorNameLabel.text];
+
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSCommentTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if (cell.commentModel.userID == [JUserID longLongValue]) {
+        
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSCommentTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self deleteCommentWithComentID:cell.commentModel.commentID];
+        [commentAry removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
 }
 
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
