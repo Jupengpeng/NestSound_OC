@@ -113,7 +113,7 @@ extern NSString *port;
 //发表评论 类型，1=歌曲，2=歌词,3=乐说
 #define postCommentURL @"java/commentopt/save/v22?"
 //删除评论 1=歌曲，2=歌词,3=乐说
-#define deleteCommentURL @"java/commentopt/delete?"
+#define deleteCommentURL @"java/commentopt/delete/v22?"
 #define loginOutURL @"java/common/login/logout?"
 #define getQiniuDetail @"java/common/uploadcallback/qiniutoken?"
 #define getToken @"java/common/login/tokenCheck?"
@@ -191,6 +191,10 @@ extern NSString *port;
  */
 #define getGoodChargeUrl @"paypal/pay/save/v22"
 /**
+ *  支付成功回调
+ */
+#define paiedSuccessUrl @"paypal/pay/status/v22"
+/**
  *  乐说部分
  *
  *  20160926添加
@@ -202,11 +206,11 @@ extern NSString *port;
 //乐说-更新分享数量(post)
 #define updateShareCount @"java/common/yueshuo/sharecount/v22"
 
-//发起保全
-#define laughBaoquanUrl @"java/baoquan/CreateFirstBaoquan"
+//提交保全
+#define laughBaoquanUrl @"copyright/preserve/CreateFirstBaoqua"
 
-
-
+//保全订单申请页面信息
+#define getPreserveInfoUrl @"copyright/preserve/getPreserveInfo"
 
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print

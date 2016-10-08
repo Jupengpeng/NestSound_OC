@@ -21,7 +21,7 @@
     NSShareView *_shareView;
     UIView *_maskView;
 
-
+    BOOL _commentCountChanged;
 }
 
 @property (nonatomic,strong) NSMusicSay *musicModel;
@@ -35,6 +35,19 @@
 
 
     [self setupUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //评论数量改变了重新加载数据
+    if (_commentCountChanged) {
+        [self fechYueshuoDetail];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    _commentCountChanged = NO;
 }
 
 - (void)setupUI{
@@ -91,7 +104,10 @@
                 NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId: [self.itemId longLongValue] andType:3];
                 
                 commentVC.musicName = self.name;
-                
+
+                commentVC.commentExecuteBlock = ^(){
+                    _commentCountChanged = YES;
+                };
                 [self.navigationController pushViewController:commentVC animated:YES];
             }else if (btn == _sharebutton){
                 CHLog(@"_sharebutton");
@@ -223,6 +239,8 @@
 
             }
             [[NSToastManager manager] showtoast:msg];
+            [self fechYueshuoDetail];
+
         
         }else if ([operation.urlTag isEqualToString:musicSayDetailUrl]){
             NSMusicSay *musicModel = (NSMusicSay *)parserObject;

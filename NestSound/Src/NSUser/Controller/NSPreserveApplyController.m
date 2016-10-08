@@ -112,7 +112,7 @@
     
     
     
-    [self postLaughProjectRight];
+    [self fetchPreserveInfoData];
 
 }
 
@@ -126,14 +126,26 @@
                            @"sort_id":@"1",
                            @"username":@"name",
                            @"usertype":@"1",
-                           @"creditId":@"1244",
-                           @"username":@"1",
-                           @"mobile":@"1",
+                           @"creditId":@"124412221223212322",
+                           @"mobile":@"11111111111",
                            @"lyricsname":@"1",
+                           @"uid":JUserID,
                            @"token":LoginToken};
     
     
     self.requestURL = laughBaoquanUrl;
+}
+
+- (void)fetchPreserveInfoData{
+    
+    self.requestType = NO;
+    
+    self.requestParams = @{@"id":[NSString stringWithFormat:@"%ld",self.itemUid],
+                           @"sort_id":@"1",
+                           @"uid":JUserID,
+                           @"token":LoginToken};
+    
+    self.requestURL = getPreserveInfoUrl;
 }
 
 - (void)fechOrderNo{
@@ -186,11 +198,17 @@
                    viewController:self
                      appURLScheme:kUrlScheme
                    withCompletion:^(NSString *result, PingppError *error) {
-                       NSLog(@"completion block: %@", result);
+                       CHLog(@"completion block: %@", result);
+                       
                        if (error == nil) {
                            NSLog(@"PingppError is nil");
+                           /**
+                            *  支付成功，申请保权
+                            */
+                           [self postLaughProjectRight];
                        } else {
                            NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                           [[NSToastManager manager] showtoast:[error getMsg]];
                        }
                        [[NSToastManager manager] showtoast:result];
                    }];

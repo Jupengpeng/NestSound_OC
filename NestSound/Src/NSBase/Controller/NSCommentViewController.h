@@ -8,10 +8,14 @@
 
 #import "NSBaseViewController.h"
 
+typedef void(^NSCommentExecutedBlock)(void);
+
 @interface NSCommentViewController : NSBaseViewController
 
 
 @property (nonatomic, copy) NSString *musicName;
+
+@property (nonatomic,copy) NSCommentExecutedBlock commentExecuteBlock;
 
 -(instancetype)initWithItemId:(long)itemid andType:(int)type_;
 
