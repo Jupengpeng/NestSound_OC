@@ -21,6 +21,8 @@
 #import "NSMessageListViewController.h"
 #import "NSFansViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "Pingpp.h"
+
 @interface AppDelegate ()
 
 @end
@@ -134,10 +136,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+// iOS 9 以上请用这个
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {
     BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result) {
+
+    }
     if (result == FALSE) {
         
     }
@@ -233,5 +238,14 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     // 删除缓存
     [[SDWebImageManager sharedManager].imageCache clearMemory];
 }
+//
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    return [Pingpp handleOpenURL:url withCompletion:nil];
+//}
+//
+// iOS 9 以上请用这个
+//- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary *)options {
+//    return [Pingpp handleOpenURL:url withCompletion:nil];
+//}
 
 @end

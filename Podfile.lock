@@ -28,6 +28,17 @@ PODS:
     - SDWebImage
     - SVProgressHUD
     - YLGIFImage
+  - Pingpp (2.2.8):
+    - Pingpp/Alipay (= 2.2.8)
+    - Pingpp/Core (= 2.2.8)
+    - Pingpp/UnionPay (= 2.2.8)
+  - Pingpp/Alipay (2.2.8):
+    - Pingpp/Core
+  - Pingpp/Core (2.2.8):
+    - Pingpp/Network
+  - Pingpp/Network (2.2.8)
+  - Pingpp/UnionPay (2.2.8):
+    - Pingpp/Core
   - pop (1.0.9)
   - Qiniu (7.0.20):
     - AFNetworking (~> 2.0)
@@ -53,6 +64,7 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD (~> 1.0.0)
   - MJPhotoBrowser
+  - Pingpp (~> 2.2.8)
   - pop
   - Qiniu
   - RSAEncryptor
@@ -72,6 +84,7 @@ SPEC CHECKSUMS:
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
+  Pingpp: b5ad287bd6969d69cff1f2438ea63147976711c9
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Qiniu: 8958e70c02fb563c8c04d555bb5041441c5f4216
   RSAEncryptor: d0c9c7f81493aa42e6cdf64e533bcb6ce37377b7
@@ -86,6 +99,6 @@ SPEC CHECKSUMS:
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
 
-PODFILE CHECKSUM: 648fb605eabe5210fa9a3dc352d6cb79bf56c6ab
+PODFILE CHECKSUM: b1b5eb9801f3b80ed1e9640664bd04a39c1fd018
 
 COCOAPODS: 1.0.1

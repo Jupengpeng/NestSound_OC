@@ -50,7 +50,15 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
     UITextField *textField2 = [userMessageCell viewWithTag:161];
     UITextField *textField3 = [userMessageCell viewWithTag:161];
     self.requestType = NO;
-    self.requestParams = @{@"token":LoginToken,@"bq_uid":JUserID,@"bq_username":textField1.text,@"bq_phone":textField2.text,@"bq_creditID":textField3.text};
+    self.requestParams = @{@"token":LoginToken,
+                           @"bq_uid":JUserID,
+                           @"bq_username":@"王菲",
+//                               textField1.text,
+                           @"bq_phone":@"18501423218",
+//                               textField2.text,
+                           @"bq_creditID":@"12234121"
+//                               textField3.text
+                           };
     self.requestURL = addPreservePersonUrl;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
@@ -67,6 +75,8 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
                 
                 
             } else if ([operation.urlTag isEqualToString:addPreservePersonUrl]) {
+              
+                [self.navigationController popViewControllerAnimated:YES];
                 
             }
         }

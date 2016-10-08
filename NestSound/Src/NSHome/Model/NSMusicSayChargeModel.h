@@ -68,6 +68,9 @@
 
 @property (nonatomic, copy) NSString *app;
 
+
+@property (nonatomic,strong) NSDictionary *chargeDict;
+
 @end
 
 

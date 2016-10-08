@@ -20,6 +20,8 @@ pod 'UMengSocialCOM'
 pod 'YYCache'
 pod 'SDCycleScrollView'
 pod 'MJPhotoBrowser'
+pod 'Pingpp', '~> 2.2.8'
+
 end
 
 target 'NestSoundTests' do

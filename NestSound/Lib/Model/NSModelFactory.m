@@ -157,7 +157,9 @@
         return [[NSUserMusicListModel alloc] initWithJSONDict:jsonDict];
 
     }else if ([url isEqualToString:getGoodChargeUrl]){
-        return [NSMusicSayChargeModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
+        NSMusicSayChargeModel *chargeModel = [NSMusicSayChargeModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
+        chargeModel.chargeDict = [jsonDict objectForKey:@"data"];
+        return chargeModel;
 
     }else if ([url isEqualToString:preserveListUrl]) {
         return [[NSPreserveListModel alloc] initWithJSONDict:jsonDict];

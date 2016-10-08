@@ -152,10 +152,8 @@ extern NSString *port;
 
 //活动详情
 #define activityDetailUrl @"java/common/activity/actdetail"
-
 //参与用户列表
 #define joinedUserListUrl @"java/common/activity/userlist"
-
 //参赛作品详情列表
 #define joinedWorksDetailUrl @"java/common/activity/worklist"
 
@@ -164,49 +162,37 @@ extern NSString *port;
  *  发布歌曲 （针对活动）
  */
 #define publicMusicForAct @"java/musiopt/activity"
-
 /**
  *  发布歌词 （针对活动）
  */
 #define publicLyricForAct @"java/lyricsopt/activity"
-
 //参赛提交
 #define joinMatchSubmitUrl @"java/activity/attend"
-
 /**
  *  音乐人列表
  */
 #define musicianListUrl @"java/common/musician/list"
-
 /**
  *  音乐人详情
  */
-
 #define musicianDetailUrl @"java/common/musician/detail"
-
 /**
  *  上传背景图片
  */
 #define uploadBgimageUrl @"java/userCenter/updateuserbg"
-
-
 /**
  * 生成订单
  */
 #define getOrderNoUrl @"paypal/order/save/v22"
-
 /**
  *  获取商品 charge
  */
 #define getGoodChargeUrl @"paypal/pay/save/v22"
-
-
 /**
  *  乐说部分
  *
  *  20160926添加
  */
-
 //乐说-点赞(post)
 #define musicSayDianzanUrl @"java/yueshuo/zan/save/v22"
 //乐说-详情页(post)

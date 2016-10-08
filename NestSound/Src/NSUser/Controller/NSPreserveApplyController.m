@@ -6,6 +6,9 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
+#define kUrlScheme      @"wx10b95b65884a92c0" // 这个是你定义的 URL Scheme，支付宝、微信支付、银联和测试模式需要。
+
+
 #import "NSPreserveApplyController.h"
 #import "NSPreserveWorkInfoCell.h"
 #import "NSPreserveUserCell.h"
@@ -13,6 +16,9 @@
 #import "NSUserMessageViewController.h"
 #import "NSPreserveTypeView.h"
 #import "NSPreservePayCell.h"
+#import "NSMusicSayChargeModel.h"
+#import "Pingpp.h"
+
 @interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     UILabel *_totalPrice;
@@ -31,6 +37,8 @@
 @property (nonatomic,strong) NSPreserveTypeView *typeView;
 
 @property (nonatomic,strong) UIButton *rmvViewBtn;
+
+@property (nonatomic,copy) NSString *orderNo;
 
 @end
 
@@ -91,7 +99,7 @@
         btn.layer.cornerRadius = 45/2.0f;
         btn.backgroundColor = [UIColor hexColorFloat:kAppBaseYellowValue];
     } action:^(UIButton *btn) {
-        [self postLaughProjectRight];
+        [self fechOrderNo];
     }];
     [footerView addSubview:submitButton];
 
@@ -100,21 +108,27 @@
     [self.view addSubview:self.typeView];
 
     [self.view insertSubview:self.rmvViewBtn belowSubview:self.typeView];
+    
+    
+    
+    
+    [self postLaughProjectRight];
+
 }
 
 #pragma mark HTTP request method
 
-//发起保全
+
+//申请保权页面信息
 - (void)postLaughProjectRight{
     self.requestType = NO;
     self.requestParams = @{@"work_id":[NSString stringWithFormat:@"%ld",self.itemUid],
                            @"sort_id":@"1",
-                           @"username":@"1",
+                           @"username":@"name",
                            @"usertype":@"1",
-                           @"creditId":@"11",
+                           @"creditId":@"1244",
                            @"username":@"1",
                            @"mobile":@"1",
-                           @"email":@"1",
                            @"lyricsname":@"1",
                            @"token":LoginToken};
     
@@ -122,6 +136,20 @@
     self.requestURL = laughBaoquanUrl;
 }
 
+- (void)fechOrderNo{
+    
+    self.requestType = NO;
+    self.requestParams = @{@"uid":JUserID,
+                           @"itemid":@"1",
+                           @"type":@"1",
+                           @"cType":@"3",
+                           @"cUsername":@"name",
+                           @"cCardId":@"1244",
+                           @"cPhone":@"1234567",
+                           @"token":LoginToken};
+ 
+    self.requestURL = getOrderNoUrl;
+}
 
 
 - (void)fetchGoodCharge{
@@ -131,9 +159,8 @@
     NSString *timeString = [NSString stringWithFormat:@"%d", a];
     NSDictionary* dict = @{
                            //                           @"channel" : self.channel,
-                           @"orderNo":timeString,
-                           @"amount"  : @20.6,
-                           @"sort_id":@"1"};
+                           @"orderNo":self.orderNo,
+                           @"token":LoginToken};
     self.requestType = NO;
     self.requestParams = dict;
     self.requestURL = getGoodChargeUrl;
@@ -154,8 +181,26 @@
             
             
         }else if ([operation.urlTag isEqualToString:getGoodChargeUrl]){
+            NSMusicSayChargeModel *chargeModel = (NSMusicSayChargeModel *)parserObject;
+            [Pingpp createPayment:chargeModel.chargeDict
+                   viewController:self
+                     appURLScheme:kUrlScheme
+                   withCompletion:^(NSString *result, PingppError *error) {
+                       NSLog(@"completion block: %@", result);
+                       if (error == nil) {
+                           NSLog(@"PingppError is nil");
+                       } else {
+                           NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                       }
+                       [[NSToastManager manager] showtoast:result];
+                   }];
             
-            
+        }else if ([operation.urlTag isEqualToString:getOrderNoUrl]){
+            NSBaseModel *baseModel = (NSBaseModel *)parserObject;
+            self.orderNo = [baseModel.data objectForKey:@"mp3URL"];
+            [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"生成订单号%@",self.orderNo]];
+
+            [self fetchGoodCharge];
         }
         
         
