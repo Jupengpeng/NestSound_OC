@@ -45,7 +45,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     [self fectProductDataWithProductType:1 IsLoadingMore:NO];
 }
 - (void)fectProductDataWithProductType:(long)type IsLoadingMore:(BOOL)isLoadingMore {
-    self.requestType = YES;
+    self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
         self.requestParams = @{kIsLoadingMore :@(NO)};
@@ -71,6 +71,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
                 if (!operation.isLoadingMore) {
                     if (productType == 1) {
                         [musicTableView.pullToRefreshView stopAnimating];
+
                         self.musicDataAry = [NSMutableArray arrayWithArray:unPreserveModel.unPreserveList];
 
                     } else {

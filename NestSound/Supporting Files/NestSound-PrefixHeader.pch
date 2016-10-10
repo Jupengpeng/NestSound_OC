@@ -136,7 +136,7 @@ extern NSString *port;
 #define changeLyricStatus @"java/lyricsopt/updateLyrics"
 #define changePasswordUrl @"java/userCenter/updateuserpass?"
 #define preserveListUrl @"copyright/preserve/getPreserveListByid?"
-#define preservePersonListUrl @"java/baoquan/getBaoquanrenByid"
+#define preservePersonListUrl @"copyright/preserve/getBaoquanrenByid"
 #define addPreservePersonUrl @"copyright/preserve/addBaoquanren?"
 #define unPreservedListUrl @"copyright/preserve/getProductList?"
 #define preserveDetailUrl @"copyright/preserve/getOrderDetail?"

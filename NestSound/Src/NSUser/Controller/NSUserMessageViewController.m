@@ -13,9 +13,11 @@
     UserMessageType type;
     UITableView *userMessageTab;
     UITableViewCell * userMessageCell;
+    NSDictionary *userMessageDic;
+    UILabel * leftLabel;
+//    UITextField *rightTF;
 }
 @end
-static NSString *const userMessageCellIditify = @"userMessageCellIditify";
 @implementation NSUserMessageViewController
 - (instancetype)initWithUserMessageType:(UserMessageType)userMessageType_ {
     if (self = [super init]) {
@@ -54,15 +56,30 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
     UITableViewCell *cell3 = (UITableViewCell *)[userMessageTab viewWithTag:163];
     UITextField *textField3 = (UITextField*)[cell3 viewWithTag:180];
     self.requestType = NO;
-    self.requestParams = @{@"token":LoginToken,
-                           @"bq_uid":JUserID,
-                           @"bq_username":
-                               textField1.text,
-                           @"bq_phone":
-                               textField2.text,
-                           @"bq_creditID":
-                               textField3.text
-                           };
+    if (userMessageDic[@"bq_id"]) {
+        self.requestParams = @{@"token":LoginToken,
+                               @"bq_uid":JUserID,
+                               @"bq_id":userMessageDic[@"bq_id"],
+                               @"bq_username":
+                                   textField1.text,
+                               @"bq_phone":
+                                   textField2.text,
+                               @"bq_creditID":
+                                   textField3.text
+                               };
+    } else {
+        self.requestParams = @{@"token":LoginToken,
+                               @"bq_uid":JUserID,
+//                               @"bq_id":@(NULL),
+                               @"bq_username":
+                                   textField1.text,
+                               @"bq_creditID":
+                                   textField2.text,
+                               @"bq_phone":
+                                   textField3.text
+                               };
+    }
+    
     self.requestURL = addPreservePersonUrl;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
@@ -71,12 +88,9 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
     }else{
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:preservePersonListUrl]) {
-//                NSPreservePersonListModel * preservePersonList = (NSPreservePersonListModel *)parserObject;
-                
-//                if (!operation.isLoadingMore) {
-//
-//                }
-                
+
+                userMessageDic = (NSDictionary *)parserObject.data;
+                [userMessageTab reloadData];
                 
             } else if ([operation.urlTag isEqualToString:addPreservePersonUrl]) {
               
@@ -130,33 +144,42 @@ static NSString *const userMessageCellIditify = @"userMessageCellIditify";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *titles = @[@"保全用户信息",@"姓名",@"身份证",@"手机号"];
-    userMessageCell = [tableView dequeueReusableCellWithIdentifier:userMessageCellIditify];
     
-    if (!userMessageCell) {
-        userMessageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:userMessageCellIditify];
-        userMessageCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
+    userMessageCell = [[UITableViewCell alloc] init];
+    userMessageCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     userMessageCell.tag = 160 + indexPath.row;
-    UILabel * leftLabel = [[UILabel alloc] init];
+    leftLabel = [[UILabel alloc] init];
     leftLabel.text = titles[indexPath.row];
     leftLabel.font = [UIFont systemFontOfSize:15];
     [userMessageCell.contentView addSubview:leftLabel];
-    
-    UITextField *rightTF = [[UITextField alloc] init];
-    rightTF.tag = 180;
-    [userMessageCell.contentView addSubview:rightTF];
     
     [leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(userMessageCell.contentView.mas_left).offset(15);
         make.width.mas_equalTo(100);
         make.centerY.equalTo(userMessageCell.mas_centerY);
     }];
+
+    UITextField *rightTF = [[UITextField alloc] init];
+    rightTF.textColor = [UIColor lightGrayColor];
+    rightTF.tag = 180;
+    if (userMessageDic) {
+        if (indexPath.row ==1) {
+            rightTF.text = userMessageDic[@"bq_username"];
+        } else if (indexPath.row == 2) {
+            rightTF.text = userMessageDic[@"bq_creditID"];
+        } else {
+            rightTF.text = userMessageDic[@"bq_phone"];
+        }
+    }
+    [userMessageCell.contentView addSubview:rightTF];
     [rightTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(leftLabel.mas_left).offset(60);
         make.right.equalTo(userMessageCell.contentView.mas_right).offset(-15);
         make.centerY.equalTo(userMessageCell.mas_centerY);
     }];
     
+
     if (!indexPath.row) {
         leftLabel.textColor = [UIColor lightGrayColor];
         rightTF.hidden = YES;

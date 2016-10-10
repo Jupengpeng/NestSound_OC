@@ -9,7 +9,7 @@
 #import "NSPreserveDetailViewController.h"
 #import "NSPreserveWorkInfoCell.h"
 #import "NSPreserveDetailListModel.h"
-@interface NSPreserveDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface NSPreserveDetailViewController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     long preserveId;
     long sortId;
@@ -51,7 +51,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     
     self.title = @"保全申请";
     
-    UITableView *preserveDetailTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 60) style:UITableViewStyleGrouped];
+    UITableView *preserveDetailTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStyleGrouped];
     
     preserveDetailTab.dataSource = self;
     
@@ -63,33 +63,6 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     
     [self.view addSubview:preserveDetailTab];
     
-    UIButton *preserveState = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    preserveState.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
-    
-    preserveState.layer.cornerRadius = 20;
-    
-    preserveState.layer.masksToBounds = YES;
-    
-    [preserveState setTitle:@"申请中..." forState:UIControlStateNormal];
-    
-    [preserveState setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    
-    [preserveState addTarget:self action:@selector(handlePreserveStatus:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:preserveState];
-    
-    [preserveState mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.bottom.equalTo(self.view.mas_bottom).offset(-10);
-        
-        make.left.equalTo(self.view.mas_left).offset(15);
-        
-        make.right.equalTo(self.view.mas_right).offset(-15);
-        
-        make.height.mas_equalTo(40);
-        
-    }];
     
     _oneImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     
@@ -112,7 +85,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
@@ -126,6 +99,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     NSArray *titles2 = @[@"保全人姓名",@"手机号",@"证件号码",@"保全身份"];
     
     UITableViewCell * userMessageCell = [tableView dequeueReusableCellWithIdentifier:preserveDetailCellIdentifier];
+    UITableViewCell * preserveStatusCell = [[UITableViewCell alloc] init];
     NSPreserveWorkInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreserveWorkInfoCellId"];
     if (indexPath.section == 1) {
         if (!cell) {
@@ -134,7 +108,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setupData];
         return cell;
-    } else {
+    } else  if (indexPath.section == 0){
         if (!userMessageCell) {
             userMessageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveDetailCellIdentifier];
             userMessageCell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -181,18 +155,92 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
             rightLabel.hidden = NO;
         }
         return userMessageCell;
+    } else {
+        
+        preserveStatusCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIButton *preserveState = [UIButton buttonWithType:UIButtonTypeSystem];
+        
+        preserveState.frame = CGRectMake(15, 10, ScreenWidth - 30, 40);
+        
+        preserveState.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+        
+        preserveState.layer.cornerRadius = 20;
+        
+        preserveState.layer.masksToBounds = YES;
+        
+        [preserveState setTitle:@"申请中..." forState:UIControlStateNormal];
+        
+        [preserveState setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        
+        [preserveState addTarget:self action:@selector(handlePreserveStatus:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [preserveStatusCell.contentView addSubview:preserveState];
+        
+        TTTAttributedLabel *messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(ScreenWidth/4 + 20, 60, ScreenWidth/2, 40)];
+        messageLabel.font = [UIFont systemFontOfSize:13];
+        messageLabel.textColor = [UIColor lightGrayColor];
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        messageLabel.numberOfLines = 0;
+        messageLabel.lineSpacing = 3;
+        messageLabel.delegate = self;
+        messageLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+        [messageLabel setText:@"您的保全订单申请失败,请联系客服:0571-86693441" afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
+         {
+             //设置可点击文字的范围
+             NSRange boldRange = [[mutableAttributedString string] rangeOfString:@"0571-86693441" options:NSCaseInsensitiveSearch];
+             
+             //设定可点击文字的的大小
+             UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:13];
+             CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+             
+             if (font) {
+                 
+                 //设置可点击文本的大小
+                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+                 
+                 //设置可点击文本的颜色
+                 [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
+                 
+                 CFRelease(font);
+                 
+             }
+             return mutableAttributedString;
+         }];
+        [messageLabel addLinkToURL:nil withRange:NSMakeRange(17, 13)];
+        [preserveStatusCell.contentView addSubview:messageLabel];
+        UIImageView *tipImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth/4, CGRectGetMidY(messageLabel.frame) - 8, 16, 16)];
+        tipImgView.image = [UIImage imageNamed:@"2.2_preserveFailed"];
+        [preserveStatusCell.contentView addSubview:tipImgView];
+        return preserveStatusCell;
     }
     
 }
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 1 ? 185 : 44;
+    if (indexPath.section == 0) {
+        return 44;
+    } else if (indexPath.section == 1) {
+        return 185;
+    } else {
+        return 120;
+    }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.1;
+    return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10;
+}
+#pragma mark - TTTAttributedLabelDelegate
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"0571-86693441"];
+    UIWebView * callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [self.view addSubview:callWebview];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

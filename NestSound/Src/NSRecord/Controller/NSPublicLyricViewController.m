@@ -408,8 +408,10 @@ extern Boolean plugedHeadset;
                     [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
                 }];
             } else {
-                
-                [[NSToastManager manager] showtoast:parserObject.message];
+                [self.alertView dismissViewControllerAnimated:YES completion:^{
+                    self.btn.enabled = YES;
+                    [[NSToastManager manager] showtoast:parserObject.message];
+                }];
             }
             
         }else if ([operation.urlTag isEqualToString:publicLyricForAct] || [operation.urlTag isEqualToString:publicMusicForAct]){

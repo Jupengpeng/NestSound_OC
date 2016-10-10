@@ -50,6 +50,8 @@ static NSString * const kDefaultTip = @"来~说点什么";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     self.title = [NSString stringWithFormat:@"%@的评论",self.musicName];
     
     commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44) style:UITableViewStylePlain];
@@ -59,7 +61,9 @@ static NSString * const kDefaultTip = @"来~说点什么";
     commentTableView.delegate = self;
     
     commentTableView.dataSource = self;
-     
+    
+    commentTableView.backgroundColor = KBackgroundColor;
+    
     UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [commentTableView setTableFooterView:noLineView];
