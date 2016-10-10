@@ -653,8 +653,6 @@ static NSString * const musicSayData = @"musicSayData";
 
     } else if (indexPath.section == 2) {
 
-//        reusable.bannerAry = nil;
-
         reusable.SDCycleScrollView.hidden = YES;
         
         UIButton *songMenuBtn = [reusable loadMore:YES];
@@ -668,7 +666,6 @@ static NSString * const musicSayData = @"musicSayData";
     } else if (indexPath.section == 3) {
 
         reusable.SDCycleScrollView.hidden = YES;
-//        reusable.bannerAry = nil;
 
         reusable.titleLable.text = @"最新作品";
         
@@ -678,14 +675,14 @@ static NSString * const musicSayData = @"musicSayData";
 
     } else if (indexPath.section == 4){
         
-//        reusable.bannerAry = nil;
-        
         reusable.SDCycleScrollView.hidden = YES;
+        
         UIButton *songSayBtn = [reusable loadMore:YES];
         
         [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         reusable.titleLable.text = @"乐说";
+        
         return reusable;
 //        LocalizedStr(@"promot_musicSay");
 

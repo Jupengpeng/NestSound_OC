@@ -109,10 +109,10 @@
 - (UIButton *)loadMore:(BOOL)flag {
     
     if (flag) {
-        if (self.moreBtn) {
+//        if (self.moreBtn) {
             [self.moreBtn removeFromSuperview];
             _moreBtn = nil;
-        }
+//        }
         self.moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         
         [self.moreBtn setTitle:@"更多" forState:UIControlStateNormal];
@@ -137,6 +137,11 @@
             
             
         }];
+    } else {
+//        if (self.moreBtn) {
+            [self.moreBtn removeFromSuperview];
+            _moreBtn = nil;
+//        }
     }
     return self.moreBtn;
 }
