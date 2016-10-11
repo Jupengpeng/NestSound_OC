@@ -377,11 +377,13 @@
         [contentView addSubview:titleLabel];
         [footerView addSubview:contentView];
         
+        if ([_sortId isEqualToString:@"3"]) {
         UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_more"]];
         arrow.x = ScreenWidth - arrow.width - 10;
         arrow.centerY = 20;
         [footerView addSubview:arrow];
         
+        }
         _typeButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             btn.frame = CGRectMake(ScreenWidth - 125, 0, 100, 40);
             btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight ;
