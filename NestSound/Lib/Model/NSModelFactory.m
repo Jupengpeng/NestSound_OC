@@ -46,11 +46,12 @@
 #import "YYModel.h"
 #import "NSPreserveListModel.h"
 #import "NSPreservePersonListModel.h"
+#import "NSUnPreserveListModel.h"
 //#import ""
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
-//    CHLog(@"jsonDict%@",jsonDict);
+    CHLog(@"jsonDict%@",jsonDict);
     if ([url isEqualToString:indexURL]) {
 
         return [[NSIndexModel alloc] initWithJSONDict:jsonDict];
@@ -166,6 +167,8 @@
     }
     else if([url isEqualToString:preservePersonListUrl]){
         return [[NSPreservePersonListModel alloc] initWithJSONDict:jsonDict];
+    } else if ([url isEqualToString:unPreservedListUrl]) {
+        return [[NSUnPreserveListModel alloc] initWithJSONDict:jsonDict];
     }
     
     else if([url isEqualToString:uploadBgimageUrl]){

@@ -98,6 +98,7 @@ extern NSString *port;
 #define collectMessageURL @"java/message/fovMyCenterList/v22?"
 #define commentMessageURL @"java/message/commentCenterList/v22?"
 #define systemMessageURL @"java/message/sysNoteList/v22?"
+#define preserveMessageUrl @"java/message/copyrightList/v22?"
 #define myLyricListURL @"java/common/lyrics/myLyrics?"
 #define myMusicListURL @"java/common/music/worklist?"
 #define myFansListURL @"java/fanfocus/fanslist?"

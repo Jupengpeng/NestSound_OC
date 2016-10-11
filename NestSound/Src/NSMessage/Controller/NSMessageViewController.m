@@ -160,6 +160,7 @@ UITableViewDataSource
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",2]];
                 if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount) {
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
@@ -180,10 +181,10 @@ UITableViewDataSource
     
     
     //imageAry;
-    imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.0_message_system.png"];
+    imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.2_message_preserve",@"2.0_message_system.png"];
     
     //titleAry
-    titleAry = @[@"评论",@"赞",@"收藏",@"系统消息"];
+    titleAry = @[@"评论",@"赞",@"收藏",@"保全消息",@"系统消息"];
 //  @[LocalizedStr(@"prompt_commentMessage"),
 //                 LocalizedStr(@"prompt_upvote"),
 //                 LocalizedStr(@"prompt_collection"),
@@ -230,7 +231,7 @@ UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 
-    return 4;
+    return 5;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -311,11 +312,14 @@ UITableViewDataSource
 //            LocalizedStr(@"prompt_collection");
             break;}
         case 3:{
-            messageListVC = [[NSMessageListViewController alloc] initWithMessageType:SystemMessageType];
-            messageListVC.messageListType = @"系统消息";
+            messageListVC = [[NSMessageListViewController alloc] initWithMessageType:PreserveMessageType];
+            messageListVC.messageListType = @"保全消息";
 //            LocalizedStr(@"prompt_systemMessage");
             break;}
-            
+        case 4:{
+            messageListVC = [[NSMessageListViewController alloc] initWithMessageType:SystemMessageType];
+            messageListVC.messageListType = @"系统消息";
+        }
         default:
             break;
     }

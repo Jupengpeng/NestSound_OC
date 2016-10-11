@@ -11,7 +11,7 @@
 @end
 @interface NSUnPreserveModel : NSBaseModel
 @property(nonatomic,copy) NSString * title;
-@property(nonatomic,copy) NSString * time;
+@property(nonatomic,assign) NSTimeInterval time;
 @property(nonatomic,copy) NSString * productId;
 @end
 

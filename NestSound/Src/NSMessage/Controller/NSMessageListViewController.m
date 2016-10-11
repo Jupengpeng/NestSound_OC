@@ -13,6 +13,7 @@
 #import "NSSystemMessageListModel.h"
 #import "NSCommentListModel.h"
 #import "NSUpvoteMessageListModel.h"
+#import "NSPreserveMessageListModel.h"
 #import "NSH5ViewController.h"
 #import "NSCommentTableViewCell.h"
 #import "NSLyricViewController.h"
@@ -33,6 +34,7 @@ NSCommentTableViewCellDelegate
     NSString * collectUrl;
     NSString * commentUrl;
     NSString * systemUrl;
+    NSString * preserveUrl;
     UIImageView * emptyImage;
 }
 
@@ -107,6 +109,9 @@ static NSString * const systemCellID = @"SystemCellID";
         }else if (messageType == CommentMessageType){
             commentUrl =[commentMessageURL stringByAppendingString:str];
             self.requestURL = commentUrl;
+        } else if (messageType == PreserveMessageType) {
+            preserveUrl = [preserveMessageUrl stringByAppendingString:str];
+            self.requestURL = preserveUrl;
         }
 }
 
@@ -179,6 +184,20 @@ static NSString * const systemCellID = @"SystemCellID";
                     
                 }
                 
+            } else if ([operation.urlTag isEqualToString:preserveUrl]) {
+                NSPreserveMessageListModel * preserveMessage = (NSPreserveMessageListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    messageArr = [NSMutableArray arrayWithArray:preserveMessage.preserveMessageList];
+                    emptyImage.image = [UIImage imageNamed:@"2.0_noMessageBk"];
+                }else{
+                    if (preserveMessage.preserveMessageList.count == 0) {
+                        messageList.showsInfiniteScrolling = NO;
+                        
+                    }else{
+                        [messageArr addObjectsFromArray:preserveMessage.preserveMessageList];
+                    }
+                    
+                }
             }
             
             messageList.showsPullToRefresh = YES;

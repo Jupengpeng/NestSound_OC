@@ -13,7 +13,8 @@ typedef  NS_ENUM(NSInteger,MessageType){
     UpvoteMessageType,
     CollectionMessageType,
     CommentMessageType,
-    SystemMessageType
+    SystemMessageType,
+    PreserveMessageType
 
 };
 

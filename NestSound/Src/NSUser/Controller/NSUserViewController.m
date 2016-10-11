@@ -200,14 +200,13 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return section == 0 ? 2: 3;
+    return section == 1 ? 3 : 2;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *stringArr = @[@"灵感纪录",@"我的收藏",@"我的保全",@"个人资料",@"推荐给好友",@"设置"];
-    NSArray *imageArr = @[@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.2_userData",@"2.2_recommend",@"2.2_setting"];
+    NSArray *stringArr = @[@"灵感纪录",@"我的收藏",@"我的保全",@"个人资料",@"设置"];
+    NSArray *imageArr = @[@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.2_userData",@"2.2_setting"];
     
     NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
@@ -345,10 +344,6 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             [self.navigationController pushViewController:userProfileInfoVC animated:YES];
             
         } else if (row == 1) {
-            NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
-            [self.navigationController pushViewController:preserveListVC animated:YES];
-            
-        } else if (row == 2) {
             NSSettingViewController * settingVC = [[NSSettingViewController alloc] init];
             [self.navigationController pushViewController:settingVC animated:YES];
         }

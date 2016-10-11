@@ -18,6 +18,8 @@
     int currentPage;
     NSString *url;
     long productType;
+    UIImageView *musicEmptyImage;
+    UIImageView *lyricEmptyImage;
 }
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 @property (nonatomic, strong) NSMutableArray *musicDataAry;
@@ -73,7 +75,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
                         [musicTableView.pullToRefreshView stopAnimating];
 
                         self.musicDataAry = [NSMutableArray arrayWithArray:unPreserveModel.unPreserveList];
-
+ 
                     } else {
                         [lyricTableView.pullToRefreshView stopAnimating];
                         self.lyricDataAry = [NSMutableArray arrayWithArray:unPreserveModel.unPreserveList];
@@ -89,7 +91,16 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
                     }
                     
                 }
-                
+                if (self.musicDataAry.count) {
+                    musicEmptyImage.hidden = YES;
+                } else {
+                    musicEmptyImage.hidden = NO;
+                }
+                if (self.lyricDataAry.count) {
+                    lyricEmptyImage.hidden = YES;
+                } else {
+                    lyricEmptyImage.hidden = NO;
+                }
                 if (productType == 1) {
                     [musicTableView reloadData];
                 } else {
@@ -187,6 +198,16 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         }
         [Wself fectProductDataWithProductType:1 IsLoadingMore:YES];
     }];
+    
+    musicEmptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    musicEmptyImage.hidden = YES;
+    
+    musicEmptyImage.centerX = ScreenWidth/2;
+    
+    musicEmptyImage.y = 100;
+    
+    [self.contentScrollView addSubview:musicEmptyImage];
     //歌词
     lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStylePlain];
     
@@ -218,6 +239,16 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         }
         [Wself fectProductDataWithProductType:2 IsLoadingMore:YES];
     }];
+    lyricEmptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    lyricEmptyImage.hidden = YES;
+    
+    lyricEmptyImage.centerX = 3*ScreenWidth/2;
+    
+    lyricEmptyImage.y = 100;
+    
+    [self.contentScrollView addSubview:lyricEmptyImage];
+    
 }
 - (void)titleBtnClick:(UIButton *)titleBtn {
     
@@ -265,11 +296,11 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     if (productType == 1) {
         NSUnPreserveModel *model = self.musicDataAry[indexPath.row];
         cell.textLabel.text = model.title;
-        cell.detailTextLabel.text = model.time;
+        cell.detailTextLabel.text = [date datetoLongLongStringWithDate:model.time];
     } else {
         NSUnPreserveModel *model = self.lyricDataAry[indexPath.row];
         cell.textLabel.text = model.title;
-        cell.detailTextLabel.text = model.time;
+        cell.detailTextLabel.text = [date datetoLongLongStringWithDate:model.time];
     }
     
     return cell;

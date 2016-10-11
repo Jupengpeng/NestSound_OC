@@ -50,7 +50,7 @@
     statusLabel = [[UILabel alloc] init];
     statusLabel.text = @"保全成功";
     statusLabel.textAlignment = NSTextAlignmentRight;
-    statusLabel.textColor = [UIColor hexColorFloat:@"999999"];
+    statusLabel.textColor = [UIColor darkGrayColor];
     statusLabel.font = [UIFont systemFontOfSize:12];
     [self addSubview:statusLabel];
     
@@ -107,10 +107,12 @@
     }
     if (preserveModel.status == 0) {
         statusLabel.text = @"保全失败";
+        statusLabel.textColor = [UIColor redColor];
     } else if (preserveModel.status == 1) {
         statusLabel.text = @"保全成功";
     } else {
         statusLabel.text = @"保全认证中...";
+        statusLabel.textColor = [UIColor orangeColor];
     }
     leftLabel.text = preserveModel.preserveName;
     rightLabel.text = [date  datetoStringWithDate:[preserveModel.createTime longLongValue]];

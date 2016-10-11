@@ -14,6 +14,7 @@
 @interface NSPreserveListViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
     UITableView *preserveTab;
+    UIImageView *emptyImage;
 }
 @property (nonatomic,strong) NSMutableArray *preserveListArr;
 @end
@@ -32,7 +33,7 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 }
 - (void)fetchPreserveListData {
     self.requestType = NO;
-    self.requestParams = @{@"id":JUserID,@"token":LoginToken};
+    self.requestParams = @{@"uid":JUserID,@"token":LoginToken};
     self.requestURL = preserveListUrl;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
@@ -42,6 +43,11 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
         if ([operation.urlTag isEqualToString:preserveListUrl]) {
             NSPreserveListModel *preserveListModel = (NSPreserveListModel*)parserObject;
             self.preserveListArr = [NSMutableArray arrayWithArray:preserveListModel.preserveList];
+            if (self.preserveListArr.count) {
+                emptyImage.hidden = YES;
+            } else {
+                emptyImage.hidden = NO;
+            }
         }
         [preserveTab reloadData];
     }
@@ -61,6 +67,16 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     preserveTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     [self.view addSubview:preserveTab];
+    
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    emptyImage.hidden = YES;
+    
+    emptyImage.centerX = ScreenWidth/2;
+    
+    emptyImage.y = 100;
+    
+    [self.view addSubview:emptyImage];
 }
 - (void)rightClick {
     NSPreserveSelectViewController *preserveSelectVC = [[NSPreserveSelectViewController alloc] init];
@@ -68,15 +84,14 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
-//    return self.preserveListArr.count;
+    return self.preserveListArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSPreserveTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:preserveCellIdentifier];
     if (!cell) {
         cell = [[NSPreserveTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveCellIdentifier];
     }
-//    cell.preserveModel = self.preserveListArr[indexPath.row];
+    cell.preserveModel = self.preserveListArr[indexPath.row];
     return cell;
 }
 #pragma mark - UITableViewDelegate
