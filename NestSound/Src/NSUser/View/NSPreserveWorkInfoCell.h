@@ -11,7 +11,6 @@
 @interface NSPreserveWorkInfoCell : UITableViewCell
 @property (nonatomic,strong) UILabel *preserveDate;
 @property (nonatomic,strong) UILabel *preserveCode;
-- (void)setupData;
-
+- (void)setupDataWithSortId:(NSString *)sortId;
 
 @end

@@ -175,8 +175,9 @@
         CHLog(@"%@",[jsonDict objectForKey:@"data"]);
         return [NSMusicSay yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
 
-    }else if ([url isEqualToString:laughBaoquanUrl]){
-        NSLog(@"%@",jsonDict);
+    }
+    else if ([url isEqualToString:paiedSuccessUrl]){
+        
     }
     
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];

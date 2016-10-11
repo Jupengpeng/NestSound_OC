@@ -252,6 +252,7 @@
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */; };
+		B875C4881DAA6C5E00D5EA76 /* NSPreserveApplyMododel.m in Sources */ = {isa = PBXBuildFile; fileRef = B875C4871DAA6C5E00D5EA76 /* NSPreserveApplyMododel.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
 		B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
@@ -924,6 +925,8 @@
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B8441D6D1D9373EC00BDDD09 /* NSPreservePayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePayCell.h; sourceTree = "<group>"; };
 		B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreservePayCell.m; sourceTree = "<group>"; };
+		B875C4861DAA6C5E00D5EA76 /* NSPreserveApplyMododel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyMododel.h; sourceTree = "<group>"; };
+		B875C4871DAA6C5E00D5EA76 /* NSPreserveApplyMododel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyMododel.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
 		B878AF2A1D929F340059013F /* NSPreserveTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTypeView.m; sourceTree = "<group>"; };
 		B87F69F61D93AA7000A7B620 /* NSMusicSayDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayDetailController.h; sourceTree = "<group>"; };
@@ -949,6 +952,7 @@
 		B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyController.m; sourceTree = "<group>"; };
 		B8F83EB31D87D3DF00E301D7 /* NSPreserveWorkInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveWorkInfoCell.h; sourceTree = "<group>"; };
 		B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveWorkInfoCell.m; sourceTree = "<group>"; };
+		B8FDBEBF1DAB83C500D75B46 /* NestSound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestSound.entitlements; sourceTree = "<group>"; };
 		CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1415,6 +1419,8 @@
 				0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */,
 				0CD0FDA51DA916CC00EC0795 /* NSPreserveDetailListModel.h */,
 				0CD0FDA61DA916CC00EC0795 /* NSPreserveDetailListModel.m */,
+				B875C4861DAA6C5E00D5EA76 /* NSPreserveApplyMododel.h */,
+				B875C4871DAA6C5E00D5EA76 /* NSPreserveApplyMododel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1523,6 +1529,7 @@
 		2DFB66F31CC1E65600DA24DA /* NestSound */ = {
 			isa = PBXGroup;
 			children = (
+				B8FDBEBF1DAB83C500D75B46 /* NestSound.entitlements */,
 				2DFB671B1CC1E6DE00DA24DA /* Src */,
 				2DFB67261CC1E75900DA24DA /* Lib */,
 				2DFB67211CC1E6DE00DA24DA /* Utils */,
@@ -2210,6 +2217,9 @@
 						DevelopmentTeam = 62UDHM98C2;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
 								enabled = 1;
 							};
 							com.apple.Push = {
@@ -3345,6 +3355,7 @@
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
 				18147DF21D110126009A0440 /* NSLexiconCollectionViewCell.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
+				B875C4881DAA6C5E00D5EA76 /* NSPreserveApplyMododel.m in Sources */,
 				0C670D0D1D9BB27900319E0D /* NSPreservePersonListModel.m in Sources */,
 				188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */,
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
@@ -3676,8 +3687,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3693,7 +3706,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
+				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE_SPECIFIER = 20160830Develope_Prov;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3704,8 +3718,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3721,7 +3737,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
+				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE_SPECIFIER = 20160830Develope_Prov;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

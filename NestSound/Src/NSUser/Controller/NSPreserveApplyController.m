@@ -28,7 +28,10 @@
      */
     UIButton *_typeButton;
     UIButton *_choosenPayButton;
-    NSString *_applyType;
+
+    NSArray *_titlesArray;
+    NSString *_applySortId;
+    UIButton *_submitButton;
 }
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -48,6 +51,8 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = NO;
     
+    self.sortId = @"3";
+    
     [self setupUI];
 //    _uerIsChosen = YES;
 }
@@ -57,11 +62,28 @@
     [self.typeView disMiss];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+}
+
 - (void)setupUI{
     self.title = @"保全申请";
     self.view.backgroundColor = [UIColor hexColorFloat:@"f3f2f3"];
 
-    [self.view addSubview:self.tableView];
+    
+    NSArray *titles = [NSArray array];
+    if([self.sortId isEqualToString:@"1"]){
+        titles = @[@"曲作者"];
+        _applySortId = @"1";
+    }else if ([self.sortId isEqualToString:@"2"]){
+        titles = @[@"词作者"];
+        _applySortId = @"2";
+    }else if ([self.sortId isEqualToString:@"3"]){
+        titles = @[@"词作者,曲作者",@"词作者",@"曲作者"];
+        _applySortId = @"3";
+    }
+    _titlesArray = [titles mutableCopy];
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 120)];
     TTTAttributedLabel *tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(10, footerView.height - 11 - 25, ScreenWidth - 20, 11)];
@@ -77,7 +99,6 @@
     tipLabel.linkAttributes = linkAttributes;
 
 
-
     NSRange linkRange = [tipLabel.text rangeOfString:@"《音巢保全免责声明》"];
     tipLabel.textColor = [UIColor hexColorFloat:@"afafaf"];
     tipLabel.textAlignment = NSTextAlignmentCenter;
@@ -90,7 +111,7 @@
 
 
     
-    UIButton *submitButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    _submitButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.frame = CGRectMake(10, footerView.height - 96 , ScreenWidth -20, 45);
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [btn setTitle:@"提交申请" forState:UIControlStateNormal];
@@ -100,12 +121,16 @@
         btn.backgroundColor = [UIColor hexColorFloat:kAppBaseYellowValue];
     } action:^(UIButton *btn) {
         [self fechOrderNo];
+        btn.enabled = NO;
     }];
-    [footerView addSubview:submitButton];
+    [footerView addSubview:_submitButton];
+
+    [self.view addSubview:self.tableView];
 
     self.tableView.tableFooterView = footerView;
     
     [self.view addSubview:self.typeView];
+
 
     [self.view insertSubview:self.rmvViewBtn belowSubview:self.typeView];
     
@@ -119,22 +144,16 @@
 #pragma mark HTTP request method
 
 
-//申请保权页面信息
-- (void)postLaughProjectRight{
+- (void)feedbackPaySuccessWithCode:(NSString *)statusStr{
     self.requestType = NO;
-    self.requestParams = @{@"work_id":[NSString stringWithFormat:@"%ld",self.itemUid],
-                           @"sort_id":@"1",
-                           @"username":@"name",
-                           @"usertype":@"1",
-                           @"creditId":@"124412221223212322",
-                           @"mobile":@"11111111111",
-                           @"lyricsname":@"1",
-                           @"uid":JUserID,
+    self.requestParams = @{@"orderNo":self.orderNo,
+                           @"status":statusStr,
                            @"token":LoginToken};
     
     
-    self.requestURL = laughBaoquanUrl;
+    self.requestURL = paiedSuccessUrl;
 }
+
 
 - (void)fetchPreserveInfoData{
     
@@ -149,17 +168,17 @@
 }
 
 - (void)fechOrderNo{
-    
+
     self.requestType = NO;
     self.requestParams = @{@"uid":JUserID,
-                           @"itemid":@"1",
+                           @"itemid":@"13141",
                            @"type":@"1",
-                           @"cType":@"3",
-                           @"cUsername":@"name",
-                           @"cCardId":@"1244",
-                           @"cPhone":@"1234567",
+                           @"cType":_applySortId,
+                           @"cUsername":@"陈锋",
+                           @"cCardId":@"450802199112111111",
+                           @"cPhone":@"15877033458",
                            @"token":LoginToken};
- 
+
     self.requestURL = getOrderNoUrl;
 }
 
@@ -187,10 +206,13 @@
     if (requestErr) {
         
     }else{
-        if ([operation.urlTag isEqualToString:laughBaoquanUrl]) {
-            
-            
-            
+        if ([operation.urlTag isEqualToString:paiedSuccessUrl]) {
+            if (parserObject.code == 200 ){
+                CHLog(@"支付回调recordNo ：%@",self.orderNo);
+//                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"支付订单%@成功回调成功",self.orderNo]];
+                _submitButton.enabled = YES;
+
+            }
             
         }else if ([operation.urlTag isEqualToString:getGoodChargeUrl]){
             NSMusicSayChargeModel *chargeModel = (NSMusicSayChargeModel *)parserObject;
@@ -203,14 +225,18 @@
                        if (error == nil) {
                            NSLog(@"PingppError is nil");
                            /**
-                            *  支付成功，申请保权
+                            *  支付成功，回调
                             */
-                           [self postLaughProjectRight];
+                           [self feedbackPaySuccessWithCode:@"8"];
+                           [[NSToastManager manager] showtoast:@"支付成功"];
+
                        } else {
-                           NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                           CHLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                           [self feedbackPaySuccessWithCode:@"4"];
+
                            [[NSToastManager manager] showtoast:[error getMsg]];
                        }
-                       [[NSToastManager manager] showtoast:result];
+//                       [[NSToastManager manager] showtoast:result];
                    }];
             
         }else if ([operation.urlTag isEqualToString:getOrderNoUrl]){
@@ -219,6 +245,8 @@
             [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"生成订单号%@",self.orderNo]];
 
             [self fetchGoodCharge];
+        }else if ([operation.urlTag isEqualToString:getPreserveInfoUrl]){
+            
         }
         
         
@@ -359,14 +387,25 @@
             btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight ;
             [btn setTitleColor:[UIColor hexColorFloat:@"323232"] forState:UIControlStateNormal ];
             btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-            [btn setTitle:@"词作者,曲作者" forState:UIControlStateNormal];
+            if (_titlesArray.count) {
+                [btn setTitle:_titlesArray.firstObject forState:UIControlStateNormal];
+                
+            }
+            if ([_sortId isEqualToString:@"3"]) {
+                btn.enabled = YES;
+            }else{
+                btn.enabled = NO;
+            }
         } action:^(UIButton *btn) {
             CGRect footerRect = [self.tableView convertRect:footerView.frame toView:self.view];
             self.typeView.y = footerRect.origin.y;
             [self.typeView show];
             self.rmvViewBtn.height = ScreenHeight;
         }];
+        
+        
         [footerView addSubview:_typeButton];
+
 
     }else{
     }
@@ -399,7 +438,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.preserveDate.hidden = YES;
             cell.preserveCode.hidden = YES;
-            [cell setupData];
+            [cell setupDataWithSortId:self.sortId];
             return cell;
         }
         case 1:
@@ -525,13 +564,18 @@
 }
 
 - (NSPreserveTypeView *)typeView{
-    if (!_typeView) {
-        NSArray *titles = @[@"词作者,曲作者",@"词作者",@"曲作者"];
-        _typeView = [[NSPreserveTypeView alloc] initWithFrame:CGRectMake(ScreenWidth - 125, 0, 100, 0) titlesArr:titles];
+    if (!_typeView && [self.sortId isEqualToString:@"3"]) {
+
+        _typeView = [[NSPreserveTypeView alloc] initWithFrame:CGRectMake(ScreenWidth - 125, 0, 100, 0) titlesArr:_titlesArray];
         _typeView.chooseTypeBlock = ^(NSString *typeStr,NSInteger typeId){
             
             [_typeButton setTitle:typeStr forState:UIControlStateNormal];
             self.rmvViewBtn.height = 0;
+            
+            _applySortId = [NSString stringWithFormat:@"%d",3-typeId];
+            
+            [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"选择了%@",_applySortId]];
+
         };
     }
     return _typeView;
