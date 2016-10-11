@@ -139,19 +139,27 @@
 // iOS 9 以上请用这个
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
-    if (result) {
-
-    }
-    if (result == FALSE) {
+    if ([url.absoluteString containsString:@"pay"]) {
+        return [Pingpp handleOpenURL:url withCompletion:nil];
         
+    }else
+    {
+        BOOL result = [UMSocialSnsService handleOpenURL:url];
+        return result;
     }
-    return  result;
+    
 }
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
-    return result;
+    if ([url.absoluteString containsString:@"pay"]) {
+        return [Pingpp handleOpenURL:url withCompletion:nil];
+        
+    }else
+    {
+        BOOL result = [UMSocialSnsService handleOpenURL:url];
+        return result;
+    }
+    
 
 }
 -(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken

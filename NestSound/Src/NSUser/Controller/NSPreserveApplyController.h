@@ -12,4 +12,6 @@
 
 @property (nonatomic,assign) long itemUid;
 
+@property (nonatomic,copy) NSString *sortId;
+
 @end

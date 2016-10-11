@@ -106,7 +106,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
             cell = [[NSPreserveWorkInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSPreserveWorkInfoCellId"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell setupData];
+        [cell setupDataWithSortId:@"3"];
         return cell;
     } else  if (indexPath.section == 0){
         if (!userMessageCell) {

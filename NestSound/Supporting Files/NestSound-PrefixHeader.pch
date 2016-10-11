@@ -208,7 +208,7 @@ extern NSString *port;
 #define updateShareCount @"java/common/yueshuo/sharecount/v22"
 
 //提交保全
-#define laughBaoquanUrl @"copyright/preserve/CreateFirstBaoqua"
+//#define laughBaoquanUrl @"copyright/pub/preserve/CreateFirstBaoquan"
 
 //保全订单申请页面信息
 #define getPreserveInfoUrl @"copyright/preserve/getPreserveInfo"

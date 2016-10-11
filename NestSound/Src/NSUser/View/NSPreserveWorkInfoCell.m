@@ -137,7 +137,7 @@
     return self;
 }
 
-- (void)setupData{
+- (void)setupDataWithSortId:(NSString *)sortId{
 
     [self.workCover sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         

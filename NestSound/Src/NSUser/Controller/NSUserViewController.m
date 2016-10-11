@@ -20,6 +20,7 @@
 #import "NSNewMusicViewController.h"
 #import "NSInspirationListViewController.h"
 #import "NSCollectionListViewController.h"
+#import "NSPreserveApplyController.h"
 #import "NSToolbarButton.h"
 #import "NSUserDataModel.h"
 @interface NSUserViewController ()
@@ -333,6 +334,9 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             [self.navigationController pushViewController:collectionListVC animated:YES];
             
         } else if (row == 2) {
+            
+//            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
+//            [self.navigationController pushViewController:preserveListVC animated:YES];
             NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
             [self.navigationController pushViewController:preserveListVC animated:YES];
         }
