@@ -187,8 +187,25 @@
         CHLog(@"%@",[jsonDict objectForKey:@"data"]);
         return [NSPreserveApplyModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
     }
-        else if ([url isEqualToString:paiedSuccessUrl]){
+    //支付成功回调
+    else if ([url isEqualToString:paiedSuccessUrl]){
         
+    }
+    //个人用户中心默认
+    else if([url isEqualToString:myUserCenterDefaultUrl]){
+        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+    }
+    //他人用户中心默认
+    else if ([url isEqualToString:otherUserCenterDefaultUrl]){
+        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+    }
+    //用户个人中心 列表
+    else if ([url isEqualToString:myUserCenterListUrl]){
+        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
+    }
+    //他人用户中心 列表
+    else if ([url isEqualToString:otherUserCenterListUrl]){
+        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
     }
     
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];

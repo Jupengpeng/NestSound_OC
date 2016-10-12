@@ -87,7 +87,7 @@ extern NSString *port;
 #define loginURl @"java/common/login/mobile?"
 #define reSetPasswordURL @"java/common/login/resetPassword?"
 #define userCenterURL @"java/userCenter/index/v22?"
-#define userListUrl @"java/userCenter/index/v22?"
+#define userListUrl @"java/userCenter/index21?"
 #define otherCenterURL @"java/common/otherCenter/index21?"
 #define userMLICListUrl @"java/userCenter/listdetails/v22?"
 #define messageURL @"java/message/center/v22?"
@@ -212,6 +212,21 @@ extern NSString *port;
 
 //保全订单申请页面信息
 #define getPreserveInfoUrl @"copyright/preserve/getPreserveInfo"
+
+
+// 20161012添加
+//个人空间
+
+//用户个人主页默认页
+#define myUserCenterDefaultUrl @"java/userCenter/index/v22?"
+//用户个人主页列表详情
+#define myUserCenterListUrl @"java/userCenter/listdetails/v22?"
+//其他个人主页默认页
+#define otherUserCenterDefaultUrl @"java/common/otherCenter/index/v22?"
+//其他个人主页列表详情
+#define otherUserCenterListUrl @"java/common/otherCenter/listdetails/v22?"
+
+
 
 //#define indexURL @"http://7xt9g6.com2.z0.glb.qiniucdn.com/ee.js"
 // Print
