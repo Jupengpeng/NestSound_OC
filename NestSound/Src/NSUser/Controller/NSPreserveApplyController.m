@@ -18,7 +18,7 @@
 #import "NSPreservePayCell.h"
 #import "NSMusicSayChargeModel.h"
 #import "Pingpp.h"
-
+#import "NSPreserveApplyModel.h"
 @interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     UILabel *_totalPrice;
@@ -42,6 +42,8 @@
 @property (nonatomic,strong) UIButton *rmvViewBtn;
 
 @property (nonatomic,copy) NSString *orderNo;
+
+@property (nonatomic,strong) NSPreserveApplyModel *applyModel;
 
 @end
 
@@ -160,7 +162,7 @@
     self.requestType = NO;
     
     self.requestParams = @{@"id":[NSString stringWithFormat:@"%ld",self.itemUid],
-                           @"sort_id":@"1",
+                           @"sort_id":self.sortId,
                            @"uid":JUserID,
                            @"token":LoginToken};
     
@@ -247,6 +249,7 @@
             [self fetchGoodCharge];
         }else if ([operation.urlTag isEqualToString:getPreserveInfoUrl]){
             
+            self.applyModel = (NSPreserveApplyModel *)parserObject;
         }
         
         
