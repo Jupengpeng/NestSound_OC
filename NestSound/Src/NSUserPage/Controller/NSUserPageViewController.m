@@ -31,6 +31,7 @@ static NSInteger const kButtonTag = 200;
 #import "GPUImage.h"
 #import "NSImagePicker.h"
 #import "NSHeadImageView.h"
+#import "NSDiscoverMoreLyricModel.h"
 #define kHeadImageHeight 264
 @interface NSUserPageViewController ()
 <
@@ -53,7 +54,8 @@ NSImagePickerDelegate>
     NSLoginViewController *login;
     NSString * myUrl;
     NSString * otherUrl;
-    NSString * url;
+    NSString *_listUrl;
+    NSString *_userDataUrl;
     NSString *headerUrl;
     NSString *_qiniuUrl;
     int type;
@@ -111,7 +113,8 @@ static NSString *ID3 = @"cell3";
     page = 0;
     //register  notification of refresh userpage
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserPage) name:@"refreshUserPageNotific" object:nil];
-    [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+    [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
+    [self fetchUserData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -159,10 +162,37 @@ static NSString *ID3 = @"cell3";
 //receive notification to refresh userpage
 - (void)refreshUserPage {
     headerUrl = @"";
-    [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+    [self fetchUserData];
+    [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
 }
 #pragma mark -fetchMemberData
--(void)fetchUserDataWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
+
+
+-(void)fetchUserData
+{
+    self.requestType = YES;
+    
+    NSString *neededUserId = @"";
+    NSString *neededUrl = @"";
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    [parameters setValuesForKeysWithDictionary:@{@"uid":JUserID,@"token":LoginToken}];
+  
+
+    if (self.who == Myself) {
+
+        neededUrl = myUserCenterDefaultUrl;
+    }else{
+
+        neededUrl = otherUserCenterDefaultUrl;
+        [parameters setValue:userId forKey:@"otherid"];
+    }
+    NSString * str = [NSTool encrytWithDic:parameters];
+    _userDataUrl = [neededUrl stringByAppendingString:str];
+    self.requestURL = _userDataUrl;
+    
+}
+
+-(void)fetchListWithIsSelf:(Who)who andIsLoadingMore:(BOOL)isLoadingMore
 {
     //    [_tableView.infiniteScrollingView startAnimating];
     self.requestType = YES;
@@ -180,14 +210,14 @@ static NSString *ID3 = @"cell3";
         if (who == Myself) {
             NSDictionary * dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSString * str = [NSTool encrytWithDic:dic];
-            url = [userListUrl stringByAppendingString:str];
+            _listUrl = [myUserCenterListUrl stringByAppendingString:str];
         }else{
             NSDictionary * dic = @{@"otherid":userId,@"uid":JUserID,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type]};
             NSDictionary * dic1 = [[NSHttpClient client] encryptWithDictionary:@{@"data":dic} isEncrypt:YES];
             NSString * str = [NSString stringWithFormat:@"data=%@",[dic1 objectForKey:requestData]];
-            url = [otherCenterURL stringByAppendingString:str];
+            _listUrl = [otherUserCenterListUrl stringByAppendingString:str];
         }
-        self.requestURL = url;
+        self.requestURL = _listUrl;
     }
 }
 
@@ -217,15 +247,12 @@ static NSString *ID3 = @"cell3";
         
     } else {
         if (!parserObject.success) {
-            if ([operation.urlTag isEqualToString:url]) {
+            if ([operation.urlTag isEqualToString:_userDataUrl]) {
                 NSUserDataModel * userData = (NSUserDataModel *)parserObject;
                 
                 if (!operation.isLoadingMore) {
                     [_tableView.pullToRefreshView stopAnimating];
-                    myMusicAry = [NSMutableArray arrayWithArray:userData.myMusicList.musicList];
-                    for (NSMyMusicModel *model in myMusicAry) {
-                        [self.itemIdArr addObject:@(model.itemId)];
-                    }
+
                     
                     if (!headerUrl.length) {
                         [headView setDDImageWithURLString:userData.userDataModel.userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
@@ -265,7 +292,6 @@ static NSString *ID3 = @"cell3";
                     NSLog(@"%@",originalImage);
                     if (originalImage) {
                         self.bgImage = originalImage;
-                        
                         headImgView.image = self.bgImage;
                         
                     }else{
@@ -286,9 +312,7 @@ static NSString *ID3 = @"cell3";
                             /**
                              *  缓存背景图片到本地
                              */
-                            //                            [NSTool saveImage:image withName:@"backgroundImage.png"];
                             self.bgImage = image;
-                            
                             headImgView.image = self.bgImage;
                             
                         }];
@@ -313,6 +337,27 @@ static NSString *ID3 = @"cell3";
                     
                 }
                 
+//                dataAry = myMusicAry;
+//                if (dataAry.count == 0) {
+//                    emptyImage.hidden = NO;
+//                } else {
+//                    emptyImage.hidden = YES;
+//                }
+//                [_tableView reloadData];
+            }
+            else if ([operation.urlTag isEqualToString:_listUrl]){
+                NSDiscoverMoreLyricModel *listModel = (NSDiscoverMoreLyricModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    [_tableView.pullToRefreshView stopAnimating];
+                    myMusicAry = [NSMutableArray arrayWithArray:listModel.moreLyricList];
+                    for (NSMyMusicModel *model in myMusicAry) {
+                        [self.itemIdArr addObject:@(model.itemId)];
+                    }
+                }else{
+                    [_tableView.infiniteScrollingView stopAnimating];
+                    [myMusicAry addObjectsFromArray:listModel.moreLyricList];
+
+                }
                 dataAry = myMusicAry;
                 if (dataAry.count == 0) {
                     emptyImage.hidden = NO;
@@ -320,7 +365,8 @@ static NSString *ID3 = @"cell3";
                     emptyImage.hidden = YES;
                 }
                 [_tableView reloadData];
-            }else if ([operation.urlTag isEqualToString:focusUserURL]){
+            }
+            else if ([operation.urlTag isEqualToString:focusUserURL]){
                 
                 [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
                 if ([parserObject.data[@"mp3URL"] isEqualToString:@"取消关注成功"]) {
@@ -334,7 +380,7 @@ static NSString *ID3 = @"cell3";
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
-                [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+                [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
                 
             } else if ([operation.urlTag isEqualToString:_qiniuUrl]){
                 NSGetQiNiuModel *qiNiuModel = (NSGetQiNiuModel *)parserObject;
@@ -351,7 +397,7 @@ static NSString *ID3 = @"cell3";
                     headImgView.image = self.bgImage;
                 }];
             } else if ([operation.urlTag isEqualToString:changeMusicStatus] || [operation.urlTag isEqualToString:changeLyricStatus]) {
-                [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
+                [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
             }
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
@@ -449,7 +495,7 @@ static NSString *ID3 = @"cell3";
         if (!wSelf) {
             return ;
         }else{
-            [wSelf fetchUserDataWithIsSelf:wSelf.who andIsLoadingMore:YES];
+            [wSelf fetchListWithIsSelf:wSelf.who andIsLoadingMore:YES];
         }
     }];
     
@@ -1317,11 +1363,7 @@ static NSString *ID3 = @"cell3";
             
             self.btnTag = toolbarBtn.tag;
             type = 1 ;
-            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-            //            [_tableView reloadData];
-            if (dataAry.count != 0) {
-                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            }
+            
             
             
             break;
@@ -1331,12 +1373,7 @@ static NSString *ID3 = @"cell3";
             self.btnTag = toolbarBtn.tag;
             
             type = 2;
-            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-            //            [_tableView reloadData];
             
-            if (dataAry.count != 0) {
-                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            }
             
             
             break;
@@ -1345,12 +1382,7 @@ static NSString *ID3 = @"cell3";
             
             self.btnTag = toolbarBtn.tag;
             type = 3;
-            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-            //            [_tableView reloadData];
             
-            if (dataAry.count != 0) {
-                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            }
             
             break;
         }
@@ -1358,21 +1390,18 @@ static NSString *ID3 = @"cell3";
             
             self.btnTag = toolbarBtn.tag;
             type = 4;
-            [self fetchUserDataWithIsSelf:self.who andIsLoadingMore:NO];
-            
-            //            [_tableView reloadData];
-            
-            if (dataAry.count != 0) {
-                [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-                
-            }
+           
             
             break;
         }
         default:
-            
-            
             break;
+            
+    }
+    [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
+    //            [_tableView reloadData];
+    if (dataAry.count != 0) {
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }
 }
 

@@ -56,7 +56,6 @@
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = NO;
     
-    self.sortId = @"3";
     
     [self setupUI];
 //    _uerIsChosen = YES;
