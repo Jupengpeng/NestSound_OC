@@ -20,7 +20,7 @@
 
 - (NSDictionary *)modelKeyJSONKeyMapper {
 
-    return @{@"preserveName":@"workname",
+    return @{@"preserveName":@"worksname",
              @"createTime":@"createtime",
              @"status":@"statue",
              @"preserveId":@"id",

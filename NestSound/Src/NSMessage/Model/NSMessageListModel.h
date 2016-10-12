@@ -17,7 +17,7 @@
 @property (nonatomic,assign) int upvoteCount;
 @property (nonatomic,assign) int collecCount;
 @property (nonatomic,assign) int systemCount;
-
+@property (nonatomic,assign) int preserveCount;
 @end
 
 @interface NSMessageListModel : NSBaseModel

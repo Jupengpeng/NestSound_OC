@@ -16,7 +16,8 @@
     return @{@"commentCount":@"commentnum",
              @"upvoteCount":@"zannum",
              @"collecCount":@"fovnum",
-             @"systemCount":@"sysmsg"};
+             @"systemCount":@"sysmsg",
+             @"preserveCount":@"copyrightnum"};
 
 }
 

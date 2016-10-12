@@ -99,9 +99,8 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     return 1;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSPreserveModel *model = self.preserveListArr[indexPath.row];
-//    NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] initWithPreserveID:model.preserveId sortID:model.sortId];
-    NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] init];
+    NSPreserveModel *model = self.preserveListArr[indexPath.row];
+    NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] initWithPreserveID:model.preserveId sortID:model.sortId];
     [self.navigationController pushViewController:preserveDetailVC animated:YES];
 }
 
