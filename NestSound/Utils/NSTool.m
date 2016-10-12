@@ -481,7 +481,15 @@ static NSDateFormatter *dateFormatter;
     return dateString;
 }
 
-
++(NSString *)datetoMonthStringWithDate:(NSTimeInterval)date format:(NSString *)format
+{
+    double d = date /1000;
+    NSDate * dat = [NSDate dateWithTimeIntervalSince1970:d];
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:format];
+    NSString * dateString = [formatter stringFromDate:dat];
+    return dateString;
+}
 
 
 //get the time stamp
