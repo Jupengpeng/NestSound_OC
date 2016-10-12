@@ -30,6 +30,8 @@
     UIButton *_choosenPayButton;
 
     NSArray *_titlesArray;
+    //价格数组
+    NSArray *_typePriceArray;
     NSString *_applySortId;
     UIButton *_submitButton;
 }
@@ -44,6 +46,7 @@
 @property (nonatomic,copy) NSString *orderNo;
 
 @property (nonatomic,strong) NSPreserveApplyModel *applyModel;
+
 
 @end
 
@@ -173,8 +176,8 @@
 
     self.requestType = NO;
     self.requestParams = @{@"uid":JUserID,
-                           @"itemid":@"13141",
-                           @"type":@"1",
+                           @"itemid":[NSString stringWithFormat:@"%ld",self.itemUid],
+                           @"type":self.sortId,
                            @"cType":_applySortId,
                            @"cUsername":@"陈锋",
                            @"cCardId":@"450802199112111111",
@@ -250,6 +253,17 @@
         }else if ([operation.urlTag isEqualToString:getPreserveInfoUrl]){
             
             self.applyModel = (NSPreserveApplyModel *)parserObject;
+            _typePriceArray = [NSArray arrayWithArray:self.applyModel.orderPrice];
+            if (self.applyModel.personInfo.cUserName.length) {
+                _uerIsChosen = YES;
+                
+            }else{
+                _uerIsChosen = NO;
+            }
+
+            
+            
+            [self.tableView reloadData];
         }
         
         
@@ -352,7 +366,10 @@
             priceLabel.textColor = [UIColor hexColorFloat:@"fc4c52"];
             priceLabel.font = [UIFont systemFontOfSize:15.0f];
             _totalPrice = priceLabel;
-            _totalPrice.text = @"￥3.00";
+            if (_typePriceArray.count) {
+                _totalPrice.text = [_typePriceArray objectAtIndex:[_applySortId intValue] -1];
+
+            }
             [headerView addSubview:priceLabel];
         }
             break;
@@ -443,7 +460,10 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.preserveDate.hidden = YES;
             cell.preserveCode.hidden = YES;
-            [cell setupDataWithSortId:self.sortId];
+            if (self.applyModel) {
+                cell.productInfoModel = self.applyModel.productInfo;
+
+            }
             return cell;
         }
         case 1:
@@ -560,8 +580,8 @@
     if (!_userMsgController) {
         _userMsgController = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
         _userMsgController.fillInBlock = ^(id object){
-//            _uerIsChosen = YES;
-            _uerIsChosen = !_uerIsChosen;
+            _uerIsChosen = YES;
+//            _uerIsChosen = !_uerIsChosen;
             [weakSelf.tableView reloadData];
         };
     }
@@ -579,7 +599,10 @@
             
             _applySortId = [NSString stringWithFormat:@"%d",3-typeId];
             
+            
             [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"选择了%@",_applySortId]];
+            _totalPrice.text = [_typePriceArray objectAtIndex:[_applySortId intValue] -1];
+
 
         };
     }

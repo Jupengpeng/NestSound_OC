@@ -87,7 +87,7 @@ extern NSString *port;
 #define loginURl @"java/common/login/mobile?"
 #define reSetPasswordURL @"java/common/login/resetPassword?"
 #define userCenterURL @"java/userCenter/index/v22?"
-#define userListUrl @"java/userCenter/index21?"
+#define userListUrl @"java/userCenter/index/v22?"
 #define otherCenterURL @"java/common/otherCenter/index21?"
 #define userMLICListUrl @"java/userCenter/listdetails/v22?"
 #define messageURL @"java/message/center/v22?"

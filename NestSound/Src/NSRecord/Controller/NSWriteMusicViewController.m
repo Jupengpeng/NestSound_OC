@@ -721,6 +721,7 @@ Boolean plugedHeadset;
 //    self.navigationItem.rightBarButtonItems = array;
     
     [self setupUI];
+
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBackClick:)];
     
@@ -731,10 +732,8 @@ Boolean plugedHeadset;
     
     [self addLink];
     [self.link setPaused:YES];
-    
     [self addWaveLink];
     [self.waveLink setPaused:YES];
-
     self.waveform.timeScrollView.delegate =self;
   
 //    [self initMusicWave];
@@ -767,6 +766,7 @@ Boolean plugedHeadset;
     [playVC.player pause];
     [self resetButton];
     
+    //下载伴奏
     [self downloadAccompanyWithUrl:hotMp3Url];
 }
 - (void)viewDidDisappear:(BOOL)animated {
@@ -1057,6 +1057,7 @@ Boolean plugedHeadset;
     
     [self.view addSubview:lyricView];
 
+    //设置引导页
     [self setupGuideView];
     
     timerImgView = [UIImageView new];
@@ -1070,6 +1071,9 @@ Boolean plugedHeadset;
     timerImgView.height = 40;
     
     [self.view addSubview:timerImgView];
+    
+    
+
     
 }
 
@@ -1112,8 +1116,12 @@ Boolean plugedHeadset;
         if (self.player.currentTime == 0) {
             [self.waveform.waveView removeAllPath];
         }
+        if (![NSTool canRecord]) {
+            UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"未获取麦克风权限" message:@"请进入 设置-隐私-麦克风，获取麦克风权限后重试" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
+            [alertview show];
+            return;
+        }
         
-       
         [self.waveLink setPaused:NO];
 
         if ([self.player3 isPlaying] ) {
@@ -1866,6 +1874,7 @@ Boolean plugedHeadset;
             
         } action:^(UIButton *btn) {
             [btn removeFromSuperview];
+            [self downloadAccompanyWithUrl:hotMp3Url];
         }];
     }
     return _guideDaoruButton;

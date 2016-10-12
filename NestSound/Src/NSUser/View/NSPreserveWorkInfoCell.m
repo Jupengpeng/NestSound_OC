@@ -16,9 +16,12 @@
 
 #import "NSPreserveWorkInfoCell.h"
 #import "UIImageView+WebCache.h"
+#import "NSPreserveApplyModel.h"
+#import "NSTool.h"
 @interface NSPreserveWorkInfoCell ()
 {
     NSString *_sortId;
+    NSPreserveProductInfoModel *_productInfoModel;
 }
 @property (nonatomic,strong) UIImageView *workCover;
 
@@ -97,6 +100,44 @@
 
     }
     return self;
+}
+
+- (void)setProductInfoModel:(NSPreserveProductInfoModel *)productInfoModel{
+    
+    _productInfoModel = productInfoModel;
+    
+    
+    switch ([productInfoModel.type intValue]) {
+        case 1:
+        {
+            self.lyricsTitle.hidden = YES;
+        }
+            break;
+        case 2:
+        {
+            self.musicTitle.hidden = YES;
+            self.accompanyTitle.hidden = YES;
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self.workCover sd_setImageWithURL:[NSURL URLWithString:productInfoModel.image] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
+    self.songName.text = GetSongName(productInfoModel.title);
+    self.lyricsTitle.text = GetLyricsName(productInfoModel.lyricAuthor);
+    self.musicTitle.text = GetMusicName(productInfoModel.songAuthor);
+    self.accompanyTitle.text = GetAccompanyName(productInfoModel.accompaniment);
+    self.createTime.text = GetcreaTime([date datetoMonthStringWithDate:[productInfoModel.createTime doubleValue] format:@"YYYY.MM.dd HH:mm"]);
 }
 
 - (void)setupDataWithSortId:(NSString *)sortId{

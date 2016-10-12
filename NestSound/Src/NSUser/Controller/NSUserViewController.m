@@ -335,10 +335,10 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             
         } else if (row == 2) {
             
-            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
-            [self.navigationController pushViewController:preserveListVC animated:YES];
-//            NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
+//            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
 //            [self.navigationController pushViewController:preserveListVC animated:YES];
+            NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
+            [self.navigationController pushViewController:preserveListVC animated:YES];
         }
         
     

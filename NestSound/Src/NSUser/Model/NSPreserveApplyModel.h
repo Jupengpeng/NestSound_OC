@@ -11,7 +11,7 @@
 
 @interface NSPreserveProductInfoModel : NSBaseModel
 
-@property (nonatomic,copy) NSString *productId;
+@property (nonatomic,copy) NSString *id;
 
 @property (nonatomic,copy) NSString *title;
 
@@ -23,7 +23,7 @@
 
 @property (nonatomic,copy) NSString *createTime;
 
-@property (nonatomic,copy) NSString *imageUrl;
+@property (nonatomic,copy) NSString *image;
 
 @property (nonatomic,copy) NSString *type;
 
