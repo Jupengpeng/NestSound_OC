@@ -49,6 +49,8 @@
 #import "NSUnPreserveListModel.h"
 #import "NSPreserveMessageListModel.h"
 #import "NSPreserveApplyModel.h"
+#import "NSPreserveApplyModel.h"
+#import "NSPreserveMessageListModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];

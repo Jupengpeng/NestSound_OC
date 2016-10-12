@@ -34,6 +34,9 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 + (NSString *)updateTimeForCreateTimeIntrval:(NSInteger)createTimeIntrval;
 
 + (NSArray *)getTagsFromTagString:(NSString *)tagString;
+
++ (BOOL)canRecord;
+
 @end
 
 //cache include ：accompany，record file
