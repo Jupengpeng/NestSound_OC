@@ -12,6 +12,7 @@
 
 @property (nonatomic,assign) long itemUid;
 
+//1= 歌词 2= 歌曲
 @property (nonatomic,copy) NSString *sortId;
 
 @end

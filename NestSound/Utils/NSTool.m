@@ -380,6 +380,20 @@ static NSDateFormatter *dateFormatter;
     
 }
 
++ (BOOL)canRecord
+{
+    __block BOOL bCanRecord = YES;
+    if ([[[UIDevice currentDevice]systemVersion]floatValue] >= 7.0)     {
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
+            [audioSession performSelector:@selector(requestRecordPermission:) withObject:^(BOOL granted) {
+                bCanRecord = granted;
+            }];
+        }
+    }
+    return bCanRecord;
+}
+
 @end
 
 @implementation Memory

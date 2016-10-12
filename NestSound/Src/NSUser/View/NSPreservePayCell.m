@@ -43,6 +43,7 @@
             btn.frame = CGRectMake(ScreenWidth - 48, 5, 40, 40);
             [btn setImage:[UIImage imageNamed:@"gouxuan_No"] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:@"gouxuan"] forState:UIControlStateSelected];
+            btn.selected = YES;
         } action:^(UIButton *btn) {
           
             if (self.chooseBlock) {
