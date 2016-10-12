@@ -32,6 +32,7 @@
 		0CCF1D881D91385200F97526 /* NSCollectionListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D871D91385200F97526 /* NSCollectionListViewController.m */; };
 		0CCF5E5A1D93B5D100A6BF3A /* NSBindThirdAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF5E591D93B5D100A6BF3A /* NSBindThirdAccountViewController.m */; };
 		0CD0CB001DAC967E00CBAB5F /* NSPreserveMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0CAFF1DAC967E00CBAB5F /* NSPreserveMessageListModel.m */; };
+		0CD0CB031DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0CB021DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m */; };
 		0CD0FDA41DA8EB0200EC0795 /* NSUnPreserveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */; };
 		0CD0FDA71DA916CC00EC0795 /* NSPreserveDetailListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0FDA61DA916CC00EC0795 /* NSPreserveDetailListModel.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
@@ -330,6 +331,8 @@
 		0CCF5E591D93B5D100A6BF3A /* NSBindThirdAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBindThirdAccountViewController.m; sourceTree = "<group>"; };
 		0CD0CAFE1DAC967E00CBAB5F /* NSPreserveMessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveMessageListModel.h; sourceTree = "<group>"; };
 		0CD0CAFF1DAC967E00CBAB5F /* NSPreserveMessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveMessageListModel.m; sourceTree = "<group>"; };
+		0CD0CB011DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveMessageTableViewCell.h; sourceTree = "<group>"; };
+		0CD0CB021DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveMessageTableViewCell.m; sourceTree = "<group>"; };
 		0CD0FDA21DA8EB0200EC0795 /* NSUnPreserveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUnPreserveListModel.h; sourceTree = "<group>"; };
 		0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUnPreserveListModel.m; sourceTree = "<group>"; };
 		0CD0FDA51DA916CC00EC0795 /* NSPreserveDetailListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveDetailListModel.h; sourceTree = "<group>"; };
@@ -1112,6 +1115,8 @@
 				2A9DC1201CDDDA36004470ED /* NSUpvoteMessageCell.m */,
 				2A9DC1221CDDDDE8004470ED /* NSSystemMessageCell.h */,
 				2A9DC1231CDDDDE8004470ED /* NSSystemMessageCell.m */,
+				0CD0CB011DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.h */,
+				0CD0CB021DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3504,6 +3509,7 @@
 				2ACC24F41CF53D08000BDEDC /* NSUpvoteMessageListModel.m in Sources */,
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
+				0CD0CB031DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m in Sources */,
 				945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */,
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
 				18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */,
@@ -3712,7 +3718,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
 				PROVISIONING_PROFILE_SPECIFIER = 20160830Develope_Prov;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3743,7 +3749,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1cff2917-ed9c-47dc-b9b0-0374c2d19681";
+				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
 				PROVISIONING_PROFILE_SPECIFIER = 20160830Develope_Prov;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

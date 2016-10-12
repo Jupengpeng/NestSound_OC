@@ -159,9 +159,10 @@ UITableViewDataSource
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.commentCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.preserveCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
-                [bageAry addObject:[NSString stringWithFormat:@"%d",2]];
-                if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount) {
+                
+                if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount || mess.preserveCount) {
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
                 } else {

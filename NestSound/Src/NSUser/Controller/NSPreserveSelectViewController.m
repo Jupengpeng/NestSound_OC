@@ -93,13 +93,17 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
                 }
                 if (self.musicDataAry.count) {
                     musicEmptyImage.hidden = YES;
+                    musicTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
                 } else {
                     musicEmptyImage.hidden = NO;
+                    musicTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
                 }
                 if (self.lyricDataAry.count) {
                     lyricEmptyImage.hidden = YES;
+                    lyricTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
                 } else {
                     lyricEmptyImage.hidden = NO;
+                    lyricTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
                 }
                 if (productType == 1) {
                     [musicTableView reloadData];
@@ -173,8 +177,6 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     musicTableView.dataSource = self;
     
 //    musicTableView.rowHeight = 80;
-    
-    musicTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     musicTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     

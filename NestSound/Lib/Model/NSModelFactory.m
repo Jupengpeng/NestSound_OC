@@ -48,6 +48,7 @@
 #import "NSPreservePersonListModel.h"
 #import "NSUnPreserveListModel.h"
 #import "NSPreserveApplyModel.h"
+#import "NSPreserveMessageListModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
@@ -96,7 +97,9 @@
         return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:systemMessageURL]){
         return [[NSSystemMessageListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:playMusicURL]){
+    } else if ([url isEqualToString:preserveMessageUrl]) {
+        return [[NSPreserveMessageListModel alloc] initWithJSONDict:jsonDict];
+    } else if ([url isEqualToString:playMusicURL]){
         return [[NSPlayMusicDetailModel alloc] initWithJSONDict:jsonDict];
     }else if ([url isEqualToString:userCenterURL] || [url isEqualToString:userListUrl]){
     

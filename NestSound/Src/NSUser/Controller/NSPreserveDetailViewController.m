@@ -11,14 +11,14 @@
 #import "NSPreserveDetailListModel.h"
 @interface NSPreserveDetailViewController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
-    long preserveId;
+    NSString *preserveId;
     long sortId;
 }
 @property (nonatomic, strong) UIImageView *oneImageView;
 @end
 static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdentifier";
 @implementation NSPreserveDetailViewController
--(instancetype)initWithPreserveID:(long)preserveID_ sortID:(long)sortID_
+-(instancetype)initWithPreserveID:(NSString *)preserveID_ sortID:(long)sortID_
 {
     if (self = [super init]) {
         preserveId = preserveID_;
@@ -35,7 +35,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     
     self.requestType = NO;
     
-    self.requestParams = @{@"token":LoginToken,@"id":@(preserveId),@"sort_id":@(sortId),@"uid":JUserID};
+    self.requestParams = @{@"token":LoginToken,@"id":preserveId,@"sort_id":@(sortId),@"uid":JUserID};
     
     self.requestURL = preserveDetailUrl;
 }

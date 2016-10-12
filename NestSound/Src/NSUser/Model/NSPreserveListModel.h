@@ -16,8 +16,8 @@
 //@property (nonatomic,assign) int status;
 @property (nonatomic,copy) NSString * preserveName;
 @property (nonatomic,copy) NSString * createTime;
+@property (nonatomic,copy) NSString * preserveId;
 @property (nonatomic,assign) long status;
-@property (nonatomic,assign) long preserveId;
 @property (nonatomic,assign) long sortId;
 
 @end

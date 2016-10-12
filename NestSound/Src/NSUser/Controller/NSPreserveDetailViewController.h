@@ -9,5 +9,5 @@
 #import "NSBaseViewController.h"
 
 @interface NSPreserveDetailViewController : NSBaseViewController
--(instancetype)initWithPreserveID:(long)preserveID_ sortID:(long)sortID_;
+-(instancetype)initWithPreserveID:(NSString *)preserveID_ sortID:(long)sortID_;
 @end

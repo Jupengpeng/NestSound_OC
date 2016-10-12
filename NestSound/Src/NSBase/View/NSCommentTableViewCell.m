@@ -81,11 +81,6 @@ static inline NSRegularExpression * NameRegularExpression() {
     //头像
     iconBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-//    [iconBtn setImage:[UIImage imageNamed:@"2.0_backgroundImage"] forState:UIControlStateNormal];
-//    [iconBtn.imageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
-//    iconBtn.imageView.contentMode =  UIViewContentModeScaleAspectFill;
-//    iconBtn.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-//    iconBtn.imageView.clipsToBounds  = YES;
     [iconBtn addTarget:self action:@selector(iconBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     iconBtn.adjustsImageWhenHighlighted = NO;
     [self.contentView addSubview:iconBtn];

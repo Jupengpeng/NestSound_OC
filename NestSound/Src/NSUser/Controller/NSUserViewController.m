@@ -212,7 +212,6 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
     UITableViewCell * toolBarCell = [tableView dequeueReusableCellWithIdentifier:toolBarCellIdefity];
-    
    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {

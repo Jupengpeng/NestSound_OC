@@ -10,6 +10,7 @@
 #import "NSUpvoteMessageCell.h"
 #import "NSCommentMessageCell.h"
 #import "NSSystemMessageCell.h"
+#import "NSPreserveMessageTableViewCell.h"
 #import "NSSystemMessageListModel.h"
 #import "NSCommentListModel.h"
 #import "NSUpvoteMessageListModel.h"
@@ -45,7 +46,7 @@ static NSString * const collectionCellID = @"collectionCellID";
 static NSString * const comment1CellID = @"comment1CellID";
 static NSString * const comment2CellID = @"comment2CellID";
 static NSString * const systemCellID = @"SystemCellID";
-
+static NSString * const preserveCellID = @"preserveCellID";
 
 
 @implementation NSMessageListViewController
@@ -294,16 +295,19 @@ static NSString * const systemCellID = @"SystemCellID";
         return 140;
     }else if (messageType == SystemMessageType){
         SystemMessageModel * sys = messageArr[indexPath.row];
-        if (sys.type == 1) {
+//        if (sys.type == 1) {
             return 80;
-        }else{
-            return 175;
-        }
+//        }else{
+//            return 175;
+//        }
     }else if (messageType == CommentMessageType){
         
         NSCommentTableViewCell *cell = (NSCommentTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         
         return cell.commentLabelMaxY + 80;
+    } else if (messageType == PreserveMessageType) {
+        
+        return 100;
     }
     return 1;
 }
@@ -335,19 +339,19 @@ static NSString * const systemCellID = @"SystemCellID";
         
         
     }else if (messageType == SystemMessageType){
-        NSSystemMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
+        NSPreserveMessageTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
         SystemMessageModel * sys = messageArr[row];
         if (!cell) {
-            cell = [[NSSystemMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
+            cell = [[NSPreserveMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        if (sys.type == 1 ) {
-            cell.isTu = NO;
-        }else{
-            cell.isTu = YES;
-        }
-        cell.systemMessageModel = sys;
+//        if (sys.type == 1 ) {
+//            cell.isTu = NO;
+//        }else{
+//            cell.isTu = YES;
+//        }
+//        cell.systemMessageModel = sys;
         return cell;
         
     }else if (messageType == CommentMessageType){
@@ -363,6 +367,14 @@ static NSString * const systemCellID = @"SystemCellID";
         commentCell.commentModel = messageArr[indexPath.row];
         commentCell.commentLabel.delegate = self;
         return commentCell;
+    } else if (messageType == PreserveMessageType) {
+        NSPreserveMessageTableViewCell *preserveCell = [tableView dequeueReusableCellWithIdentifier:preserveCellID];
+        if (!preserveCell) {
+            preserveCell = [[NSPreserveMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveCellID];
+            
+        }
+        preserveCell.preserveModel = messageArr[indexPath.row];
+        return preserveCell;
     }
     return nil;
 }
