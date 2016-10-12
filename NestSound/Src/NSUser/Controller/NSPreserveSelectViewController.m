@@ -312,7 +312,16 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSPreserveApplyController *preserveController = [[NSPreserveApplyController alloc] init];
-//    preserveController.itemUid = self.itemUid;
+    preserveController.sortId = [NSString stringWithFormat:@"%ld",productType];
+
+    if (productType == 1) {
+        NSUnPreserveModel *model = self.musicDataAry[indexPath.row];
+        preserveController.itemUid = [model.productId longLongValue];
+    } else {
+        NSUnPreserveModel *model = self.lyricDataAry[indexPath.row];
+        preserveController.itemUid = [model.productId longLongValue];
+
+    }
     [self.navigationController pushViewController:preserveController animated:YES];
 }
 - (void)didReceiveMemoryWarning {

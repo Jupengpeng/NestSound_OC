@@ -47,7 +47,7 @@
 #import "NSPreserveListModel.h"
 #import "NSPreservePersonListModel.h"
 #import "NSUnPreserveListModel.h"
-//#import ""
+#import "NSPreserveApplyModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
     NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
@@ -178,8 +178,13 @@
         CHLog(@"%@",[jsonDict objectForKey:@"data"]);
         return [NSMusicSay yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
 
+    
     }
-    else if ([url isEqualToString:paiedSuccessUrl]){
+    else if ([url isEqualToString:getPreserveInfoUrl]){
+        CHLog(@"%@",[jsonDict objectForKey:@"data"]);
+        return [NSPreserveApplyModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
+    }
+        else if ([url isEqualToString:paiedSuccessUrl]){
         
     }
     
