@@ -48,8 +48,13 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     _commentCountChanged = NO;
+
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+
+}
 - (void)setupUI{
 //    self.title = @"乐说";
     self.title = self.name;
@@ -305,38 +310,52 @@
     [UMSocialData defaultData].extConfig.title = self.name;
     
     NSDictionary *dic = _shareView.shareArr[sender.tag-250];
+    NSString *contentStr = self.detailStr;
     if (dic[@"type"] == UMShareToWechatSession) {
-        
+        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+
         [UMSocialData defaultData].extConfig.wechatSessionData.url = self.contentUrl;
-//        isShare = YES;
     } else if (dic[@"type"] == UMShareToWechatTimeline) {
-        
+        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.contentUrl;
-//        isShare = YES;
     } else if (dic[@"type"] == UMShareToSina) {
         
         [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-//        isShare = YES;
+        contentStr = [NSString stringWithFormat:@"%@——%@ %@",self.name ,self.detailStr,self.contentUrl];
+        
     } else if (dic[@"type"] == UMShareToQQ) {
-        
-        [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
-//        isShare = YES;
+        TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:qqAppId
+                                               andDelegate:nil];
+        QQApiNewsObject *urlObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:self.contentUrl] title:self.name description:self.detailStr previewImageURL:[NSURL URLWithString:self.picUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:urlObj];
+        QQApiSendResultCode sent = [QQApiInterface sendReq:req];
+        [self handleSendResult:sent];
+//        [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
+        isShare = NO;
     } else if (dic[@"type"] == UMShareToQzone) {
-        
-        [UMSocialData defaultData].extConfig.qzoneData.url = self.contentUrl;
-//        isShare = YES;
+        TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:qqAppId
+andDelegate:nil];
+        QQApiNewsObject *urlObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:self.contentUrl] title:self.name description:self.detailStr previewImageURL:[NSURL URLWithString:self.picUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:urlObj];
+        QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
+        [self handleSendResult:sent];
+        [UMSocialData defaultData].extConfig.qqData.url = self.contentUrl;
+//        [UMSocialData defaultData].extConfig.qzoneData.url = self.contentUrl;
+        isShare = NO;
     } else if ([dic[@"type"] isEqualToString:@"copy"]) {
         
         [UIPasteboard generalPasteboard].string = self.contentUrl;
         [[NSToastManager manager] showtoast:@"复制成功"];
         isShare = NO;
     }
+    [self tapClick:nil];
+
     if (isShare) {
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:[NSString stringWithFormat:@"%@%@",self.detailStr,self.contentUrl] image:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.picUrl]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+        NSLog(@"%d",urlResource.resourceType);
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:contentStr image:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.picUrl]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
                 [self tapClick:nil];
                 [[NSToastManager manager] showtoast:@"分享成功"];
-                
                 /**
                  *  跟新分享数量
                  */

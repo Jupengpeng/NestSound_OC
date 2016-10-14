@@ -19,6 +19,7 @@
 #import "NSMusicSayChargeModel.h"
 #import "Pingpp.h"
 #import "NSPreserveApplyModel.h"
+#import "NSPreserveListViewController.h"
 @interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     UILabel *_totalPrice;
@@ -206,7 +207,13 @@
                 CHLog(@"支付回调recordNo ：%@",self.orderNo);
                 //                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"支付订单%@成功回调成功",self.orderNo]];
                 _submitButton.enabled = YES;
-                
+                NSLog(@"navigationView  子视图 %@",self.navigationController.childViewControllers);
+                if ([self.navigationController.childViewControllers[1] isKindOfClass:[NSPreserveListViewController class]]) {
+                    NSPreserveListViewController *perservelistController = (NSPreserveListViewController *)self.navigationController.childViewControllers[1];
+                    perservelistController.needRefresh = YES;
+                    [self.navigationController popToViewController:perservelistController animated:YES];
+
+                }
             }
             
         }else if ([operation.urlTag isEqualToString:getGoodChargeUrl]){
@@ -236,10 +243,17 @@
             
         }else if ([operation.urlTag isEqualToString:getOrderNoUrl]){
             NSBaseModel *baseModel = (NSBaseModel *)parserObject;
-            self.orderNo = [baseModel.data objectForKey:@"mp3URL"];
-            [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"生成订单号%@",self.orderNo]];
+            if (baseModel.code == 200) {
+                self.orderNo = [baseModel.data objectForKey:@"mp3URL"];
+                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"生成订单号%@",self.orderNo]];
+                
+                [self fetchGoodCharge];
+            }else if(baseModel.code == 400){
+                
+                [[NSToastManager manager] showtoast:baseModel.message];
+                _submitButton.enabled = YES;
+            }
             
-            [self fetchGoodCharge];
         }else if ([operation.urlTag isEqualToString:getPreserveInfoUrl]){
             
             self.applyModel = (NSPreserveApplyModel *)parserObject;

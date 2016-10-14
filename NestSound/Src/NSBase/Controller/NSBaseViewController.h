@@ -26,5 +26,5 @@
 -(void)upvoteItemId :(long)itemId_ _targetUID:(long)targetUID_ _type:(long)type_ _isUpvote:(BOOL)isUpvote;
 
 -(NSString *)getQiniuDetailWithType:(int)type andFixx:(NSString *)fixx;
-
+- (void)handleSendResult:(QQApiSendResultCode)sendResult;
 @end

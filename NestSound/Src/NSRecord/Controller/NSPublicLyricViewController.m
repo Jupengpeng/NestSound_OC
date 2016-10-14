@@ -401,6 +401,7 @@ extern Boolean plugedHeadset;
                 [lyricDic setValue:self.mp3URL forKey:@"mp3Url"];
                 
                 self.shareVC =[[NSShareViewController alloc] init];
+                self.shareVC.publicModel = publicLyric.publicLyricModel;
                 self.shareVC.shareDataDic = lyricDic;
                 self.shareVC.lyricOrMusic = self.isLyric;
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
