@@ -130,7 +130,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
                 NSUserDataModel * userModel = (NSUserDataModel *)parserObject;
                 userDic = parserObject.data[@"user"];
                 _userModel = userModel.userDataModel.userModel;
-//                
+                [self.numsArr removeAllObjects];
                 [self.numsArr addObject:@(userModel.userOtherModel.workNum)];
                 [self.numsArr addObject:@(userModel.userOtherModel.lyricsNum)];
                 [self.numsArr addObject:@(userModel.userOtherModel.focusNum)];
@@ -361,13 +361,13 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     switch (toolbarBtn.tag - 230) {
             
         case 0: {
-            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"music" andIsLyric:NO];
+            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"music" andIsLyric:NO andIsSecret:NO];
             [self.navigationController pushViewController:hotMusicVC animated:YES];
             
             break;
         }
         case 1: {
-            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"lyric" andIsLyric:YES];
+            NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"lyric" andIsLyric:YES andIsSecret:NO];
             [self.navigationController pushViewController:hotMusicVC animated:YES];
             break;
         }

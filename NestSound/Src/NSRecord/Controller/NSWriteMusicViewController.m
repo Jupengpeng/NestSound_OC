@@ -40,33 +40,6 @@ CGFloat count;
 Boolean plugedHeadset;
 
 
-//@interface CenterLine : UIView
-//
-//@end
-//
-//@implementation CenterLine
-//
-//#pragma mark -override drawRect
-//-(void)drawRect:(CGRect)rect {
-//    
-//    UIBezierPath * path = [UIBezierPath bezierPath];
-//    
-//    [path moveToPoint:CGPointMake(0, 0)];
-//    
-//    [path addLineToPoint:CGPointMake(self.width, self.height)];
-//    
-//    [path setLineWidth:self.width];
-//    
-//    [[UIColor hexColorFloat:@"ff833f"] setStroke];
-//    
-//    [[UIColor hexColorFloat:@"ff833f"] setFill];
-//    
-//    [path stroke];
-//}
-//
-//@end
-
-
 @interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric, AVAudioPlayerDelegate,UIAlertViewDelegate, AVAudioRecorderDelegate> {
     
     UILabel *totalTimeLabel;
@@ -169,14 +142,7 @@ Boolean plugedHeadset;
                                AVNumberOfChannelsKey : @(1),
                                AVLinearPCMIsFloatKey:@(NO)
                                };
-                               //录音通道数  1 或 2};//采样率
-    
-    /*NSDictionary *settings = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                            [NSNumber numberWithFloat: 44100.0],                 AVSampleRateKey,
-                                                            [NSNumber numberWithInt: kAudioFormatAppleLossless], AVFormatIDKey,
-                                                           [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
-                                                            [NSNumber numberWithInt: AVAudioQualityMax],         AVEncoderAudioQualityKey,
-                                                           nil];*/
+
     
     if (!_recorder) {
         
@@ -382,15 +348,7 @@ Boolean plugedHeadset;
 
 //分贝数
 - (CGFloat)decibels {
-    /*
-    [self.recorder updateMeters];
     
-    self.recorder.meteringEnabled = YES;
-//    CGFloat decibels = [self.recorder peakPowerForChannel:0];
-    CGFloat decibels = [self.recorder averagePowerForChannel:0];
- 
-    return  decibels;
-    */
     [self.recorder updateMeters];
     float   level;                // The linear 0.0 .. 1.0 value we need.
     float   minDecibels = -60.0f; // Or use -60dB, which I measured in a silent room.
@@ -422,15 +380,7 @@ Boolean plugedHeadset;
 }
 
 - (CGFloat)playerDecibels:(AVAudioPlayer*)player {
-    /*
-    [player updateMeters];
     
-    self.recorder.meteringEnabled = YES;
-    
-    CGFloat decibels = [player peakPowerForChannel:0];
-    
-    return decibels;
-     */
     [player updateMeters];
     float   level;                // The linear 0.0 .. 1.0 value we need.
     float   minDecibels = -60.0f; // Or use -60dB, which I measured in a silent room.
@@ -704,7 +654,7 @@ Boolean plugedHeadset;
     timerNumPlay_temp=0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveClearRecord:) name:@"clearRecordNotification" object:nil];
     
-//    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecorder)
                                                  name:@"pausePlayer"
                                                object:nil];
@@ -1054,7 +1004,6 @@ Boolean plugedHeadset;
     
     lyricView.lyricText.showsVerticalScrollIndicator = NO;
     
-    
     [self.view addSubview:lyricView];
 
     //设置引导页
@@ -1072,26 +1021,15 @@ Boolean plugedHeadset;
     
     [self.view addSubview:timerImgView];
     
-    
-
-    
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    timerNum=scrollView.contentOffset.x/speed;
-    timerNumPlay_temp = timerNum;
-    curtime3 =timerNum;
-    curtime2 =timerNum;
 
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
-    
-}
 
 - (void)bottomBtnClick:(UIButton *)btn {
 
     self.appDelete = [UIApplication sharedApplication].delegate;
-    
-     clickValue = [self buttonClickedValue:btn];
+    UIButton *recordBtn = self.btns[2];
+//     clickValue = [self buttonClickedValue:btn];
     if (btn.tag == kButtonTag + 0) {
         if ([self.player isPlaying]) {
             //[HudView showView:self.navigationController.view string:@"请先停止录音"];
@@ -1122,7 +1060,7 @@ Boolean plugedHeadset;
             return;
         }
         
-        [self.waveLink setPaused:NO];
+//        [self.waveLink setPaused:NO];
 
         if ([self.player3 isPlaying] ) {
             [[NSToastManager manager ] showtoast:@"先暂停试听"];
@@ -1146,6 +1084,7 @@ Boolean plugedHeadset;
                     [self.player prepareToPlay];
                     
                 }
+                
                 [self addTimer];
 //                [[NSToastManager manager ] showtoast:@"开始录音"];
                 
@@ -1189,7 +1128,7 @@ Boolean plugedHeadset;
 
         self.waveform.timeScrollView.userInteractionEnabled=NO;
         
-        if ([self.player isPlaying]) {
+        if (recordBtn.selected) {
             
             [[NSToastManager manager ] showtoast:@"请先停止录音"];
             
@@ -1241,7 +1180,7 @@ Boolean plugedHeadset;
         
     } else if (btn.tag == kButtonTag + 3) {//
         
-        if ([self.player isPlaying]) {
+        if (recordBtn.selected) {
           //  [HudView showView:self.navigationController.view string:@"先停止录音"];
             [[NSToastManager manager ] showtoast:@"先停止录音"];
 
@@ -1269,7 +1208,12 @@ Boolean plugedHeadset;
         
         
     } else if (btn.tag == kButtonTag + 4) {
-        
+        if (recordBtn.selected) {
+            //[HudView showView:self.navigationController.view string:@"请先停止录音"];
+            [[NSToastManager manager ] showtoast:@"请先停止录音"];
+            
+            return;
+        }
         [self importLyricClick:nil];
     }
     
@@ -1354,14 +1298,14 @@ Boolean plugedHeadset;
 }
  */
 - (void)nextClick:(UIBarButtonItem *)next {
-    
+    UIButton *recordBtn = self.btns[2];
     if ([self.player3 isPlaying] ||[self.player2 isPlaying]) {
         [self bottomBtnClick:[self.view viewWithTag:kButtonTag +1]];
         [self.player2 stop];
         [self.player3 stop];
     }
     
-    if ([self.player isPlaying]) {
+    if (recordBtn.selected) {
         [HudView showView:self.navigationController.view  string:@"请先停止录音"];
         return;
     }
@@ -1486,12 +1430,11 @@ Boolean plugedHeadset;
     
     if (num == -1) {
         timerImgView.hidden = YES;
+        [self.waveLink setPaused:NO];
         [self.link setPaused:NO];
         [self.player play];
         [self startRecorder];
-        
         num = 4;
-        
         [self removeTimer];
     }
 }
@@ -1506,7 +1449,7 @@ Boolean plugedHeadset;
         
         self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
         
-        self.link.frameInterval=4;
+        self.link.frameInterval=3;
 
         [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
@@ -1519,7 +1462,7 @@ Boolean plugedHeadset;
         
         self.waveLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(scrollTimeView)];
         
-        self.waveLink.frameInterval=4;
+        self.waveLink.frameInterval=3;
         [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
 }
@@ -1561,14 +1504,14 @@ Boolean plugedHeadset;
 
 - (void)actionTiming {
     
-    timerNum += 1/15.0;
+    timerNum += 1/20.0;
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     //分贝数
 
     if (!self.isPlay) {
         
-        totalTime += 1/15.0;
+        totalTime += 1/20.0;
         count = [self decibels];
         
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1714,16 +1657,16 @@ Boolean plugedHeadset;
 }
 
 
-- (int)buttonClickedValue:(UIButton*)btn{
-    if (btn == self.btns[1]) {
-        return 1;
-    }else if(btn == self.btns[2]){
-        return 2;
-    }else if(btn == self.btns[3]){
-        return 3;
-    }
-    return -1;
-}
+//- (int)buttonClickedValue:(UIButton*)btn{
+//    if (btn == self.btns[1]) {
+//        return 1;
+//    }else if(btn == self.btns[2]){
+//        return 2;
+//    }else if(btn == self.btns[3]){
+//        return 3;
+//    }
+//    return -1;
+//}
 
 
 
@@ -1748,17 +1691,22 @@ Boolean plugedHeadset;
     
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    
-//    self.distantKeyPathTemp = scrollView.contentOffset.x;
-//
-//
-//}
 
-
-
-
-
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    timerNum=scrollView.contentOffset.x/speed;
+    timerNumPlay_temp = timerNum;
+    curtime3 =timerNum;
+    curtime2 =timerNum;
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+    
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self changeScrollViewColor];
+    //    self.distantKeyPathTemp = scrollView.contentOffset.x;
+    
+    
+}
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 
     if (decelerate) {
@@ -1771,18 +1719,9 @@ Boolean plugedHeadset;
 
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         
-
     }
 
-
 }
-
-
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-
-}
-
 
 - (void)changeScrollViewColor{
     

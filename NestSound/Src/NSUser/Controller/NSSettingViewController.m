@@ -57,12 +57,12 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return section == 0 ? 5: 1;
+    return section == 0 ? 4: 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *stringArr = @[@"账号绑定",@"修改密码",@"清理缓存",@"新消息通知",@"关于我们"];
+    NSArray *stringArr = @[@"修改密码",@"清理缓存",@"新消息通知",@"关于我们"];
     
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
     UITableViewCell * loginOutCell = [tableView dequeueReusableCellWithIdentifier:LoginOutIdefity];
@@ -76,7 +76,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             
         }
         settingCell.textLabel.text = stringArr[indexPath.row];
-        if (indexPath.row == 2) {
+        if (indexPath.row == 1) {
             settingCell.accessoryType = UITableViewCellAccessoryNone;
             settingCell.detailTextLabel.text = [Memory getCacheSize];
             settingCell.detailTextLabel.tag = 100;
@@ -107,24 +107,25 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
     NSUInteger section = indexPath.section;
     NSUInteger row = indexPath.row;
     if (section == 0){
-        if (row == 0) {
-            NSBindThirdAccountViewController *bindAccountVC = [[NSBindThirdAccountViewController alloc] init];
-            [self.navigationController pushViewController:bindAccountVC animated:YES];
-            
-        } else if (row == 1) {
+//        if (row == 0) {
+//            NSBindThirdAccountViewController *bindAccountVC = [[NSBindThirdAccountViewController alloc] init];
+//            [self.navigationController pushViewController:bindAccountVC animated:YES];
+//            
+//        } else
+            if (row == 0) {
             NSModifyPwdViewController *modifyPwdVC = [[NSModifyPwdViewController alloc] init];
             [self.navigationController pushViewController:modifyPwdVC animated:YES];
             
-        } else if (row == 2) {
+        } else if (row == 1) {
             [Memory clearCache];
             [[NSToastManager manager] showtoast:@"已成功清理缓存"];
             UITableViewCell * settingCell = [settingTable cellForRowAtIndexPath:indexPath];
             UILabel * cacheSize = (UILabel *)[settingCell viewWithTag:100];
             cacheSize.text = [Memory getCacheSize];
         }
-        else if (row == 3) {
+        else if (row == 2) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-        } else if (row == 4){
+        } else if (row == 3){
             
             NSAboutUsViewController *aboutUsVC = [[NSAboutUsViewController alloc] init];
             [self.navigationController pushViewController:aboutUsVC animated:YES];

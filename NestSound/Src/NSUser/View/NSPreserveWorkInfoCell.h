@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class NSPreserveProductInfoModel;
+@class NSProductModel;
 
 @interface NSPreserveWorkInfoCell : UITableViewCell
 @property (nonatomic,strong) UILabel *preserveDate;
 @property (nonatomic,strong) UILabel *preserveCode;
-- (void)setupDataWithSortId:(NSString *)sortId;
+- (void)setupDataWithProductModel:(NSProductModel *)productModel;
 //保全申请 作品信息
 @property (nonatomic,strong) NSPreserveProductInfoModel *productInfoModel;
 @end

@@ -15,6 +15,7 @@
 {
     UITableView *preserveTab;
     UIImageView *emptyImage;
+    int currentPage;
 }
 @property (nonatomic,strong) NSMutableArray *preserveListArr;
 @end
@@ -29,11 +30,16 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configurePreserveListView];
-    [self fetchPreserveListData];
+    [self fetchPreserveListDataWithIsLoadingMore:NO];
 }
-- (void)fetchPreserveListData {
+- (void)fetchPreserveListDataWithIsLoadingMore:(BOOL)isLoadingMore {
     self.requestType = NO;
-    self.requestParams = @{@"uid":JUserID,@"token":LoginToken};
+    if (!isLoadingMore) {
+        currentPage = 1;
+    }else{
+        ++currentPage;
+    }
+    self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage]};
     self.requestURL = preserveListUrl;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
@@ -42,7 +48,14 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     } else {
         if ([operation.urlTag isEqualToString:preserveListUrl]) {
             NSPreserveListModel *preserveListModel = (NSPreserveListModel*)parserObject;
-            self.preserveListArr = [NSMutableArray arrayWithArray:preserveListModel.preserveList];
+            if (!operation.isLoadingMore) {
+                [preserveTab.pullToRefreshView stopAnimating];
+                self.preserveListArr = [NSMutableArray arrayWithArray:preserveListModel.preserveList];
+            }else{
+                [preserveTab.infiniteScrollingView stopAnimating];
+                    [self.preserveListArr addObjectsFromArray:preserveListModel.preserveList];
+                
+            }
             if (self.preserveListArr.count) {
                 emptyImage.hidden = YES;
             } else {
@@ -56,7 +69,7 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     
     self.title = @"保全列表";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick)];
-    preserveTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    preserveTab = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     
     preserveTab.dataSource = self;
     
@@ -67,6 +80,30 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     preserveTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     [self.view addSubview:preserveTab];
+    
+    [preserveTab mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    
+    WS(wSelf);
+    [preserveTab addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchPreserveListDataWithIsLoadingMore:NO];
+        }
+    }];
+    
+    [preserveTab addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchPreserveListDataWithIsLoadingMore:YES];
+        }
+    }];
+    
+    preserveTab.showsInfiniteScrolling = NO;
     
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
     

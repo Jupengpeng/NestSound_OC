@@ -16,10 +16,12 @@
     UITableView *_tableView;
     NSMutableArray * DataAry;
     BOOL isLyric;
+    BOOL isSecret;
     int currentPage;
     NSString * url;
-    int typed;
+    int type;
     UIImageView * playStatus;
+    NSString * MusicType;
 }
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 @property (nonatomic, strong) NSMutableArray *itemIdList;
@@ -42,12 +44,13 @@
     }
     return _itemIdList;
 }
--(instancetype)initWithType:(NSString *)type andIsLyric:(BOOL)isLyric_
+-(instancetype)initWithType:(NSString *)Musictype andIsLyric:(BOOL)isLyric_ andIsSecret:(BOOL)isSecret_
 {
     self = [super init];
     if (self) {
-        self.MusicType = type;
+        MusicType = Musictype;
         isLyric = isLyric_;
+        isSecret = isSecret_;
     }
     return self;
 
@@ -71,19 +74,19 @@
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     self.navigationItem.rightBarButtonItem = item;
     if (isLyric) {
-        if ([self.MusicType isEqualToString:@"hot"]) {
+        if ([MusicType isEqualToString:@"hot"]) {
             self.title = @"热门歌词";
-        }  else if ([self.MusicType isEqualToString:@"lyric"]) {
-            self.title = @"歌词";
+        }  else if ([MusicType isEqualToString:@"lyric"]) {
+            self.title = @"我的歌词";
         } else{
             self.title = @"最新歌词";
         }
     }else{
-        if ([self.MusicType isEqualToString:@"hot"]) {
+        if ([MusicType isEqualToString:@"hot"]) {
             self.title = @"热门歌曲";
             //          LocalizedStr(@"promot_hotMusic");
-        }else if ([self.MusicType isEqualToString:@"music"]) {
-            self.title = @"歌曲";
+        }else if ([MusicType isEqualToString:@"music"]) {
+            self.title = @"我的歌曲";
         }
         else{
             self.title = @"最新歌曲";
@@ -159,11 +162,11 @@
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    if ([self.MusicType isEqualToString:@"hot"]) {
+    if ([MusicType isEqualToString:@"hot"]) {
         dic = @{@"page":[NSNumber numberWithInt:currentPage],@"orderType":[NSNumber numberWithInt:2]};
-    }else if ([self.MusicType isEqualToString:@"music"]){
+    }else if ([MusicType isEqualToString:@"music"]){
         dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:1]};
-    } else if ([self.MusicType isEqualToString:@"lyric"]) {
+    } else if ([MusicType isEqualToString:@"lyric"]) {
         dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:2]};
     } else {
         dic = @{@"page":[NSNumber numberWithInt:currentPage],@"orderType":[NSNumber numberWithInt:1]};
@@ -171,13 +174,13 @@
     
     NSString * str = [NSTool encrytWithDic:dic];
     if (isLyric) {
-        if ([self.MusicType isEqualToString:@"lyric"]) {
+        if ([MusicType isEqualToString:@"lyric"]) {
             url = [userMLICListUrl stringByAppendingString:str];
         } else {
             url = [discoverLyricMoreURL stringByAppendingString:str];
         }
     }else{
-        if ([self.MusicType isEqualToString:@"music"]) {
+        if ([MusicType isEqualToString:@"music"]) {
             url = [userMLICListUrl stringByAppendingString:str];
         } else {
             url = [discoverMusicMoreURL stringByAppendingString:str];
@@ -218,6 +221,8 @@
                 }else{
                     [_tableView.infiniteScrollingView stopAnimating];
                 }
+            } else if ([operation.urlTag isEqualToString:deleteWorkURL]||[operation.urlTag isEqualToString:changeMusicStatus] || [operation.urlTag isEqualToString:changeLyricStatus]) {
+                [self fetchDataWithIsLoadingMore:NO];
             }
         }
     }
@@ -249,9 +254,7 @@
         cell = [[NSNewMusicTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
     }
-    
-    
-//    [cell addDateLabel];
+    //    [cell addDateLabel];
     
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
@@ -262,7 +265,10 @@
     
     cell.numLabel.hidden = YES;
     cell.myMusicModel = DataAry[indexPath.row];
-    cell.secretImgView.hidden = YES;
+    if (isSecret == YES) {
+        
+        cell.secretImgView.hidden = YES;
+    }
     return cell;
 }
 
@@ -277,7 +283,7 @@
     }else{
         NSPlayMusicViewController * playVC =[[NSPlayMusicViewController alloc] init];
         
-        if ([self.MusicType isEqualToString:@"hot"]) {
+        if ([MusicType isEqualToString:@"hot"]) {
            playVC.from = @"red";
         }else{
            playVC.from = @"news";
@@ -290,7 +296,94 @@
     }
     
 }
-
+#pragma mark edit
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (isSecret == NO) {
+        
+        return YES;
+    } else {
+        
+        return NO;
+    }
+}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        self.requestType = NO;
+        NSMyMusicModel * myMode = DataAry[indexPath.row];
+        if ([MusicType isEqualToString:@"lyric"]) {
+            type = 2;
+        } else if ([MusicType isEqualToString:@"music"]) {
+            type = 1;
+        }
+        self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
+        
+        self.requestURL = deleteWorkURL;
+//        
+        [DataAry removeObjectAtIndex:indexPath.row];
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        
+    }
+}
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *status;
+    int isShow;
+    NSMyMusicModel *model = DataAry[indexPath.row];
+    if (!model.isShow) {
+        status = @"设为公开";
+        isShow = 1;
+    } else {
+        status = @"设为私密";
+        isShow = 0;
+    }
+    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:status handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        //在block中实现相对应的事件
+        
+        if ([MusicType isEqualToString:@"music"]) {
+            self.requestType = NO;
+            self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"is_issue":[NSNumber numberWithInt:isShow],@"token":LoginToken};
+            self.requestURL = changeMusicStatus;
+            
+        } else if ([MusicType isEqualToString:@"lyric"]) {
+            self.requestType = NO;
+            self.requestParams = @{@"id":[NSNumber numberWithLong:model.itemId],@"status":[NSNumber numberWithInt:isShow],@"token":LoginToken};
+            self.requestURL = changeLyricStatus;
+        }
+        //      [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+    }];
+    
+    //注意：1、当rowActionWithStyle的值为UITableViewRowActionStyleDestructive时，系统默认背景色为红色；当值为UITableViewRowActionStyleNormal时，背景色默认为淡灰色，可通过UITableViewRowAction的对象的.backgroundColor设置；
+    //2、当左滑按钮执行的操作涉及数据源和页面的更新时，要先更新数据源，在更新视图，否则会出现无响应的情况
+    UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除"handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        self.requestType = NO;
+        NSMyMusicModel * myMode = DataAry[indexPath.row];
+        if (type == 3) {
+            self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
+            self.requestURL = collectURL;
+        }else{
+            
+            if (type == 4) {
+                type = 3;
+            }
+            self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
+            
+            self.requestURL = deleteWorkURL;
+        }
+        
+        [DataAry removeObjectAtIndex:indexPath.row];
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }];
+    //此处UITableViewRowAction对象放入的顺序决定了对应按钮在cell中的顺序
+    if (isSecret == NO) {
+        return @[delete,action];
+    } else {
+        return nil;
+    }
+    
+}
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
     
     if (self.playSongsVC.player == nil) {

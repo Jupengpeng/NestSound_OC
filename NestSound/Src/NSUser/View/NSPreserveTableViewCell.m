@@ -105,17 +105,17 @@
         default:
             break;
     }
-    if (preserveModel.status == 0) {
+    if (preserveModel.status == 3) {
         statusLabel.text = @"保全失败";
         statusLabel.textColor = [UIColor redColor];
     } else if (preserveModel.status == 1) {
         statusLabel.text = @"保全成功";
-    } else {
+    } else if (preserveModel.status == 2){
         statusLabel.text = @"保全认证中...";
         statusLabel.textColor = [UIColor orangeColor];
     }
     leftLabel.text = preserveModel.preserveName;
-    rightLabel.text = [date  datetoStringWithDate:[preserveModel.createTime longLongValue]];
+    rightLabel.text = [date  datetoLongLongStringWithDate:[preserveModel.createTime longLongValue]];
     
 }
 - (void)awakeFromNib {

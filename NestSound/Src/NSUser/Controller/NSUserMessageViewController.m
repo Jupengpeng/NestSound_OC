@@ -15,6 +15,7 @@
     UITableViewCell * userMessageCell;
     NSDictionary *userMessageDic;
     UILabel * leftLabel;
+    UIButton *finishBtn;
 //    UITextField *rightTF;
 }
 @end
@@ -49,12 +50,23 @@
 }
 
 - (void)handleUserMessageFinish {
+    
     UITableViewCell *cell1 = (UITableViewCell *)[userMessageTab viewWithTag:161];
     UITextField *textField1 = (UITextField*)[cell1 viewWithTag:180];
     UITableViewCell *cell2 = (UITableViewCell *)[userMessageTab viewWithTag:162];
     UITextField *textField2 = (UITextField*)[cell2 viewWithTag:180];
     UITableViewCell *cell3 = (UITableViewCell *)[userMessageTab viewWithTag:163];
     UITextField *textField3 = (UITextField*)[cell3 viewWithTag:180];
+//    if (!textField1.text.length) {
+//        [[NSToastManager manager] showtoast:@""];
+//        return;
+//    } else if (!textField2.text.length) {
+//        [[NSToastManager manager] showtoast:@""];
+//        return;
+//    } else if (!textField3.text.length) {
+//        [[NSToastManager manager] showtoast:@""];
+//        return;
+//    }
     self.requestType = NO;
     if (userMessageDic[@"bq_id"]) {
         self.requestParams = @{@"token":LoginToken,
@@ -62,9 +74,9 @@
                                @"bq_id":userMessageDic[@"bq_id"],
                                @"bq_username":
                                    textField1.text,
-                               @"bq_phone":
-                                   textField2.text,
                                @"bq_creditID":
+                                   textField2.text,
+                               @"bq_phone":
                                    textField3.text
                                };
     } else {
@@ -90,6 +102,10 @@
             if ([operation.urlTag isEqualToString:preservePersonListUrl]) {
 
                 userMessageDic = (NSDictionary *)parserObject.data;
+                if (![parserObject.message isEqualToString:@"暂无保全信息"]) {
+                    finishBtn.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+                    finishBtn.userInteractionEnabled = YES;
+                }
                 [userMessageTab reloadData];
                 
             } else if ([operation.urlTag isEqualToString:addPreservePersonUrl]) {
@@ -119,15 +135,18 @@
     
     [self.view addSubview:userMessageTab];
     
-    UIButton *finishBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    finishBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     
     finishBtn.frame = CGRectMake(15, CGRectGetMaxY(userMessageTab.frame) + 20, ScreenWidth - 30, 40);
     
-    finishBtn.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+    finishBtn.backgroundColor = [UIColor lightGrayColor];
+//    finishBtn.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     
     finishBtn.layer.cornerRadius = 20;
     
     finishBtn.layer.masksToBounds = YES;
+    
+    finishBtn.userInteractionEnabled = NO;
     
     [finishBtn setTitle:@"完成" forState:UIControlStateNormal];
     
@@ -137,7 +156,21 @@
     
     [self.view addSubview:finishBtn];
 }
-
+- (void)textTouchEvent {
+    UITableViewCell *cell1 = (UITableViewCell *)[userMessageTab viewWithTag:161];
+    UITextField *textField1 = (UITextField*)[cell1 viewWithTag:180];
+    UITableViewCell *cell2 = (UITableViewCell *)[userMessageTab viewWithTag:162];
+    UITextField *textField2 = (UITextField*)[cell2 viewWithTag:180];
+    UITableViewCell *cell3 = (UITableViewCell *)[userMessageTab viewWithTag:163];
+    UITextField *textField3 = (UITextField*)[cell3 viewWithTag:180];
+    if (textField1.text.length && textField2.text.length && textField3.text.length) {
+        finishBtn.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+        finishBtn.userInteractionEnabled = YES;
+    } else {
+        finishBtn.backgroundColor = [UIColor lightGrayColor];
+        finishBtn.userInteractionEnabled = NO;
+    }
+}
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 4;
@@ -163,6 +196,7 @@
     UITextField *rightTF = [[UITextField alloc] init];
     rightTF.textColor = [UIColor lightGrayColor];
     rightTF.tag = 180;
+    [rightTF addTarget:self action:@selector(textTouchEvent) forControlEvents:UIControlEventEditingChanged];
     if (userMessageDic) {
         if (indexPath.row ==1) {
             rightTF.text = userMessageDic[@"bq_username"];
@@ -170,6 +204,14 @@
             rightTF.text = userMessageDic[@"bq_creditID"];
         } else {
             rightTF.text = userMessageDic[@"bq_phone"];
+        }
+    } else {
+        if (indexPath.row ==1) {
+            rightTF.placeholder = @"请填写姓名";
+        } else if (indexPath.row == 2) {
+            rightTF.placeholder = @"请填写身份证号";
+        } else {
+            rightTF.placeholder = @"请填写手机号";
         }
     }
     [userMessageCell.contentView addSubview:rightTF];

@@ -66,7 +66,7 @@
         [self.timeScrollView addSubview:self.waveView];
         
         
-        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMidY(self.waveView.frame)+0.5, self.rect.size.width, 0.4)];
+        UIView* middleLine = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMidY(self.waveView.frame)-0.2, self.rect.size.width, 0.4)];
         middleLine.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:middleLine];
         

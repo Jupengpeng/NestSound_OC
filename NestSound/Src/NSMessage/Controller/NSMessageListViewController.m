@@ -20,6 +20,7 @@
 #import "NSLyricViewController.h"
 #import "NSPlayMusicViewController.h"
 #import "NSUserPageViewController.h"
+#import "NSPreserveDetailViewController.h"
 @interface NSMessageListViewController ()<
 UITableViewDataSource,
 UITableViewDelegate,
@@ -171,16 +172,16 @@ static NSString * const preserveCellID = @"preserveCellID";
                 
                 
             }else if ([operation.urlTag isEqualToString:systemUrl]){
-                NSSystemMessageListModel * systemMessage = (NSSystemMessageListModel *)parserObject;
+                NSPreserveMessageListModel * preserveMessage = (NSPreserveMessageListModel *)parserObject;
                 if (!operation.isLoadingMore) {
-                    messageArr = [NSMutableArray arrayWithArray:systemMessage.systemMessageList];
+                    messageArr = [NSMutableArray arrayWithArray:preserveMessage.preserveMessageList];
                     emptyImage.image = [UIImage imageNamed:@"2.0_noMessageBk"];
                 }else{
-                    if (systemMessage.systemMessageList.count == 0) {
+                    if (preserveMessage.preserveMessageList.count == 0) {
                         messageList.showsInfiniteScrolling = NO;
                         
                     }else{
-                        [messageArr addObjectsFromArray:systemMessage.systemMessageList];
+                        [messageArr addObjectsFromArray:preserveMessage.preserveMessageList];
                     }
                     
                 }
@@ -289,27 +290,25 @@ static NSString * const preserveCellID = @"preserveCellID";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSPreserveMessage *model = messageArr[indexPath.section];
+    NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
+    
+    CGFloat height = [model.content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
     if (messageType == UpvoteMessageType) {
         return 140;
     }else if (messageType == CollectionMessageType){
         return 140;
-    }else if (messageType == SystemMessageType){
-        SystemMessageModel * sys = messageArr[indexPath.row];
-//        if (sys.type == 1) {
-            return 80;
-//        }else{
-//            return 175;
-//        }
+    }else if (messageType == SystemMessageType || messageType == PreserveMessageType){
+        
+        return 65 + height;
+//
     }else if (messageType == CommentMessageType){
         
         NSCommentTableViewCell *cell = (NSCommentTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         
         return cell.commentLabelMaxY + 80;
-    } else if (messageType == PreserveMessageType) {
-        
-        return 100;
     }
-    return 1;
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -337,7 +336,6 @@ static NSString * const preserveCellID = @"preserveCellID";
         cell.upvoteMessage = messageArr[row];
         return cell;
         
-        
     }else if (messageType == SystemMessageType){
         NSPreserveMessageTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
         SystemMessageModel * sys = messageArr[row];
@@ -345,7 +343,7 @@ static NSString * const preserveCellID = @"preserveCellID";
             cell = [[NSPreserveMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        
+        cell.preserveModel = messageArr[indexPath.row];
 //        if (sys.type == 1 ) {
 //            cell.isTu = NO;
 //        }else{
@@ -398,12 +396,12 @@ static NSString * const preserveCellID = @"preserveCellID";
             [self.navigationController pushViewController:playVC animated:YES];
         }
     }else if (messageType == SystemMessageType){
-        SystemMessageModel * sys = messageArr[indexPath.row];
-        if (sys.type == 2) {
-            NSH5ViewController * eventDetail = [[NSH5ViewController alloc] init];
-            eventDetail.h5Url = sys.detailUrl;
-            [self.navigationController pushViewController:eventDetail animated:YES];
-        }
+//        SystemMessageModel * sys = messageArr[indexPath.row];
+//        if (sys.type == 2) {
+//            NSH5ViewController * eventDetail = [[NSH5ViewController alloc] init];
+//            eventDetail.h5Url = sys.detailUrl;
+//            [self.navigationController pushViewController:eventDetail animated:YES];
+//        }
     }else if (messageType == CommentMessageType){
         NSCommentModel *comment = messageArr[indexPath.row];
         if (comment.type == 1) {
@@ -418,6 +416,10 @@ static NSString * const preserveCellID = @"preserveCellID";
             [self.navigationController pushViewController:lyric animated:YES];
         }
         
+    } else if (messageType == PreserveMessageType) {
+        NSPreserveMessage *model = messageArr[indexPath.row];
+        NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] initWithPreserveID:model.orderNo sortID:0];
+        [self.navigationController pushViewController:preserveDetailVC animated:YES];
     }
 
 }

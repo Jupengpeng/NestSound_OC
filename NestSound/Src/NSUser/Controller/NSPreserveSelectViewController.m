@@ -56,7 +56,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
 //    @"page":[NSNumber numberWithInt:currentPage],
-    self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"sort_id":[NSNumber numberWithLong:productType]};
+    self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"sort_id":[NSNumber numberWithLong:type],@"page":[NSNumber numberWithInt:currentPage]};
  
     self.requestURL = unPreservedListUrl;
 }
@@ -93,17 +93,13 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
                 }
                 if (self.musicDataAry.count) {
                     musicEmptyImage.hidden = YES;
-                    musicTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
                 } else {
                     musicEmptyImage.hidden = NO;
-                    musicTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
                 }
                 if (self.lyricDataAry.count) {
                     lyricEmptyImage.hidden = YES;
-                    lyricTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
                 } else {
                     lyricEmptyImage.hidden = NO;
-                    lyricTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
                 }
                 if (productType == 1) {
                     [musicTableView reloadData];
@@ -170,7 +166,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     
     [self.view addSubview:self.contentScrollView];
     
-    musicTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStylePlain];
+    musicTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStyleGrouped];
     
     musicTableView.delegate = self;
     
@@ -179,7 +175,8 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
 //    musicTableView.rowHeight = 80;
     
     musicTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    
+    musicTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    musicTableView.alwaysBounceVertical = YES;
 //    [musicTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:musicCellIdentify];
     
     [self.contentScrollView addSubview:musicTableView];
@@ -211,7 +208,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     
     [self.contentScrollView addSubview:musicEmptyImage];
     //歌词
-    lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStylePlain];
+    lyricTableView = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, CGRectGetHeight(self.contentScrollView.frame)) style:UITableViewStyleGrouped];
     
     lyricTableView.delegate = self;
     
@@ -219,10 +216,9 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     
 //    lyricTableView.rowHeight = 80;
     
-    lyricTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     lyricTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    
+    lyricTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    lyricTableView.alwaysBounceVertical = YES;
 //    [lyricTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:lyricCellIdentify];
     
     [self.contentScrollView addSubview:lyricTableView];

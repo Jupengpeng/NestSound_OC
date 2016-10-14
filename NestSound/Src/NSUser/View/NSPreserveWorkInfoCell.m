@@ -17,6 +17,7 @@
 #import "NSPreserveWorkInfoCell.h"
 #import "UIImageView+WebCache.h"
 #import "NSPreserveApplyModel.h"
+#import "NSPreserveDetailListModel.h"
 #import "NSTool.h"
 @interface NSPreserveWorkInfoCell ()
 {
@@ -140,11 +141,9 @@
     self.createTime.text = GetcreaTime([date datetoMonthStringWithDate:[productInfoModel.createTime doubleValue] format:@"YYYY.MM.dd HH:mm"]);
 }
 
-- (void)setupDataWithSortId:(NSString *)sortId{
-
-    _sortId = sortId;
+- (void)setupDataWithProductModel:(NSProductModel *)productModel{
     
-    switch ([sortId intValue]) {
+    switch (productModel.type) {
         case 1:
         {
             self.lyricsTitle.hidden = YES;
@@ -167,16 +166,16 @@
             break;
     }
     
-    [self.workCover sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.workCover sd_setImageWithURL:[NSURL URLWithString:productModel.productImg] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
-    self.songName.text = GetSongName(@"南方姑娘");
-    self.lyricsTitle.text = GetLyricsName(@"赵雷");
-    self.musicTitle.text = GetMusicName(@"赵雷");
-    self.accompanyTitle.text = GetAccompanyName(@"音巢音乐-家乡民谣");
-    self.createTime.text = GetcreaTime(@"2016.09.13 15:35");
-    self.preserveDate.text = GetPreserveDate(@"2016.09.13 15:35");
-    self.preserveCode.text = GetPreserveCode(@"21JB5TMBA23PSM0");
+    self.songName.text = GetSongName(productModel.productTitle);
+    self.lyricsTitle.text = GetLyricsName(productModel.lyricAuthor);
+    self.musicTitle.text = GetMusicName(productModel.songAuthor);
+    self.accompanyTitle.text = GetAccompanyName(productModel.accompaniment);
+    self.createTime.text = GetcreaTime(productModel.createTime);
+    self.preserveDate.text = GetPreserveDate([date datetoLongLongStringWithDate:productModel.preserveTime]);
+    self.preserveCode.text = GetPreserveCode(productModel.preserveNo);
 }
 
 - (void)layoutSubviews{

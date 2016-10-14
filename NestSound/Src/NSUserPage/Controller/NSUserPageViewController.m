@@ -574,9 +574,9 @@ static NSString *ID3 = @"cell3";
         
     }];
     
-//    UITapGestureRecognizer *focusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followBtnClick:)];
-//    
-//    [focusLLView addGestureRecognizer:focusTap];
+    UITapGestureRecognizer *focusTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followBtnClick:)];
+    
+    [focusLLView addGestureRecognizer:focusTap];
     
     UIView *midLineView = [[UIView alloc] init];
     
@@ -615,9 +615,9 @@ static NSString *ID3 = @"cell3";
         
     }];
     
-//    UITapGestureRecognizer *fansTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fansBtnClick:)];
-//    
-//    [fansLLView addGestureRecognizer:fansTap];
+    UITapGestureRecognizer *fansTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fansBtnClick:)];
+    
+    [fansLLView addGestureRecognizer:fansTap];
     
     [_tableView addSubview:headImgView];
     
