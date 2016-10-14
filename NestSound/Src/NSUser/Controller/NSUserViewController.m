@@ -130,7 +130,10 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
                 NSUserDataModel * userModel = (NSUserDataModel *)parserObject;
                 userDic = parserObject.data[@"user"];
                 _userModel = userModel.userDataModel.userModel;
-                [self.numsArr removeAllObjects];
+
+                if (self.numsArr.count) {
+                    [self.numsArr removeAllObjects];
+                }
                 [self.numsArr addObject:@(userModel.userOtherModel.workNum)];
                 [self.numsArr addObject:@(userModel.userOtherModel.lyricsNum)];
                 [self.numsArr addObject:@(userModel.userOtherModel.focusNum)];

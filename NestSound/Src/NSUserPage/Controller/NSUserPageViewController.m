@@ -381,7 +381,8 @@ static NSString *ID3 = @"cell3";
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
                 [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
-                
+                [self fetchUserData];
+
             } else if ([operation.urlTag isEqualToString:_qiniuUrl]){
                 NSGetQiNiuModel *qiNiuModel = (NSGetQiNiuModel *)parserObject;
 //                [self postBgImageWithImageUrl:[NSString stringWithFormat:@"%@.png",qiNiuModel.qiNIuModel.fileName]];
@@ -398,6 +399,8 @@ static NSString *ID3 = @"cell3";
                 }];
             } else if ([operation.urlTag isEqualToString:changeMusicStatus] || [operation.urlTag isEqualToString:changeLyricStatus]) {
                 [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
+                [self fetchUserData];
+
             }
             if (!operation.isLoadingMore) {
                 [_tableView.pullToRefreshView stopAnimating];
@@ -1189,10 +1192,13 @@ static NSString *ID3 = @"cell3";
             self.requestURL = collectURL;
         }else{
             
+            NSInteger deleteType = 4;
             if (type == 4) {
-                type = 3;
+                deleteType = 3;
+            }else{
+                deleteType = type;
             }
-            self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
+            self.requestParams = @{@"id": @(myMode.itemId), @"type": @(deleteType),@"token":LoginToken};
             
             self.requestURL = deleteWorkURL;
         }
@@ -1429,6 +1435,7 @@ static NSString *ID3 = @"cell3";
     if (editingStyle==UITableViewCellEditingStyleDelete) {
         self.requestType = NO;
         NSMyMusicModel * myMode = dataAry[indexPath.row];
+        //删除收藏
         if (type == 3) {
             self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
             self.requestURL = collectURL;

@@ -35,10 +35,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    id obj;
-    if (self.fillInBlock) {
-        self.fillInBlock(obj);
-    }
 }
 - (void)fetchPreserveUserMessageData {
     
@@ -111,7 +107,9 @@
             } else if ([operation.urlTag isEqualToString:addPreservePersonUrl]) {
               
                 [self.navigationController popViewControllerAnimated:YES];
-                
+                if (self.fillInBlock) {
+                    self.fillInBlock(self.requestParams);
+                }
             }
         }
     }

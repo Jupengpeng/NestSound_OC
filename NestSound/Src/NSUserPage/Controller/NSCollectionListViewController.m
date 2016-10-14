@@ -28,6 +28,9 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     [super viewDidLoad];
     [self configureCollectionListUI];
     [self fetchCollectionDataWithIsLoadingMore:NO];
+    //无数据
+    
+    [self.view addSubview:self.noDataView];
 }
 - (void)fetchCollectionDataWithIsLoadingMore:(BOOL)isLoadingMore {
     self.requestType = YES;
@@ -60,7 +63,14 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
                 }else{
                     [_collectionTab.infiniteScrollingView stopAnimating];
                     [self.myCollectionAry addObjectsFromArray:discoverMore.moreLyricList];
-                                    }
+                }
+                
+                if (!self.myCollectionAry.count) {
+                    self.noDataView.hidden = NO;
+                }else{
+                    self.noDataView.hidden = YES;
+                    
+                }
                 [_collectionTab reloadData];
                 if (!self.myCollectionAry.count) {
                     emptyImage.hidden = NO;

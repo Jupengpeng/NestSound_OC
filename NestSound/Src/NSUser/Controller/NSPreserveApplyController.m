@@ -28,12 +28,16 @@
      */
     UIButton *_typeButton;
     UIButton *_choosenPayButton;
-
+    
     NSArray *_titlesArray;
     //价格数组
     NSArray *_typePriceArray;
-    NSString *_applySortId;
+    //type 可保全类型
+    NSString *_type;
+    //申请用实际保全类型
+    NSString *_applyType;
     UIButton *_submitButton;
+    NSPreservePersonInfoModel *_personInfoModel;
 }
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -58,7 +62,7 @@
     
     
     [self setupUI];
-//    _uerIsChosen = YES;
+    //    _uerIsChosen = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -74,24 +78,13 @@
 - (void)setupUI{
     self.title = @"保全申请";
     self.view.backgroundColor = [UIColor hexColorFloat:@"f3f2f3"];
-
     
-    NSArray *titles = [NSArray array];
-    if([self.sortId isEqualToString:@"1"]){
-        titles = @[@"曲作者"];
-        _applySortId = @"1";
-    }else if ([self.sortId isEqualToString:@"2"]){
-        titles = @[@"词作者"];
-        _applySortId = @"2";
-    }else if ([self.sortId isEqualToString:@"3"]){
-        titles = @[@"词作者,曲作者",@"词作者",@"曲作者"];
-        _applySortId = @"3";
-    }
-    _titlesArray = [titles mutableCopy];
+    
+
     
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 120)];
     TTTAttributedLabel *tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(10, footerView.height - 11 - 25, ScreenWidth - 20, 11)];
-//    tipLabel.font = [UIFont systemFontOfSize:11.0f];
+    //    tipLabel.font = [UIFont systemFontOfSize:11.0f];
     NSMutableDictionary *linkAttributes = [NSMutableDictionary dictionary];
     [linkAttributes setValue:(__bridge id)[UIColor hexColorFloat:@"afafaf"].CGColor forKey:(NSString *)kCTForegroundColorAttributeName];
     UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:11];
@@ -101,19 +94,19 @@
     tipLabel.attributedText = attributedStr;
     [linkAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
     tipLabel.linkAttributes = linkAttributes;
-
-
+    
+    
     NSRange linkRange = [tipLabel.text rangeOfString:@"《音巢保全免责声明》"];
     tipLabel.textColor = [UIColor hexColorFloat:@"afafaf"];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     tipLabel.delegate = self;
-
+    
     [tipLabel addLinkToURL:nil withRange:linkRange];
     [footerView addSubview:tipLabel];
-
-
-
+    
+    
+    
     
     _submitButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         btn.frame = CGRectMake(10, footerView.height - 96 , ScreenWidth -20, 45);
@@ -128,21 +121,19 @@
         btn.enabled = NO;
     }];
     [footerView addSubview:_submitButton];
-
+    
     [self.view addSubview:self.tableView];
-
+    
     self.tableView.tableFooterView = footerView;
     
-    [self.view addSubview:self.typeView];
+    
 
-
-    [self.view insertSubview:self.rmvViewBtn belowSubview:self.typeView];
     
     
     
     
     [self fetchPreserveInfoData];
-
+    
 }
 
 #pragma mark HTTP request method
@@ -172,17 +163,17 @@
 }
 
 - (void)fechOrderNo{
-
+    
     self.requestType = NO;
     self.requestParams = @{@"uid":JUserID,
                            @"itemid":[NSString stringWithFormat:@"%ld",self.itemUid],
                            @"type":self.sortId,
-                           @"cType":_applySortId,
-                           @"cUsername":@"陈锋",
-                           @"cCardId":@"450802199112111111",
-                           @"cPhone":@"15877033458",
+                           @"cType":_applyType,
+                           @"cUsername":_personInfoModel.cUserName,
+                           @"cCardId":_personInfoModel.cCardId,
+                           @"cPhone":_personInfoModel.cPhone,
                            @"token":LoginToken};
-
+    
     self.requestURL = getOrderNoUrl;
 }
 
@@ -213,9 +204,9 @@
         if ([operation.urlTag isEqualToString:paiedSuccessUrl]) {
             if (parserObject.code == 200 ){
                 CHLog(@"支付回调recordNo ：%@",self.orderNo);
-//                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"支付订单%@成功回调成功",self.orderNo]];
+                //                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"支付订单%@成功回调成功",self.orderNo]];
                 _submitButton.enabled = YES;
-
+                
             }
             
         }else if ([operation.urlTag isEqualToString:getGoodChargeUrl]){
@@ -233,21 +224,21 @@
                             */
                            [self feedbackPaySuccessWithCode:@"8"];
                            [[NSToastManager manager] showtoast:@"支付成功"];
-
+                           
                        } else {
                            CHLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
                            [self feedbackPaySuccessWithCode:@"4"];
-
+                           
                            [[NSToastManager manager] showtoast:[error getMsg]];
                        }
-//                       [[NSToastManager manager] showtoast:result];
+                       //                       [[NSToastManager manager] showtoast:result];
                    }];
             
         }else if ([operation.urlTag isEqualToString:getOrderNoUrl]){
             NSBaseModel *baseModel = (NSBaseModel *)parserObject;
             self.orderNo = [baseModel.data objectForKey:@"mp3URL"];
             [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"生成订单号%@",self.orderNo]];
-
+            
             [self fetchGoodCharge];
         }else if ([operation.urlTag isEqualToString:getPreserveInfoUrl]){
             
@@ -259,9 +250,24 @@
             }else{
                 _uerIsChosen = NO;
             }
-
             
+            NSArray *titles = [NSArray array];
+            _type = self.applyModel.productInfo.type;
+            if([_type isEqualToString:@"1"]){
+                titles = @[@"曲作者"];
+                _applyType = @"1";
+            }else if ([_type isEqualToString:@"2"]){
+                titles = @[@"词作者"];
+                _applyType = @"2";
+            }else if ([_type isEqualToString:@"3"]){
+                titles = @[@"词作者,曲作者",@"词作者",@"曲作者"];
+                _applyType = @"3";
+            }
+            _titlesArray = [titles mutableCopy];
+            [self.view addSubview:self.typeView];
+            [self.view insertSubview:self.rmvViewBtn belowSubview:self.typeView];
             
+            _personInfoModel = self.applyModel.personInfo;
             [self.tableView reloadData];
         }
         
@@ -333,11 +339,11 @@
                     [btn setTitle:@"编辑" forState:UIControlStateNormal];
                 } action:^(UIButton *btn) {
                     [self.navigationController pushViewController:self.userMsgController animated:YES];
-
+                    
                 }];
                 [headerView addSubview:editbutton];
             }
-
+            
         }
             break;
         case 2:
@@ -366,8 +372,8 @@
             priceLabel.font = [UIFont systemFontOfSize:15.0f];
             _totalPrice = priceLabel;
             if (_typePriceArray.count) {
-                _totalPrice.text = [_typePriceArray objectAtIndex:[_applySortId intValue] -1];
-
+                _totalPrice.text = [_typePriceArray objectAtIndex:[_applyType intValue] -1];
+                
             }
             [headerView addSubview:priceLabel];
         }
@@ -396,12 +402,12 @@
         [contentView addSubview:titleLabel];
         [footerView addSubview:contentView];
         
-        if ([_sortId isEqualToString:@"3"]) {
-        UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_more"]];
-        arrow.x = ScreenWidth - arrow.width - 10;
-        arrow.centerY = 20;
-        [footerView addSubview:arrow];
-        
+        if ([_type isEqualToString:@"3"]) {
+            UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_more"]];
+            arrow.x = ScreenWidth - arrow.width - 10;
+            arrow.centerY = 20;
+            [footerView addSubview:arrow];
+            
         }
         _typeButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             btn.frame = CGRectMake(ScreenWidth - 125, 0, 100, 40);
@@ -412,7 +418,7 @@
                 [btn setTitle:_titlesArray.firstObject forState:UIControlStateNormal];
                 
             }
-            if ([_sortId isEqualToString:@"3"]) {
+            if ([_type isEqualToString:@"3"]) {
                 btn.enabled = YES;
             }else{
                 btn.enabled = NO;
@@ -426,8 +432,8 @@
         
         
         [footerView addSubview:_typeButton];
-
-
+        
+        
     }else{
     }
     
@@ -461,7 +467,7 @@
             cell.preserveCode.hidden = YES;
             if (self.applyModel) {
                 cell.productInfoModel = self.applyModel.productInfo;
-
+                
             }
             return cell;
         }
@@ -484,17 +490,17 @@
                     addButton.userInteractionEnabled = NO;
                     [cell addSubview:addButton];
                 }
- 
+                
                 return cell;
             }else{
                 NSPreserveUserCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreserveUserCellId"];cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell setupData];
+                cell.personModel = _personInfoModel;
                 return cell;
             }
         }
         default:
         {
-
+            
             NSPreservePayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreservePayCellId"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
@@ -503,11 +509,11 @@
                 _choosenPayButton = choosenButton;
                 _choosenPayButton.selected = YES;
             };
-  
+            
             return cell;
         }
     }
-
+    
 }
 
 
@@ -516,20 +522,20 @@
         if (indexPath.row == 0) {
             if (!_uerIsChosen) {
                 [self.navigationController pushViewController:self.userMsgController animated:YES];
-
+                
             }else{
                 return;
             }
             
         }
     }
-
+    
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self.typeView dismissNow];
     
-
+    
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 }
@@ -543,18 +549,18 @@
         [self.navigationController pushViewController:h5Controller animated:YES];
         
     }
-
+    
     
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-
+    
 }
 
 
 
-#pragma mark - lazy init 
+#pragma mark - lazy init
 
 - (UITableView *)tableView{
     if (!_tableView) {
@@ -562,8 +568,8 @@
         [_tableView registerClass:[NSPreserveWorkInfoCell class] forCellReuseIdentifier:@"NSPreserveWorkInfoCellId"];
         [_tableView registerClass:[NSPreserveUserCell class] forCellReuseIdentifier:@"NSPreserveUserCellId"];
         [_tableView registerClass:[NSPreservePayCell class] forCellReuseIdentifier:@"NSPreservePayCellId"];
-//        _tableView.backgroundColor=[UIColor whiteColor];
-//        _tableView.separatorColor = [UIColor hexColorFloat:@"f5f5f5"];
+        //        _tableView.backgroundColor=[UIColor whiteColor];
+        //        _tableView.separatorColor = [UIColor hexColorFloat:@"f5f5f5"];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.bounces = YES;
@@ -578,9 +584,13 @@
     WS(weakSelf);
     if (!_userMsgController) {
         _userMsgController = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
-        _userMsgController.fillInBlock = ^(id object){
+        _userMsgController.fillInBlock = ^(NSDictionary *personDict){
+            
+            _personInfoModel.cUserName = personDict[@"bq_username"];
+            _personInfoModel.cCardId = personDict[@"bq_creditID"];
+            _personInfoModel.cPhone = personDict[@"bq_phone"];
             _uerIsChosen = YES;
-//            _uerIsChosen = !_uerIsChosen;
+            //            _uerIsChosen = !_uerIsChosen;
             [weakSelf.tableView reloadData];
         };
     }
@@ -588,21 +598,21 @@
 }
 
 - (NSPreserveTypeView *)typeView{
-    if (!_typeView && [self.sortId isEqualToString:@"3"]) {
-
+    if (!_typeView && [_type isEqualToString:@"3"]) {
+        
         _typeView = [[NSPreserveTypeView alloc] initWithFrame:CGRectMake(ScreenWidth - 125, 0, 100, 0) titlesArr:_titlesArray];
         _typeView.chooseTypeBlock = ^(NSString *typeStr,NSInteger typeId){
             
             [_typeButton setTitle:typeStr forState:UIControlStateNormal];
             self.rmvViewBtn.height = 0;
             
-            _applySortId = [NSString stringWithFormat:@"%d",3-typeId];
+            _applyType = [NSString stringWithFormat:@"%d",3-typeId];
             
             
-            [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"选择了%@",_applySortId]];
-            _totalPrice.text = [_typePriceArray objectAtIndex:[_applySortId intValue] -1];
-
-
+//            [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"选择了%@",_applyType]];
+            _totalPrice.text = [_typePriceArray objectAtIndex:[_applyType intValue] -1];
+            
+            
         };
     }
     return _typeView;
@@ -612,7 +622,7 @@
     if (!_rmvViewBtn) {
         _rmvViewBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             btn.frame= CGRectMake(0, 0, ScreenWidth, 0);
-//            btn.backgroundColor = [UIColor lightGrayColor];
+            //            btn.backgroundColor = [UIColor lightGrayColor];
         } action:^(UIButton *btn) {
             [self.typeView disMiss];
             btn.height = 0;
