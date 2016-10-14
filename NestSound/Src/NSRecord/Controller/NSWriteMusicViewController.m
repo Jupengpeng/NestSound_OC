@@ -664,7 +664,8 @@ Boolean plugedHeadset;
     UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
     
     self.navigationItem.rightBarButtonItem = next;
-//    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
 //    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 //    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
     
@@ -1053,9 +1054,9 @@ Boolean plugedHeadset;
         
         self.waveform.timeScrollView.userInteractionEnabled=NO;
 
-        if (self.player.currentTime == 0) {
-            [self.waveform.waveView removeAllPath];
-        }
+//        if (self.player.currentTime == 0) {
+//            [self.waveform.waveView removeAllPath];
+//        }
         if (![NSTool canRecord]) {
             UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"未获取麦克风权限" message:@"请进入 设置-隐私-麦克风，获取麦克风权限后重试" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好的", nil];
             [alertview show];
@@ -1261,6 +1262,7 @@ Boolean plugedHeadset;
     self.waveform.waveView.waveDistance=0;
     self.wavFilePath = nil;
     [self.link setPaused:YES];
+    [self.waveLink setPaused:YES];
     [self stopPlaysound:self.player];
     [self stopPlaysound:self.player2];
     [self stopPlaysound:self.player3];

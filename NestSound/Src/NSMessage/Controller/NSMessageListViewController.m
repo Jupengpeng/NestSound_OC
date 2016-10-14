@@ -333,7 +333,7 @@ static NSString * const preserveCellID = @"preserveCellID";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.isUpvote = NO;
-        cell.upvoteMessage = messageArr[row];
+        cell.collectionMessage = messageArr[row];
         return cell;
         
     }else if (messageType == SystemMessageType){
