@@ -89,7 +89,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    
+    self.navigationController.navigationBar.hidden = NO;
     ++page;
     if (JUserID == nil&&page ==1) {
       NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];

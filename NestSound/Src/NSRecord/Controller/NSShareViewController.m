@@ -9,7 +9,7 @@
 #import "NSShareViewController.h"
 #import "NSShareCollectionViewCell.h"
 #import "NSPreserveApplyController.h"
-
+#import "NSPublicLyricModel.h"
 @interface NSShareViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
     NSMutableArray * shareModuleAry;
@@ -150,7 +150,12 @@ static NSString *identifier = @"identifier";
 
 - (void)preserveApply {
     NSPreserveApplyController *preserveController = [[NSPreserveApplyController alloc] init];
-//    preserveController.itemUid = self.itemUid;
+    if (_lyricOrMusic) {
+        preserveController.sortId = @"2";
+    }else{
+        preserveController.sortId = @"1";
+    }
+    preserveController.itemUid = self.publicModel.itemID;
     [self.navigationController pushViewController:preserveController animated:YES];
 }
 #pragma mark - chose avaiableShareModule

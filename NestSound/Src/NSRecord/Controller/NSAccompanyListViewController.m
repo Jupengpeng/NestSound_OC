@@ -122,14 +122,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     
-    UIImageView *shaixuanView  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 20, 16)];
-    shaixuanView.userInteractionEnabled = YES;
-    shaixuanView.image = [UIImage imageNamed:@"ic_saixuan"];
-    UIButton * btn = [[UIButton alloc] initWithFrame:shaixuanView.frame ];
-    [shaixuanView addSubview:btn];
-    [btn addTarget:self action:@selector(filterClick:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:shaixuanView];
-    self.navigationItem.rightBarButtonItem = item;
+
     
     
     [self.view addSubview:self.tableView];
@@ -153,19 +146,25 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     
     
     self.filterView.confirmBlock = ^(NSInteger sortIndex,NSInteger categoryIndex,NSSimpleCategoryModel *categoryModel){
+        CHLog(@"选择了：%@  id 为 :%d",categoryModel.categoryName,categoryModel.categoryId);
         _classId = categoryModel.categoryId;
         _sortType = sortIndex;
         [weakSelf fetchAccompanyListDataWithIsLoadingMore:NO];
         
     };
-    //    self.filterView.categoryBlock = ^(NSInteger cateIndex,NSSimpleCategoryModel *categoryModel){
-    //
-    //        _classId = categoryModel.categoryId;
-    //
-    //        [weakSelf fetchAccompanyListDataWithIsLoadingMore:NO];
-    //    };
+    if (self.filterView.superview) {
+        [self.filterView removeFromSuperview];
+    }
     [self.navigationController.view addSubview:self.filterView];
     
+    UIImageView *shaixuanView  = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 16)];
+    shaixuanView.userInteractionEnabled = NO;
+    shaixuanView.image = [UIImage imageNamed:@"ic_saixuan"];
+    UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40) ];
+    [btn addSubview:shaixuanView];
+    [btn addTarget:self action:@selector(filterClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = item;
     /**
      *  各项初始化城第一个
      */
@@ -359,6 +358,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:_accompanyDetailListUrl]) {
+
                 /**
                  *  具体伴奏列表
                  */

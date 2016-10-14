@@ -32,6 +32,18 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     [self configurePreserveListView];
     [self fetchPreserveListDataWithIsLoadingMore:NO];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.needRefresh) {
+        [preserveTab.pullToRefreshView triggerRefresh];
+    }
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.needRefresh = NO;
+}
+
 - (void)fetchPreserveListDataWithIsLoadingMore:(BOOL)isLoadingMore {
     self.requestType = NO;
     if (!isLoadingMore) {

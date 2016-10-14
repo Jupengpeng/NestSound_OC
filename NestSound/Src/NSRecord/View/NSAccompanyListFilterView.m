@@ -213,12 +213,12 @@
     
     NSInteger index = clickedButton.tag - kButtonBaseTag;
     
-    NSSimpleCategoryModel *categoryModel = [_listModel.simpleCategoryList.simpleCategory objectAtIndex:index];
+    NSSimpleCategoryModel *categoryModel = [_listModel.simpleCategoryList.simpleCategory objectAtIndex:(_listModel.simpleCategoryList.simpleCategory.count- 1 - index)];
     _categoryModel = categoryModel;
     _categoryIndex = index;
-    if (self.categoryBlock) {
-        self.categoryBlock(index,categoryModel);
-    }
+//    if (self.categoryBlock) {
+//        self.categoryBlock(index,categoryModel);
+//    }
 }
 
 - (void)confirmClick{

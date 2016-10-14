@@ -142,6 +142,8 @@
     if ([url.absoluteString containsString:@"pay"]) {
         return [Pingpp handleOpenURL:url withCompletion:nil];
         
+    }else if([url.absoluteString containsString:@"response_from_qq"]){
+        return [QQApiInterface handleOpenURL:url delegate:nil];
     }else
     {
         BOOL result = [UMSocialSnsService handleOpenURL:url];
