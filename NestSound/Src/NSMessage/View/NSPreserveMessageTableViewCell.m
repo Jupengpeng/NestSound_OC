@@ -121,16 +121,19 @@
 }
 - (void)setPreserveModel:(NSPreserveMessage *)preserveModel {
     _preserveModel = preserveModel;
+    titleLabel.text = preserveModel.title;
     if ([preserveModel.pushtype isEqualToString:@"copyrighSuccess"]) {
-        avatarImg.image = [UIImage imageNamed:@"2.2_preserve_success"];
+        avatarImg.image = [UIImage imageNamed:@"2.2_preerve_success"];
     } else if ([preserveModel.pushtype isEqualToString:@"copyrighFail"]){
         avatarImg.image = [UIImage imageNamed:@"2.2_preserve_fail"];
     } else if ([preserveModel.pushtype isEqualToString:@"activityFinish"]||[preserveModel.pushtype isEqualToString:@"newActivity"]) {
+        titleLabel.text = @"活动通知";
         avatarImg.image = [UIImage imageNamed:@"2.2_message_activity"];
     } else if ([preserveModel.pushtype isEqualToString:@"addToSonglist"]||[preserveModel.pushtype isEqualToString:@"recommedToIndex"]) {
+        titleLabel.text = @"推荐通知";
         avatarImg.image = [UIImage imageNamed:@"2.2_message_recommend"];
     }
-    titleLabel.text = preserveModel.title;
+    
     dateLabel.text = [date datetoLongLongStringWithDate:preserveModel.time];
     contentLabel.text = preserveModel.content;
 }

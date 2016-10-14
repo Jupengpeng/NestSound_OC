@@ -17,7 +17,7 @@
 @property (nonatomic,copy) NSString * accompaniment;
 @property (nonatomic,copy) NSString * createTime;
 @property (nonatomic,copy) NSString * productImg;
-@property (nonatomic,copy) NSString * preserveTime;
+@property (nonatomic,assign) NSTimeInterval preserveTime;
 @property (nonatomic,copy) NSString * preserveNo;
 @property (nonatomic,assign) long type;
 @end
@@ -31,7 +31,7 @@
 @property (nonatomic,copy) NSString * userPhone;
 @property (nonatomic,copy) NSString * userName;
 @property (nonatomic,copy) NSString * userIDNo;
-@property (nonatomic,copy) NSString * userIdentity;
+@property (nonatomic,assign) int userIdentity;
 @end
 
 @interface NSPersonListModel : NSBaseModel

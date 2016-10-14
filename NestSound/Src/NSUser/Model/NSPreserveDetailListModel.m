@@ -17,7 +17,7 @@
              @"lyricAuthor":@"lyricAuthor",
              @"songAuthor":@"songAuthor",
              @"accompaniment":@"accompaniment",
-             @"createTime":@"createTime",
+             @"createTime":@"createtime",
              @"productImg":@"image",
              @"preserveTime":@"preserveDate",
              @"preserveNo":@"preserveID",
@@ -43,7 +43,7 @@
     return @{@"userPhone":@"cPhone",
              @"userName":@"cUserName",
              @"userIDNo":@"cCardId",
-             @"userIdentity":@"c_sort_id"};
+             @"userIdentity":@"cType"};
 }
 
 @end
@@ -73,8 +73,8 @@
 
 - (NSDictionary *)modelKeyJSONKeyMapper {
     
-    return @{@"productModel":@"data",
-             @"personModel":@"data",
+    return @{@"productList":@"data",
+             @"personList":@"data",
              @"preserveResultModel":@"data"};
 }
 

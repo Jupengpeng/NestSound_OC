@@ -10,7 +10,6 @@
 
 @interface NSNewMusicViewController : NSBaseViewController
 
-@property (nonatomic,copy) NSString * MusicType;
 
--(instancetype)initWithType:(NSString *)type andIsLyric:(BOOL)isLyric_;
+-(instancetype)initWithType:(NSString *)type andIsLyric:(BOOL)isLyric_ andIsSecret:(BOOL)isSecret_;
 @end

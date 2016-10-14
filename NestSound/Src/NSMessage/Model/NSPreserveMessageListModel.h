@@ -17,6 +17,7 @@
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * pushtype;
 @property (nonatomic,copy) NSString * content;
+@property (nonatomic,copy) NSString * orderNo;
 
 @end
 @interface NSPreserveMessageListModel : NSBaseModel

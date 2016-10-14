@@ -13,6 +13,10 @@
 {
     NSString *preserveId;
     long sortId;
+    UITableView *preserveDetailTab;
+    NSProductModel * productModel;
+    NSPersonModel  * personModel;
+    NSPreserveResultModel *resultModel;
 }
 @property (nonatomic, strong) UIImageView *oneImageView;
 @end
@@ -35,7 +39,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     
     self.requestType = NO;
     
-    self.requestParams = @{@"token":LoginToken,@"id":preserveId,@"sort_id":@(sortId),@"uid":JUserID};
+    self.requestParams = @{@"token":LoginToken,@"id":preserveId};
     
     self.requestURL = preserveDetailUrl;
 }
@@ -43,15 +47,18 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     if (requestErr) {
         
     } else {
-        
-        
+        NSPreserveDetailListModel *preserveDetailModel = (NSPreserveDetailListModel *)parserObject;
+        productModel = preserveDetailModel.productList.productModel;
+        personModel = preserveDetailModel.personList.personModel;
+        resultModel = preserveDetailModel.preserveResultModel;
+        [preserveDetailTab reloadData];
     }
 }
 - (void)setupPreserveDetailUI {
     
     self.title = @"保全申请";
     
-    UITableView *preserveDetailTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStyleGrouped];
+    preserveDetailTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStyleGrouped];
     
     preserveDetailTab.dataSource = self;
     
@@ -95,18 +102,18 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *titles1 = @[@"保全用户信息",@"保全人姓名",@"手机号",@"证件号码",@"保全身份"];
-    NSArray *titles2 = @[@"保全人姓名",@"手机号",@"证件号码",@"保全身份"];
+    NSArray *titles = @[@"保全用户信息",@"保全人姓名",@"手机号",@"证件号码",@"保全身份"];
+//    NSArray *titles2 = @[@"保全人姓名",@"手机号",@"证件号码",@"保全身份"];
     
     UITableViewCell * userMessageCell = [tableView dequeueReusableCellWithIdentifier:preserveDetailCellIdentifier];
     UITableViewCell * preserveStatusCell = [[UITableViewCell alloc] init];
     NSPreserveWorkInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSPreserveWorkInfoCellId"];
     if (indexPath.section == 1) {
         if (!cell) {
-            cell = [[NSPreserveWorkInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSPreserveWorkInfoCellId"];
+             cell = [[NSPreserveWorkInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSPreserveWorkInfoCellId"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell setupDataWithSortId:@"3"];
+        [cell setupDataWithProductModel:productModel];
         return cell;
     } else  if (indexPath.section == 0){
         if (!userMessageCell) {
@@ -141,11 +148,42 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
             
         }];
         if (!indexPath.section) {
-            leftLabel.text = titles1[indexPath.row];
-            rightLabel.text = titles1[indexPath.row];
+            switch (indexPath.row) {
+                case 1:
+                    rightLabel.text = personModel.userName;
+                    break;
+                case 2:
+                    rightLabel.text = personModel.userPhone;
+                    break;
+                case 3:
+                    rightLabel.text = personModel.userIDNo;
+                    break;
+                case 4:
+                {
+                    switch (personModel.userIdentity) {
+                        case 1:
+                            rightLabel.text = @"作曲者";
+                            break;
+                        case 2:
+                            rightLabel.text = @"作词者";
+                            break;
+                        case 3:
+                            rightLabel.text = @"作曲者,作词者";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                default:
+                    break;
+            }
+        }
+        if (!indexPath.section) {
+            leftLabel.text = titles[indexPath.row];
+            
         } else {
-            leftLabel.text = titles2[indexPath.row];
-            rightLabel.text = titles2[indexPath.row];
+            leftLabel.text = titles[indexPath.row];
+            
         }
         if (!indexPath.section&&!indexPath.row) {
             leftLabel.textColor = [UIColor lightGrayColor];
@@ -163,13 +201,63 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
         
         preserveState.frame = CGRectMake(15, 10, ScreenWidth - 30, 40);
         
-        preserveState.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
-        
         preserveState.layer.cornerRadius = 20;
         
         preserveState.layer.masksToBounds = YES;
-        
-        [preserveState setTitle:@"申请中..." forState:UIControlStateNormal];
+        switch (resultModel.status) {
+            case 1:
+                [preserveState setTitle:@"查看证书" forState:UIControlStateNormal];
+                preserveState.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+                break;
+            case 2:
+                [preserveState setTitle:@"申请中..." forState:UIControlStateNormal];
+                preserveState.backgroundColor = [UIColor lightGrayColor];
+                break;
+            case 3:
+            {
+                [preserveState setTitle:@"申请失败" forState:UIControlStateNormal];
+                preserveState.backgroundColor = [UIColor lightGrayColor];
+                TTTAttributedLabel *messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(ScreenWidth/4 + 20, 60, ScreenWidth/2, 40)];
+                messageLabel.font = [UIFont systemFontOfSize:13];
+                messageLabel.textColor = [UIColor lightGrayColor];
+                messageLabel.textAlignment = NSTextAlignmentCenter;
+                messageLabel.lineBreakMode = NSLineBreakByCharWrapping;
+                messageLabel.numberOfLines = 0;
+                messageLabel.lineSpacing = 3;
+                messageLabel.delegate = self;
+                messageLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+                [messageLabel setText:@"您的保全订单申请失败,请联系客服:0571-86693441" afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
+                 {
+                     //设置可点击文字的范围
+                     NSRange boldRange = [[mutableAttributedString string] rangeOfString:@"0571-86693441" options:NSCaseInsensitiveSearch];
+                     
+                     //设定可点击文字的的大小
+                     UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:13];
+                     CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+                     
+                     if (font) {
+                         
+                         //设置可点击文本的大小
+                         [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+                         
+                         //设置可点击文本的颜色
+                         [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
+                         
+                         CFRelease(font);
+                         
+                     }
+                     return mutableAttributedString;
+                 }];
+                [messageLabel addLinkToURL:nil withRange:NSMakeRange(17, 13)];
+                [preserveStatusCell.contentView addSubview:messageLabel];
+                UIImageView *tipImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth/4, CGRectGetMidY(messageLabel.frame) - 8, 16, 16)];
+                tipImgView.image = [UIImage imageNamed:@"2.2_preserveFailed"];
+                [preserveStatusCell.contentView addSubview:tipImgView];
+                break;
+        }
+            default:
+                break;
+        }
         
         [preserveState setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         
@@ -177,42 +265,6 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
         
         [preserveStatusCell.contentView addSubview:preserveState];
         
-        TTTAttributedLabel *messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(ScreenWidth/4 + 20, 60, ScreenWidth/2, 40)];
-        messageLabel.font = [UIFont systemFontOfSize:13];
-        messageLabel.textColor = [UIColor lightGrayColor];
-        messageLabel.textAlignment = NSTextAlignmentCenter;
-        messageLabel.lineBreakMode = NSLineBreakByCharWrapping;
-        messageLabel.numberOfLines = 0;
-        messageLabel.lineSpacing = 3;
-        messageLabel.delegate = self;
-        messageLabel.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
-        [messageLabel setText:@"您的保全订单申请失败,请联系客服:0571-86693441" afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
-         {
-             //设置可点击文字的范围
-             NSRange boldRange = [[mutableAttributedString string] rangeOfString:@"0571-86693441" options:NSCaseInsensitiveSearch];
-             
-             //设定可点击文字的的大小
-             UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:13];
-             CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-             
-             if (font) {
-                 
-                 //设置可点击文本的大小
-                 [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
-                 
-                 //设置可点击文本的颜色
-                 [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
-                 
-                 CFRelease(font);
-                 
-             }
-             return mutableAttributedString;
-         }];
-        [messageLabel addLinkToURL:nil withRange:NSMakeRange(17, 13)];
-        [preserveStatusCell.contentView addSubview:messageLabel];
-        UIImageView *tipImgView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth/4, CGRectGetMidY(messageLabel.frame) - 8, 16, 16)];
-        tipImgView.image = [UIImage imageNamed:@"2.2_preserveFailed"];
-        [preserveStatusCell.contentView addSubview:tipImgView];
         return preserveStatusCell;
     }
     
@@ -224,7 +276,11 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     } else if (indexPath.section == 1) {
         return 185;
     } else {
-        return 120;
+        if (resultModel.status == 3) {
+            return 120;
+        } else {
+            return 60;
+        }
     }
     
 }

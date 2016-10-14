@@ -11,7 +11,7 @@
 @interface WaveView : UIView
 
 @property (nonatomic, strong) NSMutableArray *waveArray;
-@property (nonatomic, assign) NSInteger desibelNum;
+@property (nonatomic, assign) CGFloat desibelNum;
 @property (nonatomic, assign) NSInteger count;
 
 @property (nonatomic, assign) CGFloat waveDistance;

@@ -282,10 +282,10 @@ static NSString * const headerView = @"HeaderView";
 - (void)hotMusic:(UIButton *)topBtn {
 
     if (isMusic) {
-        NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:NO];
+        NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:NO andIsSecret:YES];
         [self.navigationController pushViewController:hotMusicVC animated:YES];
     }else{
-        NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:YES];
+        NSNewMusicViewController * hotMusicVC = [[NSNewMusicViewController alloc] initWithType:@"hot" andIsLyric:YES andIsSecret:YES];
         [self.navigationController pushViewController:hotMusicVC animated:YES];
     }
    
@@ -296,12 +296,12 @@ static NSString * const headerView = @"HeaderView";
     
     
     if (isMusic) {
-        NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:@"lal" andIsLyric:NO];
+        NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:@"lal" andIsLyric:NO andIsSecret:YES];
         
         [self.navigationController pushViewController:newMusic animated:YES];
 
     }else{
-        NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:@"lal" andIsLyric:YES];
+        NSNewMusicViewController *newMusic = [[NSNewMusicViewController alloc] initWithType:@"lal" andIsLyric:YES andIsSecret:YES];
         
         [self.navigationController pushViewController:newMusic animated:YES];
 

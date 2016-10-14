@@ -15,6 +15,7 @@
 {
     int currentPage;
     NSString *url;
+    UIImageView *emptyImage;
 }
 
 @property (nonatomic, strong) UITableView *collectionTab;
@@ -53,18 +54,16 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
             if ([operation.urlTag isEqualToString:url]) {
                 NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
-                    
+                    [_collectionTab.pullToRefreshView stopAnimating];
                     self.myCollectionAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
                     
                 }else{
-                    
+                    [_collectionTab.infiniteScrollingView stopAnimating];
                     [self.myCollectionAry addObjectsFromArray:discoverMore.moreLyricList];
                                     }
                 [_collectionTab reloadData];
-                if (!operation.isLoadingMore) {
-                    [_collectionTab.pullToRefreshView stopAnimating];
-                }else{
-                    [_collectionTab.infiniteScrollingView stopAnimating];
+                if (!self.myCollectionAry.count) {
+                    emptyImage.hidden = NO;
                 }
                 
             }
@@ -103,6 +102,15 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
             [wSelf fetchCollectionDataWithIsLoadingMore:YES];
         }
     }];
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    emptyImage.hidden = YES;
+    
+    emptyImage.centerX = ScreenWidth/2;
+    
+    emptyImage.y = 100;
+    
+    [self.view addSubview:emptyImage];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

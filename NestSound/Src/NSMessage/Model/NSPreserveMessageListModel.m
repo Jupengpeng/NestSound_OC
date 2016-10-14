@@ -15,7 +15,8 @@
     return @{@"time":@"createtime",
              @"title":@"title",
              @"pushtype":@"pushtype",
-             @"content":@"content"};
+             @"content":@"content",
+             @"orderNo":@"orderNo"};
 }
 
 @end
