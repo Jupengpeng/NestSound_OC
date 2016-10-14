@@ -338,6 +338,8 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         } else if (row == 2) {
             
 //            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
+//            preserveListVC.sortId = @"1";
+//            preserveListVC.itemUid = @"2788";
 //            [self.navigationController pushViewController:preserveListVC animated:YES];
             NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
             [self.navigationController pushViewController:preserveListVC animated:YES];

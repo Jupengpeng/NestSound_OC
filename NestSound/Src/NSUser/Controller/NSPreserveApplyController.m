@@ -20,6 +20,8 @@
 #import "Pingpp.h"
 #import "NSPreserveApplyModel.h"
 #import "NSPreserveListViewController.h"
+#import "NSUserViewController.h"
+#import "NSBaseNavigationController.h"
 @interface NSPreserveApplyController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     UILabel *_totalPrice;
@@ -165,6 +167,7 @@
 
 - (void)fechOrderNo{
     
+    
     self.requestType = NO;
     self.requestParams = @{@"uid":JUserID,
                            @"itemid":[NSString stringWithFormat:@"%ld",self.itemUid],
@@ -207,11 +210,25 @@
                 CHLog(@"支付回调recordNo ：%@",self.orderNo);
                 //                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"支付订单%@成功回调成功",self.orderNo]];
                 _submitButton.enabled = YES;
-                NSLog(@"navigationView  子视图 %@",self.navigationController.childViewControllers);
+                NSLog(@"navigationView  子视图 %@  tabbar  姿势图 %@",self.navigationController.childViewControllers,self.tabBarController.childViewControllers);
                 if ([self.navigationController.childViewControllers[1] isKindOfClass:[NSPreserveListViewController class]]) {
                     NSPreserveListViewController *perservelistController = (NSPreserveListViewController *)self.navigationController.childViewControllers[1];
                     perservelistController.needRefresh = YES;
                     [self.navigationController popToViewController:perservelistController animated:YES];
+
+                }else{
+                    NSUserViewController *userViewController = [[NSUserViewController alloc]init];;
+                    NSBaseNavigationController *fourthNavController = (NSBaseNavigationController *)self.tabBarController.childViewControllers[3];
+                    if ([fourthNavController.childViewControllers.firstObject isKindOfClass:[NSUserViewController class]]) {
+                        userViewController = fourthNavController.childViewControllers.firstObject;
+                        
+                    }
+                    NSMutableArray * array =[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+                    NSPreserveListViewController *listController = [[NSPreserveListViewController alloc]init];
+                    array = [NSMutableArray arrayWithObjects:userViewController,listController, nil];
+                    [self.navigationController pushViewController:listController animated:YES];
+                    
+                    [listController.navigationController setViewControllers:array animated:YES];
 
                 }
             }
