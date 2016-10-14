@@ -214,6 +214,8 @@ Boolean plugedHeadset;
     
     if ([self.recorder isRecording])
     {
+        lyricView.lyricText.userInteractionEnabled = YES;
+        lyricView.lyricView.scrollEnabled = YES;
         self.waveform.timeScrollView.userInteractionEnabled=YES;
         
         [self.waveLink setPaused:YES];
@@ -654,7 +656,7 @@ Boolean plugedHeadset;
     timerNumPlay_temp=0;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveClearRecord:) name:@"clearRecordNotification" object:nil];
     
-    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//    [self addObserver:self forKeyPath:@"distantKeyPathTemp" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecorder)
                                                  name:@"pausePlayer"
                                                object:nil];
@@ -663,7 +665,7 @@ Boolean plugedHeadset;
     
     self.navigationItem.rightBarButtonItem = next;
 //    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+//    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 //    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
     
 //    NSArray *array = @[next, importLyric];
@@ -1080,13 +1082,11 @@ Boolean plugedHeadset;
                     self.player.rate = 1.0;
                     self.player.delegate = self;
                     totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
-                    //                self.player.meteringEnabled=YES;
                     [self.player prepareToPlay];
                     
                 }
                 
                 [self addTimer];
-//                [[NSToastManager manager ] showtoast:@"开始录音"];
                 
                 self.isPlay = NO;
                 
@@ -1103,10 +1103,6 @@ Boolean plugedHeadset;
                     
                 }
                 
-//                [self.link setPaused:NO];
-//                [self.player play];
-//                [self startRecorder];
-                
                 btn.selected = !btn.selected;
             } else {
                 
@@ -1114,9 +1110,9 @@ Boolean plugedHeadset;
             }
             
         } else {
-
+            
             [self pauseRecorder];
-           
+            
         }
         
          curtime3=0;
@@ -1429,6 +1425,8 @@ Boolean plugedHeadset;
     timerImgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"2.0_%d",num]];
     
     if (num == -1) {
+        lyricView.lyricText.userInteractionEnabled = NO;
+        lyricView.lyricView.scrollEnabled = NO;
         timerImgView.hidden = YES;
         [self.waveLink setPaused:NO];
         [self.link setPaused:NO];

@@ -170,11 +170,10 @@
 -(void)setUpvoteMessage:(UpvoteMessage *)upvoteMessage
 {
  
-    
     _upvoteMessage = upvoteMessage;
     [headerImage setDDImageWithURLString:_upvoteMessage.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
 
-    createDateLabel.text = [date datetoStringWithDate:_upvoteMessage.add_time];
+    createDateLabel.text = [date datetoLongLongStringWithDate:_upvoteMessage.add_time];
 
     [titlePage setDDImageWithURLString:_upvoteMessage.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     nickNameLabel.text = _upvoteMessage.nickName;

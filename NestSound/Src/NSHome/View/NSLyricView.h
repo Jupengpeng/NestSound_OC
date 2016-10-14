@@ -11,5 +11,5 @@
 @interface NSLyricView : UIView
 
 @property (nonatomic, strong) UITextView *lyricText;
-
+@property (nonatomic, strong) UIScrollView *lyricView;
 @end

@@ -290,16 +290,16 @@ static NSString * const preserveCellID = @"preserveCellID";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSPreserveMessage *model = messageArr[indexPath.section];
-    NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
     
-    CGFloat height = [model.content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
     if (messageType == UpvoteMessageType) {
         return 140;
     }else if (messageType == CollectionMessageType){
         return 140;
     }else if (messageType == SystemMessageType || messageType == PreserveMessageType){
+        NSPreserveMessage *model = messageArr[indexPath.section];
+        NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
         
+        CGFloat height = [model.content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
         return 65 + height;
 //
     }else if (messageType == CommentMessageType){
