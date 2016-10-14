@@ -103,7 +103,7 @@
     
     [listenImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(playCountBk.mas_centerY);
-        make.left.equalTo(playCountBk.mas_left).with.offset(9);
+        make.left.equalTo(playCountBk.mas_left).with.offset(6);
         
     }];
     

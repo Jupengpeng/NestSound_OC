@@ -29,28 +29,27 @@
 
 - (void)setupUI {
     
+    self.lyricView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
     
-//    UIScrollView *lyricView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
-//    
-//    lyricView.contentSize = CGSizeMake(self.width, self.height + 1);
-//    
-//    lyricView.delegate = self;
-//    
-//    [self addSubview:lyricView];
+    self.lyricView.contentSize = CGSizeMake(self.width, self.height + 1);
     
-    self.lyricText = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, self.width - 30, self.height - 15)];
+    self.lyricView.delegate = self;
+    
+    [self addSubview:self.lyricView];
+    
+    self.lyricText = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, self.lyricView.width - 30, self.lyricView.height - 15)];
         
     self.lyricText.font = [UIFont systemFontOfSize:15];
     
-    [self addSubview:self.lyricText];
+    [self.lyricView addSubview:self.lyricText];
 
 }
 
 
 #pragma mark - UIScrollViewDelegate
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    
-//    [self.lyricText resignFirstResponder];
-//}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    
+    [self.lyricText resignFirstResponder];
+}
 
 @end

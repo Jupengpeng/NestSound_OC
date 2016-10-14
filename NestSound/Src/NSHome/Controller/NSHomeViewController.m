@@ -389,7 +389,7 @@ static NSString * const musicSayData = @"musicSayData";
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:RecommendCell forIndexPath:indexPath];
         
         NSRecommend * recommendModel =  [recommendAry objectAtIndex:indexPath.row];
-        cell.recommend = recommendModel;
+        cell.recommend = (NSMusicModel *)recommendModel;
         cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
         cell.contentView.layer.borderWidth = 1;
 

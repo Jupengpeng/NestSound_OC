@@ -25,7 +25,7 @@
 @property (nonatomic,copy) NSString * titleImageUrl;
 @property (nonatomic,copy) NSString * titleImageUrls;
 @property (nonatomic,copy) NSString * workName;
-@property (nonatomic,assign) NSInteger add_time;
+@property (nonatomic,assign) NSTimeInterval add_time;
 @end
 
 
