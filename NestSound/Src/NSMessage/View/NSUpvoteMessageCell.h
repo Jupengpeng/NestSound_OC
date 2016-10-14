@@ -13,8 +13,8 @@
 
 @property (nonatomic,assign) BOOL isUpvote;
 
-@property (nonatomic,strong)UpvoteMessage * upvoteMessage;
-
+@property (nonatomic,strong) UpvoteMessage * upvoteMessage;
+@property (nonatomic,strong) UpvoteMessage * collectionMessage;
 
 
 @end

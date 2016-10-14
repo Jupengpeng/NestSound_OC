@@ -28,14 +28,14 @@
 //    [self.waveArray addObject:@(self.desibelNum)];
 }
 
-
+ 
 - (void)drawRect:(CGRect)rect{
     
     self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 29 - self.desibelNum/2, 1.0f,self.desibelNum)];//21
     self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     [self.waveArray addObject:self.realTimeView];
 
-    self.count++;
+//    self.count++;
 
     [self addSubview:self.realTimeView];
    
@@ -44,7 +44,7 @@
 - (void)drawRect:(CGRect)rect {
     
     NSArray *numArray = [[self.waveArray reverseObjectEnumerator] allObjects];
-    
+    ／
     for (int i = 0; i < numArray.count; i++) {
         
         if (2 * i >= self.width) {

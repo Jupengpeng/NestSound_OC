@@ -181,4 +181,18 @@
 
     authorNameLabel.text = _upvoteMessage.author;
 }
+- (void)setCollectionMessage:(UpvoteMessage *)collectionMessage {
+    
+    _collectionMessage = collectionMessage;
+    [headerImage setDDImageWithURLString:collectionMessage.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    
+    createDateLabel.text = [date datetoLongLongStringWithDate:collectionMessage.intabletime];
+    
+    [titlePage setDDImageWithURLString:collectionMessage.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    nickNameLabel.text = collectionMessage.nickName;
+    workNameLabel.text = collectionMessage.workName;
+    
+    authorNameLabel.text = collectionMessage.author;
+    
+}
 @end
