@@ -7,6 +7,7 @@
 //
 
 #import "NSPreserveUserCell.h"
+#import "NSPreserveApplyModel.h"
 
 @interface NSPreserveUserCell ()
 
@@ -64,6 +65,12 @@
     return self;
 }
 
+- (void)setPersonModel:(NSPreservePersonInfoModel *)personModel{
+    _personModel = personModel;
+    self.nameLaebl.text =personModel.cUserName;
+    self.identifierLabel.text = personModel.cCardId;
+    self.phoneLabel.text = personModel.cPhone;
+}
 
 - (void)setupData{
     self.nameLaebl.text = @"Json Mraz";
@@ -73,7 +80,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

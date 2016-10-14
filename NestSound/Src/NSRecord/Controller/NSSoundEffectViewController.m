@@ -90,6 +90,7 @@
     [self endPlaying];
 }
 #pragma mark -fetchData
+//获取合成音频
 - (void)fetchTuningMusic {
     
     [self.alertView show];
@@ -112,6 +113,8 @@
                 NSTunMusicModel * tunMusic = (NSTunMusicModel *)parserObject;
                 
                 playerUrl = tunMusic.tunMusicModel.MusicPath;
+
+                
                 self.waveform.timeScrollView.userInteractionEnabled=YES;
                 
                 switch (effectId) {

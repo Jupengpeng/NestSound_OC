@@ -67,12 +67,11 @@
     [_toolBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
     [_toolBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self addSubview:_toolBtn];
-}
-
--(void)layoutSubviews
-{
-    [super layoutSubviews];
-    //constraints
+    
+    
+    
+    
+    
     [_importLyricBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.bottom.equalTo(self.mas_bottom);
@@ -84,7 +83,7 @@
         make.bottom.equalTo(self.mas_bottom);
         make.top.equalTo(self.mas_top);
         make.left.equalTo(_importLyricBtn.mas_right);
-       make.width.mas_equalTo(ScreenWidth/3);
+        make.width.mas_equalTo(ScreenWidth/3);
     }];
     
     [_toolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,6 +92,13 @@
         make.left.equalTo(_LyricesBtn.mas_right);
         make.width.mas_equalTo(ScreenWidth/3);
     }];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    //constraints
+  
 
 
 }
@@ -162,6 +168,19 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+
+}
+
+- (void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [self setupGuideView];
+
 }
 
 
@@ -580,12 +599,7 @@
 }
 
 
-- (void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
 
-    [self setupGuideView];
-
-}
 
 - (void)setupGuideView{
     BOOL isLyricInited = [[NSUserDefaults standardUserDefaults] boolForKey:@"isLyricInited"];

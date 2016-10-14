@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class NSPreservePersonInfoModel;
 @interface NSPreserveUserCell : UITableViewCell
 
+
+@property (nonatomic,strong) NSPreservePersonInfoModel *personModel;
 - (void)setupData;
 
 @end

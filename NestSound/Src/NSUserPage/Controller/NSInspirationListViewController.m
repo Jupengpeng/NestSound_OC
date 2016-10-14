@@ -30,6 +30,9 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [super viewDidLoad];
     [self configureInspirationListUI];
     [self fectInspirationDataWithIsLoadingMore:NO];
+    
+    //无数据显示
+    [self.view addSubview:self.noDataView];
 }
 - (void)fectInspirationDataWithIsLoadingMore:(BOOL)isLoadingMore {
     self.requestType = YES;
@@ -63,6 +66,14 @@ static NSString *cellIdentifier = @"cellIdentifier";
                     
                     [self.myInspirationAry addObjectsFromArray:discoverMore.moreLyricList];
                 }
+                
+                if (!self.myInspirationAry.count) {
+                    self.noDataView.hidden = NO;
+                }else{
+                    self.noDataView.hidden = YES;
+
+                }
+                
                 [_inspirationTab reloadData];
                 if (!operation.isLoadingMore) {
                     [_inspirationTab.pullToRefreshView stopAnimating];

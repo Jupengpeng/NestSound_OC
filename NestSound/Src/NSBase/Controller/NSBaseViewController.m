@@ -122,6 +122,19 @@
     return  self.requestURL;
 }
 
-
+- (UIImageView *)noDataView{
+    if (!_noDataView) {
+        _noDataView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+        
+        _noDataView.hidden = YES;
+        
+        _noDataView.centerX = ScreenWidth/2;
+        
+        _noDataView.y = 100;
+        
+        [self.view addSubview:_noDataView];
+    }
+    return _noDataView;
+}
 
 @end

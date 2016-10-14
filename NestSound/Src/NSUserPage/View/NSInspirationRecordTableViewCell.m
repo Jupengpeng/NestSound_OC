@@ -212,7 +212,7 @@
 //    }
     
     NSDateFormatter * dateFormater = [[NSDateFormatter alloc] init];
-    double timeStamp = _myInspirationModel.createDate / 1000;
+    double timeStamp = _myInspirationModel.createdate / 1000;
     NSDate * date = [NSDate dateWithTimeIntervalSince1970:timeStamp];
     
     [dateFormater setDateFormat: @"YYYY"];
