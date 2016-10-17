@@ -9,6 +9,7 @@
 #import "NSBaseNavigationController.h"
 #import "NSPlayMusicViewController.h"
 
+
 @interface NSBaseNavigationController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 {
@@ -41,13 +42,17 @@
         [self.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
         
         [self.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
-        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+        if ([viewController isKindOfClass:[NSUserPageViewController class]]) {
+            viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+        } else {
         
+            viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+        }
         viewController.hidesBottomBarWhenPushed = YES;
         
     }
     
-      [super pushViewController:viewController animated:animated];
+    [super pushViewController:viewController animated:animated];
     
 }
 

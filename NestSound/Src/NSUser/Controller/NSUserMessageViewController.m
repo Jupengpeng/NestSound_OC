@@ -40,7 +40,7 @@
     
     self.requestType = NO;
     
-    self.requestParams = @{@"token":LoginToken,@"bq_uid":JUserID};
+    self.requestParams = @{@"token":LoginToken,@"uid":JUserID};
     
     self.requestURL = preservePersonListUrl;
 }
@@ -53,37 +53,28 @@
     UITextField *textField2 = (UITextField*)[cell2 viewWithTag:180];
     UITableViewCell *cell3 = (UITableViewCell *)[userMessageTab viewWithTag:163];
     UITextField *textField3 = (UITextField*)[cell3 viewWithTag:180];
-//    if (!textField1.text.length) {
-//        [[NSToastManager manager] showtoast:@""];
-//        return;
-//    } else if (!textField2.text.length) {
-//        [[NSToastManager manager] showtoast:@""];
-//        return;
-//    } else if (!textField3.text.length) {
-//        [[NSToastManager manager] showtoast:@""];
-//        return;
-//    }
+    
     self.requestType = NO;
-    if (userMessageDic[@"bq_id"]) {
+    if (userMessageDic[@"id"]) {
         self.requestParams = @{@"token":LoginToken,
-                               @"bq_uid":JUserID,
-                               @"bq_id":userMessageDic[@"bq_id"],
-                               @"bq_username":
+                               @"uid":JUserID,
+                               @"id":userMessageDic[@"id"],
+                               @"cUserName":
                                    textField1.text,
-                               @"bq_creditID":
+                               @"cCardID":
                                    textField2.text,
-                               @"bq_phone":
+                               @"cPhone":
                                    textField3.text
                                };
     } else {
         self.requestParams = @{@"token":LoginToken,
-                               @"bq_uid":JUserID,
+                               @"uid":JUserID,
 //                               @"bq_id":@(NULL),
-                               @"bq_username":
+                               @"cUserName":
                                    textField1.text,
-                               @"bq_creditID":
+                               @"cCardID":
                                    textField2.text,
-                               @"bq_phone":
+                               @"cPhone":
                                    textField3.text
                                };
     }
@@ -209,11 +200,11 @@
     [rightTF addTarget:self action:@selector(textTouchEvent) forControlEvents:UIControlEventEditingChanged];
     if (userMessageDic) {
         if (indexPath.row ==1) {
-            rightTF.text = userMessageDic[@"bq_username"];
+            rightTF.text = userMessageDic[@"cUserName"];
         } else if (indexPath.row == 2) {
-            rightTF.text = userMessageDic[@"bq_creditID"];
+            rightTF.text = userMessageDic[@"cCardID"];
         } else {
-            rightTF.text = userMessageDic[@"bq_phone"];
+            rightTF.text = userMessageDic[@"cPhone"];
         }
     } else {
         if (indexPath.row ==1) {

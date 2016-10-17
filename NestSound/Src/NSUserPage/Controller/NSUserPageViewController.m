@@ -415,8 +415,10 @@ static NSString *ID3 = @"cell3";
 - (void)setupNewUI {
     
     //给导航条设置空的背景图
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//    UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"] style:UIBarButtonItemStylePlain target:self action:@selector(getBack)];
+//        self.navigationItem.leftBarButtonItem = back;
     //头像
     UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     

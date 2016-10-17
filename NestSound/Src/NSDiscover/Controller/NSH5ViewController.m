@@ -44,6 +44,7 @@ UIWebViewDelegate
     //webView
     h5WebView = [[UIWebView alloc] init];
     h5WebView.delegate = self;
+    h5WebView.dataDetectorTypes = UIDataDetectorTypeNone;
     h5WebView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [h5WebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.h5Url]]];
     [self.view addSubview:h5WebView];

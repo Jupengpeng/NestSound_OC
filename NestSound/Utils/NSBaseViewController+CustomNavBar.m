@@ -18,7 +18,6 @@
 #import "NSInspirationRecordViewController.h"
 #import "NSAccompanyListViewController.h"
 #import "NSMessageViewController.h"
-#import "NSUserPageViewController.h"
 #import "NSSelectLyricsViewController.h"
 #import "NSUserViewController.h"
 #import "NSMusicSayDetailController.h"
@@ -46,7 +45,16 @@
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor clearColor] renderSize:CGSizeMake(1, 0.5) ]];
         
     }
-    
+    if ([self isKindOfClass:[NSUserPageViewController class]]) {
+        //去除导航条变空后导航条留下的黑线
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+        self.extendedLayoutIncludesOpaqueBars = YES;
+        self.modalPresentationCapturesStatusBarAppearance = YES;
+        self.edgesForExtendedLayout = UIRectEdgeTop;
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    }
     if ([self isKindOfClass:[NSLyricViewController class]]) {
         
         self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
@@ -60,14 +68,7 @@
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor hexColorFloat:@"ffd705"] renderSize:CGSizeMake(1, 0.5)]];
     }
-    if ([self isKindOfClass:[NSUserPageViewController class]]) {
-        //去除导航条变空后导航条留下的黑线
-        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-        self.extendedLayoutIncludesOpaqueBars = YES;
-        self.modalPresentationCapturesStatusBarAppearance = YES;
-        self.edgesForExtendedLayout = UIRectEdgeTop;
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
+    
     
     if ([self isKindOfClass:[NSAccompanyListViewController class]] || [self isKindOfClass:[NSWriteMusicViewController class]] || [self isKindOfClass:[NSWriteLyricViewController class]] || [self isKindOfClass:[NSInspirationRecordViewController class]] || [self isKindOfClass:[NSH5ViewController class]]) {
         self.navigationController.navigationBar.hidden = NO;

@@ -360,7 +360,6 @@ static id _instance;
         
     } action:^(UIButton *btn) {
         
-        
         [wSelf.navigationController popViewControllerAnimated:YES];
         
     }];
