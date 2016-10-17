@@ -173,9 +173,10 @@
     self.lyricsTitle.text = GetLyricsName(productModel.lyricAuthor);
     self.musicTitle.text = GetMusicName(productModel.songAuthor);
     self.accompanyTitle.text = GetAccompanyName(productModel.accompaniment);
-    self.createTime.text = GetcreaTime(productModel.createTime);
+    self.createTime.text = GetcreaTime([date datetoLongLongStringWithDate:productModel.createTime]);
     self.preserveDate.text = GetPreserveDate([date datetoLongLongStringWithDate:productModel.preserveTime]);
     self.preserveCode.text = GetPreserveCode(productModel.preserveNo);
+    
 }
 
 - (void)layoutSubviews{
