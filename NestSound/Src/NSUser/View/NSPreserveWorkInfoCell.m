@@ -176,6 +176,7 @@
     self.createTime.text = GetcreaTime([date datetoLongLongStringWithDate:productModel.createTime]);
     self.preserveDate.text = GetPreserveDate([date datetoLongLongStringWithDate:productModel.preserveTime]);
     self.preserveCode.text = GetPreserveCode(productModel.preserveNo);
+    
 }
 
 - (void)layoutSubviews{

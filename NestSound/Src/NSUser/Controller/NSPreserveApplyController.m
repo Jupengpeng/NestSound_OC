@@ -93,13 +93,13 @@
     UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:11];
     CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
     [linkAttributes setValue:(__bridge id)font forKey:(NSString *)kCTFontAttributeName];
-    NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:@"提交申请即表示认同《音巢保全免责声明》" attributes:linkAttributes];
+    NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:@"保全相关协议请参考《音巢用户使用协议》" attributes:linkAttributes];
     tipLabel.attributedText = attributedStr;
     [linkAttributes setValue:[NSNumber numberWithBool:YES] forKey:(NSString *)kCTUnderlineStyleAttributeName];
     tipLabel.linkAttributes = linkAttributes;
     
     
-    NSRange linkRange = [tipLabel.text rangeOfString:@"《音巢保全免责声明》"];
+    NSRange linkRange = [tipLabel.text rangeOfString:@"《音巢用户使用协议》"];
     tipLabel.textColor = [UIColor hexColorFloat:@"afafaf"];
     tipLabel.textAlignment = NSTextAlignmentCenter;
     tipLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
@@ -229,7 +229,8 @@
                     [self.navigationController pushViewController:listController animated:YES];
                     
                     [listController.navigationController setViewControllers:array animated:YES];
-
+                    self.tabBarController.selectedIndex = 3;
+                    
                 }
             }
             
@@ -574,12 +575,9 @@
 #pragma mark - TTTAttributedLabelDelegate
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     
-    if (url.absoluteString.length) {
-        NSH5ViewController *h5Controller = [[NSH5ViewController alloc] init];
-        h5Controller.h5Url = url.absoluteString;
-        [self.navigationController pushViewController:h5Controller animated:YES];
-        
-    }
+    NSH5ViewController *h5Controller = [[NSH5ViewController alloc] init];
+    h5Controller.h5Url = @"http://www.yinchao.cn/html/xieyi.html";
+    [self.navigationController pushViewController:h5Controller animated:YES];
     
     
 }

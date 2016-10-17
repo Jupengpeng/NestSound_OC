@@ -110,6 +110,7 @@
         statusLabel.textColor = [UIColor redColor];
     } else if (preserveModel.status == 1) {
         statusLabel.text = @"保全成功";
+        statusLabel.textColor = [UIColor darkGrayColor];
     } else if (preserveModel.status == 2){
         statusLabel.text = @"保全认证中...";
         statusLabel.textColor = [UIColor orangeColor];
