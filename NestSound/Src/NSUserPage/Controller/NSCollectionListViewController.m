@@ -83,7 +83,7 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 - (void)configureCollectionListUI {
     self.title = @"收藏";
     
-    self.collectionTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.collectionTab = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _collectionTab.delegate = self;
     
     _collectionTab.dataSource = self;
@@ -96,16 +96,29 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     
     //    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    _collectionTab.showsVerticalScrollIndicator = NO;
+//    _collectionTab.showsVerticalScrollIndicator = NO;
     
     [self.view addSubview:_collectionTab];
+    
+    [_collectionTab mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
     
     UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [_collectionTab setTableFooterView:noLineView];
     
     WS(wSelf);
-    [_collectionTab addInfiniteScrollingWithActionHandler:^{
+    [_collectionTab addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchCollectionDataWithIsLoadingMore:NO];
+        }
+        
+    }];
+    [_collectionTab addDDInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
             return ;
         }else{

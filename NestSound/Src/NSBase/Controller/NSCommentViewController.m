@@ -29,7 +29,6 @@ static NSString * const kDefaultTip = @"来~说点什么";
     int type;
     long targetUserId;
     NSString * commentUrl;
-    NSString * postCommentUrl;
     
     NSString *_musicSayComUrl;
 }
@@ -304,10 +303,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
 }
 
 - (void)tap:(UIGestureRecognizer *)tap {
-    
-    
-    
-    
+
     inputField.tag = 2;
     
     maskView.hidden = YES;

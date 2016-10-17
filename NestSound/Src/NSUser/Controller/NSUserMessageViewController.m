@@ -153,6 +153,18 @@
     [finishBtn addTarget:self action:@selector(handleUserMessageFinish) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:finishBtn];
+    
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, ScreenHeight - 100, ScreenWidth, 20)];
+    
+    tipLabel.text = @"注:您的个人信息将仅用于保全服务";
+    
+    tipLabel.textAlignment = NSTextAlignmentCenter;
+    
+    tipLabel.font = [UIFont systemFontOfSize:13];
+    
+    tipLabel.textColor = [UIColor lightGrayColor];
+    
+    [self.view addSubview:tipLabel];
 }
 - (void)textTouchEvent {
     UITableViewCell *cell1 = (UITableViewCell *)[userMessageTab viewWithTag:161];
