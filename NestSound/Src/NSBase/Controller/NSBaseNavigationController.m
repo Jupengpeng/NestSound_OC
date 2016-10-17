@@ -8,7 +8,7 @@
 
 #import "NSBaseNavigationController.h"
 #import "NSPlayMusicViewController.h"
-
+#import "NSUserPageViewController.h"
 @interface NSBaseNavigationController ()
 {
     UIImageView * playStatus;
@@ -26,20 +26,24 @@
 #pragma -mark -stopPlayAnimation
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
-        if (self.childViewControllers.count >= 1) {
+    if (self.childViewControllers.count >= 1) {
         
         self.navigationBar.barTintColor = [UIColor whiteColor];
         
         [self.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)] forBarMetrics:UIBarMetricsDefault];
         
         [self.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
-        viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+        if ([viewController isKindOfClass:[NSUserPageViewController class]]) {
+            viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+        } else {
         
+            viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
+        }
         viewController.hidesBottomBarWhenPushed = YES;
         
     }
     
-      [super pushViewController:viewController animated:animated];
+    [super pushViewController:viewController animated:animated];
     
 }
 

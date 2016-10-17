@@ -122,9 +122,6 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
     
-
-    
-    
     [self.view addSubview:self.tableView];
     WS(weakSelf);
     [self.tableView addDDPullToRefreshWithActionHandler:^{

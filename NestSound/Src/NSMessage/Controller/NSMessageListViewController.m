@@ -531,7 +531,7 @@ static NSString * const preserveCellID = @"preserveCellID";
 -(void)postCommentWithComment:(NSString *)comment
 {
     self.requestType = NO;
-    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:2],@"itemid":[NSNumber numberWithLong:commentModel.itemID],@"type":[NSNumber numberWithInt:commentModel.type],@"target_uid":[NSNumber numberWithLong:commentModel.targetUserID],@"token":LoginToken};
+    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:2],@"itemid":[NSNumber numberWithLong:commentModel.itemID],@"type":[NSNumber numberWithInt:commentModel.type],@"target_uid":[NSNumber numberWithLong:commentModel.userID],@"token":LoginToken};
     
     //    self.commentExecuteBlock();
     
