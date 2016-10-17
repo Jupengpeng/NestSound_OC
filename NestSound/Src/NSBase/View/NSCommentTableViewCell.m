@@ -55,7 +55,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 @property (nonatomic, assign) BOOL message;
 //@property (nonatomic, strong) UILabel *replyLabel;
 //
-//@property (nonatomic, strong) UIButton *nameBtn;
+@property (nonatomic, strong) UIButton *replyBtn;
 //
 //@property (nonatomic, strong) UILabel *contentLabel;
 
@@ -69,7 +69,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        
+        self.userInteractionEnabled = YES;
         [self setupUI];
     }
     
@@ -105,20 +105,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 //    dateLabel.text = @"2016-05-26";
     
     [self.contentView addSubview:dateLabel];
-    
-    
-//    self.replyLabel = [[UILabel alloc] init];
-//    
-//    self.replyLabel.x = 65;
-//    self.replyLabel.y = 55;
-//    self.replyLabel.text = @"回复:";
-//    self.replyLabel.font = [UIFont systemFontOfSize:12];
-//    self.replyLabel.textColor = [UIColor blackColor];
-//    self.replyLabel.lineBreakMode = NSLineBreakByCharWrapping;
-//    self.replyLabel.numberOfLines = 0;
-//    [self.replyLabel sizeToFit];
-//    [self.contentView addSubview:self.replyLabel];
-//    
+//
 //    self.nameBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
 //        
 //        [btn setTitle:@"hahah" forState:UIControlStateNormal];
@@ -199,7 +186,16 @@ static inline NSRegularExpression * NameRegularExpression() {
     authorName.font = [UIFont systemFontOfSize:11];
     authorName.textColor = [UIColor hexColorFloat:@"666666"];
     [bkView addSubview:authorName];
-
+    
+    self.replyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.replyBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
+    [self.replyBtn setTitle:@"回复" forState:UIControlStateNormal];
+    self.replyBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.replyBtn.layer.cornerRadius = 3;
+    self.replyBtn.layer.masksToBounds = YES;
+    [self.replyBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.replyBtn addTarget:self action:@selector(replyBtnCilck:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:self.replyBtn];
     
     [bkView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(iconBtn.mas_left);
@@ -227,7 +223,18 @@ static inline NSRegularExpression * NameRegularExpression() {
         make.top.equalTo(workNameLabel.mas_bottom).with.offset(10);
         make.right.equalTo(workNameLabel.mas_right);
     }];
-
+    
+    [self.replyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.contentView.mas_right).offset(-10);
+        
+        make.top.equalTo(self.contentView.mas_top).offset(10);
+        
+        make.width.mas_equalTo(40);
+        
+        make.height.mas_equalTo(24);
+    }];
+    
 }
 
 
@@ -275,7 +282,11 @@ static inline NSRegularExpression * NameRegularExpression() {
         [self.delegate commentTableViewCell:self];
     }
 }
-
+- (void)replyBtnCilck:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(replyCommentTableViewCell:)]) {
+        [self.delegate replyCommentTableViewCell:self];
+    }
+}
 
 -(void)setCommentModel:(NSCommentModel *)commentModel
 {

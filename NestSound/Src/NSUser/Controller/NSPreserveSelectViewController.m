@@ -50,14 +50,12 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{kIsLoadingMore :@(NO)};
+//        self.requestParams = @{kIsLoadingMore :@(NO),@"uid":JUserID,@"token":LoginToken,@"sort_id":[NSNumber numberWithLong:type],@"page":[NSNumber numberWithInt:currentPage]};
     }else{
         ++currentPage;
-        self.requestParams = @{kIsLoadingMore:@(YES)};
+//        self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"sort_id":[NSNumber numberWithLong:type],@"page":[NSNumber numberWithInt:currentPage]};
     }
-//    @"page":[NSNumber numberWithInt:currentPage],
-    self.requestParams = @{@"uid":JUserID,@"token":LoginToken,@"sort_id":[NSNumber numberWithLong:type],@"page":[NSNumber numberWithInt:currentPage]};
- 
+ self.requestParams = @{kIsLoadingMore :@(isLoadingMore),@"uid":JUserID,@"token":LoginToken,@"sort_id":[NSNumber numberWithLong:type],@"page":[NSNumber numberWithInt:currentPage]};
     self.requestURL = unPreservedListUrl;
 }
 #pragma mark -override actionFetchData
@@ -175,8 +173,8 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
 //    musicTableView.rowHeight = 80;
     
     musicTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    musicTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    musicTableView.alwaysBounceVertical = YES;
+//    musicTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    musicTableView.alwaysBounceVertical = YES;
 //    [musicTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:musicCellIdentify];
     
     [self.contentScrollView addSubview:musicTableView];
@@ -217,8 +215,8 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
 //    lyricTableView.rowHeight = 80;
     
     lyricTableView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
-    lyricTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    lyricTableView.alwaysBounceVertical = YES;
+//    lyricTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//    lyricTableView.alwaysBounceVertical = YES;
 //    [lyricTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:lyricCellIdentify];
     
     [self.contentScrollView addSubview:lyricTableView];

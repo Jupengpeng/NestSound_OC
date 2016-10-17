@@ -15,7 +15,7 @@
 @property (nonatomic,copy) NSString * songAuthor;
 @property (nonatomic,copy) NSString * lyricAuthor;
 @property (nonatomic,copy) NSString * accompaniment;
-@property (nonatomic,copy) NSString * createTime;
+@property (nonatomic,assign) NSTimeInterval createTime;
 @property (nonatomic,copy) NSString * productImg;
 @property (nonatomic,assign) NSTimeInterval preserveTime;
 @property (nonatomic,copy) NSString * preserveNo;
