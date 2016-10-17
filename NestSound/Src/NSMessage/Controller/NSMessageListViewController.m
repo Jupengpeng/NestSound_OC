@@ -25,7 +25,8 @@
 UITableViewDataSource,
 UITableViewDelegate,
 TTTAttributedLabelDelegate,
-NSCommentTableViewCellDelegate
+NSCommentTableViewCellDelegate,
+UITextFieldDelegate
 >
 {
     UITableView * messageList;
@@ -38,6 +39,10 @@ NSCommentTableViewCellDelegate
     NSString * systemUrl;
     NSString * preserveUrl;
     UIImageView * emptyImage;
+    UITextField *inputField;
+    UIView *maskView;
+    NSCommentModel *commentModel;
+    UIView *bottomView;
 }
 
 @end
@@ -262,7 +267,7 @@ static NSString * const preserveCellID = @"preserveCellID";
     }];
     // hide infiniteView
     messageList.showsPullToRefresh = NO;
-  messageList.showsInfiniteScrolling = YES;
+    messageList.showsInfiniteScrolling = YES;
     
     emptyImage = [[UIImageView alloc] init];
     emptyImage.hidden = YES;
@@ -271,7 +276,64 @@ static NSString * const preserveCellID = @"preserveCellID";
     [emptyImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self.view);
     }];
+    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
     
+    maskView.backgroundColor = [UIColor lightGrayColor];
+    
+    maskView.alpha = 0.5;
+    
+    maskView.hidden = YES;
+    
+    [self.view addSubview:maskView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(maskViewTap:)];
+    
+    [maskView addGestureRecognizer:tap];
+    
+    
+    bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 64, ScreenWidth, 44)];
+    
+    bottomView.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    [self.view addSubview:bottomView];
+    
+    inputField = [[UITextField alloc] init];
+    
+    inputField.borderStyle = UITextBorderStyleRoundedRect;
+    
+    inputField.placeholder = @"来~说点什么吧";
+    
+    inputField.delegate = self;
+    
+    inputField.returnKeyType = UIReturnKeySend;
+    
+    [bottomView addSubview:inputField];
+
+    [inputField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(bottomView.mas_left).offset(15);
+        
+        make.top.equalTo(bottomView.mas_top).offset(5);
+        
+        make.bottom.equalTo(bottomView.mas_bottom).offset(-5);
+        
+        make.right.equalTo(bottomView.mas_right).offset(-15);
+        
+    }];
+    
+    //注册键盘通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWasShown:)
+     
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWillBeHidden:)
+     
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -338,7 +400,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         
     }else if (messageType == SystemMessageType){
         NSPreserveMessageTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:systemCellID];
-        SystemMessageModel * sys = messageArr[row];
+//        SystemMessageModel * sys = messageArr[row];
         if (!cell) {
             cell = [[NSPreserveMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:systemCellID];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -430,7 +492,8 @@ static NSString * const preserveCellID = @"preserveCellID";
         messageList.showsInfiniteScrolling = YES;
     }
 }
-
+#pragma mark - NSCommentTableViewCellDelegate
+//进入他人主页
 - (void)commentTableViewCell:(NSCommentTableViewCell *)cell {
     
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.userID]];
@@ -440,8 +503,21 @@ static NSString * const preserveCellID = @"preserveCellID";
     [self.navigationController pushViewController:pageVC animated:YES];
     
 }
-
-
+//回复评论
+- (void)replyCommentTableViewCell:(NSCommentTableViewCell *)cell {
+    
+    maskView.hidden = NO;
+    
+    [inputField becomeFirstResponder];
+    
+    inputField.tag = 1;
+    
+    NSIndexPath *index = [messageList indexPathForCell:cell];
+    
+    commentModel = messageArr[index.row];
+    
+    inputField.placeholder = [NSString stringWithFormat:@"回复: %@",commentModel.nickName];
+}
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     
     NSCommentTableViewCell * cell = (NSCommentTableViewCell *)label.superview.superview;
@@ -451,5 +527,89 @@ static NSString * const preserveCellID = @"preserveCellID";
     
     
 }
+#pragma mark postComment
+-(void)postCommentWithComment:(NSString *)comment
+{
+    self.requestType = NO;
+    self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:2],@"itemid":[NSNumber numberWithLong:commentModel.itemID],@"type":[NSNumber numberWithInt:commentModel.type],@"target_uid":[NSNumber numberWithLong:commentModel.targetUserID],@"token":LoginToken};
+    
+    //    self.commentExecuteBlock();
+    
+    self.requestURL = postCommentURL;
+    
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    //    inputField.placeholder = nil;
+    
+    [textField resignFirstResponder];
+    
+    maskView.hidden = YES;
+    
+    [self postCommentWithComment:textField.text];
+    
+    inputField.tag = 2;
+    
+    textField.text = nil;
+    
+    return YES;
+}
+//回复评论
 
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    
+    NSDictionary *userInfo = [aNotification userInfo];
+    
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGFloat keyBoardEndY = value.CGRectValue.origin.y;
+    
+    NSNumber *duration = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    
+    NSNumber *curve = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    
+    [UIView animateWithDuration:duration.doubleValue animations:^{
+        
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:[curve intValue]];
+        
+        bottomView.y = keyBoardEndY - bottomView.height - 64;
+//        inputField.y = keyBoardEndY - 108;
+        maskView.hidden = NO;
+    }];
+    
+}
+
+-(void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    
+    NSDictionary *userInfo = [aNotification userInfo];
+    
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGFloat keyBoardEndY = value.CGRectValue.origin.y;
+    
+    NSNumber *duration = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    
+    NSNumber *curve = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    [UIView animateWithDuration:duration.doubleValue animations:^{
+        
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:[curve intValue]];
+        
+        bottomView.y = keyBoardEndY - 64;
+//        inputField.y = keyBoardEndY - 108;
+    }];
+    
+}
+- (void)maskViewTap:(UIGestureRecognizer *)tap {
+    
+    inputField.tag = 2;
+    
+    maskView.hidden = YES;
+    
+    [inputField resignFirstResponder];
+    
+}
 @end

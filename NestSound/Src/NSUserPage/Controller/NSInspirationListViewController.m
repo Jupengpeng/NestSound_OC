@@ -86,7 +86,7 @@ static NSString *cellIdentifier = @"cellIdentifier";
 - (void)configureInspirationListUI {
     self.title = @"灵感纪录";
     
-    self.inspirationTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.inspirationTab = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _inspirationTab.delegate = self;
     
     _inspirationTab.dataSource = self;
@@ -103,12 +103,24 @@ static NSString *cellIdentifier = @"cellIdentifier";
     
     [self.view addSubview:_inspirationTab];
     
+    [_inspirationTab mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.left.bottom.right.equalTo(self.view);
+    }];
+    
     UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [_inspirationTab setTableFooterView:noLineView];
     
     WS(wSelf);
-    [_inspirationTab addInfiniteScrollingWithActionHandler:^{
+    [_inspirationTab addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fectInspirationDataWithIsLoadingMore:NO];
+        }
+    }];
+    [_inspirationTab addDDInfiniteScrollingWithActionHandler:^{
         if (!wSelf) {
             return ;
         }else{

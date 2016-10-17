@@ -9,6 +9,7 @@
 #import "NSPreserveDetailViewController.h"
 #import "NSPreserveWorkInfoCell.h"
 #import "NSPreserveDetailListModel.h"
+#import "NSH5ViewController.h"
 @interface NSPreserveDetailViewController ()<UITableViewDelegate,UITableViewDataSource,TTTAttributedLabelDelegate>
 {
     NSString *preserveId;
@@ -80,15 +81,20 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
     [self.view addSubview:_oneImageView];
 }
 - (void)handlePreserveStatus:(UIButton *)sender {
-    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
-    NSMutableArray *photos = [NSMutableArray array];
-    MJPhoto *photo = [[MJPhoto alloc] init];
-    photo.url = [NSURL URLWithString:@"http://pic.yinchao.cn/dongliyaogun001.png"];
-    photo.srcImageView = _oneImageView;
-    [photos addObject:photo];
-    browser.photos = photos;
-    browser.currentPhotoIndex = sender.tag;
-    [browser show];
+    
+    NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
+    eventVC.h5Url = resultModel.certificateURL;
+    [self.navigationController pushViewController:eventVC animated:YES];
+    
+//    MJPhotoBrowser *browser = [[MJPhotoBrowser alloc] init];
+//    NSMutableArray *photos = [NSMutableArray array];
+//    MJPhoto *photo = [[MJPhoto alloc] init];
+//    photo.url = [NSURL URLWithString:@"http://pic.yinchao.cn/dongliyaogun001.png"];
+//    photo.srcImageView = _oneImageView;
+//    [photos addObject:photo];
+//    browser.photos = photos;
+//    browser.currentPhotoIndex = sender.tag;
+//    [browser show];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -208,6 +214,7 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
             case 1:
                 [preserveState setTitle:@"查看证书" forState:UIControlStateNormal];
                 preserveState.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+                [preserveState addTarget:self action:@selector(handlePreserveStatus:) forControlEvents:UIControlEventTouchUpInside];
                 break;
             case 2:
                 [preserveState setTitle:@"申请中..." forState:UIControlStateNormal];
@@ -260,8 +267,6 @@ static NSString *const preserveDetailCellIdentifier = @"preserveDetailCellIdenti
         }
         
         [preserveState setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        
-        [preserveState addTarget:self action:@selector(handlePreserveStatus:) forControlEvents:UIControlEventTouchUpInside];
         
         [preserveStatusCell.contentView addSubview:preserveState];
         

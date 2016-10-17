@@ -13,7 +13,7 @@
 @protocol NSCommentTableViewCellDelegate <NSObject>
 
 - (void)commentTableViewCell:(NSCommentTableViewCell *)cell;
-
+- (void)replyCommentTableViewCell:(NSCommentTableViewCell *)cell;
 @end
 
 
@@ -28,8 +28,6 @@
 @property (nonatomic, strong) UILabel *authorNameLabel;
 
 @property (nonatomic,strong) NSCommentModel * commentModel;
-
-
 
 @property (nonatomic, weak) id<NSCommentTableViewCellDelegate> delegate;
 
