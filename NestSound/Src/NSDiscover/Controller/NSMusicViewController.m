@@ -215,7 +215,7 @@ static NSString * const headerView = @"HeaderView";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     
-    return CGSizeMake(ScreenWidth, 30);
+    return CGSizeMake(ScreenWidth, 30 + 10);
     
 }
 

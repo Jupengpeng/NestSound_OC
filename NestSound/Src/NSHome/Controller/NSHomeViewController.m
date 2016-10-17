@@ -605,7 +605,7 @@ static NSString * const musicSayData = @"musicSayData";
     
     if (section == 0) {
         
-        return CGSizeMake(ScreenWidth, ScreenHeight/5 + 30);
+        return CGSizeMake(ScreenWidth, ScreenHeight/5 + 30 + 10);
     } else if(section == 1){
         return CGSizeMake(ScreenWidth, 0);
     }
@@ -617,7 +617,7 @@ static NSString * const musicSayData = @"musicSayData";
 ////        return CGSizeMake(ScreenWidth, 10);
 //
 //    }
-    return CGSizeMake(ScreenWidth, 35);
+    return CGSizeMake(ScreenWidth, 40);
     
 }
 

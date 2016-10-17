@@ -9,10 +9,11 @@
 #import "NSBaseNavigationController.h"
 #import "NSPlayMusicViewController.h"
 
-@interface NSBaseNavigationController ()
+@interface NSBaseNavigationController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+
 {
     UIImageView * playStatus;
-
+    BOOL _isSwitching;
 }
 @end
 
@@ -21,11 +22,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.delegate = self;
 }
+
 
 #pragma -mark -stopPlayAnimation
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
+    if (animated) {
+        if (_isSwitching == YES) {
+            return;
+        }
+        _isSwitching = YES;
+    }
         if (self.childViewControllers.count >= 1) {
         
         self.navigationBar.barTintColor = [UIColor whiteColor];
@@ -41,6 +49,13 @@
     
       [super pushViewController:viewController animated:animated];
     
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    _isSwitching = NO; // 3. 还原状态
 }
 
 - (void)backClick:(UIBarButtonItem *)back {
