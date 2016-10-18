@@ -90,7 +90,8 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
-        
+        btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
     } action:^(UIButton *btn) {
