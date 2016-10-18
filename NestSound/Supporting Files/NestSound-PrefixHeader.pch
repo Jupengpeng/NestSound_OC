@@ -102,7 +102,7 @@ extern NSString *port;
 #define myLyricListURL @"java/common/lyrics/myLyrics?"
 #define myMusicListURL @"java/common/music/worklist?"
 #define myFansListURL @"java/fanfocus/fanslist?"
-#define focusUserURL @"java/fanfocus/optFans/v22"
+#define focusUserURL @"java/fanfocus/optFans/v22?"
 //获取作品评论列表 作品类型 1=歌曲，2=歌词 ,3=乐说
 #define commentURL @"java/common/comment/list/v22?"
 #define playMusicURL @"java/common/music/work?"

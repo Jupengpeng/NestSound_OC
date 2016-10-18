@@ -53,7 +53,7 @@
         self.modalPresentationCapturesStatusBarAppearance = YES;
         self.edgesForExtendedLayout = UIRectEdgeTop;
         self.automaticallyAdjustsScrollViewInsets = NO;
-        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     }
     if ([self isKindOfClass:[NSLyricViewController class]]) {
         

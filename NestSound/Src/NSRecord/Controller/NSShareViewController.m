@@ -67,23 +67,23 @@ static NSString *identifier = @"identifier";
     
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_share_background"]];
     
-    CGFloat W = (ScreenWidth - 120) / 3;
+    CGFloat W = (ScreenWidth - 200) / 3;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     layout.minimumLineSpacing = 15;
     
-    layout.minimumInteritemSpacing = 30;
+    layout.minimumInteritemSpacing = 50;
     
     layout.itemSize = CGSizeMake(W, W + W/3);
     
-    layout.sectionInset = UIEdgeInsetsMake(0, 30, 0, 30);
+    layout.sectionInset = UIEdgeInsetsMake(0, 50, 0, 50);
     
     UICollectionView *shareCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     
     shareCollection.x = 0;
     
-    shareCollection.y = ScreenHeight/3-10;
+    shareCollection.y = ScreenHeight/3;
     
     shareCollection.width = ScreenWidth;
     
@@ -99,7 +99,7 @@ static NSString *identifier = @"identifier";
     
     [self.view addSubview:shareCollection];
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(shareCollection.frame) + 30, ScreenWidth, 20)];
+    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(shareCollection.frame) + 40, ScreenWidth, 20)];
     
     tipLabel.text = @"*为了您的个人权益,推荐您进行保全登记";
     
@@ -128,7 +128,7 @@ static NSString *identifier = @"identifier";
         
         make.height.mas_equalTo(44);
         
-        make.top.equalTo(tipLabel.mas_bottom).offset(20);
+        make.top.equalTo(tipLabel.mas_bottom).offset(30);
         
     }];
     

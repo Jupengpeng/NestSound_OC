@@ -31,7 +31,7 @@ static char *imageLoaded;
                        if (!isLoaded) {
                            wSelf.alpha = 0.;
                            objc_setAssociatedObject(imageStr, &imageLoaded, @(1), OBJC_ASSOCIATION_RETAIN);
-                           [UIView animateWithDuration:.6 delay:0.
+                           [UIView animateWithDuration:0 delay:0.
                                                options:UIViewAnimationOptionAllowUserInteraction
                                             animations:^{
                                                 wSelf.alpha = 1.;

@@ -416,7 +416,7 @@ static NSString *ID3 = @"cell3";
     
     //给导航条设置空的背景图
     
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
 //    UIBarButtonItem * back = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"] style:UIBarButtonItemStylePlain target:self action:@selector(getBack)];
 //        self.navigationItem.leftBarButtonItem = back;
     //头像

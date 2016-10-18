@@ -363,11 +363,13 @@
             self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
             self.requestURL = collectURL;
         }else{
-            
-            if (type == 4) {
-                type = 3;
+            int productType;
+            if ([MusicType isEqualToString:@"lyric"]) {
+                productType = 2;
+            } else if ([MusicType isEqualToString:@"music"]) {
+                productType = 1;
             }
-            self.requestParams = @{@"id": @(myMode.itemId), @"type": @(type),@"token":LoginToken};
+            self.requestParams = @{@"id": @(myMode.itemId), @"type": @(productType),@"token":LoginToken};
             
             self.requestURL = deleteWorkURL;
         }

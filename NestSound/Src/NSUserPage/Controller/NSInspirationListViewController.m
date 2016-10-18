@@ -158,6 +158,30 @@ static NSString *cellIdentifier = @"cellIdentifier";
     NSInspirationRecordViewController * inspirationVC = [[NSInspirationRecordViewController alloc] initWithItemId:myMusic.itemId andType:NO];
     [self.navigationController pushViewController:inspirationVC animated:YES];
 }
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        self.requestType = NO;
+        NSMyMusicModel * myMode = _myInspirationAry[indexPath.row];
+        //删除收藏
+        
+        self.requestParams = @{@"id": @(myMode.itemId), @"type": @(3),@"token":LoginToken};
+        
+        self.requestURL = deleteWorkURL;
+        
+        
+        [_myInspirationAry removeObjectAtIndex:indexPath.row];
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
