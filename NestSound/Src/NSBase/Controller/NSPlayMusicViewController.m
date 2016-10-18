@@ -1318,17 +1318,22 @@ static id _instance;
     UMSocialUrlResource * urlResource  = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeMusic url:[NSString stringWithFormat:@"%@?id=%ld",_musicDetail.shareURL,self.itemUid]];
     [UMSocialData defaultData].extConfig.title = _musicDetail.title;
     
+    //内容
+    NSString *contentStr = _musicDetail.author;
+    
     NSDictionary *dic = shareArr[sender.tag-250];
     if ([dic[@"name"] isEqualToString:@"微信"]) {
-        
+        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeMusic;
+
         [UMSocialData defaultData].extConfig.wechatSessionData.url = self.musicDetail.playURL;
 //        isShare = YES;
     } else if ([dic[@"name"] isEqualToString:@"朋友圈"]) {
-        
+        [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeMusic;
+
         [UMSocialData defaultData].extConfig.wechatTimelineData.url = self.musicDetail.playURL;
 //        isShare = YES;
     } else if ([dic[@"name"] isEqualToString:@"微博"]) {
-        
+        contentStr =[NSString stringWithFormat:@"%@用音巢APP创作了一首歌词，快来看看吧！《%@》",_musicDetail.author,_musicDetail.title];
         [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
 //        isShare = YES;
     } else if ([dic[@"name"] isEqualToString:@"QQ"]) {
@@ -1340,7 +1345,6 @@ static id _instance;
         QQApiSendResultCode sent = [QQApiInterface sendReq:req];
         [self handleSendResult:sent];
         
-//        [UMSocialData defaultData].extConfig.qqData.url = self.musicDetail.playURL;
 //        isShare = YES;
     } else if ([dic[@"name"] isEqualToString:@"QQ空间"]) {
         tencentOAuth = [[TencentOAuth alloc] initWithAppId:qqAppId
@@ -1367,9 +1371,11 @@ static id _instance;
         [self.navigationController pushViewController:selectLyricVC animated:YES];
         isShare = NO;
     }
+    [self tapClick:nil];
+
     if (isShare) {
         if (![dic[@"name"] isEqualToString:@"QQ"]) {
-            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:_musicDetail.author image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
+            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[dic[@"type"]] content:contentStr image:[NSData dataWithContentsOfURL:[NSURL URLWithString:_musicDetail.titleImageURL]] location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
                 if (response.responseCode == UMSResponseCodeSuccess) {
                     [self tapClick:nil];
                     [[NSToastManager manager] showtoast:@"分享成功"];

@@ -148,6 +148,8 @@ static NSString * const preserveCellIdentifier = @"preserveCellIdentifier";
     return 1;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     NSPreserveModel *model = self.preserveListArr[indexPath.row];
     NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] initWithPreserveID:model.preserveId sortID:model.sortId];
     [self.navigationController pushViewController:preserveDetailVC animated:YES];

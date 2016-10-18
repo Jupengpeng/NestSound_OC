@@ -325,8 +325,6 @@ static NSString * const settingCellIditify = @"settingCell";
             default:
                 break;
         }
-        
-        
     }else{
         
         switch (buttonIndex) {

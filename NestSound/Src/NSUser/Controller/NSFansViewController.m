@@ -187,7 +187,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
     
     //emptyImageView
     emptyImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    
+    emptyImageView.contentMode = UIViewContentModeScaleAspectFill;
     if (isFans) {
         self.title = @"粉丝";
         emptyImageView.image = [UIImage imageNamed:@"2.0_noFans_bk"];

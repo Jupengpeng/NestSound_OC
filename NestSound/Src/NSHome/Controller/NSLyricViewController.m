@@ -640,7 +640,8 @@
 - (void)handleShareAction:(UIButton *)sender {
     CHLog(@"%@",sender.currentTitle);
     UIImage * imageShare;
-    NSString *contentShare = [NSString stringWithFormat:@"我用音巢APP创作了一首歌词，快来看看吧！《%@》,%@",_lyricDetail.title,[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]];
+    
+    NSString *contentShare = [NSString stringWithFormat:@"%@用音巢APP创作了一首歌词，快来看看吧！《%@》,%@",_lyricDetail.author,_lyricDetail.title,[NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId]];
     if (_lyricDetail.titleImageUrl.length != 0) {
         imageShare = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_lyricDetail.titleImageUrl]]];
     }else{
@@ -659,40 +660,23 @@
              *  微信好友
              */
             if (dic[@"type"] == UMShareToWechatSession) {
+                [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
 
             [UMSocialData defaultData].extConfig.wechatSessionData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-//            isShare = YES;
-//            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//                if (response.responseCode == UMSResponseCodeSuccess) {
-////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//                    [[NSToastManager manager] showtoast:@"分享成功"];
-//                }
-//            }];
+
             } else if (dic[@"type"] == UMShareToWechatTimeline) {
             /**
              *  微信朋友圈
              */
 
             [UMSocialData defaultData].extConfig.wechatTimelineData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-//            isShare = YES;
-//            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatTimeline] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//                if (response.responseCode == UMSResponseCodeSuccess) {
-////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//                    [[NSToastManager manager] showtoast:@"分享成功"];
-//                }
-//            }];
+
             } else if (dic[@"type"] == UMShareToSina) {
             /**
              *  新浪微博
              */
             [UMSocialData defaultData].extConfig.sinaData.urlResource = urlResource;
-//            isShare = YES;
-//            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//                if (response.responseCode == UMSResponseCodeSuccess) {
-////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//                    [[NSToastManager manager] showtoast:@"分享成功"];
-//                }
-//            }];
+
             } else if (dic[@"type"] == UMShareToQQ) {
 
             /**
@@ -700,13 +684,7 @@
              */
 
             [UMSocialData defaultData].extConfig.qqData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-//            isShare = YES;
-//            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQQ] content:contentShare image:imageShare location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//                if (response.responseCode == UMSResponseCodeSuccess) {
-////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//                    [[NSToastManager manager] showtoast:@"分享成功"];
-//                }
-//            }];
+
             } else if (dic[@"type"] == UMShareToQzone) {
 
             /**
@@ -714,13 +692,7 @@
              */
 
             [UMSocialData defaultData].extConfig.qzoneData.url = [NSString stringWithFormat:@"%@?id=%ld",_lyricDetail.shareUrl,_lyricDetail.itemId];
-//            isShare = YES;
-//            [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToQzone] content:contentShare image:imageShare  location:nil urlResource:urlResource presentedController:self completion:^(UMSocialResponseEntity *response) {
-//                if (response.responseCode == UMSResponseCodeSuccess) {
-////                    [wSelf.navigationController popToRootViewControllerAnimated:YES];
-//                    [[NSToastManager manager] showtoast:@"分享成功"];
-//                }
-//            }];
+
             } else if ([dic[@"type"] isEqualToString:@"copy"]) {
                 isShare = NO;
             /**
