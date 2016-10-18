@@ -47,7 +47,9 @@ UITableViewDataSource
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshMessage)
+                                                 name:@"refreshMessage"
+                                               object:nil];
     count = 0;
     
     playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
@@ -67,6 +69,9 @@ UITableViewDataSource
     
     [self configureUIAppearance];
     
+}
+- (void)refreshMessage {
+    [self fetchData];
 }
 #pragma mark -playMusic
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
@@ -328,6 +333,9 @@ UITableViewDataSource
     
 }
 
-
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"refreshMessage" object:nil];
+}
 
 @end

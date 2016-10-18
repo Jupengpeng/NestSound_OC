@@ -213,6 +213,7 @@
 //        NSBaseTabBarViewController *tabController = (NSBaseTabBarViewController *) [UIApplication sharedApplication].keyWindow.rootViewController;
 //        UINavigationController *nav = tabController.viewControllers[tabController.selectedIndex];
 //        [nav presentViewController:alertController animated:YES completion:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshMessage" object:nil];
         return;
     }
 }

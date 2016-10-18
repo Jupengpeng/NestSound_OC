@@ -264,8 +264,9 @@ static NSString * const musicSayData = @"musicSayData";
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:indexUrl]) {
                 [cache removeAllObjects];
-                NSIndexModel * indexModel = (NSIndexModel *)parserObject;
                 [bannerAry removeAllObjects];
+                [_collection.pullToRefreshView stopAnimating];
+                NSIndexModel * indexModel = (NSIndexModel *)parserObject;
                 //banner数据
                 bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
                 [cache setObject:bannerAry forKey:bannerData];
@@ -288,7 +289,7 @@ static NSString * const musicSayData = @"musicSayData";
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
                 [cache setObject:musicSayAry forKey:musicSayData];
                 [_collection reloadData];
-                [_collection.pullToRefreshView stopAnimating];
+                
             }else if([operation.urlTag isEqualToString:getToken]){
                 NSUserModel * userModels = (NSUserModel *)parserObject;
                 if (userModels) {
@@ -604,7 +605,7 @@ static NSString * const musicSayData = @"musicSayData";
     
     if (section == 0) {
         
-        return CGSizeMake(ScreenWidth, ScreenHeight/5 + 30 + 10);
+        return CGSizeMake(ScreenWidth, ScreenHeight/5 + 40);
     } else if(section == 1){
         return CGSizeMake(ScreenWidth, 0);
     }
