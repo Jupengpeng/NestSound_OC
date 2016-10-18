@@ -200,7 +200,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 50;
+    return 36;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -221,7 +221,7 @@
         
         make.left.equalTo(headerView.mas_left).offset(15);
         
-        make.centerY.equalTo(headerView.mas_centerY);
+        make.bottom.equalTo(headerView.mas_bottom).offset(-6);
         
     }];
     
@@ -242,7 +242,7 @@
     
     [titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerY.equalTo(headerView.mas_centerY);
+        make.bottom.equalTo(headerView.mas_bottom).offset(-6);
         
         make.left.equalTo(icon.mas_right).offset(8);
         

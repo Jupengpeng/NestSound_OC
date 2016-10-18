@@ -22,7 +22,7 @@
 #import "NSFansViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Pingpp.h"
-
+#import <Bugly/Bugly.h>
 @interface AppDelegate ()
 
 @end
@@ -58,7 +58,10 @@
     [MobClick setAppVersion:version];
     
     [MobClick setLogEnabled: YES];
-    
+    BuglyConfig *config = [[BuglyConfig alloc] init];
+    config.debugMode = YES;
+    [Bugly startWithAppId:@"7eb2056e59" config:config];
+//    [Bugly startWithAppId:@"7eb2056e59"];
     //addObserver for UserHeadset
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];

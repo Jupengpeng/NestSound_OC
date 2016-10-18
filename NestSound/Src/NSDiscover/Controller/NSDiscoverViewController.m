@@ -271,7 +271,7 @@
     //活动
    activity = [[NSActivityViewController alloc] init];
     
-    activity.view.frame = CGRectMake(0, 10, ScreenWidth, _scrollView.height);
+    activity.view.frame = CGRectMake(0, 0, ScreenWidth, _scrollView.height);
     
     [self addChildViewController:activity];
     

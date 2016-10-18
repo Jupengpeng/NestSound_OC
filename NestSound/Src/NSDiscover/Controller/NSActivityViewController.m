@@ -158,9 +158,13 @@ static NSString * const activityCellIdentity  = @"activityCellIdentity";
     
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    return CGSizeMake(ScreenWidth, 10);
+}
+
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(-10, 15, 0, 15);
+    return UIEdgeInsetsMake(0, 15, 0, 15);
 }
 
 @end
