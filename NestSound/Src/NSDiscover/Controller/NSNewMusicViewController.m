@@ -22,6 +22,7 @@
     int type;
     UIImageView * playStatus;
     NSString * MusicType;
+    UIImageView *emptyImage;
 }
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 @property (nonatomic, strong) NSMutableArray *itemIdList;
@@ -125,7 +126,15 @@
             [wSelf fetchDataWithIsLoadingMore:YES];
         }
     }];
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.2_noDataImg"]];
     
+    emptyImage.hidden = YES;
+    
+    emptyImage.centerX = ScreenWidth/2;
+    
+    emptyImage.y = 100;
+    
+    [self.view addSubview:emptyImage];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -202,24 +211,24 @@
             if ([operation.urlTag isEqualToString:url]) {
                 NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
-                    
+                    [_tableView.pullToRefreshView stopAnimating];
                     DataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
                     
                     for (NSMyMusicModel *model in DataAry) {
                         [self.itemIdList addObject:@(model.itemId)];
                     }
                 }else{
-                    
+                    [_tableView.infiniteScrollingView stopAnimating];
                     [DataAry addObjectsFromArray:discoverMore.moreLyricList];
                     for (NSMyMusicModel *model in DataAry) {
                         [self.itemIdList addObject:@(model.itemId)];
                     }
                 }
                 [_tableView reloadData];
-                if (!operation.isLoadingMore) {
-                    [_tableView.pullToRefreshView stopAnimating];
-                }else{
-                    [_tableView.infiniteScrollingView stopAnimating];
+                if (!DataAry.count) {
+                    emptyImage.hidden = NO;
+                } else {
+                    emptyImage.hidden = YES;
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL]||[operation.urlTag isEqualToString:changeMusicStatus] || [operation.urlTag isEqualToString:changeLyricStatus]) {
                 [self fetchDataWithIsLoadingMore:NO];

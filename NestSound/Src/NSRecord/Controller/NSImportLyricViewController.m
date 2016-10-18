@@ -24,6 +24,7 @@ UICollectionViewDelegateFlowLayout
     UIImageView * titlePage;
     int currentPage;
     NSString * url;
+    UIImageView *emptyImage;
 }
 
 @end
@@ -82,18 +83,25 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
                     [lyricesAry addObject:myLyricList.myLyricList];
                 }
             }
-            if (operation.isLoadingMore) {
-                [lyricCollecView reloadData];
-            }
+            
+            
+            
             if (!operation.isLoadingMore) {
                 
                 [lyricCollecView.pullToRefreshView stopAnimating];
-                [lyricCollecView reloadData];
+                
             } else {
                 
                 [lyricCollecView.infiniteScrollingView stopAnimating];
             }
+            [lyricCollecView reloadData];
             
+            if (lyricesAry.count) {
+                emptyImage.hidden = YES;
+                
+            } else {
+                emptyImage.hidden = NO;
+            }
         }
     }
 }
@@ -139,6 +147,16 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
         }
     }];
     lyricCollecView.showsInfiniteScrolling = NO;
+    
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.2_noDataImg"]];
+    
+    emptyImage.hidden = YES;
+    
+    emptyImage.centerX = ScreenWidth/2;
+    
+    emptyImage.y = 100;
+    
+    [self.view addSubview:emptyImage];
 }
 
 #pragma mark collectionViewDataSource

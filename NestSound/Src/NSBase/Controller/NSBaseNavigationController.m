@@ -44,9 +44,9 @@
         [self.navigationBar setShadowImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(1, 0.5)]];
         if ([viewController isKindOfClass:[NSUserPageViewController class]]) {
             viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
-            [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//            [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
         } else {
-        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+//        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
             viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick:)];
         }
         viewController.hidesBottomBarWhenPushed = YES;
