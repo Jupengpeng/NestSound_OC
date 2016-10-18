@@ -189,30 +189,31 @@
         [self processCommentJumpActionWithUserInfo:userInfo];
         
     }else{
-        NSString *title = @"通知";
-        NSString *message = @"您的作品收到新的评论";
-        NSString *cancelButtonTitle = @"知道了";
-        NSString *otherButtonTitle = @"前往";
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-        
-        // Create the actions.
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            
-        }];
-        
-        UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self processCommentJumpActionWithUserInfo:userInfo];
-        }];
-        
-        // Add the actions.
-        [alertController addAction:cancelAction];
-        [alertController addAction:otherAction];
-        
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
-        NSBaseTabBarViewController *tabController = (NSBaseTabBarViewController *) [UIApplication sharedApplication].keyWindow.rootViewController;
-        UINavigationController *nav = tabController.viewControllers[tabController.selectedIndex];
-        [nav presentViewController:alertController animated:YES completion:nil];
+//        NSString *title = @"通知";
+//        NSString *message = @"您的作品收到新的评论";
+//        NSString *cancelButtonTitle = @"知道了";
+//        NSString *otherButtonTitle = @"前往";
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        // Create the actions.
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            
+//        }];
+//        
+//        UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            [self processCommentJumpActionWithUserInfo:userInfo];
+//        }];
+//        
+//        // Add the actions.
+//        [alertController addAction:cancelAction];
+//        [alertController addAction:otherAction];
+//        
+//        
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
+//        NSBaseTabBarViewController *tabController = (NSBaseTabBarViewController *) [UIApplication sharedApplication].keyWindow.rootViewController;
+//        UINavigationController *nav = tabController.viewControllers[tabController.selectedIndex];
+//        [nav presentViewController:alertController animated:YES completion:nil];
+        return;
     }
 }
 

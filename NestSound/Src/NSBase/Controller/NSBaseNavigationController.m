@@ -8,7 +8,7 @@
 
 #import "NSBaseNavigationController.h"
 #import "NSPlayMusicViewController.h"
-
+#import "NSUserPageViewController.h"
 
 @interface NSBaseNavigationController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 

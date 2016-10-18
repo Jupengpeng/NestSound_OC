@@ -61,7 +61,7 @@
                                @"id":userMessageDic[@"id"],
                                @"cUserName":
                                    textField1.text,
-                               @"cCardID":
+                               @"cCardId":
                                    textField2.text,
                                @"cPhone":
                                    textField3.text
@@ -72,7 +72,7 @@
 //                               @"bq_id":@(NULL),
                                @"cUserName":
                                    textField1.text,
-                               @"cCardID":
+                               @"cCardId":
                                    textField2.text,
                                @"cPhone":
                                    textField3.text
@@ -97,10 +97,13 @@
                 
             } else if ([operation.urlTag isEqualToString:addPreservePersonUrl]) {
               
-                [self.navigationController popViewControllerAnimated:YES];
-                if (self.fillInBlock) {
-                    self.fillInBlock(self.requestParams);
+                if ([parserObject.message isEqualToString:@"保存成功"]) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                    if (self.fillInBlock) {
+                        self.fillInBlock(self.requestParams);
+                    }
                 }
+                
             }
         }
     }
@@ -202,7 +205,7 @@
         if (indexPath.row ==1) {
             rightTF.text = userMessageDic[@"cUserName"];
         } else if (indexPath.row == 2) {
-            rightTF.text = userMessageDic[@"cCardID"];
+            rightTF.text = userMessageDic[@"cCardId"];
         } else {
             rightTF.text = userMessageDic[@"cPhone"];
         }

@@ -82,9 +82,7 @@
     self.title = @"保全申请";
     self.view.backgroundColor = [UIColor hexColorFloat:@"f3f2f3"];
     
-    
 
-    
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 120)];
     TTTAttributedLabel *tipLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(10, footerView.height - 11 - 25, ScreenWidth - 20, 11)];
     //    tipLabel.font = [UIFont systemFontOfSize:11.0f];
@@ -120,6 +118,12 @@
         btn.layer.cornerRadius = 45/2.0f;
         btn.backgroundColor = [UIColor hexColorFloat:kAppBaseYellowValue];
     } action:^(UIButton *btn) {
+        if (!_uerIsChosen) {
+            UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保全用户信息还未添加 ~" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+            [msgbox show];
+            return ;
+        }
+        
         [self fechOrderNo];
         btn.enabled = NO;
     }];

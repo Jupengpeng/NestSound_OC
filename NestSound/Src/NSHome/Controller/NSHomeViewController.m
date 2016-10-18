@@ -94,7 +94,6 @@ static NSString * const musicSayData = @"musicSayData";
 - (NSPlayMusicViewController *)playSongsVC {
     
     if (!_playSongsVC) {
-        
         _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
     }
     
