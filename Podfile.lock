@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Bugly (2.4.0)
   - HappyDNS (0.3.10)
   - JPush (2.1.8)
   - Masonry (1.0.1)
@@ -60,6 +61,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.3)
+  - Bugly
   - JPush
   - Masonry
   - MBProgressHUD (~> 1.0.0)
@@ -79,6 +81,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Bugly: 3b56d8365c5687f74fd6fbb50c5b7ede3cdac96c
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   JPush: 2d1286494eae216433f6d7709b2721565b4babc9
   Masonry: a1a931a0d08870ed8ae415a2ea5ea68ebcac77df
@@ -99,6 +102,6 @@ SPEC CHECKSUMS:
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
 
-PODFILE CHECKSUM: b1b5eb9801f3b80ed1e9640664bd04a39c1fd018
+PODFILE CHECKSUM: 4026c5c0f166a67c652e5680097ad52cd557bede
 
 COCOAPODS: 1.0.1

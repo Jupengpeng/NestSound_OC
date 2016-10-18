@@ -21,7 +21,7 @@ pod 'YYCache'
 pod 'SDCycleScrollView'
 pod 'MJPhotoBrowser'
 pod 'Pingpp', '~> 2.2.8'
-
+pod 'Bugly'
 end
 
 target 'NestSoundTests' do
