@@ -164,11 +164,13 @@
 {
     [super viewDidLoad];
     [self configureUIAppearance];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick:)];
     
     [self.view addGestureRecognizer:tap];
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
@@ -597,8 +599,6 @@
     }
     return YES;
 }
-
-
 
 
 - (void)setupGuideView{

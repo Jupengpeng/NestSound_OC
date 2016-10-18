@@ -229,7 +229,7 @@ static id _instance;
                     self.musicDetail.zanNum = self.musicDetail.zanNum - 1;
                     upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
                 }
-                [[NSToastManager manager] showtoast:@"操作成功"];
+                [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
             }else if ([operation.urlTag isEqualToString:collectURL]){
                 if (collectionBtn.selected == YES) {
                     self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
@@ -239,7 +239,7 @@ static id _instance;
                     self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
                     collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
                 }
-                [[NSToastManager manager] showtoast:@"操作成功"];
+                [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
             } else if ([operation.urlTag isEqualToString:changeMusicStatus]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
             }

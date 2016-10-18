@@ -67,17 +67,17 @@ static NSString *identifier = @"identifier";
     
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"2.0_share_background"]];
     
-    CGFloat W = (ScreenWidth - 200) / 3;
+    CGFloat W = (ScreenWidth - 180) / 3;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     layout.minimumLineSpacing = 15;
     
-    layout.minimumInteritemSpacing = 50;
+    layout.minimumInteritemSpacing = 45;
     
     layout.itemSize = CGSizeMake(W, W + W/3);
     
-    layout.sectionInset = UIEdgeInsetsMake(0, 50, 0, 50);
+    layout.sectionInset = UIEdgeInsetsMake(0, 45, 0, 45);
     
     UICollectionView *shareCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     

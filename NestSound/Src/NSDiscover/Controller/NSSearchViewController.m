@@ -32,7 +32,9 @@
     NSMutableArray * musicDataAry;
     NSMutableArray * lyricDataAry;
     NSMutableArray * userDataAry;
-    UIImageView *emptyImage;
+    UIImageView *emptyOneImage;
+    UIImageView *emptyTwoImage;
+    UIImageView *emptyThreeImage;
     NSSearchMusicTableView *searchMusic;
     NSSearchMusicTableView *searchLyric;
     UITableView *musicTableView;
@@ -132,9 +134,9 @@ static NSString * const userCellIdentify = @"userCollectionCell";
                         [musicDataAry addObjectsFromArray:searchUser.searchMusicList];
                     }
                     if (musicDataAry.count) {
-                        emptyImage.hidden = YES;
+                        emptyOneImage.hidden = YES;
                     } else {
-                        emptyImage.hidden = NO;
+                        emptyOneImage.hidden = NO;
                     }
                     [musicTableView reloadData];
                 } else {
@@ -146,9 +148,9 @@ static NSString * const userCellIdentify = @"userCollectionCell";
                         [musicDataAry addObjectsFromArray:searchUser.searchMusicList];
                     }
                     if (lyricDataAry.count) {
-                        emptyImage.hidden = YES;
+                        emptyTwoImage.hidden = YES;
                     } else {
-                        emptyImage.hidden = NO;
+                        emptyTwoImage.hidden = NO;
                     }
                     [lyricTableView reloadData];
                 }
@@ -162,9 +164,9 @@ static NSString * const userCellIdentify = @"userCollectionCell";
                     [userDataAry addObjectsFromArray:searchUser.searchUserList];
                 }
                 if (userDataAry.count) {
-                    emptyImage.hidden = YES;
+                    emptyThreeImage.hidden = YES;
                 } else {
-                    emptyImage.hidden = NO;
+                    emptyThreeImage.hidden = NO;
                 }
                 [userCollectionView reloadData];
                 
@@ -247,6 +249,16 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     [self.contentScrollView addSubview:musicTableView];
     
+    emptyOneImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    emptyOneImage.hidden = YES;
+    
+    emptyOneImage.centerX = ScreenWidth/2;
+    
+    emptyOneImage.y = 100;
+    
+    [self.view addSubview:emptyOneImage];
+    
     WS(Wself);
     //refresh
     [musicTableView addDDPullToRefreshWithActionHandler:^{
@@ -279,6 +291,17 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     [lyricTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:lyricCellIdentify];
     
     [self.contentScrollView addSubview:lyricTableView];
+    
+    emptyTwoImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    emptyTwoImage.hidden = YES;
+    
+    emptyTwoImage.centerX = 3*ScreenWidth/2;
+    
+    emptyTwoImage.y = 100;
+    
+    [self.view addSubview:emptyOneImage];
+    
     //refresh
     [lyricTableView addDDPullToRefreshWithActionHandler:^{
         if (!Wself) {
@@ -335,15 +358,15 @@ static NSString * const userCellIdentify = @"userCollectionCell";
         [Wself fetchDataWithType:3 andIsLoadingMore:YES];
     }];
 //    [self setupContent];
-    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    emptyOneImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
     
-    emptyImage.hidden = YES;
+    emptyThreeImage.hidden = YES;
     
-    emptyImage.centerX = ScreenWidth/2;
+    emptyThreeImage.centerX = 5*ScreenWidth/2;
     
-    emptyImage.y = 100;
+    emptyThreeImage.y = 100;
     
-    [self.view addSubview:emptyImage];
+    [self.view addSubview:emptyOneImage];
     
 }
 #pragma mark - UITableViewDataSource
