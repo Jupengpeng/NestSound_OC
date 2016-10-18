@@ -98,6 +98,7 @@
             } else if ([operation.urlTag isEqualToString:addPreservePersonUrl]) {
               
                 if ([parserObject.message isEqualToString:@"保存成功"]) {
+                    [[NSToastManager manager] showtoast:parserObject.message];
                     [self.navigationController popViewControllerAnimated:YES];
                     if (self.fillInBlock) {
                         self.fillInBlock(self.requestParams);

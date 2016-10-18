@@ -114,7 +114,14 @@ static NSString *ID3 = @"cell3";
     //register  notification of refresh userpage
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUserPage) name:@"refreshUserPageNotific" object:nil];
     [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
+
     [self fetchUserData];
+}
+
+
+
+- (void)leftBackClick{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -132,7 +139,13 @@ static NSString *ID3 = @"cell3";
 //    UIImage *image1 = [self imageByApplyingAlpha:alpha image:kDefaultImage];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.navigationController.navigationBar.hidden = NO;
+    
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"]];
+    imageView.userInteractionEnabled= YES;
+    [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftBackClick)]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imageView];
 }
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
@@ -158,6 +171,8 @@ static NSString *ID3 = @"cell3";
     }else{
         
     }
+
+
 }
 //receive notification to refresh userpage
 - (void)refreshUserPage {

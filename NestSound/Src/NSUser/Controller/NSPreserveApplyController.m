@@ -619,9 +619,9 @@
         _userMsgController = [[NSUserMessageViewController alloc] initWithUserMessageType:EditMessageType];
         _userMsgController.fillInBlock = ^(NSDictionary *personDict){
             
-            _personInfoModel.cUserName = personDict[@"bq_username"];
-            _personInfoModel.cCardId = personDict[@"bq_creditID"];
-            _personInfoModel.cPhone = personDict[@"bq_phone"];
+            _personInfoModel.cUserName = personDict[@"cUserName"];
+            _personInfoModel.cCardId = personDict[@"cCardId"];
+            _personInfoModel.cPhone = personDict[@"cPhone"];
             _uerIsChosen = YES;
             //            _uerIsChosen = !_uerIsChosen;
             [weakSelf.tableView reloadData];

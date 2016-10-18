@@ -363,7 +363,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         
         CGFloat height = [model.content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
         return 65 + height;
-//
+
     }else if (messageType == CommentMessageType){
         
         NSCommentTableViewCell *cell = (NSCommentTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];

@@ -84,7 +84,8 @@ static inline NSRegularExpression * NameRegularExpression() {
     [iconBtn addTarget:self action:@selector(iconBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     iconBtn.adjustsImageWhenHighlighted = NO;
     [self.contentView addSubview:iconBtn];
-    
+    iconBtn.clipsToBounds = YES;
+    iconBtn.layer.cornerRadius = 35/2.0f;
     
     //作者名
     self.authorNameLabel = [[UILabel alloc] init];
@@ -173,6 +174,8 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     //titlePage
     titlePage = [[UIImageView alloc] init];
+    titlePage.clipsToBounds = YES;
+    titlePage.contentMode = UIViewContentModeScaleAspectFill;
     [bkView addSubview:titlePage];
   
     //worknameLabel

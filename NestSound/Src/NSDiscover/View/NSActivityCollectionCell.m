@@ -34,6 +34,8 @@
     //titlePage
     titlePage = [[UIImageView alloc] init];
     titlePage.layer.cornerRadius = 10;
+    titlePage.contentMode = UIViewContentModeScaleAspectFill;
+    titlePage.clipsToBounds = YES;
     [self addSubview:titlePage];
     
     //dateLab
