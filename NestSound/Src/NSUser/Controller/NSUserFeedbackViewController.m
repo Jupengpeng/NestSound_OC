@@ -126,7 +126,7 @@ UIScrollViewDelegate
         make.left.equalTo(self.view.mas_left).with.offset(10);
         make.right.equalTo(self.view.mas_right).with.offset(-10);
         make.top.equalTo(self.view.mas_top);
-        make.height.mas_equalTo(250);
+        make.height.mas_equalTo(200);
         
     }];
     

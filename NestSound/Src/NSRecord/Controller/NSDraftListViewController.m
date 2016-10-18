@@ -14,6 +14,7 @@
     UITableView *draftListTab;
     NSInteger currentPage;
     NSString *url;
+    UIImageView *emptyImage;
 }
 @property (nonatomic, strong) NSMutableArray *draftListArr;
 @end
@@ -73,6 +74,11 @@ static NSString  * const draftCellIdifity = @"draftCell";
                 }
                 
                 [draftListTab reloadData];
+                if (self.draftListArr.count) {
+                    emptyImage.hidden = YES;
+                } else {
+                    emptyImage.hidden = NO;
+                }
             } else if ([operation.urlTag isEqualToString:deleteDraftUrl]) {
                 [[NSToastManager manager] showtoast:@"操作成功"];
             }
@@ -118,6 +124,16 @@ static NSString  * const draftCellIdifity = @"draftCell";
         }
     }];
     draftListTab.showsInfiniteScrolling = YES;
+    
+    emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.2_noDataImg"]];
+    
+    emptyImage.hidden = YES;
+    
+    emptyImage.centerX = ScreenWidth/2;
+    
+    emptyImage.y = 100;
+    
+    [self.view addSubview:emptyImage];
 }
 #pragma mark - UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
