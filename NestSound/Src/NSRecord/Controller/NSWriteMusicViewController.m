@@ -77,6 +77,8 @@ Boolean plugedHeadset;
     NSTimer *timer;
     UIImageView *timerImgView;
     int num;
+    int frameInterval;
+    int testNum;
     
 }
 
@@ -641,7 +643,11 @@ Boolean plugedHeadset;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    if ([[NSTool getMachine] isEqualToString:@"iPhone7,1"] || [[NSTool getMachine] isEqualToString:@"iPhone8,2"]) {
+//        frameInterval = 3;
+//    } else {
+        frameInterval = 4;
+//    }
     self.appDelete = [[UIApplication sharedApplication] delegate];
     self.session = [AVAudioSession sharedInstance];
     self.wavFilePath = nil;
@@ -1449,7 +1455,7 @@ Boolean plugedHeadset;
         
         self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
         
-        self.link.frameInterval=4;
+        self.link.frameInterval=frameInterval;
 
         [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
@@ -1462,7 +1468,7 @@ Boolean plugedHeadset;
         
         self.waveLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(scrollTimeView)];
         
-        self.waveLink.frameInterval=4;
+        self.waveLink.frameInterval=frameInterval;
         [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
 }
@@ -1503,15 +1509,15 @@ Boolean plugedHeadset;
 //}
 
 - (void)actionTiming {
-    
-    timerNum += 1/15.0;
+    testNum ++;
+    timerNum += frameInterval/60.0;
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     //分贝数
-
+    CHLog(@"%d",testNum);
     if (!self.isPlay) {
         
-        totalTime += 1/15.0;
+        totalTime += frameInterval/60.0;
         count = [self decibels];
 //        CHLog(@"分贝值%f",count);
             dispatch_async(dispatch_get_main_queue(), ^{

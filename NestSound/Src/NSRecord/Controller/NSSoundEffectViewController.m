@@ -196,7 +196,7 @@
         waveView.x = view.x - ScreenWidth/2 + self.waveform.middleLineV.x;
         waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.5;
         waveView.height = view.size.height;
-        waveView.width = ScreenWidth/320.0;
+        waveView.width = ScreenWidth/375.0;
         [self.waveViewArr addObject:waveView];
         CHLog(@"第%d个%@",i,view);
         [_waveform.timeScrollView addSubview:waveView];
