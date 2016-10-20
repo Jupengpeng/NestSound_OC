@@ -31,7 +31,7 @@
  
 - (void)drawRect:(CGRect)rect{
     
-    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 29 - self.desibelNum/2, 1.0f,self.desibelNum)];//21
+    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width/40+self.waveDistance, 29 - self.desibelNum/2, ScreenWidth/320.0,self.desibelNum)];//21
     self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     [self.waveArray addObject:self.realTimeView];
 

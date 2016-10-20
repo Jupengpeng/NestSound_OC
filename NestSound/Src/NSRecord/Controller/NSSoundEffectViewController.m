@@ -194,9 +194,9 @@
         UIView *view = self.waveArray[i];
         waveView.backgroundColor = [UIColor lightGrayColor];
         waveView.x = view.x - ScreenWidth/2 + self.waveform.middleLineV.x;
-        waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.2;
+        waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.5;
         waveView.height = view.size.height;
-        waveView.width = 1.0;
+        waveView.width = ScreenWidth/320.0;
         [self.waveViewArr addObject:waveView];
         CHLog(@"第%d个%@",i,view);
         [_waveform.timeScrollView addSubview:waveView];
@@ -492,14 +492,13 @@
     if (self.player.status == AVPlayerStatusReadyToPlay) {
         decelerate = NO;
         
+        timerNum += 1/15.0;
+        
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
         
         [self changeScrollViewColor];
-        
-        timerNum += 1/15.0;
 
     }
-
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
