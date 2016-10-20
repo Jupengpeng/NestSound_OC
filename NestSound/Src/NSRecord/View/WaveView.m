@@ -7,6 +7,12 @@
 //
 
 #import "WaveView.h"
+
+@interface WaveView ()
+
+
+@end
+
 @implementation WaveView
 
 
@@ -14,10 +20,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.waveArray = [NSMutableArray array];
+//        self.waveArray = [NSMutableArray array];
         self.desibelNum=0;
-
-        
+        self.locationsArr = [[NSMutableArray alloc] init];
+        self.heightArr = [[NSMutableArray alloc] init];
     }
     return self;
 
@@ -29,17 +35,99 @@
 }
 
  
+
+
 - (void)drawRect:(CGRect)rect{
     
-    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 29 - self.desibelNum/2, 1.0f,self.desibelNum)];//21
-    self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
-    [self.waveArray addObject:self.realTimeView];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
 
-//    self.count++;
 
-    [self addSubview:self.realTimeView];
-   
- }
+    switch (self.drawRectStyle) {
+        case WaveViewDrawRectStyleCreate:
+        {
+            
+            //    self.realTimeView = [[UIView alloc]initWithFrame:CGRectMake(self.frame.size.width*10/400+self.waveDistance, 29 - self.desibelNum/2, 1.0f,self.desibelNum)];//21
+            //    self.realTimeView.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
+            //    [self.waveArray addObject:self.realTimeView];
+            
+            //        [self addSubview:self.realTimeView];
+            
+            [self.locationsArr addObject:@(self.frame.size.width*10/800.0f +self.waveDistance)];
+            [self.heightArr addObject:@(self.desibelNum)];
+            
+            //    for (NSInteger i = 0; i < (self.waveArray.count<=100)?self.waveArray.count :100;i++ ) {
+            NSInteger showCount = (self.locationsArr.count<=100)?self.locationsArr.count :100;
+            NSInteger startIndex = self.locationsArr.count - showCount;
+            
+            
+            
+            for (NSInteger i = 0; i < showCount;i++ ) {
+                
+                CGFloat location = [self.locationsArr[startIndex + i] floatValue];
+                CGFloat height = [self.heightArr[startIndex + i] floatValue];
+                
+                CGContextAddRect(context, CGRectMake(location, 29 - height/2.0f, 1, height));
+                [[UIColor hexColorFloat:@"ffd00b"] setFill];
+                
+                CGContextFillPath(context);
+            }
+        }
+            break;
+        case WaveViewDrawRectStyleShowAll:
+        {
+            for (NSInteger i = 0; i < self.locationsArr.count ;i++ ) {
+                
+                CGFloat location = [self.locationsArr[ i] floatValue];
+                CGFloat height = [self.heightArr[ i] floatValue];
+                
+                CGContextAddRect(context, CGRectMake(location, 29 - height/2.0f, 1, height));
+                [[UIColor lightGrayColor] setFill];
+                
+                CGContextFillPath(context);
+            }
+            self.drawRectStyle = WaveViewDrawRectStyleCreate;
+        }
+            break;
+        case WaveViewDrawRectStyleChangeColor:
+        {
+            for (NSInteger i = 0; i < self.locationsArr.count ;i++ ) {
+                
+                CGFloat location = [self.locationsArr[ i] floatValue];
+                CGFloat height = [self.heightArr[ i] floatValue];
+                
+                CGContextAddRect(context, CGRectMake(location, 29 - height/2.0f, 1, height));
+                if (location <= (self.frame.size.width*10/800.0f +self.waveDistance)) {
+                    [[UIColor hexColorFloat:@"ffd00b"] setFill];
+
+                }else{
+                    [[UIColor lightGrayColor] setFill];
+                }
+              
+                CGContextFillPath(context);
+            }
+        }
+            break;
+        case WaveViewDrawRectStyleClearAll:
+        {
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            CGContextClearRect(context, self.bounds);
+            
+            CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
+            CGContextFillRect(context, self.bounds);
+        }
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+  
+  
+}
+
+
 /*
 - (void)drawRect:(CGRect)rect {
     
@@ -133,8 +221,11 @@
 - (void)removeAllPath {
     
     
-    [self.waveArray removeAllObjects];
+//    [self.waveArray removeAllObjects];
+    [self.locationsArr removeAllObjects];
+    [self.heightArr removeAllObjects];
     [self removeAllSubviews];
+    self.drawRectStyle = WaveViewDrawRectStyleClearAll;
     [self setNeedsDisplay];
 }
 @end

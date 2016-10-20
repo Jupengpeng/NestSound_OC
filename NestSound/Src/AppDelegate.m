@@ -60,6 +60,7 @@
     [MobClick setLogEnabled: YES];
     BuglyConfig *config = [[BuglyConfig alloc] init];
     config.debugMode = YES;
+    config.channel =  [[UIDevice currentDevice] name];
     [Bugly startWithAppId:@"7eb2056e59" config:config];
 //    [Bugly startWithAppId:@"7eb2056e59"];
     //addObserver for UserHeadset

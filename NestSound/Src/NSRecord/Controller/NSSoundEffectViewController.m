@@ -189,18 +189,34 @@
     _waveform.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_waveform];
-    for (int i = 0; i < self.waveArray.count; i++) {
-        UIView *waveView = [UIView new];
-        UIView *view = self.waveArray[i];
-        waveView.backgroundColor = [UIColor lightGrayColor];
-        waveView.x = view.x - ScreenWidth/2 + self.waveform.middleLineV.x;
-        waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.2;
-        waveView.height = view.size.height;
-        waveView.width = 1.0;
-        [self.waveViewArr addObject:waveView];
-        CHLog(@"第%d个%@",i,view);
-        [_waveform.timeScrollView addSubview:waveView];
+    _waveform.waveView.heightArr = [NSMutableArray arrayWithArray:self.heightArray];
+    for (int i = 0; i < self.locationArr.count; i++) {
+        CGFloat location = [self.locationArr[i] floatValue];
+
+        location = location - ScreenWidth/2.0 + self.waveform.middleLineV.x;
+
+        [self.locationArr replaceObjectAtIndex:i withObject:@(location)];
     }
+    _waveform.waveView.locationsArr = [NSMutableArray arrayWithArray:self.locationArr];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleShowAll;
+        [self.waveform.waveView setNeedsDisplay];
+        
+    });
+//    for (int i = 0; i < self.waveArray.count; i++) {
+//        UIView *waveView = [UIView new];
+//        UIView *view = self.waveArray[i];
+//        waveView.backgroundColor = [UIColor lightGrayColor];
+//        waveView.x = view.x - ScreenWidth/2 + self.waveform.middleLineV.x;
+//        waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.2;
+//        waveView.height = view.size.height;
+//        waveView.width = 1.0;
+//        [self.waveViewArr addObject:waveView];
+//        CHLog(@"第%d个%@",i,view);
+//        [_waveform.timeScrollView addSubview:waveView];
+//    }
+
     
     totalTimeLabel = [[UILabel alloc] init];
     
@@ -486,16 +502,26 @@
 - (void)actionTiming {
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+    
+
 }
 - (void)scrollTimeView{
-    
+
     if (self.player.status == AVPlayerStatusReadyToPlay) {
         decelerate = NO;
         
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
+        //-8 的作用是修正 原因暂时未知
+        self.waveform.waveView.waveDistance =self.waveform.timeScrollView.contentOffset.x - 8;
+
+//        [self changeScrollViewColor];
         
-        [self changeScrollViewColor];
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
+            [self.waveform.waveView setNeedsDisplay];
+            
+        });
         timerNum += 1/15.0;
 
     }
@@ -507,39 +533,22 @@
     if (decelerate) {
        
         timerNum = scrollView.contentOffset.x/speed;
-        
+
         CMTime ctime = CMTimeMake(scrollView.contentOffset.x/speed, 1);
         
         [self.musicItem seekToTime:ctime];
         
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         
-        [self changeScrollViewColor];
+//        [self changeScrollViewColor];
     }
     
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     
-    [self changeScrollViewColor];
+//    [self changeScrollViewColor];
 }
-- (void)changeScrollViewColor{
-    
-    if (self.waveArray.count == 0) {
-        return;
-    }
-    UIView* view = (UIView*)self.waveViewArr[0];
-    CGFloat f=  self.waveform.timeScrollView.contentOffset.x+view.frame.origin.x - 2.0;
-    for (UIView* view in self.waveViewArr) {
-        if (view.frame.origin.x<f) {
-            view.backgroundColor = [UIColor hexColorFloat:@"ffd33f"];
-        }
-        else{
-            view.backgroundColor = [UIColor lightGrayColor];
-            
-        }
-    }
 
-}
 - (void)dealloc{
     
     [self removeObserver:self forKeyPath:@"soundEffectPlay" context:nil];

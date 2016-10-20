@@ -217,6 +217,9 @@ Boolean plugedHeadset;
         lyricView.lyricText.userInteractionEnabled = YES;
         lyricView.lyricView.scrollEnabled = YES;
         self.waveform.timeScrollView.userInteractionEnabled=YES;
+        //暂停显示所有波形
+        self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor ;
+        [self.waveform.waveView setNeedsDisplay];
         
         [self.waveLink setPaused:YES];
         
@@ -377,7 +380,8 @@ Boolean plugedHeadset;
         float   amp             = powf(10.0f, 0.05f * decibels);
         float   adjAmp          = (amp - minAmp) * inverseAmpRange;
         level = powf(adjAmp, 1.0f / root);
-//    }
+
+    //    }
     return level * 60;
 }
 
@@ -1014,13 +1018,15 @@ Boolean plugedHeadset;
     
     timerImgView = [UIImageView new];
     
-    timerImgView.x = ScreenWidth/2-20;
+    timerImgView.width = ScreenWidth/4.0f;
+    
+    timerImgView.height = ScreenWidth/4.0f;
+    
+    timerImgView.x = ScreenWidth/2-timerImgView.width/2.0 ;
     
     timerImgView.centerY = self.view.height/3;
     
-    timerImgView.width = 40;
-    
-    timerImgView.height = 40;
+
     
     [self.view addSubview:timerImgView];
     
@@ -1178,14 +1184,14 @@ Boolean plugedHeadset;
     } else if (btn.tag == kButtonTag + 3) {//
         
         if (recordBtn.selected) {
-          //  [HudView showView:self.navigationController.view string:@"先停止录音"];
+
             [[NSToastManager manager ] showtoast:@"先停止录音"];
 
             return;
 
         }
         if ([self.player3 isPlaying]) {
-            //[HudView showView:self.navigationController.view string:@"先停止试听"];
+
             [[NSToastManager manager ] showtoast:@"先停止试听"];
 
             return;
@@ -1224,6 +1230,7 @@ Boolean plugedHeadset;
     btn2.selected=NO;;
 }
 
+#pragma mark - <UIAlertViewDelegate>
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         [self clearRecord];
@@ -1509,23 +1516,44 @@ Boolean plugedHeadset;
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     //分贝数
 
+  
     if (!self.isPlay) {
-        
         totalTime += 1/20.0;
         count = [self decibels];
-        
+        if (isnan(count)) {
+            return;
+        }
+        //如果count是nan则不添加波形
+ 
             dispatch_async(dispatch_get_main_queue(), ^{
 
+                self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleCreate;
                 self.waveform.waveView.desibelNum =(fabs(count));
                 
                 [self.waveform.waveView drawLine];
                 
                 [self.waveform.waveView setNeedsDisplay];
             });
+    }else{
+
+        dispatch_async(dispatch_get_main_queue(), ^{
             
+            self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
+            [self.waveform.waveView setNeedsDisplay];
+            
+        });
     }
-    
 }
+- (void)scrollTimeView{
+    
+    self.waveform.waveView.waveDistance =speed*timerNum;
+    if ([self.player isPlaying]) {
+        distantKeyPath=self.waveform.timeScrollView.contentOffset.x;
+    }
+    [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.waveView.waveDistance, 0) animated:NO];
+    drawNum++;
+}
+
 - (void)initMusicWave{
     NSMutableArray* arr = [NSMutableArray arrayWithCapacity:161];
     NSMutableArray* arrWave = [NSMutableArray arrayWithCapacity:161];
@@ -1608,7 +1636,9 @@ Boolean plugedHeadset;
                         [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
                         
                         soundEffectVC.parameterDic = self.dict;
-                        soundEffectVC.waveArray = self.waveform.waveView.waveArray;
+                        //波形图的高度和位置
+                        soundEffectVC.locationArr = self.waveform.waveView.locationsArr;
+                        soundEffectVC.heightArray = self.waveform.waveView.heightArr;
                         soundEffectVC.musicTime = totalTime;
                         soundEffectVC.isLyric = NO;
                         soundEffectVC.mp3URL = dict[@"data"][@"mp3URL"];
@@ -1625,7 +1655,6 @@ Boolean plugedHeadset;
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
                     [[NSToastManager manager] showtoast:@"上传失败"];
                 }];
-                
             }
             //self.wavFilePath = nil;
         } failure:^void(NSURLSessionDataTask * task, NSError * error) {
@@ -1678,18 +1707,6 @@ Boolean plugedHeadset;
 
 }
 
-- (void)scrollTimeView{
-
-    self.waveform.waveView.waveDistance =speed*timerNum;
-    if ([self.player isPlaying]) {
-        distantKeyPath=self.waveform.timeScrollView.contentOffset.x;
-    }
-    [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.waveView.waveDistance, 0) animated:NO];
-    drawNum++;
-    
-    [self changeScrollViewColor];
-    
-}
 
 
 #pragma mark - UIScrollViewDelegate
@@ -1702,7 +1719,7 @@ Boolean plugedHeadset;
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self changeScrollViewColor];
+//    [self changeScrollViewColor];
     //    self.distantKeyPathTemp = scrollView.contentOffset.x;
     
     
@@ -1723,24 +1740,6 @@ Boolean plugedHeadset;
 
 }
 
-- (void)changeScrollViewColor{
-    
-    if (self.waveform.waveView.waveArray.count == 0) {
-        return;
-    }
-    UIView* view = (UIView*)self.waveform.waveView.waveArray[0];
-    CGFloat f=  self.waveform.timeScrollView.contentOffset.x+view.frame.origin.x;
-    for (UIView* view in self.waveform.waveView.waveArray) {
-        if (view.frame.origin.x<f) {
-            view.backgroundColor = [UIColor hexColorFloat:@"ffd33f"];
-        }
-        else{
-            view.backgroundColor = [UIColor lightGrayColor];
-
-        }
-    }
-    
-}
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];

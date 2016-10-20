@@ -58,6 +58,11 @@ UIWebViewDelegate
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *clickStr=request.URL.absoluteString;
+    //如果是保全证书
+    if ([self.h5Url containsString:@"certificate"]) {
+        return YES;
+    }
+    
     if (![self.h5Url isEqualToString:clickStr]) {
         NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
         eventVC.h5Url = clickStr;

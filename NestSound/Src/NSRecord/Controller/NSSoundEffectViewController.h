@@ -15,5 +15,6 @@
 @property (nonatomic, copy) NSString *mp3File;
 @property (nonatomic,assign) BOOL isLyric;
 @property (nonatomic, strong) NSString *mp3URL;
-@property (nonatomic, strong) NSArray *waveArray;
+@property (nonatomic, strong) NSMutableArray *locationArr;
+@property (nonatomic, strong) NSArray *heightArray;
 @end

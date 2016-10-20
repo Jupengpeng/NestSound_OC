@@ -213,7 +213,7 @@
     
     NSInteger index = clickedButton.tag - kButtonBaseTag;
     
-    NSSimpleCategoryModel *categoryModel = [_listModel.simpleCategoryList.simpleCategory objectAtIndex:(_listModel.simpleCategoryList.simpleCategory.count- 1 - index)];
+    NSSimpleCategoryModel *categoryModel = [_listModel.simpleCategoryList.simpleCategory objectAtIndex:(index)];
     _categoryModel = categoryModel;
     _categoryIndex = index;
 //    if (self.categoryBlock) {
@@ -252,7 +252,7 @@
     listModel.simpleCategoryList.simpleCategory.count/4 ;
     
     NSMutableArray *neededArray = [[NSMutableArray alloc] initWithCapacity:10];
-    NSArray *arr = [[listModel.simpleCategoryList.simpleCategory reverseObjectEnumerator] allObjects];
+    NSArray *arr = listModel.simpleCategoryList.simpleCategory;
     [neededArray addObjectsFromArray:arr];
     NSInteger index = 0 ;
     for (NSInteger line = 0; line <lineCount; line ++) {

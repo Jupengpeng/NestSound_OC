@@ -62,7 +62,7 @@
         [self addSubview:self.timeScrollView];
         [self.timeScrollView addSubview:self.timeImageView];
         
-        self.waveView = [[WaveView alloc]initWithFrame:CGRectMake(0, 20.4, self.rect.size.width*20, 60)];
+        self.waveView = [[WaveView alloc]initWithFrame:CGRectMake(0, 20.4, self.rect.size.width*40, 60)];
         [self.timeScrollView addSubview:self.waveView];
         
         
