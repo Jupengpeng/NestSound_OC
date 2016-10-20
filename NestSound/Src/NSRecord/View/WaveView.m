@@ -38,11 +38,9 @@
 
 
 - (void)drawRect:(CGRect)rect{
-    
 
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-
 
     switch (self.drawRectStyle) {
         case WaveViewDrawRectStyleCreate:

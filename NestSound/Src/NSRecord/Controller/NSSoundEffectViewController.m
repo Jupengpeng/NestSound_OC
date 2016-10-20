@@ -197,6 +197,17 @@
 
         [self.locationArr replaceObjectAtIndex:i withObject:@(location)];
 
+//    for (int i = 0; i < self.waveArray.count; i++) {
+//        UIView *waveView = [UIView new];
+//        UIView *view = self.waveArray[i];
+//        waveView.backgroundColor = [UIColor lightGrayColor];
+//        waveView.x = view.x - ScreenWidth/2 + self.waveform.middleLineV.x;
+//        waveView.y = _waveform.waveView.centerY -view.size.height/2.0 - 0.5;
+//        waveView.height = view.size.height;
+//        waveView.width = ScreenWidth/375.0;
+//        [self.waveViewArr addObject:waveView];
+//        CHLog(@"第%d个%@",i,view);
+//        [_waveform.timeScrollView addSubview:waveView];
     }
     _waveform.waveView.locationsArr = [NSMutableArray arrayWithArray:self.locationArr];
     dispatch_async(dispatch_get_main_queue(), ^{
