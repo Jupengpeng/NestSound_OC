@@ -196,6 +196,7 @@
         location = location - ScreenWidth/2.0 + self.waveform.middleLineV.x;
 
         [self.locationArr replaceObjectAtIndex:i withObject:@(location)];
+
     }
     _waveform.waveView.locationsArr = [NSMutableArray arrayWithArray:self.locationArr];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -510,6 +511,8 @@
     if (self.player.status == AVPlayerStatusReadyToPlay) {
         decelerate = NO;
         
+        timerNum += 1/15.0;
+        
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
         //-8 的作用是修正 原因暂时未知
         self.waveform.waveView.waveDistance =self.waveform.timeScrollView.contentOffset.x - 8;
@@ -525,7 +528,6 @@
         timerNum += 1/15.0;
 
     }
-
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

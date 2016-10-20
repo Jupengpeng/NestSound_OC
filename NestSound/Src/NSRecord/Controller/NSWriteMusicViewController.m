@@ -362,18 +362,18 @@ Boolean plugedHeadset;
      */
     float   decibels    = [self.recorder averagePowerForChannel:0];
 //    CHLog(@"%f",decibels);
-//    if (decibels < minDecibels)
-//    {
-//        level = -0.0f;
-//        
-//    }
-//    else if (decibels >= 0.0f)
-//    {
-//        level = 1.0f;
-//        
-//    }
-//    else
-//    {
+    if (decibels < minDecibels)
+    {
+        level = -0.0f;
+        
+    }
+    else if (decibels >= 0.0f)
+    {
+        level = 1.0f;
+        
+    }
+    else
+    {
         float   root            = 2.0f;
         float   minAmp          = powf(10.0f, 0.05f * minDecibels);
         float   inverseAmpRange = 1.0f / (1.0f - minAmp);
@@ -381,8 +381,8 @@ Boolean plugedHeadset;
         float   adjAmp          = (amp - minAmp) * inverseAmpRange;
         level = powf(adjAmp, 1.0f / root);
 
-    //    }
-    return level * 60;
+    }
+    return level * 60.0;
 }
 
 - (CGFloat)playerDecibels:(AVAudioPlayer*)player {
@@ -696,7 +696,7 @@ Boolean plugedHeadset;
 //    [self initMusicWave];
 
     
-    speed = self.waveform.rect.size.width/SECOND_LONG;
+    speed = ScreenWidth/SECOND_LONG;
 
 }
 
@@ -1456,7 +1456,7 @@ Boolean plugedHeadset;
         
         self.link = [CADisplayLink displayLinkWithTarget:self selector:@selector(actionTiming)];
         
-        self.link.frameInterval=3;
+        self.link.frameInterval=4;
 
         [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
@@ -1469,7 +1469,7 @@ Boolean plugedHeadset;
         
         self.waveLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(scrollTimeView)];
         
-        self.waveLink.frameInterval=3;
+        self.waveLink.frameInterval=4;
         [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
     }
 }
@@ -1500,24 +1500,25 @@ Boolean plugedHeadset;
 
 }
 
-- (float)updateMeters{
-    
-    if ([self.recorder averagePowerForChannel:0] < -20) {
-        return -45.0;
-    }
-    float f = [self.recorder averagePowerForChannel:0];
-    return f;
-}
+//- (float)updateMeters{
+//    
+//    if ([self.recorder averagePowerForChannel:0] < -20) {
+//        return -45.0;
+//    }
+//    float f = [self.recorder averagePowerForChannel:0];
+//    return f;
+//}
 
 - (void)actionTiming {
     
-    timerNum += 1/20.0;
+    timerNum += 1/15.0;
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     //分贝数
 
   
     if (!self.isPlay) {
+
         totalTime += 1/20.0;
         count = [self decibels];
         if (isnan(count)) {
@@ -1525,6 +1526,7 @@ Boolean plugedHeadset;
         }
         //如果count是nan则不添加波形
  
+
             dispatch_async(dispatch_get_main_queue(), ^{
 
                 self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleCreate;

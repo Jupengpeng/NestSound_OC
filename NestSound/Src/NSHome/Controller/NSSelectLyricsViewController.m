@@ -87,7 +87,7 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     [self.view addSubview:songName];
     
     //分享
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
+    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeSystem configure:^(UIButton *btn) {
         
         [btn setTitle:@"下一步" forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -125,11 +125,11 @@ static NSString *lyricCellIdenfity = @"lyricCell";
     
     [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.view.mas_right).offset(-15);
+        make.right.equalTo(self.view.mas_right).offset(-10);
         
-        make.centerY.equalTo(popBtn.mas_centerY);
+        make.top.equalTo(self.view.mas_top).offset(32);
         
-        make.width.mas_equalTo(55);
+        make.width.mas_equalTo(60);
     }];
     
     UITableView *lyricTab = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(songName.frame), ScreenWidth, ScreenHeight - CGRectGetMaxY(songName.frame)) style:UITableViewStylePlain];

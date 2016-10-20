@@ -479,9 +479,16 @@ static id _instance;
             [[NSToastManager manager] showtoast:@"伴奏不存在"];
             return;
         }
-        NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
-        CHLog(@"%ld",_musicDetail.hotId);
-        [self.navigationController pushViewController:musicView animated:YES];
+        if (JUserID) {
+            NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
+            CHLog(@"%ld",_musicDetail.hotId);
+            [self.navigationController pushViewController:musicView animated:YES];
+        } else {
+            NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+            
+            [self presentViewController:loginVC animated:YES completion:nil];
+        }
+        
         
     }];
     

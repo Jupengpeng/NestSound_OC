@@ -282,10 +282,11 @@
         
     }
     lyricView.lyricText.autoAdaptKeyboard = YES;
-    lyricView.lyricText.alwaysBounceVertical = YES;
+//    lyricView.lyricText.alwaysBounceVertical = YES;
     lyricView.lyricText.delegate = self;
-    lyricView.lyricText.editable = YES;
+//    lyricView.lyricText.editable = YES;
     lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
+//     [lyricView.lyricText addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
     [self.view addSubview:lyricView];
     
     //maskView
@@ -396,7 +397,29 @@
         make.height.mas_equalTo(52);
     }];
 }
-
+#pragma mark -KVO
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    UITextView *textView = object;
+//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//    
+//        paragraphStyle.paragraphSpacing = 8;
+//        paragraphStyle.alignment = NSTextAlignmentCenter;
+//    
+//        NSDictionary *attributes = @{
+//    
+//                                     NSFontAttributeName:[UIFont systemFontOfSize:15],
+//    
+//                                     NSParagraphStyleAttributeName:paragraphStyle
+//    
+//                                     };
+//        NSRange beforeRange = lyricView.lyricText.selectedRange;
+//        lyricView.lyricText.attributedText = [[NSAttributedString alloc] initWithString:lyricView.lyricText.text attributes:attributes];
+//        NSRange afterRange = lyricView.lyricText.selectedRange;
+//        if (afterRange.location != beforeRange.location) {
+//            lyricView.lyricText.selectedRange = beforeRange;
+//        }
+//}
 - (void)rightClick:(UIBarButtonItem *)right {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
@@ -574,16 +597,46 @@
     lyricView.lyricText.text = lyrics;
 }
 #pragma mark - UITextViewDelegate
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
-    if (textView.text.length < 1) {
-        textView.text = @"间距";
+//- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+//    if (textView.text.length < 1) {
+//        textView.text = @"间距";
+//    }
+//    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+//    
+//    paragraphStyle.alignment = NSTextAlignmentCenter;
+//    
+//    paragraphStyle.paragraphSpacing = 8;
+////    paragraphStyle.lineSpacing = 4;// 字体的行间距
+//    
+//    NSDictionary *attributes = @{
+//                                 
+//                                 NSFontAttributeName:[UIFont systemFontOfSize:15],
+//                                 
+//                                 NSParagraphStyleAttributeName:paragraphStyle
+//                                 
+//                                 };
+//    
+//    textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+//    if ([textView.text isEqualToString:@"间距"]) {           //之所以加这个判断是因为再次编辑的时候还会进入这个代理方法，如果不加，会把你之前输入的内容清空。你也可以取消看看效果。
+//        textView.attributedText = [[NSAttributedString alloc] initWithString:@"" attributes:attributes];//主要是把“间距”两个字给去了。
+//    }
+//    return YES;
+//}
+-(void)textViewDidChange:(UITextView *)textView
+
+{
+    // 计算字数
+    UITextRange *selectedRange = [textView markedTextRange];
+    // 获取高亮部分
+    UITextPosition *pos = [textView positionFromPosition:selectedRange.start offset:0];
+    // 如果在变化中是高亮部分在变，就不要计算字符了
+    if (selectedRange && pos) {
+        return;
     }
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-    
     paragraphStyle.paragraphSpacing = 8;
-//    paragraphStyle.lineSpacing = 4;// 字体的行间距
+    paragraphStyle.alignment = NSTextAlignmentCenter;
     
     NSDictionary *attributes = @{
                                  
@@ -592,14 +645,14 @@
                                  NSParagraphStyleAttributeName:paragraphStyle
                                  
                                  };
-    
+    NSRange beforeRange = textView.selectedRange;
     textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
-    if ([textView.text isEqualToString:@"间距"]) {           //之所以加这个判断是因为再次编辑的时候还会进入这个代理方法，如果不加，会把你之前输入的内容清空。你也可以取消看看效果。
-        textView.attributedText = [[NSAttributedString alloc] initWithString:@"" attributes:attributes];//主要是把“间距”两个字给去了。
+    NSRange afterRange = textView.selectedRange;
+    if (afterRange.location != beforeRange.location) {
+        textView.selectedRange = beforeRange;
     }
-    return YES;
+    
 }
-
 
 - (void)setupGuideView{
     BOOL isLyricInited = [[NSUserDefaults standardUserDefaults] boolForKey:@"isLyricInited"];
@@ -687,26 +740,6 @@
     
 //    self.textView.attributedText = attributedString;
 //}
-//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-////    if ([text isEqualToString:@"\n"]) {
-//        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-//        
-//        paragraphStyle.alignment = NSTextAlignmentCenter;
-//        
-////        paragraphStyle.lineSpacing = 2;// 字体的行间距
-//    paragraphStyle.paragraphSpacing = 8;
-//    
-//        NSDictionary *attributes = @{
-//                                     
-//                                     NSFontAttributeName:[UIFont systemFontOfSize:15],
-//                                     
-//                                     NSParagraphStyleAttributeName:paragraphStyle
-//                                     
-//                                     };
-//        
-//        textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
-////    }
-//    return YES;
-//}
+
 
 @end
