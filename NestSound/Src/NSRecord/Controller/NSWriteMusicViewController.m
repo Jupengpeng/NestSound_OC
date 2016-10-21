@@ -218,7 +218,7 @@ Boolean plugedHeadset;
         lyricView.lyricView.scrollEnabled = YES;
         self.waveform.timeScrollView.userInteractionEnabled=YES;
         //暂停显示所有波形
-        self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor ;
+        self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleShowChangedAll ;
         [self.waveform.waveView setNeedsDisplay];
         
         [self.waveLink setPaused:YES];
@@ -923,7 +923,7 @@ Boolean plugedHeadset;
     self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 220, ScreenWidth, 84)];
     
     self.waveform.backgroundColor = [UIColor whiteColor];
-    
+    self.waveform.timeScrollView.userInteractionEnabled = NO;
     [self.view addSubview:self.waveform];
     
     /*self.DeviceMusicWaveView = [[DeviceMusicWave alloc] initWithFrame:CGRectMake(0, ScreenHeight - 200, ScreenWidth, 64)];
@@ -1033,7 +1033,7 @@ Boolean plugedHeadset;
 }
 
 
-
+#pragma mark - 五个按钮点击
 - (void)bottomBtnClick:(UIButton *)btn {
 
     self.appDelete = [UIApplication sharedApplication].delegate;
@@ -1177,6 +1177,8 @@ Boolean plugedHeadset;
             [self pausePlaysound:self.player3];
             [self.link setPaused:YES];
             [self.waveLink setPaused:YES];
+            self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
+            [self.waveform.waveView setNeedsDisplay];
             
         }
         btn.selected = !btn.selected;//－－no
@@ -1717,13 +1719,27 @@ Boolean plugedHeadset;
     curtime2 =timerNum;
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     
+    self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
+    self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
+    [self.waveform.waveView setNeedsDisplay];
+    
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-//    [self changeScrollViewColor];
-    //    self.distantKeyPathTemp = scrollView.contentOffset.x;
+
     
+    //只有在手动滑动的时候波形图动态变化
+    UIButton *playBtn = self.btns[1];
+    UIButton *recordBtn = self.btns[2];
+    if (!recordBtn.selected && !playBtn.selected) {
+        self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
+        self.waveform.waveView.drawRectStyle =  WaveViewDrawRectStyleChangeColor;
+        [self.waveform.waveView setNeedsDisplay];
+    }
+   
     
 }
+
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
 
     if (decelerate) {
@@ -1735,6 +1751,9 @@ Boolean plugedHeadset;
 //        curtime2 =timerNum;
 
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+        self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
+        self.waveform.waveView.drawRectStyle =  WaveViewDrawRectStyleChangeColor;
+        [self.waveform.waveView setNeedsDisplay];
         
     }
 
