@@ -140,10 +140,7 @@ static NSString *ID3 = @"cell3";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         self.navigationController.navigationBar.hidden = NO;
     
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"]];
-    imageView.userInteractionEnabled= YES;
-    [imageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftBackClick)]];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imageView];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -477,11 +474,20 @@ static NSString *ID3 = @"cell3";
 //        }];
 //        
 //    } else
+    UIImageView *leftImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"2.0_playSongs_pop"]];
+    leftImageView.userInteractionEnabled= YES;
+    [leftImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftBackClick)]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftImageView];
     if (self.who == Other){
         
-        followItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_addFocus_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
+//        followItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_addFocus_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
+//        
+//        self.navigationItem.rightBarButtonItem = followItem;
+        UIImageView *rightImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"2.0_addFocus_icon"]];
+        rightImageView.userInteractionEnabled= YES;
+        [rightImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followClick:)]];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightImageView];
         
-        self.navigationItem.rightBarButtonItem = followItem;
         
     }
     

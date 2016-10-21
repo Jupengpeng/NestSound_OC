@@ -257,7 +257,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     emptyOneImage.y = 100;
     
-    [self.view addSubview:emptyOneImage];
+    [self.contentScrollView addSubview:emptyOneImage];
     
     WS(Wself);
     //refresh
@@ -300,7 +300,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     emptyTwoImage.y = 100;
     
-    [self.view addSubview:emptyOneImage];
+    [self.contentScrollView addSubview:emptyTwoImage];
     
     //refresh
     [lyricTableView addDDPullToRefreshWithActionHandler:^{
@@ -358,7 +358,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
         [Wself fetchDataWithType:3 andIsLoadingMore:YES];
     }];
 //    [self setupContent];
-    emptyOneImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    emptyThreeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
     
     emptyThreeImage.hidden = YES;
     
@@ -366,7 +366,7 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     emptyThreeImage.y = 100;
     
-    [self.view addSubview:emptyOneImage];
+    [self.contentScrollView addSubview:emptyThreeImage];
     
 }
 #pragma mark - UITableViewDataSource

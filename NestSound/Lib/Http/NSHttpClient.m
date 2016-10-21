@@ -246,8 +246,9 @@ static NSHttpClient *client;
     [self.downloadManager invalidateSessionCancelingTasks:YES];
 }
 - (void)cancelRequest {
-    [self invalidateSessionCancelingTasks:YES];
-//    [self.operationQueue cancelAllOperations];
+//    [self invalidateSessionCancelingTasks:YES];
+    [[NSHttpClient client].operationQueue cancelAllOperations];
+    [self.operationQueue cancelAllOperations];
     
 }
 - (void)requestCallBackWithTask:(id)currentTask target:(id)target withBackCall:(NSString*)call

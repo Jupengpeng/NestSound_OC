@@ -183,7 +183,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
         }
     }];
     
-    fansTableView.showsInfiniteScrolling = NO;
+//    fansTableView.showsInfiniteScrolling = NO;
     
     //emptyImageView
     emptyImageView = [[UIImageView alloc] initWithFrame:self.view.frame];

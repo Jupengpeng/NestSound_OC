@@ -207,7 +207,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 - (void)simpleSingClick:(UIButton *)clickButton{
     NSSimpleSingModel *simpleSing = self.simpleSingModel;
     if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":[NSNumber numberWithLong:simpleSing.playTimes],@"accompanyUrl":simpleSing.playUrl}];
     } else {
         
@@ -464,7 +464,7 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     NSAccommpanyModel * accompany = self.categoryAryList[indexPath.section];
     //downLoading accompany and push to recordVC
     if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[NSSingleTon viewFrom].controllersNum] animated:YES];
+        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":[NSNumber numberWithLong:accompany.mp3Times],@"accompanyUrl":accompany.mp3URL}];
         
     } else {

@@ -40,7 +40,7 @@ CGFloat count;
 Boolean plugedHeadset;
 
 
-@interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric, AVAudioPlayerDelegate,UIAlertViewDelegate, AVAudioRecorderDelegate> {
+@interface NSWriteMusicViewController () <UIScrollViewDelegate, ImportLyric, AVAudioPlayerDelegate,UIAlertViewDelegate, AVAudioRecorderDelegate,UITextViewDelegate> {
     
     UILabel *totalTimeLabel;
     float timerNumRecorder;
@@ -1024,7 +1024,11 @@ Boolean plugedHeadset;
     
     lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 50, self.view.width, self.view.height - 280)];
     
+    lyricView.lyricText.autoAdaptKeyboard = YES;
+    
     lyricView.lyricText.textAlignment = NSTextAlignmentCenter;
+    
+    lyricView.lyricText.delegate = self;
     
     lyricView.lyricText.showsVerticalScrollIndicator = NO;
     
@@ -1346,7 +1350,12 @@ Boolean plugedHeadset;
         
         self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
       
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[NSHttpClient client].operationQueue cancelAllOperations];
+            return;
+        }];
         
+        [self.alertView addAction:action1];
         [self presentViewController:self.alertView animated:YES completion:nil];
         
         if (JUserID) {
@@ -1788,7 +1797,38 @@ Boolean plugedHeadset;
     }
 
 }
+#pragma mark - UITextViewDelegate
+-(void)textViewDidChange:(UITextView *)textView
 
+{
+    // 计算字数
+    UITextRange *selectedRange = [textView markedTextRange];
+    // 获取高亮部分
+    UITextPosition *pos = [textView positionFromPosition:selectedRange.start offset:0];
+    // 如果在变化中是高亮部分在变，就不要计算字符了
+    if (selectedRange && pos) {
+        return;
+    }
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    paragraphStyle.paragraphSpacing = 8;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{
+                                 
+                                 NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                 
+                                 NSParagraphStyleAttributeName:paragraphStyle
+                                 
+                                 };
+    NSRange beforeRange = textView.selectedRange;
+    textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
+    NSRange afterRange = textView.selectedRange;
+    if (afterRange.location != beforeRange.location) {
+        textView.selectedRange = beforeRange;
+    }
+    
+}
 
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
