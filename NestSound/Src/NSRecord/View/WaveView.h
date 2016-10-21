@@ -7,9 +7,15 @@
 //
 
 typedef NS_ENUM(NSUInteger, WaveViewDrawRectStyle) {
+    //局部创建显示
     WaveViewDrawRectStyleCreate,
+    //局部变色
     WaveViewDrawRectStyleChangeColor,
+    //显示不变色的全部
     WaveViewDrawRectStyleShowAll,
+    //显示两边变色的全部
+    WaveViewDrawRectStyleShowChangedAll,
+    //清空画布
     WaveViewDrawRectStyleClearAll
 };
 #import <UIKit/UIKit.h>

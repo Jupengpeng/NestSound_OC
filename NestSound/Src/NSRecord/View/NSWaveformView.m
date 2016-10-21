@@ -58,7 +58,7 @@
         self.timeScrollView.decelerationRate=0.0;
 
         self.timeScrollView.backgroundColor = [UIColor clearColor];
-        self.timeScrollView.contentSize = CGSizeMake(self.rect.size.width*500, 0);
+        self.timeScrollView.contentSize = CGSizeMake(ScreenWidth*50, 0);
         [self addSubview:self.timeScrollView];
         [self.timeScrollView addSubview:self.timeImageView];
         
@@ -96,7 +96,7 @@
             UILabel* label=nil;
             @autoreleasepool {
                 label = [[UILabel alloc]initWithFrame:CGRectMake(0+ScreenWidth/10*i, 3, ScreenWidth/10, 10)];//此处最终要除以10,不是11
-                upLine2 = [[UIView alloc]initWithFrame:CGRectMake(0+ScreenWidth/GRIDNUM*i, 20, ScreenWidth/GRIDNUM, 0.3)];
+                upLine2 = [[UIView alloc]initWithFrame:CGRectMake(0+ScreenWidth/10*i, 20, ScreenWidth/10, 0.3)];
                 upLine2.backgroundColor = [UIColor lightGrayColor];
                 x = ScreenWidth/20*i;
                 if (i%2 ==0) {

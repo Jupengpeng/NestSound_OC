@@ -447,6 +447,8 @@
     [self.player pause];
     
     self.waveform.timeScrollView.userInteractionEnabled=YES;
+    self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleShowChangedAll;
+    [self.waveform.waveView setNeedsDisplay];
 }
 - (void)endPlaying {
     
@@ -514,7 +516,8 @@
 - (void)actionTiming {
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
-    
+    [self changeScrollViewColor];
+
 
 }
 - (void)scrollTimeView{
@@ -525,22 +528,26 @@
         timerNum += 1/15.0;
         
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
-        //-8 的作用是修正 原因暂时未知
-        self.waveform.waveView.waveDistance =self.waveform.timeScrollView.contentOffset.x - 8;
 
-//        [self changeScrollViewColor];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
-            [self.waveform.waveView setNeedsDisplay];
-            
-        });
+      
         timerNum += 1/15.0;
 
     }
     
 }
+
+- (void)changeScrollViewColor{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //-8 的作用是修正 原因暂时未知
+
+        self.waveform.waveView.waveDistance =self.waveform.timeScrollView.contentOffset.x - 8;
+        self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
+        [self.waveform.waveView setNeedsDisplay];
+        
+    });
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     if (decelerate) {
@@ -553,13 +560,13 @@
         
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         
-//        [self changeScrollViewColor];
+        [self changeScrollViewColor];
     }
     
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     
-//    [self changeScrollViewColor];
+    [self changeScrollViewColor];
 }
 
 - (void)dealloc{

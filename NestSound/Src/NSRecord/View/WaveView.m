@@ -90,6 +90,91 @@
             break;
         case WaveViewDrawRectStyleChangeColor:
         {
+            //获取 黄色波形和灰色波形
+            NSInteger tag = 0;
+            NSInteger middleIndex = 0;
+            CGFloat currentPosition = self.frame.size.width*10/800.0f +self.waveDistance;
+            
+            NSMutableArray *toolLocationsArr = [NSMutableArray arrayWithArray:self.locationsArr];
+            [toolLocationsArr addObject:@(currentPosition)];
+            
+            [toolLocationsArr sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                CGFloat aNum = [obj1 floatValue];
+                CGFloat bNum = [obj2 floatValue];
+                
+                if (aNum > bNum) {
+                    return NSOrderedDescending;
+                }
+                else if (aNum < bNum){
+                    return NSOrderedAscending;
+                }
+                else {
+                    return NSOrderedSame;
+                }
+                
+            }];
+            middleIndex = [toolLocationsArr indexOfObject:@(currentPosition)] ;
+            
+            
+            NSRange yellowRange = NSMakeRange(0, 0);
+            if (middleIndex <= 100) {
+                yellowRange = NSMakeRange(0, middleIndex);
+            }else{
+                yellowRange = NSMakeRange(middleIndex - 100, 100);
+            }
+
+            NSArray *yellowLocArr = [self.locationsArr subarrayWithRange:yellowRange];
+            NSArray *yellowHeightArr = [self.heightArr subarrayWithRange:yellowRange];
+            
+            NSRange greyRange = NSMakeRange(0, 0);
+            if (middleIndex + 100 >= self.locationsArr.count) {
+                
+                greyRange = NSMakeRange(middleIndex , self.locationsArr.count - (middleIndex ));
+            }else{
+                greyRange = NSMakeRange(middleIndex, 100);
+            }
+
+            NSArray *greyLocArr = [self.locationsArr subarrayWithRange:greyRange];
+            NSArray *greyHeightArr = [self.heightArr subarrayWithRange:greyRange];
+            for (NSInteger i = 0; i < yellowLocArr.count; i ++) {
+                CGFloat yellowLoc = [yellowLocArr[i] floatValue];
+                CGFloat yellowHeight = [yellowHeightArr[i] floatValue];
+                [[UIColor hexColorFloat:@"ffd00b"] setFill];
+                CGContextAddRect(context, CGRectMake(yellowLoc, 29 - yellowHeight/2.0f, 1, yellowHeight));
+                CGContextFillPath(context);
+
+            }
+            
+            for (NSInteger i = 0; i < greyLocArr.count; i ++) {
+                CGFloat greyLoc = [greyLocArr[i] floatValue];
+                CGFloat greyHeight = [greyHeightArr[i] floatValue];
+                CGContextAddRect(context, CGRectMake(greyLoc, 29 - greyHeight/2.0f, 1, greyHeight));
+                [[UIColor lightGrayColor] setFill];
+                CGContextFillPath(context);
+
+            }
+
+            
+            
+//            for (NSInteger i = 0; i < self.locationsArr.count ;i++ ) {
+//                
+//                CGFloat location = [self.locationsArr[ i] floatValue];
+//                CGFloat height = [self.heightArr[ i] floatValue];
+//                
+//                CGContextAddRect(context, CGRectMake(location, 29 - height/2.0f, 1, height));
+//                if (location <= (self.frame.size.width*10/800.0f +self.waveDistance)) {
+//                    [[UIColor hexColorFloat:@"ffd00b"] setFill];
+//
+//                }else{
+//                    [[UIColor lightGrayColor] setFill];
+//                }
+//              
+//                CGContextFillPath(context);
+//            }
+        }
+            break;
+        case WaveViewDrawRectStyleShowChangedAll:{
+            
             for (NSInteger i = 0; i < self.locationsArr.count ;i++ ) {
                 
                 CGFloat location = [self.locationsArr[ i] floatValue];
@@ -98,11 +183,10 @@
                 CGContextAddRect(context, CGRectMake(location, 29 - height/2.0f, 1, height));
                 if (location <= (self.frame.size.width*10/800.0f +self.waveDistance)) {
                     [[UIColor hexColorFloat:@"ffd00b"] setFill];
-
                 }else{
                     [[UIColor lightGrayColor] setFill];
                 }
-              
+                
                 CGContextFillPath(context);
             }
         }
