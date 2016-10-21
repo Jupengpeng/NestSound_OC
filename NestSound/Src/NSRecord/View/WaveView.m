@@ -210,6 +210,30 @@
   
 }
 
+- (void)showAllWaves{
+    
+    self.drawRectStyle = WaveViewDrawRectStyleCreate;
+    [self setNeedsDisplay];
+}
+
+- (void)showAllChangedColorWaves{
+    self.drawRectStyle = WaveViewDrawRectStyleShowChangedAll;
+    [self setNeedsDisplay];
+}
+
+- (void)createNewWaves{
+    self.drawRectStyle = WaveViewDrawRectStyleCreate;
+    
+    [self setNeedsDisplay];
+}
+
+
+- (void)changingWavesColor{
+    
+    self.drawRectStyle = WaveViewDrawRectStyleChangeColor;
+    [self setNeedsDisplay];
+}
+
 
 
 /*

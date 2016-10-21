@@ -353,4 +353,41 @@
 }
 
 
+#pragma mark - waveView 方法
+
+
+- (void)waveViewShowAllWaves{
+    [self.waveView showAllWaves];
+    CGFloat lastDistance = [self.waveView.locationsArr.lastObject floatValue];
+
+    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.rect.size.width/2.0, 0);
+
+}
+//全部绘制
+- (void)waveViewShowAllChangedColorWaves{
+    [self.waveView showAllChangedColorWaves];
+    CGFloat lastDistance = [self.waveView.locationsArr.lastObject floatValue];
+    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.rect.size.width/2.0, 0);
+    
+}
+
+- (void)waveViewCreateNewWaves{
+    [self.waveView createNewWaves];
+    self.timeScrollView.contentSize = CGSizeMake(ScreenWidth*50, 0);
+
+}
+//改变局部颜色
+- (void)waveViewChangingWavesColor{
+    [self.waveView changingWavesColor];
+    CGFloat lastDistance = [self.waveView.locationsArr.lastObject floatValue];
+
+    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.rect.size.width/2.0, 0);
+
+}
+
+- (void)waveViewRemoveAllPath{
+    [self.waveView removeAllPath];
+    self.timeScrollView.contentSize = CGSizeMake(ScreenWidth*50, 0);
+
+}
 @end

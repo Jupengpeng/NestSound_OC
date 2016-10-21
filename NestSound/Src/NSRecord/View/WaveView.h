@@ -38,7 +38,13 @@ typedef NS_ENUM(NSUInteger, WaveViewDrawRectStyle) {
 
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)drawLine;
-- (void)drawAllWaves;
+- (void)showAllWaves;
+
+- (void)showAllChangedColorWaves;
+
+- (void)createNewWaves;
+
+- (void)changingWavesColor;
 
 - (void)removeAllPath;
 @end

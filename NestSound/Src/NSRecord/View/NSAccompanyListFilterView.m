@@ -153,16 +153,19 @@
 #pragma mark - show & dismiss
 
 - (void)showWithCompletion:(void (^)(BOOL finished))completion {
+    if (self.superview) {
+        _superView = self.superview;
+    }else{
+        if (_superView) {
+            [_superView addSubview:self];
+        }
+    }
+
     if (!self.hidden) {
         [self dismiss];
         return;
     }
-    if (self.superview) {
-        _superView = self.superview;
-    }
-    if (_superView) {
-        [_superView addSubview:self];
-    }
+
     
     self.hidden = NO;
 

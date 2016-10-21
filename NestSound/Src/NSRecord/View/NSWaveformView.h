@@ -33,4 +33,15 @@
 
 - (void)removeAllPath;
 
+
+- (void)waveViewShowAllWaves;
+
+- (void)waveViewShowAllChangedColorWaves;
+
+- (void)waveViewCreateNewWaves;
+
+- (void)waveViewChangingWavesColor;
+
+- (void)waveViewRemoveAllPath;
+
 @end

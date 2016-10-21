@@ -69,7 +69,7 @@ Boolean plugedHeadset;
 
     CGFloat distantKeyPath;
     NSUInteger drawCount;
-    NSUInteger drawNum;
+//    NSUInteger drawNum;
     BOOL downloadFinish;
     BOOL stopScroll;
     NSDownloadProgressView *ProgressView;//BoxDismiss
@@ -220,8 +220,8 @@ Boolean plugedHeadset;
         lyricView.lyricView.scrollEnabled = YES;
         self.waveform.timeScrollView.userInteractionEnabled=YES;
         //暂停显示所有波形
-        self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleShowChangedAll ;
-        [self.waveform.waveView setNeedsDisplay];
+        
+        [self.waveform waveViewShowAllChangedColorWaves];
         
         [self.waveLink setPaused:YES];
         
@@ -426,12 +426,13 @@ Boolean plugedHeadset;
 }*/
 
 #pragma mark -  AVAudioPlayerDelegate
-//伴奏播放完毕的回调
+//伴奏播放和录制作品完毕的回调
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
 //    [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
 //    [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.timeScrollView.contentSize.width, 0) animated:NO];
     
     timerNum=0;
+    //录制伴奏结束
     if (player == self.player) {
         UIButton* btn = self.btns[2];
         btn.selected = NO;
@@ -445,24 +446,30 @@ Boolean plugedHeadset;
         [self.waveLink setPaused:YES];
 
     }
+    //试听结束
     if (player == self.player3) {
-        UIButton* btn = self.btns[1];
-        btn.selected = NO;
-        timerNumPlay_temp=0;
-        timerNumPlay=0;
-        curtime3=0;
-//        curtime2=0;
-        [self.waveLink setPaused:YES];
-        [self.link setPaused:YES];
-        self.waveform.timeScrollView.userInteractionEnabled=YES;
+        [self audioWorkAuditionEndProcess];
+        [self.waveform.timeScrollView setContentOffset:CGPointMake([self.waveform.waveView.locationsArr.lastObject floatValue] - ScreenWidth/2.0, 0) animated:NO];
 
-        [self stopPlaysound:self.player3];
-        
-        [self stopPlaysound:self.player2];
-        
-//        [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     }
     
+    
+}
+//试听结束重新开始
+- (void)audioWorkAuditionEndProcess{
+    UIButton* btn = self.btns[1];
+    btn.selected = NO;
+    timerNumPlay_temp=0;
+    timerNumPlay=0;
+    curtime3=0;
+    //        curtime2=0;
+    [self.waveLink setPaused:YES];
+    [self.link setPaused:YES];
+    self.waveform.timeScrollView.userInteractionEnabled=YES;
+    
+    [self stopPlaysound:self.player3];
+    
+    [self stopPlaysound:self.player2];
     
 }
 
@@ -738,6 +745,10 @@ Boolean plugedHeadset;
     [super viewDidDisappear:animated];
     
     [[NSHttpClient client] cancelDownload];
+}
+
+- (void)playEndedProcess{
+    
 }
 
 - (void)receiveClearRecord:(NSNotification *)notiInfo {
@@ -1518,6 +1529,8 @@ Boolean plugedHeadset;
 //}
 
 - (void)actionTiming {
+
+    
     timerNum += frameInterval/60.0;
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
@@ -1534,19 +1547,15 @@ Boolean plugedHeadset;
 
             dispatch_async(dispatch_get_main_queue(), ^{
 
-                self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleCreate;
                 self.waveform.waveView.desibelNum =(fabs(count));
                 
-                [self.waveform.waveView drawLine];
-                
-                [self.waveform.waveView setNeedsDisplay];
+                [self.waveform waveViewCreateNewWaves];
             });
     }else{
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
-            [self.waveform.waveView setNeedsDisplay];
+            [self.waveform waveViewChangingWavesColor];
             
         });
     }
@@ -1558,7 +1567,12 @@ Boolean plugedHeadset;
         distantKeyPath=self.waveform.timeScrollView.contentOffset.x;
     }
     [self.waveform.timeScrollView setContentOffset:CGPointMake(self.waveform.waveView.waveDistance, 0) animated:NO];
-    drawNum++;
+//    drawNum++;
+}
+
+- (void)changeColor{
+    
+    
 }
 
 - (void)initMusicWave{
@@ -1644,7 +1658,7 @@ Boolean plugedHeadset;
                         
                         soundEffectVC.parameterDic = self.dict;
                         //波形图的高度和位置
-                        soundEffectVC.locationArr = self.waveform.waveView.locationsArr;
+                        soundEffectVC.locationArr = [NSMutableArray arrayWithArray: self.waveform.waveView.locationsArr];
                         soundEffectVC.heightArray = self.waveform.waveView.heightArr;
                         soundEffectVC.musicTime = totalTime;
                         soundEffectVC.isLyric = NO;
@@ -1725,8 +1739,12 @@ Boolean plugedHeadset;
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     
     self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
-    self.waveform.waveView.drawRectStyle = WaveViewDrawRectStyleChangeColor;
-    [self.waveform.waveView setNeedsDisplay];
+    [self.waveform waveViewChangingWavesColor];
+   
+    if (scrollView.contentOffset.x >= ([self.waveform.waveView.locationsArr.lastObject floatValue] - self.waveform.middleLineV.x)) {
+        [self audioWorkAuditionEndProcess];
+        
+    }
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -1737,8 +1755,10 @@ Boolean plugedHeadset;
     UIButton *recordBtn = self.btns[2];
     if (!recordBtn.selected && !playBtn.selected) {
         self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
-        self.waveform.waveView.drawRectStyle =  WaveViewDrawRectStyleChangeColor;
-        [self.waveform.waveView setNeedsDisplay];
+ 
+        [self.waveform waveViewChangingWavesColor];
+
+        
     }
    
     
@@ -1757,9 +1777,14 @@ Boolean plugedHeadset;
 
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
-        self.waveform.waveView.drawRectStyle =  WaveViewDrawRectStyleChangeColor;
-        [self.waveform.waveView setNeedsDisplay];
-        
+        [self.waveform waveViewChangingWavesColor];
+
+        //滑动到最后设置为播放完
+        if (scrollView.contentOffset.x >= ([self.waveform.waveView.locationsArr.lastObject floatValue] - self.waveform.middleLineV.x)) {
+            [self audioWorkAuditionEndProcess];
+
+        }
+
     }
 
 }
