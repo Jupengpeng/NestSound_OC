@@ -81,7 +81,7 @@
         _middleLineV.backgroundColor = [UIColor redColor];
         [self addSubview:_middleLineV];
         
-        
+        self.waveView.originMiddleX = _middleLineV.x;
         //self.labelArray = [NSMutableArray arrayWithCapacity:10];
         
         NSString* str=nil;

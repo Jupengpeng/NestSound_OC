@@ -41,6 +41,7 @@
 
     
     CGContextRef context = UIGraphicsGetCurrentContext();
+    CGFloat currentLocation = self.originMiddleX +self.waveDistance;
 
     switch (self.drawRectStyle) {
         case WaveViewDrawRectStyleCreate:
@@ -52,7 +53,12 @@
             
             //        [self addSubview:self.realTimeView];
             
-            [self.locationsArr addObject:@(self.frame.size.width*10/800.0f +self.waveDistance)];
+            CGFloat lastLocation = [self.locationsArr.lastObject floatValue];
+            
+            if (lastLocation > currentLocation) {
+                return;
+            }
+            [self.locationsArr addObject:@(currentLocation)];
             [self.heightArr addObject:@(self.desibelNum)];
             
             //    for (NSInteger i = 0; i < (self.waveArray.count<=100)?self.waveArray.count :100;i++ ) {
@@ -93,10 +99,10 @@
             //获取 黄色波形和灰色波形
             NSInteger tag = 0;
             NSInteger middleIndex = 0;
-            CGFloat currentPosition = self.frame.size.width*10/800.0f +self.waveDistance;
+//            CGFloat currentPosition = self.frame.size.width*10/800.0f +self.waveDistance;
             
             NSMutableArray *toolLocationsArr = [NSMutableArray arrayWithArray:self.locationsArr];
-            [toolLocationsArr addObject:@(currentPosition)];
+            [toolLocationsArr addObject:@(currentLocation)];
             
             [toolLocationsArr sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 CGFloat aNum = [obj1 floatValue];
@@ -113,7 +119,7 @@
                 }
                 
             }];
-            middleIndex = [toolLocationsArr indexOfObject:@(currentPosition)] ;
+            middleIndex = [toolLocationsArr indexOfObject:@(currentLocation)] ;
             
             
             NSRange yellowRange = NSMakeRange(0, 0);
@@ -181,7 +187,7 @@
                 CGFloat height = [self.heightArr[ i] floatValue];
                 
                 CGContextAddRect(context, CGRectMake(location, 29 - height/2.0f, 1, height));
-                if (location <= (self.frame.size.width*10/800.0f +self.waveDistance)) {
+                if (location <= currentLocation) {
                     [[UIColor hexColorFloat:@"ffd00b"] setFill];
                 }else{
                     [[UIColor lightGrayColor] setFill];
