@@ -33,14 +33,14 @@
     
     //titleLabel
     leftLabel = [[UILabel alloc] init];
-    leftLabel.text = @"保全申请保全申请";
+//    leftLabel.text = @"保全申请保全申请";
     leftLabel.textColor = [UIColor hexColorFloat:@"1818181"];
     leftLabel.font = [UIFont systemFontOfSize:14];
     [self addSubview:leftLabel];
     
     //dateLabel
     rightLabel = [[UILabel alloc] init];
-    rightLabel.text = @"2016-08-15";
+//    rightLabel.text = @"2016-08-15";
     rightLabel.textAlignment = NSTextAlignmentRight;
     rightLabel.textColor = [UIColor hexColorFloat:@"999999"];
     rightLabel.font = [UIFont systemFontOfSize:12];
@@ -48,7 +48,7 @@
     
     //statusLabel
     statusLabel = [[UILabel alloc] init];
-    statusLabel.text = @"保全成功";
+//    statusLabel.text = @"保全成功";
     statusLabel.textAlignment = NSTextAlignmentRight;
     statusLabel.textColor = [UIColor darkGrayColor];
     statusLabel.font = [UIFont systemFontOfSize:12];
@@ -114,6 +114,10 @@
     } else if (preserveModel.status == 2){
         statusLabel.text = @"保全认证中...";
         statusLabel.textColor = [UIColor orangeColor];
+    } else {
+        statusLabel.text = @"处理中...";
+        statusLabel.textColor = [UIColor redColor];
+
     }
     leftLabel.text = preserveModel.preserveName;
     rightLabel.text = [date  datetoLongLongStringWithDate:[preserveModel.createTime longLongValue]];

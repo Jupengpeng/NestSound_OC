@@ -79,7 +79,7 @@ Boolean plugedHeadset;
     int num;
     int frameInterval;
     int testNum;
-    
+    AFHTTPSessionManager *manager;
 }
 
 @property (nonatomic, strong) UIImageView *slideBarImage;
@@ -434,6 +434,8 @@ Boolean plugedHeadset;
     timerNum=0;
     //录制伴奏结束
     if (player == self.player) {
+        lyricView.lyricText.userInteractionEnabled = YES;
+        lyricView.lyricText.scrollEnabled = YES;
         UIButton* btn = self.btns[2];
         btn.selected = NO;
         btn.userInteractionEnabled = NO;
@@ -466,7 +468,7 @@ Boolean plugedHeadset;
     [self.waveLink setPaused:YES];
     [self.link setPaused:YES];
     self.waveform.timeScrollView.userInteractionEnabled=YES;
-    
+    lyricView.lyricText.userInteractionEnabled = YES;
     [self stopPlaysound:self.player3];
     
     [self stopPlaysound:self.player2];
@@ -1113,7 +1115,8 @@ Boolean plugedHeadset;
                     [self.player prepareToPlay];
                     
                 }
-                
+                lyricView.lyricView.scrollEnabled = NO;
+                lyricView.lyricText.userInteractionEnabled = NO;
                 [self addTimer];
                 
                 self.isPlay = NO;
@@ -1185,11 +1188,14 @@ Boolean plugedHeadset;
             if (plugedHeadset) {
                 [self playAccompanyWithUrl:url withTime:curtime3];
             }
+            lyricView.lyricView.scrollEnabled = NO;
+            lyricView.lyricText.userInteractionEnabled = NO;
             [self playsound:self.wavFilePath time:curtime3];
 
         }else{//没回听
             self.waveform.timeScrollView.userInteractionEnabled=YES;
-            
+            lyricView.lyricText.userInteractionEnabled = YES;
+            lyricView.lyricView.scrollEnabled = YES;
 //            curtime2=   self.player2.currentTime;
             curtime3=   self.player3.currentTime;
             timerNumPlay_temp=curtime3;
@@ -1351,7 +1357,9 @@ Boolean plugedHeadset;
         self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
       
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [[NSHttpClient client].operationQueue cancelAllOperations];
+#warning 取消网络请求
+            [manager.operationQueue cancelAllOperations];
+            [[NSHttpClient client] cancelRequest];
             return;
         }];
         
@@ -1426,12 +1434,7 @@ Boolean plugedHeadset;
             [recordText synchronize];
             [self.alertView dismissViewControllerAnimated:YES completion:^{
                 [wSelf.navigationController pushViewController:wSelf.public animated:YES];
-//                NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
-//                soundEffectVC.parameterDic = self.dict;
-//                soundEffectVC.musicTime = self.timeLabel.text;
-//                soundEffectVC.isLyric = NO;
-//                soundEffectVC.mp3File = self.mp3Path;
-//                [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
+//
             }];
 
 //            self.public.isLyric=NO;
@@ -1462,8 +1465,6 @@ Boolean plugedHeadset;
     timerImgView.image = [UIImage imageNamed:[NSString stringWithFormat:@"2.0_%d",num]];
     
     if (num == -1) {
-        lyricView.lyricText.userInteractionEnabled = NO;
-        lyricView.lyricView.scrollEnabled = NO;
         timerImgView.hidden = YES;
         [self.waveLink setPaused:NO];
         [self.link setPaused:NO];
@@ -1636,7 +1637,8 @@ Boolean plugedHeadset;
         
 //        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
         // 1.创建网络管理者
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager = [AFHTTPSessionManager manager];
+        
         NSString* url =[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL];
         [manager POST:url parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
             

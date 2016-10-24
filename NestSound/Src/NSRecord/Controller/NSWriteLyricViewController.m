@@ -273,7 +273,7 @@
     [self.view addSubview:line];
 
     //lyricView
-    lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 45, ScreenWidth, ScreenHeight - 162)];
+    lyricView = [[NSLyricView alloc] initWithFrame:CGRectMake(0, 45, ScreenWidth, ScreenHeight - 200)];
     lyricView.backgroundColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
     lyricView.lyricText.backgroundColor = [UIColor colorWithRed:245.0/255 green:245.0/255 blue:245.0/255 alpha:1.0];
     if (self.lyricText.length) {
