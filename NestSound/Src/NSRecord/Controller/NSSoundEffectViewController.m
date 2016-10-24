@@ -300,13 +300,11 @@
 - (void)auditionBtn:(UIButton *)sender {
     
     [self endPlaying];
-    
     for (int i = 0; i < 5; i++) {
         UIButton *btn = self.btns[i];
         if (sender.tag - 170 == i) {
             sender.selected = YES;
         } else {
-            
             btn.selected = NO;
         }
     }
@@ -518,7 +516,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         //-8 的作用是修正 原因暂时未知
 
-        self.waveform.waveView.waveDistance =self.waveform.timeScrollView.contentOffset.x - 8;
+        self.waveform.waveView.waveDistance =self.waveform.timeScrollView.contentOffset.x ;
         [self.waveform waveViewChangingWavesColor];
 
         

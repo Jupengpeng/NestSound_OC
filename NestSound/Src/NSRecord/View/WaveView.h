@@ -32,8 +32,8 @@ typedef NS_ENUM(NSUInteger, WaveViewDrawRectStyle) {
 
 @property (nonatomic,strong) NSMutableArray *locationsArr;
 @property (nonatomic,strong) NSMutableArray *heightArr;
-
-
+//中间线x坐标
+@property (nonatomic,assign) CGFloat originMiddleX;
 @property (nonatomic,assign) WaveViewDrawRectStyle drawRectStyle;
 
 - (instancetype)initWithFrame:(CGRect)frame;
