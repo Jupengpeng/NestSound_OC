@@ -372,7 +372,7 @@ static NSString  * const templateCellIdifity = @"templateCell";
         
     } else {
         
-        return 50;
+        return 60;
     }
     
 }

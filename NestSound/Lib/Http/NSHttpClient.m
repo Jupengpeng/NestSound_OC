@@ -247,8 +247,10 @@ static NSHttpClient *client;
 }
 - (void)cancelRequest {
 //    [self invalidateSessionCancelingTasks:YES];
-    [[NSHttpClient client].operationQueue cancelAllOperations];
-    [self.operationQueue cancelAllOperations];
+//    [[NSHttpClient client].operationQueue cancelAllOperations];
+//    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] init];
+//    [manager.operationQueue cancelAllOperations];
+    
     
 }
 - (void)requestCallBackWithTask:(id)currentTask target:(id)target withBackCall:(NSString*)call
