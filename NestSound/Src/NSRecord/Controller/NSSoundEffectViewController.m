@@ -560,6 +560,25 @@
     }
     
 }
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (decelerate) {
+        
+        timerNum = scrollView.contentOffset.x/speed;
+        
+        //获取到有多少个  1/15 单位时间坐标
+        NSInteger timeScaleCount = round(timerNum /(1/15.0));
+        CMTime ctime = CMTimeMake(timeScaleCount, 15);
+        //实际时间
+        timerNum = timeScaleCount/15.0;
+        
+        [self.musicItem seekToTime:ctime];
+        NSLog(@"nowTime %f CMTimeMake %lld  time %f",ctime.value/(ctime.timescale*1.0),ctime.value,timerNum);
+        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+        
+        [self changeScrollViewColor];
+    }
+}
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     
     [self changeScrollViewColor];

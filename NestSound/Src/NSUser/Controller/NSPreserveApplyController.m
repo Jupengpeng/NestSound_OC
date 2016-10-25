@@ -40,6 +40,7 @@
     //申请用实际保全类型
     NSString *_applyType;
     UIButton *_submitButton;
+    NSString *_resultCode;
     NSPreservePersonInfoModel *_personInfoModel;
 }
 @property (nonatomic,strong) UITableView *tableView;
@@ -113,10 +114,13 @@
         btn.frame = CGRectMake(10, footerView.height - 96 , ScreenWidth -20, 45);
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [btn setTitle:@"提交申请" forState:UIControlStateNormal];
+        [btn setTitle:@"申请已提交" forState:UIControlStateDisabled];
         btn.clipsToBounds = YES;
         [btn setTitleColor:[UIColor hexColorFloat:@"323232"] forState:UIControlStateNormal];
         btn.layer.cornerRadius = 45/2.0f;
-        btn.backgroundColor = [UIColor hexColorFloat:kAppBaseYellowValue];
+        [btn setBackgroundImage:[UIImage createImageWithColor:[UIColor lightGrayColor]] forState:UIControlStateDisabled];
+        [btn setBackgroundImage:[UIImage createImageWithColor:[UIColor hexColorFloat:kAppBaseYellowValue]] forState:UIControlStateNormal];
+
     } action:^(UIButton *btn) {
         if (!_uerIsChosen) {
             UIAlertView *msgbox = [[UIAlertView alloc] initWithTitle:@"提示" message:@"保全用户信息还未添加 ~" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
@@ -147,6 +151,8 @@
 
 
 - (void)feedbackPaySuccessWithCode:(NSString *)statusStr{
+//     0取消 4失败 8成功
+    _resultCode = statusStr;
     self.requestType = NO;
     self.requestParams = @{@"orderNo":self.orderNo,
                            @"status":statusStr,
@@ -211,30 +217,33 @@
     }else{
         if ([operation.urlTag isEqualToString:paiedSuccessUrl]) {
             if (parserObject.code == 200 ){
-                CHLog(@"支付回调recordNo ：%@",self.orderNo);
-                //                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"支付订单%@成功回调成功",self.orderNo]];
-                _submitButton.enabled = YES;
-                NSLog(@"navigationView  子视图 %@  tabbar  姿势图 %@",self.navigationController.childViewControllers,self.tabBarController.childViewControllers);
-                if ([self.navigationController.childViewControllers[1] isKindOfClass:[NSPreserveListViewController class]]) {
-                    NSPreserveListViewController *perservelistController = (NSPreserveListViewController *)self.navigationController.childViewControllers[1];
-                    perservelistController.needRefresh = YES;
-                    [self.navigationController popToViewController:perservelistController animated:YES];
-
-                }else{
-                    NSUserViewController *userViewController = [[NSUserViewController alloc]init];;
-                    NSBaseNavigationController *fourthNavController = (NSBaseNavigationController *)self.tabBarController.childViewControllers[3];
-                    if ([fourthNavController.childViewControllers.firstObject isKindOfClass:[NSUserViewController class]]) {
-                        userViewController = fourthNavController.childViewControllers.firstObject;
+                
+                if ([_resultCode isEqualToString:@"8"] || [_resultCode isEqualToString:@"4"]) {
+                    
+                    CHLog(@"支付回调recordNo ：%@",self.orderNo);
+                    //                [[NSToastManager manager] showtoast:[NSString stringWithFormat:@"支付订单%@成功回调成功",self.orderNo]];
+                    _submitButton.enabled = YES;
+                    if ([self.navigationController.childViewControllers[1] isKindOfClass:[NSPreserveListViewController class]]) {
+                        NSPreserveListViewController *perservelistController = (NSPreserveListViewController *)self.navigationController.childViewControllers[1];
+                        perservelistController.needRefresh = YES;
+                        [self.navigationController popToViewController:perservelistController animated:YES];
+                        
+                    }else{
+                        NSUserViewController *userViewController = [[NSUserViewController alloc]init];;
+                        NSBaseNavigationController *fourthNavController = (NSBaseNavigationController *)self.tabBarController.childViewControllers[3];
+                        if ([fourthNavController.childViewControllers.firstObject isKindOfClass:[NSUserViewController class]]) {
+                            userViewController = fourthNavController.childViewControllers.firstObject;
+                            
+                        }
+                        NSMutableArray * array =[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+                        NSPreserveListViewController *listController = [[NSPreserveListViewController alloc]init];
+                        array = [NSMutableArray arrayWithObjects:userViewController,listController, nil];
+                        [self.navigationController pushViewController:listController animated:YES];
+                        
+                        [listController.navigationController setViewControllers:array animated:YES];
+                        self.tabBarController.selectedIndex = 3;
                         
                     }
-                    NSMutableArray * array =[[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
-                    NSPreserveListViewController *listController = [[NSPreserveListViewController alloc]init];
-                    array = [NSMutableArray arrayWithObjects:userViewController,listController, nil];
-                    [self.navigationController pushViewController:listController animated:YES];
-                    
-                    [listController.navigationController setViewControllers:array animated:YES];
-                    self.tabBarController.selectedIndex = 3;
-                    
                 }
             }
             
@@ -255,8 +264,17 @@
                            [[NSToastManager manager] showtoast:@"支付成功"];
                            
                        } else {
-                           CHLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
-                           [self feedbackPaySuccessWithCode:@"4"];
+                           CHLog(@" result %@ PingppError: code=%lu msg=%@", result,(unsigned  long)error.code, [error getMsg]);
+                           if ([result isEqualToString:@"cancel"]) {
+                               
+                               _submitButton.enabled = YES;
+                               [self feedbackPaySuccessWithCode:@"0"];
+
+                           }else{
+                               
+                               [self feedbackPaySuccessWithCode:@"4"];
+
+                           }
                            
                            [[NSToastManager manager] showtoast:[error getMsg]];
                        }
