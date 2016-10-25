@@ -28,7 +28,6 @@
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
 		0CCE1D7E1DBF323100FB66D6 /* NSMyCooperationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE1D7D1DBF323100FB66D6 /* NSMyCooperationViewController.m */; };
 		0CCE1D811DBF326F00FB66D6 /* NSCollectionCooperationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE1D801DBF326F00FB66D6 /* NSCollectionCooperationViewController.m */; };
-		0CCE1D841DBF328300FB66D6 /* NSCooperationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE1D831DBF328300FB66D6 /* NSCooperationDetailViewController.m */; };
 		0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */; };
 		0CCE78901D87ACA900542845 /* NSPreserveDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */; };
 		0CCF1D7F1D9101F700F97526 /* NSPreserveSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCF1D7E1D9101F700F97526 /* NSPreserveSelectViewController.m */; };
@@ -259,6 +258,8 @@
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */; };
+		B8625FAF1DBF709500713B1D /* NSCooperationDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8625FAE1DBF709500713B1D /* NSCooperationDetailViewController.m */; };
+		B8625FB21DBF740A00713B1D /* NSCooperateDetailMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8625FB11DBF740A00713B1D /* NSCooperateDetailMainCell.m */; };
 		B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
 		B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */; };
@@ -330,7 +331,6 @@
 		0CCE1D7F1DBF326F00FB66D6 /* NSCollectionCooperationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCollectionCooperationViewController.h; sourceTree = "<group>"; };
 		0CCE1D801DBF326F00FB66D6 /* NSCollectionCooperationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCollectionCooperationViewController.m; sourceTree = "<group>"; };
 		0CCE1D821DBF328300FB66D6 /* NSCooperationDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationDetailViewController.h; sourceTree = "<group>"; };
-		0CCE1D831DBF328300FB66D6 /* NSCooperationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationDetailViewController.m; sourceTree = "<group>"; };
 		0CCE5C6F1D5D7A9F00E97998 /* 韵脚.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "韵脚.txt"; sourceTree = "<group>"; };
 		0CCE788E1D87ACA900542845 /* NSPreserveDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveDetailViewController.h; sourceTree = "<group>"; };
 		0CCE788F1D87ACA900542845 /* NSPreserveDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveDetailViewController.m; sourceTree = "<group>"; };
@@ -946,6 +946,9 @@
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B8441D6D1D9373EC00BDDD09 /* NSPreservePayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePayCell.h; sourceTree = "<group>"; };
 		B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreservePayCell.m; sourceTree = "<group>"; };
+		B8625FAE1DBF709500713B1D /* NSCooperationDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationDetailViewController.m; sourceTree = "<group>"; };
+		B8625FB01DBF740A00713B1D /* NSCooperateDetailMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperateDetailMainCell.h; sourceTree = "<group>"; };
+		B8625FB11DBF740A00713B1D /* NSCooperateDetailMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperateDetailMainCell.m; sourceTree = "<group>"; };
 		B8699E9D1DAD07110041B40C /* NSPreserveApplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyModel.h; sourceTree = "<group>"; };
 		B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyModel.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
@@ -1030,6 +1033,8 @@
 		0C0403BC1DBE1BAE00D5620A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8625FB01DBF740A00713B1D /* NSCooperateDetailMainCell.h */,
+				B8625FB11DBF740A00713B1D /* NSCooperateDetailMainCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1051,7 +1056,7 @@
 				0CCE1D7F1DBF326F00FB66D6 /* NSCollectionCooperationViewController.h */,
 				0CCE1D801DBF326F00FB66D6 /* NSCollectionCooperationViewController.m */,
 				0CCE1D821DBF328300FB66D6 /* NSCooperationDetailViewController.h */,
-				0CCE1D831DBF328300FB66D6 /* NSCooperationDetailViewController.m */,
+				B8625FAE1DBF709500713B1D /* NSCooperationDetailViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -3487,6 +3492,7 @@
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */,
 				0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */,
+				B8625FB21DBF740A00713B1D /* NSCooperateDetailMainCell.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
 				2AB300701D1699ED00938F1C /* NSTunMusicModel.m in Sources */,
@@ -3584,7 +3590,7 @@
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				0CCE78901D87ACA900542845 /* NSPreserveDetailViewController.m in Sources */,
 				697A7CC51D6860B60038F16C /* NSMusicianListModel.m in Sources */,
-				0CCE1D841DBF328300FB66D6 /* NSCooperationDetailViewController.m in Sources */,
+				B8625FAF1DBF709500713B1D /* NSCooperationDetailViewController.m in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
 				B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */,
 				946B04281D4EEC8A00529DBA /* HUAlbumsViewController.m in Sources */,
