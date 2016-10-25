@@ -184,6 +184,7 @@
     } completion:^(BOOL finished) {
         self.hidden = YES;
         if (self.superview) {
+            _superView = self.superview;
             [self removeFromSuperview];
         }
     }];
