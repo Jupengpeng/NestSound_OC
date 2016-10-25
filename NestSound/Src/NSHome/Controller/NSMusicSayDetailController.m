@@ -48,11 +48,14 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     _commentCountChanged = NO;
+    
 
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
+//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@""]]];
+//    _webView = nil;
 
 }
 - (void)setupUI{
@@ -61,6 +64,7 @@
     //webView
     _webView = [[UIWebView alloc] init];
     _webView.delegate = self;
+    _webView.dataDetectorTypes = UIDataDetectorTypeNone;
     _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.contentUrl]]];
     [self.view addSubview:_webView];
@@ -181,7 +185,27 @@
     
 }
 
+#pragma mark - UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+//    NSString *clickStr=request.URL.absoluteString;
+    //如果是保全证书
+//    if ([self.h5Url containsString:@"certificate"]) {
+//        return YES;
+//    }
+//    
+//    if (![self.h5Url isEqualToString:clickStr]) {
+//        NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
+//        eventVC.h5Url = clickStr;
+//        [self.navigationController pushViewController:eventVC animated:YES];
+//    }
+    
+    return YES;
+}
 
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+}
 
 - (void)setupData{
     
