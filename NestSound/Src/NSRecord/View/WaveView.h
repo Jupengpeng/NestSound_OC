@@ -36,6 +36,10 @@ typedef NS_ENUM(NSUInteger, WaveViewDrawRectStyle) {
 @property (nonatomic,assign) CGFloat originMiddleX;
 @property (nonatomic,assign) WaveViewDrawRectStyle drawRectStyle;
 
+
+//获取各个位置时的时间
+@property (nonatomic,strong) NSMutableArray *timeArray;
+
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)drawLine;
 - (void)showAllWaves;

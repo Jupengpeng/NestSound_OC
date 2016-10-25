@@ -17,4 +17,8 @@
 @property (nonatomic, strong) NSString *mp3URL;
 @property (nonatomic, strong) NSMutableArray *locationArr;
 @property (nonatomic, strong) NSArray *heightArray;
+
+
+@property (nonatomic,strong) NSMutableDictionary *totalTimeLocDict;
+
 @end

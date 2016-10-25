@@ -258,7 +258,7 @@
             [_sharebutton setTitle:[NSString stringWithFormat:@"(%d)",musicModel.sharenum.intValue] forState:UIControlStateNormal];
         }else if ([operation.urlTag isEqualToString:updateShareCount]){
             
-            NSBaseModel *baseModel = (NSBaseModel *)parserObject;
+//            NSBaseModel *baseModel = (NSBaseModel *)parserObject;
 
         }
     }

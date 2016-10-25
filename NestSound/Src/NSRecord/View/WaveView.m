@@ -40,9 +40,13 @@
 - (void)drawRect:(CGRect)rect{
 
     
+    if (!self.originMiddleX) {
+        return;
+    }
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGFloat currentLocation = self.originMiddleX +self.waveDistance;
-
+    NSLog(@"waveView middle x %f",self.originMiddleX);
     switch (self.drawRectStyle) {
         case WaveViewDrawRectStyleCreate:
         {
@@ -56,12 +60,14 @@
             CGFloat lastLocation = [self.locationsArr.lastObject floatValue];
             
             if (lastLocation > currentLocation) {
+                NSLog(@" 有问题 的currentLocation  %f",currentLocation);
                 return;
             }
+            
+            
             [self.locationsArr addObject:@(currentLocation)];
             [self.heightArr addObject:@(self.desibelNum)];
             
-            //    for (NSInteger i = 0; i < (self.waveArray.count<=100)?self.waveArray.count :100;i++ ) {
             NSInteger showCount = (self.locationsArr.count<=100)?self.locationsArr.count :100;
             NSInteger startIndex = self.locationsArr.count - showCount;
             
@@ -96,6 +102,10 @@
             break;
         case WaveViewDrawRectStyleChangeColor:
         {
+            
+
+            
+            
             //获取 黄色波形和灰色波形
             NSInteger tag = 0;
             NSInteger middleIndex = 0;
@@ -121,7 +131,7 @@
             }];
             middleIndex = [toolLocationsArr indexOfObject:@(currentLocation)] ;
             
-            
+        
             NSRange yellowRange = NSMakeRange(0, 0);
             if (middleIndex <= 100) {
                 yellowRange = NSMakeRange(0, middleIndex);
@@ -131,6 +141,7 @@
 
             NSArray *yellowLocArr = [self.locationsArr subarrayWithRange:yellowRange];
             NSArray *yellowHeightArr = [self.heightArr subarrayWithRange:yellowRange];
+            
             
             NSRange greyRange = NSMakeRange(0, 0);
             if (middleIndex + 100 >= self.locationsArr.count) {
@@ -218,7 +229,7 @@
 
 - (void)showAllWaves{
     
-    self.drawRectStyle = WaveViewDrawRectStyleCreate;
+    self.drawRectStyle = WaveViewDrawRectStyleShowAll;
     [self setNeedsDisplay];
 }
 

@@ -119,6 +119,7 @@ Boolean plugedHeadset;
 @property (nonatomic, assign) int lineNum2;
 @property (nonatomic, assign) NSTimeInterval playerTime;
 
+//是否正在回放作品
 @property (nonatomic, assign) BOOL isPlay;
 @property (nonatomic, assign) BOOL isPlay2;
 
@@ -131,6 +132,8 @@ Boolean plugedHeadset;
 @property (nonatomic,strong) UIButton *guideBanzouButton;
 
 @property (nonatomic,strong) UIButton *guideDaoruButton;
+
+
 
 @end
 
@@ -1543,8 +1546,9 @@ Boolean plugedHeadset;
     timerNum += frameInterval/60.0;
     
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+    
+
     //分贝数
-    totalTime += frameInterval/60.0;
     if (!self.isPlay) {
         
         count = [self decibels];
@@ -1552,11 +1556,10 @@ Boolean plugedHeadset;
             return;
         }
         //如果count是nan则不添加波形
- 
+        totalTime += frameInterval/60.0;
 
             dispatch_async(dispatch_get_main_queue(), ^{
 
-                self.waveform.waveView.desibelNum =(fabs(count));
                 
                 [self.waveform waveViewCreateNewWaves];
             });
@@ -1572,6 +1575,8 @@ Boolean plugedHeadset;
 - (void)scrollTimeView{
     
     self.waveform.waveView.waveDistance =speed*timerNum;
+    self.waveform.waveView.desibelNum =(fabs(count));
+
     if ([self.player isPlaying]) {
         distantKeyPath=self.waveform.timeScrollView.contentOffset.x;
     }
