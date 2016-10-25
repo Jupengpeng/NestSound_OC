@@ -261,6 +261,7 @@
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */; };
+		B8625FB21DBF740A00713B1D /* NSCooperateDetailMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8625FB11DBF740A00713B1D /* NSCooperateDetailMainCell.m */; };
 		B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
 		B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */; };
@@ -952,6 +953,8 @@
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B8441D6D1D9373EC00BDDD09 /* NSPreservePayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePayCell.h; sourceTree = "<group>"; };
 		B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreservePayCell.m; sourceTree = "<group>"; };
+		B8625FB01DBF740A00713B1D /* NSCooperateDetailMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperateDetailMainCell.h; sourceTree = "<group>"; };
+		B8625FB11DBF740A00713B1D /* NSCooperateDetailMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperateDetailMainCell.m; sourceTree = "<group>"; };
 		B8699E9D1DAD07110041B40C /* NSPreserveApplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyModel.h; sourceTree = "<group>"; };
 		B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyModel.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
@@ -1036,6 +1039,8 @@
 		0C0403BC1DBE1BAE00D5620A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8625FB01DBF740A00713B1D /* NSCooperateDetailMainCell.h */,
+				B8625FB11DBF740A00713B1D /* NSCooperateDetailMainCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -3499,6 +3504,7 @@
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */,
 				0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */,
+				B8625FB21DBF740A00713B1D /* NSCooperateDetailMainCell.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
 				2AB300701D1699ED00938F1C /* NSTunMusicModel.m in Sources */,

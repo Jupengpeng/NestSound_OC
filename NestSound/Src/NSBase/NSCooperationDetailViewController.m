@@ -8,7 +8,9 @@
 
 #import "NSCooperationDetailViewController.h"
 
-@interface NSCooperationDetailViewController ()
+@interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -16,22 +18,72 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+
+    [self setupUI];
 }
+
+- (void)setupUI{
+    
+    self.title = self.detailTitle;
+    
+    [self.view addSubview:self.tableView];
+    
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    
+}
+
+#pragma mark - <UITableViewDelegate,UITableDatasourse>
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    switch (section) {
+        case 0:{
+            
+        }
+            break;
+        case 1:{
+            
+        }
+            break;
+        default:{
+            
+        }
+            break;
+    }
+    return 3;
+    
+    
+}
+
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - lazy load
+- (UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 45) style:UITableViewStyleGrouped];
+        
+    }
+    return _tableView;
 }
-*/
+
+
+
 
 @end

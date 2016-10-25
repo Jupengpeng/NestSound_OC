@@ -10,4 +10,7 @@
 
 @interface NSCooperationDetailViewController : NSBaseViewController
 
+
+@property (nonatomic,strong) NSString *detailTitle;
+
 @end
