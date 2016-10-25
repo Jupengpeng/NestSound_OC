@@ -30,7 +30,7 @@
     
     NSTimer *timer;
     
-    int num, a,speed;
+    CGFloat num, a,speed;
     
     long effectId;
     
@@ -189,8 +189,8 @@
     _waveform.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:_waveform];
-    _waveform.waveView.heightArr = [NSMutableArray arrayWithArray:self.heightArray];
     
+    _waveform.waveView.heightArr = [NSMutableArray arrayWithArray:self.heightArray];
     for (int i = 0; i < self.locationArr.count; i++) {
         CGFloat location = [self.locationArr[i] floatValue];
 
@@ -199,6 +199,8 @@
         [self.locationArr replaceObjectAtIndex:i withObject:@(location)];
 
     }
+    NSLog(@"self.locationArr  %@",self.locationArr);
+
     _waveform.waveView.locationsArr = [NSMutableArray arrayWithArray:self.locationArr];
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -408,7 +410,13 @@
         
         self.player = [AVPlayer playerWithPlayerItem:self.musicItem];
     }
-    
+//    //重新计算时长和速度
+    NSLog(@" CMTimeGetSeconds(self.musicItem.asset.duration %f",CMTimeGetSeconds(self.musicItem.asset.duration));
+    self.musicTime = CMTimeGetSeconds(self.musicItem.asset.duration);
+    totalTimeLabel.text = [NSString stringWithFormat:@"/%02zd:%02zd",(NSInteger)self.musicTime/60, (NSInteger)self.musicTime % 60];
+    if (self.musicTime) {
+        speed = ([self.locationArr.lastObject floatValue] - self.waveform.middleLineV.x)/ self.musicTime;
+    }
     [self.player play];
     [self.waveLink setPaused:NO];
     [self.link setPaused:NO];
@@ -493,30 +501,32 @@
 }
 - (void)actionTiming {
     
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
-    [self changeScrollViewColor];
+    CGFloat currentSecond = self.musicItem.currentTime.value/self.musicItem.currentTime.timescale;
+    if (self.musicItem.currentTime.value) {
+        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+        
+        timerNum += 1/15.0;
+        [self changeScrollViewColor];
+    }
 
 
 }
 - (void)scrollTimeView{
 
-    if (self.player.status == AVPlayerStatusReadyToPlay) {
+    if (self.musicItem.currentTime.value) {
         decelerate = NO;
         
-        
         [self.waveform.timeScrollView setContentOffset:CGPointMake(speed*timerNum, 0) animated:NO];
-
-        timerNum += 1/15.0;
-
+        
     }
     
 }
 
 - (void)changeScrollViewColor{
     dispatch_async(dispatch_get_main_queue(), ^{
-        //-8 的作用是修正 原因暂时未知
 
-        self.waveform.waveView.waveDistance =self.waveform.timeScrollView.contentOffset.x ;
+        self.waveform.waveView.waveDistance = self.waveform.timeScrollView.contentOffset.x ;
+
         [self.waveform waveViewChangingWavesColor];
 
         
@@ -524,16 +534,26 @@
     });
 }
 
+#pragma mark - UIScrollViewDelegate
+
+
+
+
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     if (decelerate) {
        
         timerNum = scrollView.contentOffset.x/speed;
 
-        CMTime ctime = CMTimeMake(scrollView.contentOffset.x/speed, 1);
+        //获取到有多少个  1/15 单位时间坐标
+        NSInteger timeScaleCount = round(timerNum /(1/15.0));
+        CMTime ctime = CMTimeMake(timeScaleCount, 15);
+        //实际时间
+        timerNum = timeScaleCount/15.0;
         
         [self.musicItem seekToTime:ctime];
-        
+        NSLog(@"nowTime %f CMTimeMake %lld  time %f",ctime.value/(ctime.timescale*1.0),ctime.value,timerNum);
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         
         [self changeScrollViewColor];

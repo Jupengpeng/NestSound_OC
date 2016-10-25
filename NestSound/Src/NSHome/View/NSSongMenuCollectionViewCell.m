@@ -35,6 +35,8 @@
 - (void)setupUI {
     
     imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    imageView.clipsToBounds = YES;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.contentView addSubview:imageView];
     
     songListName = [[UILabel alloc] init];

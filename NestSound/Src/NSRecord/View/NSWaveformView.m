@@ -360,14 +360,14 @@
     [self.waveView showAllWaves];
     CGFloat lastDistance = [self.waveView.locationsArr.lastObject floatValue];
 
-    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.rect.size.width/2.0, 0);
+    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.middleLineV.x, 0);
 
 }
 //全部绘制
 - (void)waveViewShowAllChangedColorWaves{
     [self.waveView showAllChangedColorWaves];
     CGFloat lastDistance = [self.waveView.locationsArr.lastObject floatValue];
-    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.rect.size.width/2.0, 0);
+    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.middleLineV.x, 0);
     
 }
 
@@ -381,7 +381,7 @@
     [self.waveView changingWavesColor];
     CGFloat lastDistance = [self.waveView.locationsArr.lastObject floatValue];
 
-    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.rect.size.width/2.0, 0);
+    self.timeScrollView.contentSize = CGSizeMake(lastDistance + self.middleLineV.x, 0);
 
 }
 
