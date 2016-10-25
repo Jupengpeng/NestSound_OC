@@ -21,6 +21,7 @@
 #import "NSUserModel.h"
 #import "NSTopicCarryOnCell.h"
 #import "NSMessageListModel.h"
+#import "NSCooperationViewController.h"
 /**
  *  专题活动
   */
@@ -518,8 +519,10 @@ static NSString * const musicSayData = @"musicSayData";
         }
         
     } else if (section == 1){
-        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
-        [self.navigationController pushViewController:customMusicController animated:YES];
+        NSCooperationViewController *cooperationVC = [[NSCooperationViewController alloc] init];
+        [self.navigationController pushViewController:cooperationVC animated:YES];
+//        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
+//        [self.navigationController pushViewController:customMusicController animated:YES];
     
     } else if (section == 2){
         

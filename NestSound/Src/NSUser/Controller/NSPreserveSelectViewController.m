@@ -114,7 +114,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
     self.title = @"作品列表";
     self.view.backgroundColor = KBackgroundColor;
     productType = 1;
-    _topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 33)];
+    _topScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
     _topScrollView.backgroundColor = KBackgroundColor;
     _topScrollView.contentSize = CGSizeZero;
     
@@ -144,7 +144,7 @@ static NSString * const productCellIdentifier = @"productCellIdentifier";
         
         [_topScrollView addSubview:titleBtn];
     }
-    _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, _topScrollView.height - 3, ScreenWidth / titleArray.count, 3)];
+    _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, _topScrollView.height - 2, ScreenWidth / titleArray.count, 2)];
     
     _lineView.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
     
