@@ -54,7 +54,7 @@ static NSHttpClient *client;
     if (self  = [super initWithBaseURL:url]) {
         
         self.requestSerializer = [AFHTTPRequestSerializer serializer];
-        self.requestSerializer.timeoutInterval = 20;
+        self.requestSerializer.timeoutInterval = 90;
         [self.requestSerializer setValue:[self.class actionCustomUsrAgent] forHTTPHeaderField:@"User-Agent"];
     }
     return self;
