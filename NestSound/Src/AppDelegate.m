@@ -23,12 +23,22 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Pingpp.h"
 #import <Bugly/Bugly.h>
-@interface AppDelegate ()
-
+@interface AppDelegate ()<UIScrollViewDelegate>
+@property (nonatomic, strong) UIView *FirstLaunchView;
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, retain) UIPageControl *page;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) NSArray *ImgArray;
 @end
 
 @implementation AppDelegate
 
+- (NSArray *)ImgArray {
+    if (!_ImgArray) {
+        self.ImgArray = @[@"first_introduce", @"second_introduce", @"third_introduce", @"fourth_introduce"];
+    }
+    return _ImgArray;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
@@ -95,6 +105,13 @@
     
     [self.window makeKeyAndVisible];
     
+    //用户引导页
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    if([userDefaults objectForKey:@"FirstLoad"] == nil) {
+        [userDefaults setBool:NO forKey:@"FirstLoad"];
+        [self layoutLaunchView];
+    }
+    
     UIApplication *app = [UIApplication sharedApplication];
     
     __block UIBackgroundTaskIdentifier taskId;
@@ -115,7 +132,81 @@
     CHLog(@"remining seconde %f",[app backgroundTimeRemaining]);
     return YES;
 }
-
+- (void)layoutLaunchView {
+    //布局首次登陆视图
+    self.FirstLaunchView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _FirstLaunchView.backgroundColor = [UIColor whiteColor];
+    [self.window addSubview:self.FirstLaunchView];
+    //布局滚动视图
+    self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _scrollView.contentSize = CGSizeMake(ScreenWidth * self.ImgArray.count, ScreenHeight);
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    _scrollView.pagingEnabled = YES;
+    _scrollView.bounces = NO;
+    _scrollView.delegate = self;
+    [self.FirstLaunchView addSubview:_scrollView];
+    //布局图片
+    for (int i = 0; i < self.ImgArray.count; i++) {
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScreenWidth * i, 0, ScreenWidth, ScreenHeight)];
+        _imageView.image = [UIImage imageNamed:self.ImgArray[i]];
+        [self.scrollView addSubview:_imageView];
+        if (i == self.ImgArray.count-1) {
+            //布局进入按钮
+            _imageView.userInteractionEnabled = YES;
+            UIButton *enterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            enterBtn.frame = CGRectMake((ScreenWidth - 120), 30, 100, 35);
+            [enterBtn setBackgroundImage:[UIImage imageNamed:@"enter_btn"] forState:UIControlStateNormal];
+//            enterBtn.layer.cornerRadius = 5;
+//            enterBtn.layer.borderWidth = 0.5;
+//            enterBtn.layer.borderColor = [[UIColor hexColorFloat:@"ffd705"] CGColor];
+//            [enterBtn setTitle:@"进入应用" forState:UIControlStateNormal];
+//            [enterBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            [enterBtn addTarget:self action:@selector(handleEnter:) forControlEvents:UIControlEventTouchUpInside];
+            [_imageView addSubview:enterBtn];
+        }
+    }
+    //布局分页索引
+    self.page = [[UIPageControl alloc] initWithFrame:CGRectMake((ScreenWidth - 80) / 2, ScreenHeight - 60, 80, 40)];
+    _page.numberOfPages = self.ImgArray.count;
+    
+    _page.currentPageIndicatorTintColor = [UIColor colorWithRed:161.0/255 green:149.0/255 blue:132.0/255 alpha:1.0];
+    _page.pageIndicatorTintColor = [UIColor whiteColor];
+//    [_page addTarget:self action:@selector(handlePage) forControlEvents:UIControlEventValueChanged];
+    [self.FirstLaunchView addSubview:_page];
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    self.page.currentPage = scrollView.contentOffset.x / ScreenWidth;
+}
+- (void)handleEnter:(UIButton *)sender {
+    //翻页动画
+    //    [UIView transitionFromView:self. toView:self.window duration:1 options:UIViewAnimationOptionTransitionCurlUp completion:^(BOOL finished) {
+    //        [self.FirstLaunchView removeFromSuperview];
+    //改变指针指向
+    //        UIView *tempView = [self.animationView retain];
+    //        self.animationView = self.greenView;
+    //        self.greenView = tempView;
+    //    }];
+//        [UIView beginAnimations:@"curlUp" context:nil];
+//        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];//指定动画曲线类型，该枚举是默认的，线性的是匀速的
+//        [UIView setAnimationDuration:1];
+//        [UIView setAnimationDelegate:self];
+//        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.FirstLaunchView cache:NO];
+//        [UIView setAnimationDidStopSelector:@selector(handleDidStop)];
+//        [UIView commitAnimations];
+    
+//    [self.FirstLaunchView removeFromSuperview];
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//    [UIView setAnimationDuration:1.5];
+//    [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:[UIApplication sharedApplication].keyWindow cache:YES];
+//    [UIView commitAnimations];
+//    缩放动画
+//        [UIView animateWithDuration:0.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//            self.FirstLaunchView.transform = CGAffineTransformScale(self.imageView.transform, 0.1, 0.1);
+//        } completion:^(BOOL finished) {
+            [self.FirstLaunchView removeFromSuperview];
+//        }];
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

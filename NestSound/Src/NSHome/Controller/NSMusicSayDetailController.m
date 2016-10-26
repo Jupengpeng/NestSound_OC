@@ -54,8 +54,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@""]]];
-//    _webView = nil;
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@""]]];
+    _webView = nil;
 
 }
 - (void)setupUI{

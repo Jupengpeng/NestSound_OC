@@ -174,6 +174,12 @@
         _lineView.x = sender.x;
     }];
 }
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    _lineView.x = _cooperationBtn.x + scrollView.contentOffset.x / ScreenWidth * _lineView.width;
+    
+}
 - (void)testClick {
     
     maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
@@ -204,7 +210,7 @@
     }];
     CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
     keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
-    keyFrame.duration = 0.4;
+    keyFrame.duration = 0.3;
     keyFrame.removedOnCompletion = NO;
     [tipView.layer addAnimation:keyFrame forKey:nil];
     
