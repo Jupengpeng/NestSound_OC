@@ -261,8 +261,10 @@
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */; };
+		B8625FBC1DBF843500713B1D /* NSCooperateDetailMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8625FBB1DBF843500713B1D /* NSCooperateDetailMainCell.m */; };
 		B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
+		B87B3D5C1DC0470C0082D3A1 /* NSCooperateDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */; };
 		B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
 		B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */; };
@@ -952,10 +954,14 @@
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B8441D6D1D9373EC00BDDD09 /* NSPreservePayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePayCell.h; sourceTree = "<group>"; };
 		B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreservePayCell.m; sourceTree = "<group>"; };
+		B8625FBA1DBF843500713B1D /* NSCooperateDetailMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSCooperateDetailMainCell.h; path = NestSound/Src/Cooperation/View/NSCooperateDetailMainCell.h; sourceTree = SOURCE_ROOT; };
+		B8625FBB1DBF843500713B1D /* NSCooperateDetailMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCooperateDetailMainCell.m; path = NestSound/Src/Cooperation/View/NSCooperateDetailMainCell.m; sourceTree = SOURCE_ROOT; };
 		B8699E9D1DAD07110041B40C /* NSPreserveApplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyModel.h; sourceTree = "<group>"; };
 		B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyModel.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
 		B878AF2A1D929F340059013F /* NSPreserveTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTypeView.m; sourceTree = "<group>"; };
+		B87B3D5A1DC0470C0082D3A1 /* NSCooperateDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperateDetailModel.h; sourceTree = "<group>"; };
+		B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperateDetailModel.m; sourceTree = "<group>"; };
 		B87F69F61D93AA7000A7B620 /* NSMusicSayDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayDetailController.h; sourceTree = "<group>"; };
 		B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayDetailController.m; sourceTree = "<group>"; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
@@ -2127,6 +2133,8 @@
 		B8625FB81DBF831600713B1D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B87B3D5A1DC0470C0082D3A1 /* NSCooperateDetailModel.h */,
+				B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2134,6 +2142,8 @@
 		B8625FB91DBF831600713B1D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B8625FBA1DBF843500713B1D /* NSCooperateDetailMainCell.h */,
+				B8625FBB1DBF843500713B1D /* NSCooperateDetailMainCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3411,6 +3421,7 @@
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
 				69D5425A1D66F81600B26021 /* NSJoinedWorkListModel.m in Sources */,
 				69219FCB1D658A9200B55B9E /* NSActivityOverViewController.m in Sources */,
+				B8625FBC1DBF843500713B1D /* NSCooperateDetailMainCell.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
 				2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */,
 				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
@@ -3494,6 +3505,7 @@
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
+				B87B3D5C1DC0470C0082D3A1 /* NSCooperateDetailModel.m in Sources */,
 				2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */,
