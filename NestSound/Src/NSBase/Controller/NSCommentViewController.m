@@ -56,7 +56,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
     
     self.title = [NSString stringWithFormat:@"%@的评论",self.musicName];
     
-    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 44) style:UITableViewStylePlain];
+    commentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 108) style:UITableViewStylePlain];
     
 //    commentTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
@@ -125,7 +125,11 @@ static NSString * const kDefaultTip = @"来~说点什么";
         [commentTableView performSelector:@selector(triggerPullToRefresh) withObject:self afterDelay:0.2];
     }
 }
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [inputField resignFirstResponder];
+    [bottomView removeFromSuperview];
+}
 #pragma mark -fetchCommentData
 
 -(void)fetchCommentWithIsLoadingMore:(BOOL)isLoadingMore
@@ -236,7 +240,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
         
         bottomView.y = keyBoardEndY - bottomView.height - 64;
         
-        maskView.hidden = NO;
+//        maskView.hidden = NO;
     }];
     
 }
@@ -271,19 +275,19 @@ static NSString * const kDefaultTip = @"来~说点什么";
 
 - (void)bottomView {
     
-    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-    
-    maskView.backgroundColor = [UIColor lightGrayColor];
-    
-    maskView.alpha = 0.5;
-    
-    maskView.hidden = YES;
-    
-    [self.view addSubview:maskView];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    
-    [maskView addGestureRecognizer:tap];
+//    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+//    
+//    maskView.backgroundColor = [UIColor lightGrayColor];
+//    
+//    maskView.alpha = 0.5;
+//    
+//    maskView.hidden = YES;
+//    
+//    [self.navigationController.view addSubview:maskView];
+//    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+//    
+//    [maskView addGestureRecognizer:tap];
     
     
     bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 108, ScreenWidth, 44)];
@@ -300,9 +304,10 @@ static NSString * const kDefaultTip = @"来~说点什么";
     
     inputField.delegate = self;
     
-    [bottomView addSubview:inputField];
-    inputField.placeholder = kDefaultTip;
     inputField.returnKeyType = UIReturnKeySend;
+    
+    [bottomView addSubview:inputField];
+    
     [inputField mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.equalTo(bottomView.mas_left).offset(15);
@@ -344,21 +349,23 @@ static NSString * const kDefaultTip = @"来~说点什么";
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
 //    inputField.placeholder = nil;
-    
-    [textField resignFirstResponder];
-    
-    maskView.hidden = YES;
-    
-    if (inputField.tag == 1) {
-        
-        [self postCommentWithComment:textField.text andUser:nil andType:2 andTargetUID:targetUserId];
-       
+    if (!textField.text.length) {
+        [[NSToastManager manager] showtoast:@"说点什么吧"];
     } else {
+        [textField resignFirstResponder];
         
-        [self postCommentWithComment:textField.text andUser:nil andType:1 andTargetUID:0];
+        maskView.hidden = YES;
         
+        if (inputField.tag == 1) {
+            
+            [self postCommentWithComment:textField.text andUser:nil andType:2 andTargetUID:targetUserId];
+            
+        } else {
+            
+            [self postCommentWithComment:textField.text andUser:nil andType:1 andTargetUID:0];
+            
+        }
     }
-    
     
     inputField.tag = 2;
     
@@ -451,7 +458,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
     
 
     targetUserId = cell.commentModel.userID;
-    maskView.hidden = NO;
+//    maskView.hidden = NO;
     
     [inputField becomeFirstResponder];
     
@@ -511,5 +518,7 @@ static NSString * const kDefaultTip = @"来~说点什么";
     
 }
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end

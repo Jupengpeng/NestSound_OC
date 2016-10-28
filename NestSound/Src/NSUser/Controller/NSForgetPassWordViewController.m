@@ -8,7 +8,7 @@
 
 #import "NSForgetPassWordViewController.h"
 #import "NSRegisterViewController.h"
-#import "NSTextField.h"
+
 #define KColor_Background [UIColor colorWithRed:245.0 / 255.0 green:245.0 / 255.0 blue:245.0 / 255.0 alpha:1]
 @interface NSForgetPassWordViewController ()<UITextFieldDelegate> {
     

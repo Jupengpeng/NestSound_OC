@@ -12,6 +12,7 @@
 #import "NSCollectionCooperationViewController.h"
 #import "NSPublicLyricCooperationViewController.h"
 #import "NSInvitationListViewController.h"
+#import "NSCooperationMessageViewController.h"
 @interface NSMainCooperationViewController ()<UIScrollViewDelegate>
 {
     NSTipView *tipView;
@@ -184,9 +185,10 @@
 //    
 //}
 - (void)testClick {
-    
-    NSInvitationListViewController *invitationVC = [[ NSInvitationListViewController alloc] init];
-    [self.navigationController pushViewController:invitationVC animated:YES];
+    NSCooperationMessageViewController *cooperationMessageVC = [[NSCooperationMessageViewController alloc] init];
+    [self.navigationController pushViewController:cooperationMessageVC animated:YES];
+//    NSInvitationListViewController *invitationVC = [[ NSInvitationListViewController alloc] init];
+//    [self.navigationController pushViewController:invitationVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

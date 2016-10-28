@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NSTextField.h"
+
 @interface NSLoginView : UIView
 @property (nonatomic, strong) UIButton *forgetBtn;
 @property (nonatomic, strong) NSTextField *phoneTF;

@@ -11,6 +11,7 @@
 
 // Header
 #import "NSTipView.h"
+#import "NSTextField.h"
 #import "NSTool.h"
 #import "Masonry.h"
 #import "NSSingleTon.h"

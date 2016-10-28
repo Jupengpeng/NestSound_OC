@@ -51,6 +51,9 @@
 		0CD0CB031DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0CB021DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m */; };
 		0CD0FDA41DA8EB0200EC0795 /* NSUnPreserveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */; };
 		0CD0FDA71DA916CC00EC0795 /* NSPreserveDetailListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0FDA61DA916CC00EC0795 /* NSPreserveDetailListModel.m */; };
+		0CFAFA241DC2F23B00E82020 /* NSCooperationMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAFA231DC2F23B00E82020 /* NSCooperationMessageViewController.m */; };
+		0CFAFA2D1DC320BA00E82020 /* UITextField+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAFA2C1DC320BA00E82020 /* UITextField+NSAdditions.m */; };
+		0CFAFA301DC33B5800E82020 /* NSCooperationMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAFA2F1DC33B5800E82020 /* NSCooperationMessageTableViewCell.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -387,6 +390,12 @@
 		0CD0FDA31DA8EB0200EC0795 /* NSUnPreserveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUnPreserveListModel.m; sourceTree = "<group>"; };
 		0CD0FDA51DA916CC00EC0795 /* NSPreserveDetailListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveDetailListModel.h; sourceTree = "<group>"; };
 		0CD0FDA61DA916CC00EC0795 /* NSPreserveDetailListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveDetailListModel.m; sourceTree = "<group>"; };
+		0CFAFA221DC2F23B00E82020 /* NSCooperationMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationMessageViewController.h; sourceTree = "<group>"; };
+		0CFAFA231DC2F23B00E82020 /* NSCooperationMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationMessageViewController.m; sourceTree = "<group>"; };
+		0CFAFA2B1DC320BA00E82020 /* UITextField+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+NSAdditions.h"; sourceTree = "<group>"; };
+		0CFAFA2C1DC320BA00E82020 /* UITextField+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NSAdditions.m"; sourceTree = "<group>"; };
+		0CFAFA2E1DC33B5800E82020 /* NSCooperationMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationMessageTableViewCell.h; sourceTree = "<group>"; };
+		0CFAFA2F1DC33B5800E82020 /* NSCooperationMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationMessageTableViewCell.m; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -1086,6 +1095,8 @@
 				0CCC5C9C1DC1AAB8007E4617 /* NSLyricDetailViewController.m */,
 				0CCC5C9E1DC1E293007E4617 /* NSInvitationListViewController.h */,
 				0CCC5C9F1DC1E293007E4617 /* NSInvitationListViewController.m */,
+				0CFAFA221DC2F23B00E82020 /* NSCooperationMessageViewController.h */,
+				0CFAFA231DC2F23B00E82020 /* NSCooperationMessageViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1713,6 +1724,8 @@
 				2DFB676B1CC1F0ED00DA24DA /* UIImage+NSAdditions.m */,
 				2DFB67641CC1F0ED00DA24DA /* UIButton+NSAdditions.h */,
 				2DFB67651CC1F0ED00DA24DA /* UIButton+NSAdditions.m */,
+				0CFAFA2B1DC320BA00E82020 /* UITextField+NSAdditions.h */,
+				0CFAFA2C1DC320BA00E82020 /* UITextField+NSAdditions.m */,
 				2DFB675E1CC1F0ED00DA24DA /* NSString+NSAdditions.h */,
 				2DFB675F1CC1F0ED00DA24DA /* NSString+NSAdditions.m */,
 				2DFB67681CC1F0ED00DA24DA /* UIImage+ImageEffects.h */,
@@ -2189,6 +2202,8 @@
 				0CCC5CA81DC22ACF007E4617 /* NSCooperationCommentCell.m */,
 				0CCC5CAA1DC22E96007E4617 /* NSLabelTableViewCell.h */,
 				0CCC5CAB1DC22E96007E4617 /* NSLabelTableViewCell.m */,
+				0CFAFA2E1DC33B5800E82020 /* NSCooperationMessageTableViewCell.h */,
+				0CFAFA2F1DC33B5800E82020 /* NSCooperationMessageTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3509,6 +3524,7 @@
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				0CCC5CA61DC222FB007E4617 /* NSCooperationListTableViewCell.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
+				0CFAFA241DC2F23B00E82020 /* NSCooperationMessageViewController.m in Sources */,
 				695735EE1D6C224E00D1A269 /* NSUserWorkListController.m in Sources */,
 				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
 				6990E6B51D6457BB005F344F /* NSStarMusicianDetailController.m in Sources */,
@@ -3635,6 +3651,7 @@
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
 				697368211D6576CE001D2A34 /* NSCustomMusicController.m in Sources */,
 				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
+				0CFAFA2D1DC320BA00E82020 /* UITextField+NSAdditions.m in Sources */,
 				695735F11D6C2D3700D1A269 /* NSUserMusicListModel.m in Sources */,
 				2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */,
 				691F11A91D64BC5F00BACEEA /* NSBiaoqianView.m in Sources */,
@@ -3700,6 +3717,7 @@
 				946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */,
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				69DA389F1D6461AB002246E0 /* NSStarMusicianTopCell.m in Sources */,
+				0CFAFA301DC33B5800E82020 /* NSCooperationMessageTableViewCell.m in Sources */,
 				94626B351D5035350002CA02 /* NSModifyPwdViewController.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				94F196761D5479320029C923 /* NSTopLBottomLView.m in Sources */,
@@ -3858,7 +3876,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
+				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
 				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3889,7 +3907,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
+				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
 				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

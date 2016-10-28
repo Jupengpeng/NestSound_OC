@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NSTextField.h"
+
 @interface NSRegisterView : UIView
 @property (nonatomic, strong) NSTextField *userNameTF;
 @property (nonatomic, strong)NSTextField *phoneTF;
