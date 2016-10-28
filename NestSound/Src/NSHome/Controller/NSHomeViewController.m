@@ -30,6 +30,7 @@
 #import "NSAccommpanyListModel.h"
 #import "UIImageView+WebCache.h"
 #import "NSMusicSayDetailController.h"
+#import "NSCooperationDetailViewController.h"
 @interface NSHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource,SDCycleScrollViewDelegate> {
     
     UICollectionView *_collection;
@@ -468,7 +469,7 @@ static NSString * const musicSayData = @"musicSayData";
     } else if (indexPath.section == 2) {
         
         CGFloat W = (ScreenWidth - 40) * 0.5;
-        return CGSizeMake(W, 135);
+        return CGSizeMake(W, 140);
         
     }
 //    else if (indexPath.section == 3){
@@ -519,11 +520,14 @@ static NSString * const musicSayData = @"musicSayData";
         }
         
     } else if (section == 1){
-//        NSMainCooperationViewController *mainCooperationVC = [[NSMainCooperationViewController alloc] init];
+        NSMainCooperationViewController *mainCooperationVC = [[NSMainCooperationViewController alloc] init];
+        [self.navigationController pushViewController:mainCooperationVC animated:YES];
+//        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
+//        [self.navigationController pushViewController:customMusicController animated:YES];
+//        NSCooperationDetailViewController *mainCooperationVC = [[NSCooperationDetailViewController alloc] init];
 //        [self.navigationController pushViewController:mainCooperationVC animated:YES];
-        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
-        [self.navigationController pushViewController:customMusicController animated:YES];
-    
+
+        
     } else if (section == 2){
         
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];

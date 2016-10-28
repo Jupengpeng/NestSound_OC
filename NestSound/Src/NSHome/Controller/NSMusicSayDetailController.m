@@ -11,6 +11,7 @@
 #import "NSShareView.h"
 #import "NSCommentViewController.h"
 #import "NSMusicSayListMode.h"
+#import "NSLoginViewController.h"
 @interface NSMusicSayDetailController ()<UIWebViewDelegate>
 {
     UIButton *_favourButton;
@@ -21,7 +22,8 @@
     NSShareView *_shareView;
     UIView *_maskView;
 
-    BOOL _commentCountChanged;
+//    BOOL _commentCountChanged;
+
 }
 
 @property (nonatomic,strong) NSMusicSay *musicModel;
@@ -38,28 +40,31 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+//    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.contentUrl]]];
+
     //评论数量改变了重新加载数据
-    if (_commentCountChanged) {
+//    if (_commentCountChanged) {
+//        [self fechYueshuoDetail];
+//    }
         [self fechYueshuoDetail];
-    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    _commentCountChanged = NO;
+//    _commentCountChanged = NO;
     
 
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@""]]];
-    _webView = nil;
 
 }
 - (void)setupUI{
 //    self.title = @"乐说";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick:)];
+
     self.title = self.name;
     //webView
     _webView = [[UIWebView alloc] init];
@@ -101,10 +106,20 @@
                  *  点赞
                  */
                 
-                btn.selected = !btn.selected;
-                [self httpPostDianzanWith:self.itemId];
+                if (!JUserID) {
+                    [self checkLogin];
+                }else{
+                    btn.selected = !btn.selected;
+
+                    [self httpPostDianzanWith:self.itemId];
+                }
             }else if (btn == _commentButton){
                 CHLog(@"_commentButton");
+                
+                if (!JUserID) {
+                    [self checkLogin];
+                    return ;
+                }
                 /**
                  type = 3表示乐说
                  
@@ -115,7 +130,7 @@
                 commentVC.musicName = self.name;
 
                 commentVC.commentExecuteBlock = ^(){
-                    _commentCountChanged = YES;
+//                    _commentCountChanged = YES;
                 };
                 [self.navigationController pushViewController:commentVC animated:YES];
             }else if (btn == _sharebutton){
@@ -185,6 +200,21 @@
     
 }
 
+- (void)leftClick:(UIBarButtonItem *)barButtonItem {
+    [self.navigationController popViewControllerAnimated:YES];
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@""]]];
+        _webView = nil;
+
+    
+}
+- (void)checkLogin{
+    NSLoginViewController *login = [[NSLoginViewController alloc] init];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+    nav.navigationBar.hidden = YES;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
 
@@ -213,6 +243,9 @@
 
 - (void)fechYueshuoDetail{
     self.requestType = NO;
+    if (!JUserID) {
+        return;
+    }
     self.requestParams = @{@"itemid":self.itemId,
                            @"uid":JUserID,
                            @"token":LoginToken};

@@ -314,6 +314,10 @@ static inline NSRegularExpression * NameRegularExpression() {
     
     if (self.commentModel.commentType == 1) {
         
+        
+        if (self.commentModel.targetUserID == 0) {
+            self.commentModel.nowTargetName = @"";
+        }
         self.name = [NSString stringWithFormat:@"%@",self.message == YES ? self.commentModel.targetName : self.commentModel.nowTargetName];
     } else {
 

@@ -11,6 +11,7 @@
 
 @interface NSCooperateDetailMainCell ()
 
+
 @property (nonatomic,strong) UIButton *portraitBtn;
 
 @property (nonatomic,strong) UILabel *nameLabel;
@@ -29,7 +30,7 @@
 
 @property (nonatomic,strong) UILabel *lyricContentLabel;
 
-
+@property (nonatomic,copy) NSCooperateDetailMainCellHeightBlock heightBlock;
 
 @end
 
@@ -51,10 +52,13 @@
         [self addSubview:self.descriptionLabel];
         [self addSubview:self.lyricView];
         [self.lyricView addSubview:self.lyricTitleLabel];
+        [self.lyricView addSubview:self.lyricAuthorLabel];
         [self.lyricView addSubview:self.lyricContentLabel];
         
         UILabel *linelabel= [[UILabel alloc] init];
         linelabel.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
+        [self addSubview:linelabel];
+        
         
         [self.descriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(63);
@@ -67,30 +71,36 @@
             make.top.equalTo(self.descriptionLabel.mas_bottom).offset(11);
             make.left.equalTo(self.mas_left).offset(11.0f);
             make.right.equalTo(self.mas_right);
-            make.height.mas_equalTo(2);
+            make.height.mas_equalTo(0.5);
             
         }];
         
         [self.lyricView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(linelabel.mas_bottom);
-            make.left.equalTo(self.mas_left);
-            make.right.equalTo(self.mas_right);
-            
+            make.width.mas_equalTo(ScreenWidth);
+            make.centerX.equalTo(self.mas_centerX);
+            make.height.mas_equalTo(100);
         }];
+        
         
         [self.lyricTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lyricView.mas_top).offset(11);
+            make.width.mas_equalTo(ScreenWidth);
             make.centerX.equalTo(self.mas_centerX);
         }];
-        
+
         
         [self.lyricAuthorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lyricTitleLabel.mas_bottom).offset(10.0f);
+            make.width.mas_equalTo(ScreenWidth);
+
             make.centerX.equalTo(self.mas_centerX);
         }];
         
         [self.lyricContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.lyricAuthorLabel).offset(10.0f);
+            make.top.equalTo(self.lyricAuthorLabel.mas_bottom).offset(10.0f);
+            make.width.mas_equalTo(ScreenWidth);
+
             make.centerX.equalTo(self.mas_centerX);
             
         }];
@@ -104,6 +114,7 @@
 
 - (void)showDataWithModel:(id)model completion:(NSCooperateDetailMainCellHeightBlock)completion{
 
+    self.heightBlock = completion;
     [self.portraitBtn sd_setImageWithURL:[NSURL URLWithString:@""] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     
     self.nameLabel.text = @"旱禾";
@@ -112,41 +123,61 @@
     
     self.releaseTimeLabel.text = [NSString stringWithFormat:@"至%@过期",@"10.21过期"];
 
-
+    self.descriptionLabel.text = @"合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述...";
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.paragraphSpacing = 8 ;
+//    paragraphStyle.paragraphSpacing = 8 ;
     paragraphStyle.lineSpacing = 13.0f;
     paragraphStyle.alignment = NSTextAlignmentCenter;
     NSDictionary *attributes = @{
                                  NSFontAttributeName:[UIFont systemFontOfSize:14.0f],
                                  NSParagraphStyleAttributeName:paragraphStyle};
     
-    self.descriptionLabel.attributedText = [[NSAttributedString alloc] initWithString:@"合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述..." attributes:attributes];
-
+    self.lyricContentLabel.attributedText = [[NSAttributedString alloc] initWithString:@"夜风凛凛 独回望旧事前尘\
+                                             \n是以往的我 充满怒愤\
+                                             \n诬告与指责积压着满肚气不愤\
+                                             \n对谣言反应 甚为着紧\
+                                             \n受了教训 得了书经的指引\
+                                             \n现已看得透 不再自困\
+                                             \n但觉有分数\
+                                             \n不再像以往那般笨\
+                                             \n抹泪痕轻快笑着行\
+                                             \n冥冥中都早注定你富或贫\
+                                             \n是错永不对真永是真\
+                                             \n任你怎说安守我本份\
+                                             \n始终相信沉默是金\
+                                             \n是非有公理 慎言莫冒犯别人\
+                                             \n遇上冷风雨休太认真" attributes:attributes];
     self.lyricTitleLabel.text = @"沉默是金";
     self.lyricAuthorLabel.text = @"作词：张国荣";
-    self.lyricContentLabel.text = @"夜风凛凛 独回望旧事前尘\
-    \n是以往的我 充满怒愤\
-    \n诬告与指责积压着满肚气不愤\
-    \n对谣言反应 甚为着紧\
-    \n受了教训 得了书经的指引\
-    \n现已看得透 不再自困\
-    \n但觉有分数\
-    \n不再像以往那般笨\
-    \n抹泪痕轻快笑着行\
-    \n冥冥中都早注定你富或贫\
-    \n是错永不对真永是真\
-    \n任你怎说安守我本份\
-    \n始终相信沉默是金\
-    \n是非有公理 慎言莫冒犯别人\
-    \n遇上冷风雨休太认真";
     
+    
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
     
 }
 
 - (void)layoutSubviews{
+
     
+//    NSLog(@"CGRectGetMaxY(self.lyricView.frame) %f",CGRectGetMaxY(self.lyricView.frame));
+
+    [self.lyricView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(CGRectGetMaxY(self.lyricContentLabel.frame) + 11);
+    }];
+    
+
+//    NSLog(@"CGRectGetMaxY(self.lyricView.frame) %f",CGRectGetMaxY(self.lyricView.frame));
+    CGFloat currentHeight = CGRectGetMaxY(self.lyricContentLabel.frame) + 11 + CGRectGetMaxY(self.descriptionLabel.frame) + 11;
+    if (currentHeight == self.height) {
+        return;
+    }else{
+        
+        if (self.heightBlock) {
+            self.heightBlock(currentHeight);
+        }
+        
+    }
     
 }
 
@@ -170,7 +201,7 @@
 - (UILabel *)nameLabel{
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc] init];
-        _nameLabel.frame = CGRectMake(63, 78, 100, 14);
+        _nameLabel.frame = CGRectMake(63, 13, 100, 14);
         _nameLabel.font = [UIFont systemFontOfSize:14.0f];
         _nameLabel.textColor = [UIColor hexColorFloat:@"181818"];
     }
@@ -180,7 +211,7 @@
 - (UILabel *)releaseTimeLabel{
     if (!_releaseTimeLabel) {
         _releaseTimeLabel = [UILabel new];
-        _releaseTimeLabel.frame = CGRectMake(63, 98, 100, 12);
+        _releaseTimeLabel.frame = CGRectMake(63, 33, 100, 12);
         _releaseTimeLabel.font = [UIFont systemFontOfSize:12.0f];
         _releaseTimeLabel.textColor = [UIColor hexColorFloat:@"666666"];
     }
@@ -190,7 +221,7 @@
 - (UILabel *)deadlineLabel{
     if (!_deadlineLabel) {
         _deadlineLabel = [[UILabel alloc] init];
-        _deadlineLabel.frame = CGRectMake(ScreenWidth - 100, 85, 110, 18);
+        _deadlineLabel.frame = CGRectMake(ScreenWidth - 100, 30, 110, 18);
         _deadlineLabel.textAlignment = NSTextAlignmentRight;
         _deadlineLabel.font = [UIFont systemFontOfSize:18.0f];
         _deadlineLabel.textColor = [UIColor hexColorFloat:@"666666"];
@@ -211,7 +242,6 @@
 - (UIView *)lyricView{
     if (!_lyricView) {
         _lyricView = [[UIView alloc] init];
-        
     }
     return _lyricView;
 }
@@ -242,6 +272,7 @@
         _lyricContentLabel.numberOfLines = 0;
         _lyricContentLabel.textColor = [UIColor hexColorFloat:@"666666"];
         _lyricContentLabel.font = [UIFont systemFontOfSize:14.0f];
+        _lyricContentLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _lyricContentLabel;
 }

@@ -8,9 +8,13 @@
 
 #import "NSCooperationDetailViewController.h"
 #import "NSCooperateDetailMainCell.h"
-@interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "NSCommentListModel.h"
+#import "NSCommentTableViewCell.h"
+@interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NSCommentTableViewCellDelegate,TTTAttributedLabelDelegate>
 {
     BOOL _showMoreComment;
+    
+    CGFloat _lyricViewHeight;
 }
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -31,6 +35,20 @@
 
 
     [self setupUI];
+    [self processDataLogic];
+    [self createData];
+}
+
+- (void)createData{
+    
+    for (NSInteger i= 0; i < 4; i ++) {
+        NSCommentModel *commentModel = [[NSCommentModel alloc] init];
+
+        [self.msgArray addObject:commentModel];
+    }
+    
+    
+    
 }
 
 - (void)setupUI{
@@ -71,7 +89,7 @@
         }
             break;
         case 1:{
-            return self.msgArray.count >= 3 ? 3 :self.msgArray.count ;
+            return _showMoreComment ? 3 :self.msgArray.count ;
         }
             break;
         default:{
@@ -80,23 +98,114 @@
             break;
     }
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.section) {
+        case 0:{
+            return _lyricViewHeight;
+        }
+            break;
+        case 1:{
+            return 50 ;
+        }
+            break;
+        default:{
+            return 50;
+        }
+            break;
+    }
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    switch (section) {
+        case 0:{
+            return 0.01;
+        }
+            break;
+        case 1:{
+            return 40;
+        }
+            break;
+        default:{
+            return 40;
+        }
+            break;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:{
+            return 0.01;
+        }
+            break;
+        case 1:{
+            return _showMoreComment ? 40 : 0.01;
+        }
+            break;
+        default:{
+            return 0.01;
+        }
+            break;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    NSCooperateDetailMainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCooperateDetailMainCellId"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    [cell showDataWithModel:nil completion:^(CGFloat height) {
+    if (indexPath.section == 0) {
+        NSCooperateDetailMainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCooperateDetailMainCellId"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-    }];
+        [cell showDataWithModel:nil completion:^(CGFloat height) {
+            CHLog(@"height  %f" ,height);
+            
+            _lyricViewHeight = height;
+        }];
         
-    
-    return cell;
+        
+        return cell;
+    }else if (indexPath.section == 1){
+        NSCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCommentTableViewCellId"];
+        
+        if (cell == nil) {
+            
+            cell = [[NSCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSCommentTableViewCellId"];
+            
+            cell.delegate = self;
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.commentModel = self.msgArray[indexPath.row];
+        cell.commentLabel.delegate = self;
+        
+        return cell;
+    }else{
+        NSCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCommentTableViewCellId"];
+        
+        if (cell == nil) {
+            
+            cell = [[NSCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSCommentTableViewCellId"];
+            
+            cell.delegate = self;
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.commentModel = self.msgArray[indexPath.row];
+        cell.commentLabel.delegate = self;
+        
+        return cell;
+    }
+
 }
 
+#pragma  mark - NSCommentTableViewCellDelegate
+
+
+#pragma mark - ,TTTAttributedLabelDelegate
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -107,8 +216,10 @@
 #pragma mark - lazy load
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 45) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 45 - 64) style:UITableViewStyleGrouped];
+        _tableView.backgroundColor = [UIColor hexColorFloat:@"f4f4f4"];
         [_tableView registerClass:[NSCooperateDetailMainCell class] forCellReuseIdentifier:@"NSCooperateDetailMainCellId"];
+        [_tableView registerClass:[NSCommentTableViewCell class] forCellReuseIdentifier:@"NSCommentTableViewCellId"];
     }
     return _tableView;
 }

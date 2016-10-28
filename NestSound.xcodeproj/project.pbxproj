@@ -3792,8 +3792,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3810,8 +3810,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
+				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
+				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3823,8 +3823,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3841,8 +3841,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
+				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
+				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

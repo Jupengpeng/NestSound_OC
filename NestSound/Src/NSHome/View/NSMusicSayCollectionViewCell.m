@@ -41,8 +41,8 @@
 - (void)setupUI {
     
     imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    imageView.y = 10;
-    imageView.height = self.height - 10;
+    imageView.y = 0;
+    imageView.height = self.height;
     [self addSubview:imageView];
     
     imageView.image = [UIImage imageNamed:@"img_03"];

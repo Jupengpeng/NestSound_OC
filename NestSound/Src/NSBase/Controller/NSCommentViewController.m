@@ -31,6 +31,9 @@ static NSString * const kDefaultTip = @"来~说点什么";
     NSString * commentUrl;
     
     NSString *_musicSayComUrl;
+    //无数据提示
+    UIImageView *_emptyImage;
+
 }
 
 @end
@@ -86,6 +89,14 @@ static NSString * const kDefaultTip = @"来~说点什么";
             [wSelf fetchCommentWithIsLoadingMore:YES];
         }
     }];
+    
+    _emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
+    
+    //    emptyThreeImage.hidden = YES;
+    
+    _emptyImage.centerX = ScreenWidth/2;
+    
+    _emptyImage.centerY = ScreenHeight/2.0 - 64 ;
 //    commentTableView.showsInfiniteScrolling = NO;
     
     
@@ -190,14 +201,17 @@ static NSString * const kDefaultTip = @"来~说点什么";
                     [commentAry addObjectsFromArray:commentList.commentList];
                 }
             }
-//            else if([operation.urlTag isEqualToString:musicSayLaughCommentUrl]){
-//                [[NSToastManager manager] showtoast:@"发表评论成功"];
-//                [self fetchCommentWithIsLoadingMore:NO];
-//            }else if ([operation.urlTag isEqualToString:musicSayDeleteCommentUrl]){
-//                [[NSToastManager manager] showtoast:@"删除评论成功"];
-//                [self fetchCommentWithIsLoadingMore:NO];
-//            }
-            [commentTableView reloadData];
+            if (!commentAry.count) {
+
+                [commentTableView addSubview:_emptyImage];
+            }
+            else{
+                if (_emptyImage.superview) {
+                    [_emptyImage removeFromSuperview];
+                }
+                [commentTableView reloadData];
+
+            }
         }
     }
 }

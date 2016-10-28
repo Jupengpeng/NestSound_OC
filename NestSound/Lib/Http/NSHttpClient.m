@@ -123,7 +123,10 @@ static NSHttpClient *client;
                               success(task,model);
                               
                               if (!model.success) {
-                                  [[NSToastManager manager] showtoast:[responseObject objectForKey:@"message"]];
+                                  NSString *message = [responseObject objectForKey:@"message"];
+                                  if (![message isEqualToString:@"操作成功"]) {
+                                      [[NSToastManager manager] showtoast:message];
+                                  }
                               }
                           } else {
                               success(task,responseObject);
@@ -175,8 +178,10 @@ static NSHttpClient *client;
                                }
                                
                                if (!model.success) {
-                                   [[NSToastManager manager] showtoast:[responseObject objectForKey:@"message"]];
-                               }
+                                   NSString *message = [responseObject objectForKey:@"message"];
+                                   if (![message isEqualToString:@"操作成功"]) {
+                                       [[NSToastManager manager] showtoast:message];
+                                   }                               }
                            } else {
                                success(task,responseObject);
                            }
