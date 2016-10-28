@@ -7,8 +7,8 @@
 //
 
 #import "NSCollectionCooperationViewController.h"
-
-@interface NSCollectionCooperationViewController ()
+#import "NSCooperationCollectionTableViewCell.h"
+@interface NSCollectionCooperationViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *collectionTab;
     UIImageView *emptyImage;
@@ -26,13 +26,14 @@
     
     collectionTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     
-    //    collectionTab.dataSource = self;
-    //
-    //    collectionTab.delegate = self;
+    collectionTab.dataSource = self;
+    
+    collectionTab.delegate = self;
     
     collectionTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     //    [collectionTab registerClass:[NSSearchUserCollectionViewCell class] forCellWithReuseIdentifier:userCellIdentify];
+    
     self.view = collectionTab;
     WS(Wself);
     //refresh
@@ -53,13 +54,37 @@
     
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
     
-    //    emptyThreeImage.hidden = YES;
+    emptyImage.hidden = YES;
     
     emptyImage.centerX = ScreenWidth/2;
     
     emptyImage.y = 100;
     
     [collectionTab addSubview:emptyImage];
+}
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 10;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *ID = @"collectionCell";
+    
+    NSCooperationCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        
+        cell = [[NSCooperationCollectionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    return cell;
+}
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 80;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

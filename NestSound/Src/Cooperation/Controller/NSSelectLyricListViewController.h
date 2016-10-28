@@ -7,14 +7,9 @@
 //
 
 #import "NSBaseViewController.h"
-
-@protocol NSSelectLyricListViewControllerDelegate <NSObject>
--(void)selectLyric:(NSString *)lyricId withLyricTitle:(NSString *)LyricTitle;
-
-@end
+#import "NSLyricDetailViewController.h"
 
 @interface NSSelectLyricListViewController : NSBaseViewController
-
-@property (nonatomic, assign) id <NSSelectLyricListViewControllerDelegate> delegate;
+@property (nonatomic,copy) returnLyric lyricBlock;
 
 @end

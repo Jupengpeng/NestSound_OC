@@ -11,7 +11,8 @@
 #import "NSMyCooperationViewController.h"
 #import "NSCollectionCooperationViewController.h"
 #import "NSPublicLyricCooperationViewController.h"
-@interface NSMainCooperationViewController ()<NSTipViewDelegate,UIScrollViewDelegate>
+#import "NSInvitationListViewController.h"
+@interface NSMainCooperationViewController ()<UIScrollViewDelegate>
 {
     NSTipView *tipView;
     UIView *maskView;
@@ -90,6 +91,8 @@
     self.contentScrollView.showsHorizontalScrollIndicator = NO;
     
     self.contentScrollView.showsVerticalScrollIndicator = NO;
+    
+    self.contentScrollView.scrollEnabled = NO;
     
     self.contentScrollView.pagingEnabled = YES;
     
@@ -175,69 +178,17 @@
     }];
 }
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    _lineView.x = _cooperationBtn.x + scrollView.contentOffset.x / ScreenWidth * _lineView.width;
-    
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    
+//    _lineView.x = _cooperationBtn.x + scrollView.contentOffset.x / ScreenWidth * _lineView.width;
+//    
+//}
 - (void)testClick {
     
-    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    
-    maskView.backgroundColor = [UIColor lightGrayColor];
-    
-    maskView.alpha = 0.5;
-    
-    [self.navigationController.view addSubview:maskView];
-    
-    tipView = [[NSTipView alloc] init];
-    
-    tipView.delegate = self;
-    
-    tipView.imgName = @"2.0_backgroundImage";
-    
-    tipView.tipText = @"采纳后，您的合作需求将会结束并标示为“成功”，不再接受其他人的合作";
-    [self.navigationController.view addSubview:tipView];
-    
-    
-    [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(self.view.mas_top).offset(80);
-        make.left.equalTo(self.view.mas_left).offset(60);
-        make.right.equalTo(self.view.mas_right).offset(-60);
-        make.height.mas_equalTo(338);
-        
-    }];
-    CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-    keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
-    keyFrame.duration = 0.3;
-    keyFrame.removedOnCompletion = NO;
-    [tipView.layer addAnimation:keyFrame forKey:nil];
-    
+    NSInvitationListViewController *invitationVC = [[ NSInvitationListViewController alloc] init];
+    [self.navigationController pushViewController:invitationVC animated:YES];
 }
-#pragma mark - NSTipViewDelegate
-- (void)cancelBtnClick {
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        tipView.transform = CGAffineTransformScale(tipView.transform, 0.1, 0.1);
-        
-    } completion:^(BOOL finished) {
-        
-        [maskView removeFromSuperview];
-        
-        [tipView removeFromSuperview];
-    }];
-}
-- (void)ensureBtnClick {
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        tipView.transform = CGAffineTransformScale(tipView.transform, 0.1, 0.1);
-        
-    } completion:^(BOOL finished) {
-        
-        [maskView removeFromSuperview];
-        
-        [tipView removeFromSuperview];
-    }];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

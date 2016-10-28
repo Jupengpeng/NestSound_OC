@@ -24,6 +24,14 @@
 		0CCC19231D647A9A009E9478 /* NSTemplateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */; };
 		0CCC19261D66CFE2009E9478 /* NSSingleTon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19251D66CFE2009E9478 /* NSSingleTon.m */; };
 		0CCC49D01DC07CE000F2F6B3 /* NSSelectLyricListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC49CF1DC07CE000F2F6B3 /* NSSelectLyricListViewController.m */; };
+		0CCC49D31DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC49D21DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.m */; };
+		0CCC49D61DC0D54700F2F6B3 /* NSMyCooperationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC49D51DC0D54700F2F6B3 /* NSMyCooperationTableViewCell.m */; };
+		0CCC5C9D1DC1AAB8007E4617 /* NSLyricDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5C9C1DC1AAB8007E4617 /* NSLyricDetailViewController.m */; };
+		0CCC5CA01DC1E293007E4617 /* NSInvitationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5C9F1DC1E293007E4617 /* NSInvitationListViewController.m */; };
+		0CCC5CA31DC20EEB007E4617 /* NSInvitationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CA21DC20EEB007E4617 /* NSInvitationListTableViewCell.m */; };
+		0CCC5CA61DC222FB007E4617 /* NSCooperationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CA51DC222FB007E4617 /* NSCooperationListTableViewCell.m */; };
+		0CCC5CA91DC22ACF007E4617 /* NSCooperationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CA81DC22ACF007E4617 /* NSCooperationCommentCell.m */; };
+		0CCC5CAC1DC22E96007E4617 /* NSLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CAB1DC22E96007E4617 /* NSLabelTableViewCell.m */; };
 		0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */; };
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
 		0CCE1DBC1DBF7F0F00FB66D6 /* NSCollectionCooperationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE1DAF1DBF7F0F00FB66D6 /* NSCollectionCooperationViewController.m */; };
@@ -326,6 +334,22 @@
 		0CCC19251D66CFE2009E9478 /* NSSingleTon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSingleTon.m; sourceTree = "<group>"; };
 		0CCC49CE1DC07CE000F2F6B3 /* NSSelectLyricListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSelectLyricListViewController.h; sourceTree = "<group>"; };
 		0CCC49CF1DC07CE000F2F6B3 /* NSSelectLyricListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSelectLyricListViewController.m; sourceTree = "<group>"; };
+		0CCC49D11DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationCollectionTableViewCell.h; sourceTree = "<group>"; };
+		0CCC49D21DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationCollectionTableViewCell.m; sourceTree = "<group>"; };
+		0CCC49D41DC0D54700F2F6B3 /* NSMyCooperationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMyCooperationTableViewCell.h; sourceTree = "<group>"; };
+		0CCC49D51DC0D54700F2F6B3 /* NSMyCooperationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMyCooperationTableViewCell.m; sourceTree = "<group>"; };
+		0CCC5C9B1DC1AAB8007E4617 /* NSLyricDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLyricDetailViewController.h; sourceTree = "<group>"; };
+		0CCC5C9C1DC1AAB8007E4617 /* NSLyricDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLyricDetailViewController.m; sourceTree = "<group>"; };
+		0CCC5C9E1DC1E293007E4617 /* NSInvitationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInvitationListViewController.h; sourceTree = "<group>"; };
+		0CCC5C9F1DC1E293007E4617 /* NSInvitationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInvitationListViewController.m; sourceTree = "<group>"; };
+		0CCC5CA11DC20EEB007E4617 /* NSInvitationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInvitationListTableViewCell.h; sourceTree = "<group>"; };
+		0CCC5CA21DC20EEB007E4617 /* NSInvitationListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInvitationListTableViewCell.m; sourceTree = "<group>"; };
+		0CCC5CA41DC222FB007E4617 /* NSCooperationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationListTableViewCell.h; sourceTree = "<group>"; };
+		0CCC5CA51DC222FB007E4617 /* NSCooperationListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationListTableViewCell.m; sourceTree = "<group>"; };
+		0CCC5CA71DC22ACF007E4617 /* NSCooperationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationCommentCell.h; sourceTree = "<group>"; };
+		0CCC5CA81DC22ACF007E4617 /* NSCooperationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationCommentCell.m; sourceTree = "<group>"; };
+		0CCC5CAA1DC22E96007E4617 /* NSLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLabelTableViewCell.h; sourceTree = "<group>"; };
+		0CCC5CAB1DC22E96007E4617 /* NSLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLabelTableViewCell.m; sourceTree = "<group>"; };
 		0CCCDC891D5EC83000AE0BD3 /* NSAccompanyCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryCell.h; sourceTree = "<group>"; };
 		0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAccompanyCategoryCell.m; sourceTree = "<group>"; };
 		0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryViewController.h; sourceTree = "<group>"; };
@@ -1058,6 +1082,10 @@
 				0CCE1DB91DBF7F0F00FB66D6 /* NSPublicLyricCooperationViewController.m */,
 				0CCC49CE1DC07CE000F2F6B3 /* NSSelectLyricListViewController.h */,
 				0CCC49CF1DC07CE000F2F6B3 /* NSSelectLyricListViewController.m */,
+				0CCC5C9B1DC1AAB8007E4617 /* NSLyricDetailViewController.h */,
+				0CCC5C9C1DC1AAB8007E4617 /* NSLyricDetailViewController.m */,
+				0CCC5C9E1DC1E293007E4617 /* NSInvitationListViewController.h */,
+				0CCC5C9F1DC1E293007E4617 /* NSInvitationListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2149,6 +2177,18 @@
 			children = (
 				B8625FBA1DBF843500713B1D /* NSCooperateDetailMainCell.h */,
 				B8625FBB1DBF843500713B1D /* NSCooperateDetailMainCell.m */,
+				0CCC49D11DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.h */,
+				0CCC49D21DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.m */,
+				0CCC49D41DC0D54700F2F6B3 /* NSMyCooperationTableViewCell.h */,
+				0CCC49D51DC0D54700F2F6B3 /* NSMyCooperationTableViewCell.m */,
+				0CCC5CA11DC20EEB007E4617 /* NSInvitationListTableViewCell.h */,
+				0CCC5CA21DC20EEB007E4617 /* NSInvitationListTableViewCell.m */,
+				0CCC5CA41DC222FB007E4617 /* NSCooperationListTableViewCell.h */,
+				0CCC5CA51DC222FB007E4617 /* NSCooperationListTableViewCell.m */,
+				0CCC5CA71DC22ACF007E4617 /* NSCooperationCommentCell.h */,
+				0CCC5CA81DC22ACF007E4617 /* NSCooperationCommentCell.m */,
+				0CCC5CAA1DC22E96007E4617 /* NSLabelTableViewCell.h */,
+				0CCC5CAB1DC22E96007E4617 /* NSLabelTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3467,6 +3507,7 @@
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
 				0CCF1D821D91266300F97526 /* NSSettingViewController.m in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
+				0CCC5CA61DC222FB007E4617 /* NSCooperationListTableViewCell.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
 				695735EE1D6C224E00D1A269 /* NSUserWorkListController.m in Sources */,
 				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
@@ -3479,6 +3520,7 @@
 				1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */,
 				2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */,
 				2AAE01BE1CFC0F7F008D3145 /* NSMyLricListModel.m in Sources */,
+				0CCC5CA31DC20EEB007E4617 /* NSInvitationListTableViewCell.m in Sources */,
 				6984FC151D642306002EA0F5 /* NSStarMusicianListController.m in Sources */,
 				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
 				0CD0FDA41DA8EB0200EC0795 /* NSUnPreserveListModel.m in Sources */,
@@ -3487,6 +3529,7 @@
 				2ADE8F621CFE7715006CD840 /* NSShareModulView.m in Sources */,
 				0CCF1D851D91383E00F97526 /* NSInspirationListViewController.m in Sources */,
 				0CCC19111D642D6A009E9478 /* NSDraftListViewController.m in Sources */,
+				0CCC5CAC1DC22E96007E4617 /* NSLabelTableViewCell.m in Sources */,
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
@@ -3506,6 +3549,7 @@
 				18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */,
 				B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */,
 				946B042B1D4EEC8A00529DBA /* HUImagePickerRootViewController.m in Sources */,
+				0CCC49D31DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.m in Sources */,
 				B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */,
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
@@ -3535,6 +3579,7 @@
 				0C0403BA1DBDF70400D5620A /* NSTipView.m in Sources */,
 				2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */,
 				94456D4E1D5185A60088385F /* NSTextField.m in Sources */,
+				0CCC5CA91DC22ACF007E4617 /* NSCooperationCommentCell.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
 				0CCE1DBE1DBF7F0F00FB66D6 /* NSCooperationViewController.m in Sources */,
@@ -3545,6 +3590,7 @@
 				0C670D0A1D9BA64900319E0D /* NSPreserveListModel.m in Sources */,
 				697F7F2B1D655CB400F7EBCC /* NSActivityJoinerListCell.m in Sources */,
 				0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */,
+				0CCC5CA01DC1E293007E4617 /* NSInvitationListViewController.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
@@ -3601,6 +3647,7 @@
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.m in Sources */,
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
 				0CD0CB031DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m in Sources */,
+				0CCC5C9D1DC1AAB8007E4617 /* NSLyricDetailViewController.m in Sources */,
 				945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */,
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
 				18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */,
@@ -3619,6 +3666,7 @@
 				B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */,
 				946B04281D4EEC8A00529DBA /* HUAlbumsViewController.m in Sources */,
 				2AB3006D1D165B0200938F1C /* NSInspirtationModel.m in Sources */,
+				0CCC49D61DC0D54700F2F6B3 /* NSMyCooperationTableViewCell.m in Sources */,
 				2A500B2C1CE33CEB00086C2C /* NSImportLyricViewController.m in Sources */,
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
 				0CCF1D7F1D9101F700F97526 /* NSPreserveSelectViewController.m in Sources */,

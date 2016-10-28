@@ -61,3 +61,8 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 +(BOOL)shareAvailableQQ;
 +(BOOL)shareAvailableSina;
 @end
+
+@interface image : NSObject
++ (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
+@end
+

@@ -524,10 +524,6 @@ static NSString * const musicSayData = @"musicSayData";
         [self.navigationController pushViewController:mainCooperationVC animated:YES];
 //        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
 //        [self.navigationController pushViewController:customMusicController animated:YES];
-//        NSCooperationDetailViewController *mainCooperationVC = [[NSCooperationDetailViewController alloc] init];
-//        [self.navigationController pushViewController:mainCooperationVC animated:YES];
-
-        
     } else if (section == 2){
         
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
