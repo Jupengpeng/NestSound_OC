@@ -7,7 +7,7 @@
 //
 
 #import "NSSelectLyricListViewController.h"
-
+#import "NSLyricDetailViewController.h"
 @interface NSSelectLyricListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *selectLyricListTab;
@@ -23,6 +23,9 @@
 }
 #pragma mark - SetupUI
 - (void)setupSelectLyricListView {
+    
+    self.title = @"选择歌词";
+    
     selectLyricListTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     
     selectLyricListTab.dataSource = self;
@@ -53,11 +56,14 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UITableViewCell *cell = [selectLyricListTab cellForRowAtIndexPath:indexPath];
-    if ([self.delegate respondsToSelector:@selector(selectLyric:withLyricTitle:)]) {
-        [self.delegate selectLyric:cell.detailTextLabel.text withLyricTitle:cell.textLabel.text];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    NSLyricDetailViewController *lyricDetailVC = [[NSLyricDetailViewController alloc] init];
+    WS(wSelf);
+    lyricDetailVC.lyricBlock = ^(NSString *lyricTitle,NSString*lyricId) {
+        
+        wSelf.lyricBlock(lyricTitle,lyricId);
+    };
+    [self.navigationController pushViewController:lyricDetailVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

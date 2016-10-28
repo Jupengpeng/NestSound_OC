@@ -8,7 +8,9 @@
 
 #import "NSPublicLyricCooperationViewController.h"
 #import "NSSelectLyricListViewController.h"
-@interface NSPublicLyricCooperationViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate,NSSelectLyricListViewControllerDelegate>
+#import "NSLyricDetailViewController.h"
+static NSString *illustrateStr = @"· 默认合作期限为15天,您可以在所有合作作品中选取一首作为采纳作品,如超期或期限内没有满意作品,则视为合作结束\n\n· 删除合作需求,他人将无法进行合作,但已合作完成的作品不会被删除\n\n· 您的歌词作品在发起合作后,将无法进行修改";
+@interface NSPublicLyricCooperationViewController ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,UIScrollViewDelegate>
 {
     UITextView *demandTextView;
     UILabel *placeHolderLabel;
@@ -22,12 +24,32 @@
     [super viewDidLoad];
     [self setupPublicLyricCooperationView];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+//    NSLyricDetailViewController *lyricDetailVC = [[NSLyricDetailViewController alloc] init];
+    
+//    [lyricDetailVC returnLyricWithBlock:^(NSString *lyricTitle, NSString *lyricId) {
+//        NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
+//        
+//        UITableViewCell *cell = [publicCooperationTab cellForRowAtIndexPath:index];
+//        
+//        cell.textLabel.textColor = [UIColor blackColor];
+//        
+//        cell.textLabel.text = lyricTitle;
+//    }];
+    
+    
+}
 - (void)publicClick {
     
 }
 - (void)setupPublicLyricCooperationView {
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(publicClick)];
+    self.title = @"发布合作";
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publicClick)];
     
     publicCooperationTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     
@@ -74,10 +96,15 @@
     } else {
         UILabel *illustrate = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, ScreenWidth, 20)];
         illustrate.text = @"说明";
+        illustrate.font = [UIFont systemFontOfSize:14];
         [publicCell addSubview:illustrate];
         
-        UILabel *explain = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, ScreenWidth - 20, 100)];
-        
+        UILabel *explain = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, ScreenWidth - 20, 120)];
+        explain.text = illustrateStr;
+        explain.numberOfLines = 0;
+        explain.font = [UIFont systemFontOfSize:12];
+        explain.textColor = [UIColor lightGrayColor];
+        [publicCell addSubview:explain];
     }
     
     return publicCell;
@@ -86,7 +113,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         NSSelectLyricListViewController *selectLyricListVC = [[NSSelectLyricListViewController alloc] init];
-        selectLyricListVC.delegate = self;
+        selectLyricListVC.lyricBlock = ^(NSString *lyricTitle,NSString*lyricId) {
+            NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
+            
+            UITableViewCell *cell = [publicCooperationTab cellForRowAtIndexPath:index];
+            
+            cell.textLabel.textColor = [UIColor blackColor];
+            
+            cell.textLabel.text = lyricTitle;
+        };
         [self.navigationController pushViewController:selectLyricListVC animated:YES];
     }
 }
@@ -96,7 +131,7 @@
     } else if (indexPath.section == 1) {
         return 44;
     } else {
-        return 120;
+        return 150;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -105,16 +140,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return section == 0 ? 5 : 0.2;
 }
-#pragma mark - NSSelectLyricListViewControllerDelegate
-- (void)selectLyric:(NSString *)lyricId withLyricTitle:(NSString *)LyricTitle {
-    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
-    
-    UITableViewCell *cell = [publicCooperationTab cellForRowAtIndexPath:index];
-    
-    cell.textLabel.textColor = [UIColor blackColor];
-    
-    cell.textLabel.text = LyricTitle;
-}
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [demandTextView resignFirstResponder];

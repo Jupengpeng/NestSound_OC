@@ -81,6 +81,8 @@
 }
 - (void)layoutSubviews {
     
+    [super layoutSubviews];
+    
     [topImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
         make.height.mas_equalTo(188);

@@ -519,11 +519,11 @@ static NSString * const musicSayData = @"musicSayData";
         }
         
     } else if (section == 1){
-//        NSMainCooperationViewController *mainCooperationVC = [[NSMainCooperationViewController alloc] init];
-//        [self.navigationController pushViewController:mainCooperationVC animated:YES];
-        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
-        [self.navigationController pushViewController:customMusicController animated:YES];
-    
+        NSMainCooperationViewController *mainCooperationVC = [[NSMainCooperationViewController alloc] init];
+        [self.navigationController pushViewController:mainCooperationVC animated:YES];
+//        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
+//        [self.navigationController pushViewController:customMusicController animated:YES];
+//    
     } else if (section == 2){
         
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
