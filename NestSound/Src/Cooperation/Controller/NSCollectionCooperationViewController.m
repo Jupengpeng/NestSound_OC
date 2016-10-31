@@ -12,6 +12,7 @@
 {
     UITableView *collectionTab;
     UIImageView *emptyImage;
+    int currentPage;
 }
 @end
 
@@ -20,6 +21,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupCollectionViewController];
+}
+#pragma mark - Network Requests and Data Handling
+- (void)fetchCollectCooperationListWithIsLoadingMore:(BOOL)isLoadingMore {
+    if (!isLoadingMore) {
+        self.requestType = NO;
+        currentPage = 1;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+    }else{
+        ++currentPage;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+    }
+    
+    self.requestURL = collectCooperationListUrl;
+    
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:collectCooperationListUrl]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 - (void)setupCollectionViewController {
     //收藏

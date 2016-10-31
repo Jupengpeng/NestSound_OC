@@ -11,6 +11,7 @@
 @interface NSSelectLyricListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *selectLyricListTab;
+    int currentPage;
 }
 @end
 
@@ -20,6 +21,29 @@
     [super viewDidLoad];
     
     [self setupSelectLyricListView];
+}
+#pragma mark - Network Requests and Data Handling
+- (void)fetchCooperationLyricsWithIsLoadingMore:(BOOL)isLoadingMore {
+    if (!isLoadingMore) {
+        self.requestType = NO;
+        currentPage = 1;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+    }else{
+        ++currentPage;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+    }
+    
+    self.requestURL = demandLyricListUrl;
+    
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:demandLyricListUrl]) {
+            
+        }
+    }
 }
 #pragma mark - SetupUI
 - (void)setupSelectLyricListView {
@@ -59,7 +83,7 @@
     
     NSLyricDetailViewController *lyricDetailVC = [[NSLyricDetailViewController alloc] init];
     WS(wSelf);
-    lyricDetailVC.lyricBlock = ^(NSString *lyricTitle,NSString*lyricId) {
+    lyricDetailVC.lyricBlock = ^(NSString *lyricTitle,long lyricId) {
         
         wSelf.lyricBlock(lyricTitle,lyricId);
     };

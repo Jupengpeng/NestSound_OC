@@ -15,6 +15,7 @@ static NSString *illustrateStr = @"· 默认合作期限为15天,您可以在所
     UITextView *demandTextView;
     UILabel *placeHolderLabel;
     UITableView *publicCooperationTab;
+    long lyricItemId;
 }
 @end
 
@@ -42,8 +43,20 @@ static NSString *illustrateStr = @"· 默认合作期限为15天,您可以在所
     
     
 }
+#pragma mark - Network Requests and Data Handling
 - (void)publicClick {
-    
+    self.requestType = NO;
+    self.requestParams = @{@"uid":JUserID,@"requirement":demandTextView.text,@"itemid":@(lyricItemId)};
+    self.requestURL = publicCooperationUrl;
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:publicLyricURL]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 - (void)setupPublicLyricCooperationView {
     
@@ -113,13 +126,13 @@ static NSString *illustrateStr = @"· 默认合作期限为15天,您可以在所
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         NSSelectLyricListViewController *selectLyricListVC = [[NSSelectLyricListViewController alloc] init];
-        selectLyricListVC.lyricBlock = ^(NSString *lyricTitle,NSString*lyricId) {
+        selectLyricListVC.lyricBlock = ^(NSString *lyricTitle,long lyricId) {
             NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
             
             UITableViewCell *cell = [publicCooperationTab cellForRowAtIndexPath:index];
             
             cell.textLabel.textColor = [UIColor blackColor];
-            
+            lyricItemId = lyricId;
             cell.textLabel.text = lyricTitle;
         };
         [self.navigationController pushViewController:selectLyricListVC animated:YES];

@@ -15,6 +15,8 @@
     UIView *maskView;
     UIView *bottomView;
     NSTextField *inputField;
+    int currentPage;
+    int commentType;
 }
 @end
 
@@ -28,6 +30,35 @@
     [super viewWillDisappear:animated];
     [inputField resignFirstResponder];
     [bottomView removeFromSuperview];
+}
+#pragma mark - Network Requests and Data Handling
+- (void)fetchCooperationMessageListWithIsLoadingMore:(BOOL)isLoadingMore {
+    if (!isLoadingMore) {
+        self.requestType = NO;
+        currentPage = 1;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+    }else{
+        ++currentPage;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+    }
+    
+    self.requestURL = cooperationMessageListUrl;
+    
+}
+- (void)publicCooperationMessageWithMessage:(NSString *)message {
+    self.requestType = NO;
+    self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@""};
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:cooperationMessageListUrl]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else if ([operation.urlTag isEqualToString:publicCooperationUrl]) {
+            
+        }
+    }
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -229,12 +260,12 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    //    inputField.placeholder = nil;
     
     [textField resignFirstResponder];
     
     maskView.hidden = YES;
     
+    [self publicCooperationMessageWithMessage:textField.text];
 //    if (inputField.tag == 1) {
     
 //        [self postCommentWithComment:textField.text andUser:nil andType:2 andTargetUID:targetUserId];

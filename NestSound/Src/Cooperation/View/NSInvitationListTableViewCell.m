@@ -79,6 +79,8 @@
     
     [invitationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
+    [invitationBtn addTarget:self action:@selector(invitationBtnClickWith:) forControlEvents:UIControlEventTouchUpInside];
+    
     [invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
     
     [self.contentView addSubview:invitationBtn];
@@ -102,6 +104,11 @@
     
     [self.contentView addSubview:recommend];
     
+}
+- (void)invitationBtnClickWith {
+    if ([self.delegate respondsToSelector:@selector(invitationBtnClickWith:)]) {
+        [self.delegate invitationBtnClickWith:self];
+    }
 }
 - (void)layoutSubviews {
     
@@ -158,6 +165,7 @@
 
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

@@ -8,8 +8,10 @@
 
 #import "NSInvitationListViewController.h"
 #import "NSInvitationListTableViewCell.h"
-@interface NSInvitationListViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
-
+@interface NSInvitationListViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,NSInvitationListTableViewCellDelegate>
+{
+    int currentPage;
+}
 @end
 
 @implementation NSInvitationListViewController
@@ -17,6 +19,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInvitationView];
+}
+#pragma mark - Network Requests and Data Handling
+- (void)fetchCooperationMessageListWithIsLoadingMore:(BOOL)isLoadingMore {
+    if (!isLoadingMore) {
+        self.requestType = NO;
+        currentPage = 1;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+    }else{
+        ++currentPage;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+    }
+    
+    self.requestURL = cooperationMessageListUrl;
+    
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:cooperationMessageListUrl]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else if ([operation.urlTag isEqualToString:invitationUrl]) {
+            
+        }
+    }
 }
 - (void)setupInvitationView {
     
@@ -62,7 +89,7 @@
     static NSString *ID = @"invitationCell";
     
     NSInvitationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
+    cell.delegate = self;
     if (cell == nil) {
         
         cell = [[NSInvitationListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
@@ -73,7 +100,15 @@
     
     return cell;
 }
+
 #pragma mark - UITableViewDelegate
+
+#pragma mark - NSInvitationListTableViewCellDelegate
+- (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
+    self.requestType = NO;
+    self.requestParams = @{@"uid":JUserID,@"target_uid":@"",@"did":@""};
+    self.requestURL = invitationUrl;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -9,7 +9,7 @@
 #import "NSBaseViewController.h"
 
 
-typedef void(^returnLyric)(NSString *lyricTitle,NSString*lyricId);
+typedef void(^returnLyric)(NSString *lyricTitle,long lyricId);
 
 @interface NSLyricDetailViewController : NSBaseViewController
 

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0C0403BA1DBDF70400D5620A /* NSTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0403B91DBDF70400D5620A /* NSTipView.m */; };
+		0C165F781DC71421003795D1 /* NSCooperationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C165F771DC71421003795D1 /* NSCooperationListModel.m */; };
+		0C165F7B1DC71439003795D1 /* NSMyCooperationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C165F7A1DC71439003795D1 /* NSMyCooperationListModel.m */; };
+		0C165F7E1DC7144D003795D1 /* NSCollectionCooperationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C165F7D1DC7144D003795D1 /* NSCollectionCooperationListModel.m */; };
 		0C2F9A7D1D8687600045A2EC /* NSPreserveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */; };
 		0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */; };
 		0C2F9A831D86A63A0045A2EC /* NSPreserveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */; };
@@ -305,6 +308,12 @@
 /* Begin PBXFileReference section */
 		0C0403B81DBDF70400D5620A /* NSTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTipView.h; sourceTree = "<group>"; };
 		0C0403B91DBDF70400D5620A /* NSTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTipView.m; sourceTree = "<group>"; };
+		0C165F761DC71421003795D1 /* NSCooperationListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationListModel.h; sourceTree = "<group>"; };
+		0C165F771DC71421003795D1 /* NSCooperationListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationListModel.m; sourceTree = "<group>"; };
+		0C165F791DC71439003795D1 /* NSMyCooperationListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMyCooperationListModel.h; sourceTree = "<group>"; };
+		0C165F7A1DC71439003795D1 /* NSMyCooperationListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMyCooperationListModel.m; sourceTree = "<group>"; };
+		0C165F7C1DC7144D003795D1 /* NSCollectionCooperationListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCollectionCooperationListModel.h; sourceTree = "<group>"; };
+		0C165F7D1DC7144D003795D1 /* NSCollectionCooperationListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCollectionCooperationListModel.m; sourceTree = "<group>"; };
 		0C2F9A7B1D8687600045A2EC /* NSPreserveListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveListViewController.h; sourceTree = "<group>"; };
 		0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveListViewController.m; sourceTree = "<group>"; };
 		0C2F9A7E1D8688060045A2EC /* NSUserMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSUserMessageViewController.h; sourceTree = "<group>"; };
@@ -2181,6 +2190,12 @@
 			children = (
 				B87B3D5A1DC0470C0082D3A1 /* NSCooperateDetailModel.h */,
 				B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */,
+				0C165F761DC71421003795D1 /* NSCooperationListModel.h */,
+				0C165F771DC71421003795D1 /* NSCooperationListModel.m */,
+				0C165F791DC71439003795D1 /* NSMyCooperationListModel.h */,
+				0C165F7A1DC71439003795D1 /* NSMyCooperationListModel.m */,
+				0C165F7C1DC7144D003795D1 /* NSCollectionCooperationListModel.h */,
+				0C165F7D1DC7144D003795D1 /* NSCollectionCooperationListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2362,6 +2377,7 @@
 					2DFB66F01CC1E65600DA24DA = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 62UDHM98C2;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3595,6 +3611,7 @@
 				0C0403BA1DBDF70400D5620A /* NSTipView.m in Sources */,
 				2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */,
 				94456D4E1D5185A60088385F /* NSTextField.m in Sources */,
+				0C165F781DC71421003795D1 /* NSCooperationListModel.m in Sources */,
 				0CCC5CA91DC22ACF007E4617 /* NSCooperationCommentCell.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
@@ -3607,6 +3624,7 @@
 				697F7F2B1D655CB400F7EBCC /* NSActivityJoinerListCell.m in Sources */,
 				0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */,
 				0CCC5CA01DC1E293007E4617 /* NSInvitationListViewController.m in Sources */,
+				0C165F7E1DC7144D003795D1 /* NSCollectionCooperationListModel.m in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
@@ -3640,6 +3658,7 @@
 				B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */,
 				B8F83EB51D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m in Sources */,
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
+				0C165F7B1DC71439003795D1 /* NSMyCooperationListModel.m in Sources */,
 				946B04311D4EEC8A00529DBA /* README.md in Sources */,
 				944785D41D5B0040004FFB75 /* NSLyricPosterViewController.m in Sources */,
 				B8AA35691D9543BF00C8F404 /* NSMusicSayChargeModel.m in Sources */,
@@ -3859,7 +3878,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3876,8 +3895,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
-				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3890,7 +3909,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou YinTao Network Technology Co., Ltd. (62UDHM98C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -3907,8 +3926,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
-				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

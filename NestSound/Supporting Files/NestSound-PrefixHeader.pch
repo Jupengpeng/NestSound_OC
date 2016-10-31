@@ -143,6 +143,15 @@ extern NSString *port;
 #define addPreservePersonUrl @"copyright/preserve/addBaoquanren?"
 #define unPreservedListUrl @"copyright/preserve/getProductList?"
 #define preserveDetailUrl @"copyright/preserve/getOrderDetail?"
+//合作
+#define publicCooperationUrl @"cooperate/demand/public/v23"
+#define demandLyricListUrl @"cooperate/demand/lyricslist/v23"
+#define myCooperationListUrl @"cooperate/index/mylist/v23"
+#define collectCooperationListUrl @"cooperate/index/fovlist/v23"
+#define cooperationMessageListUrl @"cooperate/comment/leavelist/v23"
+#define invitationListUrl @"cooperate/invite/userlist/v23"
+#define invitationUrl @"cooperate/invite/save/v23"
+#define publicCooperationMessageUrl @"cooperate/comment/save/v23"
 /**
  *  2016年8月18号添加
  *

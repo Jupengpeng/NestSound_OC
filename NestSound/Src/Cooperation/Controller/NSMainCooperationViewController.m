@@ -17,11 +17,12 @@
 {
     NSTipView *tipView;
     UIView *maskView;
+    UIView   * _lineView;
 }
 @property (nonatomic, strong) UIButton * cooperationBtn;
 @property (nonatomic, strong) UIButton * myCooperation;
 @property (nonatomic, strong) UIButton * collectionBtn;
-@property (nonatomic, strong) UIView   * lineView;
+//@property (nonatomic, strong) UIView   * lineView;
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 @end
 
@@ -37,53 +38,56 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(testClick)];
     
-    UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 44)];
+    UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(ScreenWidth/2-90, 0, 180, 44)];
     navigationView.backgroundColor = [UIColor clearColor];
     self.cooperationBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.cooperationBtn.frame = CGRectMake(0, 0, 60, 41);
     [self.cooperationBtn setTitle:@"合作" forState:UIControlStateNormal];
     [self.cooperationBtn addTarget:self action:@selector(cooperationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [navigationView addSubview:self.cooperationBtn];
     
     self.myCooperation = [UIButton buttonWithType:UIButtonTypeSystem];
+    _myCooperation.frame = CGRectMake(60, 0, 60, 41);
     [self.myCooperation setTitle:@"我的" forState:UIControlStateNormal];
     [self.myCooperation addTarget:self action:@selector(myCooperationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [navigationView addSubview:self.myCooperation];
     self.navigationItem.titleView = navigationView;
     
     self.collectionBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    _collectionBtn.frame = CGRectMake(120, 0, 60, 41);
     [self.collectionBtn setTitle:@"收藏" forState:UIControlStateNormal];
     [self.collectionBtn addTarget:self action:@selector(collectionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [navigationView addSubview:self.collectionBtn];
     
-    [self.cooperationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.myCooperation.mas_left).offset(0);
-        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
-        make.size.mas_equalTo(CGSizeMake(60, 41));
-    }];
+//    [self.cooperationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self.myCooperation.mas_left).offset(0);
+//        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
+//        make.size.mas_equalTo(CGSizeMake(60, 41));
+//    }];
+//    
+//    [self.myCooperation mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
+//        make.centerX.equalTo(navigationView.mas_centerX);
+//        make.size.mas_equalTo(CGSizeMake(60, 41));
+//    }];
+//    
+//    [self.collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.myCooperation.mas_right).offset(0);
+//        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
+//        make.size.mas_equalTo(CGSizeMake(60, 41));
+//    }];
     
-    [self.myCooperation mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
-        make.centerX.equalTo(navigationView.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(60, 41));
-    }];
-    
-    [self.collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.myCooperation.mas_right).offset(0);
-        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
-        make.size.mas_equalTo(CGSizeMake(60, 41));
-    }];
-    
-    _lineView = [[UIView alloc] init];
+    _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 41, 60, 3)];
     
     _lineView.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
     
     [navigationView addSubview:_lineView];
     
-    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.cooperationBtn).offset(0);
-        make.bottom.equalTo(navigationView.mas_bottom).offset(0);
-        make.size.mas_equalTo(CGSizeMake(60, 3));
-    }];
+//    [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.equalTo(self.cooperationBtn).offset(0);
+//        make.bottom.equalTo(navigationView.mas_bottom).offset(0);
+//        make.size.mas_equalTo(CGSizeMake(60, 3));
+//    }];
     
     self.contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height - 64)];
     

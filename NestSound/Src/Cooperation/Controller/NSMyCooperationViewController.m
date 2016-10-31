@@ -15,6 +15,7 @@
     NSTipView *tipView;
     UIView *maskView;
     NSIndexPath *index;
+    int currentPage;
 }
 @property (nonatomic,strong) NSMutableArray *myCooperationArr;
 @end
@@ -24,6 +25,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupMyCooperationViewController];
+}
+#pragma mark - Network Requests and Data Handling
+- (void)fetchMyCooperationListWithIsLoadingMore:(BOOL)isLoadingMore {
+    if (!isLoadingMore) {
+        self.requestType = NO;
+        currentPage = 1;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+    }else{
+        ++currentPage;
+        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+    }
+    
+    self.requestURL = myCooperationListUrl;
+    
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:myCooperationListUrl]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 - (void)setupMyCooperationViewController {
     _myCooperationArr = [NSMutableArray arrayWithArray:@[@"1",@"2",@"3",@"4",@"5"]];

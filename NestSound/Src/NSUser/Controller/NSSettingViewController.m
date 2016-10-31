@@ -124,6 +124,7 @@ static NSString * const LoginOutIdefity = @"LoginOutCell";
             cacheSize.text = [Memory getCacheSize];
         }
         else if (row == 2) {
+            
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         } else if (row == 3){
             

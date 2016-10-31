@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NSInvitationListTableViewCell : UITableViewCell
+@class NSInvitationListTableViewCell;
 
+@protocol NSInvitationListTableViewCellDelegate <NSObject>
+
+- (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell;
+
+@end
+
+@interface NSInvitationListTableViewCell : UITableViewCell
+@property (nonatomic,assign) id <NSInvitationListTableViewCellDelegate> delegate;
 @end

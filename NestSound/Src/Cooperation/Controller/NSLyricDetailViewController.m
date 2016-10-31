@@ -40,7 +40,7 @@
 }
 - (void)useLyricClick{
 
-    self.lyricBlock(@"lyricTitle",@"呵呵嘿嘿");
+    self.lyricBlock(@"lyricTitle",1);
     [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
 }
 //- (void)returnLyricWithBlock:(returnLyric)block {
