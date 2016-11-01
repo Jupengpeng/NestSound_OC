@@ -204,13 +204,13 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 1 ? 3 : 2;
+    return section == 1 ? 4 : 2;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *stringArr = @[@"灵感纪录",@"我的收藏",@"我的保全",@"个人资料",@"设置"];
-    NSArray *imageArr = @[@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.2_userData",@"2.2_setting"];
+    NSArray *stringArr = @[@"合作作品",@"灵感纪录",@"我的收藏",@"我的保全",@"个人资料",@"设置"];
+    NSArray *imageArr = @[@"2.3_cooperation",@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.2_userData",@"2.2_setting"];
     
     NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
@@ -226,7 +226,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             }
             
             userProfileCell.userModel = _userModel;
-//
+            //
             return userProfileCell;
         } else {
             
@@ -297,8 +297,6 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         settingCell.textLabel.text = stringArr[indexPath.row];
         settingCell.imageView.image = [UIImage imageNamed:imageArr[indexPath.row]];
 
-//        }
-
         return settingCell;
         
     }else if (indexPath.section == 2){
@@ -309,8 +307,8 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 //            settingCell.detailTextLabel.tag = 100;
         }
-        settingCell.textLabel.text = stringArr[3 + indexPath.row];
-        settingCell.imageView.image = [UIImage imageNamed:imageArr[3 + indexPath.row]];
+        settingCell.textLabel.text = stringArr[4 + indexPath.row];
+        settingCell.imageView.image = [UIImage imageNamed:imageArr[4 + indexPath.row]];
     }
     return settingCell;
 }
@@ -328,14 +326,19 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 
     }else if (section == 1){
         if (row == 0) {
+            NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];
+            collectionListVC.viewType = CooperationViewType;
+            [self.navigationController pushViewController:collectionListVC animated:YES];
+        } else if (row == 1) {
             NSInspirationListViewController *inspirationListVC = [[NSInspirationListViewController alloc] init];
             [self.navigationController pushViewController:inspirationListVC animated:YES];
             
-        } else if (row == 1) {
+        } else if (row == 2) {
             NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];
+            collectionListVC.viewType = CollectionViewType;
             [self.navigationController pushViewController:collectionListVC animated:YES];
             
-        } else if (row == 2) {
+        } else if (row == 3) {
             
 //            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
 //            preserveListVC.sortId = @"1";

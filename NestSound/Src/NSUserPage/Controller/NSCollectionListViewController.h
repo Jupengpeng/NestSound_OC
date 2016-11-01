@@ -8,6 +8,12 @@
 
 #import "NSBaseViewController.h"
 
-@interface NSCollectionListViewController : NSBaseViewController
+typedef  NS_ENUM(NSInteger,ViewType){
+    
+    CooperationViewType,
+    CollectionViewType
+};
 
+@interface NSCollectionListViewController : NSBaseViewController
+@property (nonatomic, assign) ViewType viewType;
 @end

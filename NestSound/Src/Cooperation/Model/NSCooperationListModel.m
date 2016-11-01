@@ -29,10 +29,48 @@
 
 @end
 
+
+@implementation CooperationCommentModel
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"nickName":@"nickname",
+             @"comment":@"comment"};
+}
+
+@end
+
+@implementation CooperationCommentListModel
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"cooperationComment":@"commentList"};
+}
+
+@end
+
+@implementation CooperationUser
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"nickName@":@"nickname",
+             @"headerUrl":@"headerurl",
+             @"uId":@"uid"};
+}
+
+@end
+
+@implementation NSCooperationUser
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"cooperationUser":@"userInfo"};
+}
+
+@end
+
 @implementation NSCooperationListModel
 
 - (NSDictionary *)modelKeyJSONKeyMapper {
-    return @{@"cooperationList":@"data"};
+    return @{@"cooperationList":@"data",
+             @"commentList":@"data",
+             @"cooperationUser":@"data"};
 }
 
 @end

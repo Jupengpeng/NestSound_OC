@@ -132,12 +132,15 @@
     } else if ([preserveModel.pushtype isEqualToString:@"addToSonglist"]||[preserveModel.pushtype isEqualToString:@"recommedToIndex"]) {
         titleLabel.text = @"推荐通知";
         avatarImg.image = [UIImage imageNamed:@"2.2_message_recommend"];
+    } else if ([preserveModel.pushtype isEqualToString:@"cooperateComplete"]) {
+        titleLabel.text = @"";
     }
     
     dateLabel.text = [date datetoLongLongStringWithDate:preserveModel.time];
     contentLabel.text = preserveModel.content;
 }
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

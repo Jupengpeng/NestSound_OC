@@ -89,11 +89,11 @@
     static NSString *ID = @"invitationCell";
     
     NSInvitationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    cell.delegate = self;
+    
     if (cell == nil) {
         
         cell = [[NSInvitationListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-        
+        cell.delegate = self;
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

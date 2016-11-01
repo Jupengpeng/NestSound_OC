@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C0403BA1DBDF70400D5620A /* NSTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0403B91DBDF70400D5620A /* NSTipView.m */; };
+		0C128D531DC86D84006C3AD1 /* NSInvitationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C128D521DC86D84006C3AD1 /* NSInvitationListModel.m */; };
 		0C165F781DC71421003795D1 /* NSCooperationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C165F771DC71421003795D1 /* NSCooperationListModel.m */; };
 		0C165F7B1DC71439003795D1 /* NSMyCooperationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C165F7A1DC71439003795D1 /* NSMyCooperationListModel.m */; };
 		0C165F7E1DC7144D003795D1 /* NSCollectionCooperationListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C165F7D1DC7144D003795D1 /* NSCollectionCooperationListModel.m */; };
@@ -308,6 +309,8 @@
 /* Begin PBXFileReference section */
 		0C0403B81DBDF70400D5620A /* NSTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTipView.h; sourceTree = "<group>"; };
 		0C0403B91DBDF70400D5620A /* NSTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTipView.m; sourceTree = "<group>"; };
+		0C128D511DC86D84006C3AD1 /* NSInvitationListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSInvitationListModel.h; sourceTree = "<group>"; };
+		0C128D521DC86D84006C3AD1 /* NSInvitationListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInvitationListModel.m; sourceTree = "<group>"; };
 		0C165F761DC71421003795D1 /* NSCooperationListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationListModel.h; sourceTree = "<group>"; };
 		0C165F771DC71421003795D1 /* NSCooperationListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationListModel.m; sourceTree = "<group>"; };
 		0C165F791DC71439003795D1 /* NSMyCooperationListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMyCooperationListModel.h; sourceTree = "<group>"; };
@@ -2196,6 +2199,8 @@
 				0C165F7A1DC71439003795D1 /* NSMyCooperationListModel.m */,
 				0C165F7C1DC7144D003795D1 /* NSCollectionCooperationListModel.h */,
 				0C165F7D1DC7144D003795D1 /* NSCollectionCooperationListModel.m */,
+				0C128D511DC86D84006C3AD1 /* NSInvitationListModel.h */,
+				0C128D521DC86D84006C3AD1 /* NSInvitationListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3520,6 +3525,7 @@
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
 				18147DF21D110126009A0440 /* NSLexiconCollectionViewCell.m in Sources */,
+				0C128D531DC86D84006C3AD1 /* NSInvitationListModel.m in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
 				0C670D0D1D9BB27900319E0D /* NSPreservePersonListModel.m in Sources */,
 				188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */,

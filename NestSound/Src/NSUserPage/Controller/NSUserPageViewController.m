@@ -649,9 +649,9 @@ static NSString *ID3 = @"cell3";
     
     
     if (self.who == Myself) {
-        toolBarArr = @[@"歌曲",@"歌词",@"收藏",@"灵感记录"];
+        toolBarArr = @[@"歌曲",@"歌词",@"收藏",@"合作作品"];
     }else{
-        toolBarArr = @[@"歌曲",@"歌词",@"收藏"];
+        toolBarArr = @[@"歌曲",@"歌词",@"收藏",@"合作作品"];
     }
     
     backgoundView = [[UIView alloc] initWithFrame:CGRectMake(0, -60, ScreenWidth, 60)];

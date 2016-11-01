@@ -18,6 +18,7 @@
 @property (nonatomic,assign) int collecCount;
 @property (nonatomic,assign) int systemCount;
 @property (nonatomic,assign) int preserveCount;
+@property (nonatomic,assign) int cooperationCount;
 @end
 
 @interface NSMessageListModel : NSBaseModel

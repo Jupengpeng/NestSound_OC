@@ -12,7 +12,7 @@
 #import "NSCooperationListTableViewCell.h"
 #import "NSCooperationCommentCell.h"
 #import "NSLabelTableViewCell.h"
-@interface NSCooperationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface NSCooperationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NSInvitationListTableViewCellDelegate>
 {
     UIImageView *emptyImgView;
     UITableView *cooperationTab;
@@ -95,7 +95,7 @@
         if (cell == nil) {
             
             cell = [[NSInvitationListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
+            cell.delegate = self;
         }
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -153,6 +153,11 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 1.5;
+}
+#pragma mark - NSInvitationListTableViewCellDelegate
+- (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
+    self.requestType = NO;
+    self.requestParams = @{@"did":@"",@"uid":JUserID,@"itemid":@""};
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

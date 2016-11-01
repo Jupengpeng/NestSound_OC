@@ -8,6 +8,17 @@
 
 #import "NSBaseModel.h"
 
-@interface NSCollectionCooperationListModel : NSBaseModel
+@interface CollectionCooperationModel : NSBaseModel
+@property (nonatomic, assign) int cooperationId;
+@property (nonatomic, copy) NSString *cooperationTitle;
+@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *nickName;
+@property (nonatomic, copy) NSString *headerUrl;
+@property (nonatomic, assign) long workNum;
+@property (nonatomic, assign) long createTime;
+@property (nonatomic, assign) long uId;
+@end
 
+@interface NSCollectionCooperationListModel : NSBaseModel
+@property (nonatomic,strong) CollectionCooperationModel *collectionList;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "NSBaseModel.h"
-
+//合作
 @interface CooperationModel : NSBaseModel
 
 @property (nonatomic, assign) int cooperationId;
@@ -22,6 +22,34 @@
 @property (nonatomic,strong) CooperationModel *cooperation;
 @end;
 
+//评论
+@protocol CooperationCommentModel <NSObject>
+
+@end
+
+@interface CooperationCommentModel : NSBaseModel
+@property (nonatomic, copy) NSString *nickName;
+@property (nonatomic, copy) NSString *comment;
+@end
+
+@interface CooperationCommentListModel : NSBaseModel
+@property (nonatomic, strong) NSArray <CooperationCommentModel> *cooperationComment;
+@end
+//用户信息
+
+@interface CooperationUser : NSBaseModel
+@property (nonatomic ,copy) NSString *nickName;
+@property (nonatomic ,copy) NSString *headerUrl;
+@property (nonatomic ,assign) long uId;
+@end
+
+@interface NSCooperationUser : NSBaseModel
+@property (nonatomic,strong) CooperationUser *cooperationUser;
+
+@end
+
 @interface NSCooperationListModel : NSBaseModel
 @property (nonatomic, strong) CooperationListModel *cooperationList;
+@property (nonatomic, strong) CooperationCommentListModel *commentList;
+@property (nonatomic, strong) NSCooperationUser *cooperationUser;
 @end

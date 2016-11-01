@@ -8,6 +8,22 @@
 
 #import "NSMyCooperationListModel.h"
 
+
+@implementation myCooperationModel
+
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"myCooperationId":@"id",
+             @"cooperationTitle":@"title",
+             @"workNum":@"worknum",
+             @"createTime":@"createtime",
+             @"status":@"status"};
+}
+
+@end
+
 @implementation NSMyCooperationListModel
 
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    return @{@"myCooperationList":@"data"};
+}
 @end

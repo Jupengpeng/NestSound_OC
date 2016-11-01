@@ -16,6 +16,7 @@
     int currentPage;
     NSString *url;
     UIImageView *emptyImage;
+    
 }
 
 @property (nonatomic, strong) UITableView *collectionTab;
@@ -81,7 +82,14 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     }
 }
 - (void)configureCollectionListUI {
-    self.title = @"收藏";
+    if (self.viewType == CollectionViewType) {
+        
+        self.title = @"我的收藏";
+        
+    } else {
+        
+        self.title = @"合作作品";
+    }
     
     self.collectionTab = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _collectionTab.delegate = self;

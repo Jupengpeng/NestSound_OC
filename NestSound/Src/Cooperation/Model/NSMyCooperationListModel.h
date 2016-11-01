@@ -8,6 +8,14 @@
 
 #import "NSBaseModel.h"
 
-@interface NSMyCooperationListModel : NSBaseModel
+@interface myCooperationModel : NSBaseModel
+@property (nonatomic, assign) int myCooperationId;
+@property (nonatomic, copy) NSString *cooperationTitle;
+@property (nonatomic, assign) long workNum;
+@property (nonatomic, assign) long createTime;
+@property (nonatomic, copy) NSString *status;
+@end
 
+@interface NSMyCooperationListModel : NSBaseModel
+@property (nonatomic, strong) myCooperationModel *myCooperationList;
 @end

@@ -119,6 +119,8 @@ static NSString * const preserveCellID = @"preserveCellID";
         } else if (messageType == PreserveMessageType) {
             preserveUrl = [preserveMessageUrl stringByAppendingString:str];
             self.requestURL = preserveUrl;
+        } else {
+            
         }
 }
 
@@ -340,6 +342,9 @@ static NSString * const preserveCellID = @"preserveCellID";
 #pragma mark tableview dataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (messageType == cooperationMessageType) {
+        return 3;
+    }
     return messageArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -357,12 +362,12 @@ static NSString * const preserveCellID = @"preserveCellID";
         return 140;
     }else if (messageType == CollectionMessageType){
         return 140;
-    }else if (messageType == SystemMessageType || messageType == PreserveMessageType){
+    }else if (messageType == SystemMessageType || messageType == PreserveMessageType || messageType == cooperationMessageType){
         NSPreserveMessage *model = messageArr[indexPath.section];
         NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
         
         CGFloat height = [model.content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
-        return 65 + height;
+        return 95 + height;
 
     }else if (messageType == CommentMessageType){
         
@@ -388,7 +393,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         cell.upvoteMessage = messageArr[row];
         return cell;
         
-    }else if (messageType == CollectionMessageType){
+    }else if (messageType == CollectionMessageType || messageType == PreserveMessageType){
         NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:collectionCellID];
         if (!cell) {
             cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:collectionCellID];
@@ -427,13 +432,13 @@ static NSString * const preserveCellID = @"preserveCellID";
         commentCell.commentModel = messageArr[indexPath.row];
         commentCell.commentLabel.delegate = self;
         return commentCell;
-    } else if (messageType == PreserveMessageType) {
+    } else if (messageType == cooperationMessageType) {
         NSPreserveMessageTableViewCell *preserveCell = [tableView dequeueReusableCellWithIdentifier:preserveCellID];
         if (!preserveCell) {
             preserveCell = [[NSPreserveMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveCellID];
             
         }
-        preserveCell.preserveModel = messageArr[indexPath.row];
+//        preserveCell.preserveModel = messageArr[indexPath.row];
         return preserveCell;
     }
     return nil;

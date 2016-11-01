@@ -14,8 +14,8 @@ typedef  NS_ENUM(NSInteger,MessageType){
     CollectionMessageType,
     CommentMessageType,
     SystemMessageType,
-    PreserveMessageType
-
+    PreserveMessageType,
+    cooperationMessageType
 };
 
 @interface NSMessageListViewController : NSBaseViewController
