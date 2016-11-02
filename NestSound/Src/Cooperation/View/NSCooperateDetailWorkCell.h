@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class  CoWorkModel;
+
 typedef void(^NSCooperateDetailWorkCellAcceptBlock)(NSString *workId);
 
 @interface NSCooperateDetailWorkCell : UITableViewCell
@@ -15,6 +17,9 @@ typedef void(^NSCooperateDetailWorkCellAcceptBlock)(NSString *workId);
 
 @property (nonatomic,copy) NSCooperateDetailWorkCellAcceptBlock acceptBlock;
 
-- (void)setupData;
+@property (nonatomic,strong) CoWorkModel *coWorkModel;
+
+
+- (void)setupDataWithCoWorkModel:(CoWorkModel *)model IsMine:(BOOL)isMine;
 
 @end

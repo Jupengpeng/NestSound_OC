@@ -14,6 +14,9 @@
 
 @property (nonatomic,assign) BOOL isMyCoWork;
 
+@property (nonatomic,strong) NSString *didStr;
+
 @property (nonatomic,strong) NSString *detailTitle;
+
 
 @end

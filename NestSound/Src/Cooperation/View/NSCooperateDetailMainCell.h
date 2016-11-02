@@ -10,6 +10,8 @@
 typedef void(^NSCooperateDetailMainCellHeightBlock)(CGFloat height);
 typedef void(^NSCooperateDetailMainCellUserPageClickBlock)(NSString *userId);
 
+@class NSCooperationDetailModel;
+
 #import <UIKit/UIKit.h>
 
 @interface NSCooperateDetailMainCell : UITableViewCell
@@ -18,6 +20,6 @@ typedef void(^NSCooperateDetailMainCellUserPageClickBlock)(NSString *userId);
 
 @property (nonatomic,copy) NSCooperateDetailMainCellUserPageClickBlock userClickBlock;
 
-- (void)showDataWithModel:(id)model completion:(NSCooperateDetailMainCellHeightBlock)completion;
+- (void)showDataWithModel:(NSCooperationDetailModel *)model completion:(NSCooperateDetailMainCellHeightBlock)completion;
 
 @end

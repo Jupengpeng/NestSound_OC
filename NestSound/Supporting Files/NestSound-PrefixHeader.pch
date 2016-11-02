@@ -155,6 +155,41 @@ extern NSString *port;
 #define invitationUrl @"cooperate/invite/save/v23"
 #define publicCooperationMessageUrl @"cooperate/comment/save/v23"
 #define deleteMyCooperationUrl @"cooperate/demand/delete/v23"
+
+
+/**
+ *  2016年11月2号添加
+ */
+/**
+ *  合作详情部分
+ */
+//合作详情页
+#define coDetailUrl @"cooperate/demand/detail/v23"
+//合作按钮
+#define coCooperateActionUrl @"cooperate/demand/preinfo/v23"
+//我的采纳
+#define coAcceptActionUrl @"cooperate/demand/accept/v23"
+//收藏操作
+#define coCollectActionUrl @"cooperate/demand/fov/V23"
+
+/**
+ *  合作歌曲成品部分
+ **/
+//歌曲成品-歌曲播放页数据
+#define coWorkPlayDetailUrl @"cooperate/work/detail/v23"
+//歌曲成品-发布歌曲
+#define coWorkReleaseUrl @"cooperate/work/public/v23"
+//歌曲成品-点赞接口
+#define coWorkPraiseUrl @"cooperate/work/zan/v23"
+//歌曲成品-收藏接口
+#define coWorkCollectUrl @"cooperate/work/fov/v23"
+//歌曲成品-发表评论
+#define coWorkCommentUrl @"cooperate/work/commentsave/v23"
+//歌曲成品-获取作品评论列表
+#define coWorkCommentListUrl @"cooperate/work/commentlist/v23"
+//歌曲成品-删除评论
+#define coWorkDeleteUrl @"cooperate/work/commentdelete/v23"
+
 /**
  *  2016年8月18号添加
  *
