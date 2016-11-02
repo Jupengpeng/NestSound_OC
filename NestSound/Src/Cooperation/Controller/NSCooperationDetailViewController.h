@@ -10,6 +10,9 @@
 
 @interface NSCooperationDetailViewController : NSBaseViewController
 
+//是否为我发起的合作作品 yes = 我的
+
+@property (nonatomic,assign) BOOL isMyCoWork;
 
 @property (nonatomic,strong) NSString *detailTitle;
 

@@ -192,6 +192,10 @@
             btn.imageView.contentMode = UIViewContentModeScaleAspectFill;
         } action:^(UIButton *btn) {
             
+            if (self.userClickBlock) {
+                self.userClickBlock(@"7563");
+            }
+            
             
         }];
     }
