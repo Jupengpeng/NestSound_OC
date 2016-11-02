@@ -38,6 +38,7 @@ UITextFieldDelegate
     NSString * commentUrl;
     NSString * systemUrl;
     NSString * preserveUrl;
+    NSString * cooperationUrl;
     UIImageView * emptyImage;
     UITextField *inputField;
     UIView *maskView;
@@ -120,7 +121,8 @@ static NSString * const preserveCellID = @"preserveCellID";
             preserveUrl = [preserveMessageUrl stringByAppendingString:str];
             self.requestURL = preserveUrl;
         } else {
-            
+            cooperationUrl = [cooperationMessageUrl stringByAppendingString:str];
+            self.requestURL = cooperationUrl;
         }
 }
 
@@ -194,6 +196,20 @@ static NSString * const preserveCellID = @"preserveCellID";
                 }
                 
             } else if ([operation.urlTag isEqualToString:preserveUrl]) {
+                NSPreserveMessageListModel * preserveMessage = (NSPreserveMessageListModel *)parserObject;
+                if (!operation.isLoadingMore) {
+                    messageArr = [NSMutableArray arrayWithArray:preserveMessage.preserveMessageList];
+                    emptyImage.image = [UIImage imageNamed:@"2.0_noMessageBk"];
+                }else{
+                    if (preserveMessage.preserveMessageList.count == 0) {
+                        messageList.showsInfiniteScrolling = NO;
+                        
+                    }else{
+                        [messageArr addObjectsFromArray:preserveMessage.preserveMessageList];
+                    }
+                    
+                }
+            } else if ([operation.urlTag isEqualToString:cooperationUrl]) {
                 NSPreserveMessageListModel * preserveMessage = (NSPreserveMessageListModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     messageArr = [NSMutableArray arrayWithArray:preserveMessage.preserveMessageList];
@@ -367,7 +383,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
         
         CGFloat height = [model.content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
-        return 95 + height;
+        return 95 + height;//65
 
     }else if (messageType == CommentMessageType){
         
@@ -393,7 +409,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         cell.upvoteMessage = messageArr[row];
         return cell;
         
-    }else if (messageType == CollectionMessageType || messageType == PreserveMessageType){
+    }else if (messageType == CollectionMessageType){
         NSUpvoteMessageCell * cell = (NSUpvoteMessageCell *)[tableView dequeueReusableCellWithIdentifier:collectionCellID];
         if (!cell) {
             cell = [[NSUpvoteMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:collectionCellID];
@@ -432,7 +448,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         commentCell.commentModel = messageArr[indexPath.row];
         commentCell.commentLabel.delegate = self;
         return commentCell;
-    } else if (messageType == cooperationMessageType) {
+    } else if (messageType == PreserveMessageType || messageType == cooperationMessageType) {
         NSPreserveMessageTableViewCell *preserveCell = [tableView dequeueReusableCellWithIdentifier:preserveCellID];
         if (!preserveCell) {
             preserveCell = [[NSPreserveMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveCellID];

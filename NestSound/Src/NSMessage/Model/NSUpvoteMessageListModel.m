@@ -25,7 +25,7 @@
              @"titleImageUrls":@"pics",
              @"workName":@"title",
              @"add_time":@"add_time",
-             @"intabletime":@"intabletime"
+             @"intabletime":@"intabletime",
              };
 
 }

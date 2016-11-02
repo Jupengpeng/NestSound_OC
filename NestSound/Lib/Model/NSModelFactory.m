@@ -52,9 +52,13 @@
 #import "NSPreserveApplyModel.h"
 #import "NSPreserveMessageListModel.h"
 #import "NSPreserveDetailListModel.h"
+#import "NSCooperationListModel.h"
+#import "NSMyCooperationListModel.h"
+#import "NSCollectionCooperationListModel.h"
+#import "NSCooperationLyricListModel.h"
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
-    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
+//    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
     CHLog(@"jsonDict%@",jsonDict);
     if ([url isEqualToString:indexURL]) {
 
@@ -84,86 +88,140 @@
     }else if ([url isEqualToString:songListURL]){
     
         return [[NSSingListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:loginURl]){
+    }else if ([url isEqualToString:loginURl] || [url isEqualToString:getToken]){
+        
         return [[NSUserModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:upvoteMessageURL]){
+        
+    }else if ([url isEqualToString:upvoteMessageURL] || [url isEqualToString:collectMessageURL]){
+        
         return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
+        
     }else if ([url isEqualToString:messageURL]){
+        
         return [[NSMessageListModel alloc] initWithJSONDict:jsonDict];
+        
     }else if ([url isEqualToString:accompanyListURL] || [url isEqualToString:accompanyCategoryListUrl]){
+        
         return [[NSAccommpanyListModel alloc] initWithJSONDict:jsonDict];
+        
     }else if ([url isEqualToString:myLyricListURL]){
+        
         return [[NSMyLricListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:collectMessageURL]){
-        return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:commentMessageURL]){
+    }
+//    else if ([url isEqualToString:collectMessageURL]){
+//        return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
+//    }
+    else if ([url isEqualToString:commentMessageURL] || [url isEqualToString:commentURL]){
+        
         return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:systemMessageURL]){
+        
+    }else if ([url isEqualToString:systemMessageURL] || [url isEqualToString:preserveMessageUrl] || [url isEqualToString:cooperationMessageUrl]){
         return [[NSPreserveMessageListModel alloc] initWithJSONDict:jsonDict];
-    } else if ([url isEqualToString:preserveMessageUrl]) {
-        return [[NSPreserveMessageListModel alloc] initWithJSONDict:jsonDict];
-    } else if ([url isEqualToString:playMusicURL]){
+    }
+//    else if ([url isEqualToString:systemMessageURL]) {
+//        return [[NSPreserveMessageListModel alloc] initWithJSONDict:jsonDict];
+//    }
+    else if ([url isEqualToString:playMusicURL]){
+        
         return [[NSPlayMusicDetailModel alloc] initWithJSONDict:jsonDict];
+        
     } else if ([url isEqualToString:preserveDetailUrl]) {
+        
         return [[NSPreserveDetailListModel alloc] initWithJSONDict:jsonDict];
     }
-    else if ([url isEqualToString:userCenterURL] || [url isEqualToString:userListUrl]){
+    else if ([url isEqualToString:userCenterURL] || [url isEqualToString:userListUrl] || [url isEqualToString:otherCenterURL] ||[url isEqualToString:myUserCenterDefaultUrl] || [url isEqualToString:otherUserCenterDefaultUrl]){
     
         return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
     
-    }else if ([url isEqualToString:commentURL] ){
-        return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
-    
-    }else if ([url isEqualToString:otherCenterURL]){
-        /**
-         其他人的个人中心
-         */
-        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:publicLyricURL]){
+    }
+//    else if ([url isEqualToString:commentURL] ){
+//        return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
+//    
+//    }
+//    else if ([url isEqualToString:otherCenterURL]){
+//        /**
+//         其他人的个人中心
+//         */
+//        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+//    }
+    else if ([url isEqualToString:publicLyricURL] || [url isEqualToString:publicMusicURL]){
+        
         return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
         
     }else if ([url isEqualToString:getQiniuDetail]){
+        
         return [[NSGetQiNiuModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:discoverLyricMoreURL] || [url isEqualToString:discoverMusicMoreURL] || [url isEqualToString:userMLICListUrl]){
+        
+    }else if ([url isEqualToString:discoverLyricMoreURL] || [url isEqualToString:discoverMusicMoreURL] || [url isEqualToString:userMLICListUrl] || [url isEqualToString:myUserCenterListUrl] || [url isEqualToString:otherUserCenterListUrl]){
+        
         return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
+        
     }else if ([url isEqualToString:searchURL]){
+        
         return [[NSSearchUserListModel alloc] initWithJSONDict:jsonDict];
+        
     }else if ([url isEqualToString:myFansListURL] || [url isEqualToString:otherFFURL]){
+        
         return [[NSFansListModel alloc] initWithJSONDict:jsonDict];
+        
     }else if ([url isEqualToString:getInspirationURL]){
+        
         return [[NSInspirtationModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:getToken]){
-    
-        return [[NSUserModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:tunMusicURL]){
+    }
+//    else if ([url isEqualToString:getToken]){
+//    
+//        return [[NSUserModel alloc] initWithJSONDict:jsonDict];
+//    }
+    else if ([url isEqualToString:tunMusicURL]){
     
         return [[NSTunMusicModel alloc] initWithJSONDict:jsonDict];
+        
     }else if ([url isEqualToString:lyricLibraryURL]){
+        
         return [[NSLyricLibraryListModel alloc] initWithJSONDict:jsonDict];
-    }else if ([url isEqualToString:publicMusicURL]){
-        return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
-    } else if ([url isEqualToString:draftListUrl]) {
+    }
+//    else if ([url isEqualToString:publicMusicURL]){
+//        return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
+//    }
+    else if ([url isEqualToString:draftListUrl]) {
+        
         return [[NSDraftListModel alloc] initWithJSONDict:jsonDict];
+        
     } else if ([url isEqualToString:templateListUrl]) {
+        
         return [[NSTemplateListModel alloc] initWithJSONDict:jsonDict];
+        
     }
     else if([url isEqualToString:activityDetailUrl]){
+        
         return [[NSActivityDetailModel alloc] initWithJSONDict:jsonDict];
     }
     else if ([url isEqualToString:joinedUserListUrl]){
+        
         return [[NSActivityJoinerListModel alloc] initWithJSONDict:jsonDict];
+        
     }else if([url isEqualToString:joinedWorksDetailUrl]){
+        
         return [[NSJoinedWorkListModel alloc] initWithJSONDict:jsonDict];
-    }else if([url isEqualToString:publicLyricURL]){
+        
+    }else if([url isEqualToString:publicLyricURL] || [url isEqualToString:publicMusicURL]){
+        
         return [[NSActPublicLyricModel alloc] initWithJSONDict:jsonDict];
-    }else if([url isEqualToString:publicMusicURL]){
-        return [[NSActPublicLyricModel alloc] initWithJSONDict:jsonDict];
-    }else if([url isEqualToString:musicianListUrl]){
+        
+    }
+//    else if([url isEqualToString:publicMusicURL]){
+//        return [[NSActPublicLyricModel alloc] initWithJSONDict:jsonDict];
+//    }
+    else if([url isEqualToString:musicianListUrl]){
+        
         return [[NSMusicianListModel alloc] initWithJSONDict:jsonDict];
 
     }else if ([url isEqualToString:musicianDetailUrl]){
+        
         return [[NSStarMusicianModel alloc] initWithJSONDict:jsonDict];
+        
     }else if([url isEqualToString:myMusicListURL]){
+        
         return [[NSUserMusicListModel alloc] initWithJSONDict:jsonDict];
 
     }else if ([url isEqualToString:getGoodChargeUrl]){
@@ -172,18 +230,23 @@
         return chargeModel;
 
     }else if ([url isEqualToString:preserveListUrl]) {
+        
         return [[NSPreserveListModel alloc] initWithJSONDict:jsonDict];
     }
     else if([url isEqualToString:preservePersonListUrl]){
+        
         return [[NSPreservePersonListModel alloc] initWithJSONDict:jsonDict];
+        
     } else if ([url isEqualToString:unPreservedListUrl]) {
+        
         return [[NSUnPreserveListModel alloc] initWithJSONDict:jsonDict];
     }
     
-    else if([url isEqualToString:uploadBgimageUrl]){
-        CHLog(@"%@",jsonStr);
-    }
+//    else if([url isEqualToString:uploadBgimageUrl]){
+//        CHLog(@"%@",jsonStr);
+//    }
     else if ([url isEqualToString:musicSayDetailUrl]){
+        
         CHLog(@"%@",[jsonDict objectForKey:@"data"]);
         return [NSMusicSay yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
 
@@ -198,22 +261,37 @@
         
     }
     //个人用户中心默认
-    else if([url isEqualToString:myUserCenterDefaultUrl]){
-        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
-    }
+//    else if([url isEqualToString:myUserCenterDefaultUrl]){
+//        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+//    }
     //他人用户中心默认
-    else if ([url isEqualToString:otherUserCenterDefaultUrl]){
-        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
-    }
+//    else if ([url isEqualToString:otherUserCenterDefaultUrl]){
+//        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
+//    }
     //用户个人中心 列表
-    else if ([url isEqualToString:myUserCenterListUrl]){
-        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
-    }
+//    else if ([url isEqualToString:myUserCenterListUrl]){
+//        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
+//    }
     //他人用户中心 列表
-    else if ([url isEqualToString:otherUserCenterListUrl]){
-        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
+//    else if ([url isEqualToString:otherUserCenterListUrl]){
+//        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
+//    }
+    //合作
+    else if ([url isEqualToString:mainCooperationListUrl]) {
+        
+        return [[NSCooperationListModel alloc] initWithJSONDict:jsonDict];
+        
+    } else if ([url isEqualToString:myCooperationListUrl]) {
+        
+        return [[NSMyCooperationListModel alloc] initWithJSONDict:jsonDict];
+        
+    } else if ([url isEqualToString:collectCooperationListUrl]) {
+        
+        return [[NSCollectionCooperationListModel alloc] initWithJSONDict:jsonDict];
+    } else if ([url isEqualToString:demandLyricListUrl]) {
+        
+        return [[NSCooperationLyricListModel alloc] initWithJSONDict:jsonDict];
     }
-    
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     
 }

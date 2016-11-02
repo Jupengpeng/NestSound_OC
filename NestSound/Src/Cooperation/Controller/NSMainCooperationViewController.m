@@ -13,6 +13,7 @@
 #import "NSPublicLyricCooperationViewController.h"
 #import "NSInvitationListViewController.h"
 #import "NSCooperationMessageViewController.h"
+#import "NSLoginViewController.h"
 @interface NSMainCooperationViewController ()<UIScrollViewDelegate>
 {
     NSTipView *tipView;
@@ -128,7 +129,7 @@
     }];
 }
 - (void)setupContentViewControllers {
-    //活动
+    //合作
     NSCooperationViewController *cooperationVC = [[NSCooperationViewController alloc] init];
     
     cooperationVC.view.frame = CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height);
@@ -167,20 +168,37 @@
     }];
 }
 - (void)myCooperationBtnClick:(UIButton *)sender {
-    [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
-    
-    [UIView animateWithDuration:0.25 animations:^{
+    if (JUserID) {
+        [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
         
-        _lineView.x = sender.x;
-    }];
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _lineView.x = sender.x;
+        }];
+    } else {
+        [self login];
+    }
+   
 }
 - (void)collectionBtnClick:(UIButton *)sender {
-    [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];
-    
-    [UIView animateWithDuration:0.25 animations:^{
+    if (JUserID) {
         
-        _lineView.x = sender.x;
-    }];
+        [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            
+            _lineView.x = sender.x;
+        }];
+    } else {
+        [self login];
+    }
+}
+- (void)login {
+    NSLoginViewController *login = [[NSLoginViewController alloc] init];
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+    nav.navigationBar.hidden = YES;
+    [self presentViewController:nav animated:YES completion:nil];
 }
 #pragma mark - UIScrollViewDelegate
 //- (void)scrollViewDidScroll:(UIScrollView *)scrollView {

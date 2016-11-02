@@ -18,6 +18,7 @@
 @property (nonatomic,copy) NSString * pushtype;
 @property (nonatomic,copy) NSString * content;
 @property (nonatomic,copy) NSString * orderNo;
+@property (nonatomic,assign) long cooperationId;
 
 @end
 @interface NSPreserveMessageListModel : NSBaseModel

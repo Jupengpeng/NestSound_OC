@@ -16,7 +16,9 @@
              @"title":@"title",
              @"pushtype":@"pushtype",
              @"content":@"content",
-             @"orderNo":@"orderNo"};
+             @"orderNo":@"orderNo",
+             @"cooperationId":@"did",
+};
 }
 
 @end
