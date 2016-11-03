@@ -13,9 +13,10 @@
 - (NSDictionary *)modelKeyJSONKeyMapper {
     return @{@"uId":@"uid",
              @"nickName":@"nickname",
-             @"headerUrl":@"headerurl",
+             @"headerUrl":@"headurl",
              @"signature":@"signature",
-             @"isInvited":@"invite"};
+             @"isInvited":@"invite",
+             @"isRecommend":@"recommend"};
 }
 
 @end

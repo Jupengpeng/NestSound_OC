@@ -8,6 +8,7 @@
 
 #import "NSInvitationListTableViewCell.h"
 #import "NSCooperationListModel.h"
+#include "NSInvitationListModel.h"
 @interface NSInvitationListTableViewCell ()
 {
     //头像
@@ -142,6 +143,7 @@
         
         make.bottom.equalTo(iconImgView.mas_bottom);
         
+        make.right.equalTo(invitationBtn.mas_left).offset(-10);
     }];
     
     [invitationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -163,6 +165,24 @@
         make.size.mas_equalTo(CGSizeMake(20, 12));
         
     }];
+}
+- (void)setInvitationModel:(InvitationModel *)invitationModel {
+    _invitationModel = invitationModel;
+    [iconImgView setDDImageWithURLString:invitationModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    authorNameLabel.text = invitationModel.nickName;
+    signatureLabel.text = invitationModel.signature;
+    if (invitationModel.isInvited) {
+        [invitationBtn setTitle:@"已邀请" forState:UIControlStateNormal];
+        invitationBtn.backgroundColor = [UIColor lightGrayColor];
+    } else {
+        [invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
+        invitationBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
+    }
+    if (invitationModel.isRecommend) {
+        recommend.hidden = NO;
+    } else {
+        recommend.hidden = YES;
+    }
 }
 - (void)setCooperationModel:(CooperationModel *)cooperationModel {
     _cooperationModel = cooperationModel;

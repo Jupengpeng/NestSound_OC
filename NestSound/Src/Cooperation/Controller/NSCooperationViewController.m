@@ -183,8 +183,10 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
+    CooperationModel *cooperationModel = mainModel.cooperation;
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
-    
+    cooperationDetailVC.cooperationId = cooperationModel.cooperationId;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

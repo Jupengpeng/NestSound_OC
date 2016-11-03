@@ -9,5 +9,5 @@
 #import "NSBaseViewController.h"
 
 @interface NSInvitationListViewController : NSBaseViewController
-
+@property (nonatomic,assign) int cooperationId;
 @end

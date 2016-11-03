@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class CooperationUser;
 @class CooperationModel;
+@class InvitationModel;
 @class NSInvitationListTableViewCell;
 
 @protocol NSInvitationListTableViewCellDelegate <NSObject>
@@ -21,4 +23,5 @@
 @property (nonatomic,assign) id <NSInvitationListTableViewCellDelegate> delegate;
 @property (nonatomic, strong) CooperationUser *cooperationUser;
 @property (nonatomic, strong) CooperationModel *cooperationModel;
+@property (nonatomic, strong) InvitationModel *invitationModel;
 @end

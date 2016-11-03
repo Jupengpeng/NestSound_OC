@@ -51,8 +51,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-
-    self.didStr = @"1";
     self.isMyCoWork = NO;
     
     [self setupUI];
@@ -124,7 +122,7 @@
     }];
     
     
-    [self.tableView.pullToRefreshView triggerRefresh];
+    [self.tableView triggerPullToRefresh];
 }
 
 
@@ -139,7 +137,7 @@
     
     if (!isLoadingMore) {
         self.pageIndex = 1;
-        self.requestParams = @{@"did":self.didStr,
+        self.requestParams = @{@"did":@(self.cooperationId),
                                @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
                                kIsLoadingMore:@(NO),@"token":LoginToken};
         
@@ -147,7 +145,7 @@
     }else{
         self.pageIndex ++;
         
-        self.requestParams = @{@"did":self.didStr,
+        self.requestParams = @{@"did":@(self.cooperationId),
                                @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
                                kIsLoadingMore:@(YES),@"token":LoginToken};
         
@@ -161,7 +159,7 @@
     
     self.requestType = NO;
     
-    self.requestParams = @{@"did":self.didStr,
+    self.requestParams = @{@"did":@(self.cooperationId),
                            @"uid":JUserID,@"token":LoginToken};
     
         self.requestURL = coCooperateActionUrl;
@@ -172,7 +170,7 @@
     
     self.requestType = NO;
     
-    self.requestParams = @{@"did":self.didStr,
+    self.requestParams = @{@"did":@(self.cooperationId),
                            @"uid":JUserID,
                            @"type":[NSString stringWithFormat:@"%d",isSelected],@"token":LoginToken};
         self.requestURL = coCollectActionUrl;
@@ -184,7 +182,7 @@
 
     self.requestType = NO;
     
-    self.requestParams = @{@"did":self.didStr,
+    self.requestParams = @{@"did":@(self.cooperationId),
                            @"itemid":workId,@"token":LoginToken};
     
     
@@ -423,7 +421,7 @@
         }
             break;
         case 1:{
-            return _showMoreComment ? 40 + 10 : 0.01;
+            return 50;
         }
             break;
         default:{
@@ -657,6 +655,7 @@
             [btn addSubview:linelabel];
         } action:^(UIButton *btn) {
             NSInvitationListViewController *inviteController = [[NSInvitationListViewController alloc] init];
+            inviteController.cooperationId = self.cooperationId;
             [self.navigationController pushViewController:inviteController animated:YES];
         }];
     }

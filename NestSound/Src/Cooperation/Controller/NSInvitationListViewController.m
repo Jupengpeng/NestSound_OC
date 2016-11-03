@@ -8,10 +8,13 @@
 
 #import "NSInvitationListViewController.h"
 #import "NSInvitationListTableViewCell.h"
+#import "NSInvitationListModel.h"
 @interface NSInvitationListViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,NSInvitationListTableViewCellDelegate>
 {
     int currentPage;
+    UITableView *invitationTab;
 }
+@property (nonatomic,strong) NSMutableArray *invitationArr;
 @end
 
 @implementation NSInvitationListViewController
@@ -19,29 +22,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInvitationView];
+    [self fetchInvitationListWithIsLoadingMore:NO];
 }
 #pragma mark - Network Requests and Data Handling
-- (void)fetchCooperationMessageListWithIsLoadingMore:(BOOL)isLoadingMore {
+- (void)fetchInvitationListWithIsLoadingMore:(BOOL)isLoadingMore {
     self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+        self.requestParams = @{@"did":@(self.cooperationId),@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
         ++currentPage;
-        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+        self.requestParams = @{@"did":@(self.cooperationId),@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
     }
     
-    self.requestURL = cooperationMessageListUrl;
+    self.requestURL = invitationListUrl;
     
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
     if (requestErr) {
         
     } else {
-        if ([operation.urlTag isEqualToString:cooperationMessageListUrl]) {
-            [self.navigationController popViewControllerAnimated:YES];
+        if ([operation.urlTag isEqualToString:invitationListUrl]) {
+            NSInvitationListModel *invitationModel = (NSInvitationListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                self.invitationArr = [NSMutableArray arrayWithArray:invitationModel.invitationList];
+            }else{
+                [self.invitationArr addObjectsFromArray:invitationModel.invitationList];
+            }
+            [invitationTab reloadData];
         } else if ([operation.urlTag isEqualToString:invitationUrl]) {
-            
+            [self fetchInvitationListWithIsLoadingMore:NO];
         }
     }
 }
@@ -71,7 +81,7 @@
     
     [self.view addSubview:searchBar];
     
-    UITableView *invitationTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, ScreenWidth, ScreenHeight-40) style:UITableViewStylePlain];
+    invitationTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, ScreenWidth, ScreenHeight-40) style:UITableViewStylePlain];
     
     invitationTab.dataSource = self;
     
@@ -83,7 +93,7 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.invitationArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *ID = @"invitationCell";
@@ -95,7 +105,8 @@
         cell = [[NSInvitationListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         cell.delegate = self;
     }
-    
+    InvitationModel *model = self.invitationArr[indexPath.row];
+    cell.invitationModel = model;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -105,9 +116,17 @@
 
 #pragma mark - NSInvitationListTableViewCellDelegate
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
+    NSIndexPath *indexPath = [invitationTab indexPathForCell:cell];
+    InvitationModel *model = self.invitationArr[indexPath.row];
     self.requestType = NO;
-    self.requestParams = @{@"uid":JUserID,@"target_uid":@"",@"did":@""};
+    self.requestParams = @{@"uid":JUserID,@"target_uid":@(model.uId),@"did":@(self.cooperationId),@"token":LoginToken};
     self.requestURL = invitationUrl;
+}
+- (NSMutableArray *)invitationArr {
+    if (!_invitationArr) {
+        self.invitationArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _invitationArr;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

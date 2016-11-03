@@ -131,8 +131,9 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    myCooperationModel *model = _myCooperationArr[indexPath.row];
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
-    
+    cooperationDetailVC.cooperationId = model.myCooperationId;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
