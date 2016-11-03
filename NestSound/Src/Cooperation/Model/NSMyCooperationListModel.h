@@ -18,7 +18,7 @@
 @property (nonatomic, copy) NSString *cooperationTitle;
 @property (nonatomic, assign) long workNum;
 @property (nonatomic, assign) long createTime;
-@property (nonatomic, copy) NSString *status;
+@property (nonatomic, assign) int status;
 @end
 
 @interface NSMyCooperationListModel : NSBaseModel

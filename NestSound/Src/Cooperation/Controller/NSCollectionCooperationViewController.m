@@ -8,12 +8,14 @@
 
 #import "NSCollectionCooperationViewController.h"
 #import "NSCooperationCollectionTableViewCell.h"
+#import "NSCollectionCooperationListModel.h"
 @interface NSCollectionCooperationViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *collectionTab;
     UIImageView *emptyImage;
     int currentPage;
 }
+@property (nonatomic,strong) NSMutableArray *collectionArr;
 @end
 
 @implementation NSCollectionCooperationViewController
@@ -21,11 +23,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupCollectionViewController];
+    [self fetchCollectCooperationListWithIsLoadingMore:NO];
 }
 #pragma mark - Network Requests and Data Handling
 - (void)fetchCollectCooperationListWithIsLoadingMore:(BOOL)isLoadingMore {
+    self.requestType = NO;
     if (!isLoadingMore) {
-        self.requestType = NO;
         currentPage = 1;
         self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
@@ -41,7 +44,17 @@
         
     } else {
         if ([operation.urlTag isEqualToString:collectCooperationListUrl]) {
-//            [self.navigationController popViewControllerAnimated:YES];
+            NSCollectionCooperationListModel *model = (NSCollectionCooperationListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                [collectionTab.pullToRefreshView stopAnimating];
+                self.collectionArr = [NSMutableArray arrayWithArray:model.collectionList];
+                
+            }else{
+                [collectionTab.infiniteScrollingView stopAnimating];
+                [self.collectionArr addObjectsFromArray:model.collectionList];
+            }
+            
+            [collectionTab reloadData];
         }
     }
 }
@@ -64,16 +77,15 @@
     [collectionTab addDDPullToRefreshWithActionHandler:^{
         if (!Wself) {
             return ;
-        }else{
-            //            [Wself fetchDataWithType:3 andIsLoadingMore:NO];
         }
+        [Wself fetchCollectCooperationListWithIsLoadingMore:NO];
     }];
     //loadingMore
     [collectionTab addDDInfiniteScrollingWithActionHandler:^{
         if (!Wself) {
             return ;
         }
-        //        [Wself fetchDataWithType:3 andIsLoadingMore:YES];
+        [Wself fetchCollectCooperationListWithIsLoadingMore:YES];
     }];
     
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
@@ -89,7 +101,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    return self.collectionArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *ID = @"collectionCell";
@@ -101,7 +113,8 @@
         cell = [[NSCooperationCollectionTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
     }
-    
+    CollectionCooperationModel *model = self.collectionArr[indexPath.row];
+    cell.collectionModel = model;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -109,6 +122,12 @@
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80;
+}
+- (NSMutableArray *)collectionArr {
+    if (!_collectionArr) {
+        self.collectionArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _collectionArr;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

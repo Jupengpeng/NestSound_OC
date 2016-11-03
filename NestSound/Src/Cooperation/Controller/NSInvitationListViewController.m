@@ -22,8 +22,8 @@
 }
 #pragma mark - Network Requests and Data Handling
 - (void)fetchCooperationMessageListWithIsLoadingMore:(BOOL)isLoadingMore {
+    self.requestType = NO;
     if (!isLoadingMore) {
-        self.requestType = NO;
         currentPage = 1;
         self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{

@@ -170,7 +170,7 @@
 }
 - (void)setCooperationUser:(CooperationUser *)cooperationUser {
     _cooperationUser = cooperationUser;
-    [iconImgView setDDImageWithURLString:cooperationUser.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [iconImgView setDDImageWithURLString:cooperationUser.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     authorNameLabel.text = cooperationUser.nickName;
 //    signatureLabel.text = cooperationUser.
     recommend.hidden = YES;

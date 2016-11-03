@@ -7,7 +7,7 @@
 //
 
 #import "NSCooperationCollectionTableViewCell.h"
-
+#import "NSCollectionCooperationListModel.h"
 @interface NSCooperationCollectionTableViewCell ()
 {
     //头像
@@ -163,6 +163,33 @@
         make.bottom.equalTo(workNameLabel.mas_bottom).offset(0);
         
     }];
+}
+- (void)setCollectionModel:(CollectionCooperationModel *)collectionModel {
+    _collectionModel = collectionModel;
+    [iconImgView setDDImageWithURLString:collectionModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    authorNameLabel.text = collectionModel.nickName;
+    dateLabel.text = [date datetoLongLongStringWithDate:collectionModel.createTime];
+    joinNum.text = [NSString stringWithFormat:@"%ld人参与合作",collectionModel.workNum];
+    workNameLabel.text = collectionModel.cooperationTitle;
+    switch (collectionModel.status) {
+        case 1:
+            statusLabel.text = @"";
+            break;
+        case 3:
+            statusLabel.text = @"对方停止该合作";
+            statusLabel.textColor = [UIColor redColor];
+            break;
+        case 4:
+            statusLabel.text = @"已经到期";
+            statusLabel.textColor = [UIColor redColor];
+            break;
+        case 8:
+            statusLabel.text = @"合作成功";
+            statusLabel.textColor = [UIColor hexColorFloat:@"ffd705"];
+            break;
+        default:
+            break;
+    }
 }
 - (void)awakeFromNib {
     [super awakeFromNib];
