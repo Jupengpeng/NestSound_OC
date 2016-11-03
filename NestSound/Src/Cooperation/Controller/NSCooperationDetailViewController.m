@@ -14,11 +14,16 @@
 #import "NSCommentTableViewCell.h"
 #import "NSCooperateDetailWorkCell.h"
 #import "NSInvitationListViewController.h"
-@interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NSCommentTableViewCellDelegate,TTTAttributedLabelDelegate>
+#import "NSCooperationDetailModel.h"
+#import "NSAccompanyListViewController.h"
+@interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NSCommentTableViewCellDelegate,TTTAttributedLabelDelegate,NSTipViewDelegate>
 {
     BOOL _showMoreComment;
     
     CGFloat _lyricViewHeight;
+    
+    NSTipView *_tipView;
+    UIView *_maskView;
 }
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -29,12 +34,15 @@
 //合作作品数组
 @property (nonatomic,strong) NSMutableArray *coWorksArray;
 
+@property (nonatomic,assign) NSInteger pageIndex;
 
 @property (nonatomic,strong) UIButton *inviteButton;
 
 @property (nonatomic,strong) UIButton *collectButton;
 
 @property (nonatomic,strong) UIButton *cooperateButton;
+
+@property (nonatomic,strong) NSCooperationDetailModel *cooperateModel;
 
 @end
 
@@ -44,10 +52,12 @@
     [super viewDidLoad];
 
 
+    self.didStr = @"1";
+    self.isMyCoWork = NO;
+    
     [self setupUI];
-    [self createData];
+//    [self createData];
 
-    [self processDataLogic];
 }
 
 - (void)createData{
@@ -102,25 +112,161 @@
         
     }
     
+    WS(weakSelf);
+    [self.tableView addDDPullToRefreshWithActionHandler:^{
+        
+        [weakSelf postCooperateDetailIsLoadingMore:NO];
+        
+    }];
+    
+    [self.tableView addDDInfiniteScrollingWithActionHandler:^{
+        [weakSelf postCooperateDetailIsLoadingMore:YES];
+    }];
+    
+    
+    [self.tableView.pullToRefreshView triggerRefresh];
 }
 
 
 
-- (void)processDataLogic{
+
+#pragma mark - Http metheod
+
+//合作详情页
+- (void)postCooperateDetailIsLoadingMore:(BOOL)isLoadingMore{
     
-    if (self.msgArray.count > 3) {
-        _showMoreComment = YES;
+    self.requestType = NO;
+    
+    if (!isLoadingMore) {
+        self.pageIndex = 1;
+        self.requestParams = @{@"did":self.didStr,
+                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+                               kIsLoadingMore:@(NO),@"token":LoginToken};
+        
+        
     }else{
-        _showMoreComment = NO;
+        self.pageIndex ++;
+        
+        self.requestParams = @{@"did":self.didStr,
+                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+                               kIsLoadingMore:@(YES),@"token":LoginToken};
+        
+    }
+    self.requestURL = coDetailUrl;
+    
+}
+
+//合作按钮
+- (void)postCooperateAction{
+    
+    self.requestType = NO;
+    
+    self.requestParams = @{@"did":self.didStr,
+                           @"uid":JUserID,@"token":LoginToken};
+    
+        self.requestURL = coCooperateActionUrl;
+
+}
+//收藏按钮
+- (void)postCollectActionIsSelected:(BOOL)isSelected{
+    
+    self.requestType = NO;
+    
+    self.requestParams = @{@"did":self.didStr,
+                           @"uid":JUserID,
+                           @"type":[NSString stringWithFormat:@"%d",isSelected],@"token":LoginToken};
+        self.requestURL = coCollectActionUrl;
+
+}
+
+//我的采纳
+- (void)postAcceptToWorkWithId:(NSString *)workId{
+
+    self.requestType = NO;
+    
+    self.requestParams = @{@"did":self.didStr,
+                           @"itemid":workId,@"token":LoginToken};
+    
+    
+        self.requestURL = coAcceptActionUrl;
+
+}
+
+
+#pragma mark - Override get data method
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr{
+    if (requestErr) {
+        
+    }else{
+        
+        if ([operation.urlTag isEqualToString:coDetailUrl]) {
+            
+            [self.tableView.pullToRefreshView stopAnimating];
+            
+            NSCooperationDetailModel *detailModel = (NSCooperationDetailModel *)parserObject;
+            self.cooperateModel = detailModel;
+            NSMutableArray *commentArray = [NSMutableArray array];
+            for (CommentModel *oriModel in detailModel.commentList) {
+                NSCommentModel *commentModel = [[NSCommentModel alloc] init];
+                
+                commentModel.commentID = oriModel.id;
+                commentModel.type = oriModel.type;
+                commentModel.commentType = oriModel.comment_type;
+                commentModel.itemID = oriModel.itemid;
+                commentModel.userID = oriModel.uid;
+                commentModel.targetUserID = oriModel.target_uid;
+                commentModel.createDate = oriModel.createdate;
+                commentModel.comment = oriModel.comment;
+                commentModel.headerURL = oriModel.headerurl;
+                commentModel.nickName = oriModel.nickname;
+                commentModel.titleImageURL = oriModel.targetheaderurl;
+                commentModel.targetName = oriModel.targetheaderurl;
+                commentModel.nickName = oriModel.nickname;
+                [commentArray addObject:commentModel];
+            }
+            self.msgArray = [NSMutableArray arrayWithArray:commentArray];
+            if (self.msgArray.count > 3) {
+                _showMoreComment = YES;
+            }else{
+                _showMoreComment = NO;
+            }
+            
+            if (!operation.isLoadingMore) {
+                
+                [self.coWorksArray removeAllObjects];
+                
+            }
+            
+            if (detailModel.completeList.count) {
+                [self.coWorksArray addObjectsFromArray:detailModel.completeList];
+                
+            }
+
+        }else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
+
+            NSAccompanyListViewController *accompanyController = [[NSAccompanyListViewController alloc] init];
+            [self.navigationController pushViewController:accompanyController animated:YES];
+            
+            
+        }else if ([operation.urlTag isEqualToString:coCollectActionUrl]){
+            self.collectButton.selected = !self.collectButton.selected;
+            if (self.collectButton.selected) {
+                [[NSToastManager manager] showtoast:@"收藏成功"];
+            }else{
+                [[NSToastManager manager] showtoast:@"已取消收藏"];
+
+            }
+            
+        }else if ([operation.urlTag isEqualToString:coAcceptActionUrl]){
+            [[NSToastManager manager] showtoast:@"收藏成功"];
+            
+        }
+        
+        [self.tableView reloadData];
     }
     
 }
 
-#pragma mark - Http metheod
-
-- (void)postAcceptToWorkWithId:(NSString *)workId{
-    CHLog(@"已采纳该作品");
-}
 
 
 #pragma mark - <UITableViewDelegate,UITableDatasourse>
@@ -141,8 +287,7 @@
         }
             break;
         default:{
-            return 3;
-//            self.coWorksArray.count;
+            return self.coWorksArray.count;
         }
             break;
     }
@@ -291,16 +436,19 @@
         NSCooperateDetailMainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCooperateDetailMainCellId"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        [cell showDataWithModel:nil completion:^(CGFloat height) {
-            CHLog(@"height  %f" ,height);
-            
-            if (_lyricViewHeight == height) {
-                return ;
-            }else{
-                _lyricViewHeight = height;
-                [self.tableView reloadData];
-            }
-        }];
+        if (self.cooperateModel) {
+            [cell showDataWithModel:self.cooperateModel completion:^(CGFloat height) {
+                
+                if (_lyricViewHeight == height) {
+                    return ;
+                }else{
+                    _lyricViewHeight = height;
+                    [self.tableView reloadData];
+                }
+            }];
+        }
+        
+        
         
         cell.userClickBlock = ^(NSString *userId){
           
@@ -342,9 +490,8 @@
             
             [self postAcceptToWorkWithId:workId];
         };
-        
-
-        [cell setupData];
+        CoWorkModel *workModel = self.cooperateModel.completeList[indexPath.row];
+        [cell setupDataWithCoWorkModel:workModel IsMine:self.isMyCoWork];
         
         return cell;
     }
@@ -363,6 +510,34 @@
     [self.navigationController pushViewController:pageVC animated:YES];
     
     
+}
+
+#pragma mark - NSTipViewDelegate
+
+- (void)cancelBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+    }];
+}
+- (void)ensureBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+        
+
+        [self postCooperateAction];
+    }];
 }
 #pragma mark - TTTAttributedLabelDelegate
 
@@ -414,10 +589,8 @@
             
             [btn setTitle:@"合作" forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-            [btn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateHighlighted];
+            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:@"ic_hezuo"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"ic_shoucangdianji.png"] forState:UIControlStateHighlighted];
 
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, -4);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 4);
@@ -425,7 +598,39 @@
             linelabel.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
             [btn addSubview:linelabel];
         } action:^(UIButton *btn) {
-            CHLog(@"合作");
+
+            _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+            
+            _maskView.backgroundColor = [UIColor lightGrayColor];
+            
+            _maskView.alpha = 0.5;
+            
+            [self.navigationController.view addSubview:_maskView
+             ];
+            
+            
+            CGFloat padding = ScreenWidth *60/375.0;
+            CGFloat width = (ScreenWidth - padding * 2);
+            CGFloat height = width * 338/256.0f;
+            
+            
+            _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+            
+            _tipView.delegate = self;
+            
+            _tipView.imgName = @"2.0_backgroundImage";
+            
+            _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，\n您将无法进行删除"];
+            [self.navigationController.view addSubview:_tipView];
+            
+
+            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+            keyFrame.duration = 0.3;
+            keyFrame.removedOnCompletion = NO;
+            [_tipView.layer addAnimation:keyFrame forKey:nil];
+            
+            
         }];
     }
     return _cooperateButton;
@@ -460,10 +665,14 @@
             btn.frame = CGRectMake(ScreenWidth/3.0f, ScreenHeight - 45 - 64, ScreenWidth/3.0f, 45);
             
             [btn setTitle:@"收藏该作品" forState:UIControlStateNormal];
+            [btn setTitle:@"取消该收藏" forState:UIControlStateSelected];
+
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
             [btn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateHighlighted];
+            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"ic_shoucang"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"ic_shoucangdianji"] forState:UIControlStateSelected];
+
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, -4);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 4);
             UILabel *linelabel= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 0.5)];
@@ -471,9 +680,9 @@
             [btn addSubview:linelabel];
         } action:^(UIButton *btn) {
 
-            btn.selected = !btn.selected;
+
+            [self postCollectActionIsSelected:!btn.selected];
             
-            [[NSToastManager manager] showtoast:@"收藏成功"];
         }];
     }
     return _collectButton;

@@ -56,6 +56,8 @@
 #import "NSMyCooperationListModel.h"
 #import "NSCollectionCooperationListModel.h"
 #import "NSCooperationLyricListModel.h"
+#import "NSCooperationDetailModel.h"
+
 @implementation NSModelFactory
 + (NSBaseModel *)modelWithURL:(NSString *)url responseJson:(NSDictionary *)jsonDict {
 //    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:jsonDict];
@@ -291,6 +293,15 @@
     } else if ([url isEqualToString:demandLyricListUrl]) {
         
         return [[NSCooperationLyricListModel alloc] initWithJSONDict:jsonDict];
+    } else if ([url isEqualToString:coDetailUrl]){
+        NSCooperationDetailModel *detailModel = [NSCooperationDetailModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
+        return detailModel;
+    } else if ([url isEqualToString:coCooperateActionUrl]){
+        
+    } else if ([url isEqualToString:coCollectActionUrl]){
+        
+    } else if ([url isEqualToString:coAcceptActionUrl]){
+        
     }
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];
     

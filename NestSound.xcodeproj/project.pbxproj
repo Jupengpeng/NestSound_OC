@@ -280,6 +280,7 @@
 		B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */; };
 		B8511A8D1DC879E500462222 /* NSCooperateDetailWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8511A8C1DC879E500462222 /* NSCooperateDetailWorkCell.m */; };
 		B8625FBC1DBF843500713B1D /* NSCooperateDetailMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8625FBB1DBF843500713B1D /* NSCooperateDetailMainCell.m */; };
+		B8657A131DC9D01F00C49A47 /* NSCooperationDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8657A121DC9D01F00C49A47 /* NSCooperationDetailModel.m */; };
 		B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
 		B87B3D5C1DC0470C0082D3A1 /* NSCooperateDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */; };
@@ -1010,6 +1011,8 @@
 		B8511A8C1DC879E500462222 /* NSCooperateDetailWorkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperateDetailWorkCell.m; sourceTree = "<group>"; };
 		B8625FBA1DBF843500713B1D /* NSCooperateDetailMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSCooperateDetailMainCell.h; path = NestSound/Src/Cooperation/View/NSCooperateDetailMainCell.h; sourceTree = SOURCE_ROOT; };
 		B8625FBB1DBF843500713B1D /* NSCooperateDetailMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSCooperateDetailMainCell.m; path = NestSound/Src/Cooperation/View/NSCooperateDetailMainCell.m; sourceTree = SOURCE_ROOT; };
+		B8657A111DC9D01F00C49A47 /* NSCooperationDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationDetailModel.h; sourceTree = "<group>"; };
+		B8657A121DC9D01F00C49A47 /* NSCooperationDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationDetailModel.m; sourceTree = "<group>"; };
 		B8699E9D1DAD07110041B40C /* NSPreserveApplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyModel.h; sourceTree = "<group>"; };
 		B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyModel.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
@@ -2209,6 +2212,8 @@
 				0C128D521DC86D84006C3AD1 /* NSInvitationListModel.m */,
 				0C128D541DC8C082006C3AD1 /* NSCooperationLyricListModel.h */,
 				0C128D551DC8C082006C3AD1 /* NSCooperationLyricListModel.m */,
+				B8657A111DC9D01F00C49A47 /* NSCooperationDetailModel.h */,
+				B8657A121DC9D01F00C49A47 /* NSCooperationDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3590,6 +3595,7 @@
 				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
 				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,
 				945708E21D2F41A90074C331 /* NSShareView.m in Sources */,
+				B8657A131DC9D01F00C49A47 /* NSCooperationDetailModel.m in Sources */,
 				2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */,
 				B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */,
 				18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */,

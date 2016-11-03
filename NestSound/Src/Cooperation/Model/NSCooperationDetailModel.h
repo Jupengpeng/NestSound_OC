@@ -1,0 +1,101 @@
+//
+//  NSCooperationDetailModel.h
+//  NestSound
+//
+//  Created by yintao on 2016/11/2.
+//  Copyright © 2016年 yinchao. All rights reserved.
+//
+
+#import "NSBaseModel.h"
+
+
+
+@class UserinfoModel,DemandinfoModel,CoWorkModel,CommentModel;
+@interface NSCooperationDetailModel : NSBaseModel
+
+
+@property (nonatomic, strong) NSArray<CoWorkModel *> *completeList;
+
+@property (nonatomic, strong) NSArray<CommentModel *> *commentList;
+
+@property (nonatomic, strong) UserinfoModel *userInfo;
+
+@property (nonatomic, strong) DemandinfoModel *demandInfo;
+
+
+
+@end
+
+@interface UserinfoModel : NSObject
+
+@property (nonatomic, assign) NSInteger uid;
+
+@property (nonatomic, copy) NSString *nickname;
+
+@property (nonatomic, copy) NSString *headurl;
+
+@end
+
+@interface DemandinfoModel : NSObject
+
+@property (nonatomic, copy) NSString *lyrics;
+
+@property (nonatomic, assign) NSInteger did;
+
+@property (nonatomic, copy) NSString *title;
+
+@property (nonatomic, assign) NSInteger commentnum;
+
+@property (nonatomic, copy) NSString *requirement;
+
+@property (nonatomic, assign) long long createtime;
+
+@property (nonatomic, assign) long long endtime;
+
+@end
+
+@interface CoWorkModel : NSObject
+
+@property (nonatomic, copy) NSString *wUsername;
+
+@property (nonatomic, copy) NSString *lUsername;
+
+@property (nonatomic, copy) NSString *title;
+
+@property (nonatomic, assign) long long createtime;
+
+@property (nonatomic, copy) NSString *url;
+
+@property (nonatomic, copy) NSString *itemid;
+
+@end
+
+@interface CommentModel : NSObject
+
+@property (nonatomic, assign) NSInteger id;
+
+@property (nonatomic, assign) NSInteger target_uid;
+
+@property (nonatomic, copy) NSString *headerurl;
+
+@property (nonatomic, assign) NSInteger uid;
+
+@property (nonatomic, assign) NSInteger comment_type;
+
+@property (nonatomic, assign) NSInteger isread;
+
+@property (nonatomic, copy) NSString *comment;
+
+@property (nonatomic, copy) NSString *targetheaderurl;
+
+@property (nonatomic, assign) NSInteger type;
+
+@property (nonatomic, copy) NSString *target_nickname;
+
+@property (nonatomic, assign) NSInteger itemid;
+
+@property (nonatomic, copy) NSString *nickname;
+
+@property (nonatomic, assign) long long createdate;
+
+@end

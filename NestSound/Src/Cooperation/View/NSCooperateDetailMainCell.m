@@ -8,7 +8,7 @@
 
 #import "NSCooperateDetailMainCell.h"
 #import "UIButton+Webcache.h"
-
+#import "NSCooperationDetailModel.h"
 @interface NSCooperateDetailMainCell ()
 
 
@@ -104,7 +104,7 @@
             make.centerX.equalTo(self.mas_centerX);
             
         }];
-        
+
         
     }
     
@@ -112,18 +112,22 @@
 }
 
 
-- (void)showDataWithModel:(id)model completion:(NSCooperateDetailMainCellHeightBlock)completion{
+- (void)showDataWithModel:(NSCooperationDetailModel *)model completion:(NSCooperateDetailMainCellHeightBlock)completion{
 
+    
+    
     self.heightBlock = completion;
-    [self.portraitBtn sd_setImageWithURL:[NSURL URLWithString:@""] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    [self.portraitBtn sd_setImageWithURL:[NSURL URLWithString:model.userInfo.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     
-    self.nameLabel.text = @"旱禾";
-    
-    self.releaseTimeLabel.text = @"2016.08.12  20:34";
-    
-    self.releaseTimeLabel.text = [NSString stringWithFormat:@"至%@过期",@"10.21过期"];
+    self.nameLabel.text = model.userInfo.nickname;
+//    @"2016.08.12  20:34"
+    self.releaseTimeLabel.text =  [date datetoMonthStringWithDate:model.demandInfo.createtime format:@"YYYY.MM.dd HH.mm"];
+//    @"10.21
+    self.deadlineLabel.text = [NSString stringWithFormat:@"至%@过期",[date datetoMonthStringWithDate:model.demandInfo.endtime format:@"MM.dd"]];
 
-    self.descriptionLabel.text = @"合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述合作描述...";
+    self.descriptionLabel.text = model.demandInfo.requirement;
+    
+    
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
 //    paragraphStyle.paragraphSpacing = 8 ;
@@ -132,24 +136,26 @@
     NSDictionary *attributes = @{
                                  NSFontAttributeName:[UIFont systemFontOfSize:14.0f],
                                  NSParagraphStyleAttributeName:paragraphStyle};
-    
-    self.lyricContentLabel.attributedText = [[NSAttributedString alloc] initWithString:@"夜风凛凛 独回望旧事前尘\
-                                             \n是以往的我 充满怒愤\
-                                             \n诬告与指责积压着满肚气不愤\
-                                             \n对谣言反应 甚为着紧\
-                                             \n受了教训 得了书经的指引\
-                                             \n现已看得透 不再自困\
-                                             \n但觉有分数\
-                                             \n不再像以往那般笨\
-                                             \n抹泪痕轻快笑着行\
-                                             \n冥冥中都早注定你富或贫\
-                                             \n是错永不对真永是真\
-                                             \n任你怎说安守我本份\
-                                             \n始终相信沉默是金\
-                                             \n是非有公理 慎言莫冒犯别人\
-                                             \n遇上冷风雨休太认真" attributes:attributes];
-    self.lyricTitleLabel.text = @"沉默是金";
-    self.lyricAuthorLabel.text = @"作词：张国荣";
+    /*
+    @"夜风凛凛 独回望旧事前尘\
+    \n是以往的我 充满怒愤\
+    \n诬告与指责积压着满肚气不愤\
+    \n对谣言反应 甚为着紧\
+    \n受了教训 得了书经的指引\
+    \n现已看得透 不再自困\
+    \n但觉有分数\
+    \n不再像以往那般笨\
+    \n抹泪痕轻快笑着行\
+    \n冥冥中都早注定你富或贫\
+    \n是错永不对真永是真\
+    \n任你怎说安守我本份\
+    \n始终相信沉默是金\
+    \n是非有公理 慎言莫冒犯别人\
+    \n遇上冷风雨休太认真"
+     **/
+    self.lyricContentLabel.attributedText = [[NSAttributedString alloc] initWithString:model.demandInfo.lyrics attributes:attributes];
+    self.lyricTitleLabel.text = model.demandInfo.title;
+    self.lyricAuthorLabel.text = [NSString stringWithFormat:@"作词：%@",model.userInfo.nickname];
     
     
     [self setNeedsLayout];
@@ -160,14 +166,12 @@
 - (void)layoutSubviews{
 
     
-//    NSLog(@"CGRectGetMaxY(self.lyricView.frame) %f",CGRectGetMaxY(self.lyricView.frame));
 
     [self.lyricView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGRectGetMaxY(self.lyricContentLabel.frame) + 11);
     }];
     
 
-//    NSLog(@"CGRectGetMaxY(self.lyricView.frame) %f",CGRectGetMaxY(self.lyricView.frame));
     CGFloat currentHeight = CGRectGetMaxY(self.lyricContentLabel.frame) + 11 + CGRectGetMaxY(self.descriptionLabel.frame) + 11;
     if (currentHeight == self.height) {
         return;
@@ -225,7 +229,7 @@
 - (UILabel *)deadlineLabel{
     if (!_deadlineLabel) {
         _deadlineLabel = [[UILabel alloc] init];
-        _deadlineLabel.frame = CGRectMake(ScreenWidth - 100, 30, 110, 18);
+        _deadlineLabel.frame = CGRectMake(ScreenWidth - 120, 30, 110, 18);
         _deadlineLabel.textAlignment = NSTextAlignmentRight;
         _deadlineLabel.font = [UIFont systemFontOfSize:18.0f];
         _deadlineLabel.textColor = [UIColor hexColorFloat:@"666666"];

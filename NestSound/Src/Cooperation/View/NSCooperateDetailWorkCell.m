@@ -8,6 +8,8 @@
 
 #import "NSCooperateDetailWorkCell.h"
 
+#import "NSCooperationDetailModel.h"
+
 @interface NSCooperateDetailWorkCell ()
 
 @property (nonatomic,strong) UIImageView *portraitView;
@@ -94,8 +96,39 @@
     return self;
 }
 
-- (void)setupData{
+- (void)setupDataWithCoWorkModel:(CoWorkModel *)model IsMine:(BOOL)isMine{
     
+    if (!isMine) {
+        self.acceptButton.hidden = YES;
+    }else{
+        self.acceptButton.hidden = NO;
+        
+//        if (model.access) {
+//            <#statements#>
+//        }
+
+//        self.createDateLabel.text = []
+    }
+    
+    
+    
+    [self.portraitView sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]] ;
+    
+    self.titleLabel.text = [NSString stringWithFormat:@"歌曲名：%@",model.title];
+
+    self.musicAuthor.text = [NSString stringWithFormat:@"作曲：%@",model.wUsername];
+    self.lyricAuthor.text = [NSString stringWithFormat:@"作词：%@",model.lUsername];
+//    @"2016.10.21  20:09"
+    self.createDateLabel.text = [date datetoMonthStringWithDate:model.createtime format:@"YYYY.MM.dd HH.mm"];
+
+}
+
+
+- (void)setupDataWithIsMine:(BOOL)isMine{
+    
+    if (!isMine) {
+        self.acceptButton.hidden = YES;
+    }
 
     [self.portraitView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]] ;
     self.titleLabel.text = [NSString stringWithFormat:@"歌曲名：%@",@"洋葱"];
