@@ -44,6 +44,8 @@
 
 @property (nonatomic,strong) NSCooperationDetailModel *cooperateModel;
 
+@property (nonatomic,strong) UIImageView *noCooperationView;
+
 @end
 
 @implementation NSCooperationDetailViewController
@@ -245,6 +247,7 @@
         }else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
             CoWorkModel *workModel = (CoWorkModel *)parserObject;
             NSAccompanyListViewController *accompanyController = [[NSAccompanyListViewController alloc] init];
+//            workModel.did = [NSString stringWithFormat:@"%@",self]
             accompanyController.coWorkModel = workModel;
             [self.navigationController pushViewController:accompanyController animated:YES];
             
@@ -291,7 +294,7 @@
         }
             break;
         default:{
-            return self.coWorksArray.count;
+            return self.coWorksArray.count ? self.coWorksArray.count : 1;
         }
             break;
     }
@@ -391,7 +394,7 @@
         }
             break;
         default:{
-            return 98 + 10;
+            return self.coWorksArray.count ? 98 + 10 : (ScreenWidth * 228/375.0f);
         }
             break;
     }
@@ -482,6 +485,10 @@
         
         return cell;
     }else{
+        
+        if (self.coWorksArray.count) {
+
+        
         NSCooperateDetailWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCooperateDetailWorkCellId"];
         if (!cell) {
             cell = [[NSCooperateDetailWorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSCooperateDetailWorkCellId"];
@@ -498,6 +505,18 @@
         [cell setupDataWithCoWorkModel:workModel IsMine:self.isMyCoWork];
         
         return cell;
+        }else{
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellId"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+            }
+            [cell addSubview:self.noCooperationView];
+            self.noCooperationView.center = CGPointMake(ScreenWidth/2.0f, (ScreenWidth * 228/375.0f)/2.0f);
+            
+            return cell;
+        }
     }
 
 }
@@ -661,6 +680,16 @@
         }];
     }
     return _inviteButton;
+}
+
+- (UIImageView *)noCooperationView{
+    if (!_noCooperationView) {
+        
+        _noCooperationView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,ScreenWidth *135/375.0, (ScreenWidth *135/375.0)*124/135 )];
+        _noCooperationView.image = [UIImage imageNamed:@"no_coWork"];
+    }
+    
+    return _noCooperationView;
 }
 
 - (UIButton *)collectButton{

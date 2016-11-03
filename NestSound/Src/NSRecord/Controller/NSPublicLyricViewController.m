@@ -403,7 +403,9 @@ extern Boolean plugedHeadset;
             titleImageURL = [self uploadPhotoWith:fullPath type:YES token:data.token url:data.qiNIuDomain];
             
             
-        }else if ([operation.urlTag isEqualToString:publicLyricURL] || [operation.urlTag isEqualToString:publicMusicURL]){
+        }else if ([operation.urlTag isEqualToString:publicLyricURL]
+                  || [operation.urlTag isEqualToString:publicMusicURL]
+                  ||[operation.urlTag isEqualToString:coWorkReleaseUrl]){
             if (parserObject.code == 200) {
                 
                 NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
@@ -432,7 +434,7 @@ extern Boolean plugedHeadset;
             
         }else if ([operation.urlTag isEqualToString:publicLyricForAct] || [operation.urlTag isEqualToString:publicMusicForAct]){
             
-            CHLog(@"%@",operation.urlTag);
+//            CHLog(@"%@",operation.urlTag);
             [self.alertView dismissViewControllerAnimated:YES completion:^{
                 NSObject *obj = self.navigationController.childViewControllers[2];
                 if ([obj isKindOfClass:[NSThemeActivityController class]]) {
@@ -456,8 +458,26 @@ extern Boolean plugedHeadset;
 - (void)publickOfCooperation{
     
     self.requestType = NO;
+    NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
 
+    self.requestParams = @{
+                           @"title":self.coWorkModel.title,
+                           @"did":self.coWorkModel.did,
+                           @"wUid":self.coWorkModel.wUid,
+                           @"wUsername":self.coWorkModel.wUsername,
+                           @"lUid":self.coWorkModel.lUid,
+                           @"lUsername":self.coWorkModel.lUsername,
+                           @"lyrics":self.coWorkModel.lyrics,
+                           @"createtype":@"HOT",
+                           @"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]],
+                           @"hotid":lyricDic[@"hotID"],
+                           @"pic":self.titleImage,
+                           @"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],
+                           @"mp3":self.mp3URL,
+                           @"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],
+                           };
     
+    self.requestURL = coWorkReleaseUrl;
     
 }
 

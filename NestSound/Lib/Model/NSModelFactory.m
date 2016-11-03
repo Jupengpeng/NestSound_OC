@@ -300,7 +300,8 @@
         CoWorkModel *workModel = [CoWorkModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
         return workModel;
         
-    } else if ([url isEqualToString:coCollectActionUrl]){
+    } else if ([url isEqualToString:coWorkReleaseUrl]){
+        
         
     } else if ([url isEqualToString:coAcceptActionUrl]){
         

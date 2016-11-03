@@ -74,6 +74,8 @@
 
 @property (nonatomic,copy) NSString *lUid;
 
+@property (nonatomic,copy) NSString *did;
+
 @end
 
 @interface CommentModel : NSObject
