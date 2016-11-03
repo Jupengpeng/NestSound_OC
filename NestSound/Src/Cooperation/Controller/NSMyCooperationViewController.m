@@ -9,6 +9,7 @@
 #import "NSMyCooperationViewController.h"
 #import "NSMyCooperationTableViewCell.h"
 #import "NSMyCooperationListModel.h"
+#import "NSCooperationDetailViewController.h"
 #import "NSLoginViewController.h"
 @interface NSMyCooperationViewController ()<UITableViewDataSource,UITableViewDelegate,NSTipViewDelegate>
 {
@@ -26,35 +27,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupMyCooperationViewController];
+    [self fetchMyCooperationListWithIsLoadingMore:NO];
 }
-- (void)viewWillAppear:(BOOL)animated {
-    if (JUserID) {
-        [self setupMyCooperationViewController];
-        [self fetchMyCooperationListWithIsLoadingMore:NO];
-    } else {
-        UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-            loginBtn.centerX = self.view.centerX;
-            loginBtn.y = ScreenHeight/3;
-            loginBtn.width = 60;
-            loginBtn.height = 30;
-            loginBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
-            [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-            [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        } action:^(UIButton *btn) {
-//            NSLoginViewController *login = [[NSLoginViewController alloc] init];
-//            
-//            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
-//            nav.navigationBar.hidden = YES;
-//            [self presentViewController:nav animated:YES completion:nil];
-//        }];
-        [self.view addSubview:loginBtn];
-    }
-}
+
 #pragma mark - Network Requests and Data Handling
 - (void)fetchMyCooperationListWithIsLoadingMore:(BOOL)isLoadingMore {
+    self.requestType = NO;
     if (!isLoadingMore) {
-        self.requestType = NO;
         currentPage = 1;
         self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
@@ -85,7 +65,6 @@
     }
 }
 - (void)setupMyCooperationViewController {
-    _myCooperationArr = [NSMutableArray arrayWithArray:@[@"1",@"2",@"3",@"4",@"5"]];
     //我的
     myCooperationTab = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
     
@@ -108,7 +87,7 @@
         if (!wSelf) {
             return ;
         }else{
-//                        [Wself fetchDataWithType:2 andIsLoadingMore:NO];
+            [wSelf fetchMyCooperationListWithIsLoadingMore:NO];
         }
     }];
     //loadingMore
@@ -116,7 +95,7 @@
         if (!wSelf) {
             return ;
         }
-        //        [Wself fetchDataWithType:2 andIsLoadingMore:YES];
+        [wSelf fetchMyCooperationListWithIsLoadingMore:YES];
     }];
     
     emptyImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
@@ -144,12 +123,18 @@
         cell = [[NSMyCooperationTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
     }
-    
+    myCooperationModel *model = _myCooperationArr[indexPath.row];
+    cell.myCooperation = model;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 #pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
+    
+    [self.navigationController pushViewController:cooperationDetailVC animated:YES];
+}
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle==UITableViewCellEditingStyleDelete) {
@@ -171,15 +156,6 @@
         tipView.tipText = @"采纳后，您的合作需求将会结束并标示为“成功”，不再接受其他人的合作";
         [self.view addSubview:tipView];
         
-        
-//        [tipView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            
-//            make.top.equalTo(self.view.mas_top).offset(80);
-//            make.left.equalTo(self.view.mas_left).offset(60);
-//            make.right.equalTo(self.view.mas_right).offset(-60);
-//            make.height.mas_equalTo(338);
-//            
-//        }];
         CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
         keyFrame.duration = 0.3;

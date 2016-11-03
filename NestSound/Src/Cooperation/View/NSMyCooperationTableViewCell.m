@@ -7,7 +7,7 @@
 //
 
 #import "NSMyCooperationTableViewCell.h"
-
+#import "NSMyCooperationListModel.h"
 @interface NSMyCooperationTableViewCell ()
 {
     //日期
@@ -58,8 +58,6 @@
     
     statusLabel.font = [UIFont systemFontOfSize:14];
     
-    statusLabel.textColor = [UIColor hexColorFloat:@"ffd705"];
-    
     [self.contentView addSubview:statusLabel];
 }
 - (void)layoutSubviews {
@@ -86,6 +84,31 @@
         make.centerY.equalTo(self.contentView.mas_centerY);
         
     }];
+}
+- (void)setMyCooperation:(myCooperationModel *)myCooperation {
+    _myCooperation = myCooperation;
+    workNameLabel.text = myCooperation.cooperationTitle;
+    dateLabel.text = [date datetoLongLongStringWithDate:myCooperation.createTime];
+    switch (myCooperation.status) {
+        case 1:
+            statusLabel.text = [NSString stringWithFormat:@"%ld",myCooperation.workNum];
+            statusLabel.textColor = [UIColor lightGrayColor];
+            break;
+        case 3:
+            statusLabel.text = @"已经删除";
+            statusLabel.textColor = [UIColor redColor];
+            break;
+        case 4:
+            statusLabel.text = @"已经到期";
+            statusLabel.textColor = [UIColor redColor];
+            break;
+        case 8:
+            statusLabel.text = @"合作成功";
+            statusLabel.textColor = [UIColor hexColorFloat:@"ffd705"];
+            break;
+        default:
+            break;
+    }
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

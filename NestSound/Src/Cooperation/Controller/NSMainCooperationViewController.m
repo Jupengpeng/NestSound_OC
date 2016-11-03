@@ -19,11 +19,13 @@
     NSTipView *tipView;
     UIView *maskView;
     UIView * _lineView;
+    NSMyCooperationViewController *myCooperationVC;
+    NSCollectionCooperationViewController *collectionCooperationVC;
 }
 @property (nonatomic, strong) UIButton * cooperationBtn;
 @property (nonatomic, strong) UIButton * myCooperation;
 @property (nonatomic, strong) UIButton * collectionBtn;
-//@property (nonatomic, strong) UIView   * lineView;
+@property (nonatomic, strong) UIButton *loginBtn;
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 @end
 
@@ -33,11 +35,21 @@
     [super viewDidLoad];
     [self setupMainCooperationViewController];
 }
-//- (void)viewWillAppear:(BOOL)animated {
-//    if (JUserID) {
-//        [self setupContentViewControllers];
-//    }
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (JUserID) {
+        [self.loginBtn removeFromSuperview];
+        [self setupContentViewControllers];
+        
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (JUserID) {
+        [myCooperationVC.view removeFromSuperview];
+        [collectionCooperationVC.view removeFromSuperview];
+    }
+}
 - (void)setupMainCooperationViewController {
         
     self.view.backgroundColor = KBackgroundColor;
@@ -88,7 +100,14 @@
     
     [self.view addSubview:self.contentScrollView];
     
-    [self setupContentViewControllers];
+    //合作
+    NSCooperationViewController *cooperationVC = [[NSCooperationViewController alloc] init];
+    
+    cooperationVC.view.frame = CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height);
+    
+    [self addChildViewController:cooperationVC];
+    
+    [self.contentScrollView  addSubview:cooperationVC.view];
     
     UIButton *addCooperation = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         
@@ -115,16 +134,9 @@
     }];
 }
 - (void)setupContentViewControllers {
-    //合作
-    NSCooperationViewController *cooperationVC = [[NSCooperationViewController alloc] init];
     
-    cooperationVC.view.frame = CGRectMake(0, 0, ScreenWidth, self.contentScrollView.height);
-    
-    [self addChildViewController:cooperationVC];
-    
-    [self.contentScrollView  addSubview:cooperationVC.view];
     //我的
-    NSMyCooperationViewController *myCooperationVC = [[NSMyCooperationViewController alloc] init];
+    myCooperationVC = [[NSMyCooperationViewController alloc] init];
     
     myCooperationVC.view.frame = CGRectMake(ScreenWidth, 0, ScreenWidth, self.contentScrollView.height);
     
@@ -134,7 +146,7 @@
     
     //收藏
     
-    NSCollectionCooperationViewController *collectionCooperationVC = [[NSCollectionCooperationViewController alloc] init];
+    collectionCooperationVC = [[NSCollectionCooperationViewController alloc] init];
     
     collectionCooperationVC.view.frame = CGRectMake(ScreenWidth * 2, 0, ScreenWidth, self.contentScrollView.height);
     
@@ -145,6 +157,9 @@
 }
 #pragma mark - 合作、我的、收藏
 - (void)cooperationBtnClick:(UIButton *)sender {
+    
+    [self.loginBtn removeFromSuperview];
+    
     [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
     [UIView animateWithDuration:0.25 animations:^{
@@ -153,30 +168,31 @@
     }];
 }
 - (void)myCooperationBtnClick:(UIButton *)sender {
-//    if (JUserID) {
-        [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
+    [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
+    
+    [UIView animateWithDuration:0.25 animations:^{
         
-        [UIView animateWithDuration:0.25 animations:^{
-            
-            _lineView.x = sender.x;
-        }];
-//    } else {
-//        [self login];
-//    }
-   
+        _lineView.x = sender.x;
+    }];
+    if (!JUserID) {
+        self.loginBtn.frame = CGRectMake(3*ScreenWidth/2-30, ScreenHeight/3, 60, 30);
+        [self.contentScrollView addSubview:self.loginBtn];
+    }
+
 }
 - (void)collectionBtnClick:(UIButton *)sender {
-//    if (JUserID) {
+    [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];
     
-        [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];
+    [UIView animateWithDuration:0.25 animations:^{
         
-        [UIView animateWithDuration:0.25 animations:^{
-            
-            _lineView.x = sender.x;
-        }];
-//    } else {
-//        [self login];
-//    }
+        _lineView.x = sender.x;
+    }];
+    if (!JUserID) {
+        
+        self.loginBtn.frame = CGRectMake(5*ScreenWidth/2-30, ScreenHeight/3, 60, 30);
+        [self.contentScrollView addSubview:self.loginBtn];
+        
+    }
 }
 - (void)userLogin {
     NSLoginViewController *login = [[NSLoginViewController alloc] init];
@@ -197,7 +213,19 @@
 //    NSInvitationListViewController *invitationVC = [[ NSInvitationListViewController alloc] init];
 //    [self.navigationController pushViewController:invitationVC animated:YES];
 }
-
+- (UIButton *)loginBtn {
+    if (!_loginBtn) {
+        self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _loginBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
+        _loginBtn.clipsToBounds = YES;
+        _loginBtn.layer.cornerRadius = 5;
+        [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_loginBtn addTarget:self action:@selector(userLogin) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _loginBtn;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

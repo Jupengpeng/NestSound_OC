@@ -15,7 +15,7 @@
              @"cooperationTitle":@"title",
              @"status":@"status",
              @"nickName":@"nickname",
-             @"headerUrl":@"headerurl",
+             @"headerUrl":@"headeurl",
              @"workNum":@"worknum",
              @"createTime":@"createtime",
              @"uId":@"uid"};

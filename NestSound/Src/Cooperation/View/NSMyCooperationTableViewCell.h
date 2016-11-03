@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NSMyCooperationTableViewCell : UITableViewCell
+@class myCooperationModel;
 
+@interface NSMyCooperationTableViewCell : UITableViewCell
+@property (nonatomic, strong) myCooperationModel *myCooperation;
 @end
