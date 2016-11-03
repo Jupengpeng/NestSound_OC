@@ -166,14 +166,12 @@
 - (void)layoutSubviews{
 
     
-//    NSLog(@"CGRectGetMaxY(self.lyricView.frame) %f",CGRectGetMaxY(self.lyricView.frame));
 
     [self.lyricView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGRectGetMaxY(self.lyricContentLabel.frame) + 11);
     }];
     
 
-//    NSLog(@"CGRectGetMaxY(self.lyricView.frame) %f",CGRectGetMaxY(self.lyricView.frame));
     CGFloat currentHeight = CGRectGetMaxY(self.lyricContentLabel.frame) + 11 + CGRectGetMaxY(self.descriptionLabel.frame) + 11;
     if (currentHeight == self.height) {
         return;

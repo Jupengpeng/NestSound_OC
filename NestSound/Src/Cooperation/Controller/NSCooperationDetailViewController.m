@@ -15,11 +15,15 @@
 #import "NSCooperateDetailWorkCell.h"
 #import "NSInvitationListViewController.h"
 #import "NSCooperationDetailModel.h"
-@interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NSCommentTableViewCellDelegate,TTTAttributedLabelDelegate>
+#import "NSAccompanyListViewController.h"
+@interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NSCommentTableViewCellDelegate,TTTAttributedLabelDelegate,NSTipViewDelegate>
 {
     BOOL _showMoreComment;
     
     CGFloat _lyricViewHeight;
+    
+    NSTipView *_tipView;
+    UIView *_maskView;
 }
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -218,7 +222,6 @@
                 commentModel.titleImageURL = oriModel.targetheaderurl;
                 commentModel.targetName = oriModel.targetheaderurl;
                 commentModel.nickName = oriModel.nickname;
-                
                 [commentArray addObject:commentModel];
             }
             self.msgArray = [NSMutableArray arrayWithArray:commentArray];
@@ -239,19 +242,25 @@
                 
             }
 
-            
         }else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
-            [[NSToastManager manager] showtoast:@"收藏成功"];
+
+            NSAccompanyListViewController *accompanyController = [[NSAccompanyListViewController alloc] init];
+            [self.navigationController pushViewController:accompanyController animated:YES];
+            
             
         }else if ([operation.urlTag isEqualToString:coCollectActionUrl]){
             self.collectButton.selected = !self.collectButton.selected;
-            [[NSToastManager manager] showtoast:@"收藏成功"];
+            if (self.collectButton.selected) {
+                [[NSToastManager manager] showtoast:@"收藏成功"];
+            }else{
+                [[NSToastManager manager] showtoast:@"已取消收藏"];
+
+            }
             
         }else if ([operation.urlTag isEqualToString:coAcceptActionUrl]){
             [[NSToastManager manager] showtoast:@"收藏成功"];
             
         }
-        
         
         [self.tableView reloadData];
     }
@@ -429,7 +438,6 @@
         
         if (self.cooperateModel) {
             [cell showDataWithModel:self.cooperateModel completion:^(CGFloat height) {
-                CHLog(@"height  %f" ,height);
                 
                 if (_lyricViewHeight == height) {
                     return ;
@@ -503,6 +511,34 @@
     
     
 }
+
+#pragma mark - NSTipViewDelegate
+
+- (void)cancelBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+    }];
+}
+- (void)ensureBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+        
+
+        [self postCooperateAction];
+    }];
+}
 #pragma mark - TTTAttributedLabelDelegate
 
 - (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
@@ -553,10 +589,8 @@
             
             [btn setTitle:@"合作" forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-            [btn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateHighlighted];
+            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:@"ic_hezuo"] forState:UIControlStateNormal];
-            [btn setImage:[UIImage imageNamed:@"ic_shoucangdianji.png"] forState:UIControlStateHighlighted];
 
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, -4);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 4);
@@ -565,7 +599,37 @@
             [btn addSubview:linelabel];
         } action:^(UIButton *btn) {
 
-            [self postCooperateAction];
+            _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+            
+            _maskView.backgroundColor = [UIColor lightGrayColor];
+            
+            _maskView.alpha = 0.5;
+            
+            [self.navigationController.view addSubview:_maskView
+             ];
+            
+            
+            CGFloat padding = ScreenWidth *60/375.0;
+            CGFloat width = (ScreenWidth - padding * 2);
+            CGFloat height = width * 338/256.0f;
+            
+            
+            _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+            
+            _tipView.delegate = self;
+            
+            _tipView.imgName = @"2.0_backgroundImage";
+            
+            _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，\n您将无法进行删除"];
+            [self.navigationController.view addSubview:_tipView];
+            
+
+            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+            keyFrame.duration = 0.3;
+            keyFrame.removedOnCompletion = NO;
+            [_tipView.layer addAnimation:keyFrame forKey:nil];
+            
             
         }];
     }
@@ -601,10 +665,14 @@
             btn.frame = CGRectMake(ScreenWidth/3.0f, ScreenHeight - 45 - 64, ScreenWidth/3.0f, 45);
             
             [btn setTitle:@"收藏该作品" forState:UIControlStateNormal];
+            [btn setTitle:@"取消该收藏" forState:UIControlStateSelected];
+
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
             [btn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateHighlighted];
+            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"ic_shoucang"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"ic_shoucangdianji"] forState:UIControlStateSelected];
+
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, -4);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0, -4, 0, 4);
             UILabel *linelabel= [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 0.5)];
