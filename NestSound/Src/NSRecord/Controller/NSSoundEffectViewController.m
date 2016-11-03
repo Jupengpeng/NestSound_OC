@@ -10,6 +10,7 @@
 #import "NSPublicLyricViewController.h"
 #import "NSTunMusicModel.h"
 #import <AVFoundation/AVFoundation.h>
+#import "NSCooperationDetailModel.h"
 @interface NSSoundEffectViewController ()<UIAlertViewDelegate,AVAudioPlayerDelegate,UIScrollViewDelegate>
 {
     UILabel *totalTimeLabel;
@@ -467,6 +468,10 @@
         publicVC.isLyric=NO;
         publicVC.mp3URL = playerUrl;
         publicVC.mp3File = self.mp3File;
+        if (self.coWorkModel.lyrics.length) {
+            publicVC.coWorkModel = self.coWorkModel;
+        }
+        
         
         [self.navigationController pushViewController:publicVC animated:YES];
         

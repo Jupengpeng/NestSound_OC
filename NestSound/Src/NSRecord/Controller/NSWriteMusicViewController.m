@@ -33,7 +33,7 @@
 #import "lame.h"
 #import "MBProgressHUD.h"
 #import "HudView.h"
-
+#import "NSCooperationDetailModel.h"
 
 CGFloat count;
 
@@ -656,6 +656,7 @@ Boolean plugedHeadset;
     return self;
 }
 
+#pragma mark - controller method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -683,21 +684,16 @@ Boolean plugedHeadset;
                                                  name:@"pausePlayer"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseRecorder) name:AVAudioSessionInterruptionNotification object:nil];
-    UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
+
     
-    self.navigationItem.rightBarButtonItem = next;
-    
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-//    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-//    UIBarButtonItem *importLyric = [[UIBarButtonItem alloc] initWithTitle:@"导入歌词" style:UIBarButtonItemStylePlain target:self action:@selector(importLyricClick:)];
-    
-//    NSArray *array = @[next, importLyric];
-    
-//    self.navigationItem.rightBarButtonItems = array;
     
     [self setupUI];
 
     
+    UIBarButtonItem *next = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextClick:)];
+    
+    self.navigationItem.rightBarButtonItem = next;
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBackClick:)];
     
     
@@ -721,6 +717,8 @@ Boolean plugedHeadset;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [NSSingleTon viewFrom].viewTag = @"";
+
     [UIApplication sharedApplication].idleTimerDisabled = YES;//设置不允许休眠
     self.navigationController.navigationBar.hidden = NO;
     //timerNumRecorder=0;
@@ -729,8 +727,18 @@ Boolean plugedHeadset;
     timerNumPlay_temp=0;
     mp3URL=nil;
     
-    titleText.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"recordTitle"];
-    lyricView.lyricText.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"recordLyric"];
+   
+    //如果是合作加入歌曲
+    if (self.coWorkModel.lyrics.length) {
+        
+        [self setupCooperateContent];
+    }else{
+        lyricView.lyricText.editable = YES;
+        titleText.userInteractionEnabled = YES;
+        titleText.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"recordTitle"];
+        lyricView.lyricText.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"recordLyric"];
+        
+    }
     
     //stop the music
     self.clickedValue = 0;
@@ -864,6 +872,18 @@ Boolean plugedHeadset;
         [self.navigationController popViewControllerAnimated:YES];
     }
     
+}
+
+#pragma mark - 合作成品部分
+- (void)setupCooperateContent{
+    //如果是合作的歌词
+        lyricView.lyricText.editable = NO;
+        titleText.userInteractionEnabled = NO;
+        
+        NSString *contentStr = [NSString stringWithFormat:@"作曲者：%@\n作词者：%@\n%@",self.coWorkModel.wUsername,self.coWorkModel.lUsername,self.coWorkModel.lyrics];
+        titleText.text = self.coWorkModel.title;
+        [self setupAttributesWithTextView:lyricView.lyricText ContentStr:contentStr];
+
 }
 
 #pragma mark - setupUI
@@ -1037,6 +1057,7 @@ Boolean plugedHeadset;
     
     lyricView.lyricText.showsVerticalScrollIndicator = NO;
     
+    
     [self.view addSubview:lyricView];
 
     //设置引导页
@@ -1052,7 +1073,6 @@ Boolean plugedHeadset;
     
     timerImgView.centerY = self.view.height/3;
     
-
     
     [self.view addSubview:timerImgView];
     
@@ -1317,6 +1337,11 @@ Boolean plugedHeadset;
 
 - (void)importLyricClick:(UIBarButtonItem *)import {
     
+    if (self.coWorkModel.lyrics.length) {
+        [[NSToastManager manager] showtoast:@"合作歌曲不能使用歌词模板哦 ~"];
+        return;
+    }
+    
     NSImportLyricViewController *importLyric = [[NSImportLyricViewController alloc] init];
     importLyric.delegate = self;
     [self.navigationController pushViewController:importLyric animated:YES];
@@ -1436,6 +1461,7 @@ Boolean plugedHeadset;
             [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
             [recordText synchronize];
             [self.alertView dismissViewControllerAnimated:YES completion:^{
+                wSelf.public.coWorkModel = wSelf.coWorkModel;
                 [wSelf.navigationController pushViewController:wSelf.public animated:YES];
 //
             }];
@@ -1685,6 +1711,7 @@ Boolean plugedHeadset;
                         [recordText setObject:titleText.text forKey:@"recordTitle"];
                         [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
                         [recordText synchronize];
+                        soundEffectVC.coWorkModel = self.coWorkModel;
                         [wSelf.navigationController pushViewController:soundEffectVC animated:YES];
                     }];
                 }
@@ -1739,7 +1766,7 @@ Boolean plugedHeadset;
 - (void)nextStep:(NSNotification*)userInfo{
     
     [self.alertView dismissViewControllerAnimated:NO completion:nil];
-    
+    self.public.coWorkModel = self.coWorkModel;
     [self.navigationController pushViewController:self.public animated:YES];
 
 }
@@ -1818,6 +1845,19 @@ Boolean plugedHeadset;
     if (selectedRange && pos) {
         return;
     }
+    NSRange beforeRange = textView.selectedRange;
+
+    [self setupAttributesWithTextView:textView ContentStr:textView.text];
+    
+    NSRange afterRange = textView.selectedRange;
+    if (afterRange.location != beforeRange.location) {
+        textView.selectedRange = beforeRange;
+    }
+    
+}
+
+
+- (void)setupAttributesWithTextView:(UITextView *)textView ContentStr:(NSString *)contentStr{
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
     paragraphStyle.paragraphSpacing = 8;
@@ -1830,13 +1870,7 @@ Boolean plugedHeadset;
                                  NSParagraphStyleAttributeName:paragraphStyle
                                  
                                  };
-    NSRange beforeRange = textView.selectedRange;
-    textView.attributedText = [[NSAttributedString alloc] initWithString:textView.text attributes:attributes];
-    NSRange afterRange = textView.selectedRange;
-    if (afterRange.location != beforeRange.location) {
-        textView.selectedRange = beforeRange;
-    }
-    
+    textView.attributedText = [[NSAttributedString alloc] initWithString:contentStr attributes:attributes];
 }
 
 - (void)viewDidLayoutSubviews{

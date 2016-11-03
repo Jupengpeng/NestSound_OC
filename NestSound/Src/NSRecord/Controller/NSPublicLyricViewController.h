@@ -7,7 +7,7 @@
 //
 
 #import "NSBaseViewController.h"
-
+@class CoWorkModel;
 
 typedef void(^dicBlock)(NSDictionary*);
 @interface NSPublicLyricViewController : NSBaseViewController
@@ -20,6 +20,10 @@ typedef void(^dicBlock)(NSDictionary*);
  *  活动
  */
 @property (nonatomic,copy) NSString *aid;
+
+//歌曲成品
+@property (nonatomic,strong) CoWorkModel *coWorkModel;
+
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_;
 
 @end

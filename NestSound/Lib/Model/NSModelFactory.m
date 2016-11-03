@@ -297,6 +297,8 @@
         NSCooperationDetailModel *detailModel = [NSCooperationDetailModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
         return detailModel;
     } else if ([url isEqualToString:coCooperateActionUrl]){
+        CoWorkModel *workModel = [CoWorkModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
+        return workModel;
         
     } else if ([url isEqualToString:coCollectActionUrl]){
         

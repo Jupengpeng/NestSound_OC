@@ -54,7 +54,7 @@
 
 @end
 
-@interface CoWorkModel : NSObject
+@interface CoWorkModel : NSBaseModel
 
 @property (nonatomic, copy) NSString *wUsername;
 
@@ -67,6 +67,12 @@
 @property (nonatomic, copy) NSString *url;
 
 @property (nonatomic, copy) NSString *itemid;
+
+@property (nonatomic,copy) NSString *lyrics;
+
+@property (nonatomic,copy) NSString *wUid;
+
+@property (nonatomic,copy) NSString *lUid;
 
 @end
 

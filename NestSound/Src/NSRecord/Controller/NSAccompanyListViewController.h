@@ -7,6 +7,7 @@
 //
 
 #import "NSBaseViewController.h"
+@class CoWorkModel;
 
 @interface NSAccompanyListViewController : NSBaseViewController
 
@@ -14,6 +15,11 @@
  *  活动id
  */
 @property (nonatomic,copy) NSString *aid;
+
+
+//合作作品的歌词信息
+@property (nonatomic,strong) CoWorkModel *coWorkModel;
+
 
 
 @end

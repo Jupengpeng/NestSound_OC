@@ -14,6 +14,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "HudView.h"
 #import "NSThemeActivityController.h"
+#import "NSCooperationDetailModel.h"
 extern NSString *mp3PathTTest;
 extern Boolean plugedHeadset;
 
@@ -175,6 +176,10 @@ extern Boolean plugedHeadset;
     publicSwitch.tintColor = [UIColor hexColorFloat:@"ffd111"];
     publicSwitch.onTintColor = [UIColor hexColorFloat:@"ffd111"];
     [backgroundView addSubview:publicSwitch];
+    if (self.coWorkModel.lyrics) {
+        [publicSwitch addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
+
+    }
     
     
     if (self.isLyric) {
@@ -280,6 +285,14 @@ extern Boolean plugedHeadset;
     
 }
 
+- (void)switchValueChanged:(UISwitch *)mySwitch{
+    
+    if (mySwitch.isOn == NO) {
+        [[NSToastManager manager] showtoast:@"合作歌曲必须公开哦 ~"];
+    }
+    [mySwitch setOn:YES];
+}
+
 - (void)playRemoteMusic:(UIButton *)btn{
     
     btn.selected = !btn.selected;
@@ -327,6 +340,8 @@ extern Boolean plugedHeadset;
         [fm removeItemAtPath:fullPath error:nil];
     }
 }
+
+
 
 #pragma mark -uploadPhoto
 -(void)uploadPhoto:(UIBarButtonItem *)btn
@@ -437,12 +452,22 @@ extern Boolean plugedHeadset;
     
 }
 #pragma mark -public
+
+- (void)publickOfCooperation{
+    
+    self.requestType = NO;
+
+    
+    
+}
+
 -(void)publicWithType:(BOOL)type
 {
     self.requestType = NO;
     NSDictionary * dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     
     if (self.aid.length) {
+        //活动部分发布
         if (type == YES) {
             
             if (!self.lyricId) {
@@ -532,7 +557,6 @@ extern Boolean plugedHeadset;
             self.requestURL = publicMusicURL;
             
         }
-        
     }
    
 }

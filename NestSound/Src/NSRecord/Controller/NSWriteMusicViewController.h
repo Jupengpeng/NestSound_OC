@@ -8,6 +8,7 @@
 
 #import "NSBaseViewController.h"
 @class NSAccommpanyModel;
+@class CoWorkModel;
 
 @interface NSWriteMusicViewController : NSBaseViewController<UIScrollViewDelegate>
 
@@ -23,6 +24,9 @@
  *  活动id
  */
 @property (nonatomic,copy) NSString *aid;
+
+//合作作品的歌词信息
+@property (nonatomic,strong) CoWorkModel *coWorkModel;
 
 
 -(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;

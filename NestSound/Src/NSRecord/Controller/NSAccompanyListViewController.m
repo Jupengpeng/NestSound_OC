@@ -18,7 +18,7 @@
 #import "NSAccompanyTableCell.h"
 #import "NSAccommpanyListModel.h"
 #import "NSAccompanyListFilterView.h"
-
+#import "NSCooperationDetailModel.h"
 
 static NSString * const accompanyData   = @"accompanyData";
 static NSString * const simpleSingle  = @"simpleSingle";
@@ -207,7 +207,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 - (void)simpleSingClick:(UIButton *)clickButton{
     NSSimpleSingModel *simpleSing = self.simpleSingModel;
     if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+//        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex: 2] animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(simpleSing.itemID),@"accompanyTime":[NSNumber numberWithLong:simpleSing.playTimes],@"accompanyUrl":simpleSing.playUrl}];
     } else {
         
@@ -217,6 +218,12 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
             writeMusicVC.aid = self.aid;
             
         }
+        
+        //如果是合作过来的
+        if (self.coWorkModel.lyrics.length) {
+            writeMusicVC.coWorkModel = self.coWorkModel;
+        }
+        
         [self.navigationController pushViewController:writeMusicVC animated:YES];
         
     }
@@ -464,7 +471,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     NSAccommpanyModel * accompany = self.categoryAryList[indexPath.section];
     //downLoading accompany and push to recordVC
     if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
-        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+//        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":[NSNumber numberWithLong:accompany.mp3Times],@"accompanyUrl":accompany.mp3URL}];
         
     } else {
@@ -476,6 +484,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         }
         
         [self pausePlayer];
+        //如果是合作过来的
+        if (self.coWorkModel.lyrics.length) {
+            writeMusicVC.coWorkModel = self.coWorkModel;
+        }
+        
         [self.navigationController pushViewController:writeMusicVC animated:YES];
     }
 }

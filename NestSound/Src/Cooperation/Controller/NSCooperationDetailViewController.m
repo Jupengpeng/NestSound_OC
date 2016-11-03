@@ -243,9 +243,13 @@
             }
 
         }else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
-
+            CoWorkModel *workModel = (CoWorkModel *)parserObject;
             NSAccompanyListViewController *accompanyController = [[NSAccompanyListViewController alloc] init];
+            accompanyController.coWorkModel = workModel;
             [self.navigationController pushViewController:accompanyController animated:YES];
+            
+            
+            
             
             
         }else if ([operation.urlTag isEqualToString:coCollectActionUrl]){

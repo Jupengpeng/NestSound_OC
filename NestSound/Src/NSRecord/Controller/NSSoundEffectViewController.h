@@ -8,6 +8,8 @@
 
 #import "NSBaseViewController.h"
 #import "NSWaveformView.h"
+@class CoWorkModel;
+
 @interface NSSoundEffectViewController : NSBaseViewController
 @property (nonatomic, assign) CGFloat musicTime;
 @property (nonatomic, strong) NSMutableDictionary *parameterDic;
@@ -18,6 +20,8 @@
 @property (nonatomic, strong) NSMutableArray *locationArr;
 @property (nonatomic, strong) NSArray *heightArray;
 
+//歌曲成品
+@property (nonatomic,strong) CoWorkModel *coWorkModel;
 
 @property (nonatomic,strong) NSMutableDictionary *totalTimeLocDict;
 
