@@ -10,7 +10,7 @@
 #import "NSCooperateDetailMainCell.h"
 #import "NSCommentListModel.h"
 #import "NSUserPageViewController.h"
-#import "NSCommentViewController.h"
+#import "NSCooperationMessageViewController.h"
 #import "NSCommentTableViewCell.h"
 #import "NSCooperateDetailWorkCell.h"
 #import "NSInvitationListViewController.h"
@@ -215,8 +215,8 @@
                 
                 CHLog(@"跳转到评论");
                 
-                NSCommentViewController *commentController = [[NSCommentViewController alloc] initWithItemId:0 andType:1];
-                [self.navigationController pushViewController:commentController animated:YES];
+                NSCooperationMessageViewController *cooperationMessageVC = [[NSCooperationMessageViewController alloc] init];
+                [self.navigationController pushViewController:cooperationMessageVC animated:YES];
             }];
 
             

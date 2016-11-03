@@ -26,13 +26,13 @@ UIWebViewDelegate
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    //    [self configureUIAppearance];
+    [self configureUIAppearance];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self configureUIAppearance];
+//    [self configureUIAppearance];
 
     NSLog(@"%@",self.h5Url);
 }
@@ -40,7 +40,7 @@ UIWebViewDelegate
 #pragma mark configureUIAppearance
 -(void)configureUIAppearance
 {
-    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(backToBefore)];
     //webView
     h5WebView = [[UIWebView alloc] init];
     h5WebView.delegate = self;
@@ -54,20 +54,41 @@ UIWebViewDelegate
     }];
     
 }
-
-#pragma mark - UIWebViewDelegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSString *clickStr=request.URL.absoluteString;
-    //如果是保全证书
-    if ([self.h5Url containsString:@"certificate"]) {
-        return YES;
+-(void)backToBefore{
+    
+    // 点击返回时，返回操作的上一页
+    
+    if (h5WebView.canGoBack) {
+        
+        [h5WebView goBack];
+        
+    } else {
+        
+//        [super backToBefore];
+        
+        [h5WebView stopLoading];
+        
+        h5WebView.delegate =nil;
+        
+        h5WebView = nil;
+        
+        [self.navigationController popViewControllerAnimated:YES];
     }
     
-    if (![self.h5Url isEqualToString:clickStr]) {
-        NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
-        eventVC.h5Url = clickStr;
-        [self.navigationController pushViewController:eventVC animated:YES];
-    }
+}
+#pragma mark - UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+//    NSString *clickStr=request.URL.absoluteString;
+    //如果是保全证书
+//    if ([self.h5Url containsString:@"certificate"]) {
+//        return YES;
+//    }
+    
+//    if (![self.h5Url isEqualToString:clickStr]) {
+//        NSH5ViewController * eventVC = [[NSH5ViewController alloc] init];
+//        eventVC.h5Url = clickStr;
+//        [self.navigationController pushViewController:eventVC animated:YES];
+//    }
 
     return YES;
 }

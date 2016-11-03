@@ -18,7 +18,7 @@
 {
     NSTipView *tipView;
     UIView *maskView;
-    UIView   * _lineView;
+    UIView * _lineView;
 }
 @property (nonatomic, strong) UIButton * cooperationBtn;
 @property (nonatomic, strong) UIButton * myCooperation;
@@ -33,11 +33,16 @@
     [super viewDidLoad];
     [self setupMainCooperationViewController];
 }
+//- (void)viewWillAppear:(BOOL)animated {
+//    if (JUserID) {
+//        [self setupContentViewControllers];
+//    }
+//}
 - (void)setupMainCooperationViewController {
         
     self.view.backgroundColor = KBackgroundColor;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(testClick)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(testClick)];
     
     UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(ScreenWidth/2-90, 0, 180, 44)];
     navigationView.backgroundColor = [UIColor clearColor];
@@ -60,35 +65,12 @@
     [self.collectionBtn addTarget:self action:@selector(collectionBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [navigationView addSubview:self.collectionBtn];
     
-//    [self.cooperationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(self.myCooperation.mas_left).offset(0);
-//        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
-//        make.size.mas_equalTo(CGSizeMake(60, 41));
-//    }];
-//    
-//    [self.myCooperation mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
-//        make.centerX.equalTo(navigationView.mas_centerX);
-//        make.size.mas_equalTo(CGSizeMake(60, 41));
-//    }];
-//    
-//    [self.collectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.myCooperation.mas_right).offset(0);
-//        make.bottom.equalTo(navigationView.mas_bottom).offset(-3);
-//        make.size.mas_equalTo(CGSizeMake(60, 41));
-//    }];
-    
     _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 41, 60, 3)];
     
     _lineView.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
     
     [navigationView addSubview:_lineView];
     
-//    [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.equalTo(self.cooperationBtn).offset(0);
-//        make.bottom.equalTo(navigationView.mas_bottom).offset(0);
-//        make.size.mas_equalTo(CGSizeMake(60, 3));
-//    }];
     
     self.contentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height - 64)];
     
@@ -115,9 +97,13 @@
         [btn sizeToFit];
         
     } action:^(UIButton *btn) {
+        if (JUserID) {
+            NSPublicLyricCooperationViewController *publicLyricCooperationVC = [[NSPublicLyricCooperationViewController alloc] init];
+            [self.navigationController pushViewController:publicLyricCooperationVC animated:YES];
+        } else {
+            [self userLogin];
+        }
         
-        NSPublicLyricCooperationViewController *publicLyricCooperationVC = [[NSPublicLyricCooperationViewController alloc] init];
-        [self.navigationController pushViewController:publicLyricCooperationVC animated:YES];
     }];
     [self.view addSubview:addCooperation];
     
@@ -137,7 +123,6 @@
     [self addChildViewController:cooperationVC];
     
     [self.contentScrollView  addSubview:cooperationVC.view];
-    
     //我的
     NSMyCooperationViewController *myCooperationVC = [[NSMyCooperationViewController alloc] init];
     
@@ -168,32 +153,32 @@
     }];
 }
 - (void)myCooperationBtnClick:(UIButton *)sender {
-    if (JUserID) {
+//    if (JUserID) {
         [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
         
         [UIView animateWithDuration:0.25 animations:^{
             
             _lineView.x = sender.x;
         }];
-    } else {
-        [self login];
-    }
+//    } else {
+//        [self login];
+//    }
    
 }
 - (void)collectionBtnClick:(UIButton *)sender {
-    if (JUserID) {
-        
+//    if (JUserID) {
+    
         [self.contentScrollView setContentOffset:CGPointMake(ScreenWidth * 2, 0) animated:YES];
         
         [UIView animateWithDuration:0.25 animations:^{
             
             _lineView.x = sender.x;
         }];
-    } else {
-        [self login];
-    }
+//    } else {
+//        [self login];
+//    }
 }
-- (void)login {
+- (void)userLogin {
     NSLoginViewController *login = [[NSLoginViewController alloc] init];
     
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
@@ -207,8 +192,8 @@
 //    
 //}
 - (void)testClick {
-    NSCooperationMessageViewController *cooperationMessageVC = [[NSCooperationMessageViewController alloc] init];
-    [self.navigationController pushViewController:cooperationMessageVC animated:YES];
+//    NSCooperationMessageViewController *cooperationMessageVC = [[NSCooperationMessageViewController alloc] init];
+//    [self.navigationController pushViewController:cooperationMessageVC animated:YES];
 //    NSInvitationListViewController *invitationVC = [[ NSInvitationListViewController alloc] init];
 //    [self.navigationController pushViewController:invitationVC animated:YES];
 }

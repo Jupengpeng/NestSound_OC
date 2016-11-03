@@ -8,7 +8,7 @@
 
 #import "NSCooperationLyricListModel.h"
 
-@implementation CooperationLyricListModel
+@implementation CooperationLyricModel
 
 - (NSDictionary *)modelKeyJSONKeyMapper {
     

@@ -41,7 +41,7 @@
         
     } else {
         if ([operation.urlTag isEqualToString:collectCooperationListUrl]) {
-            [self.navigationController popViewControllerAnimated:YES];
+//            [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }

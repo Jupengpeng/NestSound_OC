@@ -9,11 +9,11 @@
 #import "NSBaseModel.h"
 
 
-@protocol CooperationLyricListModel <NSObject>
+@protocol CooperationLyricModel <NSObject>
 
 @end
 
-@interface CooperationLyricListModel : NSBaseModel
+@interface CooperationLyricModel : NSBaseModel
 @property (nonatomic,assign) long lyricId;
 @property (nonatomic,assign) long createTime;
 @property (nonatomic,assign) int isOpened;
@@ -23,5 +23,5 @@
 @end
 
 @interface NSCooperationLyricListModel : NSBaseModel
-@property (nonatomic, strong) NSArray <CooperationLyricListModel> *cooperationLyricList;
+@property (nonatomic, strong) NSArray <CooperationLyricModel> *cooperationLyricList;
 @end

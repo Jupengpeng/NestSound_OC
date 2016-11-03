@@ -277,7 +277,7 @@
 //        return [[NSDiscoverMoreLyricModel alloc] initWithJSONDict:jsonDict];
 //    }
     //合作
-    else if ([url isEqualToString:mainCooperationListUrl]) {
+    else if ([url isEqualToString:cooperationListUrl]) {
         
         return [[NSCooperationListModel alloc] initWithJSONDict:jsonDict];
         

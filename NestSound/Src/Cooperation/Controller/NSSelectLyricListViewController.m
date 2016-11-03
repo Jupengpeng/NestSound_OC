@@ -8,11 +8,13 @@
 
 #import "NSSelectLyricListViewController.h"
 #import "NSLyricDetailViewController.h"
+#import "NSCooperationLyricListModel.h"
 @interface NSSelectLyricListViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *selectLyricListTab;
     int currentPage;
 }
+@property (nonatomic, strong) NSMutableArray *lyricListArr;
 @end
 
 @implementation NSSelectLyricListViewController
@@ -21,6 +23,7 @@
     [super viewDidLoad];
     
     [self setupSelectLyricListView];
+    [self fetchCooperationLyricsWithIsLoadingMore:NO];
 }
 #pragma mark - Network Requests and Data Handling
 - (void)fetchCooperationLyricsWithIsLoadingMore:(BOOL)isLoadingMore {
@@ -41,7 +44,17 @@
         
     } else {
         if ([operation.urlTag isEqualToString:demandLyricListUrl]) {
-            
+            NSCooperationLyricListModel *model = (NSCooperationLyricListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                [selectLyricListTab.pullToRefreshView stopAnimating];
+                
+                self.lyricListArr = [NSMutableArray arrayWithArray:model.cooperationLyricList];
+                
+            }else{
+                [selectLyricListTab.infiniteScrollingView stopAnimating];
+                [self.lyricListArr addObjectsFromArray:model.cooperationLyricList];
+            }
+            [selectLyricListTab reloadData];
         }
     }
 }
@@ -60,7 +73,7 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.lyricListArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -70,9 +83,36 @@
         lyricCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:lyricCellIdenfity];
         lyricCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    lyricCell.textLabel.text = @"从你的全世界路过";
-    lyricCell.textLabel.font = [UIFont systemFontOfSize:14];
-    lyricCell.detailTextLabel.text = @"2016.10.25";
+    CooperationLyricModel *model = self.lyricListArr[indexPath.row];
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.font = [UIFont systemFontOfSize:14];
+    titleLabel.text = model.title;
+    [lyricCell addSubview:titleLabel];
+    
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(lyricCell.contentView.mas_left).offset(10);
+        
+        make.top.bottom.equalTo(lyricCell.contentView);
+    }];
+    UIImageView *secretImg = [[UIImageView alloc] init];
+    secretImg.image = [UIImage imageNamed:@"2.0_password_icon"];
+    [lyricCell addSubview:secretImg];
+    
+    [secretImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(titleLabel.mas_right).offset(10);
+        
+        make.centerY.equalTo(lyricCell.mas_centerY);
+        
+        make.size.mas_offset(CGSizeMake(12, 14));
+    }];
+    if (model.isOpened) {
+        secretImg.hidden = YES;
+    } else {
+        secretImg.hidden = NO;
+    }
+    lyricCell.detailTextLabel.text = [date datetoLongLongStringWithDate:model.createTime];
     lyricCell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     return lyricCell;
 }
@@ -80,14 +120,22 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    CooperationLyricModel *model = self.lyricListArr[indexPath.row];
     NSLyricDetailViewController *lyricDetailVC = [[NSLyricDetailViewController alloc] init];
+    lyricDetailVC.lyricModel = model;
+
     WS(wSelf);
     lyricDetailVC.lyricBlock = ^(NSString *lyricTitle,long lyricId) {
         
         wSelf.lyricBlock(lyricTitle,lyricId);
     };
     [self.navigationController pushViewController:lyricDetailVC animated:YES];
+}
+- (NSMutableArray *)lyricListArr {
+    if (!_lyricListArr) {
+        self.lyricListArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _lyricListArr;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

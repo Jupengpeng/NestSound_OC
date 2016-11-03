@@ -147,7 +147,7 @@ extern NSString *port;
 //合作
 #define publicCooperationUrl @"cooperate/demand/public/v23"
 #define demandLyricListUrl @"cooperate/demand/lyricslist/v23"
-#define mainCooperationListUrl @"cooperate/index/demandlist/v23"
+#define cooperationListUrl @"cooperate/common/index/demandlist/v23"
 #define myCooperationListUrl @"cooperate/index/mylist/v23"
 #define collectCooperationListUrl @"cooperate/index/fovlist/v23"
 #define cooperationMessageListUrl @"cooperate/comment/leavelist/v23"

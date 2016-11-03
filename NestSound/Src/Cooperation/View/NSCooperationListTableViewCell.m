@@ -7,11 +7,11 @@
 //
 
 #import "NSCooperationListTableViewCell.h"
-
+#import "NSCooperationListModel.h"
 @interface NSCooperationListTableViewCell ()
 {
     UIView *sectionView;
-    UILabel *nickName;
+    UILabel *titleLabel;
     UILabel *lyricLabel;
     UILabel *demandLabel;
     UIView *labelBackView;
@@ -37,11 +37,11 @@
     [self.contentView addSubview:sectionView];
     
     //
-    nickName = [[UILabel alloc] init];
+    titleLabel = [[UILabel alloc] init];
     
-    nickName.text = @"疯子";
+    titleLabel.text = @"疯子";
     
-    [self.contentView addSubview:nickName];
+    [self.contentView addSubview:titleLabel];
     
     //
     lyricLabel = [[UILabel alloc] init];
@@ -73,6 +73,20 @@
     
     
 }
+
+- (void)setCooperationModel:(CooperationModel *)cooperationModel {
+    
+    _cooperationModel = cooperationModel;
+    titleLabel.text = cooperationModel.cooperationTitle;
+    lyricLabel.text = cooperationModel.cooperationLyric;
+    demandLabel.text = cooperationModel.requiement;
+}
+
+
+
+
+
+
 - (void)layoutSubviews {
     
     [sectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,7 +98,7 @@
         make.size.mas_equalTo(CGSizeMake(5, 20));
     }];
     
-    [nickName mas_makeConstraints:^(MASConstraintMaker *make) {
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.bottom.equalTo(sectionView);
         
@@ -94,7 +108,7 @@
     
     [lyricLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(nickName.mas_left).offset(0);
+        make.left.equalTo(titleLabel.mas_left).offset(0);
         
         make.top.equalTo(sectionView.mas_bottom).offset(10);
         
@@ -127,6 +141,7 @@
     }];
 }
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

@@ -1,14 +1,21 @@
 //
-//  NSCommentTableViewCell.m
+//  NSCooperationMoreCommentCell.m
 //  NestSound
 //
 //  Created by yinchao on 16/10/27.
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
-#import "NSCooperationCommentCell.h"
+#import "NSCooperationMoreCommentCell.h"
+#import "NSCooperationListModel.h"
+@interface NSCooperationMoreCommentCell ()
+{
+    UILabel *moreMessage;
+    UILabel *cooperationNum;
+}
+@end
 
-@implementation NSCooperationCommentCell
+@implementation NSCooperationMoreCommentCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -21,19 +28,19 @@
 }
 - (void)setupCooperationCommentCellUI {
 
-    UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    moreMessage = [[UILabel alloc] init];
     
-    [moreBtn setTitle:@"更多留言" forState:UIControlStateNormal];
+    moreMessage.text = @"更多留言";
     
-    [moreBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    moreMessage.textColor = [UIColor lightGrayColor];
     
-    moreBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    moreMessage.font = [UIFont systemFontOfSize:12];
     
-    [self.contentView addSubview:moreBtn];
+    [self.contentView addSubview:moreMessage];
     
-    UILabel *cooperationNum = [[UILabel alloc] init];
+    cooperationNum = [[UILabel alloc] init];
     
-    cooperationNum.text = @"已有23位巢人参与合作";
+    cooperationNum.text = @"已有0位巢人参与合作";
     
     cooperationNum.textAlignment = NSTextAlignmentRight;
     
@@ -41,7 +48,7 @@
     
     [self.contentView addSubview:cooperationNum];
     
-    [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [moreMessage mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.contentView.mas_left).offset(10);
         
@@ -60,7 +67,13 @@
     }];
     
 }
+- (void)setCooperationModel:(CooperationModel *)cooperationModel {
+    _cooperationModel = cooperationModel;
+    moreMessage.text = [NSString stringWithFormat:@"更多%d条留言",cooperationModel.commentNum];
+    cooperationNum.text = [NSString stringWithFormat:@"已有%d位巢人参与合作",cooperationModel.workNum];
+}
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

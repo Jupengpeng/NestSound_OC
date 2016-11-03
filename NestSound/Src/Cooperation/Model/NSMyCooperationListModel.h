@@ -8,6 +8,11 @@
 
 #import "NSBaseModel.h"
 
+@protocol myCooperationModel <NSObject>
+
+
+@end
+
 @interface myCooperationModel : NSBaseModel
 @property (nonatomic, assign) int myCooperationId;
 @property (nonatomic, copy) NSString *cooperationTitle;
@@ -17,5 +22,5 @@
 @end
 
 @interface NSMyCooperationListModel : NSBaseModel
-@property (nonatomic, strong) myCooperationModel *myCooperationList;
+@property (nonatomic, strong) NSArray <myCooperationModel> *myCooperationList;
 @end

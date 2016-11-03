@@ -16,18 +16,12 @@
              @"cooperationLyric":@"lyrics",
              @"requiement":@"requirement",
              @"commentNum":@"commentnum",
-             @"createTime":@"createtime"};
+             @"createTime":@"createtime",
+             @"workNum":@"worknum"};
 }
 
 @end
 
-@implementation CooperationListModel
-
-- (NSDictionary *)modelKeyJSONKeyMapper {
-    return @{@"cooperation":@"demandInfo"};
-}
-
-@end
 
 
 @implementation CooperationCommentModel
@@ -39,28 +33,24 @@
 
 @end
 
-@implementation CooperationCommentListModel
-
-- (NSDictionary *)modelKeyJSONKeyMapper {
-    return @{@"cooperationComment":@"commentList"};
-}
-
-@end
 
 @implementation CooperationUser
 
 - (NSDictionary *)modelKeyJSONKeyMapper {
-    return @{@"nickName@":@"nickname",
-             @"headerUrl":@"headerurl",
+    return @{@"nickName":@"nickname",
+             @"headerUrl":@"headurl",
              @"uId":@"uid"};
 }
 
 @end
 
-@implementation NSCooperationUser
+
+@implementation MainCooperationListModel
 
 - (NSDictionary *)modelKeyJSONKeyMapper {
-    return @{@"cooperationUser":@"userInfo"};
+    return @{@"cooperationUser":@"userInfo",
+             @"cooperationCommentList":@"commentList",
+             @"cooperation":@"demandInfo"};
 }
 
 @end
@@ -68,9 +58,10 @@
 @implementation NSCooperationListModel
 
 - (NSDictionary *)modelKeyJSONKeyMapper {
-    return @{@"cooperationList":@"data",
-             @"commentList":@"data",
-             @"cooperationUser":@"data"};
+//    return @{@"cooperationList":@"data",
+//             @"commentList":@"data",
+//             @"cooperationUser":@"data"};
+    return @{@"mainCooperationList":@"data"};
 }
 
 @end

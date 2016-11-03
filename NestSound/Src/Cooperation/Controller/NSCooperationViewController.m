@@ -10,16 +10,17 @@
 #import "NSCooperationDetailViewController.h"
 #import "NSInvitationListTableViewCell.h"
 #import "NSCooperationListTableViewCell.h"
-#import "NSCooperationCommentCell.h"
+#import "NSCooperationMoreCommentCell.h"
 #import "NSLabelTableViewCell.h"
+#import "NSCooperationListModel.h"
 @interface NSCooperationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NSInvitationListTableViewCellDelegate>
 {
     UIImageView *emptyImgView;
     UITableView *cooperationTab;
-    
+    int currentPage;
 }
 
-
+@property (nonatomic,strong) NSMutableArray *cooperationArr;
 @end
 
 @implementation NSCooperationViewController
@@ -27,6 +28,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupCooperationViewController];
+    [self fetchCooperationListWithIsLoadingMore:NO];
+}
+#pragma mark - Network Requests and Data Handling
+- (void)fetchCooperationListWithIsLoadingMore:(BOOL)isLoadingMore {
+    if (!isLoadingMore) {
+        self.requestType = NO;
+        currentPage = 1;
+        self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(NO)};
+    }else{
+        ++currentPage;
+        self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(YES)};
+    }
+    
+    self.requestURL = cooperationListUrl;
+    
+}
+- (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
+    if (requestErr) {
+        
+    } else {
+        if ([operation.urlTag isEqualToString:cooperationListUrl]) {
+            NSCooperationListModel *model = (NSCooperationListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                [cooperationTab.pullToRefreshView stopAnimating];
+                self.cooperationArr = [NSMutableArray arrayWithArray:model.mainCooperationList];
+                
+            }else{
+                [cooperationTab.infiniteScrollingView stopAnimating];
+                [self.cooperationArr addObjectsFromArray:model.mainCooperationList];
+            }
+            [cooperationTab reloadData];
+        }
+    }
 }
 - (void)setupCooperationViewController {
     
@@ -39,7 +73,7 @@
     
 //    cooperationTab.rowHeight = 80;
     
-    cooperationTab.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    cooperationTab.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     cooperationTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
@@ -52,7 +86,7 @@
         if (!Wself) {
             return ;
         }else{
-            //            [Wself fetchDataWithType:1 andIsLoadingMore:NO];
+            [Wself fetchCooperationListWithIsLoadingMore:NO];
         }
     }];
     //loadingMore
@@ -60,7 +94,7 @@
         if (!Wself) {
             return ;
         }
-        //        [Wself fetchDataWithType:1 andIsLoadingMore:YES];
+        [Wself fetchCooperationListWithIsLoadingMore:YES];
     }];
     emptyImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.0_noMyData"]];
     
@@ -73,20 +107,28 @@
     [cooperationTab addSubview:emptyImgView];
     
     
-   
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 5;
+    return self.cooperationArr.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 6;
+    MainCooperationListModel *model = self.cooperationArr[section];
+    NSArray *commentArr = [NSArray arrayWithArray:model.cooperationCommentList];
+    return commentArr.count > 3 ? 6 : 3 + commentArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
+    NSArray *commentArr = [NSArray arrayWithArray:mainModel.cooperationCommentList];
+    CooperationModel *cooperationModel = mainModel.cooperation;
+    NSInteger commentNum;
+    if (commentArr.count>3) {
+        commentNum = 6;
+    } else {
+        commentNum = 3 + commentArr.count;
+    }
     if (indexPath.row == 0) {
         static NSString *ID = @"TopCell";
         
@@ -98,6 +140,8 @@
             cell.delegate = self;
         }
         
+        cell.cooperationModel = cooperationModel;
+        cell.cooperationUser = mainModel.cooperationUser;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
@@ -111,24 +155,25 @@
             cell = [[NSCooperationListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             
         }
-        
+        cell.cooperationModel = cooperationModel;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         return cell;
-    } else if (indexPath.row == 5) {
-        static NSString * commentCellIdenfity = @"commentCell";
-        NSCooperationCommentCell * commentCell = [tableView dequeueReusableCellWithIdentifier:commentCellIdenfity];
-        if (!commentCell) {
-            commentCell = [[NSCooperationCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:commentCellIdenfity];
-            commentCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    } else if (indexPath.row == commentNum-1) {
+        static NSString * moreCommentCellIdenfity = @"moreCommentCell";
+        NSCooperationMoreCommentCell * moreCommentCell = [tableView dequeueReusableCellWithIdentifier:moreCommentCellIdenfity];
+        if (!moreCommentCell) {
+            moreCommentCell = [[NSCooperationMoreCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:moreCommentCellIdenfity];
+            moreCommentCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        return commentCell;
+        moreCommentCell.cooperationModel = cooperationModel;
+        return moreCommentCell;
     } else {
         
-        static NSString * publicCellIdenfity = @"bottomCell";
-        NSLabelTableViewCell * bottomCell = [tableView dequeueReusableCellWithIdentifier:publicCellIdenfity];
+        static NSString * commentCellIdenfity = @"bottomCell";
+        NSLabelTableViewCell * bottomCell = [tableView dequeueReusableCellWithIdentifier:commentCellIdenfity];
         if (!bottomCell) {
-            bottomCell = [[NSLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:publicCellIdenfity];
+            bottomCell = [[NSLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:commentCellIdenfity];
             bottomCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
 
@@ -158,6 +203,12 @@
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
     self.requestType = NO;
     self.requestParams = @{@"did":@"",@"uid":JUserID,@"itemid":@""};
+}
+- (NSMutableArray *)cooperationArr {
+    if (!_cooperationArr) {
+        self.cooperationArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _cooperationArr;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

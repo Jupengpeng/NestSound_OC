@@ -46,7 +46,7 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGFloat currentLocation = self.originMiddleX +self.waveDistance;
-    NSLog(@"waveView middle x %f",self.originMiddleX);
+//    NSLog(@"waveView middle x %f",self.originMiddleX);
     switch (self.drawRectStyle) {
         case WaveViewDrawRectStyleCreate:
         {

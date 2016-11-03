@@ -45,16 +45,28 @@ static NSString *illustrateStr = @"· 默认合作期限为15天,您可以在所
 }
 #pragma mark - Network Requests and Data Handling
 - (void)publicClick {
+    if (!demandTextView.text.length) {
+        [[NSToastManager manager] showtoast:@"请填写合作期望"];
+        return;
+    } else if (!lyricItemId){
+        [[NSToastManager manager] showtoast:@"请选择合作歌词"];
+        return;
+    }
     self.requestType = NO;
-    self.requestParams = @{@"uid":JUserID,@"requirement":demandTextView.text,@"itemid":@(lyricItemId)};
+    self.requestParams = @{@"uid":JUserID,@"requirement":demandTextView.text,@"itemid":@(lyricItemId),@"token":LoginToken};
     self.requestURL = publicCooperationUrl;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
     if (requestErr) {
         
     } else {
-        if ([operation.urlTag isEqualToString:publicLyricURL]) {
-            [self.navigationController popViewControllerAnimated:YES];
+        if ([operation.urlTag isEqualToString:publicCooperationUrl]) {
+            if ([parserObject.message isEqualToString:@"操作成功"]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [[NSToastManager manager] showtoast:parserObject.message];
+            }
+            
         }
     }
 }

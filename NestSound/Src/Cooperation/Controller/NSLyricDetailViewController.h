@@ -8,12 +8,13 @@
 
 #import "NSBaseViewController.h"
 
-
+@class CooperationLyricModel;
 typedef void(^returnLyric)(NSString *lyricTitle,long lyricId);
 
 @interface NSLyricDetailViewController : NSBaseViewController
 
 @property (nonatomic,copy) returnLyric lyricBlock;
-//- (void)returnLyricWithBlock:(returnLyric)block;
-//- (instancetype)initWithBlock:(returnLyric)block;
+
+@property (nonatomic,strong) CooperationLyricModel *lyricModel;
+
 @end

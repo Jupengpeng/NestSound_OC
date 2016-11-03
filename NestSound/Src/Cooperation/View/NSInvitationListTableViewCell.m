@@ -7,7 +7,7 @@
 //
 
 #import "NSInvitationListTableViewCell.h"
-
+#import "NSCooperationListModel.h"
 @interface NSInvitationListTableViewCell ()
 {
     //头像
@@ -64,7 +64,7 @@
     
     signatureLabel.textColor = [UIColor lightGrayColor];
     
-    signatureLabel.text = @"人不风流枉少年";
+//    signatureLabel.text = @"人不风流枉少年";
     
     [self.contentView addSubview:signatureLabel];
     
@@ -81,7 +81,7 @@
     
     [invitationBtn addTarget:self action:@selector(invitationBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
-    [invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
+//    [invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
     
     [self.contentView addSubview:invitationBtn];
     
@@ -164,7 +164,19 @@
         
     }];
 }
-
+- (void)setCooperationModel:(CooperationModel *)cooperationModel {
+    _cooperationModel = cooperationModel;
+    signatureLabel.text = [date datetoLongLongStringWithDate:cooperationModel.createTime];
+}
+- (void)setCooperationUser:(CooperationUser *)cooperationUser {
+    _cooperationUser = cooperationUser;
+    [iconImgView setDDImageWithURLString:cooperationUser.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    authorNameLabel.text = cooperationUser.nickName;
+//    signatureLabel.text = cooperationUser.
+    recommend.hidden = YES;
+    [invitationBtn setTitle:@"合作" forState:UIControlStateNormal];
+    
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

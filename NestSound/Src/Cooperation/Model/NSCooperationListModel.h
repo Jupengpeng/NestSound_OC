@@ -15,12 +15,10 @@
 @property (nonatomic, copy) NSString *cooperationLyric;
 @property (nonatomic, copy) NSString *requiement;
 @property (nonatomic, assign) int commentNum;
-//@property (nonatomic, assign) int workNum;
+@property (nonatomic, assign) int workNum;
 @property (nonatomic, assign) long createTime;
 @end
-@interface CooperationListModel : NSBaseModel
-@property (nonatomic,strong) CooperationModel *cooperation;
-@end;
+
 
 //评论
 @protocol CooperationCommentModel <NSObject>
@@ -31,10 +29,8 @@
 @property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) NSString *comment;
 @end
+ 
 
-@interface CooperationCommentListModel : NSBaseModel
-@property (nonatomic, strong) NSArray <CooperationCommentModel> *cooperationComment;
-@end
 //用户信息
 
 @interface CooperationUser : NSBaseModel
@@ -43,13 +39,18 @@
 @property (nonatomic ,assign) long uId;
 @end
 
-@interface NSCooperationUser : NSBaseModel
-@property (nonatomic,strong) CooperationUser *cooperationUser;
+
+@protocol MainCooperationListModel <NSObject>
 
 @end
 
+@interface MainCooperationListModel : NSBaseModel
+@property (nonatomic, strong) CooperationModel *cooperation;
+@property (nonatomic, strong) NSArray <CooperationCommentModel> *cooperationCommentList;
+@property (nonatomic, strong) CooperationUser *cooperationUser;
+@end
+
+
 @interface NSCooperationListModel : NSBaseModel
-@property (nonatomic, strong) CooperationListModel *cooperationList;
-@property (nonatomic, strong) CooperationCommentListModel *commentList;
-@property (nonatomic, strong) NSCooperationUser *cooperationUser;
+@property (nonatomic, strong) NSArray <MainCooperationListModel> *mainCooperationList;
 @end

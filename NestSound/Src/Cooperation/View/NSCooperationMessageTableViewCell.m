@@ -299,6 +299,7 @@ static inline NSRegularExpression * NameRegularExpression() {
 //    
 //}
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 

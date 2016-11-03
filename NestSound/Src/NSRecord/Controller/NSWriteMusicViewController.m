@@ -1118,8 +1118,8 @@ Boolean plugedHeadset;
                     [self.player prepareToPlay];
                     
                 }
-                lyricView.lyricView.scrollEnabled = NO;
-                lyricView.lyricText.userInteractionEnabled = NO;
+//                lyricView.lyricView.scrollEnabled = NO;
+//                lyricView.lyricText.userInteractionEnabled = NO;
                 [self addTimer];
                 
                 self.isPlay = NO;
@@ -1490,7 +1490,7 @@ Boolean plugedHeadset;
         
         self.link.frameInterval=frameInterval;
 
-        [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
 }
 
@@ -1502,7 +1502,7 @@ Boolean plugedHeadset;
         self.waveLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(scrollTimeView)];
         
         self.waveLink.frameInterval=frameInterval;
-        [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [self.waveLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
 }
 
@@ -1545,7 +1545,7 @@ Boolean plugedHeadset;
 
     
     timerNum += frameInterval/60.0;
-    
+//    NSLog(@"time : %f",timerNum);
     self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
     
 
@@ -1748,61 +1748,63 @@ Boolean plugedHeadset;
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    timerNum=scrollView.contentOffset.x/speed;
-    timerNumPlay_temp = timerNum;
-    curtime3 =timerNum;
-    curtime2 =timerNum;
-    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
-    
-    self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
-    [self.waveform waveViewChangingWavesColor];
-   
-    if (scrollView.contentOffset.x >= ([self.waveform.waveView.locationsArr.lastObject floatValue] - self.waveform.middleLineV.x)) {
-        [self audioWorkAuditionEndProcess];
+    if (scrollView == self.waveform.timeScrollView) {
+        timerNum=scrollView.contentOffset.x/speed;
+        timerNumPlay_temp = timerNum;
+        curtime3 =timerNum;
+        curtime2 =timerNum;
+        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         
+        self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
+        [self.waveform waveViewChangingWavesColor];
+        
+        if (scrollView.contentOffset.x >= ([self.waveform.waveView.locationsArr.lastObject floatValue] - self.waveform.middleLineV.x)) {
+            [self audioWorkAuditionEndProcess];
+            
+        }
     }
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-
-    
-    //只有在手动滑动的时候波形图动态变化
-    UIButton *playBtn = self.btns[1];
-    UIButton *recordBtn = self.btns[2];
-    if (!recordBtn.selected && !playBtn.selected) {
-        self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
- 
-        [self.waveform waveViewChangingWavesColor];
-
+    if (scrollView == self.waveform.timeScrollView) {
         
+        //只有在手动滑动的时候波形图动态变化
+        UIButton *playBtn = self.btns[1];
+        UIButton *recordBtn = self.btns[2];
+        if (!recordBtn.selected && !playBtn.selected) {
+            self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
+            
+            [self.waveform waveViewChangingWavesColor];
+            
+            
+        }
     }
-   
     
 }
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-
-    if (decelerate) {
-        
-    }else{
-        timerNum=scrollView.contentOffset.x/speed;
-        timerNumPlay_temp = timerNum;
-        curtime3 =timerNum;
-//        curtime2 =timerNum;
-
-        self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
-        self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
-        [self.waveform waveViewChangingWavesColor];
-
-        //滑动到最后设置为播放完
-        if (scrollView.contentOffset.x >= ([self.waveform.waveView.locationsArr.lastObject floatValue] - self.waveform.middleLineV.x)) {
-            [self audioWorkAuditionEndProcess];
-
+    if (scrollView == self.waveform.timeScrollView) {
+        if (decelerate) {
+            
+        }else{
+            timerNum=scrollView.contentOffset.x/speed;
+            timerNumPlay_temp = timerNum;
+            curtime3 =timerNum;
+            //        curtime2 =timerNum;
+            
+            self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+            self.waveform.waveView.waveDistance = scrollView.contentOffset.x;
+            [self.waveform waveViewChangingWavesColor];
+            
+            //滑动到最后设置为播放完
+            if (scrollView.contentOffset.x >= ([self.waveform.waveView.locationsArr.lastObject floatValue] - self.waveform.middleLineV.x)) {
+                [self audioWorkAuditionEndProcess];
+                
+            }
+            
         }
-
     }
-
 }
 #pragma mark - UITextViewDelegate
 -(void)textViewDidChange:(UITextView *)textView

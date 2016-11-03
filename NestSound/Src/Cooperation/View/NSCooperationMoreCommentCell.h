@@ -1,5 +1,5 @@
 //
-//  NSCooperationListTableViewCell.h
+//  NSCooperationMoreCommentCell.h
 //  NestSound
 //
 //  Created by yinchao on 16/10/27.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class CooperationModel;
-@interface NSCooperationListTableViewCell : UITableViewCell
+@interface NSCooperationMoreCommentCell : UITableViewCell
 @property (nonatomic,strong) CooperationModel *cooperationModel;
 @end

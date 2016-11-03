@@ -35,7 +35,7 @@
 		0CCC5CA01DC1E293007E4617 /* NSInvitationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5C9F1DC1E293007E4617 /* NSInvitationListViewController.m */; };
 		0CCC5CA31DC20EEB007E4617 /* NSInvitationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CA21DC20EEB007E4617 /* NSInvitationListTableViewCell.m */; };
 		0CCC5CA61DC222FB007E4617 /* NSCooperationListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CA51DC222FB007E4617 /* NSCooperationListTableViewCell.m */; };
-		0CCC5CA91DC22ACF007E4617 /* NSCooperationCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CA81DC22ACF007E4617 /* NSCooperationCommentCell.m */; };
+		0CCC5CA91DC22ACF007E4617 /* NSCooperationMoreCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CA81DC22ACF007E4617 /* NSCooperationMoreCommentCell.m */; };
 		0CCC5CAC1DC22E96007E4617 /* NSLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC5CAB1DC22E96007E4617 /* NSLabelTableViewCell.m */; };
 		0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC8A1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m */; };
 		0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */; };
@@ -365,8 +365,8 @@
 		0CCC5CA21DC20EEB007E4617 /* NSInvitationListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSInvitationListTableViewCell.m; sourceTree = "<group>"; };
 		0CCC5CA41DC222FB007E4617 /* NSCooperationListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationListTableViewCell.h; sourceTree = "<group>"; };
 		0CCC5CA51DC222FB007E4617 /* NSCooperationListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationListTableViewCell.m; sourceTree = "<group>"; };
-		0CCC5CA71DC22ACF007E4617 /* NSCooperationCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationCommentCell.h; sourceTree = "<group>"; };
-		0CCC5CA81DC22ACF007E4617 /* NSCooperationCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationCommentCell.m; sourceTree = "<group>"; };
+		0CCC5CA71DC22ACF007E4617 /* NSCooperationMoreCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationMoreCommentCell.h; sourceTree = "<group>"; };
+		0CCC5CA81DC22ACF007E4617 /* NSCooperationMoreCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationMoreCommentCell.m; sourceTree = "<group>"; };
 		0CCC5CAA1DC22E96007E4617 /* NSLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLabelTableViewCell.h; sourceTree = "<group>"; };
 		0CCC5CAB1DC22E96007E4617 /* NSLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLabelTableViewCell.m; sourceTree = "<group>"; };
 		0CCCDC891D5EC83000AE0BD3 /* NSAccompanyCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAccompanyCategoryCell.h; sourceTree = "<group>"; };
@@ -2228,8 +2228,8 @@
 				0CCC5CA21DC20EEB007E4617 /* NSInvitationListTableViewCell.m */,
 				0CCC5CA41DC222FB007E4617 /* NSCooperationListTableViewCell.h */,
 				0CCC5CA51DC222FB007E4617 /* NSCooperationListTableViewCell.m */,
-				0CCC5CA71DC22ACF007E4617 /* NSCooperationCommentCell.h */,
-				0CCC5CA81DC22ACF007E4617 /* NSCooperationCommentCell.m */,
+				0CCC5CA71DC22ACF007E4617 /* NSCooperationMoreCommentCell.h */,
+				0CCC5CA81DC22ACF007E4617 /* NSCooperationMoreCommentCell.m */,
 				0CCC5CAA1DC22E96007E4617 /* NSLabelTableViewCell.h */,
 				0CCC5CAB1DC22E96007E4617 /* NSLabelTableViewCell.m */,
 				0CFAFA2E1DC33B5800E82020 /* NSCooperationMessageTableViewCell.h */,
@@ -3629,7 +3629,7 @@
 				2ADDECA31D101B2F00030D5A /* NSQiniuModel.m in Sources */,
 				94456D4E1D5185A60088385F /* NSTextField.m in Sources */,
 				0C165F781DC71421003795D1 /* NSCooperationListModel.m in Sources */,
-				0CCC5CA91DC22ACF007E4617 /* NSCooperationCommentCell.m in Sources */,
+				0CCC5CA91DC22ACF007E4617 /* NSCooperationMoreCommentCell.m in Sources */,
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
 				0CCE1DBE1DBF7F0F00FB66D6 /* NSCooperationViewController.m in Sources */,

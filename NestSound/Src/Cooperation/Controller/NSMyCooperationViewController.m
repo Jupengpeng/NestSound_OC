@@ -8,6 +8,8 @@
 
 #import "NSMyCooperationViewController.h"
 #import "NSMyCooperationTableViewCell.h"
+#import "NSMyCooperationListModel.h"
+#import "NSLoginViewController.h"
 @interface NSMyCooperationViewController ()<UITableViewDataSource,UITableViewDelegate,NSTipViewDelegate>
 {
     UITableView *myCooperationTab;
@@ -24,7 +26,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupMyCooperationViewController];
+    
+}
+- (void)viewWillAppear:(BOOL)animated {
+    if (JUserID) {
+        [self setupMyCooperationViewController];
+        [self fetchMyCooperationListWithIsLoadingMore:NO];
+    } else {
+        UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+            loginBtn.centerX = self.view.centerX;
+            loginBtn.y = ScreenHeight/3;
+            loginBtn.width = 60;
+            loginBtn.height = 30;
+            loginBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
+            [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+            [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        } action:^(UIButton *btn) {
+//            NSLoginViewController *login = [[NSLoginViewController alloc] init];
+//            
+//            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+//            nav.navigationBar.hidden = YES;
+//            [self presentViewController:nav animated:YES completion:nil];
+//        }];
+        [self.view addSubview:loginBtn];
+    }
 }
 #pragma mark - Network Requests and Data Handling
 - (void)fetchMyCooperationListWithIsLoadingMore:(BOOL)isLoadingMore {
@@ -45,7 +70,17 @@
         
     } else {
         if ([operation.urlTag isEqualToString:myCooperationListUrl]) {
-            [self.navigationController popViewControllerAnimated:YES];
+            NSMyCooperationListModel *model = (NSMyCooperationListModel *)parserObject;
+            if (!operation.isLoadingMore) {
+                [myCooperationTab.pullToRefreshView stopAnimating];
+                self.myCooperationArr = [NSMutableArray arrayWithArray:model.myCooperationList];
+                
+            }else{
+                [myCooperationTab.infiniteScrollingView stopAnimating];
+                [self.myCooperationArr addObjectsFromArray:model.myCooperationList];
+            }
+            
+            [myCooperationTab reloadData];
         }
     }
 }
@@ -73,7 +108,7 @@
         if (!wSelf) {
             return ;
         }else{
-            //            [Wself fetchDataWithType:2 andIsLoadingMore:NO];
+//                        [Wself fetchDataWithType:2 andIsLoadingMore:NO];
         }
     }];
     //loadingMore
