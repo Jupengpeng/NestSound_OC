@@ -22,7 +22,8 @@
 
 @property (nonatomic, strong) DemandinfoModel *demandInfo;
 
-
+//将 cmmentModel转为 NScommentModel
+@property (nonatomic ,strong) NSArray *commentArray;
 
 @end
 
@@ -51,6 +52,8 @@
 @property (nonatomic, assign) long long createtime;
 
 @property (nonatomic, assign) long long endtime;
+
+@property (nonatomic,assign) BOOL iscollect;
 
 @end
 

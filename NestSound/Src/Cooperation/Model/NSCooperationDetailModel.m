@@ -7,7 +7,7 @@
 //
 
 #import "NSCooperationDetailModel.h"
-
+#import "NSCommentListModel.h"
 @implementation NSCooperationDetailModel
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"completeList" : [CoWorkModel class],
@@ -15,6 +15,34 @@
              @"userInfo" : @"userInfo" ,
              @"demandInfo":@"demandInfo"};
 }
+
+- (NSArray *)commentArray{
+    
+    NSMutableArray *commentArray = [NSMutableArray array];
+    for (CommentModel *oriModel in self.commentList) {
+        NSCommentModel *commentModel = [[NSCommentModel alloc] init];
+        
+        commentModel.commentID = oriModel.id;
+        commentModel.type = oriModel.type;
+        commentModel.commentType = oriModel.comment_type;
+        commentModel.itemID = oriModel.itemid;
+        commentModel.userID = oriModel.uid;
+        commentModel.targetUserID = oriModel.target_uid;
+        commentModel.createDate = oriModel.createdate;
+        commentModel.comment = oriModel.comment;
+        commentModel.headerURL = oriModel.headerurl;
+        commentModel.nickName = oriModel.nickname;
+        commentModel.titleImageURL = oriModel.targetheaderurl;
+        commentModel.targetName = oriModel.targetheaderurl;
+        commentModel.nickName = oriModel.nickname;
+        [commentArray addObject:commentModel];
+    }
+    _commentArray = [NSMutableArray arrayWithArray:commentArray];
+
+    return _commentArray;
+    
+}
+
 @end
 
 @implementation UserinfoModel

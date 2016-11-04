@@ -148,6 +148,7 @@
         self.requestParams = @{@"did":@(self.cooperationId),
                                @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
                                kIsLoadingMore:[NSString stringWithFormat:@"%d",isLoadingMore],
+                               @"uid":JUserID,
                                @"token":LoginToken};
     }
     
@@ -202,26 +203,8 @@
             
             NSCooperationDetailModel *detailModel = (NSCooperationDetailModel *)parserObject;
             self.cooperateModel = detailModel;
-            NSMutableArray *commentArray = [NSMutableArray array];
-            for (CommentModel *oriModel in detailModel.commentList) {
-                NSCommentModel *commentModel = [[NSCommentModel alloc] init];
-                
-                commentModel.commentID = oriModel.id;
-                commentModel.type = oriModel.type;
-                commentModel.commentType = oriModel.comment_type;
-                commentModel.itemID = oriModel.itemid;
-                commentModel.userID = oriModel.uid;
-                commentModel.targetUserID = oriModel.target_uid;
-                commentModel.createDate = oriModel.createdate;
-                commentModel.comment = oriModel.comment;
-                commentModel.headerURL = oriModel.headerurl;
-                commentModel.nickName = oriModel.nickname;
-                commentModel.titleImageURL = oriModel.targetheaderurl;
-                commentModel.targetName = oriModel.targetheaderurl;
-                commentModel.nickName = oriModel.nickname;
-                [commentArray addObject:commentModel];
-            }
-            self.msgArray = [NSMutableArray arrayWithArray:commentArray];
+            self.msgArray = [NSMutableArray arrayWithArray:detailModel.commentArray];
+            
             if (self.msgArray.count > 3) {
                 _showMoreComment = YES;
             }else{
@@ -238,6 +221,9 @@
                 [self.coWorksArray addObjectsFromArray:detailModel.completeList];
                 
             }
+            
+            self.collectButton.selected = detailModel.demandInfo.iscollect;
+            
 
         }else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
             CoWorkModel *workModel = (CoWorkModel *)parserObject;
@@ -610,6 +596,7 @@
         _tableView.backgroundColor = [UIColor hexColorFloat:@"f4f4f4"];
         [_tableView registerClass:[NSCooperateDetailMainCell class] forCellReuseIdentifier:@"NSCooperateDetailMainCellId"];
         [_tableView registerClass:[NSCommentTableViewCell class] forCellReuseIdentifier:@"NSCommentTableViewCellId"];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }
