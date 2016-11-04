@@ -7,6 +7,12 @@
 //
 
 #import "NSLabelTableViewCell.h"
+#import "NSCooperationListModel.h"
+@interface NSLabelTableViewCell ()
+{
+    UILabel *commentLabel;
+}
+@end
 
 @implementation NSLabelTableViewCell
 
@@ -21,9 +27,11 @@
 }
 - (void)setupLabelCommentCellUI {
     
-    UILabel *commentLabel = [[UILabel alloc] init];
+    commentLabel = [[UILabel alloc] init];
     
     commentLabel.text = @"长安不会乱:评论";
+    
+    commentLabel.textColor = [UIColor lightGrayColor];
     
     commentLabel.font = [UIFont systemFontOfSize:12];
     
@@ -39,6 +47,10 @@
         
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-5);
     }];
+}
+- (void)setCommentModel:(CooperationCommentModel *)commentModel {
+    _commentModel = commentModel;
+    commentLabel.attributedText = [attributedString getMutableAttributedString:[NSString stringWithFormat:@"%@:%@",commentModel.nickName,commentModel.comment] textColor:[UIColor darkGrayColor] length:commentModel.nickName.length];
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

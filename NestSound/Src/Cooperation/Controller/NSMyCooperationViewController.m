@@ -140,6 +140,7 @@
     myCooperationModel *model = _myCooperationArr[indexPath.row];
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
     cooperationDetailVC.cooperationId = model.myCooperationId;
+    cooperationDetailVC.detailTitle = model.cooperationTitle;
     cooperationDetailVC.isMyCoWork = YES;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }

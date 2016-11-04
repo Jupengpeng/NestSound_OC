@@ -10,6 +10,8 @@
 
 @class NSCooperationMessageTableViewCell;
 
+@class NSCommentModel;
+
 @protocol NSCooperationMessageTableViewCellDelegate <NSObject>
 
 - (void)commentTableViewCell:(NSCooperationMessageTableViewCell *)cell;
@@ -24,7 +26,7 @@
 //作者名
 @property (nonatomic, strong) UILabel *authorNameLabel;
 
-//@property (nonatomic,strong) NSCommentModel * commentModel;
+@property (nonatomic,strong) NSCommentModel * commentModel;
 
 @property (nonatomic, weak) id<NSCooperationMessageTableViewCellDelegate> delegate;
 @end

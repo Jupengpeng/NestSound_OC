@@ -356,6 +356,7 @@
                 CHLog(@"跳转到评论");
                 
                 NSCooperationMessageViewController *cooperationMessageVC = [[NSCooperationMessageViewController alloc] init];
+                cooperationMessageVC.cooperationId = self.cooperationId;
                 [self.navigationController pushViewController:cooperationMessageVC animated:YES];
             }];
 

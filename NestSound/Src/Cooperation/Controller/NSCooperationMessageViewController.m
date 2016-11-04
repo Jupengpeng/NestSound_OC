@@ -8,7 +8,10 @@
 
 #import "NSCooperationMessageViewController.h"
 #import "NSCooperationMessageTableViewCell.h"
-@interface NSCooperationMessageViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,NSCooperationMessageTableViewCellDelegate,TTTAttributedLabelDelegate>
+#import "NSUserPageViewController.h"
+#import "NSCommentListModel.h"
+@interface NSCooperationMessageViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,TTTAttributedLabelDelegate>
+//NSCooperationMessageTableViewCellDelegate
 {
     UITableView * _messageTableView;
     UIImageView * _emptyImage;
@@ -16,15 +19,19 @@
     UIView *bottomView;
     NSTextField *inputField;
     int currentPage;
-    int commentType;
+    int messageType;
+    long targetUid;
 }
+@property (nonatomic, strong) NSMutableArray *messageArr;
 @end
 
 @implementation NSCooperationMessageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    messageType = 1;
     [self setupCooperationMessageView];
+    [self fetchCooperationMessageListWithIsLoadingMore:NO];
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -36,33 +43,48 @@
     self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
-//        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
         ++currentPage;
-//        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
     }
-    self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
+    self.requestParams = @{@"page":@(currentPage),@"did":@(self.cooperationId),kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
     self.requestURL = cooperationMessageListUrl;
     
 }
-- (void)publicCooperationMessageWithMessage:(NSString *)message {
+- (void)publicCooperationMessageWithMessage:(NSString *)message andTargetUID:(long)targetUID{
     self.requestType = NO;
-    self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@""};
+    if (!messageType) {
+        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(2),@"itemid":@(self.cooperationId),@"type":@(2),@"token":LoginToken,@"target_uid":@(targetUID)};
+    } else {
+        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(1),@"itemid":@(self.cooperationId),@"type":@(2),@"token":LoginToken};
+    }
+    
+    self.requestURL = publicCooperationMessageUrl;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
     if (requestErr) {
         
     } else {
         if ([operation.urlTag isEqualToString:cooperationMessageListUrl]) {
-            [self.navigationController popViewControllerAnimated:YES];
-        } else if ([operation.urlTag isEqualToString:publicCooperationUrl]) {
+            NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
             
+            if (!operation.isLoadingMore) {
+                [_messageTableView.pullToRefreshView stopAnimating];
+                self.messageArr = [NSMutableArray arrayWithArray:commentList.commentList];
+                
+            }else{
+                [_messageTableView.infiniteScrollingView stopAnimating];
+                [self.messageArr addObjectsFromArray:commentList.commentList];
+                
+            }
+            [_messageTableView reloadData];
+        } else if ([operation.urlTag isEqualToString:publicCooperationMessageUrl]) {
+            [self fetchCooperationMessageListWithIsLoadingMore:NO];
         }
     }
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.messageArr.count;
 }
 #pragma mark - UITableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,14 +97,20 @@
         
         cell = [[NSCooperationMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
-        cell.delegate = self;
+//        cell.delegate = self;
     }
-    
+    cell.commentModel = self.messageArr[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.commentLabel.delegate = self;
     
-    
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSCommentModel *model = self.messageArr[indexPath.row];
+    [inputField becomeFirstResponder];
+    messageType = 0;
+    targetUid = model.userID;
+    inputField.placeholder = [NSString stringWithFormat:@"回复: %@",model.nickName];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -90,6 +118,8 @@
     
     return cell.commentLabelMaxY;
 }
+
+#pragma mark - setupUI
 - (void)setupCooperationMessageView {
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -116,7 +146,7 @@
         if (!wSelf) {
             return ;
         }else{
-//            [wSelf fetchCommentWithIsLoadingMore:NO];
+            [wSelf fetchCooperationMessageListWithIsLoadingMore:NO];
         }
     }];
     
@@ -125,7 +155,7 @@
         if (!wSelf) {
             return ;
         }else{
-//            [wSelf fetchCommentWithIsLoadingMore:YES];
+            [wSelf fetchCooperationMessageListWithIsLoadingMore:YES];
         }
     }];
     
@@ -265,22 +295,36 @@
     
     maskView.hidden = YES;
     
-    [self publicCooperationMessageWithMessage:textField.text];
-//    if (inputField.tag == 1) {
+//    [self publicCooperationMessageWithMessage:textField.text];
+    if (messageType) {
     
-//        [self postCommentWithComment:textField.text andUser:nil andType:2 andTargetUID:targetUserId];
+        [self publicCooperationMessageWithMessage:textField.text andTargetUID:targetUid];
         
-//    } else {
-//        
-//        [self postCommentWithComment:textField.text andUser:nil andType:1 andTargetUID:0];
-//        
-//    }
+    } else {
+        
+        [self publicCooperationMessageWithMessage:textField.text andTargetUID:targetUid];
+        
+    }
     
-//    inputField.tag = 2;
+    messageType = 1;
     
     textField.text = nil;
     
     return YES;
+}
+- (void)attributedLabel:(__unused TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    NSCooperationMessageTableViewCell * cell = (NSCooperationMessageTableViewCell *)label.superview.superview;
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.targetUserID]];
+    pageVC.who = Other;
+    [self.navigationController pushViewController:pageVC animated:YES];
+    
+}
+- (NSMutableArray *)messageArr {
+    if (!_messageArr) {
+        self.messageArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _messageArr;
 }
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

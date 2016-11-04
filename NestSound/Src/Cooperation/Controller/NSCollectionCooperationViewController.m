@@ -131,7 +131,7 @@
     CollectionCooperationModel *collectionModel = self.collectionArr[indexPath.section];
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
     cooperationDetailVC.cooperationId = collectionModel.cooperationId;
-    cooperationDetailVC.detailTitle = collectionModel.nickName;
+    cooperationDetailVC.detailTitle = collectionModel.cooperationTitle;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {

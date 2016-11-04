@@ -9,5 +9,5 @@
 #import "NSBaseViewController.h"
 
 @interface NSCooperationMessageViewController : NSBaseViewController
-
+@property (nonatomic, assign) int cooperationId;
 @end

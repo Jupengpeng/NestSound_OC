@@ -16,8 +16,7 @@
 #import "NSLoginViewController.h"
 @interface NSMainCooperationViewController ()<UIScrollViewDelegate>
 {
-    NSTipView *tipView;
-    UIView *maskView;
+    
     UIView * _lineView;
     NSMyCooperationViewController *myCooperationVC;
     NSCollectionCooperationViewController *collectionCooperationVC;

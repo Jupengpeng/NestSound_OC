@@ -113,7 +113,7 @@
 //    else if ([url isEqualToString:collectMessageURL]){
 //        return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
 //    }
-    else if ([url isEqualToString:commentMessageURL] || [url isEqualToString:commentURL]){
+    else if ([url isEqualToString:commentMessageURL] || [url isEqualToString:commentURL] || [url isEqualToString:cooperationMessageListUrl]){
         
         return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
         

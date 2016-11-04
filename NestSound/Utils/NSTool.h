@@ -66,3 +66,7 @@ extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelecto
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size;
 @end
 
+@interface attributedString : NSObject
++ (NSMutableAttributedString*)getMutableAttributedString:(NSString*)string textColor:(UIColor *)color length:(NSInteger)num;
+
+@end

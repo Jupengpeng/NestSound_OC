@@ -7,7 +7,7 @@
 //
 
 #import "NSCooperationMessageTableViewCell.h"
-
+#import "NSCommentListModel.h"
 static inline NSRegularExpression * NameRegularExpression() {
     static NSRegularExpression *_nameRegularExpression = nil;
     static dispatch_once_t onceToken;
@@ -217,87 +217,87 @@ static inline NSRegularExpression * NameRegularExpression() {
     }
 }
 
-//-(void)setCommentModel:(NSCommentModel *)commentModel
-//{
-//    _commentModel = commentModel;
-//    self.authorNameLabel.text = self.commentModel.nickName;
-//    
-//    UIImageView *image = [[UIImageView alloc] initWithFrame:iconBtn.frame];
-//    [image setDDImageWithURLString:_commentModel.headerURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
-//    [iconBtn.imageView setDDImageWithURLString:_commentModel.headerURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
-//    [iconBtn setBackgroundImage:image.image forState:UIControlStateNormal];
-//    
-//    dateLabel.text = [date datetoStringWithDate:self.commentModel.createDate];
-//    
-//    [titlePage setDDImageWithURLString:self.commentModel.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
-//    
-//    workNameLabel.text = self.commentModel.title;
-//    
-//    authorName.text = self.commentModel.authorName;
-//    
-//    
-//    WS(wSelf);
-//    
-//    if (self.commentModel.commentType == 1) {
-//        
-//        
-//        if (self.commentModel.targetUserID == 0) {
-//            self.commentModel.nowTargetName = @"";
-//        }
-//        self.name = [NSString stringWithFormat:@"%@",self.message == YES ? self.commentModel.targetName : self.commentModel.nowTargetName];
-//    } else {
-//        
-//        self.name = [NSString stringWithFormat:@"回复 %@ :",self.message == YES ? self.commentModel.targetName : self.commentModel.nowTargetName];
-//    }
-//    self.replyStr = self.commentModel.comment;
-//    NSString *text = [NSString stringWithFormat:@"%@ %@",self.name, self.replyStr];
-//    
-//    
-//    [self.commentLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
-//     {
-//         
-//         //设置可点击文字的范围
-//         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.message == YES ? wSelf.commentModel.targetName : wSelf.commentModel.nowTargetName options:NSCaseInsensitiveSearch];
-//         
-//         //设定可点击文字的的大小
-//         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
-//         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
-//         
-//         if (font) {
-//             
-//             //设置可点击文本的大小
-//             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
-//             
-//             //设置可点击文本的颜色
-//             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
-//             
-//             CFRelease(font);
-//             
-//         }
-//         //         }
-//         return mutableAttributedString;
-//     }];
-//    
-//    if (self.commentModel.commentType != 1) {
-//        
-//        //正则
-//        NSRegularExpression *regexp = NameRegularExpression();
-//        
-//        NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.message == YES ? self.commentModel.targetName.length : self.commentModel.nowTargetName.length)];
-//        
-//        [self.commentLabel addLinkToURL:nil withRange:linkRange];
-//        
-//    }
-//    
-//    //    [self.contentView addSubview:self.commentLabel];
-//    
-//    self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
-//    //65
-//    self.commentLabel.frame = CGRectMake(15, 55, self.labelSize.width + 10, self.labelSize.height);
-//    
-//    self.commentLabelMaxY = CGRectGetMaxY(self.commentLabel.frame) + 10;
-//    
-//}
+-(void)setCommentModel:(NSCommentModel *)commentModel
+{
+    _commentModel = commentModel;
+    self.authorNameLabel.text = self.commentModel.nickName;
+    
+    UIImageView *image = [[UIImageView alloc] initWithFrame:iconBtn.frame];
+    [image setDDImageWithURLString:_commentModel.headerURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    [iconBtn.imageView setDDImageWithURLString:_commentModel.headerURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    [iconBtn setBackgroundImage:image.image forState:UIControlStateNormal];
+    
+    dateLabel.text = [date datetoStringWithDate:self.commentModel.createDate];
+    
+    [titlePage setDDImageWithURLString:self.commentModel.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    
+    workNameLabel.text = self.commentModel.title;
+    
+    authorName.text = self.commentModel.authorName;
+    
+    
+    WS(wSelf);
+    
+    if (self.commentModel.commentType == 1) {
+        
+        
+        if (self.commentModel.targetUserID == 0) {
+            self.commentModel.nowTargetName = @"";
+        }
+        self.name = [NSString stringWithFormat:@"%@",self.message == YES ? self.commentModel.targetName : self.commentModel.nowTargetName];
+    } else {
+        
+        self.name = [NSString stringWithFormat:@"回复 %@ :",self.message == YES ? self.commentModel.targetName : self.commentModel.nowTargetName];
+    }
+    self.replyStr = self.commentModel.comment;
+    NSString *text = [NSString stringWithFormat:@"%@ %@",self.name, self.replyStr];
+    
+    
+    [self.commentLabel setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString)
+     {
+         
+         //设置可点击文字的范围
+         NSRange boldRange = [[mutableAttributedString string] rangeOfString:wSelf.message == YES ? wSelf.commentModel.targetName : wSelf.commentModel.nowTargetName options:NSCaseInsensitiveSearch];
+         
+         //设定可点击文字的的大小
+         UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:12];
+         CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
+         
+         if (font) {
+             
+             //设置可点击文本的大小
+             [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
+             
+             //设置可点击文本的颜色
+             [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor hexColorFloat:@"539ac2"] CGColor] range:boldRange];
+             
+             CFRelease(font);
+             
+         }
+         //         }
+         return mutableAttributedString;
+     }];
+    
+    if (self.commentModel.commentType != 1) {
+        
+        //正则
+        NSRegularExpression *regexp = NameRegularExpression();
+        
+        NSRange linkRange = [regexp rangeOfFirstMatchInString:text options:0 range:NSMakeRange(3, self.message == YES ? self.commentModel.targetName.length : self.commentModel.nowTargetName.length)];
+        
+        [self.commentLabel addLinkToURL:nil withRange:linkRange];
+        
+    }
+    
+    //    [self.contentView addSubview:self.commentLabel];
+    
+    self.labelSize = [self.commentLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 70, MAXFLOAT)];
+    //65
+    self.commentLabel.frame = CGRectMake(15, 55, self.labelSize.width + 10, self.labelSize.height);
+    
+    self.commentLabelMaxY = CGRectGetMaxY(self.commentLabel.frame) + 10;
+    
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

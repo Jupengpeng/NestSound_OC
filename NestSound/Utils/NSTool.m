@@ -600,3 +600,13 @@ static NSDateFormatter *dateFormatter;
 }
 
 @end
+
+@implementation attributedString
+
++ (NSMutableAttributedString*)getMutableAttributedString:(NSString*)string textColor:(UIColor *)color length:(NSInteger)num {
+    NSMutableAttributedString * aAttributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    [aAttributedString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, num)];
+    return aAttributedString;
+}
+
+@end

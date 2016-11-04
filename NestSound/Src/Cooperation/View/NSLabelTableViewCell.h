@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NSLabelTableViewCell : UITableViewCell
+@class CooperationCommentModel;
 
+@interface NSLabelTableViewCell : UITableViewCell
+@property (nonatomic,strong) CooperationCommentModel *commentModel;
 @end

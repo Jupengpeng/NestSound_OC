@@ -14,11 +14,16 @@
 #import "NSLabelTableViewCell.h"
 #import "NSCooperationListModel.h"
 #import "NSUserPageViewController.h"
-@interface NSCooperationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NSInvitationListTableViewCellDelegate>
+#import "NSAccompanyListViewController.h"
+#import "NSCooperationDetailModel.h"
+@interface NSCooperationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NSInvitationListTableViewCellDelegate,NSTipViewDelegate>
 {
     UIImageView *emptyImgView;
     UITableView *cooperationTab;
+    NSTipView *_tipView;
+    UIView *_maskView;
     int currentPage;
+    int cooperationId;
 }
 
 @property (nonatomic,strong) NSMutableArray *cooperationArr;
@@ -60,6 +65,15 @@
                 [self.cooperationArr addObjectsFromArray:model.mainCooperationList];
             }
             [cooperationTab reloadData];
+        } else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
+            CoWorkModel *workModel = (CoWorkModel *)parserObject;
+            NSAccompanyListViewController *accompanyController = [[NSAccompanyListViewController alloc] init];
+            accompanyController.coWorkModel = workModel;
+            [self.navigationController pushViewController:accompanyController animated:YES];
+            
+            
+            
+            
         }
     }
 }
@@ -181,7 +195,7 @@
             bottomCell = [[NSLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:commentCellIdenfity];
             bottomCell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-
+        bottomCell.commentModel = commentArr[indexPath.row-2];
         return bottomCell;
     }
     
@@ -194,7 +208,7 @@
     if (cooperationModel.uId == [JUserID intValue]) {
         cooperationDetailVC.isMyCoWork = YES;
     }
-    cooperationDetailVC.detailTitle = mainModel.cooperationUser.nickName;
+    cooperationDetailVC.detailTitle = cooperationModel.cooperationTitle;
     cooperationDetailVC.cooperationId = cooperationModel.cooperationId;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }
@@ -212,6 +226,38 @@
 }
 #pragma mark - NSInvitationListTableViewCellDelegate
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
+    NSIndexPath *indexPath = [cooperationTab indexPathForCell:cell];
+    MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
+    CooperationModel *cooperationModel = mainModel.cooperation;
+    cooperationId = cooperationModel.cooperationId;
+    _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    
+    _maskView.backgroundColor = [UIColor lightGrayColor];
+    
+    _maskView.alpha = 0.5;
+    
+    [self.navigationController.view addSubview:_maskView
+     ];
+    
+    CGFloat padding = ScreenWidth *60/375.0;
+    CGFloat width = (ScreenWidth - padding * 2);
+    CGFloat height = width * 338/256.0f;
+    
+    
+    _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+    
+    _tipView.delegate = self;
+    
+    _tipView.imgName = @"2.0_backgroundImage";
+    
+    _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
+    [self.navigationController.view addSubview:_tipView];
+    
+    CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+    keyFrame.duration = 0.3;
+    keyFrame.removedOnCompletion = NO;
+    [_tipView.layer addAnimation:keyFrame forKey:nil];
     self.requestType = NO;
     self.requestParams = @{@"did":@"",@"uid":JUserID,@"itemid":@""};
 }
@@ -227,6 +273,38 @@
     
     [self.navigationController pushViewController:pageVC animated:YES];
 }
+#pragma mark - NSTipViewDelegate
+
+- (void)cancelBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+    }];
+}
+- (void)ensureBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+        
+        self.requestType = NO;
+        
+        self.requestParams = @{@"did":@(cooperationId),
+                               @"uid":JUserID,@"token":LoginToken};
+        
+        self.requestURL = coCooperateActionUrl;
+    }];
+}
+
 - (NSMutableArray *)cooperationArr {
     if (!_cooperationArr) {
         self.cooperationArr = [NSMutableArray arrayWithCapacity:1];

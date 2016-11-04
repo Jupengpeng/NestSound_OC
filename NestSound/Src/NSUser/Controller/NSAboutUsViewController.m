@@ -55,7 +55,7 @@
     weChatLabel.textColor = [UIColor hexColorFloat:@"ffd00b"];
     weChatLabel.userInteractionEnabled = YES;
     weChatLabel.textAlignment = NSTextAlignmentCenter;
-    weChatLabel.attributedText = [self getMutableAttributedString:@"微信公众号: easycompose" textColor:[UIColor lightGrayColor] length:6];
+    weChatLabel.attributedText = [attributedString getMutableAttributedString:@"微信公众号: easycompose" textColor:[UIColor lightGrayColor] length:6];
     [self.view addSubview:weChatLabel];
     [weChatLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).with.offset(-80);
@@ -67,7 +67,7 @@
     qqLabel.textColor = [UIColor hexColorFloat:@"ffd00b"];
     qqLabel.userInteractionEnabled = YES;
     qqLabel.textAlignment = NSTextAlignmentCenter;
-    qqLabel.attributedText = [self getMutableAttributedString:@"QQ交流群: 552392444" textColor:[UIColor lightGrayColor] length:6];
+    qqLabel.attributedText = [attributedString getMutableAttributedString:@"QQ交流群: 552392444" textColor:[UIColor lightGrayColor] length:6];
     [self.view addSubview:qqLabel];
     [qqLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).with.offset(-100);
@@ -129,11 +129,7 @@
             break;
     }
 }
-- (NSMutableAttributedString*)getMutableAttributedString:(NSString*)string textColor:(UIColor *)color length:(NSInteger)num {
-    NSMutableAttributedString * aAttributedString = [[NSMutableAttributedString alloc] initWithString:string];
-    [aAttributedString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, num)];
-    return aAttributedString;
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
