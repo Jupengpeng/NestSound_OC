@@ -39,7 +39,7 @@
     //
     titleLabel = [[UILabel alloc] init];
     
-    titleLabel.text = @"疯子";
+    titleLabel.text = @"音淘网络";
     
     [self.contentView addSubview:titleLabel];
     

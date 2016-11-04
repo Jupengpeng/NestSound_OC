@@ -17,6 +17,7 @@
 @property (nonatomic, assign) int commentNum;
 @property (nonatomic, assign) int workNum;
 @property (nonatomic, assign) long createTime;
+@property (nonatomic, assign) long uId;
 @end
 
 

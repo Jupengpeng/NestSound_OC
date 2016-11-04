@@ -137,6 +137,7 @@
     myCooperationModel *model = _myCooperationArr[indexPath.row];
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
     cooperationDetailVC.cooperationId = model.myCooperationId;
+    cooperationDetailVC.isMyCoWork = YES;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

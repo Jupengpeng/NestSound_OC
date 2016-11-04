@@ -13,6 +13,7 @@
 #import "NSCooperationMoreCommentCell.h"
 #import "NSLabelTableViewCell.h"
 #import "NSCooperationListModel.h"
+#import "NSUserPageViewController.h"
 @interface NSCooperationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NSInvitationListTableViewCellDelegate>
 {
     UIImageView *emptyImgView;
@@ -80,9 +81,9 @@
     //    [musicTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:musicCellIdentify];
     self.view = cooperationTab;
     
-    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
-    
-    cooperationTab.tableFooterView = noLineView;
+//    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+//    
+//    cooperationTab.tableFooterView = noLineView;
     
     WS(Wself);
     //refresh
@@ -190,6 +191,10 @@
     MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
     CooperationModel *cooperationModel = mainModel.cooperation;
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
+    if (cooperationModel.uId == [JUserID intValue]) {
+        cooperationDetailVC.isMyCoWork = YES;
+    }
+    cooperationDetailVC.detailTitle = mainModel.cooperationUser.nickName;
     cooperationDetailVC.cooperationId = cooperationModel.cooperationId;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }
@@ -209,6 +214,18 @@
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
     self.requestType = NO;
     self.requestParams = @{@"did":@"",@"uid":JUserID,@"itemid":@""};
+}
+- (void)iconBtnClickWith:(NSInvitationListTableViewCell *)cell {
+    
+    NSIndexPath *indexPath = [cooperationTab indexPathForCell:cell];
+    MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
+    CooperationModel *cooperationModel = mainModel.cooperation;
+    
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cooperationModel.uId]];
+    
+    pageVC.who = Other;
+    
+    [self.navigationController pushViewController:pageVC animated:YES];
 }
 - (NSMutableArray *)cooperationArr {
     if (!_cooperationArr) {

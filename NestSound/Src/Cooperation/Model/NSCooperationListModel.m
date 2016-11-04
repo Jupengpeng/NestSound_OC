@@ -17,7 +17,8 @@
              @"requiement":@"requirement",
              @"commentNum":@"commentnum",
              @"createTime":@"createtime",
-             @"workNum":@"worknum"};
+             @"workNum":@"worknum",
+             @"uId":@"uid"};
 }
 
 @end

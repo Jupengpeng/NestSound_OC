@@ -74,6 +74,23 @@
     UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
     
     selectLyricListTab.tableFooterView = noLineView;
+    
+    WS(wSelf);
+    //refresh
+    [selectLyricListTab addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchCooperationLyricsWithIsLoadingMore:NO];
+        }
+    }];
+    //loadingMore
+    [selectLyricListTab addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }
+        [wSelf fetchCooperationLyricsWithIsLoadingMore:YES];
+    }];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

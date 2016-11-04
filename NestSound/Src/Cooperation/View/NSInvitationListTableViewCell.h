@@ -16,7 +16,7 @@
 @protocol NSInvitationListTableViewCellDelegate <NSObject>
 
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell;
-
+- (void)iconBtnClickWith:(NSInvitationListTableViewCell *)cell;
 @end
 
 @interface NSInvitationListTableViewCell : UITableViewCell
@@ -24,4 +24,5 @@
 @property (nonatomic, strong) CooperationUser *cooperationUser;
 @property (nonatomic, strong) CooperationModel *cooperationModel;
 @property (nonatomic, strong) InvitationModel *invitationModel;
+@property (nonatomic, strong) UIButton *invitationBtn;
 @end

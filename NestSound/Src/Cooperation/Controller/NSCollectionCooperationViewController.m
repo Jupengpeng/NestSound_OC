@@ -9,6 +9,7 @@
 #import "NSCollectionCooperationViewController.h"
 #import "NSCooperationCollectionTableViewCell.h"
 #import "NSCollectionCooperationListModel.h"
+#import "NSCooperationDetailViewController.h"
 @interface NSCollectionCooperationViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     UITableView *collectionTab;
@@ -124,6 +125,12 @@
     return cell;
 }
 #pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CollectionCooperationModel *collectionModel = self.collectionArr[indexPath.section];
+    NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
+    cooperationDetailVC.cooperationId = collectionModel.cooperationId;
+    [self.navigationController pushViewController:cooperationDetailVC animated:YES];
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80;
 }

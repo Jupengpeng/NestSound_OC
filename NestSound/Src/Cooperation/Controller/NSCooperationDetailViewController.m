@@ -52,8 +52,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.isMyCoWork = NO;
     
     [self setupUI];
 //    [self createData];

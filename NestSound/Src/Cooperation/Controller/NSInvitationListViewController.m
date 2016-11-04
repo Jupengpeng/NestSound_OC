@@ -8,11 +8,13 @@
 
 #import "NSInvitationListViewController.h"
 #import "NSInvitationListTableViewCell.h"
+#import "NSUserPageViewController.h"
 #import "NSInvitationListModel.h"
 @interface NSInvitationListViewController ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,NSInvitationListTableViewCellDelegate>
 {
     int currentPage;
     UITableView *invitationTab;
+    NSIndexPath *index;
 }
 @property (nonatomic,strong) NSMutableArray *invitationArr;
 @end
@@ -55,7 +57,13 @@
             }
             [invitationTab reloadData];
         } else if ([operation.urlTag isEqualToString:invitationUrl]) {
-            [self fetchInvitationListWithIsLoadingMore:NO withKey:@""];
+            if (parserObject.code == 200) {
+                NSInvitationListTableViewCell *cell = [invitationTab cellForRowAtIndexPath:index];
+                [cell.invitationBtn setTitle:@"已邀请" forState:UIControlStateNormal];
+                cell.invitationBtn.backgroundColor = [UIColor hexColorFloat:@"f2f2f2"];
+                cell.invitationBtn.userInteractionEnabled = NO;
+            }
+            
         }
     }
 }
@@ -98,6 +106,23 @@
     UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
     
     invitationTab.tableFooterView = noLineView;
+    
+    WS(wSelf);
+    //refresh
+    [invitationTab addDDPullToRefreshWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }else{
+            [wSelf fetchInvitationListWithIsLoadingMore:NO withKey:@""];
+        }
+    }];
+    //loadingMore
+    [invitationTab addDDInfiniteScrollingWithActionHandler:^{
+        if (!wSelf) {
+            return ;
+        }
+        [wSelf fetchInvitationListWithIsLoadingMore:YES withKey:@""];
+    }];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -131,11 +156,24 @@
 }
 #pragma mark - NSInvitationListTableViewCellDelegate
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
-    NSIndexPath *indexPath = [invitationTab indexPathForCell:cell];
-    InvitationModel *model = self.invitationArr[indexPath.row];
+    
+    index = [invitationTab indexPathForCell:cell];
+    InvitationModel *model = self.invitationArr[index.row];
     self.requestType = NO;
     self.requestParams = @{@"uid":JUserID,@"target_uid":@(model.uId),@"did":@(self.cooperationId),@"token":LoginToken};
     self.requestURL = invitationUrl;
+}
+- (void)iconBtnClickWith:(NSInvitationListTableViewCell *)cell {
+    
+    NSIndexPath *indexPath = [invitationTab indexPathForCell:cell];
+    
+    InvitationModel *model = self.invitationArr[indexPath.row];
+    
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",model.uId]];
+    
+    pageVC.who = Other;
+    
+    [self.navigationController pushViewController:pageVC animated:YES];
 }
 - (NSMutableArray *)invitationArr {
     if (!_invitationArr) {

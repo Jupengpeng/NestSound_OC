@@ -18,7 +18,7 @@
     //签名
     UILabel *signatureLabel;
     //邀请
-    UIButton *invitationBtn;
+//    UIButton *invitationBtn;
     //推荐
     UILabel * recommend;
 }
@@ -40,6 +40,8 @@
     //头像
     iconImgView = [[UIImageView alloc] init];
     
+    iconImgView.userInteractionEnabled = YES;
+    
     iconImgView.image = [UIImage imageNamed:@"2.0_weChat"];
     
     [self.contentView addSubview:iconImgView];
@@ -48,6 +50,9 @@
     
     iconImgView.layer.cornerRadius = 20;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(iconImgClick)];
+    
+    [iconImgView addGestureRecognizer:tap];
     //作者名
     authorNameLabel = [[UILabel alloc] init];
     
@@ -70,21 +75,21 @@
     [self.contentView addSubview:signatureLabel];
     
     //邀请
-    invitationBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.invitationBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    invitationBtn.layer.cornerRadius = 3;
+    _invitationBtn.layer.cornerRadius = 3;
     
-    invitationBtn.layer.masksToBounds = YES;
+    _invitationBtn.layer.masksToBounds = YES;
     
-    invitationBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
+    _invitationBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
     
-    [invitationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_invitationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
-    [invitationBtn addTarget:self action:@selector(invitationBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [_invitationBtn addTarget:self action:@selector(invitationBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
 //    [invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
     
-    [self.contentView addSubview:invitationBtn];
+    [self.contentView addSubview:_invitationBtn];
     
     //推荐
     recommend = [[UILabel alloc] init];
@@ -99,12 +104,18 @@
     
     recommend.font = [UIFont systemFontOfSize:9];
     
-    recommend.backgroundColor = [UIColor greenColor];
+    recommend.backgroundColor = [UIColor hexColorFloat:@"a6db70"];
     
     recommend.textColor = [UIColor whiteColor];
     
     [self.contentView addSubview:recommend];
     
+}
+- (void)iconImgClick {
+    if ([self.delegate respondsToSelector:@selector(iconBtnClickWith:)]) {
+        
+        [self.delegate iconBtnClickWith:self];
+    }
 }
 - (void)invitationBtnClick {
     
@@ -143,10 +154,10 @@
         
         make.bottom.equalTo(iconImgView.mas_bottom);
         
-        make.right.equalTo(invitationBtn.mas_left).offset(-10);
+        make.right.equalTo(_invitationBtn.mas_left).offset(-10);
     }];
     
-    [invitationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_invitationBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.right.equalTo(self.contentView.mas_right).offset(-10);
         
@@ -172,11 +183,12 @@
     authorNameLabel.text = invitationModel.nickName;
     signatureLabel.text = invitationModel.signature;
     if (invitationModel.isInvited) {
-        [invitationBtn setTitle:@"已邀请" forState:UIControlStateNormal];
-        invitationBtn.backgroundColor = [UIColor lightGrayColor];
+        [self.invitationBtn setTitle:@"已邀请" forState:UIControlStateNormal];
+        self.invitationBtn.backgroundColor = [UIColor hexColorFloat:@"f2f2f2"];
+        self.invitationBtn.userInteractionEnabled = NO;
     } else {
-        [invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
-        invitationBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
+        [self.invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
+        self.invitationBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
     }
     if (invitationModel.isRecommend) {
         recommend.hidden = NO;
@@ -194,7 +206,7 @@
     authorNameLabel.text = cooperationUser.nickName;
 //    signatureLabel.text = cooperationUser.
     recommend.hidden = YES;
-    [invitationBtn setTitle:@"合作" forState:UIControlStateNormal];
+    [self.invitationBtn setTitle:@"合作" forState:UIControlStateNormal];
     
 }
 
