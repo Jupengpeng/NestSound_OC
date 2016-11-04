@@ -112,14 +112,14 @@
     
     
     
-    [self.portraitView sd_setImageWithURL:[NSURL URLWithString:model.url] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]] ;
+    [self.portraitView sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]] ;
     
     self.titleLabel.text = [NSString stringWithFormat:@"歌曲名：%@",model.title];
 
     self.musicAuthor.text = [NSString stringWithFormat:@"作曲：%@",model.wUsername];
     self.lyricAuthor.text = [NSString stringWithFormat:@"作词：%@",model.lUsername];
 //    @"2016.10.21  20:09"
-    self.createDateLabel.text = [date datetoMonthStringWithDate:model.createtime format:@"YYYY.MM.dd HH.mm"];
+    self.createDateLabel.text = [date datetoMonthStringWithDate:model.createtime format:@"YYYY.MM.dd HH:mm"];
 
 }
 

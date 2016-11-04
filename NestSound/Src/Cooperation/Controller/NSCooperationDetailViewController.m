@@ -16,6 +16,7 @@
 #import "NSInvitationListViewController.h"
 #import "NSCooperationDetailModel.h"
 #import "NSAccompanyListViewController.h"
+#import "NSPlayMusicViewController.h"
 @interface NSCooperationDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NSCommentTableViewCellDelegate,TTTAttributedLabelDelegate,NSTipViewDelegate>
 {
     BOOL _showMoreComment;
@@ -82,7 +83,7 @@
 
 - (void)setupUI{
     
-    self.title = self.detailTitle;
+    self.title = [NSString stringWithFormat:@"%@的合作",self.detailTitle];
     
     [self.view addSubview:self.tableView];
     
@@ -137,22 +138,19 @@
     
     if (!isLoadingMore) {
         self.pageIndex = 1;
-//        self.requestParams = @{@"did":@(self.cooperationId),
-//                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
-//                               kIsLoadingMore:@(NO),@"token":LoginToken};
-        
         
     }else{
         self.pageIndex ++;
         
-//        self.requestParams = @{@"did":@(self.cooperationId),
-//                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
-//                               kIsLoadingMore:@(YES),@"token":LoginToken};
         
     }
-    self.requestParams = @{@"did":@(self.cooperationId),
-                           @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
-                           kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
+    if (LoginToken) {
+        self.requestParams = @{@"did":@(self.cooperationId),
+                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+                               kIsLoadingMore:[NSString stringWithFormat:@"%d",isLoadingMore],
+                               @"token":LoginToken};
+    }
+    
     self.requestURL = coDetailUrl;
     
 }
@@ -201,8 +199,6 @@
     }else{
         
         if ([operation.urlTag isEqualToString:coDetailUrl]) {
-            
-            [self.tableView.pullToRefreshView stopAnimating];
             
             NSCooperationDetailModel *detailModel = (NSCooperationDetailModel *)parserObject;
             self.cooperateModel = detailModel;
@@ -267,6 +263,8 @@
             [[NSToastManager manager] showtoast:@"收藏成功"];
             
         }
+        [self.tableView.pullToRefreshView stopAnimating];
+        [self.tableView.infiniteScrollingView stopAnimating];
         
         [self.tableView reloadData];
     }
@@ -319,6 +317,10 @@
             titleLabel.textColor = [UIColor hexColorFloat:@"181818"];
             
             [headerView addSubview:titleLabel];
+            
+            UILabel *linelabel= [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.height - 0.5, ScreenWidth, 0.5)];
+            linelabel.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
+            [headerView addSubview:linelabel];
         }
             break;
         default:{
@@ -362,6 +364,7 @@
                 btn.titleLabel.textAlignment = NSTextAlignmentCenter;
                 [btn setTitle: [NSString stringWithFormat:@"全部%lu条留言>>",(unsigned long)self.msgArray.count] forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor hexColorFloat:@"999999"] forState:UIControlStateNormal];
+                
             } action:^(UIButton *btn) {
                 
                 CHLog(@"跳转到评论");
@@ -520,6 +523,28 @@
 
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        
+    }else if(indexPath.section == 1){
+        
+    }else{
+        NSPlayMusicViewController *playVC = [NSPlayMusicViewController sharedPlayMusic];
+//        playVC.itemUid = recomm.itemId;
+//        playVC.from = @"tuijian";
+//        playVC.geDanID = 0;
+//        
+//        playVC.songID = indexPath.item;
+//        playVC.songAry = self.itemIDArray;
+//        
+//        [self.navigationController pushViewController:playVC animated:YES];
+        
+        [self.navigationController pushViewController:playVC animated:YES];
+    }
+        
+    
+}
+
 #pragma  mark - NSCommentTableViewCellDelegate
 
 - (void)commentTableViewCell:(NSCommentTableViewCell *)cell {
@@ -642,7 +667,7 @@
             
             _tipView.imgName = @"2.0_backgroundImage";
             
-            _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，\n您将无法进行删除"];
+            _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
             [self.navigationController.view addSubview:_tipView];
             
 

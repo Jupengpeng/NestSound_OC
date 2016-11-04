@@ -64,7 +64,7 @@
 
 @property (nonatomic, assign) long long createtime;
 
-@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *pic;
 
 @property (nonatomic, copy) NSString *itemid;
 
