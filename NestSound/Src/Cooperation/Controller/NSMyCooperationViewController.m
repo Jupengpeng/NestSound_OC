@@ -61,6 +61,9 @@
             }
             
             [myCooperationTab reloadData];
+        } else if ([operation.urlTag isEqualToString:deleteMyCooperationUrl]) {
+            
+            [self fetchMyCooperationListWithIsLoadingMore:NO];
         }
     }
 }
@@ -192,9 +195,13 @@
         
         [tipView removeFromSuperview];
         
-        [_myCooperationArr removeObjectAtIndex:index.row];
+        myCooperationModel *model = _myCooperationArr[index.row];
         
-        [myCooperationTab deleteRowsAtIndexPaths:[NSArray arrayWithObject:index] withRowAnimation:UITableViewRowAnimationLeft];
+        self.requestType = NO;
+        
+        self.requestParams = @{@"did":@(model.myCooperationId),@"token":LoginToken};
+        
+        self.requestURL = deleteMyCooperationUrl;
         
     }];
 }

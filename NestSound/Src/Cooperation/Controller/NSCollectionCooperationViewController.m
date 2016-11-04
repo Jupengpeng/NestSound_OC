@@ -56,6 +56,8 @@
             }
             
             [collectionTab reloadData];
+        } else if ([operation.urlTag isEqualToString:cancelCollectUlr]) {
+            [self fetchCollectCooperationListWithIsLoadingMore:NO];
         }
     }
 }
@@ -129,7 +131,21 @@
     CollectionCooperationModel *collectionModel = self.collectionArr[indexPath.section];
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
     cooperationDetailVC.cooperationId = collectionModel.cooperationId;
+    cooperationDetailVC.detailTitle = collectionModel.nickName;
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
+}
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //注意：1、当rowActionWithStyle的值为UITableViewRowActionStyleDestructive时，系统默认背景色为红色；当值为UITableViewRowActionStyleNormal时，背景色默认为淡灰色，可通过UITableViewRowAction的对象的.backgroundColor设置；
+    //2、当左滑按钮执行的操作涉及数据源和页面的更新时，要先更新数据源，在更新视图，否则会出现无响应的情况
+    CollectionCooperationModel *collectionModel = self.collectionArr[indexPath.section];
+    UITableViewRowAction *cancelCollect = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消收藏"handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        self.requestType = NO;
+        self.requestParams = @{@"did":@(collectionModel.cooperationId),@"uid":JUserID,@"type":@(0),@"token":LoginToken};
+        self.requestURL = cancelCollectUlr;
+    }];
+        return @[cancelCollect];
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 80;

@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton * myCooperation;
 @property (nonatomic, strong) UIButton * collectionBtn;
 @property (nonatomic, strong) UIButton *loginBtn;
+@property (nonatomic, strong) UIImageView *noLoginImg;
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 @end
 
@@ -34,22 +35,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupMainCooperationViewController];
-}
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     if (JUserID) {
-        [self.loginBtn removeFromSuperview];
         [self setupContentViewControllers];
         
     }
 }
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if (JUserID) {
-        [myCooperationVC.view removeFromSuperview];
-        [collectionCooperationVC.view removeFromSuperview];
-    }
-}
+
 - (void)setupMainCooperationViewController {
         
     self.view.backgroundColor = KBackgroundColor;
@@ -175,7 +166,11 @@
         _lineView.x = sender.x;
     }];
     if (!JUserID) {
-        self.loginBtn.frame = CGRectMake(3*ScreenWidth/2-30, ScreenHeight/3, 60, 30);
+        self.noLoginImg.frame = CGRectMake(3*ScreenWidth/2 - 105, 60, 210, 140);
+        
+        [self.contentScrollView addSubview:self.noLoginImg];
+        
+        self.loginBtn.frame = CGRectMake(3*ScreenWidth/2-30, 220, 60, 30);
         [self.contentScrollView addSubview:self.loginBtn];
     }
 
@@ -188,15 +183,22 @@
         _lineView.x = sender.x;
     }];
     if (!JUserID) {
+        self.noLoginImg.frame = CGRectMake(5*ScreenWidth/2 - 105, 60, 210, 140);
         
-        self.loginBtn.frame = CGRectMake(5*ScreenWidth/2-30, ScreenHeight/3, 60, 30);
+        [self.contentScrollView addSubview:self.noLoginImg];
+        
+        self.loginBtn.frame = CGRectMake(5*ScreenWidth/2-30, 220, 60, 30);
         [self.contentScrollView addSubview:self.loginBtn];
         
     }
 }
 - (void)userLogin {
     NSLoginViewController *login = [[NSLoginViewController alloc] init];
-    
+    login.lonigBlock = ^(BOOL isReset) {
+        [self.loginBtn removeFromSuperview];
+        [self.noLoginImg removeFromSuperview];
+        [self setupContentViewControllers];
+    };
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
     nav.navigationBar.hidden = YES;
     [self presentViewController:nav animated:YES completion:nil];
@@ -225,6 +227,13 @@
         
     }
     return _loginBtn;
+}
+- (UIImageView *)noLoginImg {
+    if (!_noLoginImg) {
+        self.noLoginImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.3_noLogin_placeholder" ]];
+        
+    }
+    return _noLoginImg;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -489,7 +489,7 @@
             
             [self postAcceptToWorkWithId:workId];
         };
-        CoWorkModel *workModel = self.cooperateModel.completeList[indexPath.row];
+        CoWorkModel *workModel = self.coWorksArray[indexPath.row];
         [cell setupDataWithCoWorkModel:workModel IsMine:self.isMyCoWork];
         
         return cell;
