@@ -35,12 +35,12 @@
     self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(NO)};
+//        self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(NO)};
     }else{
         ++currentPage;
-        self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(YES)};
+//        self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(YES)};
     }
-    
+    self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(isLoadingMore)};
     self.requestURL = cooperationListUrl;
     
 }
@@ -79,6 +79,10 @@
     
     //    [musicTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:musicCellIdentify];
     self.view = cooperationTab;
+    
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    cooperationTab.tableFooterView = noLineView;
     
     WS(Wself);
     //refresh

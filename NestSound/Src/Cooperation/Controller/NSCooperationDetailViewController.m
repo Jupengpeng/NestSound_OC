@@ -139,19 +139,22 @@
     
     if (!isLoadingMore) {
         self.pageIndex = 1;
-        self.requestParams = @{@"did":@(self.cooperationId),
-                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
-                               kIsLoadingMore:@(NO),@"token":LoginToken};
+//        self.requestParams = @{@"did":@(self.cooperationId),
+//                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+//                               kIsLoadingMore:@(NO),@"token":LoginToken};
         
         
     }else{
         self.pageIndex ++;
         
-        self.requestParams = @{@"did":@(self.cooperationId),
-                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
-                               kIsLoadingMore:@(YES),@"token":LoginToken};
+//        self.requestParams = @{@"did":@(self.cooperationId),
+//                               @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+//                               kIsLoadingMore:@(YES),@"token":LoginToken};
         
     }
+    self.requestParams = @{@"did":@(self.cooperationId),
+                           @"page":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+                           kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
     self.requestURL = coDetailUrl;
     
 }

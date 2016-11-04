@@ -40,12 +40,13 @@ static NSString  * const templateCellIdifity = @"templateCell";
 {
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],kIsLoadingMore:@(NO),@"token":LoginToken};
+//        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
         ++currentPage;
-        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],kIsLoadingMore:@(YES),@"token":LoginToken};
+//        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],kIsLoadingMore:@(YES),@"token":LoginToken};
     }
     self.requestType = NO;
+    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
     self.requestURL = templateListUrl;
     
 }
