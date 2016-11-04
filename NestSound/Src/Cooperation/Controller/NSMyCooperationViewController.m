@@ -36,12 +36,12 @@
     self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+//        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
         ++currentPage;
-        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+//        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
     }
-    
+    self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
     self.requestURL = myCooperationListUrl;
     
 }
@@ -80,7 +80,10 @@
     self.view = myCooperationTab;
 //    [self.contentScrollView addSubview:myCooperationTab];
     
-   
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    myCooperationTab.tableFooterView = noLineView;
+    
     WS(wSelf);
     //refresh
     [myCooperationTab addDDPullToRefreshWithActionHandler:^{

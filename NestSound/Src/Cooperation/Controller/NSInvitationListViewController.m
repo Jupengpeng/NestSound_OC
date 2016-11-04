@@ -22,19 +22,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInvitationView];
-    [self fetchInvitationListWithIsLoadingMore:NO];
+    [self fetchInvitationListWithIsLoadingMore:NO withKey:@""];
 }
 #pragma mark - Network Requests and Data Handling
-- (void)fetchInvitationListWithIsLoadingMore:(BOOL)isLoadingMore {
+- (void)fetchInvitationListWithIsLoadingMore:(BOOL)isLoadingMore withKey:(NSString *)keyStr {
     self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{@"did":@(self.cooperationId),@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+        
     }else{
         ++currentPage;
-        self.requestParams = @{@"did":@(self.cooperationId),@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+        
     }
-    
+    if (keyStr.length) {
+        self.requestParams = @{@"did":@(self.cooperationId),@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(isLoadingMore),@"token":LoginToken,@"key":keyStr};
+    } else {
+    self.requestParams = @{@"did":@(self.cooperationId),@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
+    }
     self.requestURL = invitationListUrl;
     
 }
@@ -51,7 +55,7 @@
             }
             [invitationTab reloadData];
         } else if ([operation.urlTag isEqualToString:invitationUrl]) {
-            [self fetchInvitationListWithIsLoadingMore:NO];
+            [self fetchInvitationListWithIsLoadingMore:NO withKey:@""];
         }
     }
 }
@@ -81,7 +85,7 @@
     
     [self.view addSubview:searchBar];
     
-    invitationTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, ScreenWidth, ScreenHeight-40) style:UITableViewStylePlain];
+    invitationTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, ScreenWidth, ScreenHeight-84) style:UITableViewStylePlain];
     
     invitationTab.dataSource = self;
     
@@ -90,6 +94,10 @@
     invitationTab.rowHeight = 60;
     
     [self.view addSubview:invitationTab];
+    
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    invitationTab.tableFooterView = noLineView;
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -113,7 +121,14 @@
 }
 
 #pragma mark - UITableViewDelegate
-
+#pragma mark - UISearchBarDelegate
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    [searchBar resignFirstResponder];
+    
+    [self fetchInvitationListWithIsLoadingMore:NO withKey:searchBar.text];
+    
+}
 #pragma mark - NSInvitationListTableViewCellDelegate
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
     NSIndexPath *indexPath = [invitationTab indexPathForCell:cell];

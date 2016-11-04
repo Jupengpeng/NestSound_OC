@@ -41,11 +41,12 @@ static NSString  * const draftCellIdifity = @"draftCell";
 {
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+//        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
         ++currentPage;
-        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+//        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
     }
+    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",(long)currentPage],@"uid":JUserID,kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
     self.requestType = NO;
 //    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",currentPage],@"uid":JUserID};
     self.requestURL = draftListUrl;
