@@ -35,7 +35,7 @@
         ++currentPage;
         self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
     }
-    
+    self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
     self.requestURL = demandLyricListUrl;
     
 }
@@ -70,6 +70,10 @@
     selectLyricListTab.delegate = self;
     
     [self.view addSubview:selectLyricListTab];
+    
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    selectLyricListTab.tableFooterView = noLineView;
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -36,14 +36,15 @@
 
     if (!isLoadingMore) {
         self.page = 1;
-        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
-                               kIsLoadingMore :@(NO)};
+//        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+//                               kIsLoadingMore :@(NO)};
     }else{
         ++self.page;
-        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
-                               kIsLoadingMore:@(YES)};
+//        self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+//                               kIsLoadingMore:@(YES)};
     }
-    
+    self.requestParams = @{@"page":[NSString stringWithFormat:@"%ld",self.page],
+                           kIsLoadingMore :@(isLoadingMore)};
     self.requestURL = musicianListUrl;
     
 }

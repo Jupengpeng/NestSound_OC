@@ -53,16 +53,18 @@
     self.requestType = NO;
     if (isLoadingMore) {
         self.page ++;
-        self.requestParams = @{kIsLoadingMore:@(YES),
-                               @"aid":self.aid,
-                               @"page":[NSString stringWithFormat:@"%ld",(long)self.page]};
+//        self.requestParams = @{kIsLoadingMore:@(YES),
+//                               @"aid":self.aid,
+//                               @"page":[NSString stringWithFormat:@"%ld",(long)self.page]};
     }else{
         self.page = 1;
-        self.requestParams = @{kIsLoadingMore:@(NO),
-                               @"aid":self.aid,
-                               @"page":[NSString stringWithFormat:@"%ld",(long)self.page]};
+//        self.requestParams = @{kIsLoadingMore:@(NO),
+//                               @"aid":self.aid,
+//                               @"page":[NSString stringWithFormat:@"%ld",(long)self.page]};
     }
-    
+    self.requestParams = @{kIsLoadingMore:@(isLoadingMore),
+                           @"aid":self.aid,
+                           @"page":[NSString stringWithFormat:@"%ld",(long)self.page]};
     self.requestURL = joinedUserListUrl;
 }
 

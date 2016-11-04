@@ -36,12 +36,12 @@
     self.requestType = NO;
     if (!isLoadingMore) {
         currentPage = 1;
-        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
+//        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(NO),@"token":LoginToken};
     }else{
         ++currentPage;
-        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
+//        self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(YES),@"token":LoginToken};
     }
-    
+    self.requestParams = @{@"page":@(currentPage),@"uid":JUserID,kIsLoadingMore:@(isLoadingMore),@"token":LoginToken};
     self.requestURL = cooperationMessageListUrl;
     
 }
@@ -105,11 +105,11 @@
     
     _messageTableView.backgroundColor = KBackgroundColor;
     
+    [self.view addSubview:_messageTableView];
+    
     UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    [_messageTableView setTableFooterView:noLineView];
-    
-    [self.view addSubview:_messageTableView];
+    _messageTableView.tableFooterView = noLineView;
     WS(wSelf);
     //refresh
     [_messageTableView addDDPullToRefreshWithActionHandler:^{
