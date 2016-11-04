@@ -201,8 +201,6 @@
         
         if ([operation.urlTag isEqualToString:coDetailUrl]) {
             
-            [self.tableView.pullToRefreshView stopAnimating];
-            
             NSCooperationDetailModel *detailModel = (NSCooperationDetailModel *)parserObject;
             self.cooperateModel = detailModel;
             NSMutableArray *commentArray = [NSMutableArray array];
@@ -266,6 +264,8 @@
             [[NSToastManager manager] showtoast:@"收藏成功"];
             
         }
+        [self.tableView.pullToRefreshView stopAnimating];
+        [self.tableView.infiniteScrollingView stopAnimating];
         
         [self.tableView reloadData];
     }
@@ -318,6 +318,10 @@
             titleLabel.textColor = [UIColor hexColorFloat:@"181818"];
             
             [headerView addSubview:titleLabel];
+            
+            UILabel *linelabel= [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.height - 0.5, ScreenWidth, 0.5)];
+            linelabel.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
+            [headerView addSubview:linelabel];
         }
             break;
         default:{
@@ -361,6 +365,7 @@
                 btn.titleLabel.textAlignment = NSTextAlignmentCenter;
                 [btn setTitle: [NSString stringWithFormat:@"全部%lu条留言>>",(unsigned long)self.msgArray.count] forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor hexColorFloat:@"999999"] forState:UIControlStateNormal];
+                
             } action:^(UIButton *btn) {
                 
                 CHLog(@"跳转到评论");
