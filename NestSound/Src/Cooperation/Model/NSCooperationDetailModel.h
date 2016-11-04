@@ -7,7 +7,7 @@
 //
 
 #import "NSBaseModel.h"
-
+@class NSCommentModel;
 
 
 @class UserinfoModel,DemandinfoModel,CoWorkModel,CommentModel;
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) DemandinfoModel *demandInfo;
 
 //将 cmmentModel转为 NScommentModel
-@property (nonatomic ,strong) NSArray *commentArray;
+@property (nonatomic ,strong) NSArray<NSCommentModel *> *commentArray;
 
 @end
 
@@ -78,6 +78,8 @@
 @property (nonatomic,copy) NSString *lUid;
 
 @property (nonatomic,copy) NSString *did;
+
+@property (nonatomic,copy) NSString *access;
 
 @end
 

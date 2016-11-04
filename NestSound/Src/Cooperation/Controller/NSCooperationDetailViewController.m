@@ -25,6 +25,8 @@
     
     NSTipView *_tipView;
     UIView *_maskView;
+    
+    BOOL _isAccepted;
 }
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -34,6 +36,7 @@
 
 //合作作品数组
 @property (nonatomic,strong) NSMutableArray *coWorksArray;
+
 
 @property (nonatomic,assign) NSInteger pageIndex;
 
@@ -199,6 +202,7 @@
         
     }else{
         
+
         if ([operation.urlTag isEqualToString:coDetailUrl]) {
             
             NSCooperationDetailModel *detailModel = (NSCooperationDetailModel *)parserObject;
@@ -218,8 +222,21 @@
             }
             
             if (detailModel.completeList.count) {
+                _isAccepted = NO;
+                
+
+                
                 [self.coWorksArray addObjectsFromArray:detailModel.completeList];
                 
+            }
+            
+            //判断是否已经被采纳
+            _isAccepted = NO;
+            for (CoWorkModel *coWorkModel in self.coWorksArray ) {
+                if ([coWorkModel.access boolValue]) {
+                    _isAccepted = YES;
+                    break;
+                }
             }
             
             self.collectButton.selected = detailModel.demandInfo.iscollect;
@@ -237,20 +254,31 @@
             
             
         }else if ([operation.urlTag isEqualToString:coCollectActionUrl]){
-            self.collectButton.selected = !self.collectButton.selected;
-            if (self.collectButton.selected) {
-                [[NSToastManager manager] showtoast:@"收藏成功"];
+            if (parserObject.code == 200) {
+                self.collectButton.selected = !self.collectButton.selected;
+                if (self.collectButton.selected) {
+                    [[NSToastManager manager] showtoast:@"收藏成功"];
+                }else{
+                    [[NSToastManager manager] showtoast:@"已取消收藏"];
+                }
+            }
+
+        }else if ([operation.urlTag isEqualToString:coAcceptActionUrl]){
+            if (parserObject.code == 200) {
+                [[NSToastManager manager] showtoast:@"采纳成功"];
+                [self postCooperateDetailIsLoadingMore:NO];
             }else{
-                [[NSToastManager manager] showtoast:@"已取消收藏"];
 
             }
+        }
+        if (!operation.isLoadingMore) {
+            [self.tableView.pullToRefreshView stopAnimating];
             
-        }else if ([operation.urlTag isEqualToString:coAcceptActionUrl]){
-            [[NSToastManager manager] showtoast:@"收藏成功"];
+        }else{
+            [self.tableView.infiniteScrollingView stopAnimating];
             
         }
-        [self.tableView.pullToRefreshView stopAnimating];
-        [self.tableView.infiniteScrollingView stopAnimating];
+
         
         [self.tableView reloadData];
     }
@@ -348,7 +376,8 @@
                 [btn setBackgroundColor:[UIColor whiteColor]];
                 btn.titleLabel.font = [UIFont systemFontOfSize:12.0f];;
                 btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-                [btn setTitle: [NSString stringWithFormat:@"全部%lu条留言>>",(unsigned long)self.msgArray.count] forState:UIControlStateNormal];
+                
+                [btn setTitle: [NSString stringWithFormat:@"全部%lu条留言>>",(unsigned long)self.cooperateModel.demandInfo.commentnum] forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor hexColorFloat:@"999999"] forState:UIControlStateNormal];
                 
             } action:^(UIButton *btn) {
@@ -489,6 +518,8 @@
             
             [self postAcceptToWorkWithId:workId];
         };
+            
+        cell.isAccepted = _isAccepted;
         CoWorkModel *workModel = self.cooperateModel.completeList[indexPath.row];
         [cell setupDataWithCoWorkModel:workModel IsMine:self.isMyCoWork];
         
@@ -515,15 +546,20 @@
     }else if(indexPath.section == 1){
         
     }else{
+        
+
+        NSMutableArray *itemArray = [NSMutableArray array];
+        
+        for (CoWorkModel *coWorkModel in self.coWorksArray) {
+            [itemArray addObject:@(coWorkModel.itemid.longLongValue)];
+        }
         NSPlayMusicViewController *playVC = [NSPlayMusicViewController sharedPlayMusic];
-//        playVC.itemUid = recomm.itemId;
-//        playVC.from = @"tuijian";
-//        playVC.geDanID = 0;
-//        
-//        playVC.songID = indexPath.item;
-//        playVC.songAry = self.itemIDArray;
-//        
-//        [self.navigationController pushViewController:playVC animated:YES];
+
+        CoWorkModel *workModel = self.coWorksArray[indexPath.row];
+        playVC.itemUid = [workModel.itemid longLongValue];
+        playVC.songID = indexPath.row;
+        playVC.songAry = itemArray;
+        playVC.isCoWork = YES;
         
         [self.navigationController pushViewController:playVC animated:YES];
     }
@@ -708,14 +744,15 @@
     if (!_collectButton) {
         _collectButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             btn.frame = CGRectMake(ScreenWidth/3.0f, ScreenHeight - 45 - 64, ScreenWidth/3.0f, 45);
+            btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+
             
             [btn setTitle:@"收藏该作品" forState:UIControlStateNormal];
-            [btn setTitle:@"取消该收藏" forState:UIControlStateSelected];
-
-            btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
             [btn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"ic_shoucang"] forState:UIControlStateNormal];
+
+            [btn setTitle:@"取消该收藏" forState:UIControlStateSelected];
+            [btn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateSelected];
             [btn setImage:[UIImage imageNamed:@"ic_shoucangdianji"] forState:UIControlStateSelected];
 
             btn.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, -4);

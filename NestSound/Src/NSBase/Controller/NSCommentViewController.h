@@ -17,6 +17,8 @@ typedef void(^NSCommentExecutedBlock)(void);
 
 @property (nonatomic,copy) NSCommentExecutedBlock commentExecuteBlock;
 
+@property (nonatomic,assign) BOOL isCoWork;
+
 -(instancetype)initWithItemId:(long)itemid andType:(int)type_;
 
 @end

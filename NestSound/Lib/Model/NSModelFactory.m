@@ -113,7 +113,8 @@
 //    else if ([url isEqualToString:collectMessageURL]){
 //        return [[NSUpvoteMessageListModel alloc] initWithJSONDict:jsonDict];
 //    }
-    else if ([url isEqualToString:commentMessageURL] || [url isEqualToString:commentURL]){
+    else if ([url isEqualToString:commentMessageURL] || [url isEqualToString:commentURL]||
+             [url isEqualToString:coWorkCommentListUrl]){
         
         return [[NSCommentListModel alloc] initWithJSONDict:jsonDict];
         
@@ -123,7 +124,8 @@
 //    else if ([url isEqualToString:systemMessageURL]) {
 //        return [[NSPreserveMessageListModel alloc] initWithJSONDict:jsonDict];
 //    }
-    else if ([url isEqualToString:playMusicURL]){
+    else if ([url isEqualToString:playMusicURL] ||
+             [url isEqualToString:coWorkPlayDetailUrl]){
         
         return [[NSPlayMusicDetailModel alloc] initWithJSONDict:jsonDict];
         

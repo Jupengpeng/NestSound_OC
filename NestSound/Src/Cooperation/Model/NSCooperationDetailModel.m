@@ -33,7 +33,7 @@
         commentModel.headerURL = oriModel.headerurl;
         commentModel.nickName = oriModel.nickname;
         commentModel.titleImageURL = oriModel.targetheaderurl;
-        commentModel.targetName = oriModel.targetheaderurl;
+        commentModel.nowTargetName = oriModel.target_nickname;
         commentModel.nickName = oriModel.nickname;
         [commentArray addObject:commentModel];
     }

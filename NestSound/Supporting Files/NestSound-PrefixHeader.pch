@@ -176,7 +176,7 @@ extern NSString *port;
  *  合作歌曲成品部分
  **/
 //歌曲成品-歌曲播放页数据
-#define coWorkPlayDetailUrl @"cooperate/work/detail/v23"
+#define coWorkPlayDetailUrl @"cooperate/work/detail/v23?"
 //歌曲成品-发布歌曲
 #define coWorkReleaseUrl @"cooperate/work/public/v23"
 //歌曲成品-点赞接口
@@ -186,7 +186,7 @@ extern NSString *port;
 //歌曲成品-发表评论
 #define coWorkCommentUrl @"cooperate/work/commentsave/v23"
 //歌曲成品-获取作品评论列表
-#define coWorkCommentListUrl @"cooperate/work/commentlist/v23"
+#define coWorkCommentListUrl @"cooperate/work/commentlist/v23?"
 //歌曲成品-删除评论
 #define coWorkDeleteUrl @"cooperate/work/commentdelete/v23"
 
