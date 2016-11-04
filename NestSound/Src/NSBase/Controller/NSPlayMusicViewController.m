@@ -43,6 +43,8 @@
     NSShareView *shareView;
     NSArray *shareArr;
     TencentOAuth *tencentOAuth;
+    
+    NSString *_cooperateWorkUrl;
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -189,21 +191,41 @@ static id _instance;
 #pragma mark -fetchMusicDetailData
 -(void)fetchPlayDataWithItemId:(long)musicItemId
 {
-    
-    self.requestType = YES;
-    NSDictionary * dic;
-    if (JUserID) {
+ 
+    if (self.isCoWork) {
         
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"uid":JUserID};
+        self.requestType = YES;
+        NSDictionary *dict;
+        if (JUserID) {
+            dict = @{@"id":@(musicItemId),
+                     @"uid":JUserID,
+                     @"token":LoginToken};
+        }else{
+            dict = @{@"id":@(musicItemId)};
+        }
+        
+        NSString * str = [NSTool encrytWithDic:dict];
+        _cooperateWorkUrl = [coWorkPlayDetailUrl stringByAppendingString:str];
+        self.requestURL = _cooperateWorkUrl;
+        
     }else{
-        
-        dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
+        self.requestType = YES;
+        NSDictionary * dic;
+        if (JUserID) {
+            
+            dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"uid":JUserID};
+        }else{
+            
+            dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
+        }
+        NSString * str = [NSTool encrytWithDic:dic];
+        requestUrl = [playMusicURL stringByAppendingString:str];
+        self.requestURL = requestUrl;
     }
-    NSString * str = [NSTool encrytWithDic:dic];
-    requestUrl = [playMusicURL stringByAppendingString:str];
-    self.requestURL = requestUrl;
+    
     
 }
+
 
 
 #pragma mark -overriderActionFetchData
@@ -243,6 +265,40 @@ static id _instance;
             } else if ([operation.urlTag isEqualToString:changeMusicStatus]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
             }
+            
+            //歌曲成品部分
+            
+            else if ([operation.urlTag isEqualToString:_cooperateWorkUrl]){
+                
+                NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
+                
+                self.musicDetail = musicModel.musicdDetail;
+                
+            }else if ([operation.urlTag isEqualToString:coWorkPraiseUrl]){
+                //点赞
+                if (upVoteBtn.selected == YES) {
+                    self.musicDetail.zanNum = self.musicDetail.zanNum + 1;
+                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
+                }else{
+                    self.musicDetail.zanNum = self.musicDetail.zanNum - 1;
+                    upvoteNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.zanNum];
+                }
+                [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
+                
+            }else if ([operation.urlTag isEqualToString:coWorkCollectUrl]){
+                //收藏
+                if (collectionBtn.selected == YES) {
+                    self.musicDetail.fovNum = self.musicDetail.fovNum + 1;
+                    collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                    
+                }else{
+                    self.musicDetail.fovNum = self.musicDetail.fovNum - 1;
+                    collecNumLabel.text = [NSString  stringWithFormat:@"%ld",self.musicDetail.fovNum];
+                }
+                [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
+                
+            }
+            
         }else{
             
             [[NSToastManager manager] showtoast:@"亲，网络有些异常哦，请查看一下网络状态"];
@@ -727,7 +783,7 @@ static id _instance;
             NSCommentViewController *commentVC = [[NSCommentViewController alloc] initWithItemId:wSelf.musicDetail.itemID andType:1];
             
             commentVC.musicName = wSelf.musicDetail.title;
-            
+            commentVC.isCoWork = self.isCoWork;
             [self.navigationController pushViewController:commentVC animated:YES];
             
         } else {
@@ -1181,12 +1237,22 @@ static id _instance;
 #pragma mark -OverrideUpvote
 -(void)upvoteItemId:(long)itemId_ _targetUID:(long)targetUID_ _type:(long)type_ _isUpvote:(BOOL)isUpvote
 {
-    self.requestType = NO;
-    self.requestParams = @{@"work_id":[NSNumber numberWithLong:itemId_],@"target_uid":[NSNumber numberWithLong:targetUID_],@"user_id":JUserID  ,@"wtype":[NSNumber numberWithLong:type_],@"token":LoginToken};
-    if (isUpvote) {
-        self.requestURL = upvoteURL;
+    if (!self.isCoWork) {
+        self.requestType = NO;
+        self.requestParams = @{@"work_id":[NSNumber numberWithLong:itemId_],@"target_uid":[NSNumber numberWithLong:targetUID_],@"user_id":JUserID  ,@"wtype":[NSNumber numberWithLong:type_],@"token":LoginToken};
+        if (isUpvote) {
+            self.requestURL = upvoteURL;
+        }else{
+            self.requestURL = collectURL;
+        }
     }else{
-        self.requestURL = collectURL;
+        self.requestType = NO;
+        self.requestParams = @{@"work_id":[NSNumber numberWithLong:itemId_],@"target_uid":[NSNumber numberWithLong:targetUID_],@"user_id":JUserID  ,@"wtype":[NSNumber numberWithLong:type_],@"token":LoginToken};
+        if (isUpvote) {
+            self.requestURL = coWorkPraiseUrl;
+        }else{
+            self.requestURL = coWorkCollectUrl;
+        }
     }
     
 }

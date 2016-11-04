@@ -19,6 +19,7 @@ typedef void(^NSCooperateDetailWorkCellAcceptBlock)(NSString *workId);
 
 @property (nonatomic,strong) CoWorkModel *coWorkModel;
 
+@property (nonatomic, assign) BOOL isAccepted;
 
 - (void)setupDataWithCoWorkModel:(CoWorkModel *)model IsMine:(BOOL)isMine;
 

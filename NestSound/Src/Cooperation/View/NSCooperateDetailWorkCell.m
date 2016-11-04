@@ -11,7 +11,9 @@
 #import "NSCooperationDetailModel.h"
 
 @interface NSCooperateDetailWorkCell ()
-
+{
+    CoWorkModel *_coWorkModel;
+}
 @property (nonatomic,strong) UIImageView *portraitView;
 
 @property (nonatomic,strong) UILabel *titleLabel;
@@ -85,7 +87,7 @@
         } action:^(UIButton *btn) {
             
             if (self.acceptBlock) {
-                self.acceptBlock (@"1231");
+                self.acceptBlock (_coWorkModel.itemid);
             }
             
         }];
@@ -97,19 +99,12 @@
 }
 
 - (void)setupDataWithCoWorkModel:(CoWorkModel *)model IsMine:(BOOL)isMine{
-    
-    if (!isMine) {
-        self.acceptButton.hidden = YES;
-    }else{
+    _coWorkModel = model;
+    if (isMine && !self.isAccepted) {
         self.acceptButton.hidden = NO;
-        
-//        if (model.access) {
-//            <#statements#>
-//        }
-
-//        self.createDateLabel.text = []
+    }else{
+        self.acceptButton.hidden = YES;
     }
-    
     
     
     [self.portraitView sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]] ;

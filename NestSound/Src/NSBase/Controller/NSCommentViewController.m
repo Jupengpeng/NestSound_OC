@@ -34,6 +34,8 @@ static NSString * const kDefaultTip = @"来~说点什么";
     //无数据提示
     UIImageView *_emptyImage;
 
+    NSString *_coWorkCommentUrl;
+    
 }
 
 @end
@@ -134,36 +136,55 @@ static NSString * const kDefaultTip = @"来~说点什么";
 
 -(void)fetchCommentWithIsLoadingMore:(BOOL)isLoadingMore
 {
-    self.requestType = YES;
-    if (!isLoadingMore) {
-        currentPage = 1;
-        self.requestParams = @{kIsLoadingMore:@(NO)};
+    if (!self.isCoWork) {
+        self.requestType = YES;
+        if (!isLoadingMore) {
+            currentPage = 1;
+            self.requestParams = @{kIsLoadingMore:@(NO)};
+        }else{
+            ++currentPage;
+            self.requestParams = @{kIsLoadingMore:@(YES)};
+        }
+        NSString * str = nil;
+        switch (type) {
+                
+                /**
+                 *  乐说
+                 */
+            case 3:
+            {
+                NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
+                str = [NSTool encrytWithDic:dic];
+                break;
+            }
+            default:
+            {
+                NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
+                str = [NSTool encrytWithDic:dic];
+                
+            }
+                break;
+        }
+        commentUrl = [commentURL stringByAppendingString:str];
+        self.requestURL = commentUrl;
     }else{
-        ++currentPage;
-        self.requestParams = @{kIsLoadingMore:@(YES)};
-    }
-    NSString * str = nil;
-    switch (type) {
- 
-            /**
-             *  乐说
-             */
-       case 3:
-        {
-            NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
-            str = [NSTool encrytWithDic:dic];
-            break;
+        
+        self.requestType = YES;
+        if (!isLoadingMore) {
+            currentPage = 1;
+            self.requestParams = @{kIsLoadingMore:@(NO)};
+        }else{
+            ++currentPage;
+            self.requestParams = @{kIsLoadingMore:@(YES)};
         }
-        default:
-        {
-            NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
-            str = [NSTool encrytWithDic:dic];
-
-        }
-            break;
+        NSDictionary * dic = @{@"itemid":[NSString stringWithFormat:@"%ld",itemID],@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
+        NSString *str = [NSTool encrytWithDic:dic];
+        _coWorkCommentUrl = [coWorkCommentListUrl stringByAppendingString:str];
+        self.requestURL = _coWorkCommentUrl;
+        
     }
-    commentUrl = [commentURL stringByAppendingString:str];
-    self.requestURL = commentUrl;
+    
+    
 }
 
 #pragma mark -actionFetchData
@@ -173,7 +194,8 @@ static NSString * const kDefaultTip = @"来~说点什么";
         [commentTableView.pullToRefreshView stopAnimating];
     } else {
         if (!parserObject.success) {
-            if ([operation.urlTag isEqualToString:commentUrl]) {
+            if ([operation.urlTag isEqualToString:commentUrl]||
+                [operation.urlTag isEqualToString:_coWorkCommentUrl]) {
                 NSCommentListModel * commentList = (NSCommentListModel *)parserObject;
                 [commentTableView.pullToRefreshView stopAnimating];
                 [commentTableView.infiniteScrollingView stopAnimating];
@@ -185,10 +207,12 @@ static NSString * const kDefaultTip = @"来~说点什么";
                     
                 }
                 
-            }else if ([operation.urlTag isEqualToString:postCommentURL]){
+            }else if ([operation.urlTag isEqualToString:postCommentURL]||
+                      [operation.urlTag isEqualToString:coWorkCommentUrl]){
                 [[NSToastManager manager] showtoast:@"发表评论成功"];
                 [self fetchCommentWithIsLoadingMore:NO];
-            }else if ([operation.urlTag isEqualToString:deleteCommentURL]){
+            }else if ([operation.urlTag isEqualToString:deleteCommentURL]||
+                      [operation.urlTag isEqualToString:coWorkDeleteUrl]){
                 [[NSToastManager manager] showtoast:@"删除评论成功"];
                 [self fetchCommentWithIsLoadingMore:NO];
             }else if([operation.urlTag isEqualToString:_musicSayComUrl]){
@@ -388,7 +412,12 @@ static NSString * const kDefaultTip = @"来~说点什么";
         self.requestParams = @{@"comment":comment,@"uid":JUserID,@"comment_type":[NSNumber numberWithInt:commentType],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"target_uid":[NSNumber numberWithLong:targetUID],@"token":LoginToken};
         
     }
-    self.requestURL = postCommentURL;
+    
+    if (self.isCoWork) {
+        self.requestURL = coWorkCommentUrl;
+    }else{
+        self.requestURL = postCommentURL;
+    }
 
 }
 
@@ -399,6 +428,8 @@ static NSString * const kDefaultTip = @"来~说点什么";
 
     self.requestType = NO;
 
+
+    
     if (type == 3) {
         self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
         self.commentExecuteBlock();
@@ -407,7 +438,14 @@ static NSString * const kDefaultTip = @"来~说点什么";
         self.requestParams = @{@"id":[NSNumber numberWithLong:commentID],@"itemid":[NSNumber numberWithLong:itemID],@"type":[NSNumber numberWithInt:type],@"token":LoginToken};
         
     }
-    self.requestURL = deleteCommentURL;
+    
+    if (self.isCoWork) {
+        self.requestURL = coWorkDeleteUrl;
+
+    }else{
+        self.requestURL = deleteCommentURL;
+
+    }
 
 
 }
