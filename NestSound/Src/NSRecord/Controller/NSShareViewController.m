@@ -99,38 +99,42 @@ static NSString *identifier = @"identifier";
     
     [self.view addSubview:shareCollection];
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(shareCollection.frame) + 40, ScreenWidth, 20)];
     
-    tipLabel.text = @"*为了您的个人权益,推荐您进行保全登记";
-    
-    tipLabel.textAlignment = NSTextAlignmentCenter;
-    
-    tipLabel.font = [UIFont systemFontOfSize:13];
-    
-    [self.view addSubview:tipLabel];
-    
-    UIButton *preserveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-//    preserveBtn.centerX = self.view.centerX;
-//    
-//    preserveBtn.y = CGRectGetMaxY(tipLabel.frame) + 10;
-    
-    
-    [preserveBtn setBackgroundImage:[UIImage imageNamed:@"2.0_preserve_btn"] forState:UIControlStateNormal];
-    
-    [preserveBtn addTarget:self action:@selector(preserveApply) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:preserveBtn];
-    
-    [preserveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.centerX.equalTo(self.view.mas_centerX);
+    if (!self.isCoWork) {
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(shareCollection.frame) + 40, ScreenWidth, 20)];
         
-        make.height.mas_equalTo(44);
+        tipLabel.text = @"*为了您的个人权益,推荐您进行保全登记";
         
-        make.top.equalTo(tipLabel.mas_bottom).offset(30);
+        tipLabel.textAlignment = NSTextAlignmentCenter;
         
-    }];
+        tipLabel.font = [UIFont systemFontOfSize:13];
+        
+        [self.view addSubview:tipLabel];
+        
+        UIButton *preserveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        //    preserveBtn.centerX = self.view.centerX;
+        //
+        //    preserveBtn.y = CGRectGetMaxY(tipLabel.frame) + 10;
+        
+        
+        [preserveBtn setBackgroundImage:[UIImage imageNamed:@"2.0_preserve_btn"] forState:UIControlStateNormal];
+        
+        [preserveBtn addTarget:self action:@selector(preserveApply) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:preserveBtn];
+        
+        [preserveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.centerX.equalTo(self.view.mas_centerX);
+            
+            make.height.mas_equalTo(44);
+            
+            make.top.equalTo(tipLabel.mas_bottom).offset(30);
+            
+        }];
+    }
+
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
         

@@ -25,6 +25,10 @@
 @property (nonatomic,strong) NSMutableArray * songAry;
 @property (nonatomic,assign) NSInteger songID;
 @property (nonatomic,assign) long isShow;
+
+//合作成品
+@property (nonatomic,assign) BOOL isCoWork;
+
 - (void)playMusicUrl:(NSString *)musicUrl;
 
 @end

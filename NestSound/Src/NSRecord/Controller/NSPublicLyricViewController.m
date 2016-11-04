@@ -421,6 +421,12 @@ extern Boolean plugedHeadset;
                 self.shareVC.publicModel = publicLyric.publicLyricModel;
                 self.shareVC.shareDataDic = lyricDic;
                 self.shareVC.lyricOrMusic = self.isLyric;
+                if (self.coWorkModel.lyrics.length) {
+                    self.shareVC.isCoWork = YES;
+                }else{
+                    self.shareVC.isCoWork = NO;
+
+                }
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
                     
                     [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];

@@ -10,7 +10,9 @@
 #import "UIButton+Webcache.h"
 #import "NSCooperationDetailModel.h"
 @interface NSCooperateDetailMainCell ()
-
+{
+    NSCooperationDetailModel *_detailModel;
+}
 
 @property (nonatomic,strong) UIButton *portraitBtn;
 
@@ -114,14 +116,14 @@
 
 - (void)showDataWithModel:(NSCooperationDetailModel *)model completion:(NSCooperateDetailMainCellHeightBlock)completion{
 
-    
+    _detailModel = model;
     
     self.heightBlock = completion;
     [self.portraitBtn sd_setImageWithURL:[NSURL URLWithString:model.userInfo.headurl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     
     self.nameLabel.text = model.userInfo.nickname;
 //    @"2016.08.12  20:34"
-    self.releaseTimeLabel.text =  [date datetoMonthStringWithDate:model.demandInfo.createtime format:@"YYYY.MM.dd HH.mm"];
+    self.releaseTimeLabel.text =  [date datetoMonthStringWithDate:model.demandInfo.createtime format:@"YYYY.MM.dd HH:mm"];
 //    @"10.21
     self.deadlineLabel.text = [NSString stringWithFormat:@"至%@过期",[date datetoMonthStringWithDate:model.demandInfo.endtime format:@"MM.dd"]];
 
@@ -197,7 +199,7 @@
         } action:^(UIButton *btn) {
             
             if (self.userClickBlock) {
-                self.userClickBlock(@"7563");
+                self.userClickBlock([NSString stringWithFormat:@"%ld",(long)_detailModel.userInfo.uid]);
             }
             
             
