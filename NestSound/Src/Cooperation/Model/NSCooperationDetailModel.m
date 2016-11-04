@@ -9,7 +9,12 @@
 #import "NSCooperationDetailModel.h"
 
 @implementation NSCooperationDetailModel
-
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"completeList" : [CoWorkModel class],
+             @"commentList" : [CommentModel class],
+             @"userInfo" : @"userInfo" ,
+             @"demandInfo":@"demandInfo"};
+}
 @end
 
 @implementation UserinfoModel
@@ -23,6 +28,7 @@
 
 
 @implementation CoWorkModel
+
 
 @end
 
