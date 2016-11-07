@@ -6,6 +6,9 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
+#define kAcceptDescription @"采纳后，您的合作需求将会结束并提示为“成功”，不在家受其他人的合作"
+#define kCooperateDescription @"您的合作作品在该合作需求期间，您将无法进行删除"
+
 #import "NSCooperationDetailViewController.h"
 #import "NSCooperateDetailMainCell.h"
 #import "NSCommentListModel.h"
@@ -27,6 +30,8 @@
     UIView *_maskView;
     
     BOOL _isAccepted;
+    
+    NSString *_acceptedWorkId;
 }
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -96,8 +101,8 @@
 //    self.isMyCoWork = YES;
     if (self.isMyCoWork) {
         self.inviteButton.width = ScreenWidth;
-        
         [self.view addSubview:self.inviteButton];
+        
         
     }else{
         self.inviteButton.width = ScreenWidth/3.0f;
@@ -191,7 +196,7 @@
                            @"itemid":workId,@"token":LoginToken};
     
     
-        self.requestURL = coAcceptActionUrl;
+    self.requestURL = coAcceptActionUrl;
 
 }
 
@@ -222,10 +227,8 @@
             }
             
             if (detailModel.completeList.count) {
+                //重置采纳状态
                 _isAccepted = NO;
-                
-
-                
                 [self.coWorksArray addObjectsFromArray:detailModel.completeList];
                 
             }
@@ -238,14 +241,16 @@
                     break;
                 }
             }
-            
+            //根据是否采纳调整界面
+            [self processUIWithIsAccepted:_isAccepted];
+
             self.collectButton.selected = detailModel.demandInfo.iscollect;
             
 
         }else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
             CoWorkModel *workModel = (CoWorkModel *)parserObject;
             NSAccompanyListViewController *accompanyController = [[NSAccompanyListViewController alloc] init];
-//            workModel.did = [NSString stringWithFormat:@"%@",self]
+            workModel.did = [NSString stringWithFormat:@"%d",self.cooperationId];
             accompanyController.coWorkModel = workModel;
             [self.navigationController pushViewController:accompanyController animated:YES];
             
@@ -265,6 +270,8 @@
 
         }else if ([operation.urlTag isEqualToString:coAcceptActionUrl]){
             if (parserObject.code == 200) {
+
+
                 [[NSToastManager manager] showtoast:@"采纳成功"];
                 [self postCooperateDetailIsLoadingMore:NO];
             }else{
@@ -279,10 +286,23 @@
             
         }
 
-        
         [self.tableView reloadData];
     }
     
+}
+
+- (void)processUIWithIsAccepted:(BOOL)isAccepted{
+    
+    if (self.isMyCoWork) {
+        
+    }else{
+        
+    }
+    
+    if (isAccepted) {
+        self.tableView.height = ScreenHeight - 64;
+        self.inviteButton.hidden = YES;
+    }
 }
 
 
@@ -332,9 +352,12 @@
             
             [headerView addSubview:titleLabel];
             
-            UILabel *linelabel= [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.height - 0.5, ScreenWidth, 0.5)];
-            linelabel.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
-            [headerView addSubview:linelabel];
+            if (!self.msgArray.count) {
+                UILabel *linelabel= [[UILabel alloc] initWithFrame:CGRectMake(0, headerView.height - 0.5, ScreenWidth, 0.5)];
+                linelabel.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
+                [headerView addSubview:linelabel];
+            }
+           
         }
             break;
         default:{
@@ -516,8 +539,9 @@
         
         cell.acceptBlock = ^(NSString *workId){
           
-            
-            [self postAcceptToWorkWithId:workId];
+            _acceptedWorkId = workId;
+            _tipView.tipText = [NSString stringWithFormat:kAcceptDescription];
+            [self.navigationController.view addSubview:_tipView];
         };
 
         CoWorkModel *workModel = self.coWorksArray[indexPath.row];
@@ -607,8 +631,18 @@
         
         [_tipView removeFromSuperview];
         
+        if ([_tipView.tipText isEqualToString:kCooperateDescription]) {
+            [self postCooperateAction];
 
-        [self postCooperateAction];
+        }
+        
+        if ([_tipView.tipText isEqualToString:kAcceptDescription]) {
+            
+            [self postAcceptToWorkWithId:_acceptedWorkId];
+
+            
+        }
+
     }];
 }
 #pragma mark - TTTAttributedLabelDelegate
@@ -635,7 +669,7 @@
         _tableView.backgroundColor = [UIColor hexColorFloat:@"f4f4f4"];
         [_tableView registerClass:[NSCooperateDetailMainCell class] forCellReuseIdentifier:@"NSCooperateDetailMainCellId"];
         [_tableView registerClass:[NSCommentTableViewCell class] forCellReuseIdentifier:@"NSCommentTableViewCellId"];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     }
     return _tableView;
 }
@@ -693,7 +727,7 @@
             
             _tipView.imgName = @"2.0_backgroundImage";
             
-            _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
+            _tipView.tipText = [NSString stringWithFormat:kCooperateDescription];
             [self.navigationController.view addSubview:_tipView];
             
 

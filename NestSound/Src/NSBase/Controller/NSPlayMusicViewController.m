@@ -44,7 +44,6 @@
     NSArray *shareArr;
     TencentOAuth *tencentOAuth;
     
-    NSString *_cooperateWorkUrl;
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -192,25 +191,22 @@ static id _instance;
 -(void)fetchPlayDataWithItemId:(long)musicItemId
 {
  
+    
+    self.requestType = YES;
+    NSDictionary * dic;
+    
     if (self.isCoWork) {
-        
-        self.requestType = YES;
-        NSDictionary *dict;
         if (JUserID) {
-            dict = @{@"id":@(musicItemId),
-                     @"uid":JUserID,
-                     @"token":LoginToken};
+            
+            dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],
+                    @"uid":JUserID,
+                    @"type":@"3"};
         }else{
-            dict = @{@"id":@(musicItemId)};
+            
+            dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],
+                    @"type":@"3"};
         }
-        
-        NSString * str = [NSTool encrytWithDic:dict];
-        _cooperateWorkUrl = [coWorkPlayDetailUrl stringByAppendingString:str];
-        self.requestURL = _cooperateWorkUrl;
-        
     }else{
-        self.requestType = YES;
-        NSDictionary * dic;
         if (JUserID) {
             
             dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId],@"uid":JUserID};
@@ -218,10 +214,11 @@ static id _instance;
             
             dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
         }
-        NSString * str = [NSTool encrytWithDic:dic];
-        requestUrl = [playMusicURL stringByAppendingString:str];
-        self.requestURL = requestUrl;
     }
+    NSString * str = [NSTool encrytWithDic:dic];
+    requestUrl = [playMusicURL stringByAppendingString:str];
+    self.requestURL = requestUrl;
+    
     
     
 }
@@ -264,16 +261,6 @@ static id _instance;
                 [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
             } else if ([operation.urlTag isEqualToString:changeMusicStatus]) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
-            }
-            
-            //歌曲成品部分
-            
-            else if ([operation.urlTag isEqualToString:_cooperateWorkUrl]){
-                
-                NSPlayMusicDetailModel * musicModel = (NSPlayMusicDetailModel *)parserObject;
-                
-                self.musicDetail = musicModel.musicdDetail;
-                
             }else if ([operation.urlTag isEqualToString:coWorkPraiseUrl]){
                 //点赞
                 if (upVoteBtn.selected == YES) {

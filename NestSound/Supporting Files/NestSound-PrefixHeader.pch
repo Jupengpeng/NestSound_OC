@@ -176,7 +176,8 @@ extern NSString *port;
  *  合作歌曲成品部分
  **/
 //歌曲成品-歌曲播放页数据
-#define coWorkPlayDetailUrl @"cooperate/work/detail/v23?"
+//复用原来的 java/common/music/work
+//#define coWorkPlayDetailUrl @"cooperate/work/detail/v23?"
 //歌曲成品-发布歌曲
 #define coWorkReleaseUrl @"cooperate/work/public/v23"
 //歌曲成品-点赞接口

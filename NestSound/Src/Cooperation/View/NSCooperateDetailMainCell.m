@@ -163,11 +163,12 @@
     [self setNeedsLayout];
     [self layoutIfNeeded];
     
+    
 }
 
 - (void)layoutSubviews{
 
-    
+    [super layoutSubviews];
 
     [self.lyricView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(CGRectGetMaxY(self.lyricContentLabel.frame) + 11);
