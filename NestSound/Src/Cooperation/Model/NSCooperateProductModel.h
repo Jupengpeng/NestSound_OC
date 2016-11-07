@@ -1,5 +1,5 @@
 //
-//  NSCooperateDetailModel.h
+//  NSCooperateProductModel.h
 //  NestSound
 //
 //  Created by yintao on 2016/10/26.
@@ -8,6 +8,20 @@
 
 #import "NSBaseModel.h"
 
-@interface NSCooperateDetailModel : NSBaseModel
+@protocol NSCooperateProductModel <NSObject>
 
+
+@end
+
+@interface NSCooperateProductModel : NSBaseModel
+@property (nonatomic,assign) long lyricerId;
+@property (nonatomic,copy) NSString *lyricerName;
+@property (nonatomic,copy) NSString *title;
+@property (nonatomic,assign) long itemid;
+@property (nonatomic,copy) NSString *musicianName;
+@property (nonatomic,assign) long musicianUid;
+@property (nonatomic,copy) NSString *pic;
+@property (nonatomic,assign) long looknum;
+@property (nonatomic,assign) long fovnum;
+@property (nonatomic,assign) long zannum;
 @end

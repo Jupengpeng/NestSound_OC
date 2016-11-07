@@ -230,6 +230,7 @@
     MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
     CooperationModel *cooperationModel = mainModel.cooperation;
     cooperationId = cooperationModel.cooperationId;
+    
     _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
     
     _maskView.backgroundColor = [UIColor lightGrayColor];
@@ -248,7 +249,7 @@
     
     _tipView.delegate = self;
     
-    _tipView.imgName = @"2.0_backgroundImage";
+    _tipView.imgName = @"2.3_tipImg_cooperate";
     
     _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
     [self.navigationController.view addSubview:_tipView];
@@ -258,8 +259,7 @@
     keyFrame.duration = 0.3;
     keyFrame.removedOnCompletion = NO;
     [_tipView.layer addAnimation:keyFrame forKey:nil];
-    self.requestType = NO;
-    self.requestParams = @{@"did":@"",@"uid":JUserID,@"itemid":@""};
+    
 }
 - (void)iconBtnClickWith:(NSInvitationListTableViewCell *)cell {
     

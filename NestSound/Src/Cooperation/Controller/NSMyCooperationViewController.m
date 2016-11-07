@@ -154,16 +154,20 @@
         
         maskView.alpha = 0.5;
         
-        [self.view addSubview:maskView];
+        [self.navigationController.view addSubview:maskView];
         
-        tipView = [[NSTipView alloc] initWithFrame:CGRectMake(60, 80, ScreenWidth-120, 338)];
+        CGFloat padding = ScreenWidth *60/375.0;
+        CGFloat width = (ScreenWidth - padding * 2);
+        CGFloat height = width * 338/256.0f;
+        
+        tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
         
         tipView.delegate = self;
         
-        tipView.imgName = @"2.0_backgroundImage";
+        tipView.imgName = @"2.3_tipImg_deleteDemand";
         
         tipView.tipText = @"采纳后，您的合作需求将会结束并标示为“成功”，不再接受其他人的合作";
-        [self.view addSubview:tipView];
+        [self.navigationController.view addSubview:tipView];
         
         CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];

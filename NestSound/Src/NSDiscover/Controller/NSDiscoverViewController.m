@@ -320,20 +320,20 @@
 
 - (void)titleBtnClick:(UIButton *)titleBtn {
     
-    if (titleBtn.tag == 0) {
-        
-        CHLog(@"点击了活动");
-       
-    } else if(titleBtn.tag == 1) {
-        
-        CHLog(@"点击了歌曲");
-    } else if (titleBtn.tag == 2) {
-        
-        CHLog(@"点击了歌词");
-    } else {
-        
-        CHLog(@"点击了榜单");
-    }
+//    if (titleBtn.tag == 0) {
+//        
+//        CHLog(@"点击了活动");
+//       
+//    } else if(titleBtn.tag == 1) {
+//        
+//        CHLog(@"点击了歌曲");
+//    } else if (titleBtn.tag == 2) {
+//        
+//        CHLog(@"点击了歌词");
+//    } else {
+//        
+//        CHLog(@"点击了榜单");
+//    }
     
     [_scrollView setContentOffset:CGPointMake(ScreenWidth * titleBtn.tag, 0) animated:YES];
     

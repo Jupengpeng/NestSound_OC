@@ -9,6 +9,8 @@
 #import "NSNewMusicTableViewCell.h"
 #import "NSDiscoverBandListModel.h"
 #import "NSMyMusicModel.h"
+#import "NSCooperateProductModel.h"
+
 @interface NSNewMusicTableViewCell ()
 
 //模拟组头
@@ -23,8 +25,11 @@
 //歌曲名
 @property (nonatomic, strong) UILabel *musicName;
 
-//作者名
-@property (nonatomic, strong) UILabel *authorName;
+//作词人姓名
+@property (nonatomic, strong) UILabel *lyricName;
+
+//作曲人姓名
+@property (nonatomic, strong) UILabel *musicianName;
 
 //日期
 @property (nonatomic, strong) UILabel *dateLabel;
@@ -203,22 +208,36 @@
         
     }];
     
-    //作者名
-    self.authorName = [[UILabel alloc] init];
+    //作词人
+    self.lyricName = [[UILabel alloc] init];
     
+    self.lyricName.font = [UIFont systemFontOfSize:12];
     
+    self.lyricName.textColor = [UIColor hexColorFloat:@"727272"];
     
-    self.authorName.font = [UIFont systemFontOfSize:10];
+    [self.background addSubview:self.lyricName];
     
-    self.authorName.textColor = [UIColor hexColorFloat:@"727272"];
-    
-    [self.background addSubview:self.authorName];
-    
-    [self.authorName mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.lyricName mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.coverIcon.mas_right).offset(10);
         
         make.top.equalTo(self.musicName.mas_bottom).offset(5);
+        
+    }];
+    //作曲人
+    self.musicianName = [[UILabel alloc] init];
+    
+    self.musicianName.font = [UIFont systemFontOfSize:12];
+    
+    self.musicianName.textColor = [UIColor hexColorFloat:@"727272"];
+    
+    [self.background addSubview:self.musicianName];
+    
+    [self.musicianName mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.coverIcon.mas_right).offset(10);
+        
+        make.top.equalTo(self.lyricName.mas_bottom).offset(5);
         
     }];
     
@@ -238,8 +257,6 @@
     }];
     
     self.heardLabel = [[UILabel alloc] init];
-    
-    
     
     self.heardLabel.font = [UIFont systemFontOfSize:10];
     
@@ -328,7 +345,7 @@
     self.dateLabel.text =  [date  datetoStringWithDate:_musicModel.createDate];
     [self.coverIcon setDDImageWithURLString:_musicModel.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     self.musicName.text = _musicModel.workName;
-    self.authorName.text = _musicModel.author;
+    self.lyricName.text = _musicModel.author;
     if (_musicModel.lookNum > 9999) {
         double count = (double)_musicModel.lookNum/10000.0;
         CHLog(@"%f",count);
@@ -359,7 +376,7 @@
         int a = (arc4random()%10)+1;
         [self.coverIcon setDDImageWithURLString:[NSString stringWithFormat:@"http://pic.yinchao.cn/lrycirs_backgroup%02d.png",a] placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     }
-    
+    self.musicianName.hidden = YES;
     self.musicName.text = _myMusicModel.title;
 //    self.authorName.text = _myMusicModel.author;
     if (_myMusicModel.lookNum > 9999) {
@@ -370,12 +387,27 @@
         self.heardLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.lookNum];
     }
     self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.fovNum];
-    self.authorName.text = _myMusicModel.author;
+    self.lyricName.text = _myMusicModel.author;
     self.musicName.text = _myMusicModel.title;
     self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.upvoteNum];
     self.itemId = _myMusicModel.itemId;
 }
-
+- (void)setCoWorkModel:(NSCooperateProductModel *)coWorkModel {
+    _coWorkModel = coWorkModel;
+    [self.coverIcon setDDImageWithURLString:coWorkModel.pic placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    self.musicName.text = coWorkModel.title;
+    self.musicianName.hidden = NO;
+    self.lyricName.text = [NSString stringWithFormat:@"作词:%@",coWorkModel.lyricerName];
+    self.musicianName.text = [NSString stringWithFormat:@"作曲:%@",coWorkModel.musicianName];
+    if (coWorkModel.looknum > 9999) {
+        double count = (double)_musicModel.lookNum/10000.0;
+        self.heardLabel.text = [NSString stringWithFormat:@"%.1f万",count];
+    }else{
+        self.heardLabel.text = [NSString stringWithFormat:@"%ld",_musicModel.lookNum];
+    }
+    self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_coWorkModel.fovnum];
+    self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",coWorkModel.zannum];
+}
 @end
 
 

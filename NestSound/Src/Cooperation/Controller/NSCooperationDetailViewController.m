@@ -691,7 +691,7 @@
             
             _tipView.delegate = self;
             
-            _tipView.imgName = @"2.0_backgroundImage";
+            _tipView.imgName = @"2.3_tipImg_cooperate";
             
             _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
             [self.navigationController.view addSubview:_tipView];

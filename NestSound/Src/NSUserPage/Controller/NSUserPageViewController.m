@@ -32,6 +32,7 @@ static NSInteger const kButtonTag = 200;
 #import "NSImagePicker.h"
 #import "NSHeadImageView.h"
 #import "NSDiscoverMoreLyricModel.h"
+#import "NSCooperationDetailModel.h"
 #define kHeadImageHeight 264
 @interface NSUserPageViewController ()
 <
@@ -40,7 +41,8 @@ UIScrollViewDelegate,
 UITableViewDataSource,
 UIActionSheetDelegate,
 UINavigationControllerDelegate,
-NSImagePickerDelegate>
+NSImagePickerDelegate,
+NSTipViewDelegate>
 {
     
     UITableView *_tableView;
@@ -75,7 +77,9 @@ NSImagePickerDelegate>
     NSTopLBottomLView *fansLLView;
     UIView *_midLine;
     NSString *_sdCachePath;
-
+    NSTipView *_tipView;
+    UIView *_maskView;
+    long cooperationProductId;
 }
 
 @property (nonatomic, assign) NSInteger btnTag;
@@ -265,7 +269,6 @@ static NSString *ID3 = @"cell3";
                 if (!operation.isLoadingMore) {
                     [_tableView.pullToRefreshView stopAnimating];
 
-                    
                     if (!headerUrl.length) {
                         [headView setDDImageWithURLString:userData.userDataModel.userModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
                         userNameLable.text = userData.userDataModel.userModel.nickName;
@@ -287,7 +290,7 @@ static NSString *ID3 = @"cell3";
                                 aLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.collectionNum];
                                 break;
                             case 3:
-                                aLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.inspireNum];
+                                aLabel.text = [NSString stringWithFormat:@"%zd",userData.userOtherModel.cooperationNum];
                                 break;
                             default:
                                 break;
@@ -358,17 +361,32 @@ static NSString *ID3 = @"cell3";
 //                [_tableView reloadData];
             }
             else if ([operation.urlTag isEqualToString:_listUrl]){
+                
                 NSDiscoverMoreLyricModel *listModel = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     [_tableView.pullToRefreshView stopAnimating];
-                    myMusicAry = [NSMutableArray arrayWithArray:listModel.moreLyricList];
-                    for (NSMyMusicModel *model in myMusicAry) {
-                        [self.itemIdArr addObject:@(model.itemId)];
+                    if (self.btnTag == 203) {
+                        myMusicAry = [NSMutableArray arrayWithArray:listModel.cooperateProduct];
+                    } else {
+                        myMusicAry = [NSMutableArray arrayWithArray:listModel.moreLyricList];
                     }
                 }else{
                     [_tableView.infiniteScrollingView stopAnimating];
-                    [myMusicAry addObjectsFromArray:listModel.moreLyricList];
-
+                    if (self.btnTag == 203) {
+                        [myMusicAry addObjectsFromArray:listModel.cooperateProduct];
+                    } else {
+                        
+                        [myMusicAry addObjectsFromArray:listModel.moreLyricList];
+                    }
+                }
+                if (self.btnTag == 203) {
+                    for (NSCooperateProductModel *model in myMusicAry) {
+                        [self.itemIdArr addObject:@(model.itemid)];
+                    }
+                } else {
+                    for (NSMyMusicModel *model in myMusicAry) {
+                        [self.itemIdArr addObject:@(model.itemId)];
+                    }
                 }
                 dataAry = myMusicAry;
                 if (dataAry.count == 0) {
@@ -391,7 +409,7 @@ static NSString *ID3 = @"cell3";
                     
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
                 }
-            } else if ([operation.urlTag isEqualToString:deleteWorkURL]) {
+            } else if ([operation.urlTag isEqualToString:deleteWorkURL] || [operation.urlTag isEqualToString:deleteCooperationProductUrl]) {
                 [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
                 [self fetchUserData];
 
@@ -1167,11 +1185,22 @@ static NSString *ID3 = @"cell3";
         
     } else {
         
-        NSInspirationRecordTableViewCell *cell =(NSInspirationRecordTableViewCell *) [tableView dequeueReusableCellWithIdentifier:ID1];
+//        NSInspirationRecordTableViewCell *cell =(NSInspirationRecordTableViewCell *) [tableView dequeueReusableCellWithIdentifier:ID1];
+//        
+//        cell.myInspirationModel = dataAry[indexPath.row];
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSNewMusicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID0];
         
-        cell.myInspirationModel = dataAry[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        [cell.numLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(cell.mas_left);
+        }];
+        
+        cell.numLabel.hidden = YES;
+        cell.coWorkModel = dataAry[indexPath.row];
+            cell.secretImgView.hidden = YES;
         return cell;
         
     }
@@ -1182,13 +1211,16 @@ static NSString *ID3 = @"cell3";
     NSString *status;
     int isShow;
     NSMyMusicModel *model = dataAry[indexPath.row];
-    if (!model.isShow) {
-        status = @"设为公开";
-        isShow = 1;
-    } else {
-        status = @"设为私密";
-        isShow = 0;
+    if (self.btnTag != 203) {
+        if (!model.isShow) {
+            status = @"设为公开";
+            isShow = 1;
+        } else {
+            status = @"设为私密";
+            isShow = 0;
+        }
     }
+    
     UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:status handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         //在block中实现相对应的事件
         
@@ -1209,10 +1241,47 @@ static NSString *ID3 = @"cell3";
     //2、当左滑按钮执行的操作涉及数据源和页面的更新时，要先更新数据源，在更新视图，否则会出现无响应的情况
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除"handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         self.requestType = NO;
+        
         NSMyMusicModel * myMode = dataAry[indexPath.row];
         if (type == 3) {
             self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
             self.requestURL = collectURL;
+        } else if (type == 5) {
+            
+            _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+            
+            _maskView.backgroundColor = [UIColor lightGrayColor];
+            
+            _maskView.alpha = 0.5;
+            
+            [self.navigationController.view addSubview:_maskView
+             ];
+            
+            CGFloat padding = ScreenWidth *60/375.0;
+            CGFloat width = (ScreenWidth - padding * 2);
+            CGFloat height = width * 338/256.0f;
+            
+            
+            _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+            
+            _tipView.delegate = self;
+            
+            _tipView.imgName = @"2.3_tipImg_cooperate";
+            
+            _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
+            [self.navigationController.view addSubview:_tipView];
+            
+            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+            keyFrame.duration = 0.3;
+            keyFrame.removedOnCompletion = NO;
+            [_tipView.layer addAnimation:keyFrame forKey:nil];
+            
+            NSCooperateProductModel *model = dataAry[indexPath.row];
+            
+            cooperationProductId = model.itemid;
+            
+            
         }else{
             
             NSInteger deleteType = 4;
@@ -1226,9 +1295,9 @@ static NSString *ID3 = @"cell3";
             self.requestURL = deleteWorkURL;
         }
         
-        [dataAry removeObjectAtIndex:indexPath.row];
-        
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+//        [dataAry removeObjectAtIndex:indexPath.row];
+//        
+//        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }];
     //此处UITableViewRowAction对象放入的顺序决定了对应按钮在cell中的顺序
     if (self.btnTag ==kButtonTag + 1 || self.btnTag ==kButtonTag + 0) {
@@ -1245,7 +1314,7 @@ static NSString *ID3 = @"cell3";
         return 80;
     } else {
         
-        return 140;
+        return 100;
     }
     
 }
@@ -1374,14 +1443,56 @@ static NSString *ID3 = @"cell3";
             
         }
         
-    }else if (type == 4){
-        
-        NSInspirationRecordViewController * inspirationVC = [[NSInspirationRecordViewController alloc] initWithItemId:myMusic.itemId andType:NO];
-        [self.navigationController pushViewController:inspirationVC animated:YES];
+    }else if (type == 5){
+        NSCooperateProductModel *model = dataAry[indexPath.row];
+        NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+        playVC.itemUid = model.itemid;
+        playVC.geDanID = 0;
+        BOOL isH = false;
+        for (id vc in self.navigationController.childViewControllers) {
+            if ([vc isKindOfClass:[NSPlayMusicViewController class]]) {
+                isH = YES;
+            }
+        }
+        if (isH) {
+            [self.navigationController popToViewController:playVC animated:YES];
+        }else{
+            [self.navigationController pushViewController:playVC animated:YES];
+        }
+//        NSInspirationRecordViewController * inspirationVC = [[NSInspirationRecordViewController alloc] initWithItemId:myMusic.itemId andType:NO];
+//        [self.navigationController pushViewController:inspirationVC animated:YES];
     }
     
 }
+#pragma mark - NSTipViewDelegate
 
+- (void)cancelBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+    }];
+}
+- (void)ensureBtnClick {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _tipView.transform = CGAffineTransformScale(_tipView.transform, 0.1, 0.1);
+        
+    } completion:^(BOOL finished) {
+        
+        [_maskView removeFromSuperview];
+        
+        [_tipView removeFromSuperview];
+        
+        self.requestType = NO;
+        self.requestParams = @{@"uid":JUserID,@"itemid":@(cooperationProductId),@"token":LoginToken};
+        self.requestURL = deleteCooperationProductUrl;
+        
+    }];
+}
 - (void)toolbarBtnClick:(UIButton *)toolbarBtn {
     UIButton *lastButton = [backgoundView viewWithTag:self.btnTag];
     lastButton.selected = NO;
@@ -1393,8 +1504,6 @@ static NSString *ID3 = @"cell3";
             self.btnTag = toolbarBtn.tag;
             type = 1 ;
             
-            
-            
             break;
         }
         case 1: {
@@ -1403,8 +1512,6 @@ static NSString *ID3 = @"cell3";
             
             type = 2;
             
-            
-            
             break;
         }
         case 2: {
@@ -1412,15 +1519,13 @@ static NSString *ID3 = @"cell3";
             self.btnTag = toolbarBtn.tag;
             type = 3;
             
-            
             break;
         }
         case 3: {
             
             self.btnTag = toolbarBtn.tag;
-            type = 4;
+            type = 5;
            
-            
             break;
         }
         default:

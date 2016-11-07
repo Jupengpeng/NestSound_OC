@@ -17,6 +17,7 @@
 @property (nonatomic,assign) long lyricsNum;
 @property (nonatomic,assign) long workNum;
 @property (nonatomic,assign) long inspireNum;
+@property (nonatomic,assign) long cooperationNum;
 @property (nonatomic,assign) long collectionNum;
 @end
 

@@ -148,7 +148,9 @@
                     [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%ld",user.userID]];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshUserPageNotific" object:nil];
                     [[NSUserDefaults standardUserDefaults] synchronize];
-                    self.lonigBlock(YES);
+                    if (self.lonigBlock) {
+                        self.lonigBlock(YES);
+                    }
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }
             } else if ([operation.urlTag isEqualToString:url]) {

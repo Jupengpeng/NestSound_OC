@@ -81,6 +81,11 @@
 
 @property (nonatomic,copy) NSString *access;
 
+@property (nonatomic,assign) long fovnum;
+
+@property (nonatomic,assign) long zannum;
+
+@property (nonatomic,assign) long looknum;
 @end
 
 @interface CommentModel : NSObject

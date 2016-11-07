@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "NSMyMusicModel.h"
-
+#import "NSCooperateProductModel.h"
 @interface NSDiscoverMoreLyricModel : NSBaseModel
 
 @property (nonatomic,strong) NSArray <NSMyMusicModel> * moreLyricList;
-
+@property (nonatomic,strong) NSArray <NSCooperateProductModel> * cooperateProduct;
 @end

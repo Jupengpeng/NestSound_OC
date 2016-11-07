@@ -119,12 +119,12 @@ static NSString *illustrateStr = @"· 默认合作期限为15天,您可以在所
         publicCell.textLabel.text = @"选择参加合作的歌词作品";
         publicCell.textLabel.font = [UIFont systemFontOfSize:14];
     } else {
-        UILabel *illustrate = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, ScreenWidth, 20)];
+        UILabel *illustrate = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, ScreenWidth/2, 20)];
         illustrate.text = @"说明";
         illustrate.font = [UIFont systemFontOfSize:14];
         [publicCell addSubview:illustrate];
         
-        UILabel *explain = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, ScreenWidth - 20, 120)];
+        UILabel *explain = [[UILabel alloc] initWithFrame:CGRectMake(15, 30, ScreenWidth - 30, 120)];
         explain.text = illustrateStr;
         explain.numberOfLines = 0;
         explain.font = [UIFont systemFontOfSize:12];

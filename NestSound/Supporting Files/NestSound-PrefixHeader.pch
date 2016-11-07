@@ -156,7 +156,7 @@ extern NSString *port;
 #define publicCooperationMessageUrl @"cooperate/comment/save/v23"
 #define deleteMyCooperationUrl @"cooperate/demand/delete/v23"
 #define cancelCollectUlr @"cooperate/demand/fov/V23"
-
+#define deleteCooperationProductUrl @"cooperate/work/delete/v23"
 /**
  *  2016年11月2号添加
  */
@@ -267,13 +267,13 @@ extern NSString *port;
 //个人空间
 
 //用户个人主页默认页
-#define myUserCenterDefaultUrl @"java/userCenter/index/v22?"
+#define myUserCenterDefaultUrl @"java/userCenter/index/v23?"
 //用户个人主页列表详情
-#define myUserCenterListUrl @"java/userCenter/listdetails/v22?"
+#define myUserCenterListUrl @"java/userCenter/listdetails/v23?"
 //其他个人主页默认页
-#define otherUserCenterDefaultUrl @"java/common/otherCenter/index/v22?"
+#define otherUserCenterDefaultUrl @"java/common/otherCenter/index/v23?"
 //其他个人主页列表详情
-#define otherUserCenterListUrl @"java/common/otherCenter/listdetails/v22?"
+#define otherUserCenterListUrl @"java/common/otherCenter/listdetails/v23?"
 
 
 

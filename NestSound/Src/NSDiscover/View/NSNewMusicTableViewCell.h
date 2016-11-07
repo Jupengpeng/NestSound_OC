@@ -10,6 +10,8 @@
 
 @class NSBandMusic;
 @class NSMyMusicModel;
+@class NSCooperateProductModel;
+
 @interface NSNewMusicTableViewCell : UITableViewCell
 
 //排行数字
@@ -26,5 +28,7 @@
 @property (nonatomic,strong) NSBandMusic * musicModel;
 
 @property (nonatomic,strong) NSMyMusicModel * myMusicModel;
+
+@property (nonatomic,strong) NSCooperateProductModel *coWorkModel;
 
 @end

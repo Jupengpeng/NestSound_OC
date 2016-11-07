@@ -283,7 +283,7 @@
 		B8657A131DC9D01F00C49A47 /* NSCooperationDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8657A121DC9D01F00C49A47 /* NSCooperationDetailModel.m */; };
 		B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
-		B87B3D5C1DC0470C0082D3A1 /* NSCooperateDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */; };
+		B87B3D5C1DC0470C0082D3A1 /* NSCooperateProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87B3D5B1DC0470C0082D3A1 /* NSCooperateProductModel.m */; };
 		B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */; };
 		B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B899FA491D41B9AE001E79F3 /* libmp3lame.a */; };
 		B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = B89CF2AB1D845A5B00F4D8FD /* FXBlurView.m */; };
@@ -1017,8 +1017,8 @@
 		B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyModel.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
 		B878AF2A1D929F340059013F /* NSPreserveTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTypeView.m; sourceTree = "<group>"; };
-		B87B3D5A1DC0470C0082D3A1 /* NSCooperateDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperateDetailModel.h; sourceTree = "<group>"; };
-		B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperateDetailModel.m; sourceTree = "<group>"; };
+		B87B3D5A1DC0470C0082D3A1 /* NSCooperateProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperateProductModel.h; sourceTree = "<group>"; };
+		B87B3D5B1DC0470C0082D3A1 /* NSCooperateProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperateProductModel.m; sourceTree = "<group>"; };
 		B87F69F61D93AA7000A7B620 /* NSMusicSayDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicSayDetailController.h; sourceTree = "<group>"; };
 		B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicSayDetailController.m; sourceTree = "<group>"; };
 		B899FA481D41B9AE001E79F3 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
@@ -2200,8 +2200,8 @@
 		B8625FB81DBF831600713B1D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B87B3D5A1DC0470C0082D3A1 /* NSCooperateDetailModel.h */,
-				B87B3D5B1DC0470C0082D3A1 /* NSCooperateDetailModel.m */,
+				B87B3D5A1DC0470C0082D3A1 /* NSCooperateProductModel.h */,
+				B87B3D5B1DC0470C0082D3A1 /* NSCooperateProductModel.m */,
 				0C165F761DC71421003795D1 /* NSCooperationListModel.h */,
 				0C165F771DC71421003795D1 /* NSCooperationListModel.m */,
 				0C165F791DC71439003795D1 /* NSMyCooperationListModel.h */,
@@ -3608,7 +3608,7 @@
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
-				B87B3D5C1DC0470C0082D3A1 /* NSCooperateDetailModel.m in Sources */,
+				B87B3D5C1DC0470C0082D3A1 /* NSCooperateProductModel.m in Sources */,
 				2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */,

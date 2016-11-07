@@ -25,17 +25,19 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        self.layer.cornerRadius = 3;
+        self.layer.cornerRadius = 4;
+        
         topImgView = [[UIImageView alloc] init];
-        topImgView.layer.cornerRadius = 3;
-        topImgView.layer.masksToBounds = YES;
+        
+//        topImgView.layer.cornerRadius = 4;
+//        topImgView.layer.masksToBounds = YES;
         [self addSubview:topImgView];
         
         midLabel = [[UILabel alloc] init];
         midLabel.numberOfLines = 0;
         midLabel.textColor = [UIColor hexColorFloat:@"333333"];
         midLabel.textAlignment = NSTextAlignmentCenter;
-        midLabel.font = [UIFont systemFontOfSize:14];
+        midLabel.font = [UIFont systemFontOfSize:15];
         [self addSubview:midLabel];
         
         leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -91,7 +93,7 @@
     
     [midLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
-        make.width.mas_equalTo(self.width - 10);
+        make.width.mas_equalTo(self.width - 20);
         make.top.equalTo(topImgView.mas_bottom).offset(8);
         make.height.mas_equalTo(66);
     }];

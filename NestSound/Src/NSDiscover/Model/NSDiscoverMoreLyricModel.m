@@ -11,7 +11,8 @@
 @implementation NSDiscoverMoreLyricModel
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
-    return @{@"moreLyricList":@"data"};
+    return @{@"moreLyricList":@"data",
+             @"cooperateProduct":@"data"};
 
 }
 @end

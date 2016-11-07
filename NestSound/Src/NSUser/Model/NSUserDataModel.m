@@ -20,6 +20,7 @@
              @"workNum":@"worknum",
              @"inspireNum":@"inspirenum",
              @"collectionNum":@"fovnum",
+             @"cooperationNum":@"cooperatenum",
              @"isFocus":@"isFocus"
              };
 }
