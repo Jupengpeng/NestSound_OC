@@ -124,8 +124,7 @@
 //    else if ([url isEqualToString:systemMessageURL]) {
 //        return [[NSPreserveMessageListModel alloc] initWithJSONDict:jsonDict];
 //    }
-    else if ([url isEqualToString:playMusicURL] ||
-             [url isEqualToString:coWorkPlayDetailUrl]){
+    else if ([url isEqualToString:playMusicURL]){
         
         return [[NSPlayMusicDetailModel alloc] initWithJSONDict:jsonDict];
         
@@ -148,7 +147,8 @@
 //         */
 //        return [[NSUserDataModel alloc] initWithJSONDict:jsonDict];
 //    }
-    else if ([url isEqualToString:publicLyricURL] || [url isEqualToString:publicMusicURL]){
+    else if ([url isEqualToString:publicLyricURL] || [url isEqualToString:publicMusicURL] ||
+             [url isEqualToString:coWorkReleaseUrl]){
         
         return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
         
@@ -184,9 +184,6 @@
         
         return [[NSLyricLibraryListModel alloc] initWithJSONDict:jsonDict];
     }
-//    else if ([url isEqualToString:publicMusicURL]){
-//        return [[NSPublicLyricModel alloc] initWithJSONDict:jsonDict];
-//    }
     else if ([url isEqualToString:draftListUrl]) {
         
         return [[NSDraftListModel alloc] initWithJSONDict:jsonDict];
@@ -208,14 +205,7 @@
         
         return [[NSJoinedWorkListModel alloc] initWithJSONDict:jsonDict];
         
-    }else if([url isEqualToString:publicLyricURL] || [url isEqualToString:publicMusicURL]){
-        
-        return [[NSActPublicLyricModel alloc] initWithJSONDict:jsonDict];
-        
     }
-//    else if([url isEqualToString:publicMusicURL]){
-//        return [[NSActPublicLyricModel alloc] initWithJSONDict:jsonDict];
-//    }
     else if([url isEqualToString:musicianListUrl]){
         
         return [[NSMusicianListModel alloc] initWithJSONDict:jsonDict];
@@ -307,10 +297,7 @@
         CoWorkModel *workModel = [CoWorkModel yy_modelWithDictionary:[jsonDict objectForKey:@"data"]];
         return workModel;
         
-    } else if ([url isEqualToString:coWorkReleaseUrl]){
-        
-        
-    } else if ([url isEqualToString:coAcceptActionUrl]){
+    }  else if ([url isEqualToString:coAcceptActionUrl]){
         
     }
     return [[NSBaseModel alloc] initWithJSONDict:jsonDict];

@@ -1453,6 +1453,8 @@ Boolean plugedHeadset;
             [self.dict setValue:@(plugedHeadset) forKey:@"isHeadSet"];
             self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
             self.public.mp3URL = mp3URL;
+            self.public.mp3File = self.mp3Path;
+
             if (self.aid.length) {
                 self.public.aid = self.aid;
             }

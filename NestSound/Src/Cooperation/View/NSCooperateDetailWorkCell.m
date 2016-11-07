@@ -79,6 +79,8 @@
         
         self.acceptButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             [btn setTitle:@"采纳" forState:UIControlStateNormal];
+            [btn setTitle:@"已采纳" forState:UIControlStateDisabled];
+
             [btn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
             [btn setBackgroundColor:[UIColor hexColorFloat:@"ffd705"]];
@@ -100,11 +102,35 @@
 
 - (void)setupDataWithCoWorkModel:(CoWorkModel *)model IsMine:(BOOL)isMine{
     _coWorkModel = model;
-    if (isMine && !self.isAccepted) {
-        self.acceptButton.hidden = NO;
+    
+   
+    
+    if (isMine ) {
+//        我的合作需求
+        if (self.isAccepted == YES ) {
+//            已经被采纳
+            if ([model.access integerValue]) {
+            //采纳了该曲
+                self.acceptButton.hidden = NO;
+                self.acceptButton.enabled = NO;
+
+            }else{
+                self.acceptButton.hidden = YES;
+                
+            }
+            
+        }else{
+            self.acceptButton.hidden = NO;
+            self.acceptButton.enabled = YES;
+        }
+        
     }else{
         self.acceptButton.hidden = YES;
     }
+    
+
+    
+    
     
     
     [self.portraitView sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]] ;
@@ -135,7 +161,7 @@
 
 
 - (void)layoutSubviews{
-    
+    [super layoutSubviews];
     [self.createDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.right.equalTo(self.mas_right).offset(-10);

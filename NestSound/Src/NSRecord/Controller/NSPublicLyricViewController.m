@@ -362,11 +362,9 @@ extern Boolean plugedHeadset;
         [self presentViewController:self.alertView animated:YES completion:nil];
         
         if (lyricDic[@"lyricImgUrl"] !=NULL) {
-            if (self.isLyric) {
-                [self publicWithType:YES];
-            }else{
-                [self publicWithType:NO];
-            }
+            
+            [self publicWorkCenterRun];
+            
         } else {
             if (self.isLyric) {
                 
@@ -481,6 +479,7 @@ extern Boolean plugedHeadset;
                            @"is_issue":[NSNumber numberWithInt:publicSwitch.isOn],
                            @"mp3":self.mp3URL,
                            @"diyids":[NSString stringWithFormat:@"%@",descriptionText.text],
+                           @"token":LoginToken
                            };
     
     self.requestURL = coWorkReleaseUrl;
@@ -587,6 +586,18 @@ extern Boolean plugedHeadset;
    
 }
 
+- (void)publicWorkCenterRun{
+    if (self.coWorkModel.lyrics.length) {
+        [self publickOfCooperation];
+    }else{
+        if (self.isLyric) {
+            [self publicWithType:YES];
+        }else{
+            [self publicWithType:NO];
+        }
+    }
+}
+
 #pragma mark -addtitlePage
 -(void)addtitlePage
 {
@@ -664,11 +675,8 @@ extern Boolean plugedHeadset;
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
-            if (self.isLyric) {
-                [wSelf publicWithType:YES];
-            }else{
-                [wSelf publicWithType:NO];
-            }
+            
+            [wSelf publicWorkCenterRun];
     
             
         } option:nil];
