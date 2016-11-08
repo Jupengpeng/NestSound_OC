@@ -295,6 +295,11 @@
     
     maskView.hidden = YES;
     
+    
+    if (self.msgActBlock) {
+        self.msgActBlock();
+    }
+    
 //    [self publicCooperationMessageWithMessage:textField.text];
     if (messageType) {
     

@@ -55,6 +55,8 @@
 
 @property (nonatomic,assign) BOOL iscollect;
 
+@property (nonatomic,copy) NSString *status;
+
 @end
 
 @interface CoWorkModel : NSBaseModel
