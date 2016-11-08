@@ -321,7 +321,7 @@
     
     NSCooperationMessageTableViewCell * cell = (NSCooperationMessageTableViewCell *)label.superview.superview;
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.targetUserID]];
-    pageVC.who = Other;
+    pageVC.who = !self.isMyCoWork;
     [self.navigationController pushViewController:pageVC animated:YES];
     
 }

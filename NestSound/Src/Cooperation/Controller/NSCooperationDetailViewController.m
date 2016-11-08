@@ -447,6 +447,7 @@
                     _needRefresh = YES;
                     
                 };
+                cooperationMessageVC.isMyCoWork = self.isMyCoWork;
                 cooperationMessageVC.cooperationId = self.cooperationId;
                 [self.navigationController pushViewController:cooperationMessageVC animated:YES];
             }];
@@ -541,7 +542,7 @@
           
             NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:userId];
             
-            pageVC.who = Other;
+            pageVC.who = !self.isMyCoWork;
             
             [self.navigationController pushViewController:pageVC animated:YES];
             
@@ -655,7 +656,7 @@
     
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.userID]];
     
-    pageVC.who = Other;
+    pageVC.who = !self.isMyCoWork;
     
     [self.navigationController pushViewController:pageVC animated:YES];
     
@@ -704,7 +705,7 @@
     
     NSCommentTableViewCell * cell = (NSCommentTableViewCell *)label.superview.superview;
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.targetUserID]];
-    pageVC.who = Other;
+    pageVC.who = !self.isMyCoWork;
     [self.navigationController pushViewController:pageVC animated:YES];
     
 }

@@ -15,4 +15,5 @@ typedef void(^NSCooperationMessageViewControllerBlock)(void);
 
 @property (nonatomic,copy) NSCooperationMessageViewControllerBlock msgActBlock;
 
+@property (nonatomic,assign) BOOL isMyCoWork;
 @end
