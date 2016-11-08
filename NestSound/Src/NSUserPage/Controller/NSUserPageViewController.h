@@ -10,7 +10,7 @@
 
 typedef NS_ENUM(NSUInteger, Who) {
     
-    Myself,
+    Myself = 0,
     
     Other,
     

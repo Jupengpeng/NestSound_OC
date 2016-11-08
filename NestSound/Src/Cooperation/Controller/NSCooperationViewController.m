@@ -272,7 +272,8 @@
     
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cooperationModel.uId]];
     
-    pageVC.who = Other;
+
+    pageVC.who = (cooperationModel.uId == [JUserID integerValue]) ? Myself : Other;
     
     [self.navigationController pushViewController:pageVC animated:YES];
 }
