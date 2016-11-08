@@ -471,7 +471,7 @@ extern Boolean plugedHeadset;
                            @"wUsername":self.coWorkModel.wUsername,
                            @"lUid":self.coWorkModel.lUid,
                            @"lUsername":self.coWorkModel.lUsername,
-                           @"lyrics":self.coWorkModel.lyrics,
+                           @"lyrics":lyricDic[@"lyric"],
                            @"createtype":@"HOT",
                            @"useheadset":[NSString stringWithFormat:@"%@",lyricDic[@"isHeadSet"]],
                            @"hotid":lyricDic[@"hotID"],

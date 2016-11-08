@@ -178,6 +178,8 @@ static id _instance;
     
     [super viewDidDisappear:animated];
     
+    self.isCoWork = NO;
+    
     [self tapClick:nil];
     
     [self removeTimer];

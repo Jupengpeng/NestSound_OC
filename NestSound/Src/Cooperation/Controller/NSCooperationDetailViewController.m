@@ -30,6 +30,8 @@
     BOOL _isAccepted;
     
     NSString *_acceptedWorkId;
+    
+    BOOL _needRefresh;
 }
 
 @property (nonatomic,strong) UITableView *tableView;
@@ -70,6 +72,19 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (_needRefresh == YES) {
+        [self postCooperateDetailIsLoadingMore:NO];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    _needRefresh = NO;
+
+}
+
 - (void)createData{
     
     for (NSInteger i= 0; i < 4; i ++) {
@@ -101,26 +116,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-//    self.isMyCoWork = YES;
-    if (self.isMyCoWork) {
-        self.inviteButton.width = ScreenWidth;
-        [self.view addSubview:self.inviteButton];
-        
-        
-    }else{
-        self.inviteButton.width = ScreenWidth/3.0f;
 
-        [self.view addSubview:self.inviteButton];
-        [self.view addSubview:self.collectButton];
-        [self.view addSubview:self.cooperateButton];
-        
-        for (NSInteger i=0; i < 2; i ++) {
-            UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth*(i+1)/3.0f,CGRectGetMinY(self.inviteButton.frame)+ 6, 0.4, 34)];
-            line.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
-            [self.view addSubview:line];
-        }
-        
-    }
     
     WS(weakSelf);
     [self.tableView addDDPullToRefreshWithActionHandler:^{
@@ -233,23 +229,18 @@
                 //重置采纳状态
                 _isAccepted = NO;
                 [self.coWorksArray addObjectsFromArray:detailModel.completeList];
-                
             }
             
             //判断是否已经被采纳
-            _isAccepted = NO;
             for (CoWorkModel *coWorkModel in self.coWorksArray ) {
                 if ([coWorkModel.access boolValue]) {
                     _isAccepted = YES;
                     break;
                 }
             }
-            //根据是否采纳调整界面
-            if (_isAccepted) {
-                self.tableView.height = ScreenHeight - 64;
-                self.inviteButton.hidden = YES;
-            }
-            self.collectButton.selected = detailModel.demandInfo.iscollect;
+
+            [self processUIWithModel:detailModel accepted:_isAccepted];
+            
             
 
         }else if ([operation.urlTag isEqualToString:coCooperateActionUrl]){
@@ -293,6 +284,59 @@
         [self.tableView reloadData];
     }
     
+}
+
+- (void)processUIWithModel:(NSCooperationDetailModel *)detailModel accepted:(BOOL)isAccepted{
+    if (!self.isMyCoWork) {
+        //别人的需求
+        switch ([detailModel.demandInfo.status intValue]) {
+            case 1:
+            {
+                self.inviteButton.width = ScreenWidth/3.0f;
+                
+                [self.view addSubview:self.inviteButton];
+                [self.view addSubview:self.collectButton];
+                [self.view addSubview:self.cooperateButton];
+                
+                self.collectButton.selected = detailModel.demandInfo.iscollect;
+
+                
+                
+                for (NSInteger i=0; i < 2; i ++) {
+                    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth*(i+1)/3.0f,CGRectGetMinY(self.inviteButton.frame)+ 6, 0.4, 34)];
+                    line.backgroundColor = [UIColor hexColorFloat:@"d9d9d9"];
+                    [self.view addSubview:line];
+                }
+                
+            }
+                break;
+            case 3:
+            case 4:
+            case 8:
+            {
+                self.tableView.height = ScreenHeight - 64;
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        
+    }else{
+        //我的需求
+        
+        
+        
+        //根据是否采纳调整界面
+        if (isAccepted) {
+            self.tableView.height = ScreenHeight - 64;
+
+        }else{
+            self.inviteButton.width = ScreenWidth;
+            [self.view addSubview:self.inviteButton];
+        }
+    }
 }
 
 
@@ -398,6 +442,11 @@
                 CHLog(@"跳转到评论");
                 
                 NSCooperationMessageViewController *cooperationMessageVC = [[NSCooperationMessageViewController alloc] init];
+                cooperationMessageVC.msgActBlock = ^(){
+
+                    _needRefresh = YES;
+                    
+                };
                 cooperationMessageVC.cooperationId = self.cooperationId;
                 [self.navigationController pushViewController:cooperationMessageVC animated:YES];
             }];

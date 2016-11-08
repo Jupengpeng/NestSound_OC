@@ -6,8 +6,13 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
+typedef void(^NSCooperationMessageViewControllerBlock)(void);
+
 #import "NSBaseViewController.h"
 
 @interface NSCooperationMessageViewController : NSBaseViewController
 @property (nonatomic, assign) int cooperationId;
+
+@property (nonatomic,copy) NSCooperationMessageViewControllerBlock msgActBlock;
+
 @end
