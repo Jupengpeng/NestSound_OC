@@ -6,7 +6,7 @@
 //  Copyright © 2016年 yinchao. All rights reserved.
 //
 
-#define kAcceptDescription @"采纳后，您的合作需求将会结束并提示为“成功”，不在家受其他人的合作"
+#define kAcceptDescription @"采纳后，您的合作需求将会结束并提示为“成功”，不再接受其他人的合作"
 #define kCooperateDescription @"您的合作作品在该合作需求期间，您将无法进行删除"
 
 #import "NSCooperationDetailViewController.h"
@@ -26,8 +26,6 @@
     
     CGFloat _lyricViewHeight;
     
-    NSTipView *_tipView;
-    UIView *_maskView;
     
     BOOL _isAccepted;
     
@@ -54,6 +52,11 @@
 @property (nonatomic,strong) NSCooperationDetailModel *cooperateModel;
 
 @property (nonatomic,strong) UIImageView *noCooperationView;
+
+@property ( nonatomic,strong) NSTipView *tipView;
+
+@property (nonatomic,strong)  UIView *maskView;
+
 
 @end
 
@@ -242,8 +245,10 @@
                 }
             }
             //根据是否采纳调整界面
-            [self processUIWithIsAccepted:_isAccepted];
-
+            if (_isAccepted) {
+                self.tableView.height = ScreenHeight - 64;
+                self.inviteButton.hidden = YES;
+            }
             self.collectButton.selected = detailModel.demandInfo.iscollect;
             
 
@@ -271,7 +276,6 @@
         }else if ([operation.urlTag isEqualToString:coAcceptActionUrl]){
             if (parserObject.code == 200) {
 
-
                 [[NSToastManager manager] showtoast:@"采纳成功"];
                 [self postCooperateDetailIsLoadingMore:NO];
             }else{
@@ -289,20 +293,6 @@
         [self.tableView reloadData];
     }
     
-}
-
-- (void)processUIWithIsAccepted:(BOOL)isAccepted{
-    
-    if (self.isMyCoWork) {
-        
-    }else{
-        
-    }
-    
-    if (isAccepted) {
-        self.tableView.height = ScreenHeight - 64;
-        self.inviteButton.hidden = YES;
-    }
 }
 
 
@@ -517,9 +507,9 @@
             
             cell = [[NSCommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSCommentTableViewCellId"];
             
-            cell.delegate = self;
         }
-        
+        cell.delegate = self;
+
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.commentModel = self.msgArray[indexPath.row];
         cell.commentLabel.delegate = self;
@@ -540,8 +530,23 @@
         cell.acceptBlock = ^(NSString *workId){
           
             _acceptedWorkId = workId;
+            
+            [self.navigationController.view addSubview:self.maskView
+             ];
+            
+            
+            self.tipView.imgName = @"2.3_tipImg_accept";
+            
             _tipView.tipText = [NSString stringWithFormat:kAcceptDescription];
             [self.navigationController.view addSubview:_tipView];
+            
+            
+            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+            keyFrame.duration = 0.3;
+            keyFrame.removedOnCompletion = NO;
+            [_tipView.layer addAnimation:keyFrame forKey:nil];
+            
         };
 
         CoWorkModel *workModel = self.coWorksArray[indexPath.row];
@@ -604,7 +609,6 @@
     pageVC.who = Other;
     
     [self.navigationController pushViewController:pageVC animated:YES];
-    
     
 }
 
@@ -706,26 +710,11 @@
             [btn addSubview:linelabel];
         } action:^(UIButton *btn) {
 
-            _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-            
-            _maskView.backgroundColor = [UIColor lightGrayColor];
-            
-            _maskView.alpha = 0.5;
-            
-            [self.navigationController.view addSubview:_maskView
+            [self.navigationController.view addSubview:self.maskView
              ];
             
             
-            CGFloat padding = ScreenWidth *60/375.0;
-            CGFloat width = (ScreenWidth - padding * 2);
-            CGFloat height = width * 338/256.0f;
-            
-            
-            _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
-            
-            _tipView.delegate = self;
-            
-            _tipView.imgName = @"2.3_tipImg_cooperate";
+            self.tipView.imgName = @"2.3_tipImg_cooperate";
             
             _tipView.tipText = [NSString stringWithFormat:kCooperateDescription];
             [self.navigationController.view addSubview:_tipView];
@@ -806,4 +795,30 @@
     }
     return _collectButton;
 }
+
+- (NSTipView *)tipView{
+    CGFloat padding = ScreenWidth *60/375.0;
+    CGFloat width = (ScreenWidth - padding * 2);
+    CGFloat height = width * 338/256.0f;
+    
+    
+    _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+    
+    _tipView.delegate = self;
+
+    return _tipView;
+}
+
+- (UIView *)maskView{
+    if (!_maskView) {
+        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        
+        _maskView.backgroundColor = [UIColor lightGrayColor];
+        
+        _maskView.alpha = 0.5;
+    }
+    return _maskView;
+}
+
+
 @end

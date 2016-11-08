@@ -399,6 +399,7 @@ static NSString *ID3 = @"cell3";
             else if ([operation.urlTag isEqualToString:focusUserURL]){
                 
                 [[NSToastManager manager] showtoast:parserObject.data[@"mp3URL"]];
+                
                 if ([parserObject.data[@"mp3URL"] isEqualToString:@"取消关注成功"]) {
                     
                     followItem.image = [UIImage imageNamed:@"2.0_addFocus_icon"];
@@ -409,6 +410,7 @@ static NSString *ID3 = @"cell3";
                     
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
                 }
+
             } else if ([operation.urlTag isEqualToString:deleteWorkURL] || [operation.urlTag isEqualToString:deleteCooperationProductUrl]) {
                 if (parserObject.code == 200) {
                     [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
@@ -503,13 +505,12 @@ static NSString *ID3 = @"cell3";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftImageView];
     if (self.who == Other){
         
-//        followItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_addFocus_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
-//        
-//        self.navigationItem.rightBarButtonItem = followItem;
-        UIImageView *rightImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"2.0_addFocus_icon"]];
-        rightImageView.userInteractionEnabled= YES;
-        [rightImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followClick:)]];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightImageView];
+        followItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_addFocus_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
+        self.navigationItem.rightBarButtonItem = followItem;
+//        UIImageView *rightImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"2.0_addFocus_icon"]];
+//        rightImageView.userInteractionEnabled= YES;
+//        [rightImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followClick:)]];
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightImageView];
         
         
     }
@@ -1116,7 +1117,13 @@ static NSString *ID3 = @"cell3";
 
 - (void)followClick:(UIBarButtonItem *)follow {
     
-    [self focusUserWithUserId:userId];
+    if ([userId isEqualToString:JUserID]) {
+        [[NSToastManager manager] showtoast:@"你时刻在关注你自己 ~"];
+        return;
+    }else{
+        [self focusUserWithUserId:userId];
+
+    }
     
 }
 
