@@ -165,8 +165,8 @@ UITableViewDataSource
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.upvoteCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.collecCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.preserveCount]];
-                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
                 [bageAry addObject:[NSString stringWithFormat:@"%d",mess.cooperationCount]];
+                [bageAry addObject:[NSString stringWithFormat:@"%d",mess.systemCount]];
                 if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount || mess.preserveCount || mess.cooperationCount) {
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
@@ -187,10 +187,10 @@ UITableViewDataSource
     
     
     //imageAry;
-    imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.2_message_preserve",@"2.0_message_system.png",@"2.3_message_cooperation"];
+    imageAry = @[@"2.0_message_comment.png",@"2.0_message_upvote.png",@"2.0_message_coll.png",@"2.2_message_preserve",@"2.3_message_cooperation",@"2.0_message_system.png"];
     
     //titleAry
-    titleAry = @[@"评论",@"赞",@"收藏",@"保全消息",@"系统消息",@"合作消息"];
+    titleAry = @[@"评论",@"点赞",@"收藏",@"保全消息",@"合作消息",@"系统消息"];
 //  @[LocalizedStr(@"prompt_commentMessage"),
 //                 LocalizedStr(@"prompt_upvote"),
 //                 LocalizedStr(@"prompt_collection"),
@@ -322,14 +322,14 @@ UITableViewDataSource
             messageListVC.messageListType = @"保全消息";
 //            LocalizedStr(@"prompt_systemMessage");
             break;}
-        case 4:{
+        case 5:{
             messageListVC = [[NSMessageListViewController alloc] initWithMessageType:SystemMessageType];
             messageListVC.messageListType = @"系统消息";
             break;}
-            case 5:{
+        case 4:{
             messageListVC = [[NSMessageListViewController alloc] initWithMessageType:cooperationMessageType];
             messageListVC.messageListType = @"合作消息";
-                break;}
+            break;}
         default:
             break;
     }

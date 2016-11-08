@@ -140,12 +140,12 @@
         avatarImg.image = [UIImage imageNamed:@"2.3_message_invite"];
     } else if ([preserveModel.pushtype isEqualToString:@"cooperateAccess"]) {
         titleLabel.text = @"合作采纳";
-        avatarImg.image = [UIImage imageNamed:@"2.3_tipImg_accept"];
+        avatarImg.image = [UIImage imageNamed:@"2.3_message_accept"];
     } else if ([preserveModel.pushtype isEqualToString:@"cooperateExpire"]) {
         titleLabel.text = @"合作到期";
         avatarImg.image = [UIImage imageNamed:@"2.3_message_endTime"];
     } else if ([preserveModel.pushtype isEqualToString:@"cooperateLeave"] || [preserveModel.pushtype isEqualToString:@"cooperateLeaveReply"]) {
-        titleLabel.text = @"合作留言";
+        titleLabel.text = @"留言消息";
         avatarImg.image = [UIImage imageNamed:@"2.3_message_message"];
     }
     

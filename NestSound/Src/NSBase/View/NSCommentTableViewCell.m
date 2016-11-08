@@ -301,7 +301,7 @@ static inline NSRegularExpression * NameRegularExpression() {
     [iconBtn.imageView setDDImageWithURLString:_commentModel.headerURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     [iconBtn setBackgroundImage:image.image forState:UIControlStateNormal];
     
-    dateLabel.text = [date datetoStringWithDate:self.commentModel.createDate];
+    dateLabel.text = [date datetoLongStringWithDate:self.commentModel.createDate];
     
     [titlePage setDDImageWithURLString:self.commentModel.titleImageURL placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     
