@@ -410,8 +410,13 @@ static NSString *ID3 = @"cell3";
                     followItem.image = [UIImage imageNamed:@"2.0_focusEach_icon"];
                 }
             } else if ([operation.urlTag isEqualToString:deleteWorkURL] || [operation.urlTag isEqualToString:deleteCooperationProductUrl]) {
-                [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
-                [self fetchUserData];
+                if (parserObject.code == 200) {
+                    [self fetchListWithIsSelf:self.who andIsLoadingMore:NO];
+                    [self fetchUserData];
+                } else {
+                    [[NSToastManager manager] showtoast:parserObject.message];
+                }
+                
 
             } else if ([operation.urlTag isEqualToString:_qiniuUrl]){
                 NSGetQiNiuModel *qiNiuModel = (NSGetQiNiuModel *)parserObject;
@@ -1247,39 +1252,42 @@ static NSString *ID3 = @"cell3";
             self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
             self.requestURL = collectURL;
         } else if (type == 5) {
-            
-            _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-            
-            _maskView.backgroundColor = [UIColor lightGrayColor];
-            
-            _maskView.alpha = 0.5;
-            
-            [self.navigationController.view addSubview:_maskView
-             ];
-            
-            CGFloat padding = ScreenWidth *60/375.0;
-            CGFloat width = (ScreenWidth - padding * 2);
-            CGFloat height = width * 338/256.0f;
-            
-            
-            _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
-            
-            _tipView.delegate = self;
-            
-            _tipView.imgName = @"2.3_tipImg_cooperate";
-            
-            _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
-            [self.navigationController.view addSubview:_tipView];
-            
-            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
-            keyFrame.duration = 0.3;
-            keyFrame.removedOnCompletion = NO;
-            [_tipView.layer addAnimation:keyFrame forKey:nil];
-            
             NSCooperateProductModel *model = dataAry[indexPath.row];
-            
-            cooperationProductId = model.itemid;
+            self.requestType = NO;
+            self.requestParams = @{@"uid":JUserID,@"itemid":@(model.itemid),@"token":LoginToken};
+            self.requestURL = deleteCooperationProductUrl;
+//            _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+//            
+//            _maskView.backgroundColor = [UIColor lightGrayColor];
+//            
+//            _maskView.alpha = 0.5;
+//            
+//            [self.navigationController.view addSubview:_maskView
+//             ];
+//            
+//            CGFloat padding = ScreenWidth *60/375.0;
+//            CGFloat width = (ScreenWidth - padding * 2);
+//            CGFloat height = width * 338/256.0f;
+//            
+//            
+//            _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+//            
+//            _tipView.delegate = self;
+//            
+//            _tipView.imgName = @"2.3_tipImg_deleteProduct";
+//            
+//            _tipView.tipText = [NSString stringWithFormat:@"如该合作作品已被对方采纳,单方面删除仅删除您个人列表的合作作品"];
+//            [self.navigationController.view addSubview:_tipView];
+//            
+//            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+//            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+//            keyFrame.duration = 0.3;
+//            keyFrame.removedOnCompletion = NO;
+//            [_tipView.layer addAnimation:keyFrame forKey:nil];
+//            
+//            NSCooperateProductModel *model = dataAry[indexPath.row];
+//            
+//            cooperationProductId = model.itemid;
             
             
         }else{
@@ -1448,6 +1456,8 @@ static NSString *ID3 = @"cell3";
         NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
         playVC.itemUid = model.itemid;
         playVC.geDanID = 0;
+        playVC.songAry = self.itemIdArr;
+        playVC.isCoWork = YES;
         BOOL isH = false;
         for (id vc in self.navigationController.childViewControllers) {
             if ([vc isKindOfClass:[NSPlayMusicViewController class]]) {

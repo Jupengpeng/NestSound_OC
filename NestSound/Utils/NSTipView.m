@@ -36,8 +36,8 @@
         midLabel = [[UILabel alloc] init];
         midLabel.numberOfLines = 0;
         midLabel.textColor = [UIColor hexColorFloat:@"333333"];
-        midLabel.textAlignment = NSTextAlignmentCenter;
-        midLabel.font = [UIFont systemFontOfSize:15];
+        midLabel.textAlignment = NSTextAlignmentLeft;
+        midLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:midLabel];
         
         leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];

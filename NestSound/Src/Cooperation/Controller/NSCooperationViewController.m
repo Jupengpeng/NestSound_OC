@@ -217,7 +217,9 @@
     if (indexPath.row==0) {
         return 60;
     } else if (indexPath.row == 1) {
-        return 170;
+        
+        NSCooperationListTableViewCell *cell = (NSCooperationListTableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.lyricLabelMaxY;
     } else {
         return 30;
     }
@@ -252,7 +254,7 @@
     
     _tipView.imgName = @"2.3_tipImg_cooperate";
     
-    _tipView.tipText = [NSString stringWithFormat:@"您的合作作品在该合作需求期间，您将无法进行删除"];
+    _tipView.tipText = [NSString stringWithFormat:@"1.需求结束前,您的作品无法删除\n2.如被采纳,删除该作品仅对自己有效"];
     [self.navigationController.view addSubview:_tipView];
     
     CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];

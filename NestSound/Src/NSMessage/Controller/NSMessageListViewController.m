@@ -21,6 +21,7 @@
 #import "NSPlayMusicViewController.h"
 #import "NSUserPageViewController.h"
 #import "NSPreserveDetailViewController.h"
+#import "NSCooperationDetailViewController.h"
 @interface NSMessageListViewController ()<
 UITableViewDataSource,
 UITableViewDelegate,
@@ -294,19 +295,19 @@ static NSString * const preserveCellID = @"preserveCellID";
     [emptyImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.bottom.equalTo(self.view);
     }];
-    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-    
-    maskView.backgroundColor = [UIColor lightGrayColor];
-    
-    maskView.alpha = 0.5;
-    
-    maskView.hidden = YES;
-    
-    [self.view addSubview:maskView];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(maskViewTap:)];
-    
-    [maskView addGestureRecognizer:tap];
+//    maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+//    
+//    maskView.backgroundColor = [UIColor lightGrayColor];
+//    
+//    maskView.alpha = 0.5;
+//    
+//    maskView.hidden = YES;
+//    
+//    [self.view addSubview:maskView];
+//    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(maskViewTap:)];
+//    
+//    [maskView addGestureRecognizer:tap];
     
     
     bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 64, ScreenWidth, 44)];
@@ -358,9 +359,7 @@ static NSString * const preserveCellID = @"preserveCellID";
 #pragma mark tableview dataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (messageType == cooperationMessageType) {
-        return 3;
-    }
+
     return messageArr.count;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -454,7 +453,7 @@ static NSString * const preserveCellID = @"preserveCellID";
             preserveCell = [[NSPreserveMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:preserveCellID];
             
         }
-//        preserveCell.preserveModel = messageArr[indexPath.row];
+        preserveCell.preserveModel = messageArr[indexPath.row];
         return preserveCell;
     }
     return nil;
@@ -476,6 +475,11 @@ static NSString * const preserveCellID = @"preserveCellID";
             playVC.itemUid = upvoteMessage.workId;
             playVC.from = @"tuijian";
             playVC.geDanID = 0;
+            if (upvoteMessage.type == 1) {
+                playVC.isCoWork = NO;
+            } else {
+                playVC.isCoWork = YES;
+            }
             [self.navigationController pushViewController:playVC animated:YES];
         }
     }else if (messageType == SystemMessageType){
@@ -487,22 +491,36 @@ static NSString * const preserveCellID = @"preserveCellID";
 //        }
     }else if (messageType == CommentMessageType){
         NSCommentModel *comment = messageArr[indexPath.row];
-        if (comment.type == 1) {
+        if (comment.type == 2) {
+            NSLyricViewController *lyric = [[NSLyricViewController alloc] initWithItemId:comment.itemID];
+            [self.navigationController pushViewController:lyric animated:YES];
             
+        } else {
             NSPlayMusicViewController *playMusic = [NSPlayMusicViewController sharedPlayMusic];
             playMusic.itemUid = comment.itemID;
             playMusic.from = @"";
+            if (comment.type == 1) {
+                playMusic.isCoWork = NO;
+            } else {
+                playMusic.isCoWork = YES;
+            }
             [self.navigationController pushViewController:playMusic animated:YES];
-        } else {
             
-            NSLyricViewController *lyric = [[NSLyricViewController alloc] initWithItemId:comment.itemID];
-            [self.navigationController pushViewController:lyric animated:YES];
         }
         
     } else if (messageType == PreserveMessageType) {
         NSPreserveMessage *model = messageArr[indexPath.row];
         NSPreserveDetailViewController *preserveDetailVC = [[NSPreserveDetailViewController alloc] initWithPreserveID:model.orderNo sortID:0];
         [self.navigationController pushViewController:preserveDetailVC animated:YES];
+    } else if (messageType == cooperationMessageType) {
+        NSPreserveMessage *cooperationModel = messageArr[indexPath.row];
+        NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
+        if (cooperationModel.uId == [JUserID intValue]) {
+            cooperationDetailVC.isMyCoWork = YES;
+        }
+        cooperationDetailVC.detailTitle = cooperationModel.title;
+        cooperationDetailVC.cooperationId = cooperationModel.cooperationId;
+        [self.navigationController pushViewController:cooperationDetailVC animated:YES];
     }
 
 }
@@ -527,7 +545,7 @@ static NSString * const preserveCellID = @"preserveCellID";
 //回复评论
 - (void)replyCommentTableViewCell:(NSCommentTableViewCell *)cell {
     
-    maskView.hidden = NO;
+//    maskView.hidden = NO;
     
     [inputField becomeFirstResponder];
     
@@ -565,7 +583,7 @@ static NSString * const preserveCellID = @"preserveCellID";
     
     [textField resignFirstResponder];
     
-    maskView.hidden = YES;
+//    maskView.hidden = YES;
     
     [self postCommentWithComment:textField.text];
     
@@ -597,7 +615,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         
         bottomView.y = keyBoardEndY - bottomView.height - 64;
 //        inputField.y = keyBoardEndY - 108;
-        maskView.hidden = NO;
+//        maskView.hidden = NO;
     }];
     
 }
@@ -624,13 +642,13 @@ static NSString * const preserveCellID = @"preserveCellID";
     }];
     
 }
-- (void)maskViewTap:(UIGestureRecognizer *)tap {
-    
-    inputField.tag = 2;
-    
-    maskView.hidden = YES;
-    
-    [inputField resignFirstResponder];
-    
-}
+//- (void)maskViewTap:(UIGestureRecognizer *)tap {
+//    
+//    inputField.tag = 2;
+//    
+//    maskView.hidden = YES;
+//    
+//    [inputField resignFirstResponder];
+//    
+//}
 @end

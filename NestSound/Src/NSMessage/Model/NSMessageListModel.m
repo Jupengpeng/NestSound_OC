@@ -17,7 +17,8 @@
              @"upvoteCount":@"zannum",
              @"collecCount":@"fovnum",
              @"systemCount":@"sysmsg",
-             @"preserveCount":@"copyrightnum"};
+             @"preserveCount":@"copyrightnum",
+             @"cooperationCount":@"cooperatenum"};
 
 }
 

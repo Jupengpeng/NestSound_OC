@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) UITableView *collectionTab;
 @property (nonatomic, strong) NSMutableArray *myCollectionAry;
+@property (nonatomic, strong) NSMutableArray *itemArray;
 @end
 static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 @implementation NSCollectionListViewController
@@ -43,9 +44,19 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
         ++currentPage;
         self.requestParams = @{kIsLoadingMore:@(YES)};
     }
-    dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:3]};
+    if (self.viewType == CollectionViewType) {
+        dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:3]};
+    } else {
+        dic = @{@"uid":JUserID,@"token":LoginToken,@"page":[NSNumber numberWithInt:currentPage],@"type":[NSNumber numberWithInt:5]};
+    }
+    
     NSString * str = [NSTool encrytWithDic:dic];
-    url = [userMLICListUrl stringByAppendingString:str];
+    if (self.viewType == CollectionViewType) {
+        url = [userMLICListUrl stringByAppendingString:str];
+    } else {
+        url = [myUserCenterListUrl stringByAppendingString:str];
+    }
+    
     self.requestURL = url;
 }
 #pragma mark -override actionFetchData
@@ -59,11 +70,26 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
                 NSDiscoverMoreLyricModel * discoverMore = (NSDiscoverMoreLyricModel *)parserObject;
                 if (!operation.isLoadingMore) {
                     [_collectionTab.pullToRefreshView stopAnimating];
-                    self.myCollectionAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
+                    if (self.viewType == CollectionViewType) {
+                        self.myCollectionAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
+                    } else {
+                        self.myCollectionAry = [NSMutableArray arrayWithArray:discoverMore.cooperateProduct];
+                        for (NSCooperateProductModel *model in self.myCollectionAry) {
+                            [self.itemArray addObject:@(model.itemid)];
+                        }
+                    }
                     
                 }else{
                     [_collectionTab.infiniteScrollingView stopAnimating];
-                    [self.myCollectionAry addObjectsFromArray:discoverMore.moreLyricList];
+                    if (self.viewType == CollectionViewType) {
+                        [self.myCollectionAry addObjectsFromArray:discoverMore.moreLyricList];
+                    } else {
+                        [self.myCollectionAry addObjectsFromArray:discoverMore.cooperateProduct];
+                        for (NSCooperateProductModel *model in self.myCollectionAry) {
+                            [self.itemArray addObject:@(model.itemid)];
+                        }
+                    }
+                    
                 }
                 
                 if (!self.myCollectionAry.count) {
@@ -95,9 +121,11 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     _collectionTab.delegate = self;
     
     _collectionTab.dataSource = self;
-    
-    _collectionTab.rowHeight = 80;
-    
+    if (self.viewType == CollectionViewType) {
+        _collectionTab.rowHeight = 80;
+    } else {
+        _collectionTab.rowHeight = 100;
+    }
     _collectionTab.backgroundColor = [UIColor whiteColor];
     
     [_collectionTab registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:collectionCellIdentifier];
@@ -159,36 +187,39 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
         
         make.left.equalTo(cell.mas_left);
     }];
-    cell.myMusicModel = _myCollectionAry[indexPath.row];
+    if (self.viewType == CollectionViewType) {
+        
+        cell.myMusicModel = _myCollectionAry[indexPath.row];
+    } else {
+        cell.coWorkModel = _myCollectionAry[indexPath.row];
+    }
     cell.numLabel.hidden = YES;
     cell.secretImgView.hidden = YES;
     return cell;
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSMyMusicModel * myMusic = _myCollectionAry[indexPath.row];
-    if (myMusic.type == 1) {
-        NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
-        playVC.itemUid = myMusic.itemId;
-        playVC.from = @"myfov";
-        playVC.geDanID = 0;
-//        BOOL isH = false;
-//        for (id vc in self.navigationController.childViewControllers) {
-//            if ([vc isKindOfClass:[NSPlayMusicViewController class]]) {
-//                isH = YES;
-//            }
-//        }
-//        if (isH) {
-//            [self.navigationController popToViewController:playVC animated:YES];
-//        }else{
+    NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+    if (self.viewType == CollectionViewType) {
+        NSMyMusicModel * myMusic = _myCollectionAry[indexPath.row];
+        if (myMusic.type == 2) {
+            NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
+            [self.navigationController pushViewController:lyricVC animated:YES];
+        } else {
+            playVC.itemUid = myMusic.itemId;
+            playVC.from = @"myfov";
+            playVC.geDanID = 0;
             [self.navigationController pushViewController:playVC animated:YES];
-//        }
-
-    }else{
-        NSLyricViewController * lyricVC =[[NSLyricViewController alloc] initWithItemId:myMusic.itemId];
-        [self.navigationController pushViewController:lyricVC animated:YES];
-        
+        }
+    } else {
+        NSCooperateProductModel *workModel = _myCollectionAry[indexPath.row];
+        playVC.itemUid = workModel.itemid;
+        playVC.songID = indexPath.row;
+        playVC.songAry = self.itemArray;
+        playVC.isCoWork = YES;
+        [self.navigationController pushViewController:playVC animated:YES];
     }
+    
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -211,6 +242,12 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
     }
+}
+- (NSMutableArray *)itemArray {
+    if (!_itemArray) {
+        self.itemArray = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _itemArray;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

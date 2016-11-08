@@ -53,9 +53,9 @@
 - (void)publicCooperationMessageWithMessage:(NSString *)message andTargetUID:(long)targetUID{
     self.requestType = NO;
     if (!messageType) {
-        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(2),@"itemid":@(self.cooperationId),@"type":@(2),@"token":LoginToken,@"target_uid":@(targetUID)};
+        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(2),@"itemid":@(self.cooperationId),@"type":@(3),@"token":LoginToken,@"target_uid":@(targetUID)};
     } else {
-        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(1),@"itemid":@(self.cooperationId),@"type":@(2),@"token":LoginToken};
+        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(1),@"itemid":@(self.cooperationId),@"type":@(3),@"token":LoginToken};
     }
     
     self.requestURL = publicCooperationMessageUrl;

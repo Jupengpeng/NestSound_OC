@@ -51,8 +51,10 @@
         if ([operation.urlTag isEqualToString:invitationListUrl]) {
             NSInvitationListModel *invitationModel = (NSInvitationListModel *)parserObject;
             if (!operation.isLoadingMore) {
+                [invitationTab.pullToRefreshView stopAnimating];
                 self.invitationArr = [NSMutableArray arrayWithArray:invitationModel.invitationList];
             }else{
+                [invitationTab.infiniteScrollingView stopAnimating];
                 [self.invitationArr addObjectsFromArray:invitationModel.invitationList];
             }
             [invitationTab reloadData];

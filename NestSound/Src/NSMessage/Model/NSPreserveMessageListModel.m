@@ -18,7 +18,7 @@
              @"content":@"content",
              @"orderNo":@"orderNo",
              @"cooperationId":@"did",
-};
+             @"uId":@"uid"};
 }
 
 @end

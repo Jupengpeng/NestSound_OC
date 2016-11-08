@@ -10,4 +10,5 @@
 @class CooperationModel;
 @interface NSCooperationListTableViewCell : UITableViewCell
 @property (nonatomic,strong) CooperationModel *cooperationModel;
+@property (nonatomic, assign) CGFloat lyricLabelMaxY;
 @end

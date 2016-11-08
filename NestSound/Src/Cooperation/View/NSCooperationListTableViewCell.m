@@ -44,18 +44,18 @@
     [self.contentView addSubview:titleLabel];
     
     //
-    lyricLabel = [[UILabel alloc] init];
+    lyricLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     
     lyricLabel.text = @"合作歌词合作歌词合作歌词合作歌词合作歌词合作歌词合作歌词合作歌词";
     
-    lyricLabel.numberOfLines = 0;
+    lyricLabel.numberOfLines = 3;
     
     lyricLabel.font = [UIFont systemFontOfSize:12];
     
     [self.contentView addSubview:lyricLabel];
     
     //
-    labelBackView = [[UIView alloc] init];
+    labelBackView = [[UIView alloc] initWithFrame:CGRectZero];
     
     labelBackView.backgroundColor = KBackgroundColor;
     
@@ -80,11 +80,11 @@
     titleLabel.text = cooperationModel.cooperationTitle;
     lyricLabel.text = cooperationModel.cooperationLyric;
     demandLabel.text = cooperationModel.requiement;
+    CGSize labelSize = [lyricLabel.text sizeWithFont:[UIFont systemFontOfSize:12] andLineSpacing:3 maxSize:CGSizeMake(ScreenWidth - 20, 60)];
+    lyricLabel.frame = CGRectMake(10, 40, labelSize.width, labelSize.height);
+    labelBackView.frame = CGRectMake(0, CGRectGetMaxY(lyricLabel.frame) + 10, ScreenWidth, 70);
+    self.lyricLabelMaxY = CGRectGetMaxY(labelBackView.frame) + 10;
 }
-
-
-
-
 
 
 - (void)layoutSubviews {
@@ -106,27 +106,27 @@
         
     }];
     
-    [lyricLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo(titleLabel.mas_left).offset(0);
-        
-        make.top.equalTo(sectionView.mas_bottom).offset(10);
-        
-        make.right.equalTo(self.contentView.mas_right).offset(-10);
-        
-        make.height.mas_offset(50);
-        
-    }];
+//    [lyricLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.left.equalTo(titleLabel.mas_left).offset(0);
+//        
+//        make.top.equalTo(sectionView.mas_bottom).offset(10);
+//        
+//        make.right.equalTo(self.contentView.mas_right).offset(-10);
+//        
+//        make.height.mas_offset(50);
+//        
+//    }];
     
-    [labelBackView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.right.equalTo(self.contentView);
-        
-        make.top.equalTo(lyricLabel.mas_bottom).offset(10);
-        
-        make.height.mas_offset(70);
-        
-    }];
+//    [labelBackView mas_makeConstraints:^(MASConstraintMaker *make) {
+//       
+//        make.left.right.equalTo(self.contentView);
+//        
+//        make.top.equalTo(lyricLabel.mas_bottom).offset(10);
+//        
+//        make.height.mas_offset(70);
+//        
+//    }];
     
     [demandLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         

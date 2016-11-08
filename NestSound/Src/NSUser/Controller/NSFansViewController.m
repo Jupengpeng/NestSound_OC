@@ -116,8 +116,10 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                 btnTag = -2;
                 NSFansListModel * fansList = (NSFansListModel *)parserObject;
                 if (!operation.isLoadingMore) {
+                    [fansTableView.pullToRefreshView stopAnimating];
                     fansAry = [NSMutableArray arrayWithArray:fansList.fansListModel];
                 }else{
+                    [fansTableView.infiniteScrollingView stopAnimating];
                     if (fansList.fansListModel.count!=0) {
                         [fansAry addObjectsFromArray:fansList.fansListModel];
                     }
@@ -138,12 +140,7 @@ static NSString * const NSFansCellIdeify = @"NSFanscell";
                 emptyImageView.hidden = NO;
             }
             [fansTableView reloadData];
-            if (!operation.isLoadingMore) {
-                [fansTableView.pullToRefreshView stopAnimating];
-                
-            }else{
-                [fansTableView.infiniteScrollingView stopAnimating];
-            }
+            
             
         }
     }

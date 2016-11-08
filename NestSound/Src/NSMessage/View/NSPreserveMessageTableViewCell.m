@@ -133,7 +133,20 @@
         titleLabel.text = @"推荐通知";
         avatarImg.image = [UIImage imageNamed:@"2.2_message_recommend"];
     } else if ([preserveModel.pushtype isEqualToString:@"cooperateComplete"]) {
-        titleLabel.text = @"";
+        titleLabel.text = @"完成合作";
+        avatarImg.image = [UIImage imageNamed:@"2.3_message_complete"];
+    } else if ([preserveModel.pushtype isEqualToString:@"cooperateInvite"]) {
+        titleLabel.text = @"合作邀请";
+        avatarImg.image = [UIImage imageNamed:@"2.3_message_invite"];
+    } else if ([preserveModel.pushtype isEqualToString:@"cooperateAccess"]) {
+        titleLabel.text = @"合作采纳";
+        avatarImg.image = [UIImage imageNamed:@"2.3_tipImg_accept"];
+    } else if ([preserveModel.pushtype isEqualToString:@"cooperateExpire"]) {
+        titleLabel.text = @"合作到期";
+        avatarImg.image = [UIImage imageNamed:@"2.3_message_endTime"];
+    } else if ([preserveModel.pushtype isEqualToString:@"cooperateLeave"] || [preserveModel.pushtype isEqualToString:@"cooperateLeaveReply"]) {
+        titleLabel.text = @"合作留言";
+        avatarImg.image = [UIImage imageNamed:@"2.3_message_message"];
     }
     
     dateLabel.text = [date datetoLongLongStringWithDate:preserveModel.time];

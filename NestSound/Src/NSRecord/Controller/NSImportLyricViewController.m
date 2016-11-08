@@ -78,22 +78,15 @@ static NSString  * const lyricCellIdifity = @"lyricCell";
             if ([operation.urlTag isEqualToString:url]) {
                 NSMyLricListModel * myLyricList = (NSMyLricListModel *)parserObject;
                 if (!operation.isLoadingMore) {
+                    [lyricCollecView.pullToRefreshView stopAnimating];
                     lyricesAry = [NSMutableArray arrayWithArray:myLyricList.myLyricList];
                 }else{
+                    [lyricCollecView.infiniteScrollingView stopAnimating];
                     [lyricesAry addObject:myLyricList.myLyricList];
                 }
             }
             
             
-            
-            if (!operation.isLoadingMore) {
-                
-                [lyricCollecView.pullToRefreshView stopAnimating];
-                
-            } else {
-                
-                [lyricCollecView.infiniteScrollingView stopAnimating];
-            }
             [lyricCollecView reloadData];
             
             if (lyricesAry.count) {
