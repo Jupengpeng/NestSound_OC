@@ -1324,13 +1324,14 @@ static NSString *ID3 = @"cell3";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.btnTag ==kButtonTag + 0 || self.btnTag ==kButtonTag + 1 || self.btnTag ==kButtonTag + 2) {
-        
-        return 80;
-    } else {
-        
-        return 100;
-    }
+//    if (self.btnTag ==kButtonTag + 0 || self.btnTag ==kButtonTag + 1 || self.btnTag ==kButtonTag + 2) {
+//        
+//        return 90;
+//    } else {
+//        
+//        return 90;
+//    }
+    return 90;
     
 }
 

@@ -162,8 +162,10 @@
         make.left.equalTo(self.background.mas_left);
         
         make.top.bottom.equalTo(self.background);
+//        make.centerY.equalTo(self.mas_centerY);
         
-        make.width.mas_equalTo(70);
+//        make.size.mas_equalTo(CGSizeMake(80, 80));
+        make.width.mas_equalTo(80);
         
     }];
     //是否公开
@@ -204,7 +206,7 @@
         
         make.left.equalTo(self.coverIcon.mas_right).offset(10);
         
-        make.top.equalTo(self.background.mas_top).offset(8);
+        make.top.equalTo(self.background.mas_top).offset(5);
         
     }];
     
@@ -252,7 +254,7 @@
        
         make.left.equalTo(self.coverIcon.mas_right).offset(10);
         
-        make.bottom.equalTo(self.background.mas_bottom).offset(-8);
+        make.bottom.equalTo(self.background.mas_bottom).offset(-5);
         
     }];
     

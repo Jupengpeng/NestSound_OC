@@ -121,11 +121,11 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     _collectionTab.delegate = self;
     
     _collectionTab.dataSource = self;
-    if (self.viewType == CollectionViewType) {
-        _collectionTab.rowHeight = 80;
-    } else {
-        _collectionTab.rowHeight = 100;
-    }
+//    if (self.viewType == CollectionViewType) {
+//        _collectionTab.rowHeight = 80;
+//    } else {
+        _collectionTab.rowHeight = 90;
+//    }
     _collectionTab.backgroundColor = [UIColor whiteColor];
     
     [_collectionTab registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:collectionCellIdentifier];

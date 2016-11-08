@@ -382,7 +382,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         NSDictionary *dic = @{NSFontAttributeName:[UIFont systemFontOfSize:15]};
         
         CGFloat height = [model.content boundingRectWithSize:CGSizeMake(ScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:dic context:nil].size.height;
-        return 95 + height;//65
+        return 65 + height;//65
 
     }else if (messageType == CommentMessageType){
         

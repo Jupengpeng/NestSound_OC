@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ic_hezuoxiaoxi.png",
+      "filename" : "留言消息.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_hezuoxiaoxi@2x.png",
+      "filename" : "留言消息@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ic_hezuoxiaoxi@3x.png",
+      "filename" : "留言消息@3x.png",
       "scale" : "3x"
     }
   ],

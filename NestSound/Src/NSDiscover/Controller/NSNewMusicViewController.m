@@ -101,7 +101,7 @@
     
     _tableView.dataSource = self;
     
-    _tableView.rowHeight = 80;
+    _tableView.rowHeight = 90;
     
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
