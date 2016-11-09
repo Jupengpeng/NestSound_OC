@@ -128,7 +128,7 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CollectionCooperationModel *collectionModel = self.collectionArr[indexPath.section];
+    CollectionCooperationModel *collectionModel = self.collectionArr[indexPath.row];
     NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
     cooperationDetailVC.cooperationId = collectionModel.cooperationId;
     cooperationDetailVC.detailTitle = collectionModel.cooperationTitle;

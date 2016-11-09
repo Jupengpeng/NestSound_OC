@@ -41,8 +41,8 @@
 - (void)setupUI {
     
     imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    imageView.y = 0;
-    imageView.height = self.height;
+    imageView.y = 10;
+    imageView.height = self.height - 10;
     [self addSubview:imageView];
     
     imageView.image = [UIImage imageNamed:@"img_03"];
@@ -120,7 +120,7 @@
 
 - (void)setPicUrlStr:(NSString *)picUrlStr{
     
-    imageView.image = [UIImage imageNamed:@"MusicDesign"];
+    imageView.image = [UIImage imageNamed:picUrlStr];
     
 //    [imageView setDDImageWithURLString:picUrlStr placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
     
