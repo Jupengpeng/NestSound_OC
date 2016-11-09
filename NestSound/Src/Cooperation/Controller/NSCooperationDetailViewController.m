@@ -640,7 +640,7 @@
         CoWorkModel *workModel = self.coWorksArray[indexPath.row];
         playVC.itemUid = [workModel.itemid longLongValue];
         playVC.songID = indexPath.row;
-        playVC.songAry = itemArray;
+//        playVC.songAry = itemArray;
         playVC.isCoWork = YES;
         
         [self.navigationController pushViewController:playVC animated:YES];

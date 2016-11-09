@@ -1243,8 +1243,6 @@ static id _instance;
             self.requestURL = coWorkCollectUrl;
         }
     }
-    
-    
 }
 
 - (void)tapClick:(UIGestureRecognizer *)tap {

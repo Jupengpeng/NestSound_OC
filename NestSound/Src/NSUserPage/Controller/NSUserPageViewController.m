@@ -503,7 +503,7 @@ static NSString *ID3 = @"cell3";
     leftImageView.userInteractionEnabled= YES;
     [leftImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftBackClick)]];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftImageView];
-    if (self.who == Other){
+    if (self.who == Other && ![userId isEqualToString:JUserID]){
         
         followItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"2.0_addFocus_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(followClick:)];
         self.navigationItem.rightBarButtonItem = followItem;
@@ -518,7 +518,7 @@ static NSString *ID3 = @"cell3";
     self.navigationItem.titleView = navigationView;
     UITableView *tableView;
     //添加TableView
-    if (self.who == Other) {
+    if (self.who == Other ) {
         tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
     }else{
         tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight) style:UITableViewStylePlain];
