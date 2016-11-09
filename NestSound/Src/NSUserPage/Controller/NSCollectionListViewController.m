@@ -230,12 +230,22 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        self.requestType = NO;
-        NSMyMusicModel * myMode = _myCollectionAry[indexPath.row];
-        //删除收藏
+        if (self.viewType == CollectionViewType) {
+            self.requestType = NO;
+            NSMyMusicModel * myMode = _myCollectionAry[indexPath.row];
+            //删除收藏
+            
+            self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
+            self.requestURL = collectURL;
+        } else {
+            self.requestType = NO;
+            NSCooperateProductModel * workModel = _myCollectionAry[indexPath.row];
+            //删除合作作品
+            self.requestParams = @{@"uid":JUserID,@"itemid":@(workModel.itemid),@"token":LoginToken};
+            self.requestURL = deleteCooperationProductUrl;
         
-        self.requestParams = @{@"work_id":@(myMode.itemId),@"target_uid":@(myMode.userID),@"user_id":JUserID,@"token":LoginToken,@"wtype":@(myMode.type),};
-        self.requestURL = collectURL;
+        }
+        
         
         [_myCollectionAry removeObjectAtIndex:indexPath.row];
         

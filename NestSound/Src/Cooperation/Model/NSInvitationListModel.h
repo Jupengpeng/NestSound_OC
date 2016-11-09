@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSString *signature;
 @property (nonatomic, assign) int isInvited;
 @property (nonatomic, assign) int isRecommend;
+
 @end
 
 @interface NSInvitationListModel : NSBaseModel

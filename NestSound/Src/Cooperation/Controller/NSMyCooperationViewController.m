@@ -145,37 +145,45 @@
     [self.navigationController pushViewController:cooperationDetailVC animated:YES];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    myCooperationModel *model = _myCooperationArr[indexPath.row];
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        
-        maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-        
-        maskView.backgroundColor = [UIColor lightGrayColor];
-        
-        maskView.alpha = 0.5;
-        
-        [self.navigationController.view addSubview:maskView];
-        
-        CGFloat padding = ScreenWidth *60/375.0;
-        CGFloat width = (ScreenWidth - padding * 2);
-        CGFloat height = width * 338/256.0f;
-        
-        tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
-        
-        tipView.delegate = self;
-        
-        tipView.imgName = @"2.3_tipImg_deleteDemand";
-        
-        tipView.tipText = @"采纳后，您的合作需求将会结束并标示为“成功”，不再接受其他人的合作";
-        [self.navigationController.view addSubview:tipView];
-        
-        CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-        keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
-        keyFrame.duration = 0.3;
-        keyFrame.removedOnCompletion = NO;
-        [tipView.layer addAnimation:keyFrame forKey:nil];
-        index = indexPath;
-        
+        if (model.status == 1) {
+            maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+            
+            maskView.backgroundColor = [UIColor lightGrayColor];
+            
+            maskView.alpha = 0.5;
+            
+            [self.navigationController.view addSubview:maskView];
+            
+            CGFloat padding = ScreenWidth *60/375.0;
+            CGFloat width = (ScreenWidth - padding * 2);
+            CGFloat height = width * 338/256.0f;
+            
+            tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+            
+            tipView.delegate = self;
+            
+            tipView.imgName = @"2.3_tipImg_deleteDemand";
+            
+            tipView.tipText = @"删除后,其他人将无法继续使用该需求进行合作";
+            [self.navigationController.view addSubview:tipView];
+            
+            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+            keyFrame.duration = 0.3;
+            keyFrame.removedOnCompletion = NO;
+            [tipView.layer addAnimation:keyFrame forKey:nil];
+            index = indexPath;
+            
+        } else {
+            
+            self.requestType = NO;
+            
+            self.requestParams = @{@"did":@(model.myCooperationId),@"token":LoginToken};
+            
+            self.requestURL = deleteMyCooperationUrl;
+        }
     }
 }
 #pragma mark - NSTipViewDelegate

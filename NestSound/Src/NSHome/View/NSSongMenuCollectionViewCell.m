@@ -78,7 +78,9 @@
 
 -(void)setSingList:(singListModel *)singList
 {
+    _singList = singList;
     [imageView setDDImageWithURLString:singList.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+    songListName.text = singList.title;
 }
 
 @end
