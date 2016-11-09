@@ -178,8 +178,6 @@ static id _instance;
     
     [super viewDidDisappear:animated];
     
-    self.isCoWork = NO;
-    
     [self tapClick:nil];
     
     [self removeTimer];
@@ -404,7 +402,7 @@ static id _instance;
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_pop"] forState:UIControlStateNormal];
         
     } action:^(UIButton *btn) {
-        
+        self.isCoWork = NO;
         [wSelf.navigationController popViewControllerAnimated:YES];
         
     }];
@@ -1234,7 +1232,9 @@ static id _instance;
         }else{
             self.requestURL = collectURL;
         }
+        
     }else{
+        type_ = 3;
         self.requestType = NO;
         self.requestParams = @{@"work_id":[NSNumber numberWithLong:itemId_],@"target_uid":[NSNumber numberWithLong:targetUID_],@"user_id":JUserID  ,@"wtype":[NSNumber numberWithLong:type_],@"token":LoginToken};
         if (isUpvote) {
@@ -1243,6 +1243,7 @@ static id _instance;
             self.requestURL = coWorkCollectUrl;
         }
     }
+    
     
 }
 

@@ -28,8 +28,8 @@
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        swizzled_Method([self class],@selector(viewDidAppear:),@selector(setNavBar:));
-        swizzled_Method([self class],@selector(viewDidDisappear:), @selector(reSetNavBar:));
+        swizzled_Method([self class],@selector(viewWillAppear:),@selector(setNavBar:));
+        swizzled_Method([self class],@selector(viewWillDisappear:), @selector(reSetNavBar:));
     });
 }
 
