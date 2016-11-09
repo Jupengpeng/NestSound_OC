@@ -210,14 +210,7 @@
         if ([operation.urlTag isEqualToString:coDetailUrl]) {
             
             NSCooperationDetailModel *detailModel = (NSCooperationDetailModel *)parserObject;
-            self.cooperateModel = detailModel;
-            self.msgArray = [NSMutableArray arrayWithArray:detailModel.commentArray];
-            
-            if (self.msgArray.count > 3) {
-                _showMoreComment = YES;
-            }else{
-                _showMoreComment = NO;
-            }
+ 
             
             if (!operation.isLoadingMore) {
                 
@@ -239,7 +232,18 @@
                 }
             }
 
-            [self processUIWithModel:detailModel accepted:_isAccepted];
+            if (!operation.isLoadingMore) {
+                self.cooperateModel = detailModel;
+
+                self.msgArray = [NSMutableArray arrayWithArray:detailModel.commentArray];
+                if (self.msgArray.count > 3) {
+                    _showMoreComment = YES;
+                }else{
+                    _showMoreComment = NO;
+                }
+                [self processUIWithModel:detailModel accepted:_isAccepted];
+                
+            }
             
             
 
@@ -568,44 +572,44 @@
     }else{
         
         if (self.coWorksArray.count) {
-
-        
-        NSCooperateDetailWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCooperateDetailWorkCellId"];
-        if (!cell) {
-            cell = [[NSCooperateDetailWorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSCooperateDetailWorkCellId"];
-        }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-        
-        cell.acceptBlock = ^(NSString *workId){
-          
-            _acceptedWorkId = workId;
-            
-            [self.navigationController.view addSubview:self.maskView
-             ];
             
             
-            self.tipView.imgName = @"2.3_tipImg_accept";
+            NSCooperateDetailWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NSCooperateDetailWorkCellId"];
+            if (!cell) {
+                cell = [[NSCooperateDetailWorkCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NSCooperateDetailWorkCellId"];
+            }
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            _tipView.tipText = [NSString stringWithFormat:kAcceptDescription];
-            [self.navigationController.view addSubview:_tipView];
             
+            cell.acceptBlock = ^(NSString *workId){
+                
+                _acceptedWorkId = workId;
+                
+                [self.navigationController.view addSubview:self.maskView
+                 ];
+                
+                
+                self.tipView.imgName = @"2.3_tipImg_accept";
+                
+                _tipView.tipText = [NSString stringWithFormat:kAcceptDescription];
+                [self.navigationController.view addSubview:_tipView];
+                
+                
+                CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+                keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+                keyFrame.duration = 0.3;
+                keyFrame.removedOnCompletion = NO;
+                [_tipView.layer addAnimation:keyFrame forKey:nil];
+                
+            };
             
-            CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-            keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
-            keyFrame.duration = 0.3;
-            keyFrame.removedOnCompletion = NO;
-            [_tipView.layer addAnimation:keyFrame forKey:nil];
+            CoWorkModel *workModel = self.coWorksArray[indexPath.row];
             
-        };
-
-        CoWorkModel *workModel = self.coWorksArray[indexPath.row];
+            cell.isAccepted = _isAccepted;
             
-        cell.isAccepted = _isAccepted;
-
-        [cell setupDataWithCoWorkModel:workModel IsMine:self.isMyCoWork];
-        
-        return cell;
+            [cell setupDataWithCoWorkModel:workModel IsMine:self.isMyCoWork];
+            
+            return cell;
         }else{
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             if (!cell) {
@@ -629,21 +633,23 @@
         
     }else{
         
-
-        NSMutableArray *itemArray = [NSMutableArray array];
-        
-        for (CoWorkModel *coWorkModel in self.coWorksArray) {
-            [itemArray addObject:@(coWorkModel.itemid.longLongValue)];
+        if (self.coWorksArray.count) {
+            
+            NSMutableArray *itemArray = [NSMutableArray array];
+            
+            for (CoWorkModel *coWorkModel in self.coWorksArray) {
+                [itemArray addObject:@(coWorkModel.itemid.longLongValue)];
+            }
+            NSPlayMusicViewController *playVC = [NSPlayMusicViewController sharedPlayMusic];
+            
+            CoWorkModel *workModel = self.coWorksArray[indexPath.row];
+            playVC.itemUid = [workModel.itemid longLongValue];
+            playVC.songID = indexPath.row;
+            //        playVC.songAry = itemArray;
+            playVC.isCoWork = YES;
+            
+            [self.navigationController pushViewController:playVC animated:YES];
         }
-        NSPlayMusicViewController *playVC = [NSPlayMusicViewController sharedPlayMusic];
-
-        CoWorkModel *workModel = self.coWorksArray[indexPath.row];
-        playVC.itemUid = [workModel.itemid longLongValue];
-        playVC.songID = indexPath.row;
-//        playVC.songAry = itemArray;
-        playVC.isCoWork = YES;
-        
-        [self.navigationController pushViewController:playVC animated:YES];
     }
         
     

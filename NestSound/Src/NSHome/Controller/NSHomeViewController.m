@@ -401,7 +401,7 @@ static NSString * const musicSayData = @"musicSayData";
     
         NSMusicSayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MusicSayCell forIndexPath:indexPath];
         
-        cell.picUrlStr = @"MusicDesign";
+        cell.picUrlStr = @"2.3_CooperationCover";
         
         return cell;
     
@@ -465,7 +465,7 @@ static NSString * const musicSayData = @"musicSayData";
     } else if (indexPath.section == 1){
         CGFloat W = ScreenWidth - 30;
         CGFloat picRatio = 90 / 345.0f;
-        return CGSizeMake(W, W * picRatio);
+        return CGSizeMake(W, W * picRatio + 10);
     } else if (indexPath.section == 2) {
         
         CGFloat W = (ScreenWidth - 40) * 0.5;

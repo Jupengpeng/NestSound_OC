@@ -51,14 +51,18 @@
     
 }
 - (void)publicCooperationMessageWithMessage:(NSString *)message andTargetUID:(long)targetUID{
-    self.requestType = NO;
-    if (!messageType) {
-        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(2),@"itemid":@(self.cooperationId),@"type":@(3),@"token":LoginToken,@"target_uid":@(targetUID)};
-    } else {
-        self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(1),@"itemid":@(self.cooperationId),@"type":@(3),@"token":LoginToken};
+    if (message.length) {
+        self.requestType = NO;
+        if (!messageType) {
+            self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(2),@"itemid":@(self.cooperationId),@"type":@(3),@"token":LoginToken,@"target_uid":@(targetUID)};
+        } else {
+            self.requestParams = @{@"comment":message,@"uid":JUserID,@"comment_type":@(1),@"itemid":@(self.cooperationId),@"type":@(3),@"token":LoginToken};
+        }
+        
+        self.requestURL = publicCooperationMessageUrl;
+    }else{
+        [[NSToastManager manager] showtoast:@"说点什么吧~"];
     }
-    
-    self.requestURL = publicCooperationMessageUrl;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
     if (requestErr) {
