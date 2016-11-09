@@ -239,7 +239,7 @@ UICollectionViewDelegateFlowLayout
 #pragma mark collectionViewDelegateLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake((ScreenWidth -40)/2, (ScreenWidth - 40)/2*0.66);
+    return CGSizeMake((ScreenWidth -40)/2, (ScreenWidth - 40)/2*0.76);
     
 }
 

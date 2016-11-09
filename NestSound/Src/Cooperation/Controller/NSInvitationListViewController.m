@@ -60,7 +60,10 @@
             [invitationTab reloadData];
         } else if ([operation.urlTag isEqualToString:invitationUrl]) {
             if (parserObject.code == 200) {
+                
                 NSInvitationListTableViewCell *cell = [invitationTab cellForRowAtIndexPath:index];
+                InvitationModel *model = self.invitationArr[index.row];
+                model.isInvited = 1;
                 [cell.invitationBtn setTitle:@"已邀请" forState:UIControlStateNormal];
                 cell.invitationBtn.backgroundColor = [UIColor hexColorFloat:@"f2f2f2"];
                 cell.invitationBtn.userInteractionEnabled = NO;
@@ -115,7 +118,7 @@
         if (!wSelf) {
             return ;
         }else{
-            [wSelf fetchInvitationListWithIsLoadingMore:NO withKey:@""];
+            [wSelf fetchInvitationListWithIsLoadingMore:NO withKey:searchBar.text];
         }
     }];
     //loadingMore
@@ -123,7 +126,7 @@
         if (!wSelf) {
             return ;
         }
-        [wSelf fetchInvitationListWithIsLoadingMore:YES withKey:@""];
+        [wSelf fetchInvitationListWithIsLoadingMore:YES withKey:searchBar.text];
     }];
 }
 #pragma mark - UITableViewDataSource
@@ -131,6 +134,7 @@
     return self.invitationArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     static NSString *ID = @"invitationCell";
     
     NSInvitationListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];

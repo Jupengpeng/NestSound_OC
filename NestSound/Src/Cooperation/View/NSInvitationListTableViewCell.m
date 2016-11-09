@@ -189,6 +189,7 @@
     } else {
         [self.invitationBtn setTitle:@"邀请" forState:UIControlStateNormal];
         self.invitationBtn.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
+        self.invitationBtn.userInteractionEnabled = YES;
     }
     if (invitationModel.isRecommend) {
         recommend.hidden = NO;

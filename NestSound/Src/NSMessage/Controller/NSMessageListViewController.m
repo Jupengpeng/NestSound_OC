@@ -428,7 +428,7 @@ static NSString * const preserveCellID = @"preserveCellID";
         cell.preserveModel = messageArr[indexPath.row];
 //        if (sys.type == 1 ) {
 //            cell.isTu = NO;
-//        }else{
+//        }else{。
 //            cell.isTu = YES;
 //        }
 //        cell.systemMessageModel = sys;
