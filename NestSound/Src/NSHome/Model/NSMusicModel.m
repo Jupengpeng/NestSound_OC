@@ -17,7 +17,8 @@
              @"itemId":@"itemid",
              @"playCount":@"looknum",
              @"workName":@"title",
-             @"type":@"status"
+             @"type":@"type",
+             @"status":@"status"
              };
     
 }

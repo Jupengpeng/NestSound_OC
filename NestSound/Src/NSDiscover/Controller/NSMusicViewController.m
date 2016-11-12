@@ -259,6 +259,12 @@ static NSString * const headerView = @"HeaderView";
         playVC.geDanID = 0;
         playVC.songID = row;
         playVC.songAry = self.hotItemIdList;
+        if (music.type == 3) {
+            playVC.isCoWork = YES;
+        } else {
+            playVC.isCoWork = NO;
+        }
+        
     }else{
        
         music = newSongList[row];
@@ -267,6 +273,11 @@ static NSString * const headerView = @"HeaderView";
         playVC.geDanID = 0;
         playVC.songID = row;
         playVC.songAry = self.latestItemIdList;
+        if (music.type == 3) {
+            playVC.isCoWork = YES;
+        } else {
+            playVC.isCoWork = NO;
+        }
     }
    long itemId = music.itemId;
     if (isMusic) {

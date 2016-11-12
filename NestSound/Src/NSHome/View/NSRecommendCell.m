@@ -136,8 +136,12 @@
 
     _recommend = recommend;
     workNameLab.text = _recommend.workName;
-
-    authorNameLab.text = _recommend.authorName;
+    if (recommend.type == 3) {
+        authorNameLab.text = @"合作作品";
+    } else {
+        authorNameLab.text = _recommend.authorName;
+    }
+    
     if (_recommend.playCount > 9999) {
         double count = (double)_recommend.playCount/10000.0;
         CHLog(@"%f",count);
@@ -161,9 +165,11 @@
 {
     _songNew = songNew;
     workNameLab.text = _songNew.workName;
-    
-    authorNameLab.text = _songNew.authorName;
-    
+    if (_songNew.type == 3) {
+        authorNameLab.text = @"合作作品";
+    } else {
+        authorNameLab.text = _songNew.authorName;
+    }
     
     if (_songNew.playCount > 9999) {
         float count = _songNew.playCount/10000;

@@ -301,6 +301,11 @@
         playVC.geDanID = 0;
         playVC.songID = indexPath.row;
         playVC.songAry = self.itemIdList;
+        if (myModel.type == 3) {
+            playVC.isCoWork = YES;
+        } else {
+            playVC.isCoWork = NO;
+        }
         [self.navigationController pushViewController:playVC animated:YES];
     }
     

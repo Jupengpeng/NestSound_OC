@@ -511,7 +511,11 @@ static NSString * const musicSayData = @"musicSayData";
 
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArray;
-
+            if (recomm.type == 3) {
+                playVC.isCoWork = YES;
+            } else {
+                playVC.isCoWork = NO;
+            }
             [self.navigationController pushViewController:playVC animated:YES];
         }else{
             NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
@@ -546,7 +550,11 @@ static NSString * const musicSayData = @"musicSayData";
             playVC.geDanID = 0;
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArr;
-
+            if (newModel.type == 3) {
+                playVC.isCoWork = YES;
+            } else {
+                playVC.isCoWork = NO;
+            }
             [self.navigationController pushViewController:playVC animated:YES];
             
         }else{

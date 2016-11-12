@@ -20,5 +20,5 @@
 @property (nonatomic,copy) NSString * workName;
 @property (nonatomic,assign) long  itemId;
 @property (nonatomic,assign) int type;
-
+@property (nonatomic,assign) int status;
 @end
