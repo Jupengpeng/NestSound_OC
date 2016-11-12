@@ -16,7 +16,7 @@
     int currentPage;
     NSString *url;
     UIImageView *emptyImage;
-    
+    NSIndexPath *index;
 }
 
 @property (nonatomic, strong) UITableView *collectionTab;
@@ -89,9 +89,7 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
                             [self.itemArray addObject:@(model.itemid)];
                         }
                     }
-                    
                 }
-                
                 if (!self.myCollectionAry.count) {
                     self.noDataView.hidden = NO;
                 }else{
@@ -103,6 +101,10 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
                     emptyImage.hidden = NO;
                 }
                 
+            } else if([operation.urlTag isEqualToString:deleteCooperationProductUrl] || [operation.urlTag isEqualToString:collectURL]) {
+                [self.myCollectionAry removeObjectAtIndex:index.row];
+                //
+                [_collectionTab deleteRowsAtIndexPaths:[NSArray arrayWithObject:index] withRowAnimation:UITableViewRowAnimationLeft];
             }
         }
     }
@@ -245,11 +247,11 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
             self.requestURL = deleteCooperationProductUrl;
         
         }
+        index = indexPath;
         
-        
-        [_myCollectionAry removeObjectAtIndex:indexPath.row];
-        
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+//        [_myCollectionAry removeObjectAtIndex:indexPath.row];
+//        
+//        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         
     }
 }
