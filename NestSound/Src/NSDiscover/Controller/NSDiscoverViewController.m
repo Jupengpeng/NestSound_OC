@@ -374,7 +374,7 @@
 }
 
 
-- (void)searchMusicViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID {
+- (void)searchMusicViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID withType:(int)type{
 //    [self searchBarCancelButtonClicked:_search];
     self.maskAlpha = YES;
     self.maskView.alpha = 0;
@@ -384,6 +384,11 @@
     playMusicVC.geDanID = 0;
     playMusicVC.songID = 0;
     playMusicVC.songAry = [NSMutableArray arrayWithArray:@[@(itemID)]];
+    if (type == 3) {
+        playMusicVC.isCoWork = YES;
+    } else {
+        playMusicVC.isCoWork = NO;
+    }
     [self.navigationController pushViewController:playMusicVC animated:YES];
     
     CHLog(@"歌曲");

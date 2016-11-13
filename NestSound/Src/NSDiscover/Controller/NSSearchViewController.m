@@ -413,9 +413,9 @@ static NSString * const userCellIdentify = @"userCollectionCell";
     
     if (tableView == musicTableView) {
         NSMyMusicModel *model = musicDataAry[indexPath.row];
-        if ([self.delegate1 respondsToSelector:@selector(searchMusicViewController:withItemId:)]) {
+        if ([self.delegate1 respondsToSelector:@selector(searchMusicViewController:withItemId:withType:)]) {
             
-            [self.delegate1 searchMusicViewController:self withItemId:model.itemId];
+            [self.delegate1 searchMusicViewController:self withItemId:model.itemId withType:model.type];
         }
         
     } else if (tableView == lyricTableView) {
@@ -508,19 +508,19 @@ static NSString * const userCellIdentify = @"userCollectionCell";
         if (musicDataAry.count) {
             [musicTableView reloadData];
         } else {
-        [self fetchDataWithType:1 andIsLoadingMore:NO];
+            [self fetchDataWithType:1 andIsLoadingMore:NO];
         }
     } else if (titleBtn.tag == 101) {
         if (lyricDataAry.count) {
             [lyricTableView reloadData];
         } else {
-        [self fetchDataWithType:2 andIsLoadingMore:NO];
+            [self fetchDataWithType:2 andIsLoadingMore:NO];
         }
     } else {
         if (userDataAry.count) {
             [userCollectionView reloadData];
         } else {
-          [self fetchDataWithType:3 andIsLoadingMore:NO];
+            [self fetchDataWithType:3 andIsLoadingMore:NO];
         }
     }
     
@@ -563,9 +563,9 @@ static NSString * const userCellIdentify = @"userCollectionCell";
 
 - (void)searchMusicTableView:(NSSearchMusicTableView *)tableView withItemId:(long)itemID {
     
-    if ([self.delegate1 respondsToSelector:@selector(searchMusicViewController:withItemId:)]) {
+    if ([self.delegate1 respondsToSelector:@selector(searchMusicViewController:withItemId:withType:)]) {
         
-        [self.delegate1 searchMusicViewController:self withItemId:itemID];
+        [self.delegate1 searchMusicViewController:self withItemId:itemID withType:1];
     }
     
 }

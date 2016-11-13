@@ -129,7 +129,7 @@ extern NSString *port;
 #define templateListUrl @"java/lyricstemplate/list?"
 #define uploadMp3URL  @"java/common/uploadcallback/uploadmp3"
 #define deleteWorkURL  @"java/userCenter/deleteWork"
-#define searchURL @"java/common/search/search?"
+#define searchURL @"java/common/search/search/v23?"
 #define publicMusicURL @"java/musiopt/optMusic"
 #define publicInspirationURL @"java/inspire/save"
 #define getInspirationURL @"java/inspire/detail?"

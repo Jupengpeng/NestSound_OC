@@ -12,7 +12,7 @@
 @protocol NSSearchViewControllerDelegate <NSObject>
 
 //歌曲
-- (void)searchMusicViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID;
+- (void)searchMusicViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID withType:(int)type;
 
 //歌词
 - (void)searchLyricViewController:(NSSearchViewController *)searchVC withItemId:(long)itemID;

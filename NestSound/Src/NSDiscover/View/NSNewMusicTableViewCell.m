@@ -389,7 +389,12 @@
         self.heardLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.lookNum];
     }
     self.collectionLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.fovNum];
-    self.lyricName.text = _myMusicModel.author;
+    
+    if (myMusicModel.type == 3) {
+        self.lyricName.text = @"合作作品";
+    } else {
+        self.lyricName.text = _myMusicModel.author;
+    }
     self.musicName.text = _myMusicModel.title;
     self.upVoteLabel.text = [NSString stringWithFormat:@"%ld",_myMusicModel.upvoteNum];
     self.itemId = _myMusicModel.itemId;
