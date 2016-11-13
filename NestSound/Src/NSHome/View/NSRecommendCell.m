@@ -152,10 +152,10 @@
 
     [titlePage setDDImageWithURLString:_recommend.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
 
-    if (recommend.type == 1) {
-        [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
-    }else{
+    if (recommend.type == 2) {
         [listenImage setImage:[UIImage imageNamed:@"2.0_lyricIcon"]];
+    }else{
+        [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
     }
     
 }
@@ -178,10 +178,10 @@
         playCountLab.text = [NSString stringWithFormat:@"%d",_songNew.playCount];
     }
     
-    if (_songNew.type == 1) {
-        [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
-    }else{
+    if (_songNew.type == 2) {
         [listenImage setImage:[UIImage imageNamed:@"2.0_lyricIcon"]];
+    }else{
+        [listenImage setImage:[UIImage imageNamed:@"2.0_listenIcon"]];
     }
     
     [titlePage setDDImageWithURLString:_songNew.titlePageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];

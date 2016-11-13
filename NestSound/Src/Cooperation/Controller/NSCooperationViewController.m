@@ -16,6 +16,7 @@
 #import "NSUserPageViewController.h"
 #import "NSAccompanyListViewController.h"
 #import "NSCooperationDetailModel.h"
+#import "NSLoginViewController.h"
 @interface NSCooperationViewController ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,NSInvitationListTableViewCellDelegate,NSTipViewDelegate>
 {
     UIImageView *emptyImgView;
@@ -203,15 +204,26 @@
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
-    CooperationModel *cooperationModel = mainModel.cooperation;
-    NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
-    if (cooperationModel.uId == [JUserID intValue]) {
-        cooperationDetailVC.isMyCoWork = YES;
+    if (JUserID) {
+        MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
+        CooperationModel *cooperationModel = mainModel.cooperation;
+        NSCooperationDetailViewController *cooperationDetailVC = [[NSCooperationDetailViewController alloc] init];
+        if (cooperationModel.uId == [JUserID intValue]) {
+            cooperationDetailVC.isMyCoWork = YES;
+        }
+        cooperationDetailVC.detailTitle = cooperationModel.cooperationTitle;
+        cooperationDetailVC.cooperationId = cooperationModel.cooperationId;
+        [self.navigationController pushViewController:cooperationDetailVC animated:YES];
+    } else {
+        NSLoginViewController *login = [[NSLoginViewController alloc] init];
+        login.lonigBlock = ^(BOOL isReset) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"setupCooperation" object:nil];
+        };
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+        nav.navigationBar.hidden = YES;
+        [self presentViewController:nav animated:YES completion:nil];
     }
-    cooperationDetailVC.detailTitle = cooperationModel.cooperationTitle;
-    cooperationDetailVC.cooperationId = cooperationModel.cooperationId;
-    [self.navigationController pushViewController:cooperationDetailVC animated:YES];
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row==0) {
@@ -315,6 +327,7 @@
     }
     return _cooperationArr;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -400,8 +400,9 @@ static NSString * const musicSayData = @"musicSayData";
     } else if (indexPath.section == 1){
     
         NSMusicSayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MusicSayCell forIndexPath:indexPath];
-        
-        cell.picUrlStr = @"2.3_CooperationCover";
+        if (recommendAry.count) {
+            cell.picUrlStr = @"2.3_CooperationCover";
+        }
         
         return cell;
     
@@ -501,14 +502,18 @@ static NSString * const musicSayData = @"musicSayData";
         NSRecommend * recomm = recommendAry[row];
         
         //type == 1 is music  type ==2 is lyric
-        if (recomm.type == 1) {
-
+        if (recomm.type == 2) {
+            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
+            
+            [self.navigationController pushViewController:lyricVC animated:YES];
+            
+        }else{
             NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
-
+            
             playVC.itemUid = recomm.itemId;
             playVC.from = @"tuijian";
             playVC.geDanID = 0;
-
+            
             playVC.songID = indexPath.item;
             playVC.songAry = self.itemIDArray;
             if (recomm.type == 3) {
@@ -517,10 +522,6 @@ static NSString * const musicSayData = @"musicSayData";
                 playVC.isCoWork = NO;
             }
             [self.navigationController pushViewController:playVC animated:YES];
-        }else{
-            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:recomm.itemId];
-            
-            [self.navigationController pushViewController:lyricVC animated:YES];
         }
         
     } else if (section == 1){
@@ -543,7 +544,11 @@ static NSString * const musicSayData = @"musicSayData";
     else if (section == 3){
         NSNew * newModel = (NSNew *)newListAry[row];
         //newModel type == 1 is music type == 2 is lyric
-        if (newModel.type == 1) {
+        if (newModel.type == 2) {
+            
+            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:newModel.itemId];
+            [self.navigationController pushViewController:lyricVC animated:YES];
+        }else{
             NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
             playVC.itemUid = newModel.itemId;
             playVC.from = @"news";
@@ -556,11 +561,7 @@ static NSString * const musicSayData = @"musicSayData";
                 playVC.isCoWork = NO;
             }
             [self.navigationController pushViewController:playVC animated:YES];
-            
-        }else{
-            
-            NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:newModel.itemId];
-            [self.navigationController pushViewController:lyricVC animated:YES];
+         
         }
         
     }else if (section == 4){
@@ -613,13 +614,16 @@ static NSString * const musicSayData = @"musicSayData";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    
-    if (section == 0) {
-        
-        return CGSizeMake(ScreenWidth, ScreenHeight/5 + 40);
-    } else if(section == 1){
-        return CGSizeMake(ScreenWidth, 0);
+    if (recommendAry.count) {
+        if (section == 0) {
+            
+            return CGSizeMake(ScreenWidth, ScreenHeight/5 + 40);
+        } else if(section == 1){
+            return CGSizeMake(ScreenWidth, 0);
+        }
+        return CGSizeMake(ScreenWidth, 40);
     }
+    return CGSizeMake(ScreenWidth, 0);
 //    else if(section == 3){
 //        /**
 //         *  活动进行时
@@ -628,7 +632,7 @@ static NSString * const musicSayData = @"musicSayData";
 ////        return CGSizeMake(ScreenWidth, 10);
 //
 //    }
-    return CGSizeMake(ScreenWidth, 40);
+    
     
 }
 
@@ -638,67 +642,70 @@ static NSString * const musicSayData = @"musicSayData";
     
 //    reusable.delegate = self;
     reusable.clipsToBounds = YES;
-    if (indexPath.section == 0) {
-        NSMutableArray *bannerImgs = [NSMutableArray arrayWithCapacity:1];
-        for (NSBanner *model in bannerAry) {
-            [bannerImgs addObject:model.titleImageUrl];
+    if (recommendAry.count) {
+        if (indexPath.section == 0) {
+            NSMutableArray *bannerImgs = [NSMutableArray arrayWithCapacity:1];
+            for (NSBanner *model in bannerAry) {
+                [bannerImgs addObject:model.titleImageUrl];
+            }
+            reusable.SDCycleScrollView.imageURLStringsGroup = bannerImgs;
+            reusable.SDCycleScrollView.delegate = self;
+            //        reusable.bannerAry = bannerAry;
+            reusable.SDCycleScrollView.hidden = NO;
+            reusable.titleLable.text = @"推荐作品";
+            [reusable loadMore:NO];
+            
+            //        NSLocalizedString(@"promot_recommendWorks", @"");
+            //        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
+            return reusable;
+            
+        }  else if (indexPath.section == 1){
+            
+            //        reusable.bannerAry = nil;
+            reusable.SDCycleScrollView.hidden = YES;
+            [reusable loadMore:NO];
+            
+            return reusable;
+            
+        } else if (indexPath.section == 2) {
+            
+            reusable.SDCycleScrollView.hidden = YES;
+            
+            UIButton *songMenuBtn = [reusable loadMore:YES];
+            
+            [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            reusable.titleLable.text = @"推荐歌单";
+            
+            //        LocalizedStr(@"promot_recommendSongList");
+            return reusable;
+            
+        } else if (indexPath.section == 3) {
+            
+            reusable.SDCycleScrollView.hidden = YES;
+            
+            reusable.titleLable.text = @"最新作品";
+            
+            [reusable loadMore:NO];
+            //        LocalizedStr(@"promot_newWorks");
+            return reusable;
+            
+        } else if (indexPath.section == 4){
+            
+            reusable.SDCycleScrollView.hidden = YES;
+            
+            UIButton *songSayBtn = [reusable loadMore:YES];
+            
+            [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            reusable.titleLable.text = @"乐说";
+            
+            return reusable;
+            //        LocalizedStr(@"promot_musicSay");
+            
         }
-        reusable.SDCycleScrollView.imageURLStringsGroup = bannerImgs;
-        reusable.SDCycleScrollView.delegate = self;
-//        reusable.bannerAry = bannerAry;
-        reusable.SDCycleScrollView.hidden = NO;
-        reusable.titleLable.text = @"推荐作品";
-        [reusable loadMore:NO];
-
-//        NSLocalizedString(@"promot_recommendWorks", @"");
-//        LocalizedStr(@"promot_recoindexCollectionReusableViewmmendWorks");
-        return reusable;
-
-    }  else if (indexPath.section == 1){
         
-//        reusable.bannerAry = nil;
-        reusable.SDCycleScrollView.hidden = YES;
-        [reusable loadMore:NO];
-
-        return reusable;
-
-    } else if (indexPath.section == 2) {
-
-        reusable.SDCycleScrollView.hidden = YES;
-        
-        UIButton *songMenuBtn = [reusable loadMore:YES];
-        
-        [songMenuBtn addTarget:self action:@selector(songMenuBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        reusable.titleLable.text = @"推荐歌单";
-
-//        LocalizedStr(@"promot_recommendSongList");
-        return reusable;
-
-    } else if (indexPath.section == 3) {
-
-        reusable.SDCycleScrollView.hidden = YES;
-
-        reusable.titleLable.text = @"最新作品";
-        
-        [reusable loadMore:NO];
-//        LocalizedStr(@"promot_newWorks");
-        return reusable;
-
-    } else if (indexPath.section == 4){
-        
-        reusable.SDCycleScrollView.hidden = YES;
-        
-        UIButton *songSayBtn = [reusable loadMore:YES];
-        
-        [songSayBtn addTarget:self action:@selector(songSayBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        reusable.titleLable.text = @"乐说";
-        
-        return reusable;
-//        LocalizedStr(@"promot_musicSay");
-
+//        return reusable;
     }
-    
     return reusable;
     
 }

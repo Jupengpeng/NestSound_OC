@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupMainCooperationViewController];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupContentViewControllers) name:@"setupCooperation" object:nil];
     if (JUserID) {
         [self setupContentViewControllers];
         
@@ -233,6 +234,9 @@
         
     }
     return _noLoginImg;
+}
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
