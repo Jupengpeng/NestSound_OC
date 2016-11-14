@@ -471,7 +471,7 @@ static NSString * const preserveCellID = @"preserveCellID";
             NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:upvoteMessage.workId];
             [self.navigationController pushViewController:lyricVC animated:YES];
         }else{
-            NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+            NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
             playVC.itemUid = upvoteMessage.workId;
             playVC.from = @"tuijian";
             playVC.geDanID = 0;

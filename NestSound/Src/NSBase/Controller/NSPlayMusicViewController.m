@@ -308,11 +308,15 @@ static id _instance;
     [self playMusicWithUrl:musicUrl];
     
     CMTime duration = self.player.currentItem.asset.duration;
-    
     CGFloat seconds = CMTimeGetSeconds(duration);
-    
     self.progressBar.maximumValue = seconds;
+//    NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+//    AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:musicUrl] options:opts]; // 初始化视频媒体文件
+//    CGFloat second;
+//    second = urlAsset.duration.value / urlAsset.duration.timescale;
+//    self.progressBar.maximumValue = second;
     
+//    self.totaltime.text = [NSString stringWithFormat:@"%02d:%02d",(int)self.musicDetail.mp3Times / 60, (int)self.musicDetail.mp3Times % 60];
     self.totaltime.text = [NSString stringWithFormat:@"%02d:%02d",(int)seconds / 60, (int)seconds % 60];
     
     self.playOrPauseBtn.selected = YES;
@@ -402,7 +406,7 @@ static id _instance;
         [btn setImage:[UIImage imageNamed:@"2.0_playSongs_pop"] forState:UIControlStateNormal];
         
     } action:^(UIButton *btn) {
-        self.isCoWork = NO;
+//        self.isCoWork = NO;
         [wSelf.navigationController popViewControllerAnimated:YES];
         
     }];

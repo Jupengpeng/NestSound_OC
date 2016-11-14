@@ -17,6 +17,7 @@
 		0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */; };
 		0C2F9A831D86A63A0045A2EC /* NSPreserveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */; };
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
+		0C5B98BA1DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5B98B91DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m */; };
 		0C670D0A1D9BA64900319E0D /* NSPreserveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C670D091D9BA64900319E0D /* NSPreserveListModel.m */; };
 		0C670D0D1D9BB27900319E0D /* NSPreservePersonListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C670D0C1D9BB27900319E0D /* NSPreservePersonListModel.m */; };
 		0C7CED981D9CBDF8004AC64F /* NSPhotoScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7CED971D9CBDF8004AC64F /* NSPhotoScanView.m */; };
@@ -330,6 +331,8 @@
 		0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTableViewCell.m; sourceTree = "<group>"; };
 		0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRhymeViewController.h; sourceTree = "<group>"; };
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
+		0C5B98B81DD9A6A400AB4486 /* NSAppDelegateThirdPartService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAppDelegateThirdPartService.h; sourceTree = "<group>"; };
+		0C5B98B91DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAppDelegateThirdPartService.m; sourceTree = "<group>"; };
 		0C670D081D9BA64900319E0D /* NSPreserveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveListModel.h; sourceTree = "<group>"; };
 		0C670D091D9BA64900319E0D /* NSPreserveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveListModel.m; sourceTree = "<group>"; };
 		0C670D0B1D9BB27900319E0D /* NSPreservePersonListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePersonListModel.h; sourceTree = "<group>"; };
@@ -1696,6 +1699,8 @@
 				2DFB671D1CC1E6DE00DA24DA /* AppDelegate.m */,
 				2D8608C31CCC86BA0027F147 /* AppDelegate+configureUIAppearance.h */,
 				2D8608C41CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m */,
+				0C5B98B81DD9A6A400AB4486 /* NSAppDelegateThirdPartService.h */,
+				0C5B98B91DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m */,
 				2DFB67271CC1E82700DA24DA /* NSBase */,
 				0CCE1DAC1DBF7F0F00FB66D6 /* Cooperation */,
 				183E03991CDDC5E90071FEE5 /* NSDiscover */,
@@ -3521,6 +3526,7 @@
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
 				2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */,
 				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
+				0C5B98BA1DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				946B04291D4EEC8A00529DBA /* HUImagePickerCell.m in Sources */,
 				697F7F281D6558AA00F7EBCC /* NSActivityJoinerListController.m in Sources */,

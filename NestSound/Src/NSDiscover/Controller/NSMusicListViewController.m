@@ -179,7 +179,7 @@
 //    NSPlayMusicViewController * playMusicVC;
     if (section == 0) {
         NSNewMusicTableViewCell * cell = (NSNewMusicTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-        NSPlayMusicViewController * playMusicVC = [[NSPlayMusicViewController alloc] init];
+        NSPlayMusicViewController * playMusicVC = [NSPlayMusicViewController sharedPlayMusic];
         playMusicVC.itemUid = cell.musicModel.itemId;
         playMusicVC.from = @"red";
         playMusicVC.geDanID = 0;

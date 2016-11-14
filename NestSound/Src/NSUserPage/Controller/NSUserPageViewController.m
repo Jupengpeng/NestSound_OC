@@ -188,15 +188,16 @@ static NSString *ID3 = @"cell3";
 {
     self.requestType = YES;
     
-    NSString *neededUserId = @"";
+//    NSString *neededUserId = @"";
     NSString *neededUrl = @"";
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
-    [parameters setValuesForKeysWithDictionary:@{@"uid":JUserID,@"token":LoginToken}];
+    
   
 
     if (self.who == Myself) {
 
         neededUrl = myUserCenterDefaultUrl;
+        [parameters setValuesForKeysWithDictionary:@{@"uid":JUserID,@"token":LoginToken}];
     }else{
 
         neededUrl = otherUserCenterDefaultUrl;
@@ -1404,9 +1405,9 @@ static NSString *ID3 = @"cell3";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSMyMusicModel * myMusic = dataAry[indexPath.row];
-    
+    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     if (type == 1) {
-        NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+        
         playVC.itemUid = myMusic.itemId;
         playVC.from = @"homepage";
         playVC.geDanID = 0;
@@ -1436,7 +1437,6 @@ static NSString *ID3 = @"cell3";
     }else if (type == 3){
         
         if (myMusic.type == 1) {
-            NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
             playVC.itemUid = myMusic.itemId;
             playVC.from = @"myfov";
             playVC.geDanID = 0;
@@ -1461,7 +1461,6 @@ static NSString *ID3 = @"cell3";
         
     }else if (type == 5){
         NSCooperateProductModel *model = dataAry[indexPath.row];
-        NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
         playVC.itemUid = model.itemid;
         playVC.geDanID = 0;
         playVC.songAry = self.itemIdArr;

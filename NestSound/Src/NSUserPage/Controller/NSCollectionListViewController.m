@@ -201,7 +201,7 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSPlayMusicViewController * playVC = [[NSPlayMusicViewController alloc] init];
+    NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     if (self.viewType == CollectionViewType) {
         NSMyMusicModel * myMusic = _myCollectionAry[indexPath.row];
         if (myMusic.type == 2) {

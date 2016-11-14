@@ -110,10 +110,9 @@ static NSString * const musicSayData = @"musicSayData";
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
-   playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
+    playStatus  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 21)];
     playStatus.animationDuration = 0.8;
     playStatus.animationImages = animationImgsArr;
     
@@ -313,7 +312,7 @@ static NSString * const musicSayData = @"musicSayData";
                 
                 messageCountModel * mess = messageList.messageCount;
 //                NSMutableArray *bageAry = [NSMutableArray array];
-                if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount) {
+                if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount || mess.cooperationCount || mess.preserveCount) {
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
                 } else {
@@ -773,7 +772,6 @@ static NSString * const musicSayData = @"musicSayData";
     if (self.playSongsVC.player == nil) {
         [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
     } else {
-        
         [self.navigationController pushViewController:self.playSongsVC animated:YES];
     }
     
