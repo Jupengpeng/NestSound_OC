@@ -213,7 +213,7 @@
                 if (!operation.isLoadingMore) {
                     [_tableView.pullToRefreshView stopAnimating];
                     DataAry = [NSMutableArray arrayWithArray:discoverMore.moreLyricList];
-                    
+                    [self.itemIdList removeAllObjects];
                     for (NSMyMusicModel *model in DataAry) {
                         [self.itemIdList addObject:@(model.itemId)];
                     }
@@ -290,7 +290,7 @@
         NSLyricViewController * lyricVC = [[NSLyricViewController alloc] initWithItemId:itemID];
         [self.navigationController pushViewController:lyricVC animated:YES];
     }else{
-        NSPlayMusicViewController * playVC =[[NSPlayMusicViewController alloc] init];
+        NSPlayMusicViewController * playVC =[NSPlayMusicViewController sharedPlayMusic];
         
         if ([MusicType isEqualToString:@"hot"]) {
            playVC.from = @"red";

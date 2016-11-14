@@ -215,13 +215,7 @@
         cooperationDetailVC.cooperationId = cooperationModel.cooperationId;
         [self.navigationController pushViewController:cooperationDetailVC animated:YES];
     } else {
-        NSLoginViewController *login = [[NSLoginViewController alloc] init];
-        login.lonigBlock = ^(BOOL isReset) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"setupCooperation" object:nil];
-        };
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
-        nav.navigationBar.hidden = YES;
-        [self presentViewController:nav animated:YES completion:nil];
+        [self userLogin];
     }
     
 }
@@ -241,39 +235,44 @@
 }
 #pragma mark - NSInvitationListTableViewCellDelegate
 - (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
-    NSIndexPath *indexPath = [cooperationTab indexPathForCell:cell];
-    MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
-    CooperationModel *cooperationModel = mainModel.cooperation;
-    cooperationId = cooperationModel.cooperationId;
+    if (JUserID) {
+        NSIndexPath *indexPath = [cooperationTab indexPathForCell:cell];
+        MainCooperationListModel *mainModel = self.cooperationArr[indexPath.section];
+        CooperationModel *cooperationModel = mainModel.cooperation;
+        cooperationId = cooperationModel.cooperationId;
+        
+        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        
+        _maskView.backgroundColor = [UIColor lightGrayColor];
+        
+        _maskView.alpha = 0.5;
+        
+        [self.navigationController.view addSubview:_maskView
+         ];
+        
+        CGFloat padding = ScreenWidth *60/375.0;
+        CGFloat width = (ScreenWidth - padding * 2);
+        CGFloat height = width * 338/256.0f;
+        
+        
+        _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
+        
+        _tipView.delegate = self;
+        
+        _tipView.imgName = @"2.3_tipImg_cooperate";
+        
+        _tipView.tipText = [NSString stringWithFormat:@"1.需求结束前,您的作品无法删除\n2.如被采纳,删除该作品仅对自己有效"];
+        [self.navigationController.view addSubview:_tipView];
+        
+        CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+        keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
+        keyFrame.duration = 0.3;
+        keyFrame.removedOnCompletion = NO;
+        [_tipView.layer addAnimation:keyFrame forKey:nil];
+    } else {
+        [self userLogin];
+    }
     
-    _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    
-    _maskView.backgroundColor = [UIColor lightGrayColor];
-    
-    _maskView.alpha = 0.5;
-    
-    [self.navigationController.view addSubview:_maskView
-     ];
-    
-    CGFloat padding = ScreenWidth *60/375.0;
-    CGFloat width = (ScreenWidth - padding * 2);
-    CGFloat height = width * 338/256.0f;
-    
-    
-    _tipView = [[NSTipView alloc] initWithFrame:CGRectMake(padding, (ScreenHeight - height)/2.0f, width, height)];
-    
-    _tipView.delegate = self;
-    
-    _tipView.imgName = @"2.3_tipImg_cooperate";
-    
-    _tipView.tipText = [NSString stringWithFormat:@"1.需求结束前,您的作品无法删除\n2.如被采纳,删除该作品仅对自己有效"];
-    [self.navigationController.view addSubview:_tipView];
-    
-    CAKeyframeAnimation *keyFrame = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-    keyFrame.values = @[@(0.2), @(0.4), @(0.6), @(0.8), @(1.0), @(1.2), @(1.0)];
-    keyFrame.duration = 0.3;
-    keyFrame.removedOnCompletion = NO;
-    [_tipView.layer addAnimation:keyFrame forKey:nil];
     
 }
 - (void)iconBtnClickWith:(NSInvitationListTableViewCell *)cell {
@@ -320,7 +319,15 @@
         self.requestURL = coCooperateActionUrl;
     }];
 }
-
+- (void)userLogin {
+    NSLoginViewController *login = [[NSLoginViewController alloc] init];
+    login.lonigBlock = ^(BOOL isReset) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"setupCooperation" object:nil];
+    };
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+    nav.navigationBar.hidden = YES;
+    [self presentViewController:nav animated:YES completion:nil];
+}
 - (NSMutableArray *)cooperationArr {
     if (!_cooperationArr) {
         self.cooperationArr = [NSMutableArray arrayWithCapacity:1];

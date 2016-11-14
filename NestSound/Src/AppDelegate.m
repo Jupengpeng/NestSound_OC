@@ -23,6 +23,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Pingpp.h"
 #import <Bugly/Bugly.h>
+#import "NSAppDelegateThirdPartService.h"
 @interface AppDelegate ()<UIScrollViewDelegate>
 @property (nonatomic, strong) UIView *FirstLaunchView;
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -50,29 +51,7 @@
     [self setupUIAppearance];
     self.window.rootViewController = tabController;
     
-    //UMshare
-    [UMSocialData setAppKey:umAppKey];
-
-    [UMSocialWechatHandler setWXAppId:wxAppId appSecret:wxAppSecret url:nil];
-    [UMSocialQQHandler setQQWithAppId:qqAppId appKey:qqAppKey url:@"http://www.yinchao.cn"];
-
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:wbAppId  secret:wbAppKey RedirectURL:wbSecretURL];
-    [UMSocialConfig hiddenNotInstallPlatforms:@[UMShareToQQ, UMShareToQzone, UMShareToWechatSession, UMShareToWechatTimeline,UMShareToSina]];
     
-    
-    //UmengAnalytics
-    UMConfigInstance.appKey = umAppKey;
-    UMConfigInstance.channelId = @"App Store";
-    [MobClick startWithConfigure:UMConfigInstance];
-    NSString * version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [MobClick setAppVersion:version];
-    
-    [MobClick setLogEnabled: YES];
-    BuglyConfig *config = [[BuglyConfig alloc] init];
-//    config.debugMode = YES;
-    config.channel =  [[UIDevice currentDevice] name];
-    [Bugly startWithAppId:@"7eb2056e59" config:config];
-//    [Bugly startWithAppId:@"7eb2056e59"];
     //addObserver for UserHeadset
     self.session = [AVAudioSession sharedInstance];
     [self.session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
@@ -100,9 +79,7 @@
                                               categories:nil];
     }
     [JPUSHService setupWithOption:launchOptions appKey:JPushAPPKey channel:@"AppStore" apsForProduction:YES advertisingIdentifier:nil];
-    
-    [NSCheckUpgradeUtil checkUpgrade];
-    
+        
     [self.window makeKeyAndVisible];
     
     //用户引导页
@@ -111,25 +88,7 @@
         [userDefaults setBool:NO forKey:@"FirstLoad"];
         [self layoutLaunchView];
     }
-    
-    UIApplication *app = [UIApplication sharedApplication];
-    
-    __block UIBackgroundTaskIdentifier taskId;
-    
-    taskId = [app beginBackgroundTaskWithExpirationHandler:^{
-        
-        CHLog(@"后台任务超时被退出");
-        [app endBackgroundTask:taskId];
-        taskId = UIBackgroundTaskInvalid;
-    }];
-    
-    if(taskId == UIBackgroundTaskInvalid)
-        
-    {
-        CHLog(@"开启后台任务失败");
-    }
-    
-    CHLog(@"remining seconde %f",[app backgroundTimeRemaining]);
+
     return YES;
 }
 - (void)layoutLaunchView {
