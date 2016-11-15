@@ -283,6 +283,7 @@
 		B8625FBC1DBF843500713B1D /* NSCooperateDetailMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8625FBB1DBF843500713B1D /* NSCooperateDetailMainCell.m */; };
 		B8657A131DC9D01F00C49A47 /* NSCooperationDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8657A121DC9D01F00C49A47 /* NSCooperationDetailModel.m */; };
 		B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */; };
+		B8736E411DDB079B007F14C2 /* NSCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8736E401DDB079B007F14C2 /* NSCacheManager.m */; };
 		B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B878AF2A1D929F340059013F /* NSPreserveTypeView.m */; };
 		B87B3D5C1DC0470C0082D3A1 /* NSCooperateProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B87B3D5B1DC0470C0082D3A1 /* NSCooperateProductModel.m */; };
 		B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */; };
@@ -1018,6 +1019,8 @@
 		B8657A121DC9D01F00C49A47 /* NSCooperationDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationDetailModel.m; sourceTree = "<group>"; };
 		B8699E9D1DAD07110041B40C /* NSPreserveApplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyModel.h; sourceTree = "<group>"; };
 		B8699E9E1DAD07110041B40C /* NSPreserveApplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyModel.m; sourceTree = "<group>"; };
+		B8736E3F1DDB079B007F14C2 /* NSCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCacheManager.h; sourceTree = "<group>"; };
+		B8736E401DDB079B007F14C2 /* NSCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCacheManager.m; sourceTree = "<group>"; };
 		B878AF291D929F340059013F /* NSPreserveTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTypeView.h; sourceTree = "<group>"; };
 		B878AF2A1D929F340059013F /* NSPreserveTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTypeView.m; sourceTree = "<group>"; };
 		B87B3D5A1DC0470C0082D3A1 /* NSCooperateProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperateProductModel.h; sourceTree = "<group>"; };
@@ -1809,6 +1812,7 @@
 		2DFB67261CC1E75900DA24DA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				B8736E3E1DDB0780007F14C2 /* NSCacheManager */,
 				B89CF2A91D845A5B00F4D8FD /* FXBlurView */,
 				B80C07731D757F470032BBCD /* NSImagePicker */,
 				B801F0C71D732F0300DD7949 /* GPUImage */,
@@ -2246,6 +2250,15 @@
 				0CFAFA2F1DC33B5800E82020 /* NSCooperationMessageTableViewCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B8736E3E1DDB0780007F14C2 /* NSCacheManager */ = {
+			isa = PBXGroup;
+			children = (
+				B8736E3F1DDB079B007F14C2 /* NSCacheManager.h */,
+				B8736E401DDB079B007F14C2 /* NSCacheManager.m */,
+			);
+			path = NSCacheManager;
 			sourceTree = "<group>";
 		};
 		B89CF2A91D845A5B00F4D8FD /* FXBlurView */ = {
@@ -3659,6 +3672,7 @@
 				2DFB67251CC1E6DE00DA24DA /* main.m in Sources */,
 				2DFB67821CC1F0ED00DA24DA /* UIView+NSAdditions.m in Sources */,
 				0CCE1DBE1DBF7F0F00FB66D6 /* NSCooperationViewController.m in Sources */,
+				B8736E411DDB079B007F14C2 /* NSCacheManager.m in Sources */,
 				B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */,
 				0CCE1DBF1DBF7F0F00FB66D6 /* NSMainCooperationViewController.m in Sources */,
 				0C128D561DC8C082006C3AD1 /* NSCooperationLyricListModel.m in Sources */,

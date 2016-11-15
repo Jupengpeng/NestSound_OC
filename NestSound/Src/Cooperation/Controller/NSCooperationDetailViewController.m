@@ -661,8 +661,8 @@
     
     
     NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",cell.commentModel.userID]];
-    
-    pageVC.who = !self.isMyCoWork;
+
+    pageVC.who = (cell.commentModel.userID == [JUserID longLongValue]) ? Myself : Other ;
     
     [self.navigationController pushViewController:pageVC animated:YES];
     

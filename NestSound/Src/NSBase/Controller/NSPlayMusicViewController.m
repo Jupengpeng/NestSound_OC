@@ -24,6 +24,11 @@
 #import "NSSongListModel.h"
 #import "NSRollView.h"
 #import "NSPreserveApplyController.h"
+
+//歌单缓存名称 
+static NSString * const homeCacheData = @"homeCacheData";
+
+
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate> {
     
     UIView *_maskView;
@@ -43,7 +48,6 @@
     NSShareView *shareView;
     NSArray *shareArr;
     TencentOAuth *tencentOAuth;
-    
 }
 
 @property (nonatomic,strong) NSMusicListViewController * musicVc;
@@ -88,6 +92,9 @@
 
 @property (nonatomic,strong) UILabel * numLabel;
 
+@property (nonatomic,strong)  NSCacheManager *cacheManager;
+
+
 @end
 
 static id _instance;
@@ -127,16 +134,11 @@ static id _instance;
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer) name:AVAudioSessionInterruptionNotification object:nil];
     if (self.playOrPauseBtn.selected) {
-        
         if (!self.timer) {
-            
             [self addTimer];
         }
     }
-    
     [self fetchPlayDataWithItemId:self.itemUid];
-    
-    
     self.scrollV.contentOffset = CGPointMake(0, 0);
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     
@@ -1554,6 +1556,14 @@ static id _instance;
     self.playOrPauseBtn.selected = NO;
 }
 
+
+- (YYCache *)cacheManager{
+    
+    if (!_cacheManager) {
+        _cacheManager = [NSCacheManager cacheWithName:@"NSPlayMusicViewControllerData"];
+    }
+    return _cacheManager;
+}
 
 - (void)dealloc {
     

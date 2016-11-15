@@ -53,6 +53,7 @@
 #import "SDCycleScrollView.h"
 #import "SDWebImageManager.h"
 #import "MJPhotoBrowser.h"
+#import "NSCacheManager.h"
 // Host
 extern BOOL debugMode;
 extern NSString *host;
