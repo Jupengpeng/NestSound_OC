@@ -59,7 +59,11 @@
                 [myCooperationTab.infiniteScrollingView stopAnimating];
                 [self.myCooperationArr addObjectsFromArray:model.myCooperationList];
             }
-            
+            if (self.myCooperationArr.count) {
+                emptyImage.hidden = YES;
+            } else {
+                emptyImage.hidden = NO;
+            }
             [myCooperationTab reloadData];
         } else if ([operation.urlTag isEqualToString:deleteMyCooperationUrl]) {
             
