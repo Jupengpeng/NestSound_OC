@@ -409,6 +409,11 @@ extern Boolean plugedHeadset;
                 NSPublicLyricModel * publicLyric = (NSPublicLyricModel *)parserObject;
                 NSString *shareUrl = [NSString stringWithFormat:@"%@?id=%ld",publicLyric.publicLyricModel.shareURL,publicLyric.publicLyricModel.itemID];
                 
+                NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+                [recordText removeObjectForKey:@"recordTitle"];
+                [recordText removeObjectForKey:@"recordLyric"];
+                [recordText synchronize];
+                
                 [lyricDic setValue: shareUrl forKeyPath:@"shareURL"];
                 [lyricDic setValue:self.titleImage forKey:@"titleImageUrl"];
                 [lyricDic setValue:lyricDic[@"lyric"] forKeyPath:@"desc"];
