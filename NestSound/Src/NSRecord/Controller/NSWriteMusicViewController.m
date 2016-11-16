@@ -79,7 +79,7 @@ Boolean plugedHeadset;
     int num;
     int frameInterval;
     int testNum;
-    AFHTTPSessionManager *manager;
+//    AFHTTPSessionManager *manager;
 }
 
 @property (nonatomic, strong) UIImageView *slideBarImage;
@@ -833,8 +833,8 @@ Boolean plugedHeadset;
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认放弃" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recordTitle"];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recordLyric"];
+            [recordText removeObjectForKey:@"recordTitle"];
+            [recordText removeObjectForKey:@"recordLyric"];
             [recordText synchronize];
             [wSelf removeLink];
             [wSelf stopPlaysound:self.player];
@@ -1385,9 +1385,6 @@ Boolean plugedHeadset;
         self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
       
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-#warning 取消网络请求
-            [manager.operationQueue cancelAllOperations];
-            [[NSHttpClient client] cancelRequest];
             return;
         }];
         
@@ -1670,7 +1667,7 @@ Boolean plugedHeadset;
         
 //        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
         // 1.创建网络管理者
-        manager = [AFHTTPSessionManager manager];
+       AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         
         NSString* url =[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL];
         [manager POST:url parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
