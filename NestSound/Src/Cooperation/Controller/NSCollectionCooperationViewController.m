@@ -54,7 +54,11 @@
                 [collectionTab.infiniteScrollingView stopAnimating];
                 [self.collectionArr addObjectsFromArray:model.collectionList];
             }
-            
+            if (self.collectionArr.count) {
+                emptyImage.hidden = YES;
+            } else {
+                emptyImage.hidden = NO;
+            }
             [collectionTab reloadData];
         } else if ([operation.urlTag isEqualToString:cancelCollectUlr]) {
             [self fetchCollectCooperationListWithIsLoadingMore:NO];
