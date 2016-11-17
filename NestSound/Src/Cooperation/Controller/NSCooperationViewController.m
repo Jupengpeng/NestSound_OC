@@ -90,16 +90,16 @@
     
 //    cooperationTab.rowHeight = 80;
     
-//    cooperationTab.separatorStyle = UITableViewCellSeparatorStyleNone;
+    cooperationTab.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     cooperationTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     //    [musicTableView registerClass:[NSNewMusicTableViewCell class] forCellReuseIdentifier:musicCellIdentify];
     self.view = cooperationTab;
     
-//    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
-//    
-//    cooperationTab.tableFooterView = noLineView;
+    UIView *noLineView = [[UIView alloc] initWithFrame:CGRectZero];
+
+    cooperationTab.tableFooterView = noLineView;
     
     WS(Wself);
     //refresh

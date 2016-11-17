@@ -829,7 +829,7 @@
             btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
 
             
-            [btn setTitle:@"收藏该作品" forState:UIControlStateNormal];
+            [btn setTitle:@"收藏该合作" forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor hexColorFloat:@"666666"] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:@"ic_shoucang"] forState:UIControlStateNormal];
 

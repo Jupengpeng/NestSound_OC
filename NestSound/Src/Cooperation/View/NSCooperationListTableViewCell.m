@@ -30,6 +30,12 @@
 }
 - (void)setupCooperationListCellUI {
     
+    UIView *separatorLine = [[UIView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth-10, 0.8)];
+    
+    separatorLine.backgroundColor = KBackgroundColor;
+    
+    [self.contentView addSubview:separatorLine];
+    
     sectionView = [[UIView alloc] init];
     
     sectionView.backgroundColor = [UIColor hexColorFloat:@"ffd705"];
