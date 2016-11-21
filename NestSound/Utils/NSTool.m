@@ -8,6 +8,7 @@
 
 #import "NSTool.h"
 #include <sys/sysctl.h>
+/*
 void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelector) {
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
     Method swizzeldMethod = class_getInstanceMethod(class, swizzledSelector);
@@ -20,6 +21,7 @@ void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelector) {
         method_exchangeImplementations(originalMethod, swizzeldMethod);
     }
 }
+ */
 
 BOOL debugMode = NO;
 NSString *host = @"";

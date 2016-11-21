@@ -9,7 +9,7 @@
 #define kDefaultImage [UIImage imageNamed:@"2.0_backgroundImage"]
 
 #import "NSHeadImageView.h"
-#import "GPUImage.h"
+//#import "GPUImage.h"
 #import "FXBlurView.h"
 @interface NSHeadImageView ()
 
@@ -76,23 +76,23 @@
 }
 
 
-- (UIImage *)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image{
-    
-    //    NSData *data = UIImageJPEGRepresentation(image, 0.3);
-    //    UIImage *inputImage = [UIImage imageWithData:data];
-    UIImage *inputImage = image;
-    GPUImageGaussianBlurFilter *passthroughFilter = [[GPUImageGaussianBlurFilter alloc]init];
-    passthroughFilter.blurRadiusInPixels = 20 ;;
-    [passthroughFilter forceProcessingAtSize:inputImage.size];
-    [passthroughFilter useNextFrameForImageCapture];
-    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:inputImage];
-    [stillImageSource addTarget:passthroughFilter];
-    [stillImageSource processImage];
-    UIImage *nearestNeightImage = [passthroughFilter imageFromCurrentFramebuffer];
-
-//    self.image = nearestNeightImage;
-    return nearestNeightImage;
-}
+//- (UIImage *)setupBlurImageWithBlurRadius:(CGFloat)blurRadius image:(UIImage *)image{
+//    
+//    //    NSData *data = UIImageJPEGRepresentation(image, 0.3);
+//    //    UIImage *inputImage = [UIImage imageWithData:data];
+//    UIImage *inputImage = image;
+//    GPUImageGaussianBlurFilter *passthroughFilter = [[GPUImageGaussianBlurFilter alloc]init];
+//    passthroughFilter.blurRadiusInPixels = 20 ;;
+//    [passthroughFilter forceProcessingAtSize:inputImage.size];
+//    [passthroughFilter useNextFrameForImageCapture];
+//    GPUImagePicture *stillImageSource = [[GPUImagePicture alloc] initWithImage:inputImage];
+//    [stillImageSource addTarget:passthroughFilter];
+//    [stillImageSource processImage];
+//    UIImage *nearestNeightImage = [passthroughFilter imageFromCurrentFramebuffer];
+//
+////    self.image = nearestNeightImage;
+//    return nearestNeightImage;
+//}
 
 
 

@@ -147,7 +147,7 @@ static NSString * const musicSayData = @"musicSayData";
        
     } else {
         
-        if (self.playSongsVC.player.rate != 0.0) {
+        if (self.playSongsVC.postion != 0.0) {
             [playStatus startAnimating];
         }else{
             [playStatus stopAnimating];

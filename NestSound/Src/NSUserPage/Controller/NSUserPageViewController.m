@@ -28,7 +28,7 @@ static NSInteger const kButtonTag = 200;
 #import "NSGetQiNiuModel.h"
 #import "UIImageView+Webcache.h"
 #import <Accelerate/Accelerate.h>
-#import "GPUImage.h"
+//#import "GPUImage.h"
 #import "NSImagePicker.h"
 #import "NSHeadImageView.h"
 #import "NSDiscoverMoreLyricModel.h"

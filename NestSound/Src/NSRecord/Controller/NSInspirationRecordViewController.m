@@ -121,9 +121,7 @@ static NSString * const reuseIdentifier  = @"ReuseIdentifier";
     //stop the music
     NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
     
-    playVC.playOrPauseBtn.selected = NO;
-    
-    [playVC.player pause];
+    [playVC pausePlayer];
     
     
     [self setupUI];

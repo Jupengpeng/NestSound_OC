@@ -746,7 +746,7 @@ Boolean plugedHeadset;
     
     playVC.playOrPauseBtn.selected = NO;
     downloadFinish = NO;
-    [playVC.player pause];
+    [playVC pausePlayer];
     [self resetButton];
     
     //下载伴奏

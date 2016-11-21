@@ -8,6 +8,7 @@
 
 #import "NSBaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
+@class YCMusicPlayer;
 @class NSPlayMusicDetail;
 @interface NSPlayMusicViewController : NSBaseViewController
 
@@ -15,7 +16,10 @@
 
 @property (nonatomic, weak) UIButton *playOrPauseBtn;
 
-@property (nonatomic,strong) AVPlayer *player;
+@property (nonatomic,strong) YCMusicPlayer *player;
+
+//当前时间
+@property (nonatomic,assign) CGFloat postion;
 
 @property (nonatomic,assign) long itemUid;
 
@@ -30,5 +34,7 @@
 @property (nonatomic,assign) BOOL isCoWork;
 
 - (void)playMusicUrl:(NSString *)musicUrl;
+
+- (void)pausePlayer;
 
 @end

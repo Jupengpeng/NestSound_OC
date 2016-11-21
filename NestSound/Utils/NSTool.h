@@ -11,7 +11,6 @@
 
 @interface NSTool : NSObject
 
-extern void swizzled_Method(Class class,SEL originalSelector,SEL swizzledSelector);
 
 + (NSString *)obtainHostURL;
 + (AppDelegate *)appDelegate;

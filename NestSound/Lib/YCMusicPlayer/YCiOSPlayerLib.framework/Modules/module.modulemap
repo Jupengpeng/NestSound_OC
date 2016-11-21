@@ -1,0 +1,6 @@
+framework module YCiOSPlayerLib {
+  umbrella header "YCiOSPlayerLib.h"
+
+  export *
+  module * { export * }
+}

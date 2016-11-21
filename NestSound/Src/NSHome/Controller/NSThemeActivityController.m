@@ -103,7 +103,7 @@ static NSInteger const kButtonTag = 450;
         
     } else {
         
-        if (self.playSongsVC.player.rate != 0.0) {
+        if (self.playSongsVC.postion != 0.0) {
             [_playStatus startAnimating];
         }else{
             [_playStatus stopAnimating];
