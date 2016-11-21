@@ -23,7 +23,7 @@
 }
 
 @end
-
+//轮播图
 @implementation NSBannerList
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
@@ -59,7 +59,7 @@
              };
 }
 @end
-
+//推荐作品
 @implementation NSRecommendList
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
@@ -97,8 +97,41 @@
              };
 }
 @end
+//音乐人
+@implementation NSMusicianList
 
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    
+    return @{@"musicianList":@"musicianList"};
+}
 
+@end
+
+@implementation NSMusician
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.headerUrl forKey:@"headurl"];
+    [aCoder encodeObject:self.nickname forKey:@"nickname"];
+    [aCoder encodeDouble:self.uid forKey:@"uid"];
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    if (self) {
+        self.headerUrl = [aDecoder decodeObjectForKey:@"headurl"];
+        self.nickname  = [aDecoder decodeObjectForKey:@"nickname"];
+        self.uid    = [aDecoder decodeDoubleForKey:@"uid"];
+    }
+    return self;
+}
+- (NSDictionary *)modelKeyJSONKeyMapper {
+    
+    return @{@"nickname":@"nickname",
+             @"headerUrl":@"headurl",
+             @"uid":@"uid"};
+}
+
+@end
+//推荐歌单
 @implementation NSRecommendSongLs
 
 -(NSDictionary *)modelKeyJSONKeyMapper
@@ -142,7 +175,7 @@
 }
 @end
 
-
+//最新作品
 @implementation NSNewList
 -(NSDictionary *)modelKeyJSONKeyMapper
 {
@@ -181,7 +214,7 @@
 }
 
 @end
-
+//乐说
 @implementation NSMusicSayList
 -(NSDictionary *)modelKeyJSONKeyMapper
 {

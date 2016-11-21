@@ -286,7 +286,7 @@
         
         return [[NSCooperationLyricListModel alloc] initWithJSONDict:jsonDict];
         
-    } else if ([url isEqualToString:invitationListUrl]) {
+    } else if ([url isEqualToString:invitationListUrl] || [url isEqualToString:musicianListUrl]) {
         
         return [[NSInvitationListModel alloc] initWithJSONDict:jsonDict];
         

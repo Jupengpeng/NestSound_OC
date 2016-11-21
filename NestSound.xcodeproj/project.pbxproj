@@ -60,6 +60,8 @@
 		0CFAFA241DC2F23B00E82020 /* NSCooperationMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAFA231DC2F23B00E82020 /* NSCooperationMessageViewController.m */; };
 		0CFAFA2D1DC320BA00E82020 /* UITextField+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAFA2C1DC320BA00E82020 /* UITextField+NSAdditions.m */; };
 		0CFAFA301DC33B5800E82020 /* NSCooperationMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAFA2F1DC33B5800E82020 /* NSCooperationMessageTableViewCell.m */; };
+		0CFD03421DE28CF200BA1668 /* NSMusicianListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD03411DE28CF200BA1668 /* NSMusicianListViewController.m */; };
+		0CFD03451DE2950300BA1668 /* NSMusicianListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD03441DE2950300BA1668 /* NSMusicianListCell.m */; };
 		1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */; };
 		18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E3F1CEC417A0011B0A4 /* NSBaseTabBarViewController.m */; };
 		18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18074E421CEC43290011B0A4 /* NSPlusTabBar.m */; };
@@ -433,6 +435,10 @@
 		0CFAFA2C1DC320BA00E82020 /* UITextField+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+NSAdditions.m"; sourceTree = "<group>"; };
 		0CFAFA2E1DC33B5800E82020 /* NSCooperationMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCooperationMessageTableViewCell.h; sourceTree = "<group>"; };
 		0CFAFA2F1DC33B5800E82020 /* NSCooperationMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCooperationMessageTableViewCell.m; sourceTree = "<group>"; };
+		0CFD03401DE28CF200BA1668 /* NSMusicianListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicianListViewController.h; sourceTree = "<group>"; };
+		0CFD03411DE28CF200BA1668 /* NSMusicianListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicianListViewController.m; sourceTree = "<group>"; };
+		0CFD03431DE2950300BA1668 /* NSMusicianListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMusicianListCell.h; sourceTree = "<group>"; };
+		0CFD03441DE2950300BA1668 /* NSMusicianListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMusicianListCell.m; sourceTree = "<group>"; };
 		1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOptimizeMusicViewController.h; sourceTree = "<group>"; };
 		1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOptimizeMusicViewController.m; sourceTree = "<group>"; };
 		18074E3E1CEC417A0011B0A4 /* NSBaseTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBaseTabBarViewController.h; sourceTree = "<group>"; };
@@ -1144,6 +1150,8 @@
 				695735ED1D6C224E00D1A269 /* NSUserWorkListController.m */,
 				B87F69F61D93AA7000A7B620 /* NSMusicSayDetailController.h */,
 				B87F69F71D93AA7000A7B620 /* NSMusicSayDetailController.m */,
+				0CFD03401DE28CF200BA1668 /* NSMusicianListViewController.h */,
+				0CFD03411DE28CF200BA1668 /* NSMusicianListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1220,6 +1228,8 @@
 				69366BF71D647F3C00414323 /* NSStarMusicianBottomCell.m */,
 				697F7F291D655CB400F7EBCC /* NSActivityJoinerListCell.h */,
 				697F7F2A1D655CB400F7EBCC /* NSActivityJoinerListCell.m */,
+				0CFD03431DE2950300BA1668 /* NSMusicianListCell.h */,
+				0CFD03441DE2950300BA1668 /* NSMusicianListCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3240,6 +3250,7 @@
 				180F3E641D13C9160008C086 /* NSSearchUserListModel.m in Sources */,
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
 				2A9429B61CF419990099A6DB /* NSDiscoverBandListModel.m in Sources */,
+				0CFD03421DE28CF200BA1668 /* NSMusicianListViewController.m in Sources */,
 				B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
@@ -3425,6 +3436,7 @@
 				0CCF1D7F1D9101F700F97526 /* NSPreserveSelectViewController.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
+				0CFD03451DE2950300BA1668 /* NSMusicianListCell.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
 				946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */,
 				0C2F9A7D1D8687600045A2EC /* NSPreserveListViewController.m in Sources */,
