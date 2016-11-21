@@ -12,7 +12,7 @@
 @protocol NSBanner <NSObject>
 @end
 
-
+//轮播图
 @interface NSBanner : NSBaseModel<NSCoding>
 
 @property (nonatomic,copy) NSString * titleImageUrl;
@@ -28,6 +28,7 @@
 @property (nonatomic,strong) NSArray<NSBanner> * bannerList;
 @end
 
+//推荐作品
 @protocol NSRecommend <NSObject>
 @end
 
@@ -48,6 +49,25 @@
 @property (nonatomic,strong) NSArray <NSRecommend> * recommendList;
 @end
 
+//音乐人
+@protocol NSMusician <NSObject>
+
+@end
+
+@interface NSMusician : NSBaseModel<NSCoding>
+@property (nonatomic,copy) NSString * nickname;
+@property (nonatomic,copy) NSString * headerUrl;
+@property (nonatomic,assign) long uid;
+
+@end
+
+@interface NSMusicianList : NSBaseModel
+
+@property (nonatomic,strong) NSArray <NSMusician> *musicianList;
+
+@end
+
+//推荐歌单
 @protocol  NSRecommendSong  <NSObject>
 
 @end
@@ -64,7 +84,7 @@
 @property (nonatomic,strong) NSArray <NSRecommendSong> * recommendSongList;
 @end
 
-
+//最新作品
 @protocol NSNew <NSObject>
 @end
 
@@ -84,7 +104,7 @@
 @property (nonatomic,strong) NSArray <NSNew> * songList;
 @end
 
-
+//乐说
 @protocol NSMusicSay <NSObject>
 @end
 
@@ -116,6 +136,7 @@
 @interface NSIndexModel : NSBaseModel
 @property (nonatomic,strong) NSBannerList * BannerList;
 @property (nonatomic,strong) NSRecommendList * RecommendList;
+@property (nonatomic,strong) NSMusicianList * musicianList;
 @property (nonatomic,strong) NSNewList * NewList;
 @property (nonatomic,strong) NSRecommendSongLs * RecommendSongList;
 @property (nonatomic,strong) NSMusicSayList * MusicSayList;

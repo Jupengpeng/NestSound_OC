@@ -16,7 +16,8 @@
              @"headerUrl":@"headurl",
              @"signature":@"signature",
              @"isInvited":@"invite",
-             @"isRecommend":@"recommend"};
+             @"isRecommend":@"recommend",
+             @"ability":@"ability"};
 }
 
 @end

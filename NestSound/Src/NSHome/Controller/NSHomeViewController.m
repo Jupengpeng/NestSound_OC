@@ -22,6 +22,7 @@
 #import "NSTopicCarryOnCell.h"
 #import "NSMessageListModel.h"
 #import "NSMainCooperationViewController.h"
+#import "NSMusicianListViewController.h"
 /**
  *  专题活动
   */
@@ -54,6 +55,7 @@
 
 @property (nonatomic, strong) NSMutableArray *itemIDArray;
 @property (nonatomic, strong) NSMutableArray *itemIDArr;
+@property (nonatomic, strong) NSMutableArray *musicianArr;
 @property (nonatomic,assign) long  itemId;
 @property (nonatomic, strong)  NSPlayMusicViewController *playSongsVC;
 
@@ -75,32 +77,8 @@ static NSString * const recommendData = @"recommendData";
 static NSString * const recommendSongData = @"recommendSongData";
 static NSString * const newListData =  @"newListData";
 static NSString * const musicSayData = @"musicSayData";
+static NSString * const musicianData = @"musicianData";
 @implementation NSHomeViewController
-
-
-- (NSMutableArray *)itemIDArray {
-    
-    if (!_itemIDArray) {
-        
-        _itemIDArray = [NSMutableArray array];
-    }
-    
-    return _itemIDArray;
-}
-- (NSMutableArray *)itemIDArr {
-    if (!_itemIDArr) {
-        self.itemIDArr = [NSMutableArray arrayWithCapacity:1];
-    }
-    return _itemIDArr;
-}
-- (NSPlayMusicViewController *)playSongsVC {
-    
-    if (!_playSongsVC) {
-        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
-    }
-    
-    return _playSongsVC;
-}
 
 -(instancetype)init
 {
@@ -132,6 +110,7 @@ static NSString * const musicSayData = @"musicSayData";
     cache = [YYCache cacheWithName:homeCacheData];
     bannerAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:bannerData]];
     recommendAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:recommendData]];
+    self.musicianArr = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:musicianData]];
     recommendSongAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:recommendSongData]];
     newListAry   =  [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:newListData]];
     musicSayAry  = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:musicSayData]];
@@ -277,6 +256,9 @@ static NSString * const musicSayData = @"musicSayData";
                 for (NSRecommend *model in recommendAry) {
                     [self.itemIDArray addObject:@(model.itemId)];
                 }
+                //音乐人数据
+                self.musicianArr = [NSMutableArray arrayWithArray:indexModel.musicianList.musicianList];
+                [cache setObject:self.musicianArr forKey:musicianData];
                 //推荐歌单数据
                 recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
                 [cache setObject:recommendSongAry forKey:recommendSongData];
@@ -346,7 +328,7 @@ static NSString * const musicSayData = @"musicSayData";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    return 5;
+    return 6;
 }
 
 
@@ -359,7 +341,7 @@ static NSString * const musicSayData = @"musicSayData";
     } else if (section == 1){
         
         return 1;
-    } else if (section == 2) {
+    } else if (section == 3) {
         
         return recommendSongAry.count;
         
@@ -368,12 +350,12 @@ static NSString * const musicSayData = @"musicSayData";
      *  话题进行时
 
      */
-//    else if (section == 3){
-//        
-//        return 0;
-//        
-//    }
-    else if (section == 3){
+    else if (section == 2){
+        
+        return 1;
+        
+    }
+    else if (section == 4){
         
         return newListAry.count;
     } else {
@@ -405,7 +387,7 @@ static NSString * const musicSayData = @"musicSayData";
         
         return cell;
     
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3) {
         
         NSSongMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SongMenuCell forIndexPath:indexPath];
         
@@ -415,24 +397,23 @@ static NSString * const musicSayData = @"musicSayData";
         return cell;
         
     }
-//    else if (indexPath.section == 3){
-//        
-//        NSTopicCarryOnCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TopCarringCell forIndexPath:indexPath];
-//        
-//        [cell setupDataWithTopicArray:[NSMutableArray array]];
-//        
-//        cell.topicClickBlock = ^(NSInteger clickIndex){
-//          
-//            CHLog(@"click -- %ld", (long)clickIndex);
-//            NSThemeActivityController *themeController = [[NSThemeActivityController alloc] init];
-//            [self.navigationController pushViewController:themeController animated:YES];
-//            
-//        };
-//        
-//        return cell;
-//        
-//    }
-    else if (indexPath.section == 3) {
+    else if (indexPath.section == 2){
+        
+        NSTopicCarryOnCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TopCarringCell forIndexPath:indexPath];
+        
+        [cell setupDataWithTopicArray:self.musicianArr];
+        
+        cell.topicClickBlock = ^(NSInteger clickIndex){
+          
+            NSThemeActivityController *themeController = [[NSThemeActivityController alloc] init];
+            [self.navigationController pushViewController:themeController animated:YES];
+            
+        };
+        
+        return cell;
+        
+    }
+    else if (indexPath.section == 4) {
         
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NewWorkCell forIndexPath:indexPath];
         NSNew * newModel = (NSNew *)[newListAry objectAtIndex:indexPath.row];
@@ -466,20 +447,20 @@ static NSString * const musicSayData = @"musicSayData";
         CGFloat W = ScreenWidth - 30;
         CGFloat picRatio = 90 / 345.0f;
         return CGSizeMake(W, W * picRatio + 10);
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3) {
         
         CGFloat W = (ScreenWidth - 40) * 0.5;
         return CGSizeMake(W, 140);
         
     }
-//    else if (indexPath.section == 3){
-//        
-//        CGFloat W = (ScreenWidth);
-//        
-//        return CGSizeMake(W, 145.0f);
-//        
-//    }
-    else if (indexPath.section == 3) {
+    else if (indexPath.section == 2){
+        
+        CGFloat W = (ScreenWidth);
+        
+        return CGSizeMake(W, 80.0f);
+        
+    }
+    else if (indexPath.section == 4) {
         
         CGFloat W = (ScreenWidth - 50) / 3;
         return CGSizeMake(W, W + W * 0.38);
@@ -528,19 +509,19 @@ static NSString * const musicSayData = @"musicSayData";
         [self.navigationController pushViewController:mainCooperationVC animated:YES];
 //        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
 //        [self.navigationController pushViewController:customMusicController animated:YES];
-    } else if (section == 2){
+    } else if (section == 3){
         
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
         NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:recommendSongModel.itemID];
         [self.navigationController pushViewController:songVC animated:YES];
     }
-//    else if (section == 3){
-//        /**
-//         *  活动进行时
-//         */
-//        
-//    }
     else if (section == 3){
+        /**
+         *  活动进行时
+         */
+        
+    }
+    else if (section == 2){
         NSNew * newModel = (NSNew *)newListAry[row];
         //newModel type == 1 is music type == 2 is lyric
         if (newModel.type == 2) {
@@ -622,17 +603,17 @@ static NSString * const musicSayData = @"musicSayData";
         }
         return CGSizeMake(ScreenWidth, 40);
     }
+//    return CGSizeMake(ScreenWidth, 0);
+    else if(section == 2){
+        /**
+         *  活动进行时
+         */
+        return CGSizeMake(0,0);
+//        return CGSizeMake(ScreenWidth, 10);
+
+    }
+    
     return CGSizeMake(ScreenWidth, 0);
-//    else if(section == 3){
-//        /**
-//         *  活动进行时
-//         */
-//        return CGSizeMake(0,0);
-////        return CGSizeMake(ScreenWidth, 10);
-//
-//    }
-    
-    
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -666,7 +647,7 @@ static NSString * const musicSayData = @"musicSayData";
             
             return reusable;
             
-        } else if (indexPath.section == 2) {
+        } else if (indexPath.section == 3) {
             
             reusable.SDCycleScrollView.hidden = YES;
             
@@ -678,7 +659,18 @@ static NSString * const musicSayData = @"musicSayData";
             //        LocalizedStr(@"promot_recommendSongList");
             return reusable;
             
-        } else if (indexPath.section == 3) {
+        } else if (indexPath.section == 2) {
+            
+            reusable.SDCycleScrollView.hidden = YES;
+            
+            reusable.titleLable.text = @"音乐人";
+            
+            UIButton *muscianBtn = [reusable loadMore:YES];
+            
+            [muscianBtn addTarget:self action:@selector(musicianBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            return reusable;
+        } else if (indexPath.section == 4) {
             
             reusable.SDCycleScrollView.hidden = YES;
             
@@ -688,7 +680,7 @@ static NSString * const musicSayData = @"musicSayData";
             //        LocalizedStr(@"promot_newWorks");
             return reusable;
             
-        } else if (indexPath.section == 4){
+        } else if (indexPath.section == 5){
             
             reusable.SDCycleScrollView.hidden = YES;
             
@@ -708,7 +700,12 @@ static NSString * const musicSayData = @"musicSayData";
     return reusable;
     
 }
-
+- (void)musicianBtnClick:(UIButton *)btn {
+    
+    NSMusicianListViewController *musicianVC = [[NSMusicianListViewController alloc] init];
+    
+    [self.navigationController pushViewController:musicianVC animated:YES];
+}
 - (void)songMenuBtnClick:(UIButton *)btn {
     
     NSSongListViewController *songListVC = [[NSSongListViewController alloc] init];
@@ -776,8 +773,36 @@ static NSString * const musicSayData = @"musicSayData";
     }
     
 }
-
-
+#pragma mark - lazy loading
+- (NSMutableArray *)itemIDArray {
+    
+    if (!_itemIDArray) {
+        
+        _itemIDArray = [NSMutableArray array];
+    }
+    
+    return _itemIDArray;
+}
+- (NSMutableArray *)itemIDArr {
+    if (!_itemIDArr) {
+        self.itemIDArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _itemIDArr;
+}
+- (NSMutableArray *)musicianArr {
+    if (!_musicianArr) {
+        self.musicianArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _musicianArr;
+}
+- (NSPlayMusicViewController *)playSongsVC {
+    
+    if (!_playSongsVC) {
+        _playSongsVC = [NSPlayMusicViewController sharedPlayMusic];
+    }
+    
+    return _playSongsVC;
+}
 
 
 
