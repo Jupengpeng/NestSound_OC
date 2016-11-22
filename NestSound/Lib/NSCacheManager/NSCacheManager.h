@@ -12,6 +12,9 @@
 
 + (instancetype)cacheWithName:(NSString *)name;
 
+@property (nonatomic,copy) NSString *cacheName;
+
+
 - (instancetype)initWithName:(NSString *)name;
 
 - (id<NSCoding>)objectForKey:(NSString *)key ;

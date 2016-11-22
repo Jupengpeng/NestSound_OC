@@ -11,6 +11,7 @@
 @interface NSHttpClient (EncrypteData)
 
 -(NSDictionary *)encryptWithDictionary :(NSDictionary*)paramaters isEncrypt:(BOOL)isEncrypt_;
+-(NSString *)dictionaryToJson:(NSDictionary *)dic;
 
 
 @end

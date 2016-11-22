@@ -11,7 +11,7 @@
 @implementation NSCacheManager
 
 + (instancetype)cacheWithName:(NSString *)name{
-
+    
     NSCacheManager *manager = [[NSCacheManager alloc] initWithName:name];
     return manager;
 }
@@ -19,6 +19,7 @@
 - (instancetype)initWithName:(NSString *)name{
     self = [super initWithName:name];
     if (self) {
+        self.cacheName = name;
         
     }
     return self;
@@ -26,24 +27,24 @@
 
 
 - (id<NSCoding>)objectForKey:(NSString *)key{
-    id<NSCoding> object = [self objectForKey:key];
+    id<NSCoding> object = [super objectForKey:key];
     return object;
 }
 
 - (void)setObject:(id<NSCoding>)object forKey:(NSString *)key withBlock:(void (^)(void))block{
     
-    [self setObject:object forKey:key withBlock:block];
+    [super setObject:object forKey:key withBlock:block];
     
 }
 
 - (void)setObject:(id<NSCoding>)object forKey:(NSString *)key{
     
-    [self setObject:object forKey:key];
+    [super setObject:object forKey:key];
 }
 
 - (void)removeAllObjects{
     
-    [self removeAllObjects];
+    [super removeAllObjects];
 }
 
 @end

@@ -95,6 +95,38 @@ static NSHttpClient *client;
     NSURLSessionDataTask *operation;
     
     if (requestType) {
+        
+        
+        NSInteger i = [url rangeOfString:@"data="].location;
+        NSString * str = [url substringWithRange:NSMakeRange(0, i)];
+        
+//        NSInteger pIndex = i + 5 ;
+//        NSString *pString  =[url substringFromIndex:pIndex];
+//        if (pString) {
+//            NSDictionary *parameter = [self encryptWithDictionary:@{@"data":pString} isEncrypt:NO];
+//
+//        }
+        
+        NSString *cacheKey= [NSString stringWithFormat:@"%@%@",str,[self dictionaryToJson:parasDict]];
+
+        
+        
+        if (self.cacheManager) {
+            
+            NSDictionary *dict = [self.cacheManager objectForKey:cacheKey];
+            
+            //有缓存数据
+            if (dict) {
+                
+                NSBaseModel *model = [NSModelFactory modelWithURL:str
+                                                     responseJson:dict];
+                NSURLSessionDataTask *dataTask = [[NSURLSessionDataTask alloc]init];
+                dataTask.urlTag = str;
+                success(dataTask,model);
+            }
+            
+        }
+        
         operation = [self GET: requestURL
                    parameters:nil
                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -114,10 +146,6 @@ static NSHttpClient *client;
                               
                               NSDictionary * dic =  [self encryptWithDictionary:responseObject isEncrypt:NO];
                               
-                              NSInteger i = [url rangeOfString:@"data="].location;
-                              
-                              NSString * str = [url substringWithRange:NSMakeRange(0, i)];
-                              
                               NSBaseModel *model = [NSModelFactory modelWithURL:str
                                                                    responseJson:dic];
                               success(task,model);
@@ -128,6 +156,16 @@ static NSHttpClient *client;
                                       [[NSToastManager manager] showtoast:message];
                                   }
                               }
+                              
+                              if (self.cacheManager) {
+                                  if (model.code == 200) {
+                                      [self.cacheManager setObject:dic forKey:cacheKey withBlock:^{
+                                          
+                                      }];
+                                  }
+
+                              }
+                              
                           } else {
                               success(task,responseObject);
                           }

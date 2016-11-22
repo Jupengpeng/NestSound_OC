@@ -17,10 +17,18 @@ typedef enum {
 - (void)passProgressValue:(NSHttpClient *)httplient;
 
 @end
+
+@class NSCacheManager;
+
+
 @interface NSHttpClient : AFHTTPSessionManager;
 @property (nonatomic, strong) AFURLSessionManager *downloadManager;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, assign) id<NSHttpClientDelegate>delegate;
+
+@property (nonatomic, strong) NSCacheManager *cacheManager;
+
+
 + (instancetype)client;
 + (NSString *)actionCustomUsrAgent;
 - (NSURLSessionDataTask *)requestWithURL:(NSString *)url

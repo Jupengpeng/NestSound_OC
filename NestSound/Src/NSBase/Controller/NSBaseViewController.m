@@ -9,8 +9,13 @@
 #import "NSBaseModel.h"
 #import "NSHttpClient.h"
 #import "NSBaseViewController.h"
+#import "NSCacheManager.h"
 
 @interface NSBaseViewController ()
+
+
+@property (nonatomic,strong) NSCacheManager *cacheManager;
+
 
 @end
 
@@ -52,6 +57,16 @@
 }
 
 - (void)setRequestURL:(NSString *)url {
+    
+    if (self.needCached) {
+        [NSHttpClient client].cacheManager = self.cacheManager;
+    }else{
+        [NSHttpClient client].cacheManager = nil;
+        
+    }
+    
+
+    
     requestURL = url;
     __weak typeof(self) wSelf = self;
     /**
@@ -189,6 +204,25 @@
             break;
         }
     }
+}
+
+#pragma mark - setter & getter
+- (void)setCacheFileName:(NSString *)cacheFileName{
+    
+    _cacheFileName = cacheFileName;
+    
+    self.needCached = YES;
+    
+}
+
+- (NSCacheManager *)cacheManager{
+    
+    //不存在 或者存储路径不同重新创建
+    if (!_cacheManager || ![_cacheManager.cacheName isEqualToString:self.cacheFileName]) {
+        _cacheManager = [NSCacheManager cacheWithName:self.cacheFileName];
+    }
+    
+    return _cacheManager;
 }
 
 @end

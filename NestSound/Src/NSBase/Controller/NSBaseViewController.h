@@ -16,6 +16,13 @@
 @property (nonatomic,strong) NSDictionary *requestParams;
 @property (nonatomic,assign) BOOL  requestType;
 
+
+//是否需要缓存
+@property (nonatomic,assign) BOOL needCached;
+//缓存文件夹名字
+@property (nonatomic,copy) NSString *cacheFileName;
+//缓存内容的键
+
 //无数据显示
 
 @property (nonatomic,strong)     UIImageView *noDataView;

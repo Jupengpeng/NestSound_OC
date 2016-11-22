@@ -27,7 +27,7 @@
 
 #import "YCMusicPlayer.h"
 //歌单缓存名称 
-static NSString * const homeCacheData = @"homeCacheData";
+static NSString * const playerCacheData = @"playerCacheData";
 
 
 @interface NSPlayMusicViewController () <UIScrollViewDelegate, AVAudioPlayerDelegate,YCMusicPlayerDelegate> {
@@ -95,7 +95,6 @@ static NSString * const homeCacheData = @"homeCacheData";
 
 @property (nonatomic,strong) UILabel * numLabel;
 
-@property (nonatomic,strong)  NSCacheManager *cacheManager;
 
 
 @end
@@ -220,6 +219,10 @@ static id _instance;
             dic = @{@"id":[NSString stringWithFormat:@"%ld",musicItemId]};
         }
     }
+    //如果需要缓存 需要传 以下两个
+    self.cacheFileName = playerCacheData;
+    self.requestParams = dic;
+    
     NSString * str = [NSTool encrytWithDic:dic];
     _musicDetailUrl = [playMusicURL stringByAppendingString:str];
     self.requestURL = _musicDetailUrl;
@@ -1671,13 +1674,7 @@ static id _instance;
 
 
 #pragma mark - lazy load
-- (YYCache *)cacheManager{
-    
-    if (!_cacheManager) {
-        _cacheManager = [NSCacheManager cacheWithName:@"NSPlayMusicViewControllerData"];
-    }
-    return _cacheManager;
-}
+
 
 - (YCMusicPlayer *)player{
     if (!_player) {
