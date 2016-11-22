@@ -14,6 +14,7 @@
 {
     return @{@"BannerList":@"data",
              @"RecommendList":@"data",
+             @"musicianList":@"data",
              @"NewList":@"data",
              @"RecommendSongList":@"data",
              @"MusicSayList":@"data",

@@ -13,6 +13,7 @@
 {
     UITableView *musicianTab;
     int currentPage;
+    NSString *urlTag;
 }
 @property (nonatomic,strong) NSMutableArray *musicianArr;
 @end
@@ -26,7 +27,8 @@
 }
 #pragma mark - Network Requests and Data Handling
 - (void)fetchMusicianListWithIsLoadingMore:(BOOL)isLoadingMore {
-    self.requestType = NO;
+    
+    self.requestType = YES;
     if (!isLoadingMore) {
         currentPage = 1;
         
@@ -34,16 +36,18 @@
         ++currentPage;
         
     }
-    self.requestParams = @{@"page":@(currentPage),kIsLoadingMore:@(isLoadingMore)};
-    
-    self.requestURL = musicianListUrl;
-    
+    self.requestParams = @{kIsLoadingMore :@(isLoadingMore)};
+    NSDictionary *dic = nil;
+    dic = @{@"page":@(currentPage)};
+    NSString *str = [NSTool encrytWithDic:dic];
+    urlTag = [musiciansListUrl stringByAppendingString:str];
+    self.requestURL = urlTag;
 }
 - (void)actionFetchRequest:(NSURLSessionDataTask *)operation result:(NSBaseModel *)parserObject error:(NSError *)requestErr {
     if (requestErr) {
         
     } else {
-        if ([operation.urlTag isEqualToString:musicianListUrl]) {
+        if ([operation.urlTag isEqualToString:urlTag]) {
             NSInvitationListModel *invitationModel = (NSInvitationListModel *)parserObject;
             if (!operation.isLoadingMore) {
                 [musicianTab.pullToRefreshView stopAnimating];
@@ -95,23 +99,22 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 15;
-//    return self.musicianArr.count;
+    return self.musicianArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID = @"musicListCell";
     
     NSMusicianListCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//
+    //
     if (cell == nil) {
         
         cell = [[NSMusicianListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-//        cell.delegate = self;
+        //        cell.delegate = self;
     }
-//    InvitationModel *model = self.invitationArr[indexPath.row];
-//    cell.musicianModel = model;
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    InvitationModel *model = self.musicianArr[indexPath.row];
+    cell.musicianModel = model;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -120,7 +123,7 @@
 
 #pragma mark - NSInvitationListTableViewCellDelegate
 //- (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
-//    
+//
 //    index = [invitationTab indexPathForCell:cell];
 //    InvitationModel *model = self.invitationArr[index.row];
 //    self.requestType = NO;
@@ -128,15 +131,15 @@
 //    self.requestURL = invitationUrl;
 //}
 //- (void)iconBtnClickWith:(NSInvitationListTableViewCell *)cell {
-//    
+//
 //    NSIndexPath *indexPath = [invitationTab indexPathForCell:cell];
-//    
+//
 //    InvitationModel *model = self.invitationArr[indexPath.row];
-//    
+//
 //    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",model.uId]];
-//    
+//
 //    pageVC.who = Other;
-//    
+//
 //    [self.navigationController pushViewController:pageVC animated:YES];
 //}
 - (NSMutableArray *)musicianArr {
@@ -145,19 +148,20 @@
     }
     return _musicianArr;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

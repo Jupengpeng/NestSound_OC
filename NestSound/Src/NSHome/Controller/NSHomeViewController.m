@@ -23,9 +23,10 @@
 #import "NSMessageListModel.h"
 #import "NSMainCooperationViewController.h"
 #import "NSMusicianListViewController.h"
+#import "NSUserPageViewController.h"
 /**
  *  专题活动
-  */
+ */
 #import "NSThemeActivityController.h"
 #import "NSCustomMusicController.h"
 #import "NSAccommpanyListModel.h"
@@ -100,13 +101,13 @@ static NSString * const musicianData = @"musicianData";
     UIButton * btn = [[UIButton alloc] initWithFrame:playStatus.frame ];
     [playStatus addSubview:btn];
     [btn addTarget:self action:@selector(musicPaly:) forControlEvents:UIControlEventTouchUpInside];
-     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:playStatus];
     self.navigationItem.rightBarButtonItem = item;
-
+    
     [self fetchIndexData];
     
     [self getAuthorToken];
-//    [self preLoadImages];
+    //    [self preLoadImages];
     cache = [YYCache cacheWithName:homeCacheData];
     bannerAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:bannerData]];
     recommendAry = [NSMutableArray arrayWithArray:(NSArray *)[cache objectForKey:recommendData]];
@@ -123,7 +124,7 @@ static NSString * const musicianData = @"musicianData";
     self.navigationController.navigationBar.hidden = NO;
     [self fetchMessageData];
     if (self.playSongsVC.player == nil) {
-       
+        
     } else {
         
         if (self.playSongsVC.postion != 0.0) {
@@ -137,13 +138,13 @@ static NSString * const musicianData = @"musicianData";
 #pragma mark - 预加载作曲图片
 
 //-(void)preLoadImages{
-//    
+//
 //    self.requestType = YES;
 //    NSDictionary * dic = @{@"page":[NSString stringWithFormat:@"%d",1]};
 //    NSString * str = [NSTool encrytWithDic:dic];
 //    _preLoadImagesUrl = [accompanyListURL stringByAppendingString:str];
 //    self.requestURL = _preLoadImagesUrl;
-//    
+//
 //}
 
 #pragma mark -authorToken
@@ -155,7 +156,7 @@ static NSString * const musicianData = @"musicianData";
         self.requestURL = getToken;
         
     }
-
+    
 }
 
 #pragma mark -configureUIAppearance
@@ -183,7 +184,7 @@ static NSString * const musicianData = @"musicianData";
     
     [_collection registerClass:[NSMusicSayCollectionViewCell class] forCellWithReuseIdentifier:MusicSayCell];
     [_collection registerClass:[NSTopicCarryOnCell class] forCellWithReuseIdentifier:TopCarringCell];
-
+    
     [_collection registerClass:[NSIndexCollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView];
     
     [self.view addSubview:_collection];
@@ -293,7 +294,7 @@ static NSString * const musicianData = @"musicianData";
                 NSMessageListModel * messageList = (NSMessageListModel *)parserObject;
                 
                 messageCountModel * mess = messageList.messageCount;
-//                NSMutableArray *bageAry = [NSMutableArray array];
+                //                NSMutableArray *bageAry = [NSMutableArray array];
                 if (mess.commentCount || mess.upvoteCount || mess.collecCount || mess.systemCount || mess.cooperationCount || mess.preserveCount) {
                     
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHiddenTabBarTipViewNotification object:@(0)];
@@ -302,24 +303,24 @@ static NSString * const musicianData = @"musicianData";
                 }
                 
             }
-//            else if ([operation.urlTag isEqualToString:_preLoadImagesUrl]){
-//                /**
-//                 *  预加载作曲类目图片
-//                 */
-//                NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
-//                
-//                for (int myIndex = 0; myIndex < listModel.simpleCategoryList.simpleCategory.count; myIndex++)
-//                {
-//                    NSSimpleCategoryModel *categoryModel = listModel.simpleCategoryList.simpleCategory[myIndex];
-//                    NSURL *imageUrl = [NSURL URLWithString:categoryModel.categoryPic];
-//
-//                    [[SDWebImageManager sharedManager] downloadImageWithURL:imageUrl options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-//                        
-//                    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-////                        NSLog(@"第%d张图片下载好了 /n",myIndex);
-//                    }];
-//                }
-//            }
+            //            else if ([operation.urlTag isEqualToString:_preLoadImagesUrl]){
+            //                /**
+            //                 *  预加载作曲类目图片
+            //                 */
+            //                NSAccommpanyListModel* listModel = (NSAccommpanyListModel *)parserObject;
+            //
+            //                for (int myIndex = 0; myIndex < listModel.simpleCategoryList.simpleCategory.count; myIndex++)
+            //                {
+            //                    NSSimpleCategoryModel *categoryModel = listModel.simpleCategoryList.simpleCategory[myIndex];
+            //                    NSURL *imageUrl = [NSURL URLWithString:categoryModel.categoryPic];
+            //
+            //                    [[SDWebImageManager sharedManager] downloadImageWithURL:imageUrl options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            //
+            //                    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            ////                        NSLog(@"第%d张图片下载好了 /n",myIndex);
+            //                    }];
+            //                }
+            //            }
         }
     }
 }
@@ -348,7 +349,7 @@ static NSString * const musicianData = @"musicianData";
     }
     /**
      *  话题进行时
-
+     
      */
     else if (section == 2){
         
@@ -362,7 +363,7 @@ static NSString * const musicianData = @"musicianData";
         
         return musicSayAry.count;
     }
-
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -375,18 +376,18 @@ static NSString * const musicianData = @"musicianData";
         cell.recommend = (NSMusicModel *)recommendModel;
         cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
         cell.contentView.layer.borderWidth = 1;
-
+        
         return cell;
         
     } else if (indexPath.section == 1){
-    
+        
         NSMusicSayCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MusicSayCell forIndexPath:indexPath];
         if (recommendAry.count) {
             cell.picUrlStr = @"2.3_CooperationCover";
         }
         
         return cell;
-    
+        
     } else if (indexPath.section == 3) {
         
         NSSongMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SongMenuCell forIndexPath:indexPath];
@@ -404,10 +405,15 @@ static NSString * const musicianData = @"musicianData";
         [cell setupDataWithTopicArray:self.musicianArr];
         
         cell.topicClickBlock = ^(NSInteger clickIndex){
-          
-            NSThemeActivityController *themeController = [[NSThemeActivityController alloc] init];
-            [self.navigationController pushViewController:themeController animated:YES];
-            
+            NSMusician *model = self.musicianArr[clickIndex];
+            NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",model.uid]];
+            if (model.uid != [JUserID integerValue]) {
+                pageVC.who = Other;
+                
+            } else {
+                pageVC.who = Myself;
+            }
+            [self.navigationController pushViewController:pageVC animated:YES];
         };
         
         return cell;
@@ -418,7 +424,7 @@ static NSString * const musicianData = @"musicianData";
         NSRecommendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NewWorkCell forIndexPath:indexPath];
         NSNew * newModel = (NSNew *)[newListAry objectAtIndex:indexPath.row];
         cell.songNew = newModel;
-
+        
         cell.contentView.layer.borderColor = [UIColor hexColorFloat:@"e5e5e5"].CGColor;
         cell.contentView.layer.borderWidth = 1;
         
@@ -468,7 +474,7 @@ static NSString * const musicianData = @"musicianData";
     } else {
         
         CGFloat W = (ScreenWidth - 30);
-//        CGFloat picRatio = 250 / 345.0 ;
+        //        CGFloat picRatio = 250 / 345.0 ;
         return CGSizeMake(W,ScreenHeight/4+20);
     }
     
@@ -507,8 +513,8 @@ static NSString * const musicianData = @"musicianData";
     } else if (section == 1){
         NSMainCooperationViewController *mainCooperationVC = [[NSMainCooperationViewController alloc] init];
         [self.navigationController pushViewController:mainCooperationVC animated:YES];
-//        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
-//        [self.navigationController pushViewController:customMusicController animated:YES];
+        //        NSCustomMusicController *customMusicController = [[NSCustomMusicController alloc] init];
+        //        [self.navigationController pushViewController:customMusicController animated:YES];
     } else if (section == 3){
         
         NSRecommendSong * recommendSongModel = (NSRecommendSong *)[recommendSongAry objectAtIndex:indexPath.row];
@@ -541,7 +547,7 @@ static NSString * const musicianData = @"musicianData";
                 playVC.isCoWork = NO;
             }
             [self.navigationController pushViewController:playVC animated:YES];
-         
+            
         }
         
     }else if (section == 4){
@@ -554,24 +560,24 @@ static NSString * const musicianData = @"musicianData";
         musicSayController.picUrl = musicSay.titleImageUrl;
         musicSayController.type = [NSString stringWithFormat:@"%d",musicSay.type];
         musicSayController.contentUrl = musicSay.playUrl;
-
+        
         [self.navigationController pushViewController:musicSayController animated:YES];
-
-//        if (musicSay.type == 1) {
-//            NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
-//            playVC.itemUid = musicSay.itemID;
-//            playVC.from = @"yueshuo";
-//            playVC.geDanID = 0;
-//            
-//            [self.navigationController pushViewController:playVC animated:YES];
-//            
-//        }else{
-//            NSH5ViewController * h5VC = [[NSH5ViewController alloc] init];
-//            h5VC.h5Url = musicSay.playUrl;
-//            [self.navigationController pushViewController:h5VC animated:YES];
-//        }
+        
+        //        if (musicSay.type == 1) {
+        //            NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+        //            playVC.itemUid = musicSay.itemID;
+        //            playVC.from = @"yueshuo";
+        //            playVC.geDanID = 0;
+        //
+        //            [self.navigationController pushViewController:playVC animated:YES];
+        //
+        //        }else{
+        //            NSH5ViewController * h5VC = [[NSH5ViewController alloc] init];
+        //            h5VC.h5Url = musicSay.playUrl;
+        //            [self.navigationController pushViewController:h5VC animated:YES];
+        //        }
     }
-
+    
 }
 
 
@@ -603,14 +609,14 @@ static NSString * const musicianData = @"musicianData";
         }
         return CGSizeMake(ScreenWidth, 40);
     }
-//    return CGSizeMake(ScreenWidth, 0);
+    //    return CGSizeMake(ScreenWidth, 0);
     else if(section == 2){
         /**
          *  活动进行时
          */
         return CGSizeMake(0,0);
-//        return CGSizeMake(ScreenWidth, 10);
-
+        //        return CGSizeMake(ScreenWidth, 10);
+        
     }
     
     return CGSizeMake(ScreenWidth, 0);
@@ -620,7 +626,7 @@ static NSString * const musicianData = @"musicianData";
     
     NSIndexCollectionReusableView *reusable = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView forIndexPath:indexPath];
     
-//    reusable.delegate = self;
+    //    reusable.delegate = self;
     reusable.clipsToBounds = YES;
     if (recommendAry.count) {
         if (indexPath.section == 0) {
@@ -695,7 +701,7 @@ static NSString * const musicianData = @"musicianData";
             
         }
         
-//        return reusable;
+        //        return reusable;
     }
     return reusable;
     
@@ -723,7 +729,7 @@ static NSString * const musicianData = @"musicianData";
 
 //轮播器点击事件
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
-//- (void)indexCollectionReusableView:(NSIndexCollectionReusableView *)reusableView withImageBtn:(UIButton *)imageBtn {
+    //- (void)indexCollectionReusableView:(NSIndexCollectionReusableView *)reusableView withImageBtn:(UIButton *)imageBtn {
     
     NSBanner * banner = (NSBanner *)bannerAry[index];
     long item = banner.itemID;
@@ -738,15 +744,15 @@ static NSString * const musicianData = @"musicianData";
             songAry = [NSMutableArray array];
         }else{
             [songAry removeAllObjects];
-                   }
+        }
         for (NSBanner * banner in bannerAry) {
             if (banner.state == 0) {
                 [songAry  addObject:@(banner.itemID)];
             }
             
         }
-
-         NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
+        
+        NSPlayMusicViewController * playVC = [NSPlayMusicViewController sharedPlayMusic];
         int g;
         for (g =0; g<songAry.count; g++) {
             if (item == [songAry[g] longValue]) {
@@ -765,7 +771,7 @@ static NSString * const musicianData = @"musicianData";
 
 
 - (void)musicPaly:(UIBarButtonItem *)palyItem {
-
+    
     if (self.playSongsVC.player == nil) {
         [[NSToastManager manager] showtoast:@"您还没有听过什么歌曲哟"];
     } else {

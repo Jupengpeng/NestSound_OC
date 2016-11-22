@@ -16,6 +16,7 @@
 		0C2F9A7D1D8687600045A2EC /* NSPreserveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7C1D8687600045A2EC /* NSPreserveListViewController.m */; };
 		0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */; };
 		0C2F9A831D86A63A0045A2EC /* NSPreserveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */; };
+		0C3A7AAB1DE41E3200EB4984 /* NSLocalProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3A7AAA1DE41E3200EB4984 /* NSLocalProductViewController.m */; };
 		0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */; };
 		0C5B98BA1DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C5B98B91DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m */; };
 		0C670D0A1D9BA64900319E0D /* NSPreserveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C670D091D9BA64900319E0D /* NSPreserveListModel.m */; };
@@ -350,6 +351,8 @@
 		0C2F9A7F1D8688060045A2EC /* NSUserMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserMessageViewController.m; sourceTree = "<group>"; };
 		0C2F9A811D86A63A0045A2EC /* NSPreserveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveTableViewCell.h; sourceTree = "<group>"; };
 		0C2F9A821D86A63A0045A2EC /* NSPreserveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveTableViewCell.m; sourceTree = "<group>"; };
+		0C3A7AA91DE41E3200EB4984 /* NSLocalProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLocalProductViewController.h; sourceTree = "<group>"; };
+		0C3A7AAA1DE41E3200EB4984 /* NSLocalProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLocalProductViewController.m; sourceTree = "<group>"; };
 		0C4ECBFA1D5C824F003CAAF9 /* NSRhymeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRhymeViewController.h; sourceTree = "<group>"; };
 		0C4ECBFB1D5C824F003CAAF9 /* NSRhymeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSRhymeViewController.m; sourceTree = "<group>"; };
 		0C5B98B81DD9A6A400AB4486 /* NSAppDelegateThirdPartService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAppDelegateThirdPartService.h; sourceTree = "<group>"; };
@@ -1568,6 +1571,8 @@
 				B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */,
 				0CCF1D7D1D9101F700F97526 /* NSPreserveSelectViewController.h */,
 				0CCF1D7E1D9101F700F97526 /* NSPreserveSelectViewController.m */,
+				0C3A7AA91DE41E3200EB4984 /* NSLocalProductViewController.h */,
+				0C3A7AAA1DE41E3200EB4984 /* NSLocalProductViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3749,6 +3754,7 @@
 				946B042C1D4EEC8A00529DBA /* HUImagePickerViewController.m in Sources */,
 				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.mm in Sources */,
+				0C3A7AAB1DE41E3200EB4984 /* NSLocalProductViewController.m in Sources */,
 				187016671D21268B0041B5D7 /* NSArray+Log.m in Sources */,
 				B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */,
 				0CCE1DC11DBF7F0F00FB66D6 /* NSPublicLyricCooperationViewController.m in Sources */,
@@ -4011,8 +4017,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
-				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
+				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
+				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -4045,8 +4051,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
-				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
+				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
+				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
