@@ -23,6 +23,7 @@
 #import "NSPreserveApplyController.h"
 #import "NSToolbarButton.h"
 #import "NSUserDataModel.h"
+#import "NSLocalProductViewController.h"
 @interface NSUserViewController ()
 <
 UITableViewDataSource,
@@ -44,7 +45,7 @@ UITableViewDelegate
     UIView *redTipView;
     
     NSDictionary *userDic;
-
+    
 }
 @property (nonatomic,strong) NSArray *toolBarArr;
 @property (nonatomic,strong) NSMutableArray *numsArr;
@@ -69,7 +70,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 }
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    
     if (!JUserID) {
         [self.tabBarController setSelectedIndex:0];
         page = 0;
@@ -83,7 +84,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     
     [self configureAppearance];
     
-//    [self fetchUserData];
+    //    [self fetchUserData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -92,7 +93,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     self.navigationController.navigationBar.hidden = NO;
     ++page;
     if (JUserID == nil&&page ==1) {
-      NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
         
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
         nav.navigationBar.hidden = YES;
@@ -130,7 +131,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
                 NSUserDataModel * userModel = (NSUserDataModel *)parserObject;
                 userDic = parserObject.data[@"user"];
                 _userModel = userModel.userDataModel.userModel;
-
+                
                 if (self.numsArr.count) {
                     [self.numsArr removeAllObjects];
                 }
@@ -154,13 +155,13 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     /**
      *  是导航栏吧白色，解决前面透明的跳入显示不正确
      */
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
-//    self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithRenderColor:[UIColor whiteColor] renderSize:CGSizeMake(ScreenWidth, 64)] forBarMetrics:UIBarMetricsDefault];
+    //    self.view.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
     
     //nav
-//    self.title = @"我";
+    //    self.title = @"我";
     //LocalizedStr(@"me");
-//    self.showBackBtn = YES;
+    //    self.showBackBtn = YES;
     
     //settingPaegTable
     settingPageTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
@@ -181,7 +182,7 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 3;
-
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -196,26 +197,31 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-//    if (section == 0) {
-        return 1;
-//    }
-//    return 10;
+    //    if (section == 0) {
+    return 1;
+    //    }
+    //    return 10;
     
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 1 ? 4 : 2;
+    if (section == 0) {
+        return 2;
+    } else if (section == 1) {
+        return 5;
+    }
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *stringArr = @[@"合作作品",@"灵感纪录",@"我的收藏",@"我的保全",@"个人资料",@"设置"];
-    NSArray *imageArr = @[@"2.3_cooperation",@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.2_userData",@"2.2_setting"];
+    NSArray *stringArr = @[@"本地作品",@"合作作品",@"灵感纪录",@"我的收藏",@"我的保全",@"清除缓存",@"个人资料",@"设置"];
+    NSArray *imageArr = @[@"2.3_cooperation",@"2.3_cooperation",@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.2_setting",@"2.2_userData",@"2.2_setting"];
     
     NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
     UITableViewCell * toolBarCell = [tableView dequeueReusableCellWithIdentifier:toolBarCellIdefity];
-   
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             
@@ -291,24 +297,24 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         if (!settingCell) {
             settingCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SettingCellIdefity];
             settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+            
             
         }
         settingCell.textLabel.text = stringArr[indexPath.row];
         settingCell.imageView.image = [UIImage imageNamed:imageArr[indexPath.row]];
-
+        
         return settingCell;
         
     }else if (indexPath.section == 2){
-
+        
         if (!settingCell) {
             settingCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:SettingCellIdefity];
-//            settingCell.selectionStyle = UITableViewCellSelectionStyleNone;
+            //            settingCell.selectionStyle = UITableViewCellSelectionStyleNone;
             settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//            settingCell.detailTextLabel.tag = 100;
+            //            settingCell.detailTextLabel.tag = 100;
         }
-        settingCell.textLabel.text = stringArr[4 + indexPath.row];
-        settingCell.imageView.image = [UIImage imageNamed:imageArr[4 + indexPath.row]];
+        settingCell.textLabel.text = stringArr[5 + indexPath.row];
+        settingCell.imageView.image = [UIImage imageNamed:imageArr[5 + indexPath.row]];
     }
     return settingCell;
 }
@@ -323,32 +329,36 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         NSUserPageViewController *userPageVC = [[NSUserPageViewController alloc] init];
         userPageVC.who = Myself;
         [self.navigationController pushViewController:userPageVC animated:YES];
-
+        
     }else if (section == 1){
         if (row == 0) {
+            NSLocalProductViewController *localProductVC = [[NSLocalProductViewController alloc] init];
+            [self.navigationController pushViewController:localProductVC animated:YES];
+        } else if (row == 1) {
             NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];
             collectionListVC.viewType = CooperationViewType;
             [self.navigationController pushViewController:collectionListVC animated:YES];
-        } else if (row == 1) {
+        }
+        else if (row == 2) {
             NSInspirationListViewController *inspirationListVC = [[NSInspirationListViewController alloc] init];
             [self.navigationController pushViewController:inspirationListVC animated:YES];
             
-        } else if (row == 2) {
+        } else if (row == 3) {
             NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];
             collectionListVC.viewType = CollectionViewType;
             [self.navigationController pushViewController:collectionListVC animated:YES];
             
-        } else if (row == 3) {
+        } else if (row == 4) {
             
-//            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
-//            preserveListVC.sortId = @"1";
-//            preserveListVC.itemUid = @"2788";
-//            [self.navigationController pushViewController:preserveListVC animated:YES];
+            //            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
+            //            preserveListVC.sortId = @"1";
+            //            preserveListVC.itemUid = @"2788";
+            //            [self.navigationController pushViewController:preserveListVC animated:YES];
             NSPreserveListViewController *preserveListVC = [[NSPreserveListViewController alloc] init];
             [self.navigationController pushViewController:preserveListVC animated:YES];
         }
         
-    
+        
     }else if(section == 2){
         if (row == 0) {
             NSUserProfileViewController * userProfileInfoVC = [[NSUserProfileViewController alloc] initWithUserDictionary:userDic];
@@ -358,14 +368,14 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             NSSettingViewController * settingVC = [[NSSettingViewController alloc] init];
             [self.navigationController pushViewController:settingVC animated:YES];
         }
-  
+        
     }
     
 }
 - (void)toolbarBtnClick:(UIButton *)toolbarBtn {
-//    UIButton *lastButton = [backgoundView viewWithTag:self.btnTag];
-//    lastButton.selected = NO;
-//    toolbarBtn.selected = YES;
+    //    UIButton *lastButton = [backgoundView viewWithTag:self.btnTag];
+    //    lastButton.selected = NO;
+    //    toolbarBtn.selected = YES;
     switch (toolbarBtn.tag - 230) {
             
         case 0: {

@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) NSString *headerUrl;
 @property (nonatomic, copy) NSString *signature;
-@property (nonatomic, copy) NSArray  *ability;
+@property (nonatomic, copy) NSString *ability;
 @property (nonatomic, assign) int isInvited;
 @property (nonatomic, assign) int isRecommend;
 

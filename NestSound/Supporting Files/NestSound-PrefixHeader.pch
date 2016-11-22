@@ -74,7 +74,7 @@ extern NSString *port;
 //POST:不带问号 GET:带问号
 #define customHostKey @"customHostKey"
 #define customPortKey @"customPortKey"
-#define indexURL @"java/common/index/app/v23?"
+#define indexURL @"java/common/index/app/v231?"
 #define dicoverMusicURL @"java/common/find/music/v23?"
 #define dicoverActivityURL @"java/common/find/activelist?"
 #define dicoverLyricURL @"java/common/find/lyrics/v22?"
@@ -159,7 +159,7 @@ extern NSString *port;
 #define cancelCollectUlr @"cooperate/demand/fov/V23"
 #define deleteCooperationProductUrl @"cooperate/work/delete/v23"
 //音乐人
-#define musicianListUrl @"java/common/musician/more/v231?"
+#define musiciansListUrl @"java/common/musician/more/v231?"
 /**
  *  2016年11月2号添加
  */

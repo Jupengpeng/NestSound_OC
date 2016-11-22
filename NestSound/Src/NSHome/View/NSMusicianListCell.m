@@ -96,9 +96,9 @@
     _musicianModel = musicianModel;
     [iconImgView setDDImageWithURLString:musicianModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     nameLabel.text = musicianModel.nickName;
-    NSArray *bilities = @[@"作词",@"作曲",@"编曲",@"德玛西亚"];
+    NSArray *bilities = [musicianModel.ability componentsSeparatedByString:@"/"];
     CGFloat currentOriginX = ScreenWidth-10;
-    for (NSInteger i = 0 ; i < bilities.count; i ++) {
+    for (NSInteger i = bilities.count-1 ; i >= 0; i--) {
         NSBiaoqianView *biaoqianView = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
         biaoqianView.title = bilities[i];
         biaoqianView.origin = CGPointMake(currentOriginX-biaoqianView.width, 35);

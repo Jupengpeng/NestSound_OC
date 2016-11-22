@@ -11,6 +11,7 @@
 
 #import "NSTopicCarryOnCell.h"
 #import "UIButton+WebCache.h"
+#import "NSIndexModel.h"
 @interface NSTopicCarryOnCell ()
 {
     UILabel *_titleLable;
@@ -107,14 +108,14 @@
 
 - (void)setupDataWithTopicArray:(NSMutableArray *)topicArray{
 
-    NSArray *imagesArr = @[@"",@"",@"",@"",@"",@""];
+//    NSArray *imagesArr = @[@"",@"",@"",@"",@"",@""];
 //    [NSArray arrayWithArray:topicArray];
     
-    self.scrollView.contentSize = CGSizeMake(15+(100) *imagesArr.count, 60);
+    self.scrollView.contentSize = CGSizeMake(15+(100) *topicArray.count, 60);
     self.scrollView.showsHorizontalScrollIndicator = NO;
 
-    for (NSInteger i = 0; i < imagesArr.count; i ++) {
-        
+    for (NSInteger i = 0; i < topicArray.count; i ++) {
+        NSMusician *model = topicArray[i];
         UIButton *topicButton = [UIButton buttonWithType:UIButtonTypeCustom configure:^(UIButton *btn) {
             [btn setFrame:CGRectMake(15 + (kSubButtonWidth + 15) * i, 0, kSubButtonWidth, kSubButtonHeight)];
             
@@ -123,7 +124,7 @@
 //            [btn setBackgroundImage:[UIImage imageNamed:@"2.0_placeHolder_long"] forState:UIControlStateNormal];
             btn.layer.cornerRadius = 30.0f;
             btn.clipsToBounds = YES;
-            [btn sd_setImageWithURL:[NSURL URLWithString:imagesArr[i]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
+            [btn sd_setImageWithURL:[NSURL URLWithString:model.headerUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
             
         } action:^(UIButton *btn) {
             
@@ -140,7 +141,7 @@
         
         nameLable.font = [UIFont systemFontOfSize:13];
         
-        nameLable.text = @"周杰伦";
+        nameLable.text = model.nickname;
         
         [_scrollView addSubview:nameLable];
         
