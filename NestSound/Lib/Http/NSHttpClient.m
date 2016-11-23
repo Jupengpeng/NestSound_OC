@@ -12,6 +12,13 @@
 #import "NSModelFactory.h"
 #import "NSToastManager.h"
 
+@interface NSHttpClient ()
+{
+    NSURLSessionDataTask *_dataTask;
+}
+
+@end
+
 @implementation NSHttpClient
 static NSHttpClient *client;
 
@@ -111,22 +118,6 @@ static NSHttpClient *client;
 
         
         
-        if (self.cacheManager) {
-            
-            NSDictionary *dict = [self.cacheManager objectForKey:cacheKey];
-            
-            //有缓存数据
-            if (dict) {
-                
-                NSBaseModel *model = [NSModelFactory modelWithURL:str
-                                                     responseJson:dict];
-                NSURLSessionDataTask *dataTask = [[NSURLSessionDataTask alloc]init];
-                dataTask.urlTag = str;
-                success(dataTask,model);
-            }
-            
-        }
-        
         operation = [self GET: requestURL
                    parameters:nil
                       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
@@ -183,8 +174,28 @@ static NSHttpClient *client;
                           if (!failure) {
                               return ;
                           }
-                          failure(task,error);
+                          //请求失败
+                          //缓存加载
+                          if (self.cacheManager) {
+                              
+                              NSDictionary *dict = [self.cacheManager objectForKey:cacheKey];
+                              
+                              //有缓存数据
+                              if (dict) {
+                                  
+                                  NSBaseModel *model = [NSModelFactory modelWithURL:str
+                                                                       responseJson:dict];
+                                  success(task,model);
+                              }
+                              
+                          }else{
+                              failure(task,error);
+
+                          }
                       }];
+        
+        
+
         
     }else{
         
