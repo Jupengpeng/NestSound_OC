@@ -300,9 +300,9 @@
 		B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B966241D727F90005D3724 /* YYClassInfo.m */; };
 		B8C0C52A1DE28C1000BD2F74 /* YCMusicPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = B8C0C5281DE28C1000BD2F74 /* YCMusicPlayer.mm */; };
 		B8C0C52C1DE29F5E00BD2F74 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C0C52B1DE29F5E00BD2F74 /* MediaPlayer.framework */; };
-		B8C0C52E1DE2CB9F00BD2F74 /* YCiOSPlayerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C0C5261DE28C1000BD2F74 /* YCiOSPlayerLib.framework */; };
-		B8C0C5301DE2CBBA00BD2F74 /* YCiOSPlayerLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8C0C52F1DE2CBBA00BD2F74 /* YCiOSPlayerLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
+		B8E1D5991DEAAD150058DE51 /* YCiOSPlayerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E1D5981DEAAD150058DE51 /* YCiOSPlayerLib.framework */; };
+		B8E1D59B1DEAAD240058DE51 /* YCiOSPlayerLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8E1D59A1DEAAD240058DE51 /* YCiOSPlayerLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */; };
 		B8F83EB51D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
@@ -326,7 +326,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B8C0C5301DE2CBBA00BD2F74 /* YCiOSPlayerLib.framework in CopyFiles */,
+				B8E1D59B1DEAAD240058DE51 /* YCiOSPlayerLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,13 +1070,13 @@
 		B8B966231D727F90005D3724 /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
 		B8B966241D727F90005D3724 /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
 		B8B966251D727F90005D3724 /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
-		B8C0C5261DE28C1000BD2F74 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YCiOSPlayerLib.framework; sourceTree = "<group>"; };
 		B8C0C5271DE28C1000BD2F74 /* YCMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMusicPlayer.h; sourceTree = "<group>"; };
 		B8C0C5281DE28C1000BD2F74 /* YCMusicPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YCMusicPlayer.mm; sourceTree = "<group>"; };
 		B8C0C52B1DE29F5E00BD2F74 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		B8C0C52F1DE2CBBA00BD2F74 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
 		B8C17E011D545DBE0021CDA3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		B8C17E021D545DBE0021CDA3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
+		B8E1D5981DEAAD150058DE51 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
+		B8E1D59A1DEAAD240058DE51 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
 		B8F83EB01D87BAF300E301D7 /* NSPreserveApplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyController.h; sourceTree = "<group>"; };
 		B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyController.m; sourceTree = "<group>"; };
 		B8F83EB31D87D3DF00E301D7 /* NSPreserveWorkInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveWorkInfoCell.h; sourceTree = "<group>"; };
@@ -1093,8 +1093,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8E1D5991DEAAD150058DE51 /* YCiOSPlayerLib.framework in Frameworks */,
 				B8B0BE721DE42199009ED7D0 /* libGPUImage.a in Frameworks */,
-				B8C0C52E1DE2CB9F00BD2F74 /* YCiOSPlayerLib.framework in Frameworks */,
 				B8C0C52C1DE29F5E00BD2F74 /* MediaPlayer.framework in Frameworks */,
 				B801F17C1D73300200DD7949 /* CoreMedia.framework in Frameworks */,
 				B801F1831D73302D00DD7949 /* AVFoundation.framework in Frameworks */,
@@ -1687,7 +1687,7 @@
 		2DFB66E81CC1E65600DA24DA = {
 			isa = PBXGroup;
 			children = (
-				B8C0C52F1DE2CBBA00BD2F74 /* YCiOSPlayerLib.framework */,
+				B8E1D59A1DEAAD240058DE51 /* YCiOSPlayerLib.framework */,
 				B80C86481D4292DA00B22855 /* Problem */,
 				2DFB66F31CC1E65600DA24DA /* NestSound */,
 				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
@@ -1954,6 +1954,7 @@
 		55555060779DD3A6AD5B5DDB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B8E1D5981DEAAD150058DE51 /* YCiOSPlayerLib.framework */,
 				B8B0BE711DE42199009ED7D0 /* libGPUImage.a */,
 				B8C0C52B1DE29F5E00BD2F74 /* MediaPlayer.framework */,
 				CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */,
@@ -2332,7 +2333,6 @@
 		B8C0C5251DE28C1000BD2F74 /* YCMusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				B8C0C5261DE28C1000BD2F74 /* YCiOSPlayerLib.framework */,
 				B8C0C5271DE28C1000BD2F74 /* YCMusicPlayer.h */,
 				B8C0C5281DE28C1000BD2F74 /* YCMusicPlayer.mm */,
 			);
@@ -4017,8 +4017,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
-				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
+				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
+				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -4051,8 +4051,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
-				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
+				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
+				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
