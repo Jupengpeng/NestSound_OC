@@ -65,7 +65,6 @@
         
     }
     
-
     
     requestURL = url;
     __weak typeof(self) wSelf = self;

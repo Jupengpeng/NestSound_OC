@@ -230,7 +230,7 @@
 		</data>
 		<key>Headers/TTMediaPlayerItf.h</key>
 		<data>
-		T3HdPEnWuzTohefo9tGecmidOx4=
+		wk4xO5UHiJNUsYFeEWolWWy3QXw=
 		</data>
 		<key>Headers/TTMediaPlayerProxy.h</key>
 		<data>
@@ -390,7 +390,7 @@
 		</data>
 		<key>Headers/ttMP3Dec.h</key>
 		<data>
-		/GjnjEME0e9lIWG5zMU2DzqMIFE=
+		mNHhmunSEDs8fzBVns7HxAo3gm4=
 		</data>
 		<key>Headers/ttMP3DecBit.h</key>
 		<data>
@@ -438,7 +438,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		HjUr1i1pMLyXK7y8JSC7Xi7AiGk=
+		8U3ttNUx5VyPSHxvHwzqd3Gx9j0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -1067,11 +1067,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			T3HdPEnWuzTohefo9tGecmidOx4=
+			wk4xO5UHiJNUsYFeEWolWWy3QXw=
 			</data>
 			<key>hash2</key>
 			<data>
-			ez+o/QlqVDe36/UYCWKzuAiti1Y67Q0jTY2yRyLjgp0=
+			64JI8VYZ3s0+AC2IVntImggYQJcAa4LcMpgrVIwkSuY=
 			</data>
 		</dict>
 		<key>Headers/TTMediaPlayerProxy.h</key>
@@ -1507,11 +1507,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/GjnjEME0e9lIWG5zMU2DzqMIFE=
+			mNHhmunSEDs8fzBVns7HxAo3gm4=
 			</data>
 			<key>hash2</key>
 			<data>
-			XYkDp6d4Aglt7Zukh//YeOIUPL8Gkn9J58GgbdBb8sc=
+			Jy1cx/3aYkS9rSaD45bJK7LBdhB3450+2bzejIddqfM=
 			</data>
 		</dict>
 		<key>Headers/ttMP3DecBit.h</key>
