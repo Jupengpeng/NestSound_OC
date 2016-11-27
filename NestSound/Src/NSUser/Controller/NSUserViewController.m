@@ -333,6 +333,8 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     }else if (section == 1){
         if (row == 0) {
             NSLocalProductViewController *localProductVC = [[NSLocalProductViewController alloc] init];
+            localProductVC.viewFrom = LocalProduct;
+//            localProductVC.viewFrom = AccompanyCache;
             [self.navigationController pushViewController:localProductVC animated:YES];
         } else if (row == 1) {
             NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];

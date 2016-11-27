@@ -8,6 +8,14 @@
 
 #import "NSBaseViewController.h"
 
-@interface NSLocalProductViewController : NSBaseViewController
+typedef NS_ENUM(NSUInteger, LocalOrCache) {
+    
+    LocalProduct = 1,
+    
+    AccompanyCache = 2,
+    
+};
 
+@interface NSLocalProductViewController : NSBaseViewController
+@property (nonatomic,assign) LocalOrCache viewFrom;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "NSMusicianListViewController.h"
+#import "NSUserPageViewController.h"
 #import "NSMusicianListCell.h"
 #import "NSInvitationListModel.h"
 @interface NSMusicianListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -120,7 +121,17 @@
 }
 
 #pragma mark - UITableViewDelegate
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    InvitationModel *model = self.musicianArr[indexPath.row];
+    NSUserPageViewController *pageVC = [[NSUserPageViewController alloc] initWithUserID:[NSString stringWithFormat:@"%ld",model.uId]];
+    if (model.uId != [JUserID integerValue]) {
+        pageVC.who = Other;
+        
+    } else {
+        pageVC.who = Myself;
+    }
+    [self.navigationController pushViewController:pageVC animated:YES];
+}
 #pragma mark - NSInvitationListTableViewCellDelegate
 //- (void)invitationBtnClickWith:(NSInvitationListTableViewCell *)cell {
 //
