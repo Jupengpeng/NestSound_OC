@@ -390,7 +390,7 @@
 		</data>
 		<key>Headers/ttMP3Dec.h</key>
 		<data>
-		mNHhmunSEDs8fzBVns7HxAo3gm4=
+		/GjnjEME0e9lIWG5zMU2DzqMIFE=
 		</data>
 		<key>Headers/ttMP3DecBit.h</key>
 		<data>
@@ -438,7 +438,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		8U3ttNUx5VyPSHxvHwzqd3Gx9j0=
+		eJA+AJl/zMWDztXeKx9d+OMUYls=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -1507,11 +1507,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mNHhmunSEDs8fzBVns7HxAo3gm4=
+			/GjnjEME0e9lIWG5zMU2DzqMIFE=
 			</data>
 			<key>hash2</key>
 			<data>
-			Jy1cx/3aYkS9rSaD45bJK7LBdhB3450+2bzejIddqfM=
+			XYkDp6d4Aglt7Zukh//YeOIUPL8Gkn9J58GgbdBb8sc=
 			</data>
 		</dict>
 		<key>Headers/ttMP3DecBit.h</key>

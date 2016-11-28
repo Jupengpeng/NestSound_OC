@@ -303,9 +303,9 @@
 		B8C0C52C1DE29F5E00BD2F74 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8C0C52B1DE29F5E00BD2F74 /* MediaPlayer.framework */; };
 		B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C17E021D545DBE0021CDA3 /* WaveView.m */; };
 		B8E1D5991DEAAD150058DE51 /* YCiOSPlayerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E1D5981DEAAD150058DE51 /* YCiOSPlayerLib.framework */; };
-		B8E1D59B1DEAAD240058DE51 /* YCiOSPlayerLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8E1D59A1DEAAD240058DE51 /* YCiOSPlayerLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */; };
 		B8F83EB51D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */; };
+		B8F87AB31DEBCCB200CE2EA3 /* YCiOSPlayerLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8F87AB21DEBCCB200CE2EA3 /* YCiOSPlayerLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 		ECA6C3C4F25B7946B3DBC7DA /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
@@ -327,7 +327,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B8E1D59B1DEAAD240058DE51 /* YCiOSPlayerLib.framework in CopyFiles */,
+				B8F87AB31DEBCCB200CE2EA3 /* YCiOSPlayerLib.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1079,11 +1079,11 @@
 		B8C17E011D545DBE0021CDA3 /* WaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveView.h; sourceTree = "<group>"; };
 		B8C17E021D545DBE0021CDA3 /* WaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaveView.m; sourceTree = "<group>"; };
 		B8E1D5981DEAAD150058DE51 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
-		B8E1D59A1DEAAD240058DE51 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
 		B8F83EB01D87BAF300E301D7 /* NSPreserveApplyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveApplyController.h; sourceTree = "<group>"; };
 		B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveApplyController.m; sourceTree = "<group>"; };
 		B8F83EB31D87D3DF00E301D7 /* NSPreserveWorkInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveWorkInfoCell.h; sourceTree = "<group>"; };
 		B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveWorkInfoCell.m; sourceTree = "<group>"; };
+		B8F87AB21DEBCCB200CE2EA3 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
 		B8FDBEBF1DAB83C500D75B46 /* NestSound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestSound.entitlements; sourceTree = "<group>"; };
 		CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1692,7 +1692,7 @@
 		2DFB66E81CC1E65600DA24DA = {
 			isa = PBXGroup;
 			children = (
-				B8E1D59A1DEAAD240058DE51 /* YCiOSPlayerLib.framework */,
+				B8F87AB21DEBCCB200CE2EA3 /* YCiOSPlayerLib.framework */,
 				B80C86481D4292DA00B22855 /* Problem */,
 				2DFB66F31CC1E65600DA24DA /* NestSound */,
 				2DFB670D1CC1E65600DA24DA /* NestSoundTests */,
@@ -4002,7 +4002,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: tobedouble@tom.com (S3624VBB3K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
@@ -4023,8 +4023,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
-				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
+				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
+				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -4036,7 +4036,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: tobedouble@tom.com (S3624VBB3K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Peng Ding (PS85B6F56V)";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
@@ -4057,8 +4057,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "42a93da2-24bc-4666-9b58-4321d662863d";
-				PROVISIONING_PROFILE_SPECIFIER = "YCDistributionAPPStore(2.1.2)";
+				PROVISIONING_PROFILE = "d7638656-a7c9-49ef-80a4-c9186208b826";
+				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
