@@ -58,7 +58,8 @@
 extern BOOL debugMode;
 extern NSString *host;
 extern NSString *port;
-#define debugHost     @"http://112.124.125.2"
+#define debugHost     @"https://test.yinchao.cn"
+//#define debugHost     @"http://112.124.125.2"
 #define debugPort     @""
 #define releaseHost   @""
 #define releasePort   @"http://api.yinchao.cn"

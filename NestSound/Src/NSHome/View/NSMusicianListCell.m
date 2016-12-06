@@ -39,7 +39,7 @@
     
     iconImgView.clipsToBounds = YES;
     
-    iconImgView.layer.cornerRadius = 20;
+    iconImgView.layer.cornerRadius = 30;
     
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(iconImgClick)];
     
@@ -96,18 +96,20 @@
     _musicianModel = musicianModel;
     [iconImgView setDDImageWithURLString:musicianModel.headerUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder"]];
     nameLabel.text = musicianModel.nickName;
-    NSArray *bilities = [musicianModel.ability componentsSeparatedByString:@"/"];
-    NSLog(@"音乐人技能%@",musicianModel.ability);
-    CGFloat currentOriginX = ScreenWidth-10;
-    if (bilities.count) {
-        for (NSInteger i = bilities.count-1 ; i >= 0; i--) {
-            NSBiaoqianView *biaoqianView = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
-            biaoqianView.title = bilities[i];
-            biaoqianView.origin = CGPointMake(currentOriginX-biaoqianView.width, 35);
-            
-            currentOriginX -= biaoqianView.width + 5 ;
-            
-            [self addSubview:biaoqianView];
+    if (musicianModel.ability.length) {
+        NSArray *bilities = [musicianModel.ability componentsSeparatedByString:@"/"];
+        NSLog(@"音乐人技能%@",musicianModel.ability);
+        CGFloat currentOriginX = ScreenWidth-10;
+        if (bilities.count) {
+            for (NSInteger i = bilities.count-1 ; i >= 0; i--) {
+                NSBiaoqianView *biaoqianView = [[NSBiaoqianView alloc] initWithFrame:CGRectZero];
+                biaoqianView.title = bilities[i];
+                biaoqianView.origin = CGPointMake(currentOriginX-biaoqianView.width, 35);
+                
+                currentOriginX -= biaoqianView.width + 5 ;
+                
+                [self addSubview:biaoqianView];
+            }
         }
     }
     

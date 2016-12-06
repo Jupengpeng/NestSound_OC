@@ -100,7 +100,9 @@ static NSHttpClient *client;
     NSString *requestURL = [NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],url];
     NSLog(@"requestURL ---  %@",requestURL);
     NSURLSessionDataTask *operation;
-    
+    /*
+     https
+     */
     if (requestType) {
         
         

@@ -134,11 +134,14 @@ static NSString *ID3 = @"cell3";
     
     ++page;
     if (JUserID == nil&&page ==1) {
-        login = [[NSLoginViewController alloc] init];
+        if (self.who == Myself) {
+            login = [[NSLoginViewController alloc] init];
+            
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
+            nav.navigationBar.hidden = YES;
+            [self presentViewController:nav animated:YES completion:nil];
+        }
         
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:login];
-        nav.navigationBar.hidden = YES;
-        [self presentViewController:nav animated:YES completion:nil];
     }
 //    UIImage *image1 = [self imageByApplyingAlpha:alpha image:kDefaultImage];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];

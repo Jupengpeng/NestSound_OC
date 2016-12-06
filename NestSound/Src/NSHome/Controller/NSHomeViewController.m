@@ -45,7 +45,6 @@
     NSString * indexUrl;
     NSString * messageUrl;
     UIImageView * playStatus;
-    int i;
     NSMutableArray * songAry;
     YYCache *cache;
     /**
@@ -408,7 +407,13 @@ static NSString * const musicianData = @"musicianData";
         
         NSTopicCarryOnCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:TopCarringCell forIndexPath:indexPath];
         
+//        for (int i = 0; i < self.musicianArr.count; i++) {
+//            UILabel *nameLabel = [cell viewWithTag:200 + i];
+//            [nameLabel removeFromSuperview];
+//        }
+        
         [cell setupDataWithTopicArray:self.musicianArr];
+
         
         cell.topicClickBlock = ^(NSInteger clickIndex){
             NSMusician *model = self.musicianArr[clickIndex];
@@ -490,6 +495,7 @@ static NSString * const musicianData = @"musicianData";
 {
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
+    NSLog(@"分区数%ld",(long)section);
     if (section == 0) {
         NSRecommend * recomm = recommendAry[row];
         
@@ -527,13 +533,13 @@ static NSString * const musicianData = @"musicianData";
         NSSongViewController * songVC = [[NSSongViewController alloc] initWithSongListId:recommendSongModel.itemID];
         [self.navigationController pushViewController:songVC animated:YES];
     }
-    else if (section == 3){
+    else if (section == 2){
         /**
-         *  活动进行时
+         *  音乐人
          */
         
     }
-    else if (section == 2){
+    else if (section == 4){
         NSNew * newModel = (NSNew *)newListAry[row];
         //newModel type == 1 is music type == 2 is lyric
         if (newModel.type == 2) {
@@ -556,7 +562,7 @@ static NSString * const musicianData = @"musicianData";
             
         }
         
-    }else if (section == 4){
+    }else {
         NSMusicSay * musicSay = (NSMusicSay *)musicSayAry[row];
         //type == 1 is music ,type == 2 is lyric
         NSMusicSayDetailController *musicSayController = [[NSMusicSayDetailController alloc] init];

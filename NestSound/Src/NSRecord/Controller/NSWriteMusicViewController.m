@@ -1519,7 +1519,7 @@ Boolean plugedHeadset;
     }
 }
 
-- (void)addWaveLink {
+- (void)addWaveLink { 
     
     if (!self.waveLink)
     {

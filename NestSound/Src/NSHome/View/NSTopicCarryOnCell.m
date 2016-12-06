@@ -15,6 +15,7 @@
 @interface NSTopicCarryOnCell ()
 {
     UILabel *_titleLable;
+    UILabel *nameLable;
 }
 @property (nonatomic,strong) UIScrollView *scrollView;
 
@@ -110,7 +111,6 @@
 
 //    NSArray *imagesArr = @[@"",@"",@"",@"",@"",@""];
 //    [NSArray arrayWithArray:topicArray];
-    
     self.scrollView.contentSize = CGSizeMake(15+(100) *topicArray.count, 60);
     self.scrollView.showsHorizontalScrollIndicator = NO;
 
@@ -135,22 +135,26 @@
         }];
         
         [_scrollView addSubview:topicButton];
-        UILabel *nameLable = [[UILabel alloc] initWithFrame:CGRectMake(15 + (kSubButtonWidth + 15) * i, 60, 60, 20)];
+        if (nameLable == nil) {
+            nameLable = [[UILabel alloc] init];
+            
+            nameLable.textAlignment = NSTextAlignmentCenter;
+            
+            nameLable.font = [UIFont systemFontOfSize:13];
+            
+            nameLable.tag = 200 + i;
+            
+            
+            
+            [_scrollView addSubview:nameLable];
+        }
         
-        nameLable.textAlignment = NSTextAlignmentCenter;
-        
-        nameLable.font = [UIFont systemFontOfSize:13];
-        
+        nameLable.frame = CGRectMake(15 + (kSubButtonWidth + 15) * i, 60, 60, 20);
         nameLable.text = model.nickname;
-        
-        [_scrollView addSubview:nameLable];
-        
-        
     }
     
     
 }
-
 
 
 

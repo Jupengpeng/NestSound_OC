@@ -29,7 +29,7 @@
         
         [btn addTarget:self action:@selector(plusClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        [btn sizeToFit];
+//        [btn sizeToFit];
         
         self.plusBtn = btn;
         
@@ -51,18 +51,24 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    self.plusBtn.centerX = self.width * 0.5;
+//    self.plusBtn.centerX = self.width * 0.5;
+//    
+//    self.plusBtn.centerY = self.height * 0.5;
     
-    self.plusBtn.centerY = self.height * 0.5;
+    CGFloat buttonWidth = self.width / 5.0;
+
+
+    self.plusBtn.x = buttonWidth * 2.0 ;
     
-    self.plusBtn.width = self.width / 5;
+    self.plusBtn.y = 3;
+    
+    self.plusBtn.width = buttonWidth ;
     
     self.plusBtn.height = 44;
     
     
     NSInteger count = self.subviews.count;
     
-    CGFloat buttonWidth = self.width / 5;
     
     NSInteger index = 0;
     
