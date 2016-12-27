@@ -306,7 +306,8 @@
 		B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB11D87BAF300E301D7 /* NSPreserveApplyController.m */; };
 		B8F83EB51D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */; };
 		B8F87AB61DED9E1E00CE2EA3 /* YCiOSPlayerLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8F87AB51DED9E1E00CE2EA3 /* YCiOSPlayerLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B8F87BDB1DF6925300CE2EA3 /* *.yinchao.cn.cer in Resources */ = {isa = PBXBuildFile; fileRef = B8F87BDA1DF6925300CE2EA3 /* *.yinchao.cn.cer */; };
+		B8F87BDD1DF95E8200CE2EA3 /* *.yinchao.cn.cer in Resources */ = {isa = PBXBuildFile; fileRef = B8F87BDC1DF95E8200CE2EA3 /* *.yinchao.cn.cer */; };
+		B8F87BE01E0B9F4400CE2EA3 /* NSCleanCacheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F87BDF1E0B9F4400CE2EA3 /* NSCleanCacheViewController.m */; };
 		E39B8A243578A1BFA7964D08 /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F632447B70FFF967631B2741 /* libPods-NestSound.a */; };
 		ECA6C3C4F25B7946B3DBC7DA /* libPods-NestSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */; };
 /* End PBXBuildFile section */
@@ -1085,7 +1086,9 @@
 		B8F83EB31D87D3DF00E301D7 /* NSPreserveWorkInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreserveWorkInfoCell.h; sourceTree = "<group>"; };
 		B8F83EB41D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreserveWorkInfoCell.m; sourceTree = "<group>"; };
 		B8F87AB51DED9E1E00CE2EA3 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
-		B8F87BDA1DF6925300CE2EA3 /* *.yinchao.cn.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "*.yinchao.cn.cer"; sourceTree = "<group>"; };
+		B8F87BDC1DF95E8200CE2EA3 /* *.yinchao.cn.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "*.yinchao.cn.cer"; sourceTree = "<group>"; };
+		B8F87BDE1E0B9F4400CE2EA3 /* NSCleanCacheViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCleanCacheViewController.h; sourceTree = "<group>"; };
+		B8F87BDF1E0B9F4400CE2EA3 /* NSCleanCacheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCleanCacheViewController.m; sourceTree = "<group>"; };
 		B8FDBEBF1DAB83C500D75B46 /* NestSound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NestSound.entitlements; sourceTree = "<group>"; };
 		CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NestSoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1578,6 +1581,8 @@
 				0CCF1D7E1D9101F700F97526 /* NSPreserveSelectViewController.m */,
 				0C3A7AA91DE41E3200EB4984 /* NSLocalProductViewController.h */,
 				0C3A7AAA1DE41E3200EB4984 /* NSLocalProductViewController.m */,
+				B8F87BDE1E0B9F4400CE2EA3 /* NSCleanCacheViewController.h */,
+				B8F87BDF1E0B9F4400CE2EA3 /* NSCleanCacheViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1769,7 +1774,7 @@
 		2DFB671E1CC1E6DE00DA24DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B8F87BDA1DF6925300CE2EA3 /* *.yinchao.cn.cer */,
+				B8F87BDC1DF95E8200CE2EA3 /* *.yinchao.cn.cer */,
 				2DFB67201CC1E6DE00DA24DA /* main.m */,
 				2DFB671F1CC1E6DE00DA24DA /* Info.plist */,
 				2DFB67401CC1E8A600DA24DA /* NestSound-PrefixHeader.pch */,
@@ -2528,7 +2533,7 @@
 				946B042A1D4EEC8A00529DBA /* HUImagePickerCell.xib in Resources */,
 				946B042F1D4EEC8A00529DBA /* pick_checked@3x.png in Resources */,
 				0CCE5C701D5D7A9F00E97998 /* 韵脚.txt in Resources */,
-				B8F87BDB1DF6925300CE2EA3 /* *.yinchao.cn.cer in Resources */,
+				B8F87BDD1DF95E8200CE2EA3 /* *.yinchao.cn.cer in Resources */,
 				946B04301D4EEC8A00529DBA /* LICENSE in Resources */,
 				182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */,
 				946B04271D4EEC8A00529DBA /* HUAlbumCell.xib in Resources */,
@@ -3607,6 +3612,7 @@
 				2DFB67771CC1F0ED00DA24DA /* NSString+NSAdditions.m in Sources */,
 				2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */,
 				B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */,
+				B8F87BE01E0B9F4400CE2EA3 /* NSCleanCacheViewController.m in Sources */,
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
 				2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */,
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,

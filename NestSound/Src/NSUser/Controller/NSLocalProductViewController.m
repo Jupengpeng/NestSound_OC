@@ -15,15 +15,52 @@
     UIView   *lineView;
     int screenWith;
     UIScrollView *contentScrollView;
+    UITableView *lyricTab;
+    UITableView *musicTab;
+    UIImageView *emptyOneImage;
+    UIImageView *emptyTwoImage;
+    UILabel *tipOneLabel;
+    UILabel *tipTwoLabel;
 }
+@property (nonatomic ,strong) NSMutableArray *lyricDataArr;
+@property (nonatomic ,strong) NSMutableArray *musicDataArr;
 @end
 
 @implementation NSLocalProductViewController
-
+- (NSMutableArray *)lyricDataArr {
+    if (_lyricDataArr) {
+        self.lyricDataArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _lyricDataArr;
+}
+- (NSMutableArray *)musicDataArr {
+    if (_musicDataArr) {
+        self.musicDataArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _musicDataArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setupLocalProductUI];
+    
+//    self.lyricDataArr = [NSMutableArray arrayWithArray:@[@"1",@"2",@"3"]];
+//    self.musicDataArr = [NSMutableArray arrayWithArray:@[@"4",@"5",@"6"]];
+    
+    if (_lyricDataArr.count) {
+        emptyOneImage.hidden = YES;
+        tipOneLabel.hidden = YES;
+    } else {
+        emptyOneImage.hidden = NO;
+        tipOneLabel.hidden = NO;
+    }
+    if (_musicDataArr.count) {
+        emptyTwoImage.hidden = YES;
+        tipTwoLabel.hidden = YES;
+    } else {
+        emptyTwoImage.hidden = NO;
+        tipTwoLabel.hidden = NO;
+    }
 }
 - (void)setupLocalProductUI {
     if (self.viewFrom == LocalProduct) {
@@ -71,23 +108,80 @@
     
     [self.view addSubview:contentScrollView];
     
-    UITableView *lyricTab = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    lyricTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height - 64) style:UITableViewStyleGrouped];
     
     lyricTab.delegate = self;
     
     lyricTab.dataSource = self;
     
+    lyricTab.rowHeight = 60;
+    
+    lyricTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
     [contentScrollView addSubview:lyricTab];
     
-    [lyricTab mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.top.bottom.right.equalTo(contentScrollView);
-        
-    }];
+    emptyOneImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.5_noLoaclProduct"]];
+    
+    emptyOneImage.hidden = YES;
+    
+    emptyOneImage.centerX = ScreenWidth/2;
+    
+    emptyOneImage.y = 100;
+    
+    [contentScrollView addSubview:emptyOneImage];
+
+    tipOneLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(emptyOneImage.frame) + 30, ScreenWidth, 20)];
+    
+    tipOneLabel.textAlignment = NSTextAlignmentCenter;
+    
+    tipOneLabel.textColor = [UIColor lightGrayColor];
+    
+    tipOneLabel.text = @"已保存但未上传的作品将会出现在这里";
+    
+    tipOneLabel.font = [UIFont systemFontOfSize:13];
+    
+    [contentScrollView addSubview:tipOneLabel];
+    musicTab = [[UITableView alloc] initWithFrame:CGRectMake(ScreenWidth, 0, ScreenWidth, self.view.height - 64) style:UITableViewStyleGrouped];
+    
+    musicTab.delegate = self;
+    
+    musicTab.dataSource = self;
+    
+    musicTab.rowHeight = 60;
+    
+    musicTab.backgroundColor = [UIColor hexColorFloat:@"f8f8f8"];
+    
+    [contentScrollView addSubview:musicTab];
+    
+    
+    emptyTwoImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2.5_noLoaclProduct"]];
+    
+    emptyTwoImage.hidden = YES;
+    
+    emptyTwoImage.centerX = 3*ScreenWidth/2;
+    
+    emptyTwoImage.y = 100;
+    
+    [contentScrollView addSubview:emptyTwoImage];
+
+    tipTwoLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth, CGRectGetMaxY(emptyTwoImage.frame) + 30, ScreenWidth, 20)];
+    
+    tipTwoLabel.textAlignment = NSTextAlignmentCenter;
+    
+    tipTwoLabel.textColor = [UIColor lightGrayColor];
+    
+    tipTwoLabel.text = @"已保存但未上传的作品将会出现在这里";
+    
+    tipTwoLabel.font = [UIFont systemFontOfSize:13];
+    
+    [contentScrollView addSubview:tipTwoLabel];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    if (tableView == lyricTab) {
+        return _lyricDataArr.count;
+    }
+    return _musicDataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"cacheCell";
@@ -99,6 +193,10 @@
         
     }
     return cell;
+}
+#pragma mark - UITableViewDelegate 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 1;
 }
 #pragma mark - UITableViewDelegate
 

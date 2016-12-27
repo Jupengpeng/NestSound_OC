@@ -72,13 +72,17 @@
     
     [uploadBtn setTitle:@"上传" forState:UIControlStateNormal];
     
-    uploadBtn.layer.borderWidth = 0.5;
+    uploadBtn.layer.borderWidth = 0.6;
+    
+    uploadBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     
     uploadBtn.layer.borderColor = [[UIColor hexColorFloat:@"ffd705"] CGColor];
     
     uploadBtn.layer.cornerRadius = 3;
     
     uploadBtn.layer.masksToBounds= YES;
+    
+    [uploadBtn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateNormal];
     
     [self.contentView addSubview:uploadBtn];
     
@@ -88,7 +92,7 @@
         
         make.centerY.equalTo(self.mas_centerY);
         
-        make.size.mas_offset(CGSizeMake(40, 20));
+        make.size.mas_offset(CGSizeMake(50, 24));
         
     }];
     

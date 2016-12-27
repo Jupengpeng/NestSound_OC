@@ -249,34 +249,27 @@ static NSString * const musicianData = @"musicianData";
     } else {
         if (!parserObject.success) {
             if ([operation.urlTag isEqualToString:indexUrl]) {
-//                [cache removeAllObjects];
                 [bannerAry removeAllObjects];
                 [_collection.pullToRefreshView stopAnimating];
                 NSIndexModel * indexModel = (NSIndexModel *)parserObject;
                 //banner数据
                 bannerAry = [NSMutableArray arrayWithArray:indexModel.BannerList.bannerList];
-//                [cache setObject:bannerAry forKey:bannerData];
                 //推荐作品数据
                 recommendAry = [NSMutableArray arrayWithArray:indexModel.RecommendList.recommendList];
-//                [cache setObject:recommendAry forKey:recommendData];
                 for (NSRecommend *model in recommendAry) {
                     [self.itemIDArray addObject:@(model.itemId)];
                 }
                 //音乐人数据
                 self.musicianArr = [NSMutableArray arrayWithArray:indexModel.musicianList.musicianList];
-//                [cache setObject:self.musicianArr forKey:musicianData];
                 //推荐歌单数据
                 recommendSongAry = [NSMutableArray arrayWithArray:indexModel.RecommendSongList.recommendSongList];
-//                [cache setObject:recommendSongAry forKey:recommendSongData];
                 //最新作品数据
                 newListAry = [NSMutableArray arrayWithArray:indexModel.NewList.songList];
-//                [cache setObject:newListAry forKey:newListData];
                 for (NSNew *model in newListAry) {
                     [self.itemIDArr addObject:@(model.itemId)];
                 }
                 //乐说数据
                 musicSayAry = [NSMutableArray arrayWithArray:indexModel.MusicSayList.musicSayList];
-//                [cache setObject:musicSayAry forKey:musicSayData];
                 [_collection reloadData];
                 
             }else if([operation.urlTag isEqualToString:getToken]){

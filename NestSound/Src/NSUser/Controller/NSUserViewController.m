@@ -24,6 +24,7 @@
 #import "NSToolbarButton.h"
 #import "NSUserDataModel.h"
 #import "NSLocalProductViewController.h"
+#import "NSCleanCacheViewController.h"
 @interface NSUserViewController ()
 <
 UITableViewDataSource,
@@ -71,12 +72,12 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (!JUserID) {
-        [self.tabBarController setSelectedIndex:0];
-        page = 0;
-    }else{
-        
-    }
+//    if (!JUserID) {
+//        [self.tabBarController setSelectedIndex:0];
+//        page = 0;
+//    }else{
+//        
+//    }
 }
 -(void)viewDidLoad
 {
@@ -92,23 +93,23 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     [super viewWillAppear: animated];
     self.navigationController.navigationBar.hidden = NO;
     ++page;
-    if (JUserID == nil&&page ==1) {
-        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-        
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-        nav.navigationBar.hidden = YES;
-        [self presentViewController:nav animated:YES completion:nil];
-    } else {
-        
+//    if (JUserID == nil&&page ==1) {
+//        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+//        
+//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+//        nav.navigationBar.hidden = YES;
+//        [self presentViewController:nav animated:YES completion:nil];
+//    } else {
+    
         [self fetchUserData];
-    }
+//    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    if (!JUserID) {
-        [self.tabBarController setSelectedIndex:0];
-        page = 0;
-    }
+//    if (!JUserID) {
+//        [self.tabBarController setSelectedIndex:0];
+//        page = 0;
+//    }
 }
 -(void)fetchUserData
 {
@@ -208,17 +209,17 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     if (section == 0) {
         return 2;
     } else if (section == 1) {
-        return 4;
+        return 5;
     }
-    return 2;
+    return 3;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    @"本地作品",@"清除缓存",
-    NSArray *stringArr = @[@"合作作品",@"灵感纪录",@"我的收藏",@"我的保全",@"个人资料",@"设置"];
-//    @"2.3_cooperation",@"2.2_setting",
-    NSArray *imageArr = @[@"2.3_cooperation",@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.2_userData",@"2.2_setting"];
+//
+    NSArray *stringArr = @[@"本地作品",@"合作作品",@"灵感纪录",@"我的收藏",@"我的保全",@"清除缓存",@"个人资料",@"设置"];
+//
+    NSArray *imageArr = @[@"2.5_localProduct",@"2.3_cooperation",@"2.2_inspiration",@"2.2_collection",@"2.2_preserve",@"2.5_cleanCache",@"2.2_userData",@"2.2_setting"];
     
     NSUserProfileCell * userProfileCell = [tableView dequeueReusableCellWithIdentifier:UserProfileCellIdefity];
     UITableViewCell * settingCell = [tableView dequeueReusableCellWithIdentifier:SettingCellIdefity];
@@ -315,8 +316,8 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
             settingCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             //            settingCell.detailTextLabel.tag = 100;
         }
-        settingCell.textLabel.text = stringArr[4 + indexPath.row];
-        settingCell.imageView.image = [UIImage imageNamed:imageArr[4 + indexPath.row]];
+        settingCell.textLabel.text = stringArr[5 + indexPath.row];
+        settingCell.imageView.image = [UIImage imageNamed:imageArr[5 + indexPath.row]];
     }
     return settingCell;
 }
@@ -333,27 +334,27 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         [self.navigationController pushViewController:userPageVC animated:YES];
         
     }else if (section == 1){
-//        if (row == 0) {
-//            NSLocalProductViewController *localProductVC = [[NSLocalProductViewController alloc] init];
-//            localProductVC.viewFrom = LocalProduct;
+        if (row == 0) {
+            NSLocalProductViewController *localProductVC = [[NSLocalProductViewController alloc] init];
+            localProductVC.viewFrom = LocalProduct;
 //            localProductVC.viewFrom = AccompanyCache;
-//            [self.navigationController pushViewController:localProductVC animated:YES];
-//        } else
-            if (row == 0) {
+            [self.navigationController pushViewController:localProductVC animated:YES];
+        } else
+            if (row == 1) {
             NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];
             collectionListVC.viewType = CooperationViewType;
             [self.navigationController pushViewController:collectionListVC animated:YES];
         }
-        else if (row == 1) {
+        else if (row == 2) {
             NSInspirationListViewController *inspirationListVC = [[NSInspirationListViewController alloc] init];
             [self.navigationController pushViewController:inspirationListVC animated:YES];
             
-        } else if (row == 2) {
+        } else if (row == 3) {
             NSCollectionListViewController *collectionListVC = [[NSCollectionListViewController alloc] init];
             collectionListVC.viewType = CollectionViewType;
             [self.navigationController pushViewController:collectionListVC animated:YES];
             
-        } else if (row == 3) {
+        } else if (row == 4) {
             
             //            NSPreserveApplyController *preserveListVC = [[NSPreserveApplyController alloc] init];
             //            preserveListVC.sortId = @"1";
@@ -366,10 +367,13 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
         
     }else if(section == 2){
         if (row == 0) {
-            NSUserProfileViewController * userProfileInfoVC = [[NSUserProfileViewController alloc] initWithUserDictionary:userDic];
-            [self.navigationController pushViewController:userProfileInfoVC animated:YES];
+            NSCleanCacheViewController * cleanCacheVC = [[NSCleanCacheViewController alloc] init];
+            [self.navigationController pushViewController:cleanCacheVC animated:YES];
             
         } else if (row == 1) {
+            NSUserProfileViewController * userProfileInfoVC = [[NSUserProfileViewController alloc] initWithUserDictionary:userDic];
+            [self.navigationController pushViewController:userProfileInfoVC animated:YES];
+        }else if (row == 2) {
             NSSettingViewController * settingVC = [[NSSettingViewController alloc] init];
             [self.navigationController pushViewController:settingVC animated:YES];
         }
