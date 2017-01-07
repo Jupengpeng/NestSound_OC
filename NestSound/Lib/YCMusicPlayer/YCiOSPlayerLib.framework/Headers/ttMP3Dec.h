@@ -37,6 +37,8 @@ extern "C" {
  */
 DLLEXPORT_C TTInt32 ttGetMP3DecAPI(TTAudioCodecAPI * pDecHandle);
 
+typedef TTInt32 (*__GetMP3DecAPI)(TTAudioCodecAPI * pDecHandle);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

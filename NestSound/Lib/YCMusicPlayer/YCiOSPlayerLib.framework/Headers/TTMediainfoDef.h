@@ -171,6 +171,7 @@ public:
 		, iMaxAudioSize(0)
 		, iStreamId(EMediaStreamIdNone)
 		, iDecInfo(NULL)
+		, iPcmptr(NULL)
 	{
 		memset(iLanguage, 0, sizeof(TTChar)*4);
 	};
@@ -186,6 +187,7 @@ public:
 	TTInt		iMaxAudioSize;
 	TTChar		iLanguage[4];
 	void*		iDecInfo;
+	void*		iPcmptr;
 };
 
 // INCLUDES

@@ -344,6 +344,9 @@ public:
 	*/
 	virtual void					SetCacheFilePath(const TTChar* aCacheFilePath) = 0;
 
+
+	virtual void					SetPcmFilePath(const TTChar* aPcmFilePath) = 0;
+
 		/**
 	* \fn							void Decode(const TTChar* aUrl, TTInt size)
 	* \brief					    ???????????

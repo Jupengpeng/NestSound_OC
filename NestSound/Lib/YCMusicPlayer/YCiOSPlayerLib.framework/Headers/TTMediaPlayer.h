@@ -268,6 +268,9 @@ public:	// from ITTMediaPlayer
 	*/
 	void							SetCacheFilePath(const TTChar* aCacheFilePath);
 
+
+	void							SetPcmFilePath(const TTChar* aPcmFilePath);
+
 		/**
 	* \fn							void Decode(const TTChar* aUrl, TTInt size)
 	* \brief					    外部调用解码接口
@@ -370,6 +373,9 @@ private:
 private:
 
 	TTChar							mCacheFilePath[FILE_PATH_MAX_LENGTH];
+	TTChar							mPcmFilePath[FILE_PATH_MAX_LENGTH];
+
+	TTBool							mPcmpathSet;
 	TTChar							mPluginPath[FILE_PATH_MAX_LENGTH];
     RTTCritical						mCritical;
 	RTTCritical						mCriVideo;
