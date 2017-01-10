@@ -111,6 +111,13 @@ typedef NS_ENUM(NSUInteger, YCPlayerCircleType) {
  */
 - (void)setCacheFilePath:(NSString *)filePath;
 
+
+/*
+ * 对象创建好  设置 pcm 生成路径
+ * 设置缓存pcm生成文件
+ *
+*/
+- (void)SetPcmFilePath:(NSString *)filepath;
 /**
  *
  */

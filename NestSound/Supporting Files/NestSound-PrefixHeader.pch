@@ -9,6 +9,8 @@
 #ifndef NestSound_PrefixHeader_pch
 #define NestSound_PrefixHeader_pch
 
+#ifdef __OBJC__
+
 // Header
 #import "NSTipView.h"
 #import "NSTextField.h"
@@ -54,6 +56,8 @@
 #import "SDWebImageManager.h"
 #import "MJPhotoBrowser.h"
 #import "NSCacheManager.h"
+
+
 // Host
 extern BOOL debugMode;
 extern NSString *host;
@@ -356,4 +360,12 @@ extern NSString *port;
 static NSString *const ChangePlayItemNotification = @"changePlayItem";
 static NSString *const PauseCurrentItemNotification = @"pauseCurrentItem";
 static NSString *const kHiddenTabBarTipViewNotification = @"kHiddenTabBarTipView";
+
+
+#endif
+
+
+#import "YCEffectLib.h"
+
+
 #endif /* NestSound_PrefixHeader_pch */

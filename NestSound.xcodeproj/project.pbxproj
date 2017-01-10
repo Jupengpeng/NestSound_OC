@@ -215,6 +215,147 @@
 		2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFB67841CC1F3D900DA24DA /* AppDelegate+NSAdditions.m */; };
 		3D75525813377712BF09F5CA /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3AFABD58AFF41397845604F /* libPods-NestSoundTests.a */; };
 		690E09021D65D75700C21750 /* NSActivityDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 690E09011D65D75700C21750 /* NSActivityDetailModel.m */; };
+		6915B4021E25486D009F886B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6915B4011E25486D009F886B /* AudioToolbox.framework */; };
+		6915B4051E254A2A009F886B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6915B3FF1E254866009F886B /* libstdc++.tbd */; };
+		6915B5BA1E254BF7009F886B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864F1D47055F00B22855 /* UIKit.framework */; };
+		6915BA6C1E2550B5009F886B /* AudioAACRecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9521E2550B4009F886B /* AudioAACRecoder.m */; };
+		6915BA6D1E2550B5009F886B /* AudioPlay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9541E2550B4009F886B /* AudioPlay.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6915BA6E1E2550B5009F886B /* AudioRecord.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9561E2550B4009F886B /* AudioRecord.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6915BA6F1E2550B5009F886B /* AyMovieGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B95A1E2550B4009F886B /* AyMovieGLView.mm */; };
+		6915BA701E2550B5009F886B /* aacquant.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9601E2550B4009F886B /* aacquant.c */; };
+		6915BA711E2550B5009F886B /* backpred.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9621E2550B4009F886B /* backpred.c */; };
+		6915BA721E2550B5009F886B /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9641E2550B4009F886B /* bitstream.c */; };
+		6915BA731E2550B5009F886B /* channels.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9661E2550B4009F886B /* channels.c */; };
+		6915BA741E2550B5009F886B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9691E2550B4009F886B /* fft.c */; };
+		6915BA751E2550B5009F886B /* filtbank.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B96B1E2550B4009F886B /* filtbank.c */; };
+		6915BA761E2550B5009F886B /* frame.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B96D1E2550B4009F886B /* frame.c */; };
+		6915BA771E2550B5009F886B /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B96F1E2550B5009F886B /* huffman.c */; };
+		6915BA781E2550B5009F886B /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9741E2550B5009F886B /* kiss_fft.c */; };
+		6915BA791E2550B5009F886B /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9761E2550B5009F886B /* kiss_fftr.c */; };
+		6915BA7A1E2550B5009F886B /* ltp.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9781E2550B5009F886B /* ltp.c */; };
+		6915BA7B1E2550B5009F886B /* midside.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B97A1E2550B5009F886B /* midside.c */; };
+		6915BA7C1E2550B5009F886B /* psychkni.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B97D1E2550B5009F886B /* psychkni.c */; };
+		6915BA7D1E2550B5009F886B /* tns.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B97E1E2550B5009F886B /* tns.c */; };
+		6915BA7E1E2550B5009F886B /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9801E2550B5009F886B /* util.c */; };
+		6915BA7F1E2550B5009F886B /* MutiAudioPlay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9841E2550B5009F886B /* MutiAudioPlay.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6915BA801E2550B5009F886B /* ReceiveStreamingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9871E2550B5009F886B /* ReceiveStreamingData.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6915BA811E2550B5009F886B /* RecordAVPacketDataBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9891E2550B5009F886B /* RecordAVPacketDataBlock.m */; };
+		6915BA821E2550B5009F886B /* AudioMix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B98C1E2550B5009F886B /* AudioMix.cpp */; };
+		6915BA831E2550B5009F886B /* STFileReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B98F1E2550B5009F886B /* STFileReader.cpp */; };
+		6915BA841E2550B5009F886B /* ulu_JniEnvUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9931E2550B5009F886B /* ulu_JniEnvUtil.cpp */; };
+		6915BA851E2550B5009F886B /* ulu_log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9951E2550B5009F886B /* ulu_log.cpp */; };
+		6915BA861E2550B5009F886B /* ulu_mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9971E2550B5009F886B /* ulu_mutex.cpp */; };
+		6915BA871E2550B5009F886B /* ulu_OSFunc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B99A1E2550B5009F886B /* ulu_OSFunc.mm */; };
+		6915BA881E2550B5009F886B /* ulu_thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B99B1E2550B5009F886B /* ulu_thread.cpp */; };
+		6915BA891E2550B5009F886B /* AndriodAudioRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9A31E2550B5009F886B /* AndriodAudioRender.cpp */; };
+		6915BA8A1E2550B5009F886B /* AYMediaPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9A51E2550B5009F886B /* AYMediaPlayer.cpp */; };
+		6915BA8B1E2550B5009F886B /* CAudioRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9A81E2550B5009F886B /* CAudioRender.cpp */; };
+		6915BA8C1E2550B5009F886B /* CIOSAudioRender.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9AA1E2550B5009F886B /* CIOSAudioRender.mm */; };
+		6915BA8D1E2550B5009F886B /* PCCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9AD1E2550B5009F886B /* PCCallback.cpp */; };
+		6915BA8E1E2550B5009F886B /* YCPcmPlayerWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9AF1E2550B5009F886B /* YCPcmPlayerWrap.cpp */; };
+		6915BA8F1E2550B5009F886B /* AyUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9B21E2550B5009F886B /* AyUtil.c */; };
+		6915BA901E2550B5009F886B /* UAnYanLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9B51E2550B5009F886B /* UAnYanLog.mm */; };
+		6915BA911E2550B5009F886B /* bend.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9BB1E2550B5009F886B /* bend.c */; };
+		6915BA921E2550B5009F886B /* biquad.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9BC1E2550B5009F886B /* biquad.c */; };
+		6915BA931E2550B5009F886B /* biquads.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9BD1E2550B5009F886B /* biquads.c */; };
+		6915BA941E2550B5009F886B /* chorus.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9BE1E2550B5009F886B /* chorus.c */; };
+		6915BA951E2550B5009F886B /* compand.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9BF1E2550B5009F886B /* compand.c */; };
+		6915BA961E2550B5009F886B /* compandt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C01E2550B5009F886B /* compandt.c */; };
+		6915BA971E2550B5009F886B /* contrast.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C11E2550B5009F886B /* contrast.c */; };
+		6915BA981E2550B5009F886B /* dcshift.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C21E2550B5009F886B /* dcshift.c */; };
+		6915BA991E2550B5009F886B /* delay.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C31E2550B5009F886B /* delay.c */; };
+		6915BA9A1E2550B5009F886B /* dft_filter.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C41E2550B5009F886B /* dft_filter.c */; };
+		6915BA9B1E2550B5009F886B /* dither.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C51E2550B5009F886B /* dither.c */; };
+		6915BA9C1E2550B5009F886B /* divide.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C61E2550B5009F886B /* divide.c */; };
+		6915BA9D1E2550B5009F886B /* downsample.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C71E2550B5009F886B /* downsample.c */; };
+		6915BA9E1E2550B5009F886B /* earwax.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C81E2550B5009F886B /* earwax.c */; };
+		6915BA9F1E2550B5009F886B /* echo.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9C91E2550B5009F886B /* echo.c */; };
+		6915BAA01E2550B5009F886B /* echos.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9CA1E2550B5009F886B /* echos.c */; };
+		6915BAA11E2550B5009F886B /* fade.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9CB1E2550B5009F886B /* fade.c */; };
+		6915BAA21E2550B5009F886B /* fir.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9CC1E2550B5009F886B /* fir.c */; };
+		6915BAA31E2550B5009F886B /* firfit.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9CD1E2550B5009F886B /* firfit.c */; };
+		6915BAA41E2550B5009F886B /* flanger.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9CE1E2550B5009F886B /* flanger.c */; };
+		6915BAA51E2550B5009F886B /* gain.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9CF1E2550B5009F886B /* gain.c */; };
+		6915BAA61E2550B5009F886B /* hilbert.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D01E2550B5009F886B /* hilbert.c */; };
+		6915BAA71E2550B5009F886B /* input.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D11E2550B5009F886B /* input.c */; };
+		6915BAA81E2550B5009F886B /* ladspa.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D21E2550B5009F886B /* ladspa.c */; };
+		6915BAA91E2550B5009F886B /* loudness.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D31E2550B5009F886B /* loudness.c */; };
+		6915BAAA1E2550B5009F886B /* mcompand.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D41E2550B5009F886B /* mcompand.c */; };
+		6915BAAB1E2550B5009F886B /* noiseprof.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D51E2550B5009F886B /* noiseprof.c */; };
+		6915BAAC1E2550B5009F886B /* noisered.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D61E2550B5009F886B /* noisered.c */; };
+		6915BAAD1E2550B5009F886B /* output.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D71E2550B5009F886B /* output.c */; };
+		6915BAAE1E2550B5009F886B /* overdrive.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D81E2550B5009F886B /* overdrive.c */; };
+		6915BAAF1E2550B5009F886B /* pad.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9D91E2550B5009F886B /* pad.c */; };
+		6915BAB01E2550B5009F886B /* phaser.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9DA1E2550B5009F886B /* phaser.c */; };
+		6915BAB11E2550B5009F886B /* rate.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9DB1E2550B5009F886B /* rate.c */; };
+		6915BAB21E2550B5009F886B /* remix.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9DC1E2550B5009F886B /* remix.c */; };
+		6915BAB31E2550B5009F886B /* repeat.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9DD1E2550B5009F886B /* repeat.c */; };
+		6915BAB41E2550B5009F886B /* reverb.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9DE1E2550B5009F886B /* reverb.c */; };
+		6915BAB51E2550B5009F886B /* reverse.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9DF1E2550B5009F886B /* reverse.c */; };
+		6915BAB61E2550B5009F886B /* silence.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E01E2550B5009F886B /* silence.c */; };
+		6915BAB71E2550B5009F886B /* sinc.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E11E2550B5009F886B /* sinc.c */; };
+		6915BAB81E2550B5009F886B /* speed.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E21E2550B5009F886B /* speed.c */; };
+		6915BAB91E2550B5009F886B /* splice.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E31E2550B5009F886B /* splice.c */; };
+		6915BABA1E2550B5009F886B /* stat.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E41E2550B5009F886B /* stat.c */; };
+		6915BABB1E2550B5009F886B /* stats.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E51E2550B5009F886B /* stats.c */; };
+		6915BABC1E2550B5009F886B /* stretch.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E61E2550B5009F886B /* stretch.c */; };
+		6915BABD1E2550B5009F886B /* swap.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E71E2550B5009F886B /* swap.c */; };
+		6915BABE1E2550B5009F886B /* synth.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E81E2550B5009F886B /* synth.c */; };
+		6915BABF1E2550B5009F886B /* tempo.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9E91E2550B5009F886B /* tempo.c */; };
+		6915BAC01E2550B5009F886B /* tremolo.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9EA1E2550B5009F886B /* tremolo.c */; };
+		6915BAC11E2550B5009F886B /* trim.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9EB1E2550B5009F886B /* trim.c */; };
+		6915BAC21E2550B5009F886B /* upsample.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9EC1E2550B5009F886B /* upsample.c */; };
+		6915BAC31E2550B5009F886B /* vad.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9ED1E2550B5009F886B /* vad.c */; };
+		6915BAC41E2550B5009F886B /* vol.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9EE1E2550B5009F886B /* vol.c */; };
+		6915BAC51E2550B5009F886B /* effects.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA0C1E2550B5009F886B /* effects.c */; };
+		6915BAC61E2550B5009F886B /* effects_i.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA0D1E2550B5009F886B /* effects_i.c */; };
+		6915BAC71E2550B5009F886B /* effects_i_dsp.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA0E1E2550B5009F886B /* effects_i_dsp.c */; };
+		6915BAC81E2550B5009F886B /* f4-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA0F1E2550B5009F886B /* f4-fmt.c */; };
+		6915BAC91E2550B5009F886B /* f8-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA101E2550B5009F886B /* f8-fmt.c */; };
+		6915BACA1E2550B5009F886B /* fft4g.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA111E2550B5009F886B /* fft4g.c */; };
+		6915BACB1E2550B5009F886B /* formats.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA121E2550B5009F886B /* formats.c */; };
+		6915BACC1E2550B5009F886B /* formats_i.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA131E2550B5009F886B /* formats_i.c */; };
+		6915BACD1E2550B5009F886B /* getopt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA141E2550B5009F886B /* getopt.c */; };
+		6915BACE1E2550B5009F886B /* libsox.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA151E2550B5009F886B /* libsox.c */; };
+		6915BACF1E2550B5009F886B /* libsox_i.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA161E2550B5009F886B /* libsox_i.c */; };
+		6915BAD01E2550B5009F886B /* raw-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA171E2550B5009F886B /* raw-fmt.c */; };
+		6915BAD11E2550B5009F886B /* raw.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA181E2550B5009F886B /* raw.c */; };
+		6915BAD21E2550B5009F886B /* s1-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA191E2550B5009F886B /* s1-fmt.c */; };
+		6915BAD31E2550B5009F886B /* s2-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA1A1E2550B5009F886B /* s2-fmt.c */; };
+		6915BAD41E2550B5009F886B /* s3-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA1B1E2550B5009F886B /* s3-fmt.c */; };
+		6915BAD51E2550B5009F886B /* s4-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA1C1E2550B5009F886B /* s4-fmt.c */; };
+		6915BAD61E2550B5009F886B /* sox-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA1D1E2550B5009F886B /* sox-fmt.c */; };
+		6915BAD71E2550B5009F886B /* u1-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA1E1E2550B5009F886B /* u1-fmt.c */; };
+		6915BAD81E2550B5009F886B /* u2-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA1F1E2550B5009F886B /* u2-fmt.c */; };
+		6915BAD91E2550B5009F886B /* u3-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA201E2550B5009F886B /* u3-fmt.c */; };
+		6915BADA1E2550B5009F886B /* u4-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA211E2550B5009F886B /* u4-fmt.c */; };
+		6915BADB1E2550B5009F886B /* ul-fmt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA221E2550B5009F886B /* ul-fmt.c */; };
+		6915BADC1E2550B5009F886B /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA231E2550B5009F886B /* util.c */; };
+		6915BADE1E2550B5009F886B /* xmalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA251E2550B5009F886B /* xmalloc.c */; };
+		6915BADF1E2550B5009F886B /* example0.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA271E2550B5009F886B /* example0.c */; };
+		6915BAEA1E2550B5009F886B /* YCBaseEffectWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA341E2550B5009F886B /* YCBaseEffectWrap.cpp */; };
+		6915BAEB1E2550B5009F886B /* mp3enc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA3D1E2550B5009F886B /* mp3enc.cpp */; };
+		6915BAEC1E2550B5009F886B /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA401E2550B5009F886B /* bitstream.c */; };
+		6915BAED1E2550B5009F886B /* encoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA421E2550B5009F886B /* encoder.c */; };
+		6915BAEE1E2550B5009F886B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA441E2550B5009F886B /* fft.c */; };
+		6915BAEF1E2550B5009F886B /* gain_analysis.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA461E2550B5009F886B /* gain_analysis.c */; };
+		6915BAF01E2550B5009F886B /* id3tag.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA481E2550B5009F886B /* id3tag.c */; };
+		6915BAF11E2550B5009F886B /* lame.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA4C1E2550B5009F886B /* lame.c */; };
+		6915BAF31E2550B5009F886B /* mpglib_interface.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA501E2550B5009F886B /* mpglib_interface.c */; };
+		6915BAF41E2550B5009F886B /* newmdct.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA511E2550B5009F886B /* newmdct.c */; };
+		6915BAF51E2550B5009F886B /* presets.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA531E2550B5009F886B /* presets.c */; };
+		6915BAF61E2550B5009F886B /* psymodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA541E2550B5009F886B /* psymodel.c */; };
+		6915BAF71E2550B5009F886B /* quantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA561E2550B5009F886B /* quantize.c */; };
+		6915BAF81E2550B5009F886B /* quantize_pvt.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA581E2550B5009F886B /* quantize_pvt.c */; };
+		6915BAF91E2550B5009F886B /* reservoir.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA5A1E2550B5009F886B /* reservoir.c */; };
+		6915BAFA1E2550B5009F886B /* set_get.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA5C1E2550B5009F886B /* set_get.c */; };
+		6915BAFB1E2550B5009F886B /* tables.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA5E1E2550B5009F886B /* tables.c */; };
+		6915BAFC1E2550B5009F886B /* takehiro.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA601E2550B5009F886B /* takehiro.c */; };
+		6915BAFD1E2550B5009F886B /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA611E2550B5009F886B /* util.c */; };
+		6915BAFE1E2550B5009F886B /* vbrquantize.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA631E2550B5009F886B /* vbrquantize.c */; };
+		6915BAFF1E2550B5009F886B /* VbrTag.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA651E2550B5009F886B /* VbrTag.c */; };
+		6915BB001E2550B5009F886B /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA671E2550B5009F886B /* version.c */; };
+		6915BB011E2550B5009F886B /* YCMp3encWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915BA691E2550B5009F886B /* YCMp3encWrap.cpp */; };
 		691F11A91D64BC5F00BACEEA /* NSBiaoqianView.m in Sources */ = {isa = PBXBuildFile; fileRef = 691F11A81D64BC5F00BACEEA /* NSBiaoqianView.m */; };
 		69219FCB1D658A9200B55B9E /* NSActivityOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69219FCA1D658A9200B55B9E /* NSActivityOverViewController.m */; };
 		692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */; };
@@ -276,7 +417,6 @@
 		B80C07761D757F690032BBCD /* NSImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C07751D757F690032BBCD /* NSImageCropperViewController.m */; };
 		B80C07791D757F820032BBCD /* NSImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C07781D757F820032BBCD /* NSImagePicker.m */; };
 		B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864D1D47055200B22855 /* Foundation.framework */; };
-		B80C86501D47055F00B22855 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C864F1D47055F00B22855 /* UIKit.framework */; };
 		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
 		B80C86551D47A75B00B22855 /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C86541D47A75B00B22855 /* HudView.m */; };
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
@@ -751,6 +891,258 @@
 		5A1B50989E881DC33A50036C /* Pods-NestSound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NestSound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NestSound/Pods-NestSound.debug.xcconfig"; sourceTree = "<group>"; };
 		690E09001D65D75700C21750 /* NSActivityDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityDetailModel.h; sourceTree = "<group>"; };
 		690E09011D65D75700C21750 /* NSActivityDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSActivityDetailModel.m; sourceTree = "<group>"; };
+		6915B3FF1E254866009F886B /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		6915B4011E25486D009F886B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		6915B9511E2550B4009F886B /* AudioAACRecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioAACRecoder.h; sourceTree = "<group>"; };
+		6915B9521E2550B4009F886B /* AudioAACRecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioAACRecoder.m; sourceTree = "<group>"; };
+		6915B9531E2550B4009F886B /* AudioPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlay.h; sourceTree = "<group>"; };
+		6915B9541E2550B4009F886B /* AudioPlay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioPlay.mm; sourceTree = "<group>"; };
+		6915B9551E2550B4009F886B /* AudioRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecord.h; sourceTree = "<group>"; };
+		6915B9561E2550B4009F886B /* AudioRecord.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioRecord.mm; sourceTree = "<group>"; };
+		6915B9571E2550B4009F886B /* AVComType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVComType.h; sourceTree = "<group>"; };
+		6915B9581E2550B4009F886B /* AyLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AyLogger.h; sourceTree = "<group>"; };
+		6915B9591E2550B4009F886B /* AyMovieGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AyMovieGLView.h; sourceTree = "<group>"; };
+		6915B95A1E2550B4009F886B /* AyMovieGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AyMovieGLView.mm; sourceTree = "<group>"; };
+		6915B95D1E2550B4009F886B /* faac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = faac.h; sourceTree = "<group>"; };
+		6915B95E1E2550B4009F886B /* faaccfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = faaccfg.h; sourceTree = "<group>"; };
+		6915B9601E2550B4009F886B /* aacquant.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aacquant.c; sourceTree = "<group>"; };
+		6915B9611E2550B4009F886B /* aacquant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aacquant.h; sourceTree = "<group>"; };
+		6915B9621E2550B4009F886B /* backpred.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = backpred.c; sourceTree = "<group>"; };
+		6915B9631E2550B4009F886B /* backpred.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = backpred.h; sourceTree = "<group>"; };
+		6915B9641E2550B4009F886B /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		6915B9651E2550B4009F886B /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		6915B9661E2550B4009F886B /* channels.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = channels.c; sourceTree = "<group>"; };
+		6915B9671E2550B4009F886B /* channels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = channels.h; sourceTree = "<group>"; };
+		6915B9681E2550B4009F886B /* coder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = coder.h; sourceTree = "<group>"; };
+		6915B9691E2550B4009F886B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
+		6915B96A1E2550B4009F886B /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
+		6915B96B1E2550B4009F886B /* filtbank.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = filtbank.c; sourceTree = "<group>"; };
+		6915B96C1E2550B4009F886B /* filtbank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filtbank.h; sourceTree = "<group>"; };
+		6915B96D1E2550B4009F886B /* frame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = frame.c; sourceTree = "<group>"; };
+		6915B96E1E2550B4009F886B /* frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = frame.h; sourceTree = "<group>"; };
+		6915B96F1E2550B5009F886B /* huffman.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huffman.c; sourceTree = "<group>"; };
+		6915B9701E2550B5009F886B /* huffman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huffman.h; sourceTree = "<group>"; };
+		6915B9711E2550B5009F886B /* hufftab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hufftab.h; sourceTree = "<group>"; };
+		6915B9731E2550B5009F886B /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _kiss_fft_guts.h; sourceTree = "<group>"; };
+		6915B9741E2550B5009F886B /* kiss_fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fft.c; sourceTree = "<group>"; };
+		6915B9751E2550B5009F886B /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fft.h; sourceTree = "<group>"; };
+		6915B9761E2550B5009F886B /* kiss_fftr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fftr.c; sourceTree = "<group>"; };
+		6915B9771E2550B5009F886B /* kiss_fftr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fftr.h; sourceTree = "<group>"; };
+		6915B9781E2550B5009F886B /* ltp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ltp.c; sourceTree = "<group>"; };
+		6915B9791E2550B5009F886B /* ltp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ltp.h; sourceTree = "<group>"; };
+		6915B97A1E2550B5009F886B /* midside.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = midside.c; sourceTree = "<group>"; };
+		6915B97B1E2550B5009F886B /* midside.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midside.h; sourceTree = "<group>"; };
+		6915B97C1E2550B5009F886B /* psych.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = psych.h; sourceTree = "<group>"; };
+		6915B97D1E2550B5009F886B /* psychkni.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = psychkni.c; sourceTree = "<group>"; };
+		6915B97E1E2550B5009F886B /* tns.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tns.c; sourceTree = "<group>"; };
+		6915B97F1E2550B5009F886B /* tns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tns.h; sourceTree = "<group>"; };
+		6915B9801E2550B5009F886B /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		6915B9811E2550B5009F886B /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		6915B9821E2550B5009F886B /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		6915B9831E2550B5009F886B /* MutiAudioPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutiAudioPlay.h; sourceTree = "<group>"; };
+		6915B9841E2550B5009F886B /* MutiAudioPlay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MutiAudioPlay.mm; sourceTree = "<group>"; };
+		6915B9851E2550B5009F886B /* receive_ff_data_callbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = receive_ff_data_callbacks.h; sourceTree = "<group>"; };
+		6915B9861E2550B5009F886B /* ReceiveStreamingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveStreamingData.h; sourceTree = "<group>"; };
+		6915B9871E2550B5009F886B /* ReceiveStreamingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiveStreamingData.m; sourceTree = "<group>"; };
+		6915B9881E2550B5009F886B /* RecordAVPacketDataBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordAVPacketDataBlock.h; sourceTree = "<group>"; };
+		6915B9891E2550B5009F886B /* RecordAVPacketDataBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordAVPacketDataBlock.m; sourceTree = "<group>"; };
+		6915B98A1E2550B5009F886B /* UluInternalProtocolDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UluInternalProtocolDefine.h; sourceTree = "<group>"; };
+		6915B98C1E2550B5009F886B /* AudioMix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioMix.cpp; sourceTree = "<group>"; };
+		6915B98D1E2550B5009F886B /* AudioMix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioMix.h; sourceTree = "<group>"; };
+		6915B98E1E2550B5009F886B /* STDataReaderItf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDataReaderItf.h; sourceTree = "<group>"; };
+		6915B98F1E2550B5009F886B /* STFileReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = STFileReader.cpp; sourceTree = "<group>"; };
+		6915B9901E2550B5009F886B /* STFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STFileReader.h; sourceTree = "<group>"; };
+		6915B9911E2550B5009F886B /* STMacrodef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STMacrodef.h; sourceTree = "<group>"; };
+		6915B9921E2550B5009F886B /* ulu_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulu_common.h; sourceTree = "<group>"; };
+		6915B9931E2550B5009F886B /* ulu_JniEnvUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulu_JniEnvUtil.cpp; sourceTree = "<group>"; };
+		6915B9941E2550B5009F886B /* ulu_JniEnvUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulu_JniEnvUtil.h; sourceTree = "<group>"; };
+		6915B9951E2550B5009F886B /* ulu_log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulu_log.cpp; sourceTree = "<group>"; };
+		6915B9961E2550B5009F886B /* ulu_log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulu_log.h; sourceTree = "<group>"; };
+		6915B9971E2550B5009F886B /* ulu_mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulu_mutex.cpp; sourceTree = "<group>"; };
+		6915B9981E2550B5009F886B /* ulu_mutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulu_mutex.h; sourceTree = "<group>"; };
+		6915B9991E2550B5009F886B /* ulu_OSFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulu_OSFunc.h; sourceTree = "<group>"; };
+		6915B99A1E2550B5009F886B /* ulu_OSFunc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ulu_OSFunc.mm; sourceTree = "<group>"; };
+		6915B99B1E2550B5009F886B /* ulu_thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ulu_thread.cpp; sourceTree = "<group>"; };
+		6915B99C1E2550B5009F886B /* ulu_thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ulu_thread.h; sourceTree = "<group>"; };
+		6915B99E1E2550B5009F886B /* AYPlayer_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYPlayer_common.h; sourceTree = "<group>"; };
+		6915B99F1E2550B5009F886B /* CriticalSectionMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CriticalSectionMgr.h; sourceTree = "<group>"; };
+		6915B9A01E2550B5009F886B /* IAYMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAYMediaPlayer.h; sourceTree = "<group>"; };
+		6915B9A11E2550B5009F886B /* typedef_win.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = typedef_win.h; sourceTree = "<group>"; };
+		6915B9A31E2550B5009F886B /* AndriodAudioRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AndriodAudioRender.cpp; sourceTree = "<group>"; };
+		6915B9A41E2550B5009F886B /* AndriodAudioRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AndriodAudioRender.h; sourceTree = "<group>"; };
+		6915B9A51E2550B5009F886B /* AYMediaPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AYMediaPlayer.cpp; sourceTree = "<group>"; };
+		6915B9A61E2550B5009F886B /* AYMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AYMediaPlayer.h; sourceTree = "<group>"; };
+		6915B9A71E2550B5009F886B /* AyMovieGLViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AyMovieGLViewProtocol.h; sourceTree = "<group>"; };
+		6915B9A81E2550B5009F886B /* CAudioRender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAudioRender.cpp; sourceTree = "<group>"; };
+		6915B9A91E2550B5009F886B /* CIOSAudioRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIOSAudioRender.h; sourceTree = "<group>"; };
+		6915B9AA1E2550B5009F886B /* CIOSAudioRender.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CIOSAudioRender.mm; sourceTree = "<group>"; };
+		6915B9AB1E2550B5009F886B /* cm_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cm_type.h; sourceTree = "<group>"; };
+		6915B9AC1E2550B5009F886B /* IAudioRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAudioRender.h; sourceTree = "<group>"; };
+		6915B9AD1E2550B5009F886B /* PCCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PCCallback.cpp; sourceTree = "<group>"; };
+		6915B9AE1E2550B5009F886B /* PCCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCallback.h; sourceTree = "<group>"; };
+		6915B9AF1E2550B5009F886B /* YCPcmPlayerWrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YCPcmPlayerWrap.cpp; sourceTree = "<group>"; };
+		6915B9B01E2550B5009F886B /* YCPcmPlayerWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCPcmPlayerWrap.h; sourceTree = "<group>"; };
+		6915B9B21E2550B5009F886B /* AyUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = AyUtil.c; sourceTree = "<group>"; };
+		6915B9B31E2550B5009F886B /* AyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AyUtil.h; sourceTree = "<group>"; };
+		6915B9B41E2550B5009F886B /* UAnYanLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAnYanLog.h; sourceTree = "<group>"; };
+		6915B9B51E2550B5009F886B /* UAnYanLog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UAnYanLog.mm; sourceTree = "<group>"; };
+		6915B9B61E2550B5009F886B /* yuv2rgb565_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yuv2rgb565_table.h; sourceTree = "<group>"; };
+		6915B9BB1E2550B5009F886B /* bend.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bend.c; sourceTree = "<group>"; };
+		6915B9BC1E2550B5009F886B /* biquad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = biquad.c; sourceTree = "<group>"; };
+		6915B9BD1E2550B5009F886B /* biquads.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = biquads.c; sourceTree = "<group>"; };
+		6915B9BE1E2550B5009F886B /* chorus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chorus.c; sourceTree = "<group>"; };
+		6915B9BF1E2550B5009F886B /* compand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compand.c; sourceTree = "<group>"; };
+		6915B9C01E2550B5009F886B /* compandt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compandt.c; sourceTree = "<group>"; };
+		6915B9C11E2550B5009F886B /* contrast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = contrast.c; sourceTree = "<group>"; };
+		6915B9C21E2550B5009F886B /* dcshift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dcshift.c; sourceTree = "<group>"; };
+		6915B9C31E2550B5009F886B /* delay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = delay.c; sourceTree = "<group>"; };
+		6915B9C41E2550B5009F886B /* dft_filter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dft_filter.c; sourceTree = "<group>"; };
+		6915B9C51E2550B5009F886B /* dither.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dither.c; sourceTree = "<group>"; };
+		6915B9C61E2550B5009F886B /* divide.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = divide.c; sourceTree = "<group>"; };
+		6915B9C71E2550B5009F886B /* downsample.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = downsample.c; sourceTree = "<group>"; };
+		6915B9C81E2550B5009F886B /* earwax.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = earwax.c; sourceTree = "<group>"; };
+		6915B9C91E2550B5009F886B /* echo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = echo.c; sourceTree = "<group>"; };
+		6915B9CA1E2550B5009F886B /* echos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = echos.c; sourceTree = "<group>"; };
+		6915B9CB1E2550B5009F886B /* fade.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fade.c; sourceTree = "<group>"; };
+		6915B9CC1E2550B5009F886B /* fir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fir.c; sourceTree = "<group>"; };
+		6915B9CD1E2550B5009F886B /* firfit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = firfit.c; sourceTree = "<group>"; };
+		6915B9CE1E2550B5009F886B /* flanger.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = flanger.c; sourceTree = "<group>"; };
+		6915B9CF1E2550B5009F886B /* gain.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gain.c; sourceTree = "<group>"; };
+		6915B9D01E2550B5009F886B /* hilbert.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hilbert.c; sourceTree = "<group>"; };
+		6915B9D11E2550B5009F886B /* input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = input.c; sourceTree = "<group>"; };
+		6915B9D21E2550B5009F886B /* ladspa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ladspa.c; sourceTree = "<group>"; };
+		6915B9D31E2550B5009F886B /* loudness.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loudness.c; sourceTree = "<group>"; };
+		6915B9D41E2550B5009F886B /* mcompand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mcompand.c; sourceTree = "<group>"; };
+		6915B9D51E2550B5009F886B /* noiseprof.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = noiseprof.c; sourceTree = "<group>"; };
+		6915B9D61E2550B5009F886B /* noisered.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = noisered.c; sourceTree = "<group>"; };
+		6915B9D71E2550B5009F886B /* output.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = output.c; sourceTree = "<group>"; };
+		6915B9D81E2550B5009F886B /* overdrive.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = overdrive.c; sourceTree = "<group>"; };
+		6915B9D91E2550B5009F886B /* pad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pad.c; sourceTree = "<group>"; };
+		6915B9DA1E2550B5009F886B /* phaser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = phaser.c; sourceTree = "<group>"; };
+		6915B9DB1E2550B5009F886B /* rate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rate.c; sourceTree = "<group>"; };
+		6915B9DC1E2550B5009F886B /* remix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = remix.c; sourceTree = "<group>"; };
+		6915B9DD1E2550B5009F886B /* repeat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = repeat.c; sourceTree = "<group>"; };
+		6915B9DE1E2550B5009F886B /* reverb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reverb.c; sourceTree = "<group>"; };
+		6915B9DF1E2550B5009F886B /* reverse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reverse.c; sourceTree = "<group>"; };
+		6915B9E01E2550B5009F886B /* silence.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = silence.c; sourceTree = "<group>"; };
+		6915B9E11E2550B5009F886B /* sinc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sinc.c; sourceTree = "<group>"; };
+		6915B9E21E2550B5009F886B /* speed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = speed.c; sourceTree = "<group>"; };
+		6915B9E31E2550B5009F886B /* splice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = splice.c; sourceTree = "<group>"; };
+		6915B9E41E2550B5009F886B /* stat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stat.c; sourceTree = "<group>"; };
+		6915B9E51E2550B5009F886B /* stats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stats.c; sourceTree = "<group>"; };
+		6915B9E61E2550B5009F886B /* stretch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stretch.c; sourceTree = "<group>"; };
+		6915B9E71E2550B5009F886B /* swap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = swap.c; sourceTree = "<group>"; };
+		6915B9E81E2550B5009F886B /* synth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = synth.c; sourceTree = "<group>"; };
+		6915B9E91E2550B5009F886B /* tempo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tempo.c; sourceTree = "<group>"; };
+		6915B9EA1E2550B5009F886B /* tremolo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tremolo.c; sourceTree = "<group>"; };
+		6915B9EB1E2550B5009F886B /* trim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trim.c; sourceTree = "<group>"; };
+		6915B9EC1E2550B5009F886B /* upsample.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = upsample.c; sourceTree = "<group>"; };
+		6915B9ED1E2550B5009F886B /* vad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vad.c; sourceTree = "<group>"; };
+		6915B9EE1E2550B5009F886B /* vol.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vol.c; sourceTree = "<group>"; };
+		6915B9F01E2550B5009F886B /* band.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = band.h; sourceTree = "<group>"; };
+		6915B9F11E2550B5009F886B /* biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = biquad.h; sourceTree = "<group>"; };
+		6915B9F21E2550B5009F886B /* compandt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compandt.h; sourceTree = "<group>"; };
+		6915B9F31E2550B5009F886B /* cvsd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cvsd.h; sourceTree = "<group>"; };
+		6915B9F41E2550B5009F886B /* cvsdfilt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cvsdfilt.h; sourceTree = "<group>"; };
+		6915B9F51E2550B5009F886B /* dft_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dft_filter.h; sourceTree = "<group>"; };
+		6915B9F61E2550B5009F886B /* dither.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dither.h; sourceTree = "<group>"; };
+		6915B9F71E2550B5009F886B /* effects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = effects.h; sourceTree = "<group>"; };
+		6915B9F81E2550B5009F886B /* fft4g.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft4g.h; sourceTree = "<group>"; };
+		6915B9F91E2550B5009F886B /* fifo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fifo.h; sourceTree = "<group>"; };
+		6915B9FA1E2550B5009F886B /* formats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = formats.h; sourceTree = "<group>"; };
+		6915B9FB1E2550B5009F886B /* ignore-warning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ignore-warning.h"; sourceTree = "<group>"; };
+		6915B9FC1E2550B5009F886B /* mcompand_xover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mcompand_xover.h; sourceTree = "<group>"; };
+		6915B9FD1E2550B5009F886B /* noisered.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = noisered.h; sourceTree = "<group>"; };
+		6915B9FE1E2550B5009F886B /* rate_filters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rate_filters.h; sourceTree = "<group>"; };
+		6915B9FF1E2550B5009F886B /* rate_half_fir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rate_half_fir.h; sourceTree = "<group>"; };
+		6915BA001E2550B5009F886B /* rate_poly_fir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rate_poly_fir.h; sourceTree = "<group>"; };
+		6915BA011E2550B5009F886B /* rate_poly_fir0.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rate_poly_fir0.h; sourceTree = "<group>"; };
+		6915BA021E2550B5009F886B /* raw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raw.h; sourceTree = "<group>"; };
+		6915BA031E2550B5009F886B /* sox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sox.h; sourceTree = "<group>"; };
+		6915BA041E2550B5009F886B /* sox_i.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sox_i.h; sourceTree = "<group>"; };
+		6915BA051E2550B5009F886B /* sox_sample_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sox_sample_test.h; sourceTree = "<group>"; };
+		6915BA061E2550B5009F886B /* soxconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soxconfig.h; sourceTree = "<group>"; };
+		6915BA071E2550B5009F886B /* soxomp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soxomp.h; sourceTree = "<group>"; };
+		6915BA081E2550B5009F886B /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		6915BA091E2550B5009F886B /* win32-ltdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "win32-ltdl.h"; sourceTree = "<group>"; };
+		6915BA0A1E2550B5009F886B /* xmalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmalloc.h; sourceTree = "<group>"; };
+		6915BA0C1E2550B5009F886B /* effects.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = effects.c; sourceTree = "<group>"; };
+		6915BA0D1E2550B5009F886B /* effects_i.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = effects_i.c; sourceTree = "<group>"; };
+		6915BA0E1E2550B5009F886B /* effects_i_dsp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = effects_i_dsp.c; sourceTree = "<group>"; };
+		6915BA0F1E2550B5009F886B /* f4-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "f4-fmt.c"; sourceTree = "<group>"; };
+		6915BA101E2550B5009F886B /* f8-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "f8-fmt.c"; sourceTree = "<group>"; };
+		6915BA111E2550B5009F886B /* fft4g.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft4g.c; sourceTree = "<group>"; };
+		6915BA121E2550B5009F886B /* formats.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = formats.c; sourceTree = "<group>"; };
+		6915BA131E2550B5009F886B /* formats_i.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = formats_i.c; sourceTree = "<group>"; };
+		6915BA141E2550B5009F886B /* getopt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = getopt.c; sourceTree = "<group>"; };
+		6915BA151E2550B5009F886B /* libsox.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libsox.c; sourceTree = "<group>"; };
+		6915BA161E2550B5009F886B /* libsox_i.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libsox_i.c; sourceTree = "<group>"; };
+		6915BA171E2550B5009F886B /* raw-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "raw-fmt.c"; sourceTree = "<group>"; };
+		6915BA181E2550B5009F886B /* raw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = raw.c; sourceTree = "<group>"; };
+		6915BA191E2550B5009F886B /* s1-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "s1-fmt.c"; sourceTree = "<group>"; };
+		6915BA1A1E2550B5009F886B /* s2-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "s2-fmt.c"; sourceTree = "<group>"; };
+		6915BA1B1E2550B5009F886B /* s3-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "s3-fmt.c"; sourceTree = "<group>"; };
+		6915BA1C1E2550B5009F886B /* s4-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "s4-fmt.c"; sourceTree = "<group>"; };
+		6915BA1D1E2550B5009F886B /* sox-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "sox-fmt.c"; sourceTree = "<group>"; };
+		6915BA1E1E2550B5009F886B /* u1-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "u1-fmt.c"; sourceTree = "<group>"; };
+		6915BA1F1E2550B5009F886B /* u2-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "u2-fmt.c"; sourceTree = "<group>"; };
+		6915BA201E2550B5009F886B /* u3-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "u3-fmt.c"; sourceTree = "<group>"; };
+		6915BA211E2550B5009F886B /* u4-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "u4-fmt.c"; sourceTree = "<group>"; };
+		6915BA221E2550B5009F886B /* ul-fmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "ul-fmt.c"; sourceTree = "<group>"; };
+		6915BA231E2550B5009F886B /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		6915BA251E2550B5009F886B /* xmalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmalloc.c; sourceTree = "<group>"; };
+		6915BA271E2550B5009F886B /* example0.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = example0.c; sourceTree = "<group>"; };
+		6915BA341E2550B5009F886B /* YCBaseEffectWrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YCBaseEffectWrap.cpp; sourceTree = "<group>"; };
+		6915BA351E2550B5009F886B /* YCBaseEffectWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCBaseEffectWrap.h; sourceTree = "<group>"; };
+		6915BA371E2550B5009F886B /* IAYMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAYMediaPlayer.h; sourceTree = "<group>"; };
+		6915BA3A1E2550B5009F886B /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		6915BA3B1E2550B5009F886B /* configMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configMS.h; sourceTree = "<group>"; };
+		6915BA3C1E2550B5009F886B /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		6915BA3D1E2550B5009F886B /* mp3enc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mp3enc.cpp; sourceTree = "<group>"; };
+		6915BA3E1E2550B5009F886B /* mp3enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mp3enc.h; sourceTree = "<group>"; };
+		6915BA401E2550B5009F886B /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		6915BA411E2550B5009F886B /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		6915BA421E2550B5009F886B /* encoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = encoder.c; sourceTree = "<group>"; };
+		6915BA431E2550B5009F886B /* encoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = encoder.h; sourceTree = "<group>"; };
+		6915BA441E2550B5009F886B /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
+		6915BA451E2550B5009F886B /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
+		6915BA461E2550B5009F886B /* gain_analysis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gain_analysis.c; sourceTree = "<group>"; };
+		6915BA471E2550B5009F886B /* gain_analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gain_analysis.h; sourceTree = "<group>"; };
+		6915BA481E2550B5009F886B /* id3tag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = id3tag.c; sourceTree = "<group>"; };
+		6915BA491E2550B5009F886B /* id3tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = id3tag.h; sourceTree = "<group>"; };
+		6915BA4A1E2550B5009F886B /* l3side.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = l3side.h; sourceTree = "<group>"; };
+		6915BA4B1E2550B5009F886B /* lame-analysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "lame-analysis.h"; sourceTree = "<group>"; };
+		6915BA4C1E2550B5009F886B /* lame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lame.c; sourceTree = "<group>"; };
+		6915BA4D1E2550B5009F886B /* lame_global_flags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame_global_flags.h; sourceTree = "<group>"; };
+		6915BA4E1E2550B5009F886B /* machine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = machine.h; sourceTree = "<group>"; };
+		6915BA501E2550B5009F886B /* mpglib_interface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mpglib_interface.c; sourceTree = "<group>"; };
+		6915BA511E2550B5009F886B /* newmdct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = newmdct.c; sourceTree = "<group>"; };
+		6915BA521E2550B5009F886B /* newmdct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newmdct.h; sourceTree = "<group>"; };
+		6915BA531E2550B5009F886B /* presets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = presets.c; sourceTree = "<group>"; };
+		6915BA541E2550B5009F886B /* psymodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = psymodel.c; sourceTree = "<group>"; };
+		6915BA551E2550B5009F886B /* psymodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = psymodel.h; sourceTree = "<group>"; };
+		6915BA561E2550B5009F886B /* quantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize.c; sourceTree = "<group>"; };
+		6915BA571E2550B5009F886B /* quantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize.h; sourceTree = "<group>"; };
+		6915BA581E2550B5009F886B /* quantize_pvt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quantize_pvt.c; sourceTree = "<group>"; };
+		6915BA591E2550B5009F886B /* quantize_pvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quantize_pvt.h; sourceTree = "<group>"; };
+		6915BA5A1E2550B5009F886B /* reservoir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reservoir.c; sourceTree = "<group>"; };
+		6915BA5B1E2550B5009F886B /* reservoir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reservoir.h; sourceTree = "<group>"; };
+		6915BA5C1E2550B5009F886B /* set_get.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = set_get.c; sourceTree = "<group>"; };
+		6915BA5D1E2550B5009F886B /* set_get.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = set_get.h; sourceTree = "<group>"; };
+		6915BA5E1E2550B5009F886B /* tables.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tables.c; sourceTree = "<group>"; };
+		6915BA5F1E2550B5009F886B /* tables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tables.h; sourceTree = "<group>"; };
+		6915BA601E2550B5009F886B /* takehiro.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = takehiro.c; sourceTree = "<group>"; };
+		6915BA611E2550B5009F886B /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = util.c; sourceTree = "<group>"; };
+		6915BA621E2550B5009F886B /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		6915BA631E2550B5009F886B /* vbrquantize.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vbrquantize.c; sourceTree = "<group>"; };
+		6915BA641E2550B5009F886B /* vbrquantize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vbrquantize.h; sourceTree = "<group>"; };
+		6915BA651E2550B5009F886B /* VbrTag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = VbrTag.c; sourceTree = "<group>"; };
+		6915BA661E2550B5009F886B /* VbrTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VbrTag.h; sourceTree = "<group>"; };
+		6915BA671E2550B5009F886B /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		6915BA681E2550B5009F886B /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		6915BA691E2550B5009F886B /* YCMp3encWrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YCMp3encWrap.cpp; sourceTree = "<group>"; };
+		6915BA6A1E2550B5009F886B /* YCMp3encWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMp3encWrap.h; sourceTree = "<group>"; };
+		6915BA6B1E2550B5009F886B /* YCEffectLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCEffectLib.h; sourceTree = "<group>"; };
 		691F11A71D64BC5F00BACEEA /* NSBiaoqianView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBiaoqianView.h; sourceTree = "<group>"; };
 		691F11A81D64BC5F00BACEEA /* NSBiaoqianView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBiaoqianView.m; sourceTree = "<group>"; };
 		69219FC91D658A9200B55B9E /* NSActivityOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSActivityOverViewController.h; sourceTree = "<group>"; };
@@ -1101,6 +1493,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */,
+				6915B5BA1E254BF7009F886B /* UIKit.framework in Frameworks */,
+				6915B4051E254A2A009F886B /* libstdc++.tbd in Frameworks */,
+				6915B4021E25486D009F886B /* AudioToolbox.framework in Frameworks */,
 				B8E1D5991DEAAD150058DE51 /* YCiOSPlayerLib.framework in Frameworks */,
 				B8B0BE721DE42199009ED7D0 /* libGPUImage.a in Frameworks */,
 				B8C0C52C1DE29F5E00BD2F74 /* MediaPlayer.framework in Frameworks */,
@@ -1112,8 +1508,6 @@
 				B801F17A1D732FF300DD7949 /* AssetsLibrary.framework in Frameworks */,
 				B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */,
 				B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */,
-				B80C86501D47055F00B22855 /* UIKit.framework in Frameworks */,
-				B80C864E1D47055200B22855 /* Foundation.framework in Frameworks */,
 				2AB516BB1CFE933D00583D00 /* libiconv.tbd in Frameworks */,
 				B899FA4A1D41B9AE001E79F3 /* libmp3lame.a in Frameworks */,
 				B8B0BF241DE421FD009ED7D0 /* libGPUImage.a in Frameworks */,
@@ -1868,6 +2262,7 @@
 		2DFB67261CC1E75900DA24DA /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				6915B94E1E2550B4009F886B /* YCEffectLib */,
 				B8B0BE731DE421FD009ED7D0 /* GPUImage */,
 				B8C0C5251DE28C1000BD2F74 /* YCMusicPlayer */,
 				B8736E3E1DDB0780007F14C2 /* NSCacheManager */,
@@ -1967,6 +2362,8 @@
 		55555060779DD3A6AD5B5DDB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6915B4011E25486D009F886B /* AudioToolbox.framework */,
+				6915B3FF1E254866009F886B /* libstdc++.tbd */,
 				B8E1D5981DEAAD150058DE51 /* YCiOSPlayerLib.framework */,
 				B8B0BE711DE42199009ED7D0 /* libGPUImage.a */,
 				B8C0C52B1DE29F5E00BD2F74 /* MediaPlayer.framework */,
@@ -1974,6 +2371,431 @@
 				F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6915B94E1E2550B4009F886B /* YCEffectLib */ = {
+			isa = PBXGroup;
+			children = (
+				6915B94F1E2550B4009F886B /* AudioPlay */,
+				6915B9B71E2550B5009F886B /* Effect */,
+				6915BA381E2550B5009F886B /* mp3enc */,
+				6915BA6B1E2550B5009F886B /* YCEffectLib.h */,
+			);
+			path = YCEffectLib;
+			sourceTree = "<group>";
+		};
+		6915B94F1E2550B4009F886B /* AudioPlay */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9501E2550B4009F886B /* AudioRender */,
+				6915B98B1E2550B5009F886B /* common */,
+				6915B99D1E2550B5009F886B /* inc */,
+				6915B9A21E2550B5009F886B /* src */,
+				6915B9B11E2550B5009F886B /* Util */,
+			);
+			path = AudioPlay;
+			sourceTree = "<group>";
+		};
+		6915B9501E2550B4009F886B /* AudioRender */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9511E2550B4009F886B /* AudioAACRecoder.h */,
+				6915B9521E2550B4009F886B /* AudioAACRecoder.m */,
+				6915B9531E2550B4009F886B /* AudioPlay.h */,
+				6915B9541E2550B4009F886B /* AudioPlay.mm */,
+				6915B9551E2550B4009F886B /* AudioRecord.h */,
+				6915B9561E2550B4009F886B /* AudioRecord.mm */,
+				6915B9571E2550B4009F886B /* AVComType.h */,
+				6915B9581E2550B4009F886B /* AyLogger.h */,
+				6915B9591E2550B4009F886B /* AyMovieGLView.h */,
+				6915B95A1E2550B4009F886B /* AyMovieGLView.mm */,
+				6915B95B1E2550B4009F886B /* faac */,
+				6915B9831E2550B5009F886B /* MutiAudioPlay.h */,
+				6915B9841E2550B5009F886B /* MutiAudioPlay.mm */,
+				6915B9851E2550B5009F886B /* receive_ff_data_callbacks.h */,
+				6915B9861E2550B5009F886B /* ReceiveStreamingData.h */,
+				6915B9871E2550B5009F886B /* ReceiveStreamingData.m */,
+				6915B9881E2550B5009F886B /* RecordAVPacketDataBlock.h */,
+				6915B9891E2550B5009F886B /* RecordAVPacketDataBlock.m */,
+				6915B98A1E2550B5009F886B /* UluInternalProtocolDefine.h */,
+			);
+			path = AudioRender;
+			sourceTree = "<group>";
+		};
+		6915B95B1E2550B4009F886B /* faac */ = {
+			isa = PBXGroup;
+			children = (
+				6915B95C1E2550B4009F886B /* include */,
+				6915B95F1E2550B4009F886B /* libfaac */,
+			);
+			path = faac;
+			sourceTree = "<group>";
+		};
+		6915B95C1E2550B4009F886B /* include */ = {
+			isa = PBXGroup;
+			children = (
+				6915B95D1E2550B4009F886B /* faac.h */,
+				6915B95E1E2550B4009F886B /* faaccfg.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		6915B95F1E2550B4009F886B /* libfaac */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9601E2550B4009F886B /* aacquant.c */,
+				6915B9611E2550B4009F886B /* aacquant.h */,
+				6915B9621E2550B4009F886B /* backpred.c */,
+				6915B9631E2550B4009F886B /* backpred.h */,
+				6915B9641E2550B4009F886B /* bitstream.c */,
+				6915B9651E2550B4009F886B /* bitstream.h */,
+				6915B9661E2550B4009F886B /* channels.c */,
+				6915B9671E2550B4009F886B /* channels.h */,
+				6915B9681E2550B4009F886B /* coder.h */,
+				6915B9691E2550B4009F886B /* fft.c */,
+				6915B96A1E2550B4009F886B /* fft.h */,
+				6915B96B1E2550B4009F886B /* filtbank.c */,
+				6915B96C1E2550B4009F886B /* filtbank.h */,
+				6915B96D1E2550B4009F886B /* frame.c */,
+				6915B96E1E2550B4009F886B /* frame.h */,
+				6915B96F1E2550B5009F886B /* huffman.c */,
+				6915B9701E2550B5009F886B /* huffman.h */,
+				6915B9711E2550B5009F886B /* hufftab.h */,
+				6915B9721E2550B5009F886B /* kiss_fft */,
+				6915B9781E2550B5009F886B /* ltp.c */,
+				6915B9791E2550B5009F886B /* ltp.h */,
+				6915B97A1E2550B5009F886B /* midside.c */,
+				6915B97B1E2550B5009F886B /* midside.h */,
+				6915B97C1E2550B5009F886B /* psych.h */,
+				6915B97D1E2550B5009F886B /* psychkni.c */,
+				6915B97E1E2550B5009F886B /* tns.c */,
+				6915B97F1E2550B5009F886B /* tns.h */,
+				6915B9801E2550B5009F886B /* util.c */,
+				6915B9811E2550B5009F886B /* util.h */,
+				6915B9821E2550B5009F886B /* version.h */,
+			);
+			path = libfaac;
+			sourceTree = "<group>";
+		};
+		6915B9721E2550B5009F886B /* kiss_fft */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9731E2550B5009F886B /* _kiss_fft_guts.h */,
+				6915B9741E2550B5009F886B /* kiss_fft.c */,
+				6915B9751E2550B5009F886B /* kiss_fft.h */,
+				6915B9761E2550B5009F886B /* kiss_fftr.c */,
+				6915B9771E2550B5009F886B /* kiss_fftr.h */,
+			);
+			path = kiss_fft;
+			sourceTree = "<group>";
+		};
+		6915B98B1E2550B5009F886B /* common */ = {
+			isa = PBXGroup;
+			children = (
+				6915B98C1E2550B5009F886B /* AudioMix.cpp */,
+				6915B98D1E2550B5009F886B /* AudioMix.h */,
+				6915B98E1E2550B5009F886B /* STDataReaderItf.h */,
+				6915B98F1E2550B5009F886B /* STFileReader.cpp */,
+				6915B9901E2550B5009F886B /* STFileReader.h */,
+				6915B9911E2550B5009F886B /* STMacrodef.h */,
+				6915B9921E2550B5009F886B /* ulu_common.h */,
+				6915B9931E2550B5009F886B /* ulu_JniEnvUtil.cpp */,
+				6915B9941E2550B5009F886B /* ulu_JniEnvUtil.h */,
+				6915B9951E2550B5009F886B /* ulu_log.cpp */,
+				6915B9961E2550B5009F886B /* ulu_log.h */,
+				6915B9971E2550B5009F886B /* ulu_mutex.cpp */,
+				6915B9981E2550B5009F886B /* ulu_mutex.h */,
+				6915B9991E2550B5009F886B /* ulu_OSFunc.h */,
+				6915B99A1E2550B5009F886B /* ulu_OSFunc.mm */,
+				6915B99B1E2550B5009F886B /* ulu_thread.cpp */,
+				6915B99C1E2550B5009F886B /* ulu_thread.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		6915B99D1E2550B5009F886B /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				6915B99E1E2550B5009F886B /* AYPlayer_common.h */,
+				6915B99F1E2550B5009F886B /* CriticalSectionMgr.h */,
+				6915B9A01E2550B5009F886B /* IAYMediaPlayer.h */,
+				6915B9A11E2550B5009F886B /* typedef_win.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		6915B9A21E2550B5009F886B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9A31E2550B5009F886B /* AndriodAudioRender.cpp */,
+				6915B9A41E2550B5009F886B /* AndriodAudioRender.h */,
+				6915B9A51E2550B5009F886B /* AYMediaPlayer.cpp */,
+				6915B9A61E2550B5009F886B /* AYMediaPlayer.h */,
+				6915B9A71E2550B5009F886B /* AyMovieGLViewProtocol.h */,
+				6915B9A81E2550B5009F886B /* CAudioRender.cpp */,
+				6915B9A91E2550B5009F886B /* CIOSAudioRender.h */,
+				6915B9AA1E2550B5009F886B /* CIOSAudioRender.mm */,
+				6915B9AB1E2550B5009F886B /* cm_type.h */,
+				6915B9AC1E2550B5009F886B /* IAudioRender.h */,
+				6915B9AD1E2550B5009F886B /* PCCallback.cpp */,
+				6915B9AE1E2550B5009F886B /* PCCallback.h */,
+				6915B9AF1E2550B5009F886B /* YCPcmPlayerWrap.cpp */,
+				6915B9B01E2550B5009F886B /* YCPcmPlayerWrap.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6915B9B11E2550B5009F886B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9B21E2550B5009F886B /* AyUtil.c */,
+				6915B9B31E2550B5009F886B /* AyUtil.h */,
+				6915B9B41E2550B5009F886B /* UAnYanLog.h */,
+				6915B9B51E2550B5009F886B /* UAnYanLog.mm */,
+				6915B9B61E2550B5009F886B /* yuv2rgb565_table.h */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		6915B9B71E2550B5009F886B /* Effect */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9B81E2550B5009F886B /* effect */,
+				6915BA361E2550B5009F886B /* Public */,
+			);
+			path = Effect;
+			sourceTree = "<group>";
+		};
+		6915B9B81E2550B5009F886B /* effect */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9B91E2550B5009F886B /* sox */,
+				6915BA341E2550B5009F886B /* YCBaseEffectWrap.cpp */,
+				6915BA351E2550B5009F886B /* YCBaseEffectWrap.h */,
+			);
+			path = effect;
+			sourceTree = "<group>";
+		};
+		6915B9B91E2550B5009F886B /* sox */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9BA1E2550B5009F886B /* effect */,
+				6915B9EF1E2550B5009F886B /* inc */,
+				6915BA0B1E2550B5009F886B /* src */,
+				6915BA261E2550B5009F886B /* test */,
+			);
+			path = sox;
+			sourceTree = "<group>";
+		};
+		6915B9BA1E2550B5009F886B /* effect */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9BB1E2550B5009F886B /* bend.c */,
+				6915B9BC1E2550B5009F886B /* biquad.c */,
+				6915B9BD1E2550B5009F886B /* biquads.c */,
+				6915B9BE1E2550B5009F886B /* chorus.c */,
+				6915B9BF1E2550B5009F886B /* compand.c */,
+				6915B9C01E2550B5009F886B /* compandt.c */,
+				6915B9C11E2550B5009F886B /* contrast.c */,
+				6915B9C21E2550B5009F886B /* dcshift.c */,
+				6915B9C31E2550B5009F886B /* delay.c */,
+				6915B9C41E2550B5009F886B /* dft_filter.c */,
+				6915B9C51E2550B5009F886B /* dither.c */,
+				6915B9C61E2550B5009F886B /* divide.c */,
+				6915B9C71E2550B5009F886B /* downsample.c */,
+				6915B9C81E2550B5009F886B /* earwax.c */,
+				6915B9C91E2550B5009F886B /* echo.c */,
+				6915B9CA1E2550B5009F886B /* echos.c */,
+				6915B9CB1E2550B5009F886B /* fade.c */,
+				6915B9CC1E2550B5009F886B /* fir.c */,
+				6915B9CD1E2550B5009F886B /* firfit.c */,
+				6915B9CE1E2550B5009F886B /* flanger.c */,
+				6915B9CF1E2550B5009F886B /* gain.c */,
+				6915B9D01E2550B5009F886B /* hilbert.c */,
+				6915B9D11E2550B5009F886B /* input.c */,
+				6915B9D21E2550B5009F886B /* ladspa.c */,
+				6915B9D31E2550B5009F886B /* loudness.c */,
+				6915B9D41E2550B5009F886B /* mcompand.c */,
+				6915B9D51E2550B5009F886B /* noiseprof.c */,
+				6915B9D61E2550B5009F886B /* noisered.c */,
+				6915B9D71E2550B5009F886B /* output.c */,
+				6915B9D81E2550B5009F886B /* overdrive.c */,
+				6915B9D91E2550B5009F886B /* pad.c */,
+				6915B9DA1E2550B5009F886B /* phaser.c */,
+				6915B9DB1E2550B5009F886B /* rate.c */,
+				6915B9DC1E2550B5009F886B /* remix.c */,
+				6915B9DD1E2550B5009F886B /* repeat.c */,
+				6915B9DE1E2550B5009F886B /* reverb.c */,
+				6915B9DF1E2550B5009F886B /* reverse.c */,
+				6915B9E01E2550B5009F886B /* silence.c */,
+				6915B9E11E2550B5009F886B /* sinc.c */,
+				6915B9E21E2550B5009F886B /* speed.c */,
+				6915B9E31E2550B5009F886B /* splice.c */,
+				6915B9E41E2550B5009F886B /* stat.c */,
+				6915B9E51E2550B5009F886B /* stats.c */,
+				6915B9E61E2550B5009F886B /* stretch.c */,
+				6915B9E71E2550B5009F886B /* swap.c */,
+				6915B9E81E2550B5009F886B /* synth.c */,
+				6915B9E91E2550B5009F886B /* tempo.c */,
+				6915B9EA1E2550B5009F886B /* tremolo.c */,
+				6915B9EB1E2550B5009F886B /* trim.c */,
+				6915B9EC1E2550B5009F886B /* upsample.c */,
+				6915B9ED1E2550B5009F886B /* vad.c */,
+				6915B9EE1E2550B5009F886B /* vol.c */,
+			);
+			path = effect;
+			sourceTree = "<group>";
+		};
+		6915B9EF1E2550B5009F886B /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				6915B9F01E2550B5009F886B /* band.h */,
+				6915B9F11E2550B5009F886B /* biquad.h */,
+				6915B9F21E2550B5009F886B /* compandt.h */,
+				6915B9F31E2550B5009F886B /* cvsd.h */,
+				6915B9F41E2550B5009F886B /* cvsdfilt.h */,
+				6915B9F51E2550B5009F886B /* dft_filter.h */,
+				6915B9F61E2550B5009F886B /* dither.h */,
+				6915B9F71E2550B5009F886B /* effects.h */,
+				6915B9F81E2550B5009F886B /* fft4g.h */,
+				6915B9F91E2550B5009F886B /* fifo.h */,
+				6915B9FA1E2550B5009F886B /* formats.h */,
+				6915B9FB1E2550B5009F886B /* ignore-warning.h */,
+				6915B9FC1E2550B5009F886B /* mcompand_xover.h */,
+				6915B9FD1E2550B5009F886B /* noisered.h */,
+				6915B9FE1E2550B5009F886B /* rate_filters.h */,
+				6915B9FF1E2550B5009F886B /* rate_half_fir.h */,
+				6915BA001E2550B5009F886B /* rate_poly_fir.h */,
+				6915BA011E2550B5009F886B /* rate_poly_fir0.h */,
+				6915BA021E2550B5009F886B /* raw.h */,
+				6915BA031E2550B5009F886B /* sox.h */,
+				6915BA041E2550B5009F886B /* sox_i.h */,
+				6915BA051E2550B5009F886B /* sox_sample_test.h */,
+				6915BA061E2550B5009F886B /* soxconfig.h */,
+				6915BA071E2550B5009F886B /* soxomp.h */,
+				6915BA081E2550B5009F886B /* util.h */,
+				6915BA091E2550B5009F886B /* win32-ltdl.h */,
+				6915BA0A1E2550B5009F886B /* xmalloc.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		6915BA0B1E2550B5009F886B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6915BA0C1E2550B5009F886B /* effects.c */,
+				6915BA0D1E2550B5009F886B /* effects_i.c */,
+				6915BA0E1E2550B5009F886B /* effects_i_dsp.c */,
+				6915BA0F1E2550B5009F886B /* f4-fmt.c */,
+				6915BA101E2550B5009F886B /* f8-fmt.c */,
+				6915BA111E2550B5009F886B /* fft4g.c */,
+				6915BA121E2550B5009F886B /* formats.c */,
+				6915BA131E2550B5009F886B /* formats_i.c */,
+				6915BA141E2550B5009F886B /* getopt.c */,
+				6915BA151E2550B5009F886B /* libsox.c */,
+				6915BA161E2550B5009F886B /* libsox_i.c */,
+				6915BA171E2550B5009F886B /* raw-fmt.c */,
+				6915BA181E2550B5009F886B /* raw.c */,
+				6915BA191E2550B5009F886B /* s1-fmt.c */,
+				6915BA1A1E2550B5009F886B /* s2-fmt.c */,
+				6915BA1B1E2550B5009F886B /* s3-fmt.c */,
+				6915BA1C1E2550B5009F886B /* s4-fmt.c */,
+				6915BA1D1E2550B5009F886B /* sox-fmt.c */,
+				6915BA1E1E2550B5009F886B /* u1-fmt.c */,
+				6915BA1F1E2550B5009F886B /* u2-fmt.c */,
+				6915BA201E2550B5009F886B /* u3-fmt.c */,
+				6915BA211E2550B5009F886B /* u4-fmt.c */,
+				6915BA221E2550B5009F886B /* ul-fmt.c */,
+				6915BA231E2550B5009F886B /* util.c */,
+				6915BA251E2550B5009F886B /* xmalloc.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		6915BA261E2550B5009F886B /* test */ = {
+			isa = PBXGroup;
+			children = (
+				6915BA271E2550B5009F886B /* example0.c */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		6915BA361E2550B5009F886B /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				6915BA371E2550B5009F886B /* IAYMediaPlayer.h */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		6915BA381E2550B5009F886B /* mp3enc */ = {
+			isa = PBXGroup;
+			children = (
+				6915BA391E2550B5009F886B /* inc */,
+				6915BA3D1E2550B5009F886B /* mp3enc.cpp */,
+				6915BA3E1E2550B5009F886B /* mp3enc.h */,
+				6915BA3F1E2550B5009F886B /* src */,
+				6915BA691E2550B5009F886B /* YCMp3encWrap.cpp */,
+				6915BA6A1E2550B5009F886B /* YCMp3encWrap.h */,
+			);
+			path = mp3enc;
+			sourceTree = "<group>";
+		};
+		6915BA391E2550B5009F886B /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				6915BA3A1E2550B5009F886B /* config.h */,
+				6915BA3B1E2550B5009F886B /* configMS.h */,
+				6915BA3C1E2550B5009F886B /* lame.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		6915BA3F1E2550B5009F886B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6915BA401E2550B5009F886B /* bitstream.c */,
+				6915BA411E2550B5009F886B /* bitstream.h */,
+				6915BA421E2550B5009F886B /* encoder.c */,
+				6915BA431E2550B5009F886B /* encoder.h */,
+				6915BA441E2550B5009F886B /* fft.c */,
+				6915BA451E2550B5009F886B /* fft.h */,
+				6915BA461E2550B5009F886B /* gain_analysis.c */,
+				6915BA471E2550B5009F886B /* gain_analysis.h */,
+				6915BA481E2550B5009F886B /* id3tag.c */,
+				6915BA491E2550B5009F886B /* id3tag.h */,
+				6915BA4A1E2550B5009F886B /* l3side.h */,
+				6915BA4B1E2550B5009F886B /* lame-analysis.h */,
+				6915BA4C1E2550B5009F886B /* lame.c */,
+				6915BA4D1E2550B5009F886B /* lame_global_flags.h */,
+				6915BA4E1E2550B5009F886B /* machine.h */,
+				6915BA501E2550B5009F886B /* mpglib_interface.c */,
+				6915BA511E2550B5009F886B /* newmdct.c */,
+				6915BA521E2550B5009F886B /* newmdct.h */,
+				6915BA531E2550B5009F886B /* presets.c */,
+				6915BA541E2550B5009F886B /* psymodel.c */,
+				6915BA551E2550B5009F886B /* psymodel.h */,
+				6915BA561E2550B5009F886B /* quantize.c */,
+				6915BA571E2550B5009F886B /* quantize.h */,
+				6915BA581E2550B5009F886B /* quantize_pvt.c */,
+				6915BA591E2550B5009F886B /* quantize_pvt.h */,
+				6915BA5A1E2550B5009F886B /* reservoir.c */,
+				6915BA5B1E2550B5009F886B /* reservoir.h */,
+				6915BA5C1E2550B5009F886B /* set_get.c */,
+				6915BA5D1E2550B5009F886B /* set_get.h */,
+				6915BA5E1E2550B5009F886B /* tables.c */,
+				6915BA5F1E2550B5009F886B /* tables.h */,
+				6915BA601E2550B5009F886B /* takehiro.c */,
+				6915BA611E2550B5009F886B /* util.c */,
+				6915BA621E2550B5009F886B /* util.h */,
+				6915BA631E2550B5009F886B /* vbrquantize.c */,
+				6915BA641E2550B5009F886B /* vbrquantize.h */,
+				6915BA651E2550B5009F886B /* VbrTag.c */,
+				6915BA661E2550B5009F886B /* VbrTag.h */,
+				6915BA671E2550B5009F886B /* version.c */,
+				6915BA681E2550B5009F886B /* version.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		695618FC1D61C35500102BC7 /* MainViewController */ = {
@@ -3609,13 +4431,16 @@
 				2AD10A901CD9F2D60044D821 /* NSSongListHeaderView.m in Sources */,
 				2AE2E5101CE5B22200FD2DC3 /* NSFansViewController.m in Sources */,
 				188D12091CED9F170009FD5B /* NSInspirationRecordTableViewCell.m in Sources */,
+				6915BAAF1E2550B5009F886B /* pad.c in Sources */,
 				2DFB67771CC1F0ED00DA24DA /* NSString+NSAdditions.m in Sources */,
+				6915BA7F1E2550B5009F886B /* MutiAudioPlay.mm in Sources */,
 				2DFB674C1CC1E92E00DA24DA /* NSModelFactory.m in Sources */,
 				B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */,
 				B8F87BE01E0B9F4400CE2EA3 /* NSCleanCacheViewController.m in Sources */,
 				2DFB67491CC1E92E00DA24DA /* NSBaseModel.m in Sources */,
 				2A43256C1CF32C30008889BE /* NSIndexModel.m in Sources */,
 				18C914921CDB4A8200C255C4 /* NSSongMenuCollectionViewCell.m in Sources */,
+				6915BAF31E2550B5009F886B /* mpglib_interface.c in Sources */,
 				18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */,
 				0CCE1DBC1DBF7F0F00FB66D6 /* NSCollectionCooperationViewController.m in Sources */,
 				2AE3C22B1CDED80F00790BFA /* NSActivityViewController.m in Sources */,
@@ -3623,63 +4448,94 @@
 				69219FCB1D658A9200B55B9E /* NSActivityOverViewController.m in Sources */,
 				B8625FBC1DBF843500713B1D /* NSCooperateDetailMainCell.m in Sources */,
 				18BCA2671CE335AE00891C95 /* NSPictureCollectionView.m in Sources */,
+				6915BA901E2550B5009F886B /* UAnYanLog.mm in Sources */,
 				2AB2D52F1CFD593A007422BD /* NSDrawGrayLine.m in Sources */,
 				2A9429BF1CF438F10099A6DB /* NSSingListModel.m in Sources */,
 				0C5B98BA1DD9A6A400AB4486 /* NSAppDelegateThirdPartService.m in Sources */,
+				6915BA6D1E2550B5009F886B /* AudioPlay.mm in Sources */,
 				18074E431CEC43290011B0A4 /* NSPlusTabBar.m in Sources */,
 				946B04291D4EEC8A00529DBA /* HUImagePickerCell.m in Sources */,
 				697F7F281D6558AA00F7EBCC /* NSActivityJoinerListController.m in Sources */,
+				6915BA6C1E2550B5009F886B /* AudioAACRecoder.m in Sources */,
 				0C7CED981D9CBDF8004AC64F /* NSPhotoScanView.m in Sources */,
 				692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */,
+				6915BAEF1E2550B5009F886B /* gain_analysis.c in Sources */,
 				2DFB67851CC1F3D900DA24DA /* AppDelegate+NSAdditions.m in Sources */,
 				2A37502C1CEC5701007C2967 /* NSUserFeedbackViewController.m in Sources */,
 				2AC3D1131CF84BB700D9FE53 /* NSMyInspirationListModel.m in Sources */,
 				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
+				6915BAD91E2550B5009F886B /* u3-fmt.c in Sources */,
+				6915BAF01E2550B5009F886B /* id3tag.c in Sources */,
 				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
+				6915BAAB1E2550B5009F886B /* noiseprof.c in Sources */,
 				2D8608C51CCC86BA0027F147 /* AppDelegate+configureUIAppearance.m in Sources */,
 				695845131D63039D00F93827 /* NSThemeTopicCommentCell.m in Sources */,
 				18453A951CF73596004EE0E6 /* NSString+SizeFont.m in Sources */,
+				6915BAB41E2550B5009F886B /* reverb.c in Sources */,
 				695619051D61C8C500102BC7 /* NSThemeTopicTopView.m in Sources */,
+				6915BA7C1E2550B5009F886B /* psychkni.c in Sources */,
+				6915BAC51E2550B5009F886B /* effects.c in Sources */,
+				6915BA981E2550B5009F886B /* dcshift.c in Sources */,
+				6915BAA51E2550B5009F886B /* gain.c in Sources */,
 				2A9DC1211CDDDA36004470ED /* NSUpvoteMessageCell.m in Sources */,
+				6915BAD61E2550B5009F886B /* sox-fmt.c in Sources */,
 				0CCE1DBD1DBF7F0F00FB66D6 /* NSCooperationDetailViewController.m in Sources */,
 				2AD10A8A1CD9DE520044D821 /* NSSongListViewController.m in Sources */,
+				6915BAED1E2550B5009F886B /* encoder.c in Sources */,
 				2ADA10041CE3508900D0D535 /* NSLyricCell.m in Sources */,
+				6915BA871E2550B5009F886B /* ulu_OSFunc.mm in Sources */,
 				18147DF21D110126009A0440 /* NSLexiconCollectionViewCell.m in Sources */,
 				0C128D531DC86D84006C3AD1 /* NSInvitationListModel.m in Sources */,
+				6915BACB1E2550B5009F886B /* formats.c in Sources */,
+				6915BAFC1E2550B5009F886B /* takehiro.c in Sources */,
 				18CFB3F71CDEDE320033998A /* NSNewMusicTableViewCell.m in Sources */,
 				0C670D0D1D9BB27900319E0D /* NSPreservePersonListModel.m in Sources */,
 				188D12001CECBF5F0009FD5B /* NSBaseNavigationController.m in Sources */,
 				18BCA2641CE3113D00891C95 /* NSInspirationRecordViewController.m in Sources */,
 				2ADE8F5F1CFE7679006CD840 /* NSShareViewController.m in Sources */,
+				6915BAF61E2550B5009F886B /* psymodel.c in Sources */,
 				180F3E641D13C9160008C086 /* NSSearchUserListModel.m in Sources */,
 				2AE3C2371CDF04B700790BFA /* NSAccompanyListViewController.m in Sources */,
+				6915BA7D1E2550B5009F886B /* tns.c in Sources */,
+				6915BA811E2550B5009F886B /* RecordAVPacketDataBlock.m in Sources */,
 				2A9429B61CF419990099A6DB /* NSDiscoverBandListModel.m in Sources */,
 				0CFD03421DE28CF200BA1668 /* NSMusicianListViewController.m in Sources */,
 				B87F69F81D93AA7000A7B620 /* NSMusicSayDetailController.m in Sources */,
 				2AD69B3A1CD30DFA00BCA19C /* NSRecommendCell.m in Sources */,
+				6915BAF91E2550B5009F886B /* reservoir.c in Sources */,
 				2A9DC11E1CDDD89F004470ED /* NSCommentMessageCell.m in Sources */,
 				2AAE01C71CFC2077008D3145 /* NSLoginViewController.m in Sources */,
 				0CCF5E5A1D93B5D100A6BF3A /* NSBindThirdAccountViewController.m in Sources */,
 				6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */,
 				0CCC19201D646579009E9478 /* NSEditTemplateViewController.m in Sources */,
+				6915BAA11E2550B5009F886B /* fade.c in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
 				0CCF1D821D91266300F97526 /* NSSettingViewController.m in Sources */,
+				6915BA751E2550B5009F886B /* filtbank.c in Sources */,
+				6915BA8D1E2550B5009F886B /* PCCallback.cpp in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				0CCC5CA61DC222FB007E4617 /* NSCooperationListTableViewCell.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
 				0CFAFA241DC2F23B00E82020 /* NSCooperationMessageViewController.m in Sources */,
+				6915BABD1E2550B5009F886B /* swap.c in Sources */,
 				695735EE1D6C224E00D1A269 /* NSUserWorkListController.m in Sources */,
 				2DFB674F1CC1E94B00DA24DA /* NSHttpClient.m in Sources */,
 				6990E6B51D6457BB005F344F /* NSStarMusicianDetailController.m in Sources */,
 				2A4564191D05533500D4DB5F /* NSCommentListModel.m in Sources */,
 				188D12061CECDE1F0009FD5B /* NSComposeButton.m in Sources */,
+				6915BA9C1E2550B5009F886B /* divide.c in Sources */,
 				0CCC191D1D645D08009E9478 /* NSTemplateListModel.m in Sources */,
+				6915BA9F1E2550B5009F886B /* echo.c in Sources */,
 				18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */,
+				6915BABC1E2550B5009F886B /* stretch.c in Sources */,
 				2A8E49F01D13C33A00F94144 /* NSImageCell.m in Sources */,
+				6915BAFA1E2550B5009F886B /* set_get.c in Sources */,
 				1892F0371CD74AF000B47503 /* NSIndexCollectionReusableView.m in Sources */,
 				2DFB67791CC1F0ED00DA24DA /* UIAlertView+NSAdditions.m in Sources */,
 				2AAE01BE1CFC0F7F008D3145 /* NSMyLricListModel.m in Sources */,
+				6915BAA31E2550B5009F886B /* firfit.c in Sources */,
 				0CCC5CA31DC20EEB007E4617 /* NSInvitationListTableViewCell.m in Sources */,
+				6915BABB1E2550B5009F886B /* stats.c in Sources */,
 				6984FC151D642306002EA0F5 /* NSStarMusicianListController.m in Sources */,
 				2DFB675B1CC1F00600DA24DA /* NSBaseViewController.m in Sources */,
 				0CD0FDA41DA8EB0200EC0795 /* NSUnPreserveListModel.m in Sources */,
@@ -3691,27 +4547,46 @@
 				0CCC5CAC1DC22E96007E4617 /* NSLabelTableViewCell.m in Sources */,
 				2AE2E50D1CE5AD9400FD2DC3 /* NSFanscell.m in Sources */,
 				2A43256F1CF32C89008889BE /* NSMusicModel.m in Sources */,
+				6915BAFB1E2550B5009F886B /* tables.c in Sources */,
+				6915BADB1E2550B5009F886B /* ul-fmt.c in Sources */,
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
+				6915BABA1E2550B5009F886B /* stat.c in Sources */,
+				6915BABF1E2550B5009F886B /* tempo.c in Sources */,
 				0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */,
+				6915BA711E2550B5009F886B /* backpred.c in Sources */,
+				6915BAC01E2550B5009F886B /* tremolo.c in Sources */,
+				6915BAA71E2550B5009F886B /* input.c in Sources */,
 				695619021D61C35500102BC7 /* MYSegmentView.m in Sources */,
 				2A0057F31D111FB70028D4D2 /* NSGetQiNiuModel.m in Sources */,
 				94FADBF41D360AD7006D436D /* NSDownloadProgressView.m in Sources */,
 				B80C86551D47A75B00B22855 /* HudView.m in Sources */,
+				6915BA6E1E2550B5009F886B /* AudioRecord.mm in Sources */,
 				2A4325631CF324E7008889BE /* NSActivityListModel.m in Sources */,
 				2AD6DF411CD7287F00B95CFD /* NSHttpClient+EncrypteData.m in Sources */,
+				6915BAB71E2550B5009F886B /* sinc.c in Sources */,
+				6915BACA1E2550B5009F886B /* fft4g.c in Sources */,
 				2AE3C2311CDEDA6100790BFA /* NSH5ViewController.m in Sources */,
+				6915BACE1E2550B5009F886B /* libsox.c in Sources */,
 				945708E21D2F41A90074C331 /* NSShareView.m in Sources */,
+				6915BA841E2550B5009F886B /* ulu_JniEnvUtil.cpp in Sources */,
 				B8657A131DC9D01F00C49A47 /* NSCooperationDetailModel.m in Sources */,
 				2A3E7C651CDAE2A7006C8519 /* NSSongCell.m in Sources */,
+				6915BA951E2550B5009F886B /* compand.c in Sources */,
 				B8699E9F1DAD07110041B40C /* NSPreserveApplyModel.m in Sources */,
 				18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */,
 				2DFB67811CC1F0ED00DA24DA /* UIScrollView+NSPullToRefresh.m in Sources */,
 				18453A8E1CF6D20E004EE0E6 /* NSCommentTableViewCell.m in Sources */,
 				B8C17E031D545DBE0021CDA3 /* WaveView.m in Sources */,
+				6915BAB11E2550B5009F886B /* rate.c in Sources */,
+				6915BAC81E2550B5009F886B /* f4-fmt.c in Sources */,
+				6915BA9D1E2550B5009F886B /* downsample.c in Sources */,
+				6915BACF1E2550B5009F886B /* libsox_i.c in Sources */,
 				946B042B1D4EEC8A00529DBA /* HUImagePickerRootViewController.m in Sources */,
 				0CCC49D31DC0C63100F2F6B3 /* NSCooperationCollectionTableViewCell.m in Sources */,
 				B8B966271D727F90005D3724 /* YYClassInfo.m in Sources */,
+				6915BA6F1E2550B5009F886B /* AyMovieGLView.mm in Sources */,
 				18E402861CE6F55A00B36002 /* NSDraftBoxViewController.m in Sources */,
+				6915BADC1E2550B5009F886B /* util.c in Sources */,
 				0CBCD1BA1DE43ACA001A5B7C /* NSCacheProductCell.m in Sources */,
 				2ACC24EE1CF53C7E000BDEDC /* NSSystemMessageListModel.m in Sources */,
 				2A9DC11B1CDDCDD9004470ED /* NSMessageListViewController.m in Sources */,
@@ -3719,22 +4594,30 @@
 				2AD6A3531CF6DE7D00523062 /* NSLyricDetailModel.m in Sources */,
 				18BCA26A1CE4669200891C95 /* NSTableHeaderView.m in Sources */,
 				B8F83EB21D87BAF300E301D7 /* NSPreserveApplyController.m in Sources */,
+				6915BAC31E2550B5009F886B /* vad.c in Sources */,
+				6915BA701E2550B5009F886B /* aacquant.c in Sources */,
 				0C2F9A801D8688060045A2EC /* NSUserMessageViewController.m in Sources */,
 				B8511A8D1DC879E500462222 /* NSCooperateDetailWorkCell.m in Sources */,
 				2DFB677B1CC1F0ED00DA24DA /* UIColor+NSAdditions.m in Sources */,
 				2DFB677E1CC1F0ED00DA24DA /* UIImageView+NSAdditions.m in Sources */,
 				2AB300701D1699ED00938F1C /* NSTunMusicModel.m in Sources */,
+				6915BA7B1E2550B5009F886B /* midside.c in Sources */,
+				6915BAF41E2550B5009F886B /* newmdct.c in Sources */,
 				B8A2E0911D8E6FF200B0B6D0 /* NSPreserveUserCell.m in Sources */,
 				2A9429B31CF402960099A6DB /* NSDicoverLyricListModel.m in Sources */,
 				2A500B291CE31CC400086C2C /* NSPublicLyricViewController.m in Sources */,
 				2A9DC1241CDDDDE8004470ED /* NSSystemMessageCell.m in Sources */,
 				2A9429B91CF42E880099A6DB /* NSSongListModel.m in Sources */,
+				6915BAC91E2550B5009F886B /* f8-fmt.c in Sources */,
 				0C4ECBFC1D5C824F003CAAF9 /* NSRhymeViewController.m in Sources */,
 				0CCE1DC01DBF7F0F00FB66D6 /* NSMyCooperationViewController.m in Sources */,
+				6915BA801E2550B5009F886B /* ReceiveStreamingData.m in Sources */,
 				69366BF81D647F3C00414323 /* NSStarMusicianBottomCell.m in Sources */,
 				2AE3C2341CDEDCAD00790BFA /* NSActivityCollectionCell.m in Sources */,
+				6915BAC11E2550B5009F886B /* trim.c in Sources */,
 				2A500B261CE317B300086C2C /* NSLyricCoachViewController.m in Sources */,
 				0CCC19231D647A9A009E9478 /* NSTemplateTableViewCell.m in Sources */,
+				6915BA8E1E2550B5009F886B /* YCPcmPlayerWrap.cpp in Sources */,
 				2D8608DF1CCC87B10027F147 /* NSHomeViewController.m in Sources */,
 				69D582FC1D66B4A30078D5AE /* NSActivityJoinerListModel.m in Sources */,
 				2A3CC9EC1D261C7E0072B801 /* UINavigationController+NSPlayView.m in Sources */,
@@ -3749,27 +4632,43 @@
 				B8736E411DDB079B007F14C2 /* NSCacheManager.m in Sources */,
 				B89CF2AC1D845A5B00F4D8FD /* FXBlurView.m in Sources */,
 				0CCE1DBF1DBF7F0F00FB66D6 /* NSMainCooperationViewController.m in Sources */,
+				6915BA9E1E2550B5009F886B /* earwax.c in Sources */,
+				6915BAD81E2550B5009F886B /* u2-fmt.c in Sources */,
+				6915BABE1E2550B5009F886B /* synth.c in Sources */,
 				0C128D561DC8C082006C3AD1 /* NSCooperationLyricListModel.m in Sources */,
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */,
 				0C670D0A1D9BA64900319E0D /* NSPreserveListModel.m in Sources */,
 				697F7F2B1D655CB400F7EBCC /* NSActivityJoinerListCell.m in Sources */,
 				0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */,
+				6915BAAE1E2550B5009F886B /* overdrive.c in Sources */,
+				6915BAB91E2550B5009F886B /* splice.c in Sources */,
 				0CCC5CA01DC1E293007E4617 /* NSInvitationListViewController.m in Sources */,
+				6915BA861E2550B5009F886B /* ulu_mutex.cpp in Sources */,
 				0C165F7E1DC7144D003795D1 /* NSCollectionCooperationListModel.m in Sources */,
+				6915BAF81E2550B5009F886B /* quantize_pvt.c in Sources */,
 				18BCA2611CE2F8A300891C95 /* NSMusicListViewController.m in Sources */,
+				6915BA881E2550B5009F886B /* ulu_thread.cpp in Sources */,
 				2DFB67581CC1ED8E00DA24DA /* NSToastManager.m in Sources */,
+				6915BAEE1E2550B5009F886B /* fft.c in Sources */,
 				2A4325721CF32CA2008889BE /* NSMusiclListModel.m in Sources */,
 				0CCCDC8B1D5EC83000AE0BD3 /* NSAccompanyCategoryCell.m in Sources */,
+				6915BA8B1E2550B5009F886B /* CAudioRender.cpp in Sources */,
 				0C2F9A831D86A63A0045A2EC /* NSPreserveTableViewCell.m in Sources */,
 				2D8608DC1CCC87A10027F147 /* NSUserViewController.m in Sources */,
 				2A500B201CE2D7E600086C2C /* NSWriteLyricViewController.m in Sources */,
 				2A0057F61D11263D0028D4D2 /* NSPublicLyricModel.m in Sources */,
 				2AAE01CA1CFC209E008D3145 /* NSForgetPassWordViewController.m in Sources */,
+				6915BAC41E2550B5009F886B /* vol.c in Sources */,
+				6915BA941E2550B5009F886B /* chorus.c in Sources */,
 				946B042D1D4EEC8A00529DBA /* HUPhotoHelper.m in Sources */,
 				946B042C1D4EEC8A00529DBA /* HUImagePickerViewController.m in Sources */,
+				6915BAA81E2550B5009F886B /* ladspa.c in Sources */,
+				6915BAC21E2550B5009F886B /* upsample.c in Sources */,
 				181897231D02ADAE0009B145 /* NSSearchUserCollectionViewCell.m in Sources */,
 				18FFE82E1CF025250012880E /* NSPlayMusicViewController.mm in Sources */,
+				6915BA821E2550B5009F886B /* AudioMix.cpp in Sources */,
+				6915BAB61E2550B5009F886B /* silence.c in Sources */,
 				0C3A7AAB1DE41E3200EB4984 /* NSLocalProductViewController.m in Sources */,
 				187016671D21268B0041B5D7 /* NSArray+Log.m in Sources */,
 				B807D8C21D49173900B01BB5 /* DeviceMusicWave.m in Sources */,
@@ -3780,47 +4679,79 @@
 				B80C07761D757F690032BBCD /* NSImageCropperViewController.m in Sources */,
 				2DFB677D1CC1F0ED00DA24DA /* UIImage+NSAdditions.m in Sources */,
 				69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */,
+				6915BAAD1E2550B5009F886B /* output.c in Sources */,
 				0CD0CB001DAC967E00CBAB5F /* NSPreserveMessageListModel.m in Sources */,
 				69BB93AE1D6AEB330017140F /* NSThemeCommentCell.m in Sources */,
 				18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */,
+				6915BA851E2550B5009F886B /* ulu_log.cpp in Sources */,
 				2AC3D1101CF8312E00D9FE53 /* NSMyMusicModel.m in Sources */,
+				6915BAEC1E2550B5009F886B /* bitstream.c in Sources */,
 				1806E3A81CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m in Sources */,
 				0CCC191A1D6452A1009E9478 /* NSTemplateViewController.m in Sources */,
 				18E4028C1CE7115400B36002 /* NSDraftBoxTableViewCell.m in Sources */,
+				6915BAEB1E2550B5009F886B /* mp3enc.cpp in Sources */,
 				183E03A21CDDDACC0071FEE5 /* NSMusicViewController.m in Sources */,
 				B8B966261D727F90005D3724 /* NSObject+YYModel.m in Sources */,
+				6915BA771E2550B5009F886B /* huffman.c in Sources */,
 				B8F83EB51D87D3DF00E301D7 /* NSPreserveWorkInfoCell.m in Sources */,
+				6915BA7E1E2550B5009F886B /* util.c in Sources */,
+				6915BB011E2550B5009F886B /* YCMp3encWrap.cpp in Sources */,
 				2A141DCA1D00B057003ACA74 /* NSUserModel.m in Sources */,
 				0C165F7B1DC71439003795D1 /* NSMyCooperationListModel.m in Sources */,
 				946B04311D4EEC8A00529DBA /* README.md in Sources */,
+				6915BAB01E2550B5009F886B /* phaser.c in Sources */,
 				944785D41D5B0040004FFB75 /* NSLyricPosterViewController.m in Sources */,
 				B8AA35691D9543BF00C8F404 /* NSMusicSayChargeModel.m in Sources */,
 				2A0B72361D003870003957E3 /* NSString+NSMD5Addition.m in Sources */,
+				6915BA7A1E2550B5009F886B /* ltp.c in Sources */,
 				9418544B1D533FCD00227FA4 /* NSCheckUpgradeUtil.m in Sources */,
+				6915BAF51E2550B5009F886B /* presets.c in Sources */,
+				6915BA921E2550B5009F886B /* biquad.c in Sources */,
+				6915BAEA1E2550B5009F886B /* YCBaseEffectWrap.cpp in Sources */,
+				6915BA721E2550B5009F886B /* bitstream.c in Sources */,
+				6915BAA21E2550B5009F886B /* fir.c in Sources */,
 				6984FC181D6432B5002EA0F5 /* NSStarMusicianListCell.m in Sources */,
 				2ACC24F11CF53CE9000BDEDC /* NSCommentMessageListModel.m in Sources */,
 				944FA04C1D4A057000B22EE4 /* NSRollView.m in Sources */,
 				2AAE01C41CFC205F008D3145 /* NSRegisterViewController.m in Sources */,
+				6915BACD1E2550B5009F886B /* getopt.c in Sources */,
+				6915BAAA1E2550B5009F886B /* mcompand.c in Sources */,
 				697368211D6576CE001D2A34 /* NSCustomMusicController.m in Sources */,
 				2ACC24E81CF539A6000BDEDC /* NSMessageListModel.m in Sources */,
+				6915BA961E2550B5009F886B /* compandt.c in Sources */,
 				0CFAFA2D1DC320BA00E82020 /* UITextField+NSAdditions.m in Sources */,
 				695735F11D6C2D3700D1A269 /* NSUserMusicListModel.m in Sources */,
+				6915BA9B1E2550B5009F886B /* dither.c in Sources */,
 				2AC3D10D1CF8262A00D9FE53 /* NSUserDataModel.m in Sources */,
 				691F11A91D64BC5F00BACEEA /* NSBiaoqianView.m in Sources */,
 				2DFB67521CC1EB3D00DA24DA /* NSURLSessionTask+NSAdditionals.m in Sources */,
 				94456D511D51C1390088385F /* NSLoginView.m in Sources */,
 				2DFB67801CC1F0ED00DA24DA /* UIScrollView+NSKeyboardAutoAdapt.m in Sources */,
+				6915BA9A1E2550B5009F886B /* dft_filter.c in Sources */,
 				B80C07791D757F820032BBCD /* NSImagePicker.m in Sources */,
 				2AB16BE11D1279C600A3034C /* NSDiscoverMoreLyricModel.m in Sources */,
 				2ACC24F41CF53D08000BDEDC /* NSUpvoteMessageListModel.m in Sources */,
+				6915BAD21E2550B5009F886B /* s1-fmt.c in Sources */,
+				6915BA741E2550B5009F886B /* fft.c in Sources */,
+				6915BA931E2550B5009F886B /* biquads.c in Sources */,
 				2DFB67231CC1E6DE00DA24DA /* AppDelegate.mm in Sources */,
 				18C914951CDB4CA500C255C4 /* NSMusicSayCollectionViewCell.m in Sources */,
+				6915BAFE1E2550B5009F886B /* vbrquantize.c in Sources */,
 				0CD0CB031DAD04E600CBAB5F /* NSPreserveMessageTableViewCell.m in Sources */,
+				6915BA831E2550B5009F886B /* STFileReader.cpp in Sources */,
+				6915BA781E2550B5009F886B /* kiss_fft.c in Sources */,
+				6915BAD71E2550B5009F886B /* u1-fmt.c in Sources */,
 				0CCC5C9D1DC1AAB8007E4617 /* NSLyricDetailViewController.m in Sources */,
+				6915BA991E2550B5009F886B /* delay.c in Sources */,
+				6915BAD51E2550B5009F886B /* s4-fmt.c in Sources */,
+				6915BAFF1E2550B5009F886B /* VbrTag.c in Sources */,
 				945708E51D2F92AD0074C331 /* UIView+RGSize.m in Sources */,
 				B8C0C52A1DE28C1000BD2F74 /* YCMusicPlayer.mm in Sources */,
+				6915BA731E2550B5009F886B /* channels.c in Sources */,
 				18074E401CEC417A0011B0A4 /* NSBaseTabBarViewController.m in Sources */,
+				6915BA911E2550B5009F886B /* bend.c in Sources */,
 				18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */,
+				6915BA891E2550B5009F886B /* AndriodAudioRender.cpp in Sources */,
 				2ADE94601D040878000AC281 /* NSFansListModel.m in Sources */,
 				2AD53E911CF023AC002ED314 /* NSRecordToolView.m in Sources */,
 				2AAE01D31CFC5A40008D3145 /* NSDrawLineView.m in Sources */,
@@ -3828,11 +4759,20 @@
 				2AAE01B81CFBEEC8008D3145 /* NSPlayMusicDetailModel.m in Sources */,
 				0CCCDC911D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m in Sources */,
 				2A3750291CEC422C007C2967 /* NSChangeNameViewController.m in Sources */,
+				6915BAD01E2550B5009F886B /* raw-fmt.c in Sources */,
+				6915BAA91E2550B5009F886B /* loudness.c in Sources */,
+				6915BADA1E2550B5009F886B /* u4-fmt.c in Sources */,
+				6915BAD31E2550B5009F886B /* s2-fmt.c in Sources */,
+				6915BAB51E2550B5009F886B /* reverse.c in Sources */,
 				0CD0FDA71DA916CC00EC0795 /* NSPreserveDetailListModel.m in Sources */,
+				6915BAF11E2550B5009F886B /* lame.c in Sources */,
 				2DFB67761CC1F0ED00DA24DA /* CLLocationManager+NSLocation.m in Sources */,
 				0CCE78901D87ACA900542845 /* NSPreserveDetailViewController.m in Sources */,
+				6915BADE1E2550B5009F886B /* xmalloc.c in Sources */,
 				697A7CC51D6860B60038F16C /* NSMusicianListModel.m in Sources */,
+				6915BAFD1E2550B5009F886B /* util.c in Sources */,
 				2A29B95A1CDF16EF0052635A /* NSAccompanyListHeaderView.m in Sources */,
+				6915BA761E2550B5009F886B /* frame.c in Sources */,
 				B878AF2B1D929F340059013F /* NSPreserveTypeView.m in Sources */,
 				946B04281D4EEC8A00529DBA /* HUAlbumsViewController.m in Sources */,
 				2AB3006D1D165B0200938F1C /* NSInspirtationModel.m in Sources */,
@@ -3841,37 +4781,57 @@
 				2AD10A871CD9C96E0044D821 /* NSRecommendSongList.m in Sources */,
 				0CCF1D7F1D9101F700F97526 /* NSPreserveSelectViewController.m in Sources */,
 				2AD10A8D1CD9E04E0044D821 /* NSSongViewController.m in Sources */,
+				6915BAA61E2550B5009F886B /* hilbert.c in Sources */,
 				18453A8B1CF5A53D004EE0E6 /* NSCommentViewController.m in Sources */,
 				0CFD03451DE2950300BA1668 /* NSMusicianListCell.m in Sources */,
 				188D12031CECC7ED0009FD5B /* NSComposeView.m in Sources */,
 				946A53EC1D59C311002B187D /* NSSelectLyricsViewController.m in Sources */,
+				6915BAA41E2550B5009F886B /* flanger.c in Sources */,
+				6915BADF1E2550B5009F886B /* example0.c in Sources */,
 				0C2F9A7D1D8687600045A2EC /* NSPreserveListViewController.m in Sources */,
 				2A0B72301CFF51B7003957E3 /* NSMusicSayViewController.m in Sources */,
 				0CCF1D881D91385200F97526 /* NSCollectionListViewController.m in Sources */,
+				6915BAC71E2550B5009F886B /* effects_i_dsp.c in Sources */,
 				2AC3D10A1CF7E8B300D9FE53 /* NSAccommpanyListModel.m in Sources */,
 				18E402891CE6FB8700B36002 /* NSBaseViewController+CustomNavBar.m in Sources */,
 				2DFB677F1CC1F0ED00DA24DA /* UINavigationItem+NSAdditions.m in Sources */,
 				0CCC49D01DC07CE000F2F6B3 /* NSSelectLyricListViewController.m in Sources */,
+				6915BAB21E2550B5009F886B /* remix.c in Sources */,
+				6915BB001E2550B5009F886B /* version.c in Sources */,
 				181897261D02DFF90009B145 /* NSShareCollectionViewCell.m in Sources */,
 				18C914891CDAE66700C255C4 /* NSLyricViewController.m in Sources */,
 				0CCC19261D66CFE2009E9478 /* NSSingleTon.m in Sources */,
 				2AE2E5071CE56BF800FD2DC3 /* NSUserProfileCell.m in Sources */,
+				6915BA971E2550B5009F886B /* contrast.c in Sources */,
 				18C9148C1CDB169000C255C4 /* NSLyricView.m in Sources */,
 				18CFB3F41CDEDBA50033998A /* NSNewMusicViewController.m in Sources */,
+				6915BA8C1E2550B5009F886B /* CIOSAudioRender.mm in Sources */,
 				2DFB674A1CC1E92E00DA24DA /* NSBaseModelProperty.m in Sources */,
+				6915BA791E2550B5009F886B /* kiss_fftr.c in Sources */,
+				6915BAD11E2550B5009F886B /* raw.c in Sources */,
 				944785D11D5AC939004FFB75 /* NSLyricTableViewCell.m in Sources */,
 				2A0B72331CFF54F9003957E3 /* NSMusicSayListMode.m in Sources */,
 				18EA3ADA1D1A2A5500A98CC5 /* NSWaveformView.m in Sources */,
 				2AE2E50A1CE5A70C00FD2DC3 /* NSUserProfileViewController.m in Sources */,
+				6915BA8A1E2550B5009F886B /* AYMediaPlayer.cpp in Sources */,
+				6915BAC61E2550B5009F886B /* effects_i.c in Sources */,
 				2A9DC1181CDDC797004470ED /* NSMessageViewController.m in Sources */,
 				695619011D61C35500102BC7 /* MainTouchTableTableView.m in Sources */,
 				B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */,
 				2AB2D52C1CFCB086007422BD /* NSLyricLibraryListModel.m in Sources */,
+				6915BACC1E2550B5009F886B /* formats_i.c in Sources */,
+				6915BAB81E2550B5009F886B /* speed.c in Sources */,
 				2A4325661CF32912008889BE /* NSDiscoverMusicListModel.m in Sources */,
+				6915BAAC1E2550B5009F886B /* noisered.c in Sources */,
+				6915BAD41E2550B5009F886B /* s3-fmt.c in Sources */,
 				946B04251D4EEC8A00529DBA /* HUAlbum.m in Sources */,
 				2AE3C23A1CDF04FE00790BFA /* NSAccompanyTableCell.m in Sources */,
 				69DA389F1D6461AB002246E0 /* NSStarMusicianTopCell.m in Sources */,
+				6915BAF71E2550B5009F886B /* quantize.c in Sources */,
+				6915BA8F1E2550B5009F886B /* AyUtil.c in Sources */,
+				6915BAB31E2550B5009F886B /* repeat.c in Sources */,
 				0CFAFA301DC33B5800E82020 /* NSCooperationMessageTableViewCell.m in Sources */,
+				6915BAA01E2550B5009F886B /* echos.c in Sources */,
 				94626B351D5035350002CA02 /* NSModifyPwdViewController.m in Sources */,
 				2D8608E51CCC87D00027F147 /* NSUserPageViewController.m in Sources */,
 				94F196761D5479320029C923 /* NSTopLBottomLView.m in Sources */,
@@ -4022,6 +4982,32 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/NestSound/Lib/boost_1_56_0",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/Bugly\"",
+					"\"${PODS_ROOT}/Headers/Public/HappyDNS\"",
+					"\"${PODS_ROOT}/Headers/Public/JPush\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJPhotoBrowser\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/Pingpp\"",
+					"\"${PODS_ROOT}/Headers/Public/Qiniu\"",
+					"\"${PODS_ROOT}/Headers/Public/RSAEncryptor\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/SVPullToRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/TTTAttributedLabel\"",
+					"\"${PODS_ROOT}/Headers/Public/TheAmazingAudioEngine\"",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics-NO-IDFA\"",
+					"\"${PODS_ROOT}/Headers/Public/UMengSocialCOM\"",
+					"\"${PODS_ROOT}/Headers/Public/YLGIFImage\"",
+					"\"${PODS_ROOT}/Headers/Public/YYCache\"",
+					"\"${PODS_ROOT}/Headers/Public/pop\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -4056,6 +5042,32 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${SRCROOT}/NestSound/Supporting Files/NestSound-PrefixHeader.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/NestSound/Lib/boost_1_56_0",
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/Bugly\"",
+					"\"${PODS_ROOT}/Headers/Public/HappyDNS\"",
+					"\"${PODS_ROOT}/Headers/Public/JPush\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/MJPhotoBrowser\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/Pingpp\"",
+					"\"${PODS_ROOT}/Headers/Public/Qiniu\"",
+					"\"${PODS_ROOT}/Headers/Public/RSAEncryptor\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"\"${PODS_ROOT}/Headers/Public/SVProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/SVPullToRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/TTTAttributedLabel\"",
+					"\"${PODS_ROOT}/Headers/Public/TheAmazingAudioEngine\"",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics-NO-IDFA\"",
+					"\"${PODS_ROOT}/Headers/Public/UMengSocialCOM\"",
+					"\"${PODS_ROOT}/Headers/Public/YLGIFImage\"",
+					"\"${PODS_ROOT}/Headers/Public/YYCache\"",
+					"\"${PODS_ROOT}/Headers/Public/pop\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/NestSound/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

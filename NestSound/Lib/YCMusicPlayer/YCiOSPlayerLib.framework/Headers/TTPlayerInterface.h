@@ -41,7 +41,7 @@ enum TTActiveNetWorkType;
 - (TTInt) ConfigGeminiWithUrl : (NSString*) aUrl;
 - (void) SetActiveNetWorkType : (TTActiveNetWorkType) aType;
 - (void) SetCacheFilePath: (NSString *) path;
-
+- (void) SetPcmFilePath: (NSString *) path;
 - (void) stopPlayerWhenNoMusic;//when no song plays, stop player
 + (void) activateAudioDevicesWhenAppLaunchFinished;//in order to avoid init audio unit failed, first activate audio devices
 

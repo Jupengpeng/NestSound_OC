@@ -136,6 +136,13 @@ static NSString *_cachePath;
     
 }
 
+- (void)SetPcmFilePath:(NSString *)filepath{
+    
+    [_proxy SetPcmFilePath:filepath ];
+
+    
+}
+
 
 #pragma mark - 播放方法
 

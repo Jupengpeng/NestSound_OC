@@ -40,7 +40,7 @@ public:
     
     void SetActiveNetWorkType(TTActiveNetWorkType aType);
     void SetCacheFilePath(const TTChar *aCacheFilePath);
-    
+    void SetPcmFilePath(const TTChar *aCacheFilePath);
     void SetProxyServerConfig(TTUint32 aIP, TTInt aPort, const TTChar* aAuthen, TTBool aUseProxy);
     
     void SetView(void* aView);
@@ -48,6 +48,7 @@ public:
     TTInt BandWidth();
     
     void SetRotate();
+    
     
     
 public:
