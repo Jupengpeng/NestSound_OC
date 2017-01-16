@@ -1176,7 +1176,8 @@ static id _instance;
 
         [self endPlaying];
     }else{
-        [_player setPosition:sender.value];
+        
+        [_player setNewPosition:sender.value];
 
     }
     

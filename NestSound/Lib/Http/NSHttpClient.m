@@ -261,7 +261,8 @@ static NSHttpClient *client;
                                    NSString *message = [responseObject objectForKey:@"message"];
                                    if (![message isEqualToString:@"操作成功"]) {
                                        [[NSToastManager manager] showtoast:message];
-                                   }                               }
+                                   }
+                               }
                            } else {
                                success(task,responseObject);
                            }

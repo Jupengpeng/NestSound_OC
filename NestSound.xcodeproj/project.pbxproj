@@ -23,7 +23,6 @@
 		0C670D0D1D9BB27900319E0D /* NSPreservePersonListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C670D0C1D9BB27900319E0D /* NSPreservePersonListModel.m */; };
 		0C7CED981D9CBDF8004AC64F /* NSPhotoScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C7CED971D9CBDF8004AC64F /* NSPhotoScanView.m */; };
 		0CBCD1BA1DE43ACA001A5B7C /* NSCacheProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CBCD1B91DE43AC9001A5B7C /* NSCacheProductCell.m */; };
-		0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */; };
 		0CCC19111D642D6A009E9478 /* NSDraftListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19101D642D6A009E9478 /* NSDraftListViewController.m */; };
 		0CCC19171D643392009E9478 /* NSDraftListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19161D643392009E9478 /* NSDraftListModel.m */; };
 		0CCC191A1D6452A1009E9478 /* NSTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC19191D6452A1009E9478 /* NSTemplateViewController.m */; };
@@ -103,7 +102,6 @@
 		18FA5E2F1CFBDA110027D534 /* NSSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E2E1CFBDA110027D534 /* NSSearchViewController.m */; };
 		18FA5E351CFC19300027D534 /* NSSearchMusicTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E341CFC19300027D534 /* NSSearchMusicTableView.m */; };
 		18FA5E381CFC23180027D534 /* NSSearchUserCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */; };
-		18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */; };
 		18FF92821CE5B10C007F61AC /* NSToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF92811CE5B10C007F61AC /* NSToolbarButton.m */; };
 		18FFE82E1CF025250012880E /* NSPlayMusicViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18FFE82D1CF025250012880E /* NSPlayMusicViewController.mm */; };
 		25EB0EC829464EF597F7DD43 /* libPods-NestSoundTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */; };
@@ -251,7 +249,7 @@
 		6915BA8A1E2550B5009F886B /* AYMediaPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9A51E2550B5009F886B /* AYMediaPlayer.cpp */; };
 		6915BA8B1E2550B5009F886B /* CAudioRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9A81E2550B5009F886B /* CAudioRender.cpp */; };
 		6915BA8C1E2550B5009F886B /* CIOSAudioRender.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9AA1E2550B5009F886B /* CIOSAudioRender.mm */; };
-		6915BA8D1E2550B5009F886B /* PCCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9AD1E2550B5009F886B /* PCCallback.cpp */; };
+		6915BA8D1E2550B5009F886B /* PCCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9AD1E2550B5009F886B /* PCCallback.mm */; };
 		6915BA8E1E2550B5009F886B /* YCPcmPlayerWrap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9AF1E2550B5009F886B /* YCPcmPlayerWrap.cpp */; };
 		6915BA8F1E2550B5009F886B /* AyUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9B21E2550B5009F886B /* AyUtil.c */; };
 		6915BA901E2550B5009F886B /* UAnYanLog.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6915B9B51E2550B5009F886B /* UAnYanLog.mm */; };
@@ -360,12 +358,16 @@
 		69219FCB1D658A9200B55B9E /* NSActivityOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69219FCA1D658A9200B55B9E /* NSActivityOverViewController.m */; };
 		692A93501D616F7C004823C8 /* NSTopicCarryOnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */; };
 		69366BF81D647F3C00414323 /* NSStarMusicianBottomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69366BF71D647F3C00414323 /* NSStarMusicianBottomCell.m */; };
+		693BF8871E2BA73700A45965 /* YCPlayPCMCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 693BF8861E2BA73700A45965 /* YCPlayPCMCallback.m */; };
+		693BF8891E2BE70300A45965 /* NSWriteMusicViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 693BF8881E2BE70300A45965 /* NSWriteMusicViewController.mm */; };
+		694DE0C11E2948A600A22290 /* accompany.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 694DE0C01E2948A600A22290 /* accompany.pcm */; };
 		695619011D61C35500102BC7 /* MainTouchTableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695618FE1D61C35500102BC7 /* MainTouchTableTableView.m */; };
 		695619021D61C35500102BC7 /* MYSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619001D61C35500102BC7 /* MYSegmentView.m */; };
 		695619051D61C8C500102BC7 /* NSThemeTopicTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 695619041D61C8C500102BC7 /* NSThemeTopicTopView.m */; };
 		695735EE1D6C224E00D1A269 /* NSUserWorkListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 695735ED1D6C224E00D1A269 /* NSUserWorkListController.m */; };
 		695735F11D6C2D3700D1A269 /* NSUserMusicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 695735F01D6C2D3700D1A269 /* NSUserMusicListModel.m */; };
 		695845131D63039D00F93827 /* NSThemeTopicCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 695845121D63039D00F93827 /* NSThemeTopicCommentCell.m */; };
+		6964F49F1E2C0120004628B5 /* NSSoundEffectViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.mm */; };
 		697368211D6576CE001D2A34 /* NSCustomMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697368201D6576CE001D2A34 /* NSCustomMusicController.m */; };
 		697A7CC51D6860B60038F16C /* NSMusicianListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 697A7CC41D6860B60038F16C /* NSMusicianListModel.m */; };
 		697F7F281D6558AA00F7EBCC /* NSActivityJoinerListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697F7F271D6558AA00F7EBCC /* NSActivityJoinerListController.m */; };
@@ -509,7 +511,7 @@
 		0CBCD1B81DE43AC9001A5B7C /* NSCacheProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCacheProductCell.h; sourceTree = "<group>"; };
 		0CBCD1B91DE43AC9001A5B7C /* NSCacheProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCacheProductCell.m; sourceTree = "<group>"; };
 		0CCC190C1D62EEF0009E9478 /* NSSoundEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSoundEffectViewController.h; sourceTree = "<group>"; };
-		0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSoundEffectViewController.m; sourceTree = "<group>"; };
+		0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSSoundEffectViewController.mm; sourceTree = "<group>"; };
 		0CCC190F1D642D6A009E9478 /* NSDraftListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftListViewController.h; sourceTree = "<group>"; };
 		0CCC19101D642D6A009E9478 /* NSDraftListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDraftListViewController.m; sourceTree = "<group>"; };
 		0CCC19151D643392009E9478 /* NSDraftListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDraftListModel.h; sourceTree = "<group>"; };
@@ -667,7 +669,6 @@
 		18FA5E361CFC23180027D534 /* NSSearchUserCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSSearchUserCollectionView.h; sourceTree = "<group>"; };
 		18FA5E371CFC23180027D534 /* NSSearchUserCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSSearchUserCollectionView.m; sourceTree = "<group>"; };
 		18FA5E391CFC395D0027D534 /* NSWriteMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWriteMusicViewController.h; sourceTree = "<group>"; };
-		18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWriteMusicViewController.m; sourceTree = "<group>"; };
 		18FF92801CE5B10C007F61AC /* NSToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSToolbarButton.h; sourceTree = "<group>"; };
 		18FF92811CE5B10C007F61AC /* NSToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSToolbarButton.m; sourceTree = "<group>"; };
 		18FFE82C1CF025250012880E /* NSPlayMusicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPlayMusicViewController.h; sourceTree = "<group>"; };
@@ -978,7 +979,7 @@
 		6915B9AA1E2550B5009F886B /* CIOSAudioRender.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CIOSAudioRender.mm; sourceTree = "<group>"; };
 		6915B9AB1E2550B5009F886B /* cm_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cm_type.h; sourceTree = "<group>"; };
 		6915B9AC1E2550B5009F886B /* IAudioRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAudioRender.h; sourceTree = "<group>"; };
-		6915B9AD1E2550B5009F886B /* PCCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PCCallback.cpp; sourceTree = "<group>"; };
+		6915B9AD1E2550B5009F886B /* PCCallback.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PCCallback.mm; sourceTree = "<group>"; };
 		6915B9AE1E2550B5009F886B /* PCCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCallback.h; sourceTree = "<group>"; };
 		6915B9AF1E2550B5009F886B /* YCPcmPlayerWrap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = YCPcmPlayerWrap.cpp; sourceTree = "<group>"; };
 		6915B9B01E2550B5009F886B /* YCPcmPlayerWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCPcmPlayerWrap.h; sourceTree = "<group>"; };
@@ -1151,6 +1152,10 @@
 		692A934F1D616F7C004823C8 /* NSTopicCarryOnCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSTopicCarryOnCell.m; sourceTree = "<group>"; };
 		69366BF61D647F3C00414323 /* NSStarMusicianBottomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStarMusicianBottomCell.h; sourceTree = "<group>"; };
 		69366BF71D647F3C00414323 /* NSStarMusicianBottomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStarMusicianBottomCell.m; sourceTree = "<group>"; };
+		693BF8851E2BA73700A45965 /* YCPlayPCMCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCPlayPCMCallback.h; sourceTree = "<group>"; };
+		693BF8861E2BA73700A45965 /* YCPlayPCMCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCPlayPCMCallback.m; sourceTree = "<group>"; };
+		693BF8881E2BE70300A45965 /* NSWriteMusicViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NSWriteMusicViewController.mm; sourceTree = "<group>"; };
+		694DE0C01E2948A600A22290 /* accompany.pcm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = accompany.pcm; sourceTree = "<group>"; };
 		695618FD1D61C35500102BC7 /* MainTouchTableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTouchTableTableView.h; sourceTree = "<group>"; };
 		695618FE1D61C35500102BC7 /* MainTouchTableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTouchTableTableView.m; sourceTree = "<group>"; };
 		695618FF1D61C35500102BC7 /* MYSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYSegmentView.h; sourceTree = "<group>"; };
@@ -1835,9 +1840,9 @@
 				0CCCDC8F1D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.h */,
 				0CCCDC901D5EF72000AE0BD3 /* NSAccompanyCategoryViewController.m */,
 				18FA5E391CFC395D0027D534 /* NSWriteMusicViewController.h */,
-				18FA5E3A1CFC395D0027D534 /* NSWriteMusicViewController.m */,
+				693BF8881E2BE70300A45965 /* NSWriteMusicViewController.mm */,
 				0CCC190C1D62EEF0009E9478 /* NSSoundEffectViewController.h */,
-				0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.m */,
+				0CCC190D1D62EEF0009E9478 /* NSSoundEffectViewController.mm */,
 				1806E3A61CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.h */,
 				1806E3A71CFD5E2900ECB2E0 /* NSOptimizeMusicViewController.m */,
 				2A500B1E1CE2D7E600086C2C /* NSWriteLyricViewController.h */,
@@ -2093,6 +2098,7 @@
 		2DFB66E81CC1E65600DA24DA = {
 			isa = PBXGroup;
 			children = (
+				694DE0C01E2948A600A22290 /* accompany.pcm */,
 				B8F87AB51DED9E1E00CE2EA3 /* YCiOSPlayerLib.framework */,
 				B80C86481D4292DA00B22855 /* Problem */,
 				2DFB66F31CC1E65600DA24DA /* NestSound */,
@@ -2376,6 +2382,8 @@
 		6915B94E1E2550B4009F886B /* YCEffectLib */ = {
 			isa = PBXGroup;
 			children = (
+				693BF8851E2BA73700A45965 /* YCPlayPCMCallback.h */,
+				693BF8861E2BA73700A45965 /* YCPlayPCMCallback.m */,
 				6915B94F1E2550B4009F886B /* AudioPlay */,
 				6915B9B71E2550B5009F886B /* Effect */,
 				6915BA381E2550B5009F886B /* mp3enc */,
@@ -2537,7 +2545,7 @@
 				6915B9AA1E2550B5009F886B /* CIOSAudioRender.mm */,
 				6915B9AB1E2550B5009F886B /* cm_type.h */,
 				6915B9AC1E2550B5009F886B /* IAudioRender.h */,
-				6915B9AD1E2550B5009F886B /* PCCallback.cpp */,
+				6915B9AD1E2550B5009F886B /* PCCallback.mm */,
 				6915B9AE1E2550B5009F886B /* PCCallback.h */,
 				6915B9AF1E2550B5009F886B /* YCPcmPlayerWrap.cpp */,
 				6915B9B01E2550B5009F886B /* YCPcmPlayerWrap.h */,
@@ -3359,6 +3367,7 @@
 				946B04301D4EEC8A00529DBA /* LICENSE in Resources */,
 				182F33541CDC41AF006AB047 /* Assets.xcassets in Resources */,
 				946B04271D4EEC8A00529DBA /* HUAlbumCell.xib in Resources */,
+				694DE0C11E2948A600A22290 /* accompany.pcm in Resources */,
 				2A0058071D11C4080028D4D2 /*  Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4511,8 +4520,9 @@
 				6915BAA11E2550B5009F886B /* fade.c in Sources */,
 				18C9148F1CDB309700C255C4 /* UIView+Extension.m in Sources */,
 				0CCF1D821D91266300F97526 /* NSSettingViewController.m in Sources */,
+				693BF8871E2BA73700A45965 /* YCPlayPCMCallback.m in Sources */,
 				6915BA751E2550B5009F886B /* filtbank.c in Sources */,
-				6915BA8D1E2550B5009F886B /* PCCallback.cpp in Sources */,
+				6915BA8D1E2550B5009F886B /* PCCallback.mm in Sources */,
 				2AE2E5131CE5D25A00FD2DC3 /* NSDatePicker.m in Sources */,
 				0CCC5CA61DC222FB007E4617 /* NSCooperationListTableViewCell.m in Sources */,
 				94456D541D51EA7E0088385F /* NSRegisterView.m in Sources */,
@@ -4526,7 +4536,6 @@
 				6915BA9C1E2550B5009F886B /* divide.c in Sources */,
 				0CCC191D1D645D08009E9478 /* NSTemplateListModel.m in Sources */,
 				6915BA9F1E2550B5009F886B /* echo.c in Sources */,
-				18FA5E3B1CFC395D0027D534 /* NSWriteMusicViewController.m in Sources */,
 				6915BABC1E2550B5009F886B /* stretch.c in Sources */,
 				2A8E49F01D13C33A00F94144 /* NSImageCell.m in Sources */,
 				6915BAFA1E2550B5009F886B /* set_get.c in Sources */,
@@ -4552,7 +4561,6 @@
 				2AB2D5291CFCAF78007422BD /* NSWriteLyricMaskView.m in Sources */,
 				6915BABA1E2550B5009F886B /* stat.c in Sources */,
 				6915BABF1E2550B5009F886B /* tempo.c in Sources */,
-				0CCC190E1D62EEF0009E9478 /* NSSoundEffectViewController.m in Sources */,
 				6915BA711E2550B5009F886B /* backpred.c in Sources */,
 				6915BAC01E2550B5009F886B /* tremolo.c in Sources */,
 				6915BAA71E2550B5009F886B /* input.c in Sources */,
@@ -4635,6 +4643,7 @@
 				6915BA9E1E2550B5009F886B /* earwax.c in Sources */,
 				6915BAD81E2550B5009F886B /* u2-fmt.c in Sources */,
 				6915BABE1E2550B5009F886B /* synth.c in Sources */,
+				693BF8891E2BE70300A45965 /* NSWriteMusicViewController.mm in Sources */,
 				0C128D561DC8C082006C3AD1 /* NSCooperationLyricListModel.m in Sources */,
 				188BEEA61CF4BBE900494D64 /* NSPlayMusicTool.m in Sources */,
 				945073C31D484F77008B0DF9 /* NSAboutUsViewController.m in Sources */,
@@ -4644,6 +4653,7 @@
 				6915BAAE1E2550B5009F886B /* overdrive.c in Sources */,
 				6915BAB91E2550B5009F886B /* splice.c in Sources */,
 				0CCC5CA01DC1E293007E4617 /* NSInvitationListViewController.m in Sources */,
+				6964F49F1E2C0120004628B5 /* NSSoundEffectViewController.mm in Sources */,
 				6915BA861E2550B5009F886B /* ulu_mutex.cpp in Sources */,
 				0C165F7E1DC7144D003795D1 /* NSCollectionCooperationListModel.m in Sources */,
 				6915BAF81E2550B5009F886B /* quantize_pvt.c in Sources */,
@@ -4973,7 +4983,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5019,8 +5029,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b295bb4e-21f4-4d0f-981f-fdfb44be8050";
-				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
+				PROVISIONING_PROFILE = "5a7f3e3f-8cae-4670-bdaa-e3d63965d278";
+				PROVISIONING_PROFILE_SPECIFIER = YCDistributionAdHoc;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;

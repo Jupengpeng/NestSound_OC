@@ -20,6 +20,8 @@ public:
 
 	virtual int setAudioFormat(int iAudioType,AYMediaAudioFormat sFormat);
 
+	virtual int setAudioVolume(int iAudioType,int volume);
+
 	virtual int getMixSample(char*mixOut);
 
 	virtual	void resetReader();
@@ -59,6 +61,10 @@ private:
 	//
 	int						m_iRecordBytesPerSec;
 	int						m_iBackGroudBytesPerSec;
+
+	//volume
+	int						m_iRecordVolume;
+	int						m_iBackGroudVolume; 
 };
 
 

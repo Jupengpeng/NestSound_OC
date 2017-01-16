@@ -5,7 +5,7 @@
 #include "ulu_log.h"
 class CYCMp3encWrap {
 public:
-	CYCMp3encWrap(const char* recpath,AYMediaAudioFormat recFormat,const char *accpath,AYMediaAudioFormat accFormat);
+	CYCMp3encWrap(const char* recpath,AYMediaAudioFormat recFormat,int recordVolume,const char *accpath,AYMediaAudioFormat accFormat,int accVolume);
 	virtual ~CYCMp3encWrap();
 
 

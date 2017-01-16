@@ -65,7 +65,7 @@ void CYCPcmPlayerWrap::setVolume(int volumeType,int volume)
 {
 	if (m_pMediaPlayer!=NULL)
 	{
-		if (volume ==0)
+		if (volumeType ==0)
 		{
 			m_pMediaPlayer->setParam(PID_AUDIO_RECORD_VOLUME,(void*)&volume);
 		}else{
@@ -75,14 +75,7 @@ void CYCPcmPlayerWrap::setVolume(int volumeType,int volume)
 	}
 
 }
-/*recordPath 录音的pcm地址
- *recordFormat 录音的pcm格式
- *accompanyPath 伴奏的pcm地址
- *accompanyFormat 伴奏的pcm格式
- */
 
-//recordFormat 录音的pcm格式
-//
 void CYCPcmPlayerWrap::setDataSourece(char* recordPath,AYMediaAudioFormat recordFormat,char* accompanyPath,AYMediaAudioFormat accompanyFormat)
 {
 	if (m_pMediaPlayer==NULL)

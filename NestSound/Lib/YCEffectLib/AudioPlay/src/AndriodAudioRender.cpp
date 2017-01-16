@@ -637,6 +637,7 @@ JNIEnv*  AndroidAudioRender::GetJNIEnv()
 
     pJava_vm = (JavaVM *)m_pJVM;
 	//ULULOGI("JavaVM =%d",pJava_vm);
+	m_pJEnv=NULL;
     if(m_pJEnv == NULL)
     {
         pJava_vm->AttachCurrentThread(&pEnv,NULL);

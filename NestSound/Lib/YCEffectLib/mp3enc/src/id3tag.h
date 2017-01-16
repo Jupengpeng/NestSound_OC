@@ -10,7 +10,6 @@
 #define SPACE_V1_FLAG   (1U << 4)
 #define PAD_V2_FLAG     (1U << 5)
 
-
 enum {
     MIMETYPE_NONE = 0,
     MIMETYPE_JPEG,

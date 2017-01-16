@@ -54,7 +54,7 @@ static void mixAudioWithVolume(short*pOutBuffer,short*pRecordBuffer,int recordVo
 
 		*pDstBuffer++ = (nLeft1 & 0xFFFF);
 	}
-	
+
 }
 
 
@@ -66,6 +66,8 @@ CAudioMix::CAudioMix()
 	,m_backGroudReadPos(0)
 	,m_iRecordBytesPerSec(0)
 	,m_iBackGroudBytesPerSec(0)
+	,m_iRecordVolume(50)
+	,m_iBackGroudVolume(50)
 {
 
 }
@@ -109,6 +111,18 @@ int CAudioMix::setFilePath(int iAudioType,char*path)
 	return 0;
 }
 
+int CAudioMix::setAudioVolume(int iAudioType,int volume){
+	if (iAudioType==PID_AUDIO_RECORD_VOLUME)
+	{
+		m_iRecordVolume = volume;
+	}else if (iAudioType==PID_AUDIO_BACKGROUD_VOLUME)
+	{
+		m_iBackGroudVolume =volume;
+	}
+	return 0;
+}
+
+
 int CAudioMix::setAudioFormat(int iAudioType,AYMediaAudioFormat sFormat)
 {
 	if (iAudioType ==PID_RECORDER_AUDIO_FORMAT)
@@ -147,7 +161,9 @@ int CAudioMix::setAudioFormat(int iAudioType,AYMediaAudioFormat sFormat)
 int CAudioMix::setStepSize(int recStepSize,int accStepSize)
 {
 	m_iRecordStepSize = recStepSize;
+	m_pRecordBuffer = (unsigned char*)realloc(m_pRecordBuffer,m_iRecordStepSize);
 	m_iBackGroudStepSize = accStepSize;
+	m_pBackGroudBuffer =(unsigned char*)realloc(m_pBackGroudBuffer,m_iBackGroudStepSize);
 	return 0;
 }
 
@@ -205,13 +221,13 @@ int CAudioMix::getMixSample(char*mixOut)
 	}
 	//mix audio
 	int mixSize =recordCout;//int mixSize =(recordCout>accoCount)?accoCount:recordCout;
-	
+
 	//mixAudio(mixOut,(char*)temp,(char*)m_pBackGroudBuffer,mixSize);
-	mixAudioWithVolume((short*)mixOut,(short*)temp,5000,(short*)m_pBackGroudBuffer,2000,mixSize);
+	mixAudioWithVolume((short*)mixOut,(short*)temp,m_iRecordVolume*100,(short*)m_pBackGroudBuffer,m_iBackGroudVolume*100,mixSize);
 	mixSize = mixSize*2;
-	if (temp!=NULL)
+	if (temp!=NULL&&m_sRecordAudioFormat.nChannels==1)
 	{
-//		free(temp);
+		free(temp);
 	}
 	return mixSize;
 }

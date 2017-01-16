@@ -40,7 +40,7 @@ CAYMediaPlayer::CAYMediaPlayer()
 	, m_bIsNeedRender(true)
 	, m_iSeekPostion(0)
 	, m_pAudioMix(NULL)
-//	, m_pMp3Encoder(NULL)
+	, m_pMp3Encoder(NULL)
 {
 	initAudioContext();
 }
@@ -115,13 +115,15 @@ int CAYMediaPlayer::resume()
 {
 	if (m_bIsPauseFlag == true)
 	{
-		m_bIsPauseFlag =false;
+        if (m_pMediaPlayInitParam!=NULL&&m_pMediaPlayInitParam->piCallback!=NULL)
+        {
+            m_pMediaPlayInitParam->piCallback->OnPlayerNotify(NULL,YC_PCMPLAYER_RESUME,0,"resume");
+            m_bIsPauseFlag =false;
+
+        }
 	}
 	m_bIsNeedRender = true;
-	if (m_pMediaPlayInitParam!=NULL&&m_pMediaPlayInitParam->piCallback!=NULL)
-	{
-		m_pMediaPlayInitParam->piCallback->OnPlayerNotify(NULL,YC_PCMPLAYER_RESUME,0,"resume");
-	}
+
 	return 0;
 }
 
@@ -190,9 +192,13 @@ int CAYMediaPlayer::setParam(unsigned int uParamId, void * pParam)
 		{
 			ulu_CAutoLock lock(&m_lookAudio);
 			m_iRecordAudioVolume = *(int*)pParam;
+			if (m_pAudioMix)
+			{
+				m_pAudioMix->setAudioVolume(PID_AUDIO_RECORD_VOLUME,m_iRecordAudioVolume);
+			}
 			if (m_pAudioRender)
 			{
-				m_pAudioRender->SetVolume(m_iRecordAudioVolume);
+				//m_pAudioRender->SetVolume(m_iRecordAudioVolume);
 			}
 		}
 		break;
@@ -200,9 +206,13 @@ int CAYMediaPlayer::setParam(unsigned int uParamId, void * pParam)
 		{
 			ulu_CAutoLock lock(&m_lookAudio);
 			m_iBackGroudAudioVolume = *(int*)pParam;
+			if (m_pAudioMix)
+			{
+				m_pAudioMix->setAudioVolume(PID_AUDIO_BACKGROUD_VOLUME,m_iBackGroudAudioVolume);
+			}
 			if (m_pAudioRender)
 			{
-				m_pAudioRender->SetVolume(m_iBackGroudAudioVolume);
+				//m_pAudioRender->SetVolume(m_iBackGroudAudioVolume);
 			}
 		}
 		break;
@@ -293,6 +303,12 @@ void CAYMediaPlayer::functionAudioThread()
 			ulu_OS_Sleep(10);
 			continue;
 		}
+        if (m_pAudioMix&&m_iSeekPostion!=0)
+        {
+            m_pAudioMix->seekTo(m_iSeekPostion);
+            m_iSeekPostion =0;
+        }
+
 		if (m_pAudioRender==NULL)
 		{
 			int ret = createAudioRender(m_sAudioFormat);

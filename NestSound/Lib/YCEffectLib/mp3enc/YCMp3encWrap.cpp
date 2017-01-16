@@ -1,11 +1,9 @@
 #include "YCMp3encWrap.h"
 #ifdef _LINUX_ANDROID
-    extern void jni_onPlayerNotify(void * pUserData, AY_STATUS status,int value,const char * msg);
-
+extern  void jni_onPlayerNotify(void * pUserData, AY_STATUS status,int value,const char * msg);
 #endif
 
-
-CYCMp3encWrap::CYCMp3encWrap(const char* recpath,AYMediaAudioFormat recFormat,const char *accpath,AYMediaAudioFormat accFormat)
+CYCMp3encWrap::CYCMp3encWrap(const char* recpath,AYMediaAudioFormat recFormat,int recordvolume,const char *accpath,AYMediaAudioFormat accFormat,int accVolume)
 	:m_pAudioMix(NULL)
 	,m_pMp3Encoder(NULL)
 {
@@ -33,6 +31,12 @@ CYCMp3encWrap::CYCMp3encWrap(const char* recpath,AYMediaAudioFormat recFormat,co
 	}else{
 		m_pAudioMix->setStepSize(frameSize*2,frameSize*2);
 	}
+
+	if (m_pAudioMix)
+	{
+		m_pAudioMix->setAudioVolume(PID_AUDIO_RECORD_VOLUME,recordvolume);
+		m_pAudioMix->setAudioVolume(PID_AUDIO_BACKGROUD_VOLUME,accVolume);
+	}
 }
 
 
@@ -48,6 +52,8 @@ int CYCMp3encWrap::saveMp3(const char *mp3SavePath){
 	m_pAudioMix->resetReader();
 	FILE *mp3File = fopen(mp3SavePath,"wb");
 	char *mixOut =(char*)malloc(10000);
+	int duration =0;
+	m_pAudioMix->getPlayerDuration(&duration);
 	short buffer[2][1152];
 	do 
 	{
@@ -64,10 +70,11 @@ int CYCMp3encWrap::saveMp3(const char *mp3SavePath){
 			int outsize =m_pMp3Encoder->process(buffer[0],buffer[1],size/4,mp3buf,mp3bufsize);
 			int process = 0;
 			m_pAudioMix->getCurPlayPositon(&process);
-    #ifdef _LINUX_ANDROID
-            jni_onPlayerNotify(NULL,YC_PCMPLAYER_MP3SAVEPROGRESS,process,"saveMp3");
-            
-    #endif
+
+			process = process*100/(duration*1000);
+#ifdef _LINUX_ANDROID
+			jni_onPlayerNotify(NULL,YC_PCMPLAYER_MP3SAVEPROGRESS,process,"saveMp3");
+#endif
 			fwrite(mp3buf,1,outsize,mp3File);
 			ULULOGI("process =%d",m_pAudioMix->getPlayerDuration());
 		}else{
@@ -83,9 +90,6 @@ int CYCMp3encWrap::saveMp3(const char *mp3SavePath){
 	fclose(mp3File);
 	return 1;
 }
-
-
-
 
 CYCMp3encWrap::~CYCMp3encWrap()
 {

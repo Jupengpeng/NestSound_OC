@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger, YCPlayerCircleType) {
 
 
 
-+ (YCMusicPlayer *)shareInstance;
+//+ (YCMusicPlayer *)shareInstance;
 
 /**
  *  协议
@@ -100,6 +100,8 @@ typedef NS_ENUM(NSUInteger, YCPlayerCircleType) {
 @property (nonatomic,assign) float position;
 
 
+@property (nonatomic , copy) NSString *PCMPath;
+
 /**
  *  加载歌曲并播放 ()
  *  playUrl：本地地址或者网络url
@@ -109,7 +111,8 @@ typedef NS_ENUM(NSUInteger, YCPlayerCircleType) {
 /*
  *  设置缓存地址
  */
-- (void)setCacheFilePath:(NSString *)filePath;
+- (void)setCacheFilePath:(NSString *)pathName;
+
 
 
 /*
@@ -117,7 +120,7 @@ typedef NS_ENUM(NSUInteger, YCPlayerCircleType) {
  * 设置缓存pcm生成文件
  *
 */
-- (void)SetPcmFilePath:(NSString *)filepath;
+- (NSString *)setPcmFilePath:(NSString *)filepath;
 /**
  *
  */
@@ -151,7 +154,7 @@ typedef NS_ENUM(NSUInteger, YCPlayerCircleType) {
 - (void)lastPlay;
 
 /**
- *  设置当前时间
+ *  百分比设置当前时间
  */
 
 
@@ -159,7 +162,7 @@ typedef NS_ENUM(NSUInteger, YCPlayerCircleType) {
 /*
 * 定位具体时间
 */
-- (void)setPosition:(float)position;
+- (void)setNewPosition:(float)position;
 
 
 /**

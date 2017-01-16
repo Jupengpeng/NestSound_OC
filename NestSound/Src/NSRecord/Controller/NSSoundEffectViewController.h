@@ -20,6 +20,9 @@
 @property (nonatomic, strong) NSMutableArray *locationArr;
 @property (nonatomic, strong) NSArray *heightArray;
 
+
+@property (nonatomic,copy) NSString *recordPCMPath;
+@property (nonatomic,copy) NSString *accompanyPCMPath;
 //歌曲成品
 @property (nonatomic,strong) CoWorkModel *coWorkModel;
 

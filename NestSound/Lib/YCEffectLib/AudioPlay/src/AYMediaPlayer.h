@@ -17,7 +17,7 @@
 #include "IAudioRender.h"
 #include "AudioMix.h"
 #include "ulu_common.h"
-//#include "mp3enc.h"
+#include "mp3enc.h"
 #define FAST_PLAY_MODE_SPEED  1.2f
 
 typedef enum {
@@ -107,7 +107,7 @@ private:
 	int						m_iBackGroudAudioVolume;
 
 	unsigned int			m_iSeekPostion;
-//	CMp3Encoder				*m_pMp3Encoder;
+	CMp3Encoder				*m_pMp3Encoder;
 
 	CAudioMix				*m_pAudioMix;
 

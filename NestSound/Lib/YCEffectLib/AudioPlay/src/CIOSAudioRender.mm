@@ -209,7 +209,6 @@ int CIOSAudioRender::Render(unsigned char*   pData, unsigned int  ulDataSize)
     if( m_pNativeWindow )
     {
         id<AyAudioProtocol> gl_view = (__bridge id<AyAudioProtocol>)m_pNativeWindow;
-        NSLog(@"pData %s\n ======= ======= ======= ======= \n",pData);
         return [gl_view RenderAudio:pData with_len:ulDataSize];
     }
     /*
