@@ -174,29 +174,51 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     CGFloat contentWidth = ScreenWidth - 30;
     CGFloat contentHeight = contentWidth * 125/345;
     
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, contentHeight + 20)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 80)];
 
-    UIButton *contentButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.5, ScreenWidth,  contentHeight + 19)];
-    [contentButton addTarget:self action:@selector(simpleSingClick:) forControlEvents:UIControlEventTouchUpInside];
-    contentButton.backgroundColor = [UIColor whiteColor];
-    [headerView addSubview:contentButton];
+//    UIButton *contentButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0.5, ScreenWidth,  contentHeight + 19)];
+//    [contentButton addTarget:self action:@selector(simpleSingClick:) forControlEvents:UIControlEventTouchUpInside];
+//    contentButton.backgroundColor = [UIColor whiteColor];
+//    [headerView addSubview:contentButton];
     
+//    UIImageView *backImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 9.5, contentWidth, contentHeight)];
+//    
+//    [backImgView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+//    
+//    backImgView.contentMode =  UIViewContentModeScaleAspectFill;
+//    
+//    backImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    
+//    backImgView.clipsToBounds  = YES;
+//    backImgView.layer.cornerRadius = 3.0;
+//    [contentButton addSubview:backImgView];
+//    
+//    [backImgView setDDImageWithURLString:simpleSing.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
+    UIButton *simpleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    simpleBtn.frame = CGRectMake(10, 10, ScreenWidth/2 - 20, 60);
+    simpleBtn.backgroundColor = [UIColor whiteColor];
+    [simpleBtn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
+    simpleBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [simpleBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
+    [simpleBtn setTitle:@"清唱" forState:UIControlStateNormal];
+    [simpleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [headerView addSubview:simpleBtn];
     
-    
-    UIImageView *backImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 9.5, contentWidth, contentHeight)];
-    
-    [backImgView setContentScaleFactor:[[UIScreen mainScreen] scale]];
-    
-    backImgView.contentMode =  UIViewContentModeScaleAspectFill;
-    
-    backImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    
-    backImgView.clipsToBounds  = YES;
-    backImgView.layer.cornerRadius = 3.0;
-    [contentButton addSubview:backImgView];
-    
-    [backImgView setDDImageWithURLString:simpleSing.titleImageUrl placeHolderImage:[UIImage imageNamed:@"2.0_placeHolder_long"]];
-    
+    UIButton *cacheBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cacheBtn.frame = CGRectMake(ScreenWidth/2 + 10, 10, ScreenWidth/2 - 20, 60);
+    cacheBtn.backgroundColor = [UIColor whiteColor];
+    [cacheBtn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
+    cacheBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [cacheBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
+    [cacheBtn setTitle:@"已缓存" forState:UIControlStateNormal];
+    [cacheBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [headerView addSubview:cacheBtn];
+//    [simpleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(headerView.mas_left);
+//        make.bottom.equalTo(headerView.mas_bottom);
+//        make.top.equalTo(headerView.mas_top);
+//        make.width.mas_equalTo(ScreenWidth/3);
+//    }];
     self.tableView.tableHeaderView = headerView;
 }
 /**

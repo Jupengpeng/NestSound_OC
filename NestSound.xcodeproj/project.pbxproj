@@ -424,6 +424,8 @@
 		B80C86521D47056C00B22855 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B80C86511D47056C00B22855 /* CoreGraphics.framework */; };
 		B80C86551D47A75B00B22855 /* HudView.m in Sources */ = {isa = PBXBuildFile; fileRef = B80C86541D47A75B00B22855 /* HudView.m */; };
 		B81AFE1C1D83DAC00033B3B5 /* NSHeadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */; };
+		B8203A161E2CBA7600C9C4B7 /* YCiOSPlayerLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8203A151E2CBA7600C9C4B7 /* YCiOSPlayerLib.framework */; };
+		B8203A171E2CBE0000C9C4B7 /* YCiOSPlayerLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B8203A151E2CBA7600C9C4B7 /* YCiOSPlayerLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B836A0BF1D72DB7C00FF3903 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */; };
 		B8441D6F1D9373EC00BDDD09 /* NSPreservePayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */; };
 		B8511A8D1DC879E500462222 /* NSCooperateDetailWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8511A8C1DC879E500462222 /* NSCooperateDetailWorkCell.m */; };
@@ -472,6 +474,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				694796DF1E2CBD9F0044F84B /* YCiOSPlayerLib.framework in CopyFiles */,
+
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,6 +1269,7 @@
 		B80C86541D47A75B00B22855 /* HudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HudView.m; sourceTree = "<group>"; };
 		B81AFE1A1D83DAC00033B3B5 /* NSHeadImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHeadImageView.h; sourceTree = "<group>"; };
 		B81AFE1B1D83DAC00033B3B5 /* NSHeadImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSHeadImageView.m; sourceTree = "<group>"; };
+		B8203A151E2CBA7600C9C4B7 /* YCiOSPlayerLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YCiOSPlayerLib.framework; path = NestSound/Lib/YCMusicPlayer/YCiOSPlayerLib.framework; sourceTree = "<group>"; };
 		B836A0BE1D72DB7C00FF3903 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		B8441D6D1D9373EC00BDDD09 /* NSPreservePayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSPreservePayCell.h; sourceTree = "<group>"; };
 		B8441D6E1D9373EC00BDDD09 /* NSPreservePayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSPreservePayCell.m; sourceTree = "<group>"; };
@@ -1503,6 +1507,7 @@
 				6915B5BA1E254BF7009F886B /* UIKit.framework in Frameworks */,
 				6915B4051E254A2A009F886B /* libstdc++.tbd in Frameworks */,
 				6915B4021E25486D009F886B /* AudioToolbox.framework in Frameworks */,
+
 				B8B0BE721DE42199009ED7D0 /* libGPUImage.a in Frameworks */,
 				B8C0C52C1DE29F5E00BD2F74 /* MediaPlayer.framework in Frameworks */,
 				B801F17C1D73300200DD7949 /* CoreMedia.framework in Frameworks */,
@@ -2372,6 +2377,7 @@
 				6915B4011E25486D009F886B /* AudioToolbox.framework */,
 				6915B3FF1E254866009F886B /* libstdc++.tbd */,
 				B8B0BE711DE42199009ED7D0 /* libGPUImage.a */,
+				B8203A151E2CBA7600C9C4B7 /* YCiOSPlayerLib.framework */,
 				B8C0C52B1DE29F5E00BD2F74 /* MediaPlayer.framework */,
 				CBD58CCC64AA527AEB9BC22C /* libPods-NestSound.a */,
 				F41D812C3CDE79AF88A47C18 /* libPods-NestSoundTests.a */,
