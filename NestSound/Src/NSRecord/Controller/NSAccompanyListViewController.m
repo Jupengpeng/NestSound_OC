@@ -19,6 +19,7 @@
 #import "NSAccommpanyListModel.h"
 #import "NSAccompanyListFilterView.h"
 #import "NSCooperationDetailModel.h"
+#import "NSLocalProductViewController.h"
 
 static NSString * const accompanyData   = @"accompanyData";
 static NSString * const simpleSingle  = @"simpleSingle";
@@ -197,20 +198,22 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     UIButton *simpleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     simpleBtn.frame = CGRectMake(10, 10, ScreenWidth/2 - 20, 60);
     simpleBtn.backgroundColor = [UIColor whiteColor];
-    [simpleBtn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
+    [simpleBtn setImage:[UIImage imageNamed:@"2.3.6_simpleBtn"] forState:UIControlStateNormal];
     simpleBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [simpleBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
     [simpleBtn setTitle:@"清唱" forState:UIControlStateNormal];
+    [simpleBtn addTarget:self action:@selector(simpleSingClick:) forControlEvents:UIControlEventTouchUpInside];
     [simpleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [headerView addSubview:simpleBtn];
     
     UIButton *cacheBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     cacheBtn.frame = CGRectMake(ScreenWidth/2 + 10, 10, ScreenWidth/2 - 20, 60);
     cacheBtn.backgroundColor = [UIColor whiteColor];
-    [cacheBtn setImage:[UIImage imageNamed:@"2.0_importLyric_btn"] forState:UIControlStateNormal];
+    [cacheBtn setImage:[UIImage imageNamed:@"2.3.6_cacheBtn"] forState:UIControlStateNormal];
     cacheBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [cacheBtn setTitleEdgeInsets:UIEdgeInsetsMake(10, 20, 10, 0)];
     [cacheBtn setTitle:@"已缓存" forState:UIControlStateNormal];
+    [cacheBtn addTarget:self action:@selector(cacheProductClick:) forControlEvents:UIControlEventTouchUpInside];
     [cacheBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [headerView addSubview:cacheBtn];
 //    [simpleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -250,7 +253,14 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
     }
 }
-
+/**
+ 已缓存
+ **/
+- (void)cacheProductClick:(UIButton *)sender {
+    NSLocalProductViewController *localProductVC = [[NSLocalProductViewController alloc] init];
+    localProductVC.viewFrom = AccompanyCache;
+    [self.navigationController pushViewController:localProductVC animated:YES];
+}
 - (void)filterClick:(UIButton *)button{
     [self.filterView showWithCompletion:^(BOOL finished) {
         
@@ -521,7 +531,8 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 1, ScreenWidth , ScreenHeight - 1) style:UITableViewStylePlain];
         
-        _tableView.backgroundColor = [UIColor hexColorFloat:kAppLineRgbValue];
+//        _tableView.backgroundColor = [UIColor hexColorFloat:kAppLineRgbValue];
+        _tableView.backgroundColor = KBackgroundColor;
         [_tableView registerClass:[NSAccompanyTableCell class] forCellReuseIdentifier:accompanyCellIditify];
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.delegate = self;

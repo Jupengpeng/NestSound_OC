@@ -135,8 +135,11 @@
     tipOneLabel.textAlignment = NSTextAlignmentCenter;
     
     tipOneLabel.textColor = [UIColor lightGrayColor];
-    
-    tipOneLabel.text = @"已保存但未上传的作品将会出现在这里";
+    if (self.viewFrom == LocalProduct) {
+        tipOneLabel.text = @"已保存但未上传的作品将会出现在这里";
+    } else {
+        tipOneLabel.text = @"您还未缓存过任何伴奏";
+    }
     
     tipOneLabel.font = [UIFont systemFontOfSize:13];
     
