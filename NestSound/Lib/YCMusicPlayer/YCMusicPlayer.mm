@@ -216,7 +216,7 @@ NSString *_PCMPath;
     
     NSString *PCMpath = [NSString stringWithFormat:@"%@/accompany.pcm",_PCMPath];
     [_proxy SetPcmFilePath:PCMpath];
-    
+
     _currentFilePath = cachefilepath;
     _currentPCMPath = PCMpath;
     self.PCMPath = PCMpath;
