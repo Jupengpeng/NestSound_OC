@@ -72,12 +72,12 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-//    if (!JUserID) {
-//        [self.tabBarController setSelectedIndex:0];
-//        page = 0;
-//    }else{
-//        
-//    }
+    if (!JUserID) {
+        [self.tabBarController setSelectedIndex:0];
+        page = 0;
+    }else{
+        
+    }
 }
 -(void)viewDidLoad
 {
@@ -93,23 +93,23 @@ static NSString * const toolBarCellIdefity = @"toolBarCell";
     [super viewWillAppear: animated];
     self.navigationController.navigationBar.hidden = NO;
     ++page;
-//    if (JUserID == nil&&page ==1) {
-//        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
-//        
-//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-//        nav.navigationBar.hidden = YES;
-//        [self presentViewController:nav animated:YES completion:nil];
-//    } else {
+    if (JUserID == nil&&page ==1) {
+        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+        
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        nav.navigationBar.hidden = YES;
+        [self presentViewController:nav animated:YES completion:nil];
+    } else {
     
         [self fetchUserData];
-//    }
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    if (!JUserID) {
-//        [self.tabBarController setSelectedIndex:0];
-//        page = 0;
-//    }
+    if (!JUserID) {
+        [self.tabBarController setSelectedIndex:0];
+        page = 0;
+    }
 }
 -(void)fetchUserData
 {
