@@ -24,6 +24,7 @@
 +(NSString *)getMachine;
 +(CGFloat)getWidthWithContent:(NSString *)contentStr font:(UIFont *)font;
 +(CGFloat)getHeightWithContent:(NSString *)contentStr width:(CGFloat)width font:(UIFont *)font lineOffset:(CGFloat)lineOffset;
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString ;
 
 // data to jsonString
 + (NSString*)transformTOjsonStringWithObject:(id)object;

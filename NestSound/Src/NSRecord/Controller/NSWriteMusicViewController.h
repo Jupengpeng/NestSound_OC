@@ -29,6 +29,9 @@
 @property (nonatomic,strong) CoWorkModel *coWorkModel;
 
 
+//json内容
+@property (nonatomic, copy) NSString *jsonStr;
+
 -(instancetype)initWithItemId:(long)itemID_ andMusicTime:(long)musicTime andHotMp3:(NSString *)hotMp3;
 
 @end

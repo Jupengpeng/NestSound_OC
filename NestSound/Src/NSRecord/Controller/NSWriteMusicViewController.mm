@@ -899,7 +899,7 @@ Boolean plugedHeadset;
 }
 
 - (void)downloadAccompanyWithUrl:(NSString *)urlStr {
-    
+
     NSFileManager * fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:LocalAccompanyPath]) {
         [fm createDirectoryAtPath:LocalAccompanyPath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -916,16 +916,30 @@ Boolean plugedHeadset;
             
             ProgressView = [[NSDownloadProgressView alloc] initWithFrame:CGRectMake(ScreenWidth/6, ScreenHeight/3, 2*ScreenWidth/3, ScreenHeight/4)];
             
-            ProgressView.downloadDic = @{@"title":@"温馨提示",@"message":@"带上耳机，效果更佳哦～",@"loading":@"正在努力加载，请稍候..."};
+            ProgressView.downloadDic = @{@"title":@"温馨提示",@"message":@"戴上耳机，效果更佳哦～",@"loading":@"正在努力加载，请稍候..."};
             
             [ProgressView.cancelBtn addTarget:self action:@selector(removeProgressView) forControlEvents:UIControlEventTouchUpInside];
             
             [self.navigationController.view addSubview:ProgressView];
-            
+
             [[NSHttpClient client] downLoadWithFileURL:urlStr completionHandler:^{
                 downloadFinish = YES;
                 [self removeProgressView];
-                
+                NSFileManager *fileManager = [NSFileManager defaultManager];
+                if (![fileManager fileExistsAtPath:LocalAccompanyListPath]) {
+                    
+                    [fileManager createFileAtPath:LocalAccompanyListPath contents:nil attributes:nil];
+                }
+                NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalAccompanyListPath] ];
+                if (!resultArray) {
+                    resultArray = [NSMutableArray array];
+                }
+                if (![resultArray containsObject:self.jsonStr]) {
+                    [resultArray addObject:self.jsonStr];
+
+                }
+                [resultArray writeToFile:LocalAccompanyListPath atomically:YES];
+ 
             }];
         } else {
             

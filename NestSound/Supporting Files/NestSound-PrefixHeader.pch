@@ -303,6 +303,13 @@ extern NSString *port;
 #define LocalizedStr(key)    NSLocalizedString(key, @"")
 #define LocalPath            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define LocalAccompanyPath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/AccompanyCache"]
+
+#define LocalAccompanyListPath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/LocalAccompanyList.xml"]
+
+#define LocalFinishMusicWorkListKey [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/LocalMusicList.xml"]
+
+#define LocalFinishLyricWorkListKey [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/LocalLyricList.xml"]
+
 #define UUID [UIDevice currentDevice].identifierForVendor
 #define IPHONE4S @"iPhone_4S"
 #define IPHONE4 @"iPhone_4"

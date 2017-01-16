@@ -509,7 +509,9 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
     } else {
         
-        NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL];
+        NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL ];
+        writeMusicVC.jsonStr = [accompany yy_modelToJSONString];
+        
         [NSSingleTon viewFrom].controllersNum = 3;
         if (self.aid.length) {
             writeMusicVC.aid = self.aid;

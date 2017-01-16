@@ -8,6 +8,7 @@
 
 #import "NSLocalProductViewController.h"
 #import "NSCacheProductCell.h"
+#import "NSAccommpanyListModel.h"
 @interface NSLocalProductViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UIButton *lyricBtn;
@@ -41,7 +42,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self getLocalAccompanyList];
     [self setupLocalProductUI];
     
 //    self.lyricDataArr = [NSMutableArray arrayWithArray:@[@"1",@"2",@"3"]];
@@ -62,6 +63,45 @@
         tipTwoLabel.hidden = NO;
     }
 }
+
+- (NSArray *)getLocalFinishWorkList{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
+        
+        [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
+    }
+    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
+    if (!resultArray) {
+        resultArray = [NSMutableArray array];
+    }
+    NSMutableArray *workList = [NSMutableArray array];
+    for (NSString *jsonStr in resultArray) {
+        NSDictionary *jsonDIct = [NSTool dictionaryWithJsonString:jsonStr];
+        [workList addObject:jsonDIct];
+    }
+    
+    return workList;
+}
+
+- (NSArray *)getLocalAccompanyList{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:LocalAccompanyListPath]) {
+        
+        [fileManager createFileAtPath:LocalAccompanyListPath contents:nil attributes:nil];
+    }
+    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalAccompanyListPath] ];
+    if (!resultArray) {
+        resultArray = [NSMutableArray array];
+    }
+
+    NSMutableArray *acoompanyList = [NSMutableArray array];
+    for (NSString *jsonStr in resultArray) {
+        NSAccommpanyModel *accompanyModel = [NSAccommpanyModel yy_modelWithJSON:jsonStr];
+        [acoompanyList addObject:accompanyModel];
+    }
+    return acoompanyList;
+}
+
 - (void)setupLocalProductUI {
     if (self.viewFrom == LocalProduct) {
         screenWith = 2;

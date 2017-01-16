@@ -693,24 +693,8 @@ char *output_path;
         [self fetchTuningMusic];
     }
     */
-    if (self.encMP3UploadUrl) {
-        
-        NSPublicLyricViewController *publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:self.parameterDic withType:NO];
-        
-        publicVC.isLyric=NO;
-        publicVC.mp3URL = self.encMP3UploadUrl;
-        publicVC.mp3File = self.encMP3FilePath;
-        if (self.coWorkModel.lyrics.length) {
-            publicVC.coWorkModel = self.coWorkModel;
-        }
-        
-        
-        [self.navigationController pushViewController:publicVC animated:YES];
-        
-    } else {
-        
-        [self fetchTuningMusic];
-    }
+    
+
 }
 
 #pragma mark - 上传音频
@@ -742,8 +726,11 @@ char *output_path;
     }else{
         
     }
-    
-    self.encMP3FilePath = [NSString stringWithFormat:@"%@/effectEncToMP3.mp3",mp3FilePath];
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYYMMddHHmm"];
+    NSString *createTime = [dateFormatter stringFromDate:date];
+    self.encMP3FilePath = [NSString stringWithFormat:@"%@/%@.mp3",mp3FilePath,createTime];
     NSString *path = self.encMP3FilePath;
 //    @"/Users/jupeng/Desktop/savedFile/output.MP3" ;
     char *outputPath = (char *)[path UTF8String];
@@ -765,12 +752,45 @@ char *output_path;
     
 //    sleep(600);
 
+    
+    //合成MP3完成  作品信息保存
+    /*
+     * [self.dict setValue:titleText.text forKey:@"lyricName"];
+     [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+     [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
+     [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
+     
+     soundEffectVC.parameterDic = self.dict;
+
+     */
+    //生成 MP3路径保存
+    [self.parameterDic setValue:self.encMP3FilePath forKey:@"encMP3FilePath"];
+
+    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.parameterDic];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
+        
+        [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
+    }
+    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
+    if (!resultArray) {
+        resultArray = [NSMutableArray array];
+    }
+    if (![resultArray containsObject:jsonStr]) {
+        [resultArray addObject:jsonStr];
+        
+    }
+    //写入
+    [resultArray writeToFile:LocalAccompanyListPath atomically:YES];
+    
+    
     [self.alertView dismissWithClickedButtonIndex:0 animated:NO];
+    
     
     
     self.alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在上传,请稍后..." delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
     [self.alertView show];
-    return;
+
     //后台执行mp3转换和上传
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
