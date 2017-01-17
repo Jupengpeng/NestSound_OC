@@ -69,7 +69,8 @@
 @property (nonatomic,copy) NSString * author;
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,copy) NSString * titleImageUrl;
-
+//伴奏本地路径
+@property (nonatomic,copy) NSString *localAccmPath;
 @end
 
 @interface NSAccommpanyListModel : NSBaseModel

@@ -665,8 +665,12 @@ Boolean plugedHeadset;
     
     NSString * currentTimeString = [formatter stringFromDate:date];
     
-    
-    NSString *mp3FilePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+    NSFileManager *fm  = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:LocalEncMp3Path]) {
+        [fm createDirectoryAtPath:LocalEncMp3Path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSString *mp3FilePath = LocalEncMp3Path;
+//    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
     
     mp3FilePath = [mp3FilePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp3",filePath == nil ? self.fileName : currentTimeString]];
     
@@ -1569,27 +1573,27 @@ Boolean plugedHeadset;
 //                if ([NSTool che]  || [[NSTool checkNetworkStatus] isEqualToString:@"notReachable"]) {
                 [NSTool checkNetworkStatus:^(NSString *networkStatus) {
                     if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
-#warning 保存录制歌曲
-                        /**
-                         [self.dict setValue:self.encMP3FilePath forKey:@"encMP3FilePath"];
+                        
+                        
+                        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在合成,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            return;
+                        }];
+                        
+                        [self.alertView addAction:action1];
+                        [self presentViewController:self.alertView animated:YES completion:^{
+                            [self processPCMToMp3];
+                            [self.alertView dismissViewControllerAnimated:YES completion:^{
+
+                                [[NSToastManager manager] showtoast:@"保存成功"];
+                                [self.navigationController popToRootViewControllerAnimated:YES];
+                        }];
+                        
+                        
+                        
+                        }];
                          
-                         NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.parameterDic];
-                         NSFileManager *fileManager = [NSFileManager defaultManager];
-                         if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
-                         
-                         [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
-                         }
-                         NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
-                         if (!resultArray) {
-                         resultArray = [NSMutableArray array];
-                         }
-                         if (![resultArray containsObject:jsonStr]) {
-                         [resultArray addObject:jsonStr];
-                         
-                         }
-                         //写入
-                         [resultArray writeToFile:LocalAccompanyListPath atomically:YES];
-                         */
                     } else {
                         //没戴耳机直接上传服务器 然后跳转发布
                         self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
@@ -1624,6 +1628,42 @@ Boolean plugedHeadset;
    
     
     }
+}
+
+- (void)processPCMToMp3{
+
+    //转换mp3
+    [self recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath];
+
+    NSString *mp3Path = [self recorderFileToMp3WithType:TrueMachine filePath:self.wavFilePath];
+    [self.dict setValue:titleText.text forKey:@"lyricName"];
+    
+    [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+    
+    [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
+    [self.dict setValue:mp3URL forKey:@"mp3URL"];
+    [self.dict setValue:@(plugedHeadset) forKey:@"isHeadSet"];
+    [self.dict setValue:mp3Path forKey:@"encMP3FilePath"];
+    
+    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.dict];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
+        
+        [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
+    }
+    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
+    if (!resultArray) {
+        resultArray = [NSMutableArray array];
+    }
+    if (![resultArray containsObject:jsonStr]) {
+        [resultArray addObject:jsonStr];
+        
+    }
+    //写入
+    [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
+    
+    
+
 }
 
 #pragma mark -OptionMusic

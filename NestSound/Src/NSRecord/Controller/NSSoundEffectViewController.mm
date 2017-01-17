@@ -425,6 +425,8 @@ char *output_path;
             break;
     }
     [self doEffectWithEffectWithEffectId:YCEffectId OutPutPath:_playerUrl];
+    
+    
     [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
     if (_pYCPcmPlayer) {
         //先跳到原来位置 播放
@@ -587,11 +589,11 @@ char *output_path;
         
         _pYCPcmPlayer = pYCPcmPlayer;
         
-        
+        pYCPcmPlayer->setVolume(0, 50);
+        pYCPcmPlayer->setVolume(1,60);
         pYCPcmPlayer->setDataSourece(recordFileFullPath,recordFormat,bgmFullPath,backGroudFormat);
         //        0 录音 1是伴奏
-        pYCPcmPlayer->setVolume(0, 50);
-        pYCPcmPlayer->setVolume(1,50);
+
         sleep(600);
     });
 }
@@ -666,22 +668,22 @@ char *output_path;
     self.waveform.timeScrollView.userInteractionEnabled=NO;
 }
 - (void)nextClick:(UIButton *)sender {
-    
-    if (self.encMP3FilePath.length) {
-        
-    }else{
-#warning 判断网络状态（未知网络和未联网）
-        [NSTool checkNetworkStatus:^(NSString *networkStatus) {
-            if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
-                
-            } else {
-                
-            }
-        }];
-        [self uploadMusic];
-        
 
-    }
+    
+    [self processPCMToMp3];
+    [NSTool checkNetworkStatus:^(NSString *networkStatus) {
+        if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
+            //无网络
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        } else {
+            [self uploadMusic];
+            
+        }
+    }];
+    
+
     /*
     if (_playerUrl.length) {
         
@@ -706,10 +708,9 @@ char *output_path;
 
 }
 
-#pragma mark - 上传音频
-- (void)uploadMusic{
-    WS(wSelf);
+- (void)processPCMToMp3{
     self.alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在合成,请稍后..." delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+
     [self.alertView show];
 
     //生成MP3
@@ -718,17 +719,13 @@ char *output_path;
     recordFormat.nChannels =2;
     recordFormat.wBitsPerSample =16;
     
-    
     AYMediaAudioFormat backGroudFormat;
     backGroudFormat.nSamplesPerSec=44100;
     backGroudFormat.nChannels =2;
     backGroudFormat.wBitsPerSample =16;
     
     
-
-    
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
-    NSString *mp3FilePath = [NSString stringWithFormat:@"%@/effectMp3",docPath];
+    NSString *mp3FilePath = LocalEncMp3Path;
     if (![[NSFileManager defaultManager]  fileExistsAtPath:mp3FilePath]) {
         NSFileManager *fileManager = [[NSFileManager alloc] init];
         [fileManager createDirectoryAtPath:mp3FilePath withIntermediateDirectories:YES attributes:nil error:nil];
@@ -741,14 +738,14 @@ char *output_path;
     NSString *createTime = [dateFormatter stringFromDate:date];
     self.encMP3FilePath = [NSString stringWithFormat:@"%@/%@.mp3",mp3FilePath,createTime];
     NSString *path = self.encMP3FilePath;
-//    @"/Users/jupeng/Desktop/savedFile/output.MP3" ;
+    //    @"/Users/jupeng/Desktop/savedFile/output.MP3" ;
     char *outputPath = (char *)[path UTF8String];
-//    (char *)[mp3FilePath UTF8String];
+    //    (char *)[mp3FilePath UTF8String];
     if (!_playerUrl.length) {
         _playerUrl = self.recordPCMPath;
     }
     
-//    NSString *localPath = @"/Users/jupeng/Desktop/JuPengMusic.caf";
+    //    NSString *localPath = @"/Users/jupeng/Desktop/JuPengMusic.caf";
     char *input_recordPath = (char *)[_playerUrl UTF8String];
     char *input_bgmPath = (char *)[self.accompanyPCMPath UTF8String];
     
@@ -759,8 +756,8 @@ char *output_path;
     
     wrap->saveMp3(outputPath);
     
-//    sleep(600);
-
+    //    sleep(600);
+    
     
     //合成MP3完成  作品信息保存
     /*
@@ -770,11 +767,11 @@ char *output_path;
      [self.dict setValue:[NSNumber numberWithBool:plugedHeadset] forKey:@"isHeadSet"];
      
      soundEffectVC.parameterDic = self.dict;
-
+     
      */
     //生成 MP3路径保存
     [self.parameterDic setValue:self.encMP3FilePath forKey:@"encMP3FilePath"];
-
+    
     NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.parameterDic];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
@@ -790,13 +787,16 @@ char *output_path;
         
     }
     //写入
-    [resultArray writeToFile:LocalAccompanyListPath atomically:YES];
-#warning 缓存成功直接跳回跟视图控制器
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
     
     [self.alertView dismissWithClickedButtonIndex:0 animated:NO];
-    
-    
+}
+
+#pragma mark - 上传音频
+- (void)uploadMusic{
+    WS(wSelf);
+
+
     
     self.alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在上传,请稍后..." delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
     [self.alertView show];
@@ -941,7 +941,6 @@ char *output_path;
         timerNum = timeScaleCount/15.0;
         
         [self.musicItem seekToTime:ctime];
-        NSLog(@"nowTime %f CMTimeMake %lld  time %f",ctime.value/(ctime.timescale*1.0),ctime.value,timerNum);
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         
         [self changeScrollViewColor];

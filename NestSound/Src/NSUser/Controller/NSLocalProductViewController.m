@@ -284,6 +284,7 @@
         if (tableView == lyricTab) {
             [cell setupCacheLyricProductWithDictionary:self.lyricDataArr[indexPath.row]];
         } else {
+        
             
         }
         

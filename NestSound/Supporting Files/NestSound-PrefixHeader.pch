@@ -304,11 +304,16 @@ extern NSString *port;
 #define LocalPath            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define LocalAccompanyPath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/AccompanyCache"]
 
+#define LocalEncMp3Path [NSString stringWithFormat:@"%@/EncMp3Path",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject]]
+//#define Local
+
 #define LocalAccompanyListPath [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/LocalAccompanyList.xml"]
 
 #define LocalFinishMusicWorkListKey [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/LocalMusicList.xml"]
 
 #define LocalFinishLyricWorkListKey [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches/LocalLyricList.xml"]
+
+
 
 #define UUID [UIDevice currentDevice].identifierForVendor
 #define IPHONE4S @"iPhone_4S"
