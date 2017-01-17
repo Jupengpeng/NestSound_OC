@@ -9,8 +9,8 @@
 #import "AppDelegate.h"
 #import <Foundation/Foundation.h>
 
-@interface NSTool : NSObject
 
+@interface NSTool : NSObject
 
 + (NSString *)obtainHostURL;
 + (AppDelegate *)appDelegate;
@@ -21,6 +21,7 @@
 +(BOOL)compareWithUser:(long)userID;
 +(NSString *)encrytWithDic:(NSDictionary *)dic;
 +(NSString *)stringFormatWithTimeLong:(long)times;
++ (void )checkNetworkStatus:(void (^)(NSString *networkStatus))networkStatus;
 +(NSString *)getMachine;
 +(CGFloat)getWidthWithContent:(NSString *)contentStr font:(UIFont *)font;
 +(CGFloat)getHeightWithContent:(NSString *)contentStr width:(CGFloat)width font:(UIFont *)font lineOffset:(CGFloat)lineOffset;

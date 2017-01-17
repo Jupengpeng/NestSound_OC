@@ -1566,22 +1566,48 @@ Boolean plugedHeadset;
                 soundEffectVC.recordPCMPath = self.wavFilePath;
                 [self.navigationController pushViewController:soundEffectVC animated:YES];
             }else{
-                
-                //没戴耳机直接上传服务器 然后跳转发布
-                self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    return;
+//                if ([NSTool che]  || [[NSTool checkNetworkStatus] isEqualToString:@"notReachable"]) {
+                [NSTool checkNetworkStatus:^(NSString *networkStatus) {
+                    if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
+#warning 保存录制歌曲
+                        /**
+                         [self.dict setValue:self.encMP3FilePath forKey:@"encMP3FilePath"];
+                         
+                         NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.parameterDic];
+                         NSFileManager *fileManager = [NSFileManager defaultManager];
+                         if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
+                         
+                         [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
+                         }
+                         NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
+                         if (!resultArray) {
+                         resultArray = [NSMutableArray array];
+                         }
+                         if (![resultArray containsObject:jsonStr]) {
+                         [resultArray addObject:jsonStr];
+                         
+                         }
+                         //写入
+                         [resultArray writeToFile:LocalAccompanyListPath atomically:YES];
+                         */
+                    } else {
+                        //没戴耳机直接上传服务器 然后跳转发布
+                        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            return;
+                        }];
+                        
+                        [self.alertView addAction:action1];
+                        [self presentViewController:self.alertView animated:YES completion:nil];
+                        
+                        [self.link setPaused:YES];
+                        //            [self pauseDevides];
+                        
+                        [self uploadMusic];
+                    }
                 }];
-                
-                [self.alertView addAction:action1];
-                [self presentViewController:self.alertView animated:YES completion:nil];
-                
-                [self.link setPaused:YES];
-                //            [self pauseDevides];
-                
-                [self uploadMusic];
-                
+
             }
             
 //             self.public = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];

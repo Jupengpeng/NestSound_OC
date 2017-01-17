@@ -7,11 +7,12 @@
 //
 
 #import "NSCacheProductCell.h"
-
+#import "NSAccommpanyListModel.h"
 @interface NSCacheProductCell ()
 {
     UILabel *titleLabel;
     UILabel *dateLabel;
+    UIButton *uploadBtn;
 }
 @end
 
@@ -31,7 +32,7 @@
     //标题
     titleLabel = [[UILabel alloc] init];
     
-    titleLabel.text = @"为你钟情";
+//    titleLabel.text = @"为你钟情";
     
     titleLabel.font = [UIFont systemFontOfSize:15];
     
@@ -53,7 +54,7 @@
     
     dateLabel.textAlignment = NSTextAlignmentRight;
     
-    dateLabel.text = [NSString stringWithFormat:@"%@",[NSDate date]];
+//    dateLabel.text = [NSString stringWithFormat:@"%@",[NSDate date]];
     
     [self.contentView addSubview:dateLabel];
     
@@ -68,21 +69,15 @@
     }];
     
     //上传
-    UIButton *uploadBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    
-    [uploadBtn setTitle:@"上传" forState:UIControlStateNormal];
-    
-    uploadBtn.layer.borderWidth = 0.6;
+    uploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
     uploadBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    
-    uploadBtn.layer.borderColor = [[UIColor hexColorFloat:@"ffd705"] CGColor];
     
     uploadBtn.layer.cornerRadius = 3;
     
     uploadBtn.layer.masksToBounds= YES;
     
-    [uploadBtn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateNormal];
+    self.playBtn = uploadBtn;
     
     [self.contentView addSubview:uploadBtn];
     
@@ -98,7 +93,21 @@
     
     
 }
-
+- (void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel {
+    _accompanyModel = accompanyModel;
+    titleLabel.text = accompanyModel.title;
+    [self.playBtn setImage:[UIImage imageNamed:@"2.3.6_accompanyPlay"] forState:UIControlStateNormal];
+    
+    [self.playBtn setImage:[UIImage imageNamed:@"2.3.6_accompanyPause"] forState:UIControlStateSelected];
+}
+- (void)setupCacheLyricProductWithDictionary:(NSDictionary *)dic {
+    titleLabel.text = dic[@"lyricName"];
+    dateLabel.text = [NSString stringWithFormat:@"%@",dic[@"currentTime"]];
+    [self.playBtn setTitle:@"上传" forState:UIControlStateNormal];
+    self.playBtn.layer.borderWidth = 0.6;
+    self.playBtn.layer.borderColor = [[UIColor hexColorFloat:@"ffd705"] CGColor];
+    [self.playBtn setTitleColor:[UIColor hexColorFloat:@"ffd705"] forState:UIControlStateNormal];
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

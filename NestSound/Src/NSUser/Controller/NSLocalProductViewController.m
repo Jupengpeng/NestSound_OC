@@ -18,6 +18,7 @@
     UIScrollView *contentScrollView;
     UITableView *lyricTab;
     UITableView *musicTab;
+    int tableType;
     UIImageView *emptyOneImage;
     UIImageView *emptyTwoImage;
     UILabel *tipOneLabel;
@@ -25,46 +26,60 @@
 }
 @property (nonatomic ,strong) NSMutableArray *lyricDataArr;
 @property (nonatomic ,strong) NSMutableArray *musicDataArr;
+@property (nonatomic ,strong) NSMutableArray *accompanyArr;
+@property (nonatomic, strong) UIButton *button;
 @end
 
 @implementation NSLocalProductViewController
 - (NSMutableArray *)lyricDataArr {
-    if (_lyricDataArr) {
+    if (!_lyricDataArr) {
         self.lyricDataArr = [NSMutableArray arrayWithCapacity:1];
     }
     return _lyricDataArr;
 }
 - (NSMutableArray *)musicDataArr {
-    if (_musicDataArr) {
+    if (!_musicDataArr) {
         self.musicDataArr = [NSMutableArray arrayWithCapacity:1];
     }
     return _musicDataArr;
 }
+- (NSMutableArray *)accompanyArr {
+    if (!_accompanyArr) {
+        self.accompanyArr = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _accompanyArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getLocalAccompanyList];
+    
+    self.accompanyArr = [NSMutableArray arrayWithArray:[self getLocalAccompanyList]];
+    self.lyricDataArr = [NSMutableArray arrayWithArray:[self getLocalFinishLyricWorkList]];
+    self.musicDataArr = [NSMutableArray arrayWithArray:[self getLocalFinishMusicWorkList]];
+    
     [self setupLocalProductUI];
     
-//    self.lyricDataArr = [NSMutableArray arrayWithArray:@[@"1",@"2",@"3"]];
-//    self.musicDataArr = [NSMutableArray arrayWithArray:@[@"4",@"5",@"6"]];
+    if (self.viewFrom == LocalProduct) {
+        if (!_lyricDataArr.count) {
+            
+            emptyOneImage.hidden = NO;
+            tipOneLabel.hidden = NO;
+        }
+        
+        if (!_musicDataArr.count) {
+            emptyTwoImage.hidden = NO;
+            tipTwoLabel.hidden = NO;
+        }
+    } else {
+        if (!self.accompanyArr.count) {
+            emptyOneImage.hidden = NO;
+            tipOneLabel.hidden = NO;
+        }
+    }
     
-    if (_lyricDataArr.count) {
-        emptyOneImage.hidden = YES;
-        tipOneLabel.hidden = YES;
-    } else {
-        emptyOneImage.hidden = NO;
-        tipOneLabel.hidden = NO;
-    }
-    if (_musicDataArr.count) {
-        emptyTwoImage.hidden = YES;
-        tipTwoLabel.hidden = YES;
-    } else {
-        emptyTwoImage.hidden = NO;
-        tipTwoLabel.hidden = NO;
-    }
+    
 }
 
-- (NSArray *)getLocalFinishWorkList{
+- (NSArray *)getLocalFinishMusicWorkList{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
         
@@ -82,7 +97,24 @@
     
     return workList;
 }
-
+- (NSArray *)getLocalFinishLyricWorkList{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:LocalFinishLyricWorkListKey]) {
+        
+        [fileManager createFileAtPath:LocalFinishLyricWorkListKey contents:nil attributes:nil];
+    }
+    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishLyricWorkListKey] ];
+    if (!resultArray) {
+        resultArray = [NSMutableArray array];
+    }
+    NSMutableArray *workList = [NSMutableArray array];
+    for (NSString *jsonStr in resultArray) {
+        NSDictionary *jsonDIct = [NSTool dictionaryWithJsonString:jsonStr];
+        [workList addObject:jsonDIct];
+    }
+    
+    return workList;
+}
 - (NSArray *)getLocalAccompanyList{
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:LocalAccompanyListPath]) {
@@ -105,6 +137,7 @@
 - (void)setupLocalProductUI {
     if (self.viewFrom == LocalProduct) {
         screenWith = 2;
+        tableType = 1;
         UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(ScreenWidth/2-90, 0, 180, 44)];
         navigationView.backgroundColor = [UIColor clearColor];
         lyricBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -148,6 +181,7 @@
     
     [self.view addSubview:contentScrollView];
     
+    
     lyricTab = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, self.view.height - 64) style:UITableViewStyleGrouped];
     
     lyricTab.delegate = self;
@@ -171,6 +205,8 @@
     [contentScrollView addSubview:emptyOneImage];
 
     tipOneLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(emptyOneImage.frame) + 30, ScreenWidth, 20)];
+    
+    tipOneLabel.hidden = YES;
     
     tipOneLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -209,6 +245,8 @@
 
     tipTwoLabel = [[UILabel alloc] initWithFrame:CGRectMake(ScreenWidth, CGRectGetMaxY(emptyTwoImage.frame) + 30, ScreenWidth, 20)];
     
+    tipTwoLabel.hidden = YES;
+    
     tipTwoLabel.textAlignment = NSTextAlignmentCenter;
     
     tipTwoLabel.textColor = [UIColor lightGrayColor];
@@ -221,10 +259,14 @@
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (tableView == lyricTab) {
-        return _lyricDataArr.count;
+    if (self.viewFrom == AccompanyCache) {
+        return self.accompanyArr.count;
+    } else {
+        if (tableView == lyricTab) {
+            return _lyricDataArr.count;
+        }
+        return _musicDataArr.count;
     }
-    return _musicDataArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"cacheCell";
@@ -233,6 +275,17 @@
     
     if (!cell) {
         cell = [[NSCacheProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    [cell.playBtn addTarget:self action:@selector(playBntClick:) forControlEvents:UIControlEventTouchUpInside];
+    if (self.viewFrom == AccompanyCache) {
+        cell.accompanyModel = self.accompanyArr[indexPath.row];
+    } else {
+        if (tableView == lyricTab) {
+            [cell setupCacheLyricProductWithDictionary:self.lyricDataArr[indexPath.row]];
+        } else {
+            
+        }
         
     }
     return cell;
@@ -241,10 +294,78 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 1;
 }
-#pragma mark - UITableViewDelegate
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return UITableViewCellEditingStyleDelete;
+}
 
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        if (self.viewFrom == AccompanyCache) {
+            [self.accompanyArr removeObjectAtIndex:indexPath.row];
+        } else {
+            if (tableView == lyricTab) {
+                [self.lyricDataArr removeObjectAtIndex:indexPath.row];
+            } else {
+                [self.musicDataArr removeObjectAtIndex:indexPath.row];
+            }
+        }
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        
+    }
+}
+- (void)playBntClick:(UIButton *)sender {
+    if (self.viewFrom == AccompanyCache) {
+        
+        sender.selected = !sender.selected;
+        
+        if (sender == self.button) {
+            
+        } else {
+            
+            self.button.selected = NO;
+        }
+//        NSAccompanyTableCell * cell = (NSAccompanyTableCell *)btn.superview.superview;
+#warning 播放缓存好的伴奏
+        if (sender.selected) {
+            
+//            if (self.player) {
+//                
+//                [NSPlayMusicTool pauseMusicWithName:nil];
+//                
+//                self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+//                
+//            } else {
+//                
+//                self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
+//            }
+            
+        } else {
+            
+//            [NSPlayMusicTool pauseMusicWithName:nil];
+        }
+        
+        self.button = sender;
+        
+    } else {
+        
+        if (tableType == 1) {
+#warning 发布歌词
+            
+        } else {
+            
+#warning 发布歌曲
+        }
+        
+    }
+}
 - (void)lyricBtnClick:(UIButton *)sender {
 //    [self.loginBtn removeFromSuperview];
+    
+    tableType = 1;
     
     [contentScrollView setContentOffset:CGPointMake(0, 0) animated:YES];
     
@@ -254,6 +375,9 @@
     }];
 }
 - (void)musicBtnClick:(UIButton *)sender {
+    
+    tableType = 2;
+    
     [contentScrollView setContentOffset:CGPointMake(ScreenWidth, 0) animated:YES];
     
     [UIView animateWithDuration:0.25 animations:^{

@@ -276,7 +276,51 @@ static NSDateFormatter *dateFormatter;
     
     return machine;
 }
-
++ (void )checkNetworkStatus:(void (^)(NSString *))networkStatus {
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    [manager startMonitoring];
+//    __block NSString *netWorkStatus;
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+            {
+                
+//                netWorkStatus = @"unKnown";
+                //未知网络
+                NSLog(@"未知网络");
+                networkStatus(@"unKnown");
+            }
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+            {
+//                netWorkStatus = @"notReachable";
+                //无法联网
+                NSLog(@"无法联网");
+                networkStatus(@"notReachable");
+            }
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            {
+//                netWorkStatus = @"viaWWAN";
+                //手机自带网络
+                NSLog(@"当前使用的是2g/3g/4g网络");
+                networkStatus(@"viaWWAN");
+            }
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+            {
+//                netWorkStatus = @"viaWiFi";
+                //WIFI
+                NSLog(@"当前在WIFI网络下");
+                networkStatus(@"viaWiFi");
+            }
+                break;
+                
+        }
+    }];
+//    NSLog(@"网络状态222%@",netWorkStatus);
+//    return netWorkStatus;
+}
 +(CGFloat)getWidthWithContent:(NSString *)contentStr font:(UIFont *)font {
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
     CGSize size = [contentStr boundingRectWithSize:CGSizeMake(MAXFLOAT, 0.0) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;

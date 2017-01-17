@@ -670,7 +670,16 @@ char *output_path;
     if (self.encMP3FilePath.length) {
         
     }else{
+#warning 判断网络状态（未知网络和未联网）
+        [NSTool checkNetworkStatus:^(NSString *networkStatus) {
+            if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
+                
+            } else {
+                
+            }
+        }];
         [self uploadMusic];
+        
 
     }
     /*
@@ -782,7 +791,8 @@ char *output_path;
     }
     //写入
     [resultArray writeToFile:LocalAccompanyListPath atomically:YES];
-    
+#warning 缓存成功直接跳回跟视图控制器
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
     [self.alertView dismissWithClickedButtonIndex:0 animated:NO];
     

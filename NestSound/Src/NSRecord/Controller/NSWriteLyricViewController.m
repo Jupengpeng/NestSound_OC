@@ -423,7 +423,20 @@
 - (void)rightClick:(UIBarButtonItem *)right {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    [dict setValue:titleTextFiled.text forKey:@"lyricName"];
     
+    [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+    
+    [dict setValue:self.lyricDetail forKey:@"lyricDetail"];
+    
+    [dict setValue:self.lyricImgUrl forKey:@"lyricImgUrl"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];//格式化
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString* dateStr = [dateFormatter stringFromDate:[NSDate date]];
+    
+    [dict setValue:dateStr forKey:@"currentTime"];
     if (titleTextFiled.text.length == 0) {
         [[NSToastManager manager] showtoast:@"歌词标题不能为空"];
     }else{
@@ -431,18 +444,38 @@
             [[NSToastManager manager] showtoast:@"歌词不能为空"];
             
         }else{
-            [dict setValue:titleTextFiled.text forKey:@"lyricName"];
-            
-            [dict setValue:lyricView.lyricText.text forKey:@"lyric"];
-            
-            [dict setValue:self.lyricDetail forKey:@"lyricDetail"];
-            
-            [dict setValue:self.lyricImgUrl forKey:@"lyricImgUrl"];
-            
-            NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
-            publicVC.lyricId = self.lyricId;
-            publicVC.aid = self.aid;
-            [self.navigationController pushViewController:publicVC animated:YES];
+            [NSTool checkNetworkStatus:^(NSString *networkStatus) {
+                if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
+                    //歌词字典json或者modeljson
+                    //字典
+                    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:dict];
+                    //model
+                    //                NSString *jsnStr = [歌词model yy_modelToJSONString];
+                    NSFileManager *fileManager = [NSFileManager defaultManager];
+                    if (![fileManager fileExistsAtPath:LocalFinishLyricWorkListKey]) {
+                        
+                        [fileManager createFileAtPath:LocalFinishLyricWorkListKey contents:nil attributes:nil];
+                    }
+                    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishLyricWorkListKey] ];
+                    if (!resultArray) {
+                        resultArray = [NSMutableArray array];
+                    }
+                    if (![resultArray containsObject:jsonStr]) {
+                        [resultArray addObject:jsonStr];
+                        
+                    }
+                    //写入
+                    [resultArray writeToFile:LocalFinishLyricWorkListKey atomically:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                } else {
+                    
+                    NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:dict withType:YES];
+                    publicVC.lyricId = self.lyricId;
+                    publicVC.aid = self.aid;
+                    [self.navigationController pushViewController:publicVC animated:YES];
+                }
+                }];
+                
             
         }
     }

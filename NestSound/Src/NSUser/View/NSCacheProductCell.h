@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class NSAccommpanyModel;
 @interface NSCacheProductCell : UITableViewCell
-
+@property (nonatomic, strong) NSAccommpanyModel *accompanyModel;
+@property (nonatomic, strong) UIButton *playBtn;
+- (void)setupCacheLyricProductWithDictionary:(NSDictionary *)dic;
 @end
