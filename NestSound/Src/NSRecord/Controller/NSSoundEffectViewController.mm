@@ -671,17 +671,15 @@ char *output_path;
 
     
     [self processPCMToMp3];
-    [NSTool checkNetworkStatus:^(NSString *networkStatus) {
-        if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
-            //无网络
-            
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    if (!manager.reachable) {
+        
             [self.navigationController popToRootViewControllerAnimated:YES];
             
         } else {
             [self uploadMusic];
             
         }
-    }];
     
 
     /*

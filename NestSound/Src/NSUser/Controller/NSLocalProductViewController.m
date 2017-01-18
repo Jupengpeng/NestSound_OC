@@ -377,7 +377,6 @@
             self.button.selected = NO;
         }
         
-#warning 播放缓存好的伴奏
         if (sender.selected) {
 //            if (!self.player) {
                 NSString *url = [LocalAccompanyPath stringByAppendingPathComponent:[dic[@"accompanyUrl"] lastPathComponent]];
@@ -409,6 +408,7 @@
         } else {
             
 #warning 发布歌曲
+            
         }
         
     }

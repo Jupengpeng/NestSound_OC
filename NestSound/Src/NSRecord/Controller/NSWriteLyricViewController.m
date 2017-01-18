@@ -445,8 +445,8 @@
             [[NSToastManager manager] showtoast:@"歌词不能为空"];
             
         }else{
-            [NSTool checkNetworkStatus:^(NSString *networkStatus) {
-                if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
+            AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+            if (!manager.reachable) {
                     //歌词字典json或者modeljson
                     //字典
 //                    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:dict];
@@ -475,7 +475,6 @@
                     publicVC.aid = self.aid;
                     [self.navigationController pushViewController:publicVC animated:YES];
                 }
-                }];
                 
             
         }

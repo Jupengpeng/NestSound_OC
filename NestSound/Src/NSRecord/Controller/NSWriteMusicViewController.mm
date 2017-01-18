@@ -1542,8 +1542,6 @@ Boolean plugedHeadset;
     }else{
         
         
-
-        
         if (JUserID) {
             
             //戴耳机了
@@ -1577,47 +1575,52 @@ Boolean plugedHeadset;
                 soundEffectVC.recordPCMPath = self.wavFilePath;
                 [self.navigationController pushViewController:soundEffectVC animated:YES];
             }else{
-//                if ([NSTool che]  || [[NSTool checkNetworkStatus] isEqualToString:@"notReachable"]) {
-                [NSTool checkNetworkStatus:^(NSString *networkStatus) {
-                    if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
-                        
-                        
-                        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在合成,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                            return;
+                AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+//                [manager startMonitoring];
+                if (!manager.reachable) {
+                    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在合成,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        return;
+                    }];
+                    
+                    [self.alertView addAction:action1];
+                    [self presentViewController:self.alertView animated:YES completion:^{
+                        [self processPCMToMp3];
+                        [self.alertView dismissViewControllerAnimated:YES completion:^{
+                            
+                            [[NSToastManager manager] showtoast:@"保存成功"];
+                            [self.navigationController popToRootViewControllerAnimated:YES];
                         }];
                         
-                        [self.alertView addAction:action1];
-                        [self presentViewController:self.alertView animated:YES completion:^{
-                            [self processPCMToMp3];
-                            [self.alertView dismissViewControllerAnimated:YES completion:^{
-
-                                [[NSToastManager manager] showtoast:@"保存成功"];
-                                [self.navigationController popToRootViewControllerAnimated:YES];
-                        }];
-                        
-                        
-                        
-                        }];
-                         
-                    } else {
-                        //没戴耳机直接上传服务器 然后跳转发布
-                        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                            return;
-                        }];
-                        
-                        [self.alertView addAction:action1];
-                        [self presentViewController:self.alertView animated:YES completion:nil];
-                        
-                        [self.link setPaused:YES];
-                        //            [self pauseDevides];
-                        
-                        [self uploadMusic];
-                    }
-                }];
+                    }];
+                } else {
+                    
+                    //没戴耳机直接上传服务器 然后跳转发布
+                    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        return;
+                    }];
+                    
+                    [self.alertView addAction:action1];
+                    [self presentViewController:self.alertView animated:YES completion:nil];
+                    
+                    [self.link setPaused:YES];
+                    //            [self pauseDevides];
+                    
+                    [self uploadMusic];
+                }
+//                [NSTool checkNetworkStatus:^(NSString *networkStatus) {
+//                    if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
+//                        
+//                        
+//                        
+//                         
+//                    } else {
+//                        
+//                    }
+//                }];
 
             }
             

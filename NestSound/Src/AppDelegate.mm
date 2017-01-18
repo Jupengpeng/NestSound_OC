@@ -81,7 +81,8 @@
     [JPUSHService setupWithOption:launchOptions appKey:JPushAPPKey channel:@"AppStore" apsForProduction:YES advertisingIdentifier:nil];
         
     [self.window makeKeyAndVisible];
-    
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    [manager startMonitoring];
     //用户引导页
     NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
     if([userDefaults objectForKey:@"FirstLoad"] == nil) {
