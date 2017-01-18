@@ -670,16 +670,48 @@ char *output_path;
 - (void)nextClick:(UIButton *)sender {
 
     
-    [self processPCMToMp3];
-    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
-    if (!manager.reachable) {
+
+    
+    UIAlertController *noticeAlertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在合成,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+    
+//    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        return;
+//    }];
+//    
+//    [noticeAlertView addAction:action1];
+    [self presentViewController:noticeAlertView animated:YES completion:^{
+        [self processPCMToMp3];
+        [noticeAlertView dismissViewControllerAnimated:YES completion:^{
+            
+            [[NSToastManager manager] showtoast:@"保存成功"];
+            AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+            if (!manager.reachable) {
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+            } else {
+//                [self uploadMusic];
+                self.waveform.timeScrollView.userInteractionEnabled=YES;
+                NSPublicLyricViewController *publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:self.parameterDic withType:NO];
+                
+                publicVC.isLyric=NO;
+                publicVC.mp3URL = self.encMP3UploadUrl;
+                publicVC.mp3File = self.encMP3FilePath;
+                if (self.coWorkModel.lyrics.length) {
+                    publicVC.coWorkModel = self.coWorkModel;
+                }
+                
+                
+                [self.navigationController pushViewController:publicVC animated:YES];
+            }
+
+        }];
         
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
-        } else {
-            [self uploadMusic];
-            
-        }
+    }];
+    
+    
+    
+ 
     
 
     /*
@@ -707,9 +739,10 @@ char *output_path;
 }
 
 - (void)processPCMToMp3{
-    self.alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在合成,请稍后..." delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    
 
-    [self.alertView show];
+    
+
 
     //生成MP3
     AYMediaAudioFormat recordFormat;
@@ -769,7 +802,10 @@ char *output_path;
      */
     //生成 MP3路径保存
     [self.parameterDic setValue:self.encMP3FilePath forKey:@"encMP3FilePath"];
-    
+    NSString *coWorkJsonStr = [self.coWorkModel yy_modelToJSONString];
+
+    [self.parameterDic setValue:coWorkJsonStr forKey:@"coWorkJsonStr"];
+
 //    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.parameterDic];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
@@ -787,9 +823,9 @@ char *output_path;
     //写入
     [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
     
-    [self.alertView dismissWithClickedButtonIndex:0 animated:NO];
 }
 
+/*
 #pragma mark - 上传音频
 - (void)uploadMusic{
     WS(wSelf);
@@ -848,6 +884,7 @@ char *output_path;
     });
     
 }
+ */
 #pragma mark -OptionMusic
 
 

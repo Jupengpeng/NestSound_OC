@@ -10,6 +10,7 @@
 #import "NSCacheProductCell.h"
 #import "NSAccommpanyListModel.h"
 #import "NSPublicLyricViewController.h"
+#import "NSCooperationDetailModel.h"
 @interface NSLocalProductViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AVAudioPlayerDelegate>
 {
     UIButton *lyricBtn;
@@ -311,7 +312,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+
         NSDictionary *dic = [NSDictionary dictionary];
         NSString *pathStr = [NSString string];
 //        NSString *jsonStr = [NSString string];
@@ -339,11 +341,16 @@
                 pathStr = LocalFinishMusicWorkListKey;
                 
                 [self.musicDataArr removeObjectAtIndex:indexPath.row];
+                
+                NSString *mp3FilePath = dic[@"encMP3FilePath"];
+                if (mp3FilePath.length) {
+                    [fileManager removeItemAtPath:mp3FilePath error:nil];
+                }
+
             }
 //            jsonStr = [NSTool transformTOjsonStringWithObject:dic];
         }
         
-        NSFileManager *fileManager = [NSFileManager defaultManager];
         
         NSMutableArray * mutableArr = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:pathStr]];
         
@@ -408,6 +415,22 @@
         } else {
             
 #warning 发布歌曲
+            NSIndexPath *indexPath = [lyricTab indexPathForCell:cell];
+            NSMutableDictionary *musicDict = self.musicDataArr[indexPath.row];
+            
+
+            //            if (self.coWorkModel.lyrics.length) {
+            //            }
+            NSPublicLyricViewController *publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:musicDict withType:NO];
+            
+            NSString *coWorkJsonStr =musicDict[@"coWorkJsonStr"];
+            if (coWorkJsonStr.length) {
+                CoWorkModel *coWorkModel = [CoWorkModel yy_modelWithJSON:coWorkJsonStr];
+                publicVC.coWorkModel = coWorkModel;
+                
+            }
+
+            [self.navigationController pushViewController:publicVC animated:YES];
             
         }
         

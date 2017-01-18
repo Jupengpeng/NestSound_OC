@@ -55,6 +55,13 @@ extern Boolean plugedHeadset;
 {
     if (self = [super init]) {
         lyricDic = [NSMutableDictionary dictionary];
+        if (!isLyric_) {
+            NSString *encMP3FilePath = LyricDic_[@"encMP3FilePath"];
+            if (encMP3FilePath.length) {
+                self.mp3File = encMP3FilePath;
+            }
+        }
+
         lyricDic = LyricDic_;
         self.isLyric = isLyric_;
 //        mp3URL = lyricDic[@"mp3URL"];
@@ -430,9 +437,12 @@ extern Boolean plugedHeadset;
                     self.shareVC.isCoWork = NO;
 
                 }
+                
+                [self removeLoacalCache];
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
                     
                     [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
+                    
                 }];
             } else {
                 [self.alertView dismissViewControllerAnimated:YES completion:^{
@@ -453,15 +463,48 @@ extern Boolean plugedHeadset;
 
                 }
             }];
+        }else if ([operation.urlTag isEqualToString:tunMusicURL]){
+            if (self.coWorkModel.lyrics.length) {
+                [self publickOfCooperation];
+            }else{
+                if (self.isLyric) {
+                    [self publicWithType:YES];
+                }else{
+                    [self publicWithType:NO];
+                }
+            }
         }
-        
-        
-        NSFileManager *manager = [NSFileManager defaultManager];
-        
-        [manager removeItemAtPath:self.mp3File error:nil];
+
     }
     
 }
+
+- (void)removeLoacalCache{
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    [manager removeItemAtPath:self.mp3File error:nil];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
+        
+        [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
+    }
+    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
+    if (!resultArray) {
+        resultArray = [NSMutableArray array];
+    }
+    for (NSDictionary *mp3Dict in resultArray) {
+        NSString *encMP3FilePath = mp3Dict[@"encMP3FilePath"];
+        if ([encMP3FilePath isEqualToString:self.mp3File]) {
+            [resultArray removeObject:mp3Dict];
+            break;
+        }
+    }
+    //写入
+    [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
+}
+
 #pragma mark -public
 
 - (void)publickOfCooperation{
@@ -592,6 +635,10 @@ extern Boolean plugedHeadset;
 }
 
 - (void)publicWorkCenterRun{
+    
+    [self uploadMusic];
+    
+    /*
     if (self.coWorkModel.lyrics.length) {
         [self publickOfCooperation];
     }else{
@@ -601,7 +648,9 @@ extern Boolean plugedHeadset;
             [self publicWithType:NO];
         }
     }
+     */
 }
+
 
 #pragma mark -addtitlePage
 -(void)addtitlePage
@@ -690,11 +739,83 @@ extern Boolean plugedHeadset;
     return file;
 }
 
+#pragma mark - 上传音频
+- (void)uploadMusic{
+    WS(wSelf);
+    
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在上传,请稍后..." delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+    [alertView show];
+    
+    //后台执行mp3转换和上传
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        
+        //        NSData *data = [NSData dataWithContentsOfFile:self.mp3Path];
+        NSData *data=[NSData dataWithContentsOfFile:self.mp3File];
+        
+        //        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
+        // 1.创建网络管理者
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        
+        NSString* url =[NSString stringWithFormat:@"%@/%@",[NSTool obtainHostURL],uploadMp3URL];
+        [manager POST:url parameters:nil constructingBodyWithBlock:^void(id<AFMultipartFormData> formData) {
+            
+            [formData appendPartWithFileData:data name:@"file" fileName:@"abc.mp3" mimeType:@"audio/mp3"];
+            
+        } success:^void(NSURLSessionDataTask * task, id responseObject) {
+            
+            NSDictionary *dict;
+            
+            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                
+                dict = [[NSHttpClient client] encryptWithDictionary:responseObject isEncrypt:NO];
+                
+            }
+            if ([dict[@"code"] integerValue] == 200) {
+                [alertView dismissWithClickedButtonIndex:0 animated:YES];
+                
+                self.mp3URL = dict[@"data"][@"mp3URL"];
+                [self fetchTuningMusic];
+            } else {
+                [alertView dismissWithClickedButtonIndex:0 animated:YES];
+                [[NSToastManager manager] showtoast:@"上传失败"];
+            }
+            //self.wavFilePath = nil;
+        } failure:^void(NSURLSessionDataTask * task, NSError * error) {
+            // 请求失败
+            [alertView dismissWithClickedButtonIndex:0 animated:YES];
+            
+            
+        }];
+        
+        
+        
+    });
+    
+}
+
+//获取合成音频
+- (void)fetchTuningMusic {
+    
+    
+    
+    
+    //    [self.alertView show];
+    
+    self.requestType = NO;
+    
+    self.requestParams = @{@"createtype":@"HOT",@"hotid":lyricDic[@"hotID"],@"uid":JUserID,@"recordingsize":@(1),@"bgmsize":@(1),@"useheadset":@(0),@"musicurl":self.mp3URL,@"effect":@(0),@"token":LoginToken};
+    self.requestURL = tunMusicURL;
+    
+    
+}
 
 - (void)listenMp3Online:(NSString*)file{
     //NSString* urlString = @"http://api.yinchao.cn/uploadfiles2/2016/07/22/20160722165746979_out.mp3";
 
-    NSURL* url = [NSURL URLWithString:file];
+    NSURL* url = [NSURL URLWithString:self.mp3File];
 
     if (!self.musicItem||!self.player) {
         self.musicItem = [AVPlayerItem playerItemWithURL:url];

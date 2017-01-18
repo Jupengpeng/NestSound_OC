@@ -51,8 +51,9 @@
     static NSString *cellId = @"cleanCacheCell";
     NSArray *textStrs = @[@"清除歌曲缓存",@"清除其他数据缓存"];
     CGFloat otherData;
+    CGFloat mp3Path = [self OnlineMP3FilePath];
     otherData = [self filePath];
-    NSArray *detailStrs = @[@"45M",[NSString stringWithFormat:@"%.fM",otherData]];
+    NSArray *detailStrs = @[[NSString stringWithFormat:@"%.fM",mp3Path],[NSString stringWithFormat:@"%.fM",otherData]];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
     if (!cell) {
@@ -69,6 +70,9 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!indexPath.row) {
         [[NSToastManager manager] showtoast:@"清除歌曲缓存"];
+        
+        [self clearOnlineMp3Cache];
+        
     } else {
        [self clearFile];
     }
@@ -81,6 +85,14 @@
 -(float )filePath {
     
     NSString * cachPath = [ NSSearchPathForDirectoriesInDomains ( NSCachesDirectory , NSUserDomainMask , YES ) firstObject ];
+    
+    return [ self folderSizeAtPath :cachPath];
+    
+}
+
+-(float )OnlineMP3FilePath {
+    
+    NSString * cachPath =LocalOnlineMp3Path;
     
     return [ self folderSizeAtPath :cachPath];
     
@@ -132,6 +144,32 @@
     
     [ self performSelectorOnMainThread : @selector (clearCachSuccess) withObject : nil waitUntilDone : YES ];
     
+}
+
+- (void)clearOnlineMp3Cache{
+    NSString * cachPath = LocalOnlineMp3Path;
+    
+    NSArray * files = [[ NSFileManager defaultManager ] subpathsAtPath :cachPath];
+    
+    NSLog ( @"cachpath = %@" , cachPath);
+    
+    for ( NSString * p in files) {
+        
+        NSError * error = nil ;
+        
+        NSString * path = [cachPath stringByAppendingPathComponent :p];
+        
+        
+        if ([[ NSFileManager defaultManager ] fileExistsAtPath :path]) {
+            
+            
+            [[ NSFileManager defaultManager ] removeItemAtPath :path error :&error];
+            
+        }
+        
+    }
+    
+    [ self performSelectorOnMainThread : @selector (clearCachSuccess) withObject : nil waitUntilDone : YES ];
 }
 
 -(void)clearCachSuccess {

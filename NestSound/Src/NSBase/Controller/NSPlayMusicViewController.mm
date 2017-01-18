@@ -1680,8 +1680,10 @@ static id _instance;
 - (YCMusicPlayer *)player{
     if (!_player) {
         _player = [[YCMusicPlayer alloc] init];
-        _player.delegate = self;
     }
+    
+    _player.delegate = self;
+
     return _player;
 }
 

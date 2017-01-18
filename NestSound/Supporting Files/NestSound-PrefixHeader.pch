@@ -303,6 +303,9 @@ extern NSString *port;
 #define LocalizedStr(key)    NSLocalizedString(key, @"")
 #define LocalPath            [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define LocalAccompanyPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/AccompanyCache"]
+#define LocalOnlineMp3Path [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/OnlineMp3Cache"]
+
+
 
 #define LocalEncMp3Path [NSString stringWithFormat:@"%@/EncMp3Path",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject]]
 //#define Local
@@ -312,7 +315,6 @@ extern NSString *port;
 #define LocalFinishMusicWorkListKey [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/LocalMusicList.xml"]
 
 #define LocalFinishLyricWorkListKey [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/LocalLyricList.xml"]
-
 
 
 #define UUID [UIDevice currentDevice].identifierForVendor

@@ -16,24 +16,24 @@
     NSString *_currentFilePath;
     NSString *_currentPCMPath;
     BOOL _buffered;
-    
+    NSString *_PCMPath;
+    TTMediaPlayerProxy *_proxy;
     
 }
 
 @property (nonatomic,strong) CADisplayLink *displayLink;
 
 
-//@property (nonatomic,strong) NSFileManager *fileManager;
+@property (nonatomic,strong) NSFileManager *fileManager;
 
-//@property (nonatomic,copy) NSString *cachePath;
+@property (nonatomic,copy) NSString *cachePath;
+
+
 @end
 
 @implementation YCMusicPlayer
-static YCMusicPlayer *_player;
-static TTMediaPlayerProxy *_proxy;
-static NSFileManager *_fileManager;
-NSString *_cachePath;
-NSString *_PCMPath;
+
+
 //static NSMutableArray *_cachePathArr;
 
 
@@ -59,22 +59,25 @@ NSString *_PCMPath;
 //    return _player;
 //}
 
-+ (instancetype)alloc{
+- (instancetype)init{
     
-    _player = [[super alloc] init];
-    _proxy = [[TTMediaPlayerProxy alloc] init];
-    _fileManager = [[NSFileManager alloc] init];
-    
-    //设置缓存目录
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
-    NSString *mp3CachePath = [NSString stringWithFormat:@"%@/OnlineMp3Cache",docPath];
-    if (![[NSFileManager defaultManager]  fileExistsAtPath:mp3CachePath]) {
-        [_fileManager createDirectoryAtPath:mp3CachePath withIntermediateDirectories:YES attributes:nil error:nil];
-    }else{
+    self = [super init];
+    if (self){
+        _proxy = [[TTMediaPlayerProxy alloc] init];
+        _fileManager = [[NSFileManager alloc] init];
         
+        //设置缓存目录
+        NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
+        NSString *mp3CachePath = [NSString stringWithFormat:@"%@/OnlineMp3Cache",docPath];
+        if (![[NSFileManager defaultManager]  fileExistsAtPath:mp3CachePath]) {
+            [_fileManager createDirectoryAtPath:mp3CachePath withIntermediateDirectories:YES attributes:nil error:nil];
+        }else{
+            
+        }
+        _cachePath = mp3CachePath;
     }
-    _cachePath = mp3CachePath;
-    return _player;
+
+    return self;
     
 }
 
@@ -215,7 +218,11 @@ NSString *_PCMPath;
     [_proxy SetCacheFilePath:cachefilepath];
     
     NSString *PCMpath = [NSString stringWithFormat:@"%@/accompany.pcm",_PCMPath];
-//    [_proxy SetPcmFilePath:PCMpath];
+
+    if (_PCMPath.length) {
+        [_proxy SetPcmFilePath:PCMpath];
+    }
+
 
     _currentFilePath = cachefilepath;
     _currentPCMPath = PCMpath;
@@ -259,24 +266,24 @@ NSString *_PCMPath;
 
             [_proxy start];
             _buffered = YES;
-            _player.playStatus = YCPlayerPlayPrepared;
+            self.playStatus = YCPlayerPlayPrepared;
 
             NSLog(@"歌曲%@缓冲完成",_currentPlayUrl);
         }
             break;
         case ENotifyPlay:
         {
-            _player.playStatus = YCPlayerPlayPlaying;
+            self.playStatus = YCPlayerPlayPlaying;
         }
             break;
         case ENotifyPause:
         {
-            _player.playStatus = YCPlayerPlayPaused;
+            self.playStatus = YCPlayerPlayPaused;
         }
             break;
         case ENotifyClose:
         {
-            _player.playStatus = YCPlayerPlayStopped;
+            self.playStatus = YCPlayerPlayStopped;
 
         }
             break;
