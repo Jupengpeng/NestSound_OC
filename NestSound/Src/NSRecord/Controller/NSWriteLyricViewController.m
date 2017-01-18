@@ -18,6 +18,7 @@
 #import "NSRhymeViewController.h"
 #import "NSTemplateViewController.h"
 #import "NSDraftListViewController.h"
+#import "NSLoginViewController.h"
 @interface WriteLyricBottomView : UIView
 @property (nonatomic,strong) UIButton * importLyricBtn;
 @property (nonatomic,strong) UIButton * LyricesBtn;
@@ -448,7 +449,7 @@
                 if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
                     //歌词字典json或者modeljson
                     //字典
-                    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:dict];
+//                    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:dict];
                     //model
                     //                NSString *jsnStr = [歌词model yy_modelToJSONString];
                     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -460,8 +461,8 @@
                     if (!resultArray) {
                         resultArray = [NSMutableArray array];
                     }
-                    if (![resultArray containsObject:jsonStr]) {
-                        [resultArray addObject:jsonStr];
+                    if (![resultArray containsObject:dict]) {
+                        [resultArray addObject:dict];
                         
                     }
                     //写入
@@ -507,11 +508,18 @@
     /**
      倒入草稿
           */
-    NSDraftListViewController *draftListVC = [[NSDraftListViewController alloc] init];
+    if (JUserID) {
+        NSDraftListViewController *draftListVC = [[NSDraftListViewController alloc] init];
+        
+        draftListVC.delegate = self;
+        
+        [self.navigationController pushViewController:draftListVC animated:YES];
+    } else {
+        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
     
-    draftListVC.delegate = self;
-    
-    [self.navigationController pushViewController:draftListVC animated:YES];
     
 //    importLyricVC = [[NSImportLyricViewController alloc] init];
 //    

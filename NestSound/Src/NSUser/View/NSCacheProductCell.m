@@ -93,6 +93,12 @@
     
     
 }
+- (void)setupCacheAccompanyWithDictionary:(NSDictionary *)dic {
+    titleLabel.text = dic[@"accompanyTitle"];
+    [self.playBtn setImage:[UIImage imageNamed:@"2.3.6_accompanyPlay"] forState:UIControlStateNormal];
+    
+    [self.playBtn setImage:[UIImage imageNamed:@"2.3.6_accompanyPause"] forState:UIControlStateSelected];
+}
 - (void)setAccompanyModel:(NSAccommpanyModel *)accompanyModel {
     _accompanyModel = accompanyModel;
     titleLabel.text = accompanyModel.title;

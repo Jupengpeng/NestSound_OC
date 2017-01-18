@@ -511,7 +511,11 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
         
         NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL ];
         accompany.localAccmPath = [LocalAccompanyPath stringByAppendingPathComponent:[accompany.mp3URL lastPathComponent]];
-        writeMusicVC.jsonStr = [accompany yy_modelToJSONString];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:accompany.title forKey:@"accompanyTitle"];
+        [dic setValue:accompany.mp3URL forKey:@"accompanyUrl"];
+        writeMusicVC.jsonDic = dic;
+//        writeMusicVC.jsonStr = [accompany yy_modelToJSONString];
         
         [NSSingleTon viewFrom].controllersNum = 3;
         if (self.aid.length) {

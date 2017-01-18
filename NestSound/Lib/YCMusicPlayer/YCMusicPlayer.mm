@@ -214,12 +214,12 @@ NSString *_PCMPath;
     NSString *cachefilepath  = [NSString stringWithFormat:@"%@/%@.mp3",_cachePath,[playUrl stringToMD5]];
     [_proxy SetCacheFilePath:cachefilepath];
     
-//    NSString *PCMpath = [NSString stringWithFormat:@"%@/accompany.pcm",_PCMPath];
+    NSString *PCMpath = [NSString stringWithFormat:@"%@/accompany.pcm",_PCMPath];
 //    [_proxy SetPcmFilePath:PCMpath];
 
     _currentFilePath = cachefilepath;
-//    _currentPCMPath = PCMpath;
-//    self.PCMPath = PCMpath;
+    _currentPCMPath = PCMpath;
+    self.PCMPath = PCMpath;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerNotifyEventWithMsg:) name:@"PlayerNotifyEvent"  object:nil];
 
     

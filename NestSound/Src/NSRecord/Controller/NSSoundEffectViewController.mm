@@ -772,7 +772,7 @@ char *output_path;
     //生成 MP3路径保存
     [self.parameterDic setValue:self.encMP3FilePath forKey:@"encMP3FilePath"];
     
-    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.parameterDic];
+//    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.parameterDic];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
         
@@ -782,8 +782,8 @@ char *output_path;
     if (!resultArray) {
         resultArray = [NSMutableArray array];
     }
-    if (![resultArray containsObject:jsonStr]) {
-        [resultArray addObject:jsonStr];
+    if (![resultArray containsObject:self.parameterDic]) {
+        [resultArray addObject:self.parameterDic];
         
     }
     //写入

@@ -11,5 +11,6 @@
 @interface NSCacheProductCell : UITableViewCell
 @property (nonatomic, strong) NSAccommpanyModel *accompanyModel;
 @property (nonatomic, strong) UIButton *playBtn;
+- (void)setupCacheAccompanyWithDictionary:(NSDictionary *)dic;
 - (void)setupCacheLyricProductWithDictionary:(NSDictionary *)dic;
 @end

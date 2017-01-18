@@ -938,8 +938,9 @@ Boolean plugedHeadset;
                 if (!resultArray) {
                     resultArray = [NSMutableArray array];
                 }
-                if (![resultArray containsObject:self.jsonStr]) {
-                    [resultArray addObject:self.jsonStr];
+                
+                if (![resultArray containsObject:self.jsonDic]) {
+                    [resultArray addObject:self.jsonDic];
 
                 }
                 [resultArray writeToFile:LocalAccompanyListPath atomically:YES];
@@ -1287,7 +1288,7 @@ Boolean plugedHeadset;
                     self.player.delegate = self;
                     totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
                     [self.player prepareToPlay];
-                    
+                 
                 }
                  */
 //                lyricView.lyricView.scrollEnabled = NO;
@@ -1494,10 +1495,16 @@ Boolean plugedHeadset;
         [[NSToastManager manager] showtoast:@"合作歌曲不能使用歌词模板哦 ~"];
         return;
     }
+    if (JUserID) {
+        NSImportLyricViewController *importLyric = [[NSImportLyricViewController alloc] init];
+        importLyric.delegate = self;
+        [self.navigationController pushViewController:importLyric animated:YES];
+    } else {
+        NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
     
-    NSImportLyricViewController *importLyric = [[NSImportLyricViewController alloc] init];
-    importLyric.delegate = self;
-    [self.navigationController pushViewController:importLyric animated:YES];
     
 }
 /*
@@ -1644,8 +1651,14 @@ Boolean plugedHeadset;
     [self.dict setValue:mp3URL forKey:@"mp3URL"];
     [self.dict setValue:@(plugedHeadset) forKey:@"isHeadSet"];
     [self.dict setValue:mp3Path forKey:@"encMP3FilePath"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];//格式化
     
-    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.dict];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString* dateStr = [dateFormatter stringFromDate:[NSDate date]];
+    
+    [self.dict setValue:dateStr forKey:@"currentTime"];
+//    NSString *jsonStr = [NSTool transformTOjsonStringWithObject:self.dict];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
         
@@ -1655,8 +1668,8 @@ Boolean plugedHeadset;
     if (!resultArray) {
         resultArray = [NSMutableArray array];
     }
-    if (![resultArray containsObject:jsonStr]) {
-        [resultArray addObject:jsonStr];
+    if (![resultArray containsObject:self.dict]) {
+        [resultArray addObject:self.dict];
         
     }
     //写入

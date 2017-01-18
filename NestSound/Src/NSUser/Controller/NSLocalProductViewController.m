@@ -9,7 +9,8 @@
 #import "NSLocalProductViewController.h"
 #import "NSCacheProductCell.h"
 #import "NSAccommpanyListModel.h"
-@interface NSLocalProductViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+#import "NSPublicLyricViewController.h"
+@interface NSLocalProductViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AVAudioPlayerDelegate>
 {
     UIButton *lyricBtn;
     UIButton *musicBtn;
@@ -27,6 +28,7 @@
 @property (nonatomic ,strong) NSMutableArray *lyricDataArr;
 @property (nonatomic ,strong) NSMutableArray *musicDataArr;
 @property (nonatomic ,strong) NSMutableArray *accompanyArr;
+@property (nonatomic ,strong) AVAudioPlayer *player;
 @property (nonatomic, strong) UIButton *button;
 @end
 
@@ -51,7 +53,10 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
+                                                 name:@"pausePlayer"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer) name:AVAudioSessionInterruptionNotification object:nil];
     self.accompanyArr = [NSMutableArray arrayWithArray:[self getLocalAccompanyList]];
     self.lyricDataArr = [NSMutableArray arrayWithArray:[self getLocalFinishLyricWorkList]];
     self.musicDataArr = [NSMutableArray arrayWithArray:[self getLocalFinishMusicWorkList]];
@@ -89,13 +94,13 @@
     if (!resultArray) {
         resultArray = [NSMutableArray array];
     }
-    NSMutableArray *workList = [NSMutableArray array];
-    for (NSString *jsonStr in resultArray) {
-        NSDictionary *jsonDIct = [NSTool dictionaryWithJsonString:jsonStr];
-        [workList addObject:jsonDIct];
-    }
+//    NSMutableArray *workList = [NSMutableArray array];
+//    for (NSString *jsonStr in resultArray) {
+//        NSDictionary *jsonDIct = [NSTool dictionaryWithJsonString:jsonStr];
+//        [workList addObject:jsonDIct];
+//    }
     
-    return workList;
+    return resultArray;
 }
 - (NSArray *)getLocalFinishLyricWorkList{
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -107,13 +112,13 @@
     if (!resultArray) {
         resultArray = [NSMutableArray array];
     }
-    NSMutableArray *workList = [NSMutableArray array];
-    for (NSString *jsonStr in resultArray) {
-        NSDictionary *jsonDIct = [NSTool dictionaryWithJsonString:jsonStr];
-        [workList addObject:jsonDIct];
-    }
+//    NSMutableArray *workList = [NSMutableArray array];
+//    for (NSString *jsonStr in resultArray) {
+//        NSDictionary *jsonDIct = [NSTool dictionaryWithJsonString:jsonStr];
+//        [workList addObject:jsonDIct];
+//    }
     
-    return workList;
+    return resultArray;
 }
 - (NSArray *)getLocalAccompanyList{
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -126,12 +131,12 @@
         resultArray = [NSMutableArray array];
     }
 
-    NSMutableArray *acoompanyList = [NSMutableArray array];
-    for (NSString *jsonStr in resultArray) {
-        NSAccommpanyModel *accompanyModel = [NSAccommpanyModel yy_modelWithJSON:jsonStr];
-        [acoompanyList addObject:accompanyModel];
-    }
-    return acoompanyList;
+//    NSMutableArray *acoompanyList = [NSMutableArray array];
+//    for (NSString *jsonStr in resultArray) {
+//        NSAccommpanyModel *accompanyModel = [NSAccommpanyModel yy_modelWithJSON:jsonStr];
+//        [acoompanyList addObject:accompanyModel];
+//    }
+    return resultArray;
 }
 
 - (void)setupLocalProductUI {
@@ -279,13 +284,15 @@
     }
     [cell.playBtn addTarget:self action:@selector(playBntClick:) forControlEvents:UIControlEventTouchUpInside];
     if (self.viewFrom == AccompanyCache) {
-        cell.accompanyModel = self.accompanyArr[indexPath.row];
+        
+//        cell.accompanyModel = self.accompanyArr[indexPath.row];
+        [cell setupCacheAccompanyWithDictionary:self.accompanyArr[indexPath.row]];
     } else {
         if (tableView == lyricTab) {
             [cell setupCacheLyricProductWithDictionary:self.lyricDataArr[indexPath.row]];
         } else {
         
-            
+            [cell setupCacheLyricProductWithDictionary:self.musicDataArr[indexPath.row]];
         }
         
     }
@@ -304,23 +311,63 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle==UITableViewCellEditingStyleDelete) {
+        
+        NSDictionary *dic = [NSDictionary dictionary];
+        NSString *pathStr = [NSString string];
+//        NSString *jsonStr = [NSString string];
         if (self.viewFrom == AccompanyCache) {
+            
+            dic = self.accompanyArr[indexPath.row];
+            
+            pathStr = LocalAccompanyListPath;
+            
+//            jsonStr = [accompany yy_modelToJSONString];
+            
             [self.accompanyArr removeObjectAtIndex:indexPath.row];
+            
         } else {
             if (tableView == lyricTab) {
+                dic = self.lyricDataArr[indexPath.row];
+                
+                pathStr = LocalFinishLyricWorkListKey;
+                
                 [self.lyricDataArr removeObjectAtIndex:indexPath.row];
             } else {
+                
+                dic = self.musicDataArr[indexPath.row];
+                
+                pathStr = LocalFinishMusicWorkListKey;
+                
                 [self.musicDataArr removeObjectAtIndex:indexPath.row];
             }
+//            jsonStr = [NSTool transformTOjsonStringWithObject:dic];
         }
         
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
         
+        NSMutableArray * mutableArr = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:pathStr]];
+        
+        if ([fileManager fileExistsAtPath:pathStr]) {
+            NSLog(@"数组11：%@",mutableArr);
+            [mutableArr removeObject:dic];
+            NSLog(@"数组22：%@",mutableArr);
+        }
+        
+        //写入
+        [mutableArr writeToFile:pathStr atomically:YES];
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     }
 }
 - (void)playBntClick:(UIButton *)sender {
+    
+    NSCacheProductCell * cell = (NSCacheProductCell *)sender.superview.superview;
+    
+    
     if (self.viewFrom == AccompanyCache) {
         
+        NSIndexPath *indexPath = [lyricTab indexPathForCell:cell];
+        NSDictionary *dic = self.accompanyArr[indexPath.row];
         sender.selected = !sender.selected;
         
         if (sender == self.button) {
@@ -329,22 +376,22 @@
             
             self.button.selected = NO;
         }
-//        NSAccompanyTableCell * cell = (NSAccompanyTableCell *)btn.superview.superview;
+        
 #warning 播放缓存好的伴奏
         if (sender.selected) {
-            
-//            if (self.player) {
-//                
-//                [NSPlayMusicTool pauseMusicWithName:nil];
-//                
-//                self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
-//                
-//            } else {
-//                
-//                self.player = [NSPlayMusicTool playMusicWithUrl:cell.accompanyModel.mp3URL block:^(AVPlayerItem *item) {}];
-//            }
+//            if (!self.player) {
+                NSString *url = [LocalAccompanyPath stringByAppendingPathComponent:[dic[@"accompanyUrl"] lastPathComponent]];
+                self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:url] error:nil];
+                self.player.enableRate = YES;
+                self.player.rate = 1.0;
+                self.player.delegate = self;
+                [self.player prepareToPlay];
+                [self.player play];
             
         } else {
+            if (self.player) {
+                [self.player pause];
+            }
             
 //            [NSPlayMusicTool pauseMusicWithName:nil];
         }
@@ -354,8 +401,11 @@
     } else {
         
         if (tableType == 1) {
-#warning 发布歌词
+            NSIndexPath *indexPath = [lyricTab indexPathForCell:cell];
+
+            NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:self.lyricDataArr[indexPath.row] withType:YES];
             
+            [self.navigationController pushViewController:publicVC animated:YES];
         } else {
             
 #warning 发布歌曲
@@ -385,6 +435,20 @@
         
         lineView.x = sender.x;
     }];
+}
+#pragma mark - AVAudioPlayerDelegate
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    [self pausePlayer];
+}
+- (void)pausePlayer {
+    [self.player pause];
+    self.button.selected = NO;
+}
+
+- (void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"pausePlayer" object:nil];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
