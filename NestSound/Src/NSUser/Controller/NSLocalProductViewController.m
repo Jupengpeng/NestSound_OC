@@ -405,35 +405,39 @@
         self.button = sender;
         
     } else {
-        
-        if (tableType == 1) {
-            NSIndexPath *indexPath = [lyricTab indexPathForCell:cell];
-
-            NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:self.lyricDataArr[indexPath.row] withType:YES];
-            
-            [self.navigationController pushViewController:publicVC animated:YES];
-        } else {
-            
-#warning 发布歌曲
-            NSIndexPath *indexPath = [lyricTab indexPathForCell:cell];
-            NSMutableDictionary *musicDict = self.musicDataArr[indexPath.row];
-            
-
-            //            if (self.coWorkModel.lyrics.length) {
-            //            }
-            NSPublicLyricViewController *publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:musicDict withType:NO];
-            
-            NSString *coWorkJsonStr =musicDict[@"coWorkJsonStr"];
-            if (coWorkJsonStr.length) {
-                CoWorkModel *coWorkModel = [CoWorkModel yy_modelWithJSON:coWorkJsonStr];
-                publicVC.coWorkModel = coWorkModel;
+        AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+        if (manager.reachable) {
+            if (tableType == 1) {
+                NSIndexPath *indexPath = [lyricTab indexPathForCell:cell];
+                
+                NSPublicLyricViewController * publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:self.lyricDataArr[indexPath.row] withType:YES];
+                
+                [self.navigationController pushViewController:publicVC animated:YES];
+            } else {
+                
+                
+                NSIndexPath *indexPath = [musicTab indexPathForCell:cell];
+                NSMutableDictionary *musicDict = self.musicDataArr[indexPath.row];
+                
+                
+                //            if (self.coWorkModel.lyrics.length) {
+                //            }
+                NSPublicLyricViewController *publicVC = [[NSPublicLyricViewController alloc] initWithLyricDic:musicDict withType:NO];
+                
+                NSString *coWorkJsonStr =musicDict[@"coWorkJsonStr"];
+                if (coWorkJsonStr.length) {
+                    CoWorkModel *coWorkModel = [CoWorkModel yy_modelWithJSON:coWorkJsonStr];
+                    publicVC.coWorkModel = coWorkModel;
+                    
+                }
+                
+                [self.navigationController pushViewController:publicVC animated:YES];
                 
             }
-
-            [self.navigationController pushViewController:publicVC animated:YES];
+        } else {
             
+            [[NSToastManager manager] showtoast:@"网络开小差了，请检查您的网络!"];
         }
-        
     }
 }
 - (void)lyricBtnClick:(UIButton *)sender {

@@ -467,6 +467,7 @@
                     }
                     //写入
                     [resultArray writeToFile:LocalFinishLyricWorkListKey atomically:YES];
+                [[NSToastManager manager] showtoast:@"暂无网络，作品已保存到本地作品"];
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 } else {
                     

@@ -1576,78 +1576,82 @@ Boolean plugedHeadset;
                 [self.navigationController pushViewController:soundEffectVC animated:YES];
             }else{
                 AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
-//                [manager startMonitoring];
-                    self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在合成,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-                    
-//                    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                        return;
-//                    }];
-                    
-//                    [self.alertView addAction:action1];
-                    [self presentViewController:self.alertView animated:YES completion:^{
-                        [self processPCMToMp3];
-                        [self.alertView dismissViewControllerAnimated:YES completion:^{
+                
+                self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在合成,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+                
+                //                    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //                        return;
+                //                    }];
+                
+                //                    [self.alertView addAction:action1];
+                [self presentViewController:self.alertView animated:YES completion:^{
+                    [self processPCMToMp3];
+                    [self.alertView dismissViewControllerAnimated:YES completion:^{
                         
-                            
-                            if (!manager.reachable) {
-                                [[NSToastManager manager] showtoast:@"保存成功"];
+                        
+                        if (!manager.reachable) {
+                            NSFileManager *fileManager = [NSFileManager defaultManager];
+                            if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
                                 
-                                [self.navigationController popToRootViewControllerAnimated:YES];
-                                
-                            } else {
-                                
-                                /*
-                                 //没戴耳机直接上传服务器 然后跳转发布
-                                 self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-                                 
-                                 UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                                 return;
-                                 }];
-                                 
-                                 [self.alertView addAction:action1];
-                                 [self presentViewController:self.alertView animated:YES completion:nil];
-                                 */
-                                [self.link setPaused:YES];
-                                //            [self pauseDevides];
-                                
-                                
-                                [self.dict setValue:titleText.text forKey:@"lyricName"];
-                                
-                                [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
-                                
-                                [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
-                                [self.dict setValue:mp3URL forKey:@"mp3URL"];
-                                [self.dict setValue:@(plugedHeadset) forKey:@"isHeadSet"];
-                                self.publicController = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
-                                self.publicController.mp3URL = mp3URL;
-                                self.publicController.mp3File = self.mp3Path;
-                                
-                                if (self.aid.length) {
-                                    self.publicController.aid = self.aid;
-                                }
-                                NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
-                                [recordText setObject:titleText.text forKey:@"recordTitle"];
-                                [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
-                                [recordText synchronize];
-                                
-                                self.publicController.coWorkModel = self.coWorkModel;
-                                [self.navigationController pushViewController:self.publicController animated:YES];
+                                [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
+                            }
+                            NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
+                            if (!resultArray) {
+                                resultArray = [NSMutableArray array];
+                            }
+                            if (![resultArray containsObject:self.dict]) {
+                                [resultArray addObject:self.dict];
                                 
                             }
+                            //写入
+                            [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
+                            [[NSToastManager manager] showtoast:@"暂无网络，作品已保存到本地作品"];
                             
-                        }];
+                            [self.navigationController popToRootViewControllerAnimated:YES];
+                            
+                        } else {
+                            
+                            /*
+                             //没戴耳机直接上传服务器 然后跳转发布
+                             self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在上传，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+                             
+                             UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                             return;
+                             }];
+                             
+                             [self.alertView addAction:action1];
+                             [self presentViewController:self.alertView animated:YES completion:nil];
+                             */
+                            [self.link setPaused:YES];
+                            //            [self pauseDevides];
+                            
+                            
+                            [self.dict setValue:titleText.text forKey:@"lyricName"];
+                            
+                            [self.dict setValue:lyricView.lyricText.text forKey:@"lyric"];
+                            
+                            [self.dict setValue:[NSString stringWithFormat:@"%ld",hotId] forKey:@"hotID"];
+                            [self.dict setValue:mp3URL forKey:@"mp3URL"];
+                            [self.dict setValue:@(plugedHeadset) forKey:@"isHeadSet"];
+                            self.publicController = [[NSPublicLyricViewController alloc] initWithLyricDic:self.dict withType:NO];
+                            self.publicController.mp3URL = mp3URL;
+                            self.publicController.mp3File = self.mp3Path;
+                            
+                            if (self.aid.length) {
+                                self.publicController.aid = self.aid;
+                            }
+                            NSUserDefaults *recordText = [NSUserDefaults standardUserDefaults];
+                            [recordText setObject:titleText.text forKey:@"recordTitle"];
+                            [recordText setObject:lyricView.lyricText.text forKey:@"recordLyric"];
+                            [recordText synchronize];
+                            
+                            self.publicController.coWorkModel = self.coWorkModel;
+                            [self.navigationController pushViewController:self.publicController animated:YES];
+                            
+                        }
+                        
                     }];
-
-//                [NSTool checkNetworkStatus:^(NSString *networkStatus) {
-//                    if ([networkStatus isEqualToString:@"notReachable"] || [networkStatus isEqualToString:@"unKnown"]) {
-//                        
-//                        
-//                        
-//                         
-//                    } else {
-//                        
-//                    }
-//                }];
+                }];
 
             }
             
@@ -1693,24 +1697,6 @@ Boolean plugedHeadset;
     NSString *coWorkJsonStr = [self.coWorkModel yy_modelToJSONString];
     
     [self.dict setValue:coWorkJsonStr forKey:@"coWorkJsonStr"];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
-        
-        [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
-    }
-    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
-    if (!resultArray) {
-        resultArray = [NSMutableArray array];
-    }
-    if (![resultArray containsObject:self.dict]) {
-        [resultArray addObject:self.dict];
-        
-    }
-    //写入
-    [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
-    
-    
 
 }
 

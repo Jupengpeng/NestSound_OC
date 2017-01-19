@@ -62,10 +62,10 @@
 extern BOOL debugMode;
 extern NSString *host;
 extern NSString *port;
-#define debugHost     @"http://112.124.125.2"
+#define debugHost     @"https://112.124.125.2"
 #define debugPort     @""
 #define releaseHost   @""
-#define releasePort   @"http://api.yinchao.cn"
+#define releasePort   @"https://api.yinchao.cn"
 
 #ifdef DEBUG // 调试
 #define CHLog(...) NSLog(__VA_ARGS__)

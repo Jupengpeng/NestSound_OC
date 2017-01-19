@@ -765,6 +765,7 @@ static NSString * const musicianData = @"musicianData";
                 break;
             }
         }
+        playVC.isCoWork = NO;
         playVC.songAry = songAry;
         playVC.itemUid = item;
         playVC.from = @"tuijian";
