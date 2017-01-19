@@ -141,29 +141,29 @@
     
     if (composeBtn.tag == 0) {
         
-//        if (JUserID) {
+        if (JUserID) {
         
             NSWriteLyricViewController * writeLyricVC = [[NSWriteLyricViewController alloc] init];
             [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:writeLyricVC animated:YES];
 
-//        } else {
-//            
-//           
-//            [self presentViewController:nav animated:YES completion:nil];
-//        }
+        } else {
+            
+           
+            [self presentViewController:nav animated:YES completion:nil];
+        }
         
 
     } else if (composeBtn.tag == 1) {
         
-//        if (JUserID) {
+        if (JUserID) {
         
             NSAccompanyListViewController *accompanyList = [[NSAccompanyListViewController alloc] init];
             [[self.childViewControllers objectAtIndex:self.selectedIndex] pushViewController:accompanyList animated:YES];
 
-//        } else {
-//            
-//            [self presentViewController:nav animated:YES completion:nil];
-//        }
+        } else {
+            
+            [self presentViewController:nav animated:YES completion:nil];
+        }
         
     } else {
         

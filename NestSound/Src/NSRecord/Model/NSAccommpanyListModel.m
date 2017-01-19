@@ -17,6 +17,7 @@
     [aCoder encodeInt:self.mp3Times forKey:@"mp3Times"];
     [aCoder encodeInteger:self.itemID forKey:@"itemID"];
     [aCoder encodeObject:self.author forKey:@"author"];
+    [aCoder encodeObject:self.title forKey:@"title"];
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
@@ -26,6 +27,7 @@
         self.mp3Times = [aDecoder decodeIntForKey:@"mp3Times"];
         self.itemID = [aDecoder decodeIntForKey:@"itemID"];
         self.author = [aDecoder decodeObjectForKey:@"author"];
+        self.title = [aDecoder decodeObjectForKey:@"title"];
     }
     return self;
 }

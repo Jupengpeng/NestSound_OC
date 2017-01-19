@@ -238,6 +238,12 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
     } else {
         
         NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:simpleSing.itemID andMusicTime:simpleSing.playTimes andHotMp3:simpleSing.playUrl];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setValue:@(simpleSing.playTimes) forKey:@"accompanyTimes"];
+        [dic setValue:@(simpleSing.itemID) forKey:@"accompanyId"];
+        [dic setValue:simpleSing.title forKey:@"accompanyTitle"];
+        [dic setValue:simpleSing.playUrl forKey:@"accompanyUrl"];
+        writeMusicVC.jsonDic = dic;
         [NSSingleTon viewFrom].controllersNum = 2;
         if (self.aid.length) {
             writeMusicVC.aid = self.aid;
@@ -500,35 +506,42 @@ static NSString * const accompanyCellIditify = @"NSAccompanyTableCell";
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSAccommpanyModel * accompany = self.categoryAryList[indexPath.section];
-    //downLoading accompany and push to recordVC
-    if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
-//        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
-        [self.navigationController popViewControllerAnimated:YES];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":[NSNumber numberWithLong:accompany.mp3Times],@"accompanyUrl":accompany.mp3URL}];
-        
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    if (!manager.reachable) {
+        [[NSToastManager manager] showtoast:@"暂无网络，请使用已缓存伴奏"];
     } else {
-        
-        NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL ];
-        accompany.localAccmPath = [LocalAccompanyPath stringByAppendingPathComponent:[accompany.mp3URL lastPathComponent]];
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setValue:accompany.title forKey:@"accompanyTitle"];
-        [dic setValue:accompany.mp3URL forKey:@"accompanyUrl"];
-        writeMusicVC.jsonDic = dic;
-//        writeMusicVC.jsonStr = [accompany yy_modelToJSONString];
-        
-        [NSSingleTon viewFrom].controllersNum = 3;
-        if (self.aid.length) {
-            writeMusicVC.aid = self.aid;
+        NSAccommpanyModel * accompany = self.categoryAryList[indexPath.section];
+        //downLoading accompany and push to recordVC
+        if ([[NSSingleTon viewFrom].viewTag isEqualToString:@"writeView"]) {
+            //        [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:2] animated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"clearRecordNotification" object:nil userInfo:@{@"accompanyId":@(accompany.itemID),@"accompanyTime":[NSNumber numberWithLong:accompany.mp3Times],@"accompanyUrl":accompany.mp3URL}];
+            
+        } else {
+            
+            NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:accompany.itemID andMusicTime:accompany.mp3Times andHotMp3:accompany.mp3URL ];
+            accompany.localAccmPath = [LocalAccompanyPath stringByAppendingPathComponent:[accompany.mp3URL lastPathComponent]];
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:@(accompany.mp3Times) forKey:@"accompanyTimes"];
+            [dic setValue:@(accompany.itemID) forKey:@"accompanyId"];
+            [dic setValue:accompany.title forKey:@"accompanyTitle"];
+            [dic setValue:accompany.mp3URL forKey:@"accompanyUrl"];
+            writeMusicVC.jsonDic = dic;
+            //        writeMusicVC.jsonStr = [accompany yy_modelToJSONString];
+            
+            [NSSingleTon viewFrom].controllersNum = 3;
+            if (self.aid.length) {
+                writeMusicVC.aid = self.aid;
+            }
+            
+            [self pausePlayer];
+            //如果是合作过来的
+            if (self.coWorkModel.lyrics.length) {
+                writeMusicVC.coWorkModel = self.coWorkModel;
+            }
+            
+            [self.navigationController pushViewController:writeMusicVC animated:YES];
         }
-        
-        [self pausePlayer];
-        //如果是合作过来的
-        if (self.coWorkModel.lyrics.length) {
-            writeMusicVC.coWorkModel = self.coWorkModel;
-        }
-        
-        [self.navigationController pushViewController:writeMusicVC animated:YES];
     }
 }
 

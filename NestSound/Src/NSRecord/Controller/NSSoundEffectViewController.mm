@@ -680,13 +680,14 @@ char *output_path;
 //    
 //    [noticeAlertView addAction:action1];
     [self presentViewController:noticeAlertView animated:YES completion:^{
-        [self processPCMToMp3];
+       
         [noticeAlertView dismissViewControllerAnimated:YES completion:^{
             
-            [[NSToastManager manager] showtoast:@"保存成功"];
+            
             AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
             if (!manager.reachable) {
-                
+                 [self processPCMToMp3];
+                [[NSToastManager manager] showtoast:@"暂无网络，作品已保存到本地作品"];
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
             } else {

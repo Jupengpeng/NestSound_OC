@@ -9,6 +9,7 @@
 #import "NSLocalProductViewController.h"
 #import "NSCacheProductCell.h"
 #import "NSAccommpanyListModel.h"
+#import "NSWriteMusicViewController.h"
 #import "NSPublicLyricViewController.h"
 #import "NSCooperationDetailModel.h"
 @interface NSLocalProductViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AVAudioPlayerDelegate>
@@ -308,7 +309,25 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.viewFrom == AccompanyCache) {
+        NSDictionary *dic = [NSDictionary dictionary];
+        dic = self.accompanyArr[indexPath.row];
+        NSWriteMusicViewController * writeMusicVC =[[NSWriteMusicViewController alloc] initWithItemId:[dic[@"accompanyId"] longValue] andMusicTime:[dic[@"accompanyTimes"] longValue] andHotMp3:dic[@"accompanyUrl"]];
+//        accompany.localAccmPath = [LocalAccompanyPath stringByAppendingPathComponent:[dic[@"accompanyUrl"] lastPathComponent]];
+//        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//        [dic setValue:accompany.title forKey:@"accompanyTitle"];
+//        [dic setValue:accompany.mp3URL forKey:@"accompanyUrl"];
+        writeMusicVC.jsonDic = dic;
+        //        writeMusicVC.jsonStr = [accompany yy_modelToJSONString];
+        
+        [NSSingleTon viewFrom].controllersNum = 3;
+        
+        
+        [self pausePlayer];
+        [self.navigationController pushViewController:writeMusicVC animated:YES];
+    }
+}
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle==UITableViewCellEditingStyleDelete) {
