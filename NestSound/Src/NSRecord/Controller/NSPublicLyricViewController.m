@@ -755,6 +755,10 @@ extern Boolean plugedHeadset;
         //        NSData *data = [NSData dataWithContentsOfFile:self.mp3Path];
         NSData *data=[NSData dataWithContentsOfFile:self.mp3File];
         
+        if (!data.length) {
+            [[NSToastManager manager] showtoast:@"音乐文件已不存在"];
+            return ;
+        }
         //        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
         // 1.创建网络管理者
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
