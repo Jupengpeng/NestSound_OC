@@ -18,7 +18,7 @@
 extern NSString *mp3PathTTest;
 extern Boolean plugedHeadset;
 
-@interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
+@interface NSPublicLyricViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,AVAudioPlayerDelegate>
 {
 
     UITextView * descriptionText;
@@ -43,7 +43,7 @@ extern Boolean plugedHeadset;
 }
 @property (nonatomic,copy) NSString * titleImage;
 @property (nonatomic, strong) AVPlayerItem *musicItem;
-@property (nonatomic, strong) AVPlayer *player;
+@property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, weak) UIBarButtonItem *btn;
 @property (nonatomic, strong)UIAlertController* alertView;
 @property (nonatomic, strong)NSShareViewController * shareVC;
@@ -72,7 +72,7 @@ extern Boolean plugedHeadset;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    CHLog(@"----------self.mp3File = %@",self.mp3File);
+    NSLog(@"----------self.mp3File = %@",self.mp3File);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     [self configureUIAppearance];
     self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
@@ -303,37 +303,49 @@ extern Boolean plugedHeadset;
 - (void)playRemoteMusic:(UIButton *)btn{
     
     btn.selected = !btn.selected;
-    NSString *host;
-    
-#ifdef DEBUG
-    
-    host = debugHost;
-    
-#else
-    
-    host = releasePort;
-    
-#endif
     if (btn.selected) {
-        
-        NSString* url = [NSString stringWithFormat:@"%@%@",host,self.mp3URL];
-        CHLog(@"-------------url = %@",url);
-
-        [self listenMp3Online:url];
-        
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:self.mp3File] error:nil];
+        self.player.enableRate = YES;
+        self.player.rate = 1.0;
+        self.player.delegate = self;
+        [self.player prepareToPlay];
+        [self.player play];
     } else {
-        [self.player pause];
-
+        [self endPlaying];
     }
+//    NSString *host;
+//    
+//#ifdef DEBUG
+//    
+//    host = debugHost;
+//    
+//#else
+//    
+//    host = releasePort;
+//    
+//#endif
+//    if (btn.selected) {
+//        
+//        NSString* url = [NSString stringWithFormat:@"%@%@",host,self.mp3URL];
+//        CHLog(@"-------------url = %@",url);
+//
+//        [self listenMp3Online:self.mp3File];
+//        
+//    } else {
+//        [self.player pause];
+//
+//    }
     
 }
-
+#pragma mark - AVAudioPlayerDelegate
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    [self endPlaying];
+}
 #pragma mark -stopPlaying
 - (void)endPlaying {
     
+    [self.player pause];
     auditionBtn.selected = NO;
-    self.musicItem = nil;
-    self.player =nil;
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -365,12 +377,12 @@ extern Boolean plugedHeadset;
     NSFileManager * fm = [NSFileManager defaultManager];
     if ([fm fileExistsAtPath:fullPath]||lyricDic[@"lyricImgUrl"]!=NULL) {
         
-        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"正在发布中，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
-        [self presentViewController:self.alertView animated:YES completion:nil];
+//        self.alertView = [UIAlertController alertControllerWithTitle:nil message:@"正在发布中，请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+//        [self presentViewController:self.alertView animated:YES completion:nil];
         
         if (lyricDic[@"lyricImgUrl"] !=NULL) {
-            
-            [self publicWorkCenterRun];
+            [self publicWithType:YES];
+//            [self publicWorkCenterRun];
             
         } else {
             if (self.isLyric) {
@@ -439,22 +451,22 @@ extern Boolean plugedHeadset;
                 }
                 
                 [self removeLoacalCache];
-                [self.alertView dismissViewControllerAnimated:YES completion:^{
-                    
+//                [self.alertView dismissViewControllerAnimated:YES completion:^{
+                
                     [wSelf.navigationController pushViewController:wSelf.shareVC animated:YES];
                     
-                }];
+//                }];
             } else {
-                [self.alertView dismissViewControllerAnimated:YES completion:^{
+//                [self.alertView dismissViewControllerAnimated:YES completion:^{
                     self.btn.enabled = YES;
                     [[NSToastManager manager] showtoast:parserObject.message];
-                }];
+//                }];
             }
             
         }else if ([operation.urlTag isEqualToString:publicLyricForAct] || [operation.urlTag isEqualToString:publicMusicForAct]){
             
 //            CHLog(@"%@",operation.urlTag);
-            [self.alertView dismissViewControllerAnimated:YES completion:^{
+//            [self.alertView dismissViewControllerAnimated:YES completion:^{
                 NSObject *obj = self.navigationController.childViewControllers[2];
                 if ([obj isKindOfClass:[NSThemeActivityController class]]) {
                     NSThemeActivityController *themeController = (NSThemeActivityController *)obj;
@@ -462,12 +474,13 @@ extern Boolean plugedHeadset;
                     [self.navigationController popToViewController:themeController animated:YES];
 
                 }
-            }];
+//            }];
         }else if ([operation.urlTag isEqualToString:tunMusicURL]){
             if (self.coWorkModel.lyrics.length) {
                 [self publickOfCooperation];
             }else{
                 if (self.isLyric) {
+                    
                     [self publicWithType:YES];
                 }else{
                     [self publicWithType:NO];
@@ -636,19 +649,16 @@ extern Boolean plugedHeadset;
 
 - (void)publicWorkCenterRun{
     
-    [self uploadMusic];
-    
-    /*
     if (self.coWorkModel.lyrics.length) {
+        
         [self publickOfCooperation];
+        
     }else{
-        if (self.isLyric) {
-            [self publicWithType:YES];
-        }else{
-            [self publicWithType:NO];
-        }
+        
+        [self publicWithType:NO];
+        
     }
-     */
+    
 }
 
 
@@ -729,9 +739,11 @@ extern Boolean plugedHeadset;
         NSData * imageData = [NSData dataWithContentsOfFile:photoPath];
         [upManager putData:imageData key:[NSString stringWithFormat:@"%.f.jpg",[date getTimeStamp]] token:token complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             wSelf.titleImage = [NSString stringWithFormat:@"%@",[resp objectForKey:@"key"]];
-            
-            [wSelf publicWorkCenterRun];
-    
+            if (self.isLyric) {
+                [self publicWithType:YES];
+            } else {
+                [wSelf uploadMusic];
+            }
             
         } option:nil];
     }
@@ -742,8 +754,6 @@ extern Boolean plugedHeadset;
 #pragma mark - 上传音频
 - (void)uploadMusic{
     WS(wSelf);
-    
-    
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"歌曲正在上传,请稍后..." delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
     [alertView show];
@@ -781,7 +791,7 @@ extern Boolean plugedHeadset;
                 [alertView dismissWithClickedButtonIndex:0 animated:YES];
                 
                 self.mp3URL = dict[@"data"][@"mp3URL"];
-                [self fetchTuningMusic];
+                [self publicWorkCenterRun];
             } else {
                 [alertView dismissWithClickedButtonIndex:0 animated:YES];
                 [[NSToastManager manager] showtoast:@"上传失败"];
@@ -804,14 +814,12 @@ extern Boolean plugedHeadset;
 - (void)fetchTuningMusic {
     
     
-    
-    
     //    [self.alertView show];
     
-    self.requestType = NO;
-    
-    self.requestParams = @{@"createtype":@"HOT",@"hotid":lyricDic[@"hotID"],@"uid":JUserID,@"recordingsize":@(1),@"bgmsize":@(1),@"useheadset":@(0),@"musicurl":self.mp3URL,@"effect":@(0),@"token":LoginToken};
-    self.requestURL = tunMusicURL;
+//    self.requestType = NO;
+//    
+//    self.requestParams = @{@"createtype":@"HOT",@"hotid":lyricDic[@"hotID"],@"uid":JUserID,@"recordingsize":@(1),@"bgmsize":@(1),@"useheadset":@(0),@"musicurl":self.mp3URL,@"effect":@(0),@"token":LoginToken};
+//    self.requestURL = tunMusicURL;
     
     
 }
