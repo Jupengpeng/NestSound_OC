@@ -589,8 +589,9 @@ char *output_path;
         
         _pYCPcmPlayer = pYCPcmPlayer;
         
-        pYCPcmPlayer->setVolume(0, 50);
-        pYCPcmPlayer->setVolume(1,60);
+        NSLog(@"recordFileFullPath %s recordFileFullPath%s \n",recordFileFullPath,bgmFullPath);
+        pYCPcmPlayer->setVolume(0, 10);
+        pYCPcmPlayer->setVolume(1,100);
         pYCPcmPlayer->setDataSourece(recordFileFullPath,recordFormat,bgmFullPath,backGroudFormat);
         //        0 录音 1是伴奏
 
