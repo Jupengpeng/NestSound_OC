@@ -55,6 +55,13 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer)
                                                  name:@"pausePlayer"
                                                object:nil];
@@ -82,8 +89,16 @@
             tipOneLabel.hidden = NO;
         }
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pausePlayer" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
     
     
+
 }
 
 - (NSArray *)getLocalFinishMusicWorkList{

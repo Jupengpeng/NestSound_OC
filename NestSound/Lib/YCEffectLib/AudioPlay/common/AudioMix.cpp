@@ -136,7 +136,7 @@ int CAudioMix::setAudioFormat(int iAudioType,AYMediaAudioFormat sFormat)
 		{
 			m_iRecordBytesPerSec =m_iRecordBytesPerSec*2;
 		}
-		m_iRecordStepSize = m_iRecordBytesPerSec/50;
+		m_iRecordStepSize = m_iRecordBytesPerSec/25;
 
 		m_pRecordBuffer = (unsigned char*)malloc(m_iRecordStepSize);
 
@@ -151,7 +151,7 @@ int CAudioMix::setAudioFormat(int iAudioType,AYMediaAudioFormat sFormat)
 		{
 			m_iBackGroudBytesPerSec =m_iRecordBytesPerSec*2;
 		}
-		m_iBackGroudStepSize = m_iBackGroudBytesPerSec/50;
+		m_iBackGroudStepSize = m_iBackGroudBytesPerSec/25;
 		m_pBackGroudBuffer =(unsigned char*)malloc(m_iBackGroudStepSize);
 
 	}

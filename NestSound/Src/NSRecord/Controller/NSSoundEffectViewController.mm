@@ -387,7 +387,7 @@ char *output_path;
     switch (sender.tag) {
         case 170:
             if (_tuningUrl0.length) {
-                _playerUrl = self.recordPCMPath;
+                _playerUrl = _tuningUrl0;
                 YCEffectId = YC_EFFECTS_NORMAL;
 /*
                 [self fetchTuningMusic];
@@ -428,11 +428,11 @@ char *output_path;
     
     
     [self.alertView dismissWithClickedButtonIndex:0 animated:YES];
-    if (_pYCPcmPlayer) {
-        //先跳到原来位置 播放
-        _pYCPcmPlayer->seek(timerNum*1000);
-        _pYCPcmPlayer->resume();
-    }
+//    if (_pYCPcmPlayer) {
+//        //先跳到原来位置 播放
+//        _pYCPcmPlayer->seek(timerNum*1000);
+//        _pYCPcmPlayer->resume();
+//    }
     [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
 }
 
@@ -538,7 +538,8 @@ char *output_path;
                 
 
             }else if ([statusStr isEqualToString:@"PREPARED"]){
-                
+                pYCPcmPlayer->setVolume(0, 90);
+                pYCPcmPlayer->setVolume(1,10);
             }else if ([statusStr isEqualToString:@"start"]){
                 [self.waveLink setPaused:NO];
                 [self.link setPaused:NO];
@@ -590,8 +591,7 @@ char *output_path;
         _pYCPcmPlayer = pYCPcmPlayer;
         
         NSLog(@"recordFileFullPath %s recordFileFullPath%s \n",recordFileFullPath,bgmFullPath);
-        pYCPcmPlayer->setVolume(0, 10);
-        pYCPcmPlayer->setVolume(1,100);
+
         pYCPcmPlayer->setDataSourece(recordFileFullPath,recordFormat,bgmFullPath,backGroudFormat);
         //        0 录音 1是伴奏
 
@@ -633,7 +633,10 @@ char *output_path;
     [self.link setPaused:YES];
     
 //    [self.player pause];
-    _pYCPcmPlayer->pause();
+    if (_pYCPcmPlayer) {
+        _pYCPcmPlayer->pause();
+
+    }
     
     self.waveform.timeScrollView.userInteractionEnabled=YES;
     [self.waveform waveViewShowAllChangedColorWaves];
@@ -681,15 +684,20 @@ char *output_path;
 //    
 //    [noticeAlertView addAction:action1];
     [self presentViewController:noticeAlertView animated:YES completion:^{
-       
+        
+        [self processPCMToMp3];
+
         [noticeAlertView dismissViewControllerAnimated:YES completion:^{
             
             
             AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
             if (!manager.reachable) {
-                 [self processPCMToMp3];
                 [[NSToastManager manager] showtoast:@"暂无网络，作品已保存到本地作品"];
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                    
+                    
+                });
                 
             } else {
 //                [self uploadMusic];
@@ -818,6 +826,12 @@ char *output_path;
     if (!resultArray) {
         resultArray = [NSMutableArray array];
     }
+    
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString* dateStr = [dateFormatter stringFromDate:[NSDate date]];
+    
+    [self.parameterDic setValue:dateStr forKey:@"currentTime"];
     if (![resultArray containsObject:self.parameterDic]) {
         [resultArray addObject:self.parameterDic];
         
@@ -1011,6 +1025,10 @@ char *output_path;
 - (void)dealloc{
     
     [self removeObserver:self forKeyPath:@"soundEffectPlay" context:nil];
+
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:self.musicItem];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pausePlayer" object:self.musicItem];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
 }
 - (NSMutableArray *)btns {

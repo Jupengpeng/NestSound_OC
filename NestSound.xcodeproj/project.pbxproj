@@ -5045,7 +5045,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5091,8 +5091,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9b2dbd76-f5d8-4383-84c2-3a42b6a88e86";
-				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
+				PROVISIONING_PROFILE = "f74a33e4-c56a-4722-b9c5-163a9779a075";
+				PROVISIONING_PROFILE_SPECIFIER = YCDistributionAdHoc20170116;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

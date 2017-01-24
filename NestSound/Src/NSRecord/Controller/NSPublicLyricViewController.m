@@ -53,12 +53,17 @@ extern Boolean plugedHeadset;
 
 -(instancetype)initWithLyricDic:(NSMutableDictionary *)LyricDic_ withType:(BOOL)isLyric_
 {
+    NSLog(@"LyricDic_ %@",LyricDic_);
     if (self = [super init]) {
         lyricDic = [NSMutableDictionary dictionary];
         if (!isLyric_) {
             NSString *encMP3FilePath = LyricDic_[@"encMP3FilePath"];
             if (encMP3FilePath.length) {
                 self.mp3File = encMP3FilePath;
+                NSLog(@"----------self.mp3File = %@",self.mp3File);
+
+            }else{
+                [[NSToastManager manager] showtoast:@"音乐文件已不存在"];
             }
         }
 
@@ -72,7 +77,6 @@ extern Boolean plugedHeadset;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"----------self.mp3File = %@",self.mp3File);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:self.musicItem];
     [self configureUIAppearance];
     self.titleImage = [lyricDic[@"lyricImgUrl"] substringFromIndex:22];
@@ -494,28 +498,49 @@ extern Boolean plugedHeadset;
 
 - (void)removeLoacalCache{
     
-    NSFileManager *manager = [NSFileManager defaultManager];
-    
-    [manager removeItemAtPath:self.mp3File error:nil];
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
+
+    if (!self.isLyric) {
         
-        [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
-    }
-    NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
-    if (!resultArray) {
-        resultArray = [NSMutableArray array];
-    }
-    for (NSDictionary *mp3Dict in resultArray) {
-        NSString *encMP3FilePath = mp3Dict[@"encMP3FilePath"];
-        if ([encMP3FilePath isEqualToString:self.mp3File]) {
-            [resultArray removeObject:mp3Dict];
-            break;
+        [fileManager removeItemAtPath:self.mp3File error:nil];
+        
+        if (![fileManager fileExistsAtPath:LocalFinishMusicWorkListKey]) {
+            
+            [fileManager createFileAtPath:LocalFinishMusicWorkListKey contents:nil attributes:nil];
         }
+        NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishMusicWorkListKey] ];
+        if (!resultArray) {
+            resultArray = [NSMutableArray array];
+        }
+        for (NSDictionary *mp3Dict in resultArray) {
+            NSString *encMP3FilePath = mp3Dict[@"encMP3FilePath"];
+            if ([encMP3FilePath isEqualToString:self.mp3File]) {
+                [resultArray removeObject:mp3Dict];
+                break;
+            }
+        }
+        //写入
+        [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
+    }else{
+        if (![fileManager fileExistsAtPath:LocalFinishLyricWorkListKey]) {
+            
+            [fileManager createFileAtPath:LocalFinishLyricWorkListKey contents:nil attributes:nil];
+        }
+        NSMutableArray *resultArray = [NSMutableArray arrayWithArray:[NSArray arrayWithContentsOfFile:LocalFinishLyricWorkListKey] ];
+        if (!resultArray) {
+            resultArray = [NSMutableArray array];
+        }
+        for (NSDictionary *lyricDict in resultArray) {
+            NSString *currentime = lyricDict[@"currentTime"];
+            if ([currentime isEqualToString:lyricDic[@"currentTime"]]) {
+                [resultArray removeObject:lyricDict];
+                break;
+            }
+        }
+        //写入
+        [resultArray writeToFile:LocalFinishLyricWorkListKey atomically:YES];
     }
-    //写入
-    [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
+
 }
 
 #pragma mark -public
@@ -765,10 +790,7 @@ extern Boolean plugedHeadset;
         //        NSData *data = [NSData dataWithContentsOfFile:self.mp3Path];
         NSData *data=[NSData dataWithContentsOfFile:self.mp3File];
         
-        if (!data.length) {
-            [[NSToastManager manager] showtoast:@"音乐文件已不存在"];
-            return ;
-        }
+
         //        NSArray *array = [self.mp3Path componentsSeparatedByString:@"/"];
         // 1.创建网络管理者
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];

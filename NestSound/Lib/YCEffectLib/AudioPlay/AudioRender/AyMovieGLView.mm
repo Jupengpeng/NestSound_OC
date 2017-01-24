@@ -884,7 +884,7 @@ static AudioFormat audio_format;
         //        [[ReceiveStreamingData   getInstance] setSampleRate:lastSampleRate];
         [[ReceiveStreamingData   getInstance] setAudioFormat:audio_format];
         [[ReceiveStreamingData   getInstance] startPlay];
-        [[ReceiveStreamingData   getInstance] setAudioVolume:20];
+//        [[ReceiveStreamingData   getInstance] setAudioVolume:20];
     });
     
 #endif

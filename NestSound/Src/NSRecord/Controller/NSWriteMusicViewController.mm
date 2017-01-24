@@ -1278,7 +1278,7 @@ Boolean plugedHeadset;
                     self.YCPlayer = [[YCMusicPlayer alloc] init];;
                     self.YCPlayer.delegate = self;
                     totalTimeLabel.text = [NSString stringWithFormat:@"/%02d:%02d",(int)self.YCPlayer.duration / 60, (int)self.YCPlayer.duration % 60];
-                    self.accompanyPCMPath = [self.YCPlayer setPcmFilePath:@"AccompanyPCM/accompany.pcm"];
+                    self.accompanyPCMPath = [self.YCPlayer setPcmFilePath:@"AccompanyPCM"];
                     
                 }
                 /*
@@ -1541,9 +1541,10 @@ Boolean plugedHeadset;
     if (titleText.text.length == 0) {
         [HudView showView:self.navigationController.view string:@"歌词标题不能为空"];
     }else{
-        
+        [_YCPlayer stop];
         
         if (JUserID) {
+            
             
             //戴耳机了
             if (plugedHeadset) {
@@ -1572,9 +1573,12 @@ Boolean plugedHeadset;
                 soundEffectVC.coWorkModel = self.coWorkModel;
                 
                 //传入录音和伴奏（如果插了耳机） 链接
-                soundEffectVC.accompanyPCMPath = self.accompanyPCMPath;
+            soundEffectVC.accompanyPCMPath = [NSString stringWithFormat:@"%@%@",[self.YCPlayer setPcmFilePath:@"AccompanyPCM"],@"/accompany.pcm" ];
                 soundEffectVC.recordPCMPath = self.wavFilePath;
                 [self.navigationController pushViewController:soundEffectVC animated:YES];
+            
+
+                
             }else{
                 
                 
@@ -1655,9 +1659,14 @@ Boolean plugedHeadset;
             }
             //写入
             [resultArray writeToFile:LocalFinishMusicWorkListKey atomically:YES];
-            [[NSToastManager manager] showtoast:@"暂无网络，作品已保存到本地作品"];
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [[NSToastManager manager] showtoast:@"暂无网络，作品已保存到本地作品"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+
+                
+            });
+
             
         } else {
             
