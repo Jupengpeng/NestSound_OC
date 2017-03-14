@@ -194,27 +194,17 @@ Boolean plugedHeadset;
         NSURL *url = [NSURL URLWithString:wavPath];
         NSError *error = nil;
         
-        
-
-        
         if(error){
-            
             CHLog(@"录音错误说明%@", [error description]);
         }
-        
-        
-        
         _recorder = [[AVAudioRecorder alloc] initWithURL:url settings:settings error:nil];
-        
         _recorder.meteringEnabled = YES;
-        
         _recorder.delegate = self;
     }
     AVAudioSession* session = [AVAudioSession sharedInstance];
-    
     [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
-    
     [session setActive:YES error:nil];
+    
     return _recorder;
 }
 /////
@@ -1541,13 +1531,13 @@ Boolean plugedHeadset;
     if (titleText.text.length == 0) {
         [HudView showView:self.navigationController.view string:@"歌词标题不能为空"];
     }else{
-        [_YCPlayer stop];
+        [_YCPlayer pause];
         
         if (JUserID) {
             
-            
             //戴耳机了
             if (plugedHeadset) {
+
                 NSSoundEffectViewController *soundEffectVC = [[NSSoundEffectViewController alloc] init];
                 NSDictionary *dict;
                 
@@ -1576,7 +1566,6 @@ Boolean plugedHeadset;
             soundEffectVC.accompanyPCMPath = [NSString stringWithFormat:@"%@%@",[self.YCPlayer setPcmFilePath:@"AccompanyPCM"],@"/accompany.pcm" ];
                 soundEffectVC.recordPCMPath = self.wavFilePath;
                 [self.navigationController pushViewController:soundEffectVC animated:YES];
-            
 
                 
             }else{

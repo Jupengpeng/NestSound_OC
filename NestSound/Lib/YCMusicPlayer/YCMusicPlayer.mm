@@ -242,7 +242,7 @@
          pMsg=notification.object;
 
     }
-    
+    NSLog(@"pMsg.iMs %d",pMsg.iMsg);
     switch (pMsg.iMsg) {
             
         case ENotifyComplete:
@@ -379,7 +379,10 @@
     CMTime currentTime = [_proxy getPosition];
     CGFloat position =( currentTime.value )/(float)(currentTime.timescale);
 
+    NSLog(@"position %f",position);
     
+    
+
     if ([self.delegate respondsToSelector:@selector(YCMusicPlayerPlayChangingPosition:)]) {
         [self.delegate YCMusicPlayerPlayChangingPosition:position];
     }

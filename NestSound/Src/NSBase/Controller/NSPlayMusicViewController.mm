@@ -437,7 +437,14 @@ static id _instance;
         }
         if (JUserID) {
             NSWriteMusicViewController *musicView = [[NSWriteMusicViewController alloc] initWithItemId:_musicDetail.hotId andMusicTime:_musicDetail.hotMp3Times andHotMp3:_musicDetail.hotMP3];
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setValue:@(_musicDetail.hotMp3Times) forKey:@"accompanyTimes"];
+            [dic setValue:@(_musicDetail.hotId) forKey:@"accompanyId"];
+            [dic setValue:_musicDetail.hotTitle forKey:@"accompanyTitle"];
+            [dic setValue:_musicDetail.hotMP3 forKey:@"accompanyUrl"];
+            musicView.jsonDic = dic;
             CHLog(@"%ld",_musicDetail.hotId);
+            
             [self.navigationController pushViewController:musicView animated:YES];
         } else {
             NSLoginViewController *loginVC = [[NSLoginViewController alloc] init];
@@ -1292,6 +1299,8 @@ static id _instance;
 
 //播放完成
 - (void)YCMusicPlayerPlayCompletionOfFileUrl:(NSString *)fileUrl{
+
+    self.playtime.text = [NSString stringWithFormat:@"%02d:%02d",(int)self.player.duration / 60, (int)self.player.duration % 60];
 
     [self endPlaying];
 

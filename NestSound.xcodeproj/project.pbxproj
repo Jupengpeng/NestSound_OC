@@ -378,6 +378,7 @@
 		6984FC181D6432B5002EA0F5 /* NSStarMusicianListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6984FC171D6432B5002EA0F5 /* NSStarMusicianListCell.m */; };
 		6990E6B51D6457BB005F344F /* NSStarMusicianDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6990E6B41D6457BB005F344F /* NSStarMusicianDetailController.m */; };
 		6995A7851D61A3F700DAF325 /* NSThemeActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */; };
+		699D97931E4CDBD10056B418 /* NSDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 699D97921E4CDBD10056B418 /* NSDownView.m */; };
 		69BB93AE1D6AEB330017140F /* NSThemeCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BB93AD1D6AEB330017140F /* NSThemeCommentCell.m */; };
 		69BC45411D62BD3A009C9171 /* NSThemeCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69BC45401D62BD3A009C9171 /* NSThemeCommentController.m */; };
 		69D5425A1D66F81600B26021 /* NSJoinedWorkListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 69D542591D66F81600B26021 /* NSJoinedWorkListModel.m */; };
@@ -1186,6 +1187,8 @@
 		6990E6B41D6457BB005F344F /* NSStarMusicianDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStarMusicianDetailController.m; sourceTree = "<group>"; };
 		6995A7831D61A3F700DAF325 /* NSThemeActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeActivityController.h; sourceTree = "<group>"; };
 		6995A7841D61A3F700DAF325 /* NSThemeActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeActivityController.m; sourceTree = "<group>"; };
+		699D97911E4CDBD10056B418 /* NSDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDownView.h; sourceTree = "<group>"; };
+		699D97921E4CDBD10056B418 /* NSDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDownView.m; sourceTree = "<group>"; };
 		69BB93AC1D6AEB330017140F /* NSThemeCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeCommentCell.h; sourceTree = "<group>"; };
 		69BB93AD1D6AEB330017140F /* NSThemeCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSThemeCommentCell.m; sourceTree = "<group>"; };
 		69BC453F1D62BD3A009C9171 /* NSThemeCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSThemeCommentController.h; sourceTree = "<group>"; };
@@ -1930,6 +1933,8 @@
 				0CCC19221D647A9A009E9478 /* NSTemplateTableViewCell.m */,
 				B8A3222C1D8556A9004D448D /* NSAccompanyListFilterView.h */,
 				B8A3222D1D8556A9004D448D /* NSAccompanyListFilterView.m */,
+				699D97911E4CDBD10056B418 /* NSDownView.h */,
+				699D97921E4CDBD10056B418 /* NSDownView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4476,6 +4481,7 @@
 				2AC3D1131CF84BB700D9FE53 /* NSMyInspirationListModel.m in Sources */,
 				2DFB67781CC1F0ED00DA24DA /* UIActionSheet+NSAdditions.m in Sources */,
 				6915BAD91E2550B5009F886B /* u3-fmt.c in Sources */,
+				699D97931E4CDBD10056B418 /* NSDownView.m in Sources */,
 				6915BAF01E2550B5009F886B /* id3tag.c in Sources */,
 				2DFB67551CC1EC4000DA24DA /* NSTool.m in Sources */,
 				6915BAAB1E2550B5009F886B /* noiseprof.c in Sources */,
@@ -5045,7 +5051,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = NestSound/NestSound.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Peng Ding (PS85B6F56V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 62UDHM98C2;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5091,8 +5097,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yintao.wybz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f74a33e4-c56a-4722-b9c5-163a9779a075";
-				PROVISIONING_PROFILE_SPECIFIER = YCDistributionAdHoc20170116;
+				PROVISIONING_PROFILE = "9b2dbd76-f5d8-4383-84c2-3a42b6a88e86";
+				PROVISIONING_PROFILE_SPECIFIER = YCDevelopment;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

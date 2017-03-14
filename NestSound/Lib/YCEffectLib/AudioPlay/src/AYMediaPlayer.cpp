@@ -188,7 +188,7 @@ int CAYMediaPlayer::setParam(unsigned int uParamId, void * pParam)
 
 	case PID_AUDIO_RECORD_VOLUME:
 		{
-			ulu_CAutoLock lock(&m_lookAudio);
+//			ulu_CAutoLock lock(&m_lookAudio);
 			m_iRecordAudioVolume = *(int*)pParam;
 			if (m_pAudioMix)
 			{
@@ -202,7 +202,7 @@ int CAYMediaPlayer::setParam(unsigned int uParamId, void * pParam)
 		break;
 	case PID_AUDIO_BACKGROUD_VOLUME:
 		{
-			ulu_CAutoLock lock(&m_lookAudio);
+//			ulu_CAutoLock lock(&m_lookAudio);
 			m_iBackGroudAudioVolume = *(int*)pParam;
 			if (m_pAudioMix)
 			{

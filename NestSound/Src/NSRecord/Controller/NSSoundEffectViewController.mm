@@ -22,7 +22,7 @@
 #import "AudioRecord.h"
 #import "YCMp3encWrap.h"
 #import "YCPlayPCMCallback.h"
-
+#import "NSDownView.h"
 char *input_path ;
 char *output_path;
 @interface NSSoundEffectViewController ()<UIAlertViewDelegate,AVAudioPlayerDelegate,UIScrollViewDelegate>
@@ -56,6 +56,13 @@ char *output_path;
     
     CBaseEffectWrap *_effectWrap;
     CYCPcmPlayerWrap *_pYCPcmPlayer;
+    
+    UIView *_topBGView;
+    NSDownView *_downView;
+    
+    CGFloat _accompanyVolume;
+    CGFloat _recordVolume;
+    
 }
 
 
@@ -91,6 +98,8 @@ char *output_path;
     return _waveViewArr;
 }
 - (void)viewDidLoad {
+
+    
     [super viewDidLoad];
     AVAudioSession * session =[ AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
@@ -115,7 +124,16 @@ char *output_path;
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
+    if (_pYCPcmPlayer) {
+        _pYCPcmPlayer->stop();
+
+    }
     [self endPlaying];
+    self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
+    [self.waveform.timeScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self changeScrollViewColor];
+
+    
 }
 #pragma mark -fetchData
 //获取合成音频
@@ -222,6 +240,36 @@ char *output_path;
     }
 }
 
+- (void)leftBackClick:(UIBarButtonItem *)back {
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"直接退出，作品将不被保存" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确认退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+ 
+        NSLog(@"self.parentViewController.childViewControllers %@",self.parentViewController.childViewControllers);
+        NSInteger count = self.navigationController.childViewControllers.count;
+        //移除上个视图
+        for (UIViewController *controller in self.parentViewController.childViewControllers) {
+//            if([controller isKindOfClass:NSClassFromString(@"NSWriteMusicViewController")]){
+//                [controller removeFromParentViewController];
+//            }
+        }
+        UIViewController *destController = [self.navigationController.childViewControllers objectAtIndex:count-3];
+
+        [self.navigationController popToViewController:destController animated:YES];
+    }];
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"继续创作" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+
+    }];
+    [alert addAction:action1];
+    
+    [alert addAction:action];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)setupSoundEffectUI {
     
     self.title = @"音效";
@@ -232,9 +280,11 @@ char *output_path;
     
     self.navigationItem.rightBarButtonItem = next;
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"2.0_back"] style:UIBarButtonItemStylePlain target:self action:@selector(leftBackClick:)];
+    
     auditionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    auditionBtn.frame = CGRectMake(15, 20, 84, 84);
+    auditionBtn.frame = CGRectMake(15, 25, 84, 84);
     
     auditionBtn.backgroundColor = [UIColor hexColorFloat:@"ffd00b"];
     
@@ -246,7 +296,7 @@ char *output_path;
     
     [self.view addSubview:auditionBtn];
     
-    self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(auditionBtn.frame), 20, ScreenWidth-114, 84)];
+    self.waveform = [[NSWaveformView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(auditionBtn.frame), 25, ScreenWidth-114, 84)];
     
     self.waveform.timeScrollView.userInteractionEnabled=NO;
     
@@ -335,7 +385,7 @@ char *output_path;
            
             if (i * 4 + j < 5) {
                 
-                UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnW * j, CGRectGetMaxY(auditionLabel.frame) + 10 + (btnW + 20) * i, btnW, btnW)];
+                UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(btnW * j, CGRectGetMaxY(auditionLabel.frame)  + (btnW + 5) * i, btnW, btnW)];
                 
                 NSString *imageStr = [NSString stringWithFormat:@"2.0_audition_btn%d",i * 4 + j];
                 NSString *imgStrSelect = [NSString stringWithFormat:@"2.0_audition_btn%d_select",i * 4 + j];
@@ -355,7 +405,7 @@ char *output_path;
                 
                 [self.view addSubview:btn];
                 
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(btnW * j, CGRectGetMaxY(btn.frame)-10, btnW, 20)];
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(btnW * j, CGRectGetMaxY(btn.frame)-15, btnW, 20)];
                 
                 label.text = titles[i * 4 + j];
                 
@@ -368,11 +418,45 @@ char *output_path;
         
     }
     
+    _topBGView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, ScreenWidth, 355)];
+    _topBGView.backgroundColor = [UIColor whiteColor];
+    
+    [self.view insertSubview:_topBGView atIndex:0];
+    
+    
+    _accompanyVolume = 50;
+    _recordVolume = 50;
+    
+    NSDownView *downView = [[NSDownView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_topBGView.frame) + 10, ScreenWidth, 135) accompanyBlock:^(CGFloat volume) {
+        
+        
+        _accompanyVolume = volume;
+        if (_pYCPcmPlayer) {
+            _pYCPcmPlayer->setVolume(1, volume);
+
+        }
+        
+    } recordBlock:^(CGFloat volume) {
+        
+        _recordVolume = volume;
+        if (_pYCPcmPlayer) {
+            _pYCPcmPlayer->setVolume(0, volume);
+        }
+    }];
+    _downView = downView;
+    [self.view addSubview:downView];
 }
+
+
+
 - (void)auditionBtn:(UIButton *)sender {
     
     [self.alertView show];
-    
+    if (_pYCPcmPlayer) {
+        _pYCPcmPlayer->stop();
+
+    }
+
     [self endPlaying];
     for (int i = 0; i < 5; i++) {
         UIButton *btn = self.btns[i];
@@ -530,19 +614,18 @@ char *output_path;
         CYCPcmPlayerWrap *pYCPcmPlayer = new CYCPcmPlayerWrap((__bridge void *)playWindow, pYCcallback);
         YCPlayPCMCallback *PCMCallBack = [YCPlayPCMCallback sharedPlayMusic];
         PCMCallBack.PCMPlayerBlock = ^(NSString *statusStr){
-            NSLog(@"%@",statusStr);
-            
+
             if ([statusStr isEqualToString:@"finish"]) {
                 
                 [self endPlaying];
                 
 
             }else if ([statusStr isEqualToString:@"PREPARED"]){
-                pYCPcmPlayer->setVolume(0, 90);
-                pYCPcmPlayer->setVolume(1,10);
+                _pYCPcmPlayer->setVolume(0, _recordVolume);
+                _pYCPcmPlayer->setVolume(1,_accompanyVolume);
             }else if ([statusStr isEqualToString:@"start"]){
-                [self.waveLink setPaused:NO];
-                [self.link setPaused:NO];
+//                [self.waveLink setPaused:NO];
+//                [self.link setPaused:NO];
                 
             }else if([statusStr isEqualToString:@"stop"]){
                 
@@ -554,6 +637,10 @@ char *output_path;
             }else if ([statusStr isEqualToString:@"resume"]){
                 [self.waveLink setPaused:NO];
                 [self.link setPaused:NO];
+            }else if ([statusStr isEqualToString:@"myStart"]){
+
+                [self.waveLink setPaused:NO];
+                [self.link setPaused:NO];
             }
         };
         AYMediaAudioFormat recordFormat;
@@ -561,7 +648,7 @@ char *output_path;
         recordFormat.nChannels =2;
         recordFormat.wBitsPerSample =16;
         
-        //        sleep(3);
+//                sleep(0.5);
         
         AYMediaAudioFormat backGroudFormat;
         backGroudFormat.nSamplesPerSec=44100;
@@ -638,7 +725,7 @@ char *output_path;
 
     }
     
-    self.waveform.timeScrollView.userInteractionEnabled=YES;
+//    self.waveform.timeScrollView.userInteractionEnabled=YES;
     [self.waveform waveViewShowAllChangedColorWaves];
 
     
@@ -675,8 +762,9 @@ char *output_path;
 
     
 
-    
-    UIAlertController *noticeAlertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在合成,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
+    [self pausePlaying];
+    auditionBtn.selected = YES;
+    UIAlertController *noticeAlertView = [UIAlertController alertControllerWithTitle:nil message:@"歌曲正在美化,请稍后..." preferredStyle:UIAlertControllerStyleAlert];
     
 //    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        return;
@@ -791,7 +879,7 @@ char *output_path;
     char *input_bgmPath = (char *)[self.accompanyPCMPath UTF8String];
     
     
-    CYCMp3encWrap *wrap = new CYCMp3encWrap(input_recordPath,recordFormat,100,input_bgmPath,backGroudFormat,50);
+    CYCMp3encWrap *wrap = new CYCMp3encWrap(input_recordPath,recordFormat,_recordVolume,input_bgmPath,backGroudFormat,_accompanyVolume);
     
     
     
@@ -991,7 +1079,7 @@ char *output_path;
         //实际时间
         timerNum = timeScaleCount/15.0;
         
-        [self.musicItem seekToTime:ctime];
+//        [self.musicItem seekToTime:ctime];
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         
         [self changeScrollViewColor];
@@ -1010,7 +1098,7 @@ char *output_path;
         //实际时间
         timerNum = timeScaleCount/15.0;
         
-        [self.musicItem seekToTime:ctime];
+//        [self.musicItem seekToTime:ctime];
         NSLog(@"nowTime %f CMTimeMake %lld  time %f",ctime.value/(ctime.timescale*1.0),ctime.value,timerNum);
         self.timeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(NSInteger)timerNum/60, (NSInteger)timerNum % 60];
         

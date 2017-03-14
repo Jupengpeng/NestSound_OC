@@ -2,6 +2,7 @@
 #import "AudioPlay.h"
 #import <AVFoundation/AVFoundation.h>
 #import "ReceiveStreamingData.h"
+#import "YCPlayPCMCallback.h"
 //#import "RecordAVPacketDataBlock.h"
 //#import <AVFoundation/AVAudioSession.h>
 
@@ -243,7 +244,8 @@ static void HandleOutputBuffer (void *aqData,AudioQueueRef inAQ,AudioQueueBuffer
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord error: nil];
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     
-    
+    YCPlayPCMCallback *callBack = [YCPlayPCMCallback sharedPlayMusic];
+    callBack.PCMPlayerBlock(@"myStart");
     
 //    NSError *myErr;
 //    BOOL    bAudioInputAvailable = FALSE;
